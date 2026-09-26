@@ -1,23 +1,29 @@
 ---
 import "../styles/global.css";
 const { title = "Relocation Cost — Moving cost calculator", description = "Estimate your relocation costs before you move." } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
     <title>{title}</title>
   </head>
   <body>
     <header class="border-b border-slate-200 bg-white">
       <div class="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
         <a href="/" class="text-lg font-bold tracking-tight text-slate-950">Relocation Cost</a>
-        <nav class="hidden gap-6 text-sm text-slate-600 sm:flex">
+        <nav class="flex gap-4 text-sm text-slate-600 sm:gap-6">
           <a href="/calculator" class="hover:text-slate-950">Calculator</a>
-          <a href="/guides/moving-cost" class="hover:text-slate-950">Moving costs</a>
-          <a href="/guides/relocation-budget" class="hover:text-slate-950">Budget guide</a>
+          <a href="/guides/moving-cost" class="hidden hover:text-slate-950 sm:inline">Moving costs</a>
+          <a href="/guides/relocation-budget" class="hidden hover:text-slate-950 sm:inline">Budget guide</a>
         </nav>
       </div>
     </header>
