@@ -1,0 +1,28 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+<Layout>
+  <section class="bg-slate-950 text-white">
+    <div class="mx-auto max-w-6xl px-5 py-20 sm:py-28">
+      <div class="max-w-3xl">
+        <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-sky-300">Relocation Cost Suite</p>
+        <h1 class="text-4xl font-bold tracking-tight sm:text-6xl">Know what your move could cost before you move.</h1>
+        <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-300">Build a practical moving budget from distance, home size, and move type. Fast, transparent, and designed for early planning.</p>
+        <a href="/calculator" class="mt-8 inline-flex rounded-xl bg-white px-6 py-3 font-semibold text-slate-950 shadow-sm hover:bg-slate-100">Calculate my moving cost →</a>
+      </div>
+    </div>
+  </section>
+  <section class="mx-auto grid max-w-6xl gap-5 px-5 py-16 md:grid-cols-3">
+    {[
+      ["01","Distance","Longer moves generally increase transport and travel costs."],
+      ["02","Home size","More rooms usually mean more volume, labor, and packing."],
+      ["03","Move type","Compare DIY, rental-truck, and full-service planning scenarios."]
+    ].map(([n,t,d]) => <article class="rounded-2xl border border-slate-200 bg-white p-6"><span class="text-sm font-bold text-sky-600">{n}</span><h2 class="mt-4 text-xl font-bold">{t}</h2><p class="mt-2 leading-7 text-slate-600">{d}</p></article>)}
+  </section>
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-5 py-16">
+      <h2 class="text-3xl font-bold">Plan the full relocation, not just the truck.</h2>
+      <p class="mt-4 max-w-2xl leading-7 text-slate-600">Use the estimate as a starting point for comparing options and building a realistic relocation budget.</p>
+    </div>
+  </section>
+</Layout>
