@@ -1,53 +1,86 @@
 ---
 import Layout from "../layouts/Layout.astro";
 ---
-<Layout title="Moving Cost Calculator — Relocation Cost">
-  <section class="mx-auto max-w-5xl px-5 py-14">
-    <div class="max-w-2xl">
-      <p class="text-sm font-semibold uppercase tracking-widest text-sky-600">Free estimator</p>
-      <h1 class="mt-2 text-4xl font-bold tracking-tight">Moving cost calculator</h1>
-      <p class="mt-4 text-slate-600">Enter three details to create a simple planning estimate.</p>
+<Layout title="Relocation Cost Calculator — Relocation Cost">
+  <section class="mx-auto max-w-6xl px-5 py-14">
+    <div class="max-w-3xl">
+      <p class="text-sm font-semibold uppercase tracking-widest text-sky-600">Relocation Cost Suite</p>
+      <h1 class="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">Build your moving budget</h1>
+      <p class="mt-5 text-lg leading-8 text-slate-600">Start with a transport estimate, then add the other costs that can make a relocation more expensive than the move itself.</p>
     </div>
-    <div class="mt-10 grid gap-8 lg:grid-cols-[1.2fr_.8fr]">
-      <form id="calculator" class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <label class="block text-sm font-semibold">Distance <span class="font-normal text-slate-500">(km)</span>
-          <input id="distance" type="number" min="1" value="500" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500" />
-        </label>
-        <label class="mt-5 block text-sm font-semibold">Home size
-          <select id="size" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3">
-            <option value="1">Studio / 1 room</option><option value="1.35">2–3 rooms</option><option value="1.8">4–5 rooms</option><option value="2.4">6+ rooms</option>
-          </select>
-        </label>
+
+    <div class="mt-10 grid gap-8 lg:grid-cols-[1.15fr_.85fr]">
+      <form id="calculator" class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+        <h2 class="text-xl font-bold">Move details</h2>
+        <div class="mt-6 grid gap-5 sm:grid-cols-2">
+          <label class="block text-sm font-semibold">Distance <span class="font-normal text-slate-500">(km)</span>
+            <input id="distance" type="number" min="1" value="500" inputmode="numeric" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500" />
+          </label>
+          <label class="block text-sm font-semibold">Home size
+            <select id="size" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3">
+              <option value="1">Studio / 1 room</option><option value="1.35">2–3 rooms</option><option value="1.8">4–5 rooms</option><option value="2.4">6+ rooms</option>
+            </select>
+          </label>
+        </div>
         <label class="mt-5 block text-sm font-semibold">Move type
           <select id="type" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3">
             <option value="0.65">DIY</option><option value="1">Rental truck + labor</option><option value="1.65">Full-service movers</option>
           </select>
         </label>
-        <button class="mt-7 w-full rounded-xl bg-slate-950 px-5 py-3 font-semibold text-white hover:bg-slate-800" type="submit">Calculate estimate</button>
+
+        <h2 class="mt-10 text-xl font-bold">Other relocation costs</h2>
+        <p class="mt-2 text-sm text-slate-500">Enter amounts you already know. Leave unknown items at zero.</p>
+        <div class="mt-5 grid gap-5 sm:grid-cols-2">
+          <label class="block text-sm font-semibold">Travel <span class="font-normal text-slate-500">(€)</span><input id="travel" type="number" min="0" value="0" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+          <label class="block text-sm font-semibold">Temporary housing <span class="font-normal text-slate-500">(€)</span><input id="housing" type="number" min="0" value="0" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+          <label class="block text-sm font-semibold">Deposits / setup <span class="font-normal text-slate-500">(€)</span><input id="setup" type="number" min="0" value="0" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+          <label class="block text-sm font-semibold">Packing / extras <span class="font-normal text-slate-500">(€)</span><input id="extras" type="number" min="0" value="0" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+        </div>
+        <button class="mt-8 w-full rounded-xl bg-slate-950 px-5 py-3 font-semibold text-white hover:bg-slate-800" type="submit">Update my budget</button>
       </form>
-      <aside class="rounded-2xl bg-slate-950 p-7 text-white">
-        <p class="text-sm text-slate-400">Planning estimate</p>
+
+      <aside class="h-fit rounded-2xl bg-slate-950 p-7 text-white sm:p-8 lg:sticky lg:top-6">
+        <p class="text-sm text-slate-400">Estimated relocation budget</p>
         <div id="result" class="mt-3 text-4xl font-bold">€1,050</div>
-        <p class="mt-4 text-sm leading-6 text-slate-300">A broad planning range based on the inputs above. Actual quotes vary by route, access, season, packing, and provider.</p>
-        <div class="mt-7 border-t border-slate-800 pt-5 text-sm text-slate-400">Estimated range: <strong id="range" class="text-white">€840–€1,260</strong></div>
+        <p class="mt-3 text-sm leading-6 text-slate-300">Planning estimate, not a quote. Replace assumptions with provider quotes as you get them.</p>
+        <div class="mt-7 space-y-3 border-t border-slate-800 pt-5 text-sm">
+          <div class="flex justify-between"><span class="text-slate-400">Move</span><strong id="moveResult">€1,050</strong></div>
+          <div class="flex justify-between"><span class="text-slate-400">Other costs</span><strong id="otherResult">€0</strong></div>
+          <div class="flex justify-between"><span class="text-slate-400">Contingency (10%)</span><strong id="contingencyResult">€105</strong></div>
+        </div>
+        <div class="mt-6 border-t border-slate-800 pt-5 text-sm text-slate-400">Indicative range <strong id="range" class="text-white">€924–€1,386</strong></div>
       </aside>
     </div>
   </section>
   <script>
     const form = document.querySelector("#calculator");
-    const distance = document.querySelector("#distance");
-    const size = document.querySelector("#size");
-    const type = document.querySelector("#type");
+    const ids = ["distance","size","type","travel","housing","setup","extras"];
+    const fields = Object.fromEntries(ids.map(id => [id, document.querySelector("#"+id)]));
     const result = document.querySelector("#result");
+    const moveResult = document.querySelector("#moveResult");
+    const otherResult = document.querySelector("#otherResult");
+    const contingencyResult = document.querySelector("#contingencyResult");
     const range = document.querySelector("#range");
     const money = n => new Intl.NumberFormat("en-US", {style:"currency", currency:"EUR", maximumFractionDigits:0}).format(n);
+    const num = el => Math.max(0, Number(el?.value) || 0);
     const calculate = () => {
-      const km = Math.max(1, Number(distance.value) || 1);
-      const estimate = Math.max(350, 350 + km * 0.9 * Number(size.value) * Number(type.value));
-      result.textContent = money(estimate);
-      range.textContent = money(estimate * .8) + "–" + money(estimate * 1.2);
+      const move = Math.max(350, 350 + num(fields.distance) * 0.9 * num(fields.size) * num(fields.type));
+      const other = ["travel","housing","setup","extras"].reduce((sum, id) => sum + num(fields[id]), 0);
+      const contingency = (move + other) * 0.10;
+      const total = move + other + contingency;
+      result.textContent = money(total);
+      moveResult.textContent = money(move);
+      otherResult.textContent = money(other);
+      contingencyResult.textContent = money(contingency);
+      range.textContent = money(total * .8) + "–" + money(total * 1.2);
+      try { localStorage.setItem("relocation-cost-inputs", JSON.stringify(Object.fromEntries(ids.map(id => [id, fields[id].value])))); } catch {}
     };
+    try {
+      const saved = JSON.parse(localStorage.getItem("relocation-cost-inputs") || "null");
+      if (saved) ids.forEach(id => { if (saved[id] !== undefined) fields[id].value = saved[id]; });
+    } catch {}
     form?.addEventListener("submit", e => { e.preventDefault(); calculate(); });
-    [distance,size,type].forEach(el => el?.addEventListener("change", calculate));
+    ids.forEach(id => fields[id]?.addEventListener("input", calculate));
+    calculate();
   </script>
 </Layout>
