@@ -1,12 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
 ---
-<Layout title="Relocation Cost Calculator — Relocation Cost">
+<Layout title="Relocation Cost Calculator — Relocation Cost" description="Build a relocation budget from move distance, home size, move type, and additional relocation costs.">
   <section class="mx-auto max-w-6xl px-5 py-14">
     <div class="max-w-3xl">
       <p class="text-sm font-semibold uppercase tracking-widest text-sky-600">Relocation Cost Suite</p>
       <h1 class="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">Build your moving budget</h1>
-      <p class="mt-5 text-lg leading-8 text-slate-600">Start with a transport estimate, then add the other costs that can make a relocation more expensive than the move itself.</p>
+      <p class="mt-5 text-lg leading-8 text-slate-600">Start with a transport planning estimate, then add the costs that can make a relocation more expensive than the move itself.</p>
     </div>
 
     <div class="mt-10 grid gap-8 lg:grid-cols-[1.15fr_.85fr]">
@@ -36,20 +36,28 @@ import Layout from "../layouts/Layout.astro";
           <label class="block text-sm font-semibold">Deposits / setup <span class="font-normal text-slate-500">(€)</span><input id="setup" type="number" min="0" value="0" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
           <label class="block text-sm font-semibold">Packing / extras <span class="font-normal text-slate-500">(€)</span><input id="extras" type="number" min="0" value="0" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
         </div>
-        <button class="mt-8 w-full rounded-xl bg-slate-950 px-5 py-3 font-semibold text-white hover:bg-slate-800" type="submit">Update my budget</button>
+        <div class="mt-8 grid gap-3 sm:grid-cols-2">
+          <button class="rounded-xl bg-slate-950 px-5 py-3 font-semibold text-white hover:bg-slate-800" type="submit">Update my budget</button>
+          <button id="share" class="rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-900 hover:bg-slate-50" type="button">Share this estimate</button>
+        </div>
+        <p id="shareStatus" class="mt-3 text-sm text-slate-500" aria-live="polite"></p>
       </form>
 
       <aside class="h-fit rounded-2xl bg-slate-950 p-7 text-white sm:p-8 lg:sticky lg:top-6">
         <p class="text-sm text-slate-400">Estimated relocation budget</p>
-        <div id="result" class="mt-3 text-4xl font-bold">€1,050</div>
+        <div id="result" class="mt-3 text-4xl font-bold">€0</div>
         <p class="mt-3 text-sm leading-6 text-slate-300">Planning estimate, not a quote. Replace assumptions with provider quotes as you get them.</p>
         <div class="mt-7 space-y-3 border-t border-slate-800 pt-5 text-sm">
-          <div class="flex justify-between"><span class="text-slate-400">Move</span><strong id="moveResult">€1,050</strong></div>
+          <div class="flex justify-between"><span class="text-slate-400">Move</span><strong id="moveResult">€0</strong></div>
           <div class="flex justify-between"><span class="text-slate-400">Other costs</span><strong id="otherResult">€0</strong></div>
-          <div class="flex justify-between"><span class="text-slate-400">Contingency (10%)</span><strong id="contingencyResult">€105</strong></div>
+          <div class="flex justify-between"><span class="text-slate-400">Contingency (10%)</span><strong id="contingencyResult">€0</strong></div>
         </div>
-        <div class="mt-6 border-t border-slate-800 pt-5 text-sm text-slate-400">Indicative range <strong id="range" class="text-white">€924–€1,386</strong></div>
+        <div class="mt-6 border-t border-slate-800 pt-5 text-sm text-slate-400">Indicative range <strong id="range" class="text-white">€0–€0</strong></div>
       </aside>
+    </div>
+
+    <div class="mt-10 rounded-2xl border border-amber-200 bg-amber-50 p-6 text-sm leading-7 text-amber-950">
+      <strong>About this estimate:</strong> this MVP uses a transparent planning model, not live mover quotes or a market-validated price database. Treat the result as a budgeting starting point and replace assumptions with real quotes.
     </div>
   </section>
   <script>
@@ -61,6 +69,8 @@ import Layout from "../layouts/Layout.astro";
     const otherResult = document.querySelector("#otherResult");
     const contingencyResult = document.querySelector("#contingencyResult");
     const range = document.querySelector("#range");
+    const share = document.querySelector("#share");
+    const shareStatus = document.querySelector("#shareStatus");
     const money = n => new Intl.NumberFormat("en-US", {style:"currency", currency:"EUR", maximumFractionDigits:0}).format(n);
     const num = el => Math.max(0, Number(el?.value) || 0);
     const calculate = () => {
@@ -74,13 +84,31 @@ import Layout from "../layouts/Layout.astro";
       contingencyResult.textContent = money(contingency);
       range.textContent = money(total * .8) + "–" + money(total * 1.2);
       try { localStorage.setItem("relocation-cost-inputs", JSON.stringify(Object.fromEntries(ids.map(id => [id, fields[id].value])))); } catch {}
+      return total;
+    };
+    const loadQuery = () => {
+      const params = new URLSearchParams(location.search);
+      ids.forEach(id => { if (params.has(id)) fields[id].value = params.get(id); });
     };
     try {
       const saved = JSON.parse(localStorage.getItem("relocation-cost-inputs") || "null");
       if (saved) ids.forEach(id => { if (saved[id] !== undefined) fields[id].value = saved[id]; });
     } catch {}
+    loadQuery();
     form?.addEventListener("submit", e => { e.preventDefault(); calculate(); });
     ids.forEach(id => fields[id]?.addEventListener("input", calculate));
+    share?.addEventListener("click", async () => {
+      calculate();
+      const params = new URLSearchParams();
+      ids.forEach(id => params.set(id, fields[id].value));
+      const url = location.origin + location.pathname + "?" + params.toString();
+      try {
+        await navigator.clipboard.writeText(url);
+        shareStatus.textContent = "Share link copied to your clipboard.";
+      } catch {
+        shareStatus.textContent = url;
+      }
+    });
     calculate();
   </script>
 </Layout>
