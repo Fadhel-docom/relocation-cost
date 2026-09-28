@@ -38,9 +38,13 @@ import Layout from "../layouts/Layout.astro";
         </div>
         <div class="mt-8 grid gap-3 sm:grid-cols-2">
           <button class="rounded-xl bg-slate-950 px-5 py-3 font-semibold text-white hover:bg-slate-800" type="submit">Update my budget</button>
-          <button id="share" class="rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-900 hover:bg-slate-50" type="button">Share this estimate</button>
+          <button id="reset" class="rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-900 hover:bg-slate-50" type="button">Reset calculator</button>
         </div>
-        <p id="shareStatus" class="mt-3 text-sm text-slate-500" aria-live="polite"></p>
+        <div class="mt-3 grid gap-3 sm:grid-cols-2">
+          <button id="share" class="rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-900 hover:bg-slate-50" type="button">Share this estimate</button>
+          <p id="shareStatus" class="flex items-center text-sm text-slate-500" aria-live="polite"></p>
+        </div>
+        <p class="mt-4 text-xs leading-5 text-slate-500">This calculator covers the planning inputs shown above. It does not automatically include visas, taxes, insurance, customs, utility connection fees, real-estate costs, or other country-specific charges unless you enter them under “Other relocation costs”.</p>
       </form>
 
       <aside class="h-fit rounded-2xl bg-slate-950 p-7 text-white sm:p-8 lg:sticky lg:top-6">
@@ -63,6 +67,7 @@ import Layout from "../layouts/Layout.astro";
   <script>
     const form = document.querySelector("#calculator");
     const ids = ["distance","size","type","travel","housing","setup","extras"];
+    const defaults = { distance: "500", size: "1", type: "0.65", travel: "0", housing: "0", setup: "0", extras: "0" };
     const fields = Object.fromEntries(ids.map(id => [id, document.querySelector("#"+id)]));
     const result = document.querySelector("#result");
     const moveResult = document.querySelector("#moveResult");
@@ -70,6 +75,7 @@ import Layout from "../layouts/Layout.astro";
     const contingencyResult = document.querySelector("#contingencyResult");
     const range = document.querySelector("#range");
     const share = document.querySelector("#share");
+    const reset = document.querySelector("#reset");
     const shareStatus = document.querySelector("#shareStatus");
     const money = n => new Intl.NumberFormat("en-US", {style:"currency", currency:"EUR", maximumFractionDigits:0}).format(n);
     const num = el => Math.max(0, Number(el?.value) || 0);
@@ -90,6 +96,12 @@ import Layout from "../layouts/Layout.astro";
       const params = new URLSearchParams(location.search);
       ids.forEach(id => { if (params.has(id)) fields[id].value = params.get(id); });
     };
+    const resetCalculator = () => {
+      ids.forEach(id => { fields[id].value = defaults[id]; });
+      try { localStorage.removeItem("relocation-cost-inputs"); } catch {}
+      shareStatus.textContent = "";
+      calculate();
+    };
     try {
       const saved = JSON.parse(localStorage.getItem("relocation-cost-inputs") || "null");
       if (saved) ids.forEach(id => { if (saved[id] !== undefined) fields[id].value = saved[id]; });
@@ -97,6 +109,7 @@ import Layout from "../layouts/Layout.astro";
     loadQuery();
     form?.addEventListener("submit", e => { e.preventDefault(); calculate(); });
     ids.forEach(id => fields[id]?.addEventListener("input", calculate));
+    reset?.addEventListener("click", resetCalculator);
     share?.addEventListener("click", async () => {
       calculate();
       const params = new URLSearchParams();
