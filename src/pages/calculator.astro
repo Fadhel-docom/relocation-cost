@@ -10,11 +10,11 @@ import Layout from "../layouts/Layout.astro";
     </div>
 
     <div class="mt-10 grid gap-8 lg:grid-cols-[1.15fr_.85fr]">
-      <form id="calculator" class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+      <form id="calculator" class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" novalidate>
         <h2 class="text-xl font-bold">Move details</h2>
         <div class="mt-6 grid gap-5 sm:grid-cols-2">
           <label class="block text-sm font-semibold">Distance <span class="font-normal text-slate-500">(km)</span>
-            <input id="distance" type="number" min="1" value="500" inputmode="numeric" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500" />
+            <input id="distance" type="number" min="1" max="50000" value="500" inputmode="numeric" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500" />
           </label>
           <label class="block text-sm font-semibold">Home size
             <select id="size" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3">
@@ -31,11 +31,12 @@ import Layout from "../layouts/Layout.astro";
         <h2 class="mt-10 text-xl font-bold">Other relocation costs</h2>
         <p class="mt-2 text-sm text-slate-500">Enter amounts you already know. Leave unknown items at zero.</p>
         <div class="mt-5 grid gap-5 sm:grid-cols-2">
-          <label class="block text-sm font-semibold">Travel <span class="font-normal text-slate-500">(€)</span><input id="travel" type="number" min="0" value="0" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
-          <label class="block text-sm font-semibold">Temporary housing <span class="font-normal text-slate-500">(€)</span><input id="housing" type="number" min="0" value="0" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
-          <label class="block text-sm font-semibold">Deposits / setup <span class="font-normal text-slate-500">(€)</span><input id="setup" type="number" min="0" value="0" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
-          <label class="block text-sm font-semibold">Packing / extras <span class="font-normal text-slate-500">(€)</span><input id="extras" type="number" min="0" value="0" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+          <label class="block text-sm font-semibold">Travel <span class="font-normal text-slate-500">(€)</span><input id="travel" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+          <label class="block text-sm font-semibold">Temporary housing <span class="font-normal text-slate-500">(€)</span><input id="housing" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+          <label class="block text-sm font-semibold">Deposits / setup <span class="font-normal text-slate-500">(€)</span><input id="setup" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+          <label class="block text-sm font-semibold">Packing / extras <span class="font-normal text-slate-500">(€)</span><input id="extras" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
         </div>
+        <p id="inputError" class="mt-4 min-h-5 text-sm font-medium text-red-700" role="alert" aria-live="polite"></p>
         <div class="mt-8 grid gap-3 sm:grid-cols-2">
           <button class="rounded-xl bg-slate-950 px-5 py-3 font-semibold text-white hover:bg-slate-800" type="submit">Update my budget</button>
           <button id="reset" class="rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-900 hover:bg-slate-50" type="button">Reset calculator</button>
@@ -74,14 +75,33 @@ import Layout from "../layouts/Layout.astro";
     const otherResult = document.querySelector("#otherResult");
     const contingencyResult = document.querySelector("#contingencyResult");
     const range = document.querySelector("#range");
+    const inputError = document.querySelector("#inputError");
     const share = document.querySelector("#share");
     const reset = document.querySelector("#reset");
     const shareStatus = document.querySelector("#shareStatus");
     const money = n => new Intl.NumberFormat("en-US", {style:"currency", currency:"EUR", maximumFractionDigits:0}).format(n);
-    const num = el => Math.max(0, Number(el?.value) || 0);
+    const limits = { distance: { min: 1, max: 50000 }, travel: { min: 0, max: 1000000 }, housing: { min: 0, max: 1000000 }, setup: { min: 0, max: 1000000 }, extras: { min: 0, max: 1000000 } };
+    const validateInputs = () => {
+      for (const id of Object.keys(limits)) {
+        const value = Number(fields[id]?.value);
+        const { min, max } = limits[id];
+        if (!Number.isFinite(value) || value < min || value > max) {
+          inputError.textContent = id === "distance"
+            ? "Enter a distance from 1 to 50,000 km."
+            : "Enter an amount from €0 to €1,000,000 for each additional cost.";
+          fields[id]?.setAttribute("aria-invalid", "true");
+          return false;
+        }
+        fields[id]?.removeAttribute("aria-invalid");
+      }
+      inputError.textContent = "";
+      return true;
+    };
+    const num = id => Number(fields[id]?.value) || 0;
     const calculate = () => {
-      const move = Math.max(350, 350 + num(fields.distance) * 0.9 * num(fields.size) * num(fields.type));
-      const other = ["travel","housing","setup","extras"].reduce((sum, id) => sum + num(fields[id]), 0);
+      if (!validateInputs()) return null;
+      const move = Math.max(350, 350 + num("distance") * 0.9 * num("size") * num("type"));
+      const other = ["travel","housing","setup","extras"].reduce((sum, id) => sum + num(id), 0);
       const contingency = (move + other) * 0.10;
       const total = move + other + contingency;
       result.textContent = money(total);
@@ -97,7 +117,7 @@ import Layout from "../layouts/Layout.astro";
       ids.forEach(id => { if (params.has(id)) fields[id].value = params.get(id); });
     };
     const resetCalculator = () => {
-      ids.forEach(id => { fields[id].value = defaults[id]; });
+      ids.forEach(id => { fields[id].value = defaults[id]; fields[id].removeAttribute("aria-invalid"); });
       try { localStorage.removeItem("relocation-cost-inputs"); } catch {}
       shareStatus.textContent = "";
       calculate();
@@ -111,7 +131,11 @@ import Layout from "../layouts/Layout.astro";
     ids.forEach(id => fields[id]?.addEventListener("input", calculate));
     reset?.addEventListener("click", resetCalculator);
     share?.addEventListener("click", async () => {
-      calculate();
+      const total = calculate();
+      if (total === null) {
+        shareStatus.textContent = "Fix the input above before sharing.";
+        return;
+      }
       const params = new URLSearchParams();
       ids.forEach(id => params.set(id, fields[id].value));
       const url = location.origin + location.pathname + "?" + params.toString();
