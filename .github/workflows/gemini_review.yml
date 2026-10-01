@@ -28,15 +28,17 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Load local BLS source material
+      - name: Load local source material
         run: |
           mkdir -p .gemini-data reports/gemini
+          test -s data/bls-2025.txt
           cp data/bls-2025.txt .gemini-data/bls-2025.txt
+          if [ -f data/census-migration-2024.csv ]; then cp data/census-migration-2024.csv .gemini-data/census-migration-2024.csv; fi
 
       - name: Gemini source and code review
         run: |
           python - <<'PY'
-          import json, os, subprocess, urllib.request
+          import json, os, subprocess
           from pathlib import Path
           api=os.environ['GEMINI_API_KEY']
           model=os.environ.get('GEMINI_MODEL','gemini-3.8-flash')
@@ -49,27 +51,29 @@ jobs:
           coeff=Path('data/coefficients.json').read_text(errors='replace')
           prompt=f'''You are the secondary quality reviewer for Relocation Cost. Review the repository change, current calculator, coefficient file, and local BLS source snapshot. Do not invent prices or citations. Separate verified facts from assumptions. Check calculator logic, accessibility, SEO/indexing, content quality, source attribution, disclaimer clarity, security, and performance. Determine whether any existing or candidate moving-cost coefficient is actually supported by the supplied BLS evidence. BLS is a labor benchmark and must not be treated as a complete moving-price database. If evidence is insufficient, explicitly require null.\n\nDIFF:\n{diff[:50000]}\n\nBLS SOURCE:\n{source[:50000]}\n\nCOEFFICIENTS:\n{coeff[:20000]}\n\nCURRENT FILES:\n{''.join(files)[:70000]}'''
           payload={'contents':[{'parts':[{'text':prompt}]}]}
-          req=urllib.request.Request(f'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent',data=json.dumps(payload).encode(),headers={'x-goog-api-key':api,'Content-Type':'application/json'},method='POST')
-          with urllib.request.urlopen(req,timeout=120) as r: data=json.load(r)
-          text=data['candidates'][0]['content']['parts'][0]['text']
-          Path('reports/gemini/daily-review.md').write_text(text)
+          import google.generativeai as genai
+          genai.configure(api_key=api)
+          response=genai.GenerativeModel(model).generate_content(prompt)
+          Path('reports/gemini/daily-review.md').write_text(response.text)
           PY
 
       - name: Gemini coefficient review
         run: |
           python - <<'PY'
-          import json, os, urllib.request
+          import json, os
           from pathlib import Path
+          import google.generativeai as genai
           api=os.environ['GEMINI_API_KEY']
           model=os.environ.get('GEMINI_MODEL','gemini-3.8-flash')
           current=Path('data/coefficients.json').read_text()
           bls=Path('.gemini-data/bls-2025.txt').read_text(errors='replace')[:50000]
-          schema={'type':'object','properties':{'base_move_usd':{'type':['number','null']},'distance_usd_per_km':{'type':['number','null']},'home_size_multipliers':{'type':['object','null']},'move_type_multipliers':{'type':['object','null']},'reason':{'type':'string'}},'required':['base_move_usd','distance_usd_per_km','home_size_multipliers','move_type_multipliers','reason']}
-          prompt=f'''Review candidate coefficients for Relocation Cost using ONLY the supplied BLS evidence and the existing coefficient JSON. BLS provides occupational wage benchmarks; it does not by itself establish a universal moving-company base price, distance price, home-size multiplier, or move-type multiplier. Never fabricate a market coefficient. Return null where the evidence is insufficient. Existing JSON:\n{current}\nBLS:\n{bls}'''
-          payload={'contents':[{'parts':[{'text':prompt}]}],'generationConfig':{'responseMimeType':'application/json','responseSchema':schema}}
-          req=urllib.request.Request(f'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent',data=json.dumps(payload).encode(),headers={'x-goog-api-key':api,'Content-Type':'application/json'},method='POST')
-          with urllib.request.urlopen(req,timeout=120) as r: data=json.load(r)
-          out=json.loads(data['candidates'][0]['content']['parts'][0]['text'])
+          prompt=f'''Review candidate coefficients for Relocation Cost using ONLY the supplied BLS evidence and the existing coefficient JSON. BLS provides occupational wage benchmarks; it does not by itself establish a universal moving-company base price, distance price, home-size multiplier, or move-type multiplier. Never fabricate a market coefficient. Return JSON with keys base_move_usd, distance_usd_per_km, home_size_multipliers, move_type_multipliers, reason. Use null where evidence is insufficient. Existing JSON:\n{current}\nBLS:\n{bls}'''
+          genai.configure(api_key=api)
+          response=genai.GenerativeModel(model).generate_content(prompt)
+          raw=response.text.strip()
+          if raw.startswith('```'):
+              raw=raw.split('\n',1)[1].rsplit('```',1)[0].strip()
+          out=json.loads(raw)
           base=json.loads(current)
           base['gemini_calibration']={'model':model,'date':'2026-10-01','candidate':out}
           Path('data/coefficients.json').write_text(json.dumps(base,indent=2)+'\n')
@@ -80,17 +84,17 @@ jobs:
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.generate_pages == 'true' }}
         run: |
           python - <<'PY'
-          import json, os, urllib.request
+          import os
           from pathlib import Path
+          import google.generativeai as genai
           pairs=[('California','Texas'),('Texas','California'),('Florida','New York'),('New York','Florida'),('California','Arizona'),('Arizona','California'),('Texas','Colorado'),('Colorado','Texas'),('Georgia','Florida'),('Florida','Georgia')]
           api=os.environ['GEMINI_API_KEY']; model=os.environ.get('GEMINI_MODEL','gemini-3.8-flash')
+          genai.configure(api_key=api)
+          local_sources='\n'.join(p.read_text(errors='replace')[:30000] for p in Path('data').glob('*') if p.is_file() and p.suffix in {'.txt','.csv','.json'})
           for origin,dest in pairs:
               slug=f'{origin.lower().replace(" ","-")}-to-{dest.lower().replace(" ","-")}'
-              prompt=f'''Create an evidence-led 500-800 word page titled Cost to Move from {origin} to {dest}. Do not invent route prices. Use only documented source-backed facts available in the repository and clearly label all estimates as planning estimates, not quotes. Include 4-6 useful FAQs, 2-4 internal links, and JSON-LD-ready facts for Service and FAQPage. If route-specific price evidence is unavailable, say so and direct users to the calculator and provider quotes. Return clean Markdown with frontmatter fields title, description, origin, destination.'''
-              payload={'contents':[{'parts':[{'text':prompt}]}]}
-              req=urllib.request.Request(f'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent',data=json.dumps(payload).encode(),headers={'x-goog-api-key':api,'Content-Type':'application/json'},method='POST')
-              with urllib.request.urlopen(req,timeout=120) as r: data=json.load(r)
-              text=data['candidates'][0]['content']['parts'][0]['text']
+              prompt=f'''Create an evidence-led 500-800 word page titled Cost to Move from {origin} to {dest}. Do not invent route prices. Use only documented source-backed facts supplied below and clearly label all estimates as planning estimates, not quotes. Include 4-6 useful FAQs, 2-4 internal links, and JSON-LD-ready facts for Service and FAQPage. If route-specific price evidence is unavailable, say so and direct users to the calculator and provider quotes. Return clean Markdown with frontmatter fields title, description, origin, destination.\n\nLOCAL SOURCES:\n{local_sources[:70000]}'''
+              text=genai.GenerativeModel(model).generate_content(prompt).text
               Path('src/pages/moves').mkdir(parents=True,exist_ok=True)
               Path(f'src/pages/moves/{slug}.md').write_text(text)
           PY
