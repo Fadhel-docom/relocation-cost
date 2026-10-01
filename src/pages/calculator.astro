@@ -13,8 +13,8 @@ import Layout from "../layouts/Layout.astro";
       <form id="calculator" class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" novalidate>
         <h2 class="text-xl font-bold">Move details</h2>
         <div class="mt-6 grid gap-5 sm:grid-cols-2">
-          <label class="block text-sm font-semibold">Distance <span class="font-normal text-slate-500">(km)</span>
-            <input id="distance" type="number" min="1" max="50000" value="500" inputmode="numeric" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500" />
+          <label class="block text-sm font-semibold">Distance <span class="font-normal text-slate-500">(miles)</span>
+            <input id="distance" type="number" min="1" max="30000" value="500" inputmode="numeric" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500" />
           </label>
           <label class="block text-sm font-semibold">Home size
             <select id="size" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3">
@@ -102,14 +102,14 @@ import Layout from "../layouts/Layout.astro";
     const reset = document.querySelector("#reset");
     const shareStatus = document.querySelector("#shareStatus");
     const money = n => new Intl.NumberFormat("en-US", {style:"currency", currency:"USD", maximumFractionDigits:0}).format(n);
-    const limits = { distance: { min: 1, max: 50000 }, travel: { min: 0, max: 1000000 }, housing: { min: 0, max: 1000000 }, setup: { min: 0, max: 1000000 }, extras: { min: 0, max: 1000000 } };
+    const limits = { distance: { min: 1, max: 30000 }, travel: { min: 0, max: 1000000 }, housing: { min: 0, max: 1000000 }, setup: { min: 0, max: 1000000 }, extras: { min: 0, max: 1000000 } };
     const validateInputs = () => {
       for (const id of Object.keys(limits)) {
         const value = Number(fields[id]?.value);
         const { min, max } = limits[id];
         if (!Number.isFinite(value) || value < min || value > max) {
           inputError.textContent = id === "distance"
-            ? "Enter a distance from 1 to 50,000 km."
+            ? "Enter a distance from 1 to 30,000 miles."
             : "Enter an amount from $0 to $1,000,000 for each additional cost.";
           fields[id]?.setAttribute("aria-invalid", "true");
           return false;
@@ -122,7 +122,7 @@ import Layout from "../layouts/Layout.astro";
     const num = id => Number(fields[id]?.value) || 0;
     const calculate = () => {
       if (!validateInputs()) return null;
-      const move = Math.max(350, 350 + num("distance") * 0.9 * num("size") * num("type"));
+      const move = Math.max(350, 350 + num("distance") * 0.56 * num("size") * num("type"));
       const other = ["travel","housing","setup","extras"].reduce((sum, id) => sum + num(id), 0);
       const contingency = (move + other) * 0.10;
       const total = move + other + contingency;
