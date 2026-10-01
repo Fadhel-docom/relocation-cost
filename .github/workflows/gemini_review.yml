@@ -28,18 +28,10 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Collect BLS source material
+      - name: Load local BLS source material
         run: |
           mkdir -p .gemini-data reports/gemini
-          curl -fsSL "https://www.bls.gov/oes/2025/may/oes_nat.htm" -o .gemini-data/bls-2025.html
-          python - <<'PY'
-          from pathlib import Path
-          import re
-          p=Path('.gemini-data/bls-2025.html')
-          text=re.sub(r'<script[\s\S]*?</script>|<style[\s\S]*?</style>|<[^>]+>', ' ', p.read_text(errors='replace'))
-          text=re.sub(r'\s+', ' ', text)
-          Path('.gemini-data/bls-2025.txt').write_text(text[:60000])
-          PY
+          cp data/bls-2025.txt .gemini-data/bls-2025.txt
 
       - name: Gemini source and code review
         run: |
@@ -55,7 +47,7 @@ jobs:
                   files.append(f'\n--- {p} ---\n'+p.read_text(errors='replace')[:16000])
           source=Path('.gemini-data/bls-2025.txt').read_text(errors='replace')
           coeff=Path('data/coefficients.json').read_text(errors='replace')
-          prompt=f'''You are the secondary quality reviewer for Relocation Cost. Review the repository change, current calculator, coefficient file, and BLS source. Do not invent prices or citations. Separate verified facts from assumptions. Check calculator logic, accessibility, SEO/indexing, content quality, source attribution, disclaimer clarity, security, and performance. Determine whether any existing or candidate moving-cost coefficient is actually supported by the supplied BLS evidence. BLS is a labor benchmark and must not be treated as a complete moving-price database. If evidence is insufficient, explicitly require null.\n\nDIFF:\n{diff[:50000]}\n\nBLS SOURCE:\n{source[:50000]}\n\nCOEFFICIENTS:\n{coeff[:20000]}\n\nCURRENT FILES:\n{''.join(files)[:70000]}'''
+          prompt=f'''You are the secondary quality reviewer for Relocation Cost. Review the repository change, current calculator, coefficient file, and local BLS source snapshot. Do not invent prices or citations. Separate verified facts from assumptions. Check calculator logic, accessibility, SEO/indexing, content quality, source attribution, disclaimer clarity, security, and performance. Determine whether any existing or candidate moving-cost coefficient is actually supported by the supplied BLS evidence. BLS is a labor benchmark and must not be treated as a complete moving-price database. If evidence is insufficient, explicitly require null.\n\nDIFF:\n{diff[:50000]}\n\nBLS SOURCE:\n{source[:50000]}\n\nCOEFFICIENTS:\n{coeff[:20000]}\n\nCURRENT FILES:\n{''.join(files)[:70000]}'''
           payload={'contents':[{'parts':[{'text':prompt}]}]}
           req=urllib.request.Request(f'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent',data=json.dumps(payload).encode(),headers={'x-goog-api-key':api,'Content-Type':'application/json'},method='POST')
           with urllib.request.urlopen(req,timeout=120) as r: data=json.load(r)
