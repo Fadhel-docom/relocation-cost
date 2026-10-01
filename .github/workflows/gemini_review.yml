@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       generate_pages:
-        description: "Generate/update the 50 state-to-state SEO pages"
+        description: "Generate 10 experimental state-to-state SEO pages"
         required: false
         default: "false"
         type: boolean
@@ -28,102 +28,95 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Collect source material
+      - name: Collect BLS source material
         run: |
           mkdir -p .gemini-data reports/gemini
-          curl -fsSL "https://www2.census.gov/programs-surveys/demo/tables/geographic-mobility/2024/state-to-state-migration/State_to_State_Migration_Table_2024_T13.xlsx" -o .gemini-data/census-2024.xlsx
-          curl -fsSL "https://www.bls.gov/oes/2025/may/largest2.htm" -o .gemini-data/bls-2025.html
-          curl -fsSL "https://www.uhaulnow.com/" -o .gemini-data/uhaul.html
-          curl -fsSL "https://www.budgettruck.com/faq/faqid/151" -o .gemini-data/budget.html
+          curl -fsSL "https://www.bls.gov/oes/2025/may/oes_nat.htm" -o .gemini-data/bls-2025.html
           python - <<'PY'
           from pathlib import Path
           import re
-          for name in ["bls-2025.html", "uhaul.html", "budget.html"]:
-              p=Path(".gemini-data")/name
-              text=re.sub(r"<script[\\s\\S]*?</script>|<style[\\s\\S]*?</style>|<[^>]+>", " ", p.read_text(errors="replace"))
-              text=re.sub(r"\\s+", " ", text)
-              p.with_suffix(".txt").write_text(text[:30000])
+          p=Path('.gemini-data/bls-2025.html')
+          text=re.sub(r'<script[\s\S]*?</script>|<style[\s\S]*?</style>|<[^>]+>', ' ', p.read_text(errors='replace'))
+          text=re.sub(r'\s+', ' ', text)
+          Path('.gemini-data/bls-2025.txt').write_text(text[:60000])
           PY
 
       - name: Gemini source and code review
         run: |
           python - <<'PY'
-          import base64, json, os, subprocess
+          import json, os, subprocess, urllib.request
           from pathlib import Path
-          import urllib.request
-
-          api=os.environ["GEMINI_API_KEY"]
-          model=os.environ.get("GEMINI_MODEL","gemini-3.8-flash")
-          diff=subprocess.run(["git","diff","HEAD^","HEAD"],capture_output=True,text=True).stdout
+          api=os.environ['GEMINI_API_KEY']
+          model=os.environ.get('GEMINI_MODEL','gemini-3.8-flash')
+          diff=subprocess.run(['git','diff','HEAD^','HEAD'],capture_output=True,text=True).stdout
           files=[]
-          for p in Path("src").rglob("*"):
-              if p.is_file() and p.suffix in {".astro",".md",".ts",".js",".css"}:
-                  files.append(f"\\n--- {p} ---\\n"+p.read_text(errors="replace")[:16000])
-          source_text="\\n".join((Path(".gemini-data")/n).read_text(errors="replace") for n in ["bls-2025.txt","uhaul.txt","budget.txt"])
-          prompt=f'''You are the secondary quality reviewer for Relocation Cost. Review the repository change and current source material. Do not invent prices or citations. Separate verified facts from assumptions. Check calculator logic, accessibility, SEO/indexing, content quality, source attribution, disclaimer clarity, security, and performance. Also assess whether any candidate moving-cost coefficient is sufficiently supported by at least two independent source types. If not, explicitly say it must remain null.\\n\\nDIFF:\\n{diff[:60000]}\\n\\nSOURCE MATERIAL:\\n{source_text[:50000]}\\n\\nCURRENT FILES:\\n{"".join(files)[:70000]}'''
-          payload={"contents":[{"parts":[{"text":prompt}]}]}
-          req=urllib.request.Request(f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",data=json.dumps(payload).encode(),headers={"x-goog-api-key":api,"Content-Type":"application/json"},method="POST")
+          for p in Path('src').rglob('*'):
+              if p.is_file() and p.suffix in {'.astro','.md','.ts','.js','.css'}:
+                  files.append(f'\n--- {p} ---\n'+p.read_text(errors='replace')[:16000])
+          source=Path('.gemini-data/bls-2025.txt').read_text(errors='replace')
+          coeff=Path('data/coefficients.json').read_text(errors='replace')
+          prompt=f'''You are the secondary quality reviewer for Relocation Cost. Review the repository change, current calculator, coefficient file, and BLS source. Do not invent prices or citations. Separate verified facts from assumptions. Check calculator logic, accessibility, SEO/indexing, content quality, source attribution, disclaimer clarity, security, and performance. Determine whether any existing or candidate moving-cost coefficient is actually supported by the supplied BLS evidence. BLS is a labor benchmark and must not be treated as a complete moving-price database. If evidence is insufficient, explicitly require null.\n\nDIFF:\n{diff[:50000]}\n\nBLS SOURCE:\n{source[:50000]}\n\nCOEFFICIENTS:\n{coeff[:20000]}\n\nCURRENT FILES:\n{''.join(files)[:70000]}'''
+          payload={'contents':[{'parts':[{'text':prompt}]}]}
+          req=urllib.request.Request(f'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent',data=json.dumps(payload).encode(),headers={'x-goog-api-key':api,'Content-Type':'application/json'},method='POST')
           with urllib.request.urlopen(req,timeout=120) as r: data=json.load(r)
-          text=data["candidates"][0]["content"]["parts"][0]["text"]
-          Path("reports/gemini/daily-review.md").write_text(text)
+          text=data['candidates'][0]['content']['parts'][0]['text']
+          Path('reports/gemini/daily-review.md').write_text(text)
           PY
 
-      - name: Gemini coefficient calibration
+      - name: Gemini coefficient review
         run: |
           python - <<'PY'
           import json, os, urllib.request
           from pathlib import Path
-          api=os.environ["GEMINI_API_KEY"]
-          model=os.environ.get("GEMINI_MODEL","gemini-3.8-flash")
-          current=Path("data/coefficients.json").read_text()
-          census=Path(".gemini-data/census-2024.xlsx").stat().st_size
-          sources=(Path(".gemini-data/bls-2025.txt").read_text(errors="replace")+"\\n"+Path(".gemini-data/uhaul.txt").read_text(errors="replace")+"\\n"+Path(".gemini-data/budget.txt").read_text(errors="replace"))[:50000]
-          schema={"type":"object","properties":{"base_move_usd":{"type":["number","null"]},"distance_usd_per_km":{"type":["number","null"]},"home_size_multipliers":{"type":["object","null"]},"move_type_multipliers":{"type":["object","null"]},"reason":{"type":"string"}},"required":["base_move_usd","distance_usd_per_km","home_size_multipliers","move_type_multipliers","reason"]}
-          prompt=f'''Calibrate Relocation Cost only from evidence in the supplied sources. Never fabricate a universal market price. Census migration is a demand/context signal, BLS is a labor benchmark, and U-Haul/Budget describe provider pricing rules. A coefficient may be numeric only when the supplied evidence actually supports that exact interpretation. Otherwise return null. Existing JSON: {current}\\nSource excerpts: {sources}\\nCensus workbook downloaded successfully: {census} bytes.'''
-          payload={"contents":[{"parts":[{"text":prompt}]}],"generationConfig":{"responseMimeType":"application/json","responseSchema":schema}}
-          req=urllib.request.Request(f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",data=json.dumps(payload).encode(),headers={"x-goog-api-key":api,"Content-Type":"application/json"},method="POST")
-          try:
-              with urllib.request.urlopen(req,timeout=120) as r: data=json.load(r)
-              out=json.loads(data["candidates"][0]["content"]["parts"][0]["text"])
-              base=json.loads(current)
-              base["gemini_calibration"]={"model":model,"date":"2026-10-01","candidate":out}
-              Path("data/coefficients.json").write_text(json.dumps(base,indent=2)+"\\n")
-          except Exception as e:
-              Path("reports/gemini/coefficient-error.txt").write_text(str(e))
+          api=os.environ['GEMINI_API_KEY']
+          model=os.environ.get('GEMINI_MODEL','gemini-3.8-flash')
+          current=Path('data/coefficients.json').read_text()
+          bls=Path('.gemini-data/bls-2025.txt').read_text(errors='replace')[:50000]
+          schema={'type':'object','properties':{'base_move_usd':{'type':['number','null']},'distance_usd_per_km':{'type':['number','null']},'home_size_multipliers':{'type':['object','null']},'move_type_multipliers':{'type':['object','null']},'reason':{'type':'string'}},'required':['base_move_usd','distance_usd_per_km','home_size_multipliers','move_type_multipliers','reason']}
+          prompt=f'''Review candidate coefficients for Relocation Cost using ONLY the supplied BLS evidence and the existing coefficient JSON. BLS provides occupational wage benchmarks; it does not by itself establish a universal moving-company base price, distance price, home-size multiplier, or move-type multiplier. Never fabricate a market coefficient. Return null where the evidence is insufficient. Existing JSON:\n{current}\nBLS:\n{bls}'''
+          payload={'contents':[{'parts':[{'text':prompt}]}],'generationConfig':{'responseMimeType':'application/json','responseSchema':schema}}
+          req=urllib.request.Request(f'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent',data=json.dumps(payload).encode(),headers={'x-goog-api-key':api,'Content-Type':'application/json'},method='POST')
+          with urllib.request.urlopen(req,timeout=120) as r: data=json.load(r)
+          out=json.loads(data['candidates'][0]['content']['parts'][0]['text'])
+          base=json.loads(current)
+          base['gemini_calibration']={'model':model,'date':'2026-10-01','candidate':out}
+          Path('data/coefficients.json').write_text(json.dumps(base,indent=2)+'\n')
+          Path('reports/gemini/coefficient-review.json').write_text(json.dumps(out,indent=2)+'\n')
           PY
 
-      - name: Optional 50-page generation
+      - name: Optional 10-page experiment
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.generate_pages == 'true' }}
         run: |
           python - <<'PY'
           import json, os, urllib.request
           from pathlib import Path
-          states=["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]
-          pairs=[]
-          for a,b in zip(states[:25],states[25:]): pairs.append((a,b))
-          api=os.environ["GEMINI_API_KEY"]; model=os.environ.get("GEMINI_MODEL","gemini-3.8-flash")
+          pairs=[('California','Texas'),('Texas','California'),('Florida','New York'),('New York','Florida'),('California','Arizona'),('Arizona','California'),('Texas','Colorado'),('Colorado','Texas'),('Georgia','Florida'),('Florida','Georgia')]
+          api=os.environ['GEMINI_API_KEY']; model=os.environ.get('GEMINI_MODEL','gemini-3.8-flash')
           for origin,dest in pairs:
-              slug=f"{origin.lower().replace(' ','-')}-to-{dest.lower().replace(' ','-')}"
-              prompt=f'''Create an evidence-led 500-800 word page titled Cost to Move from {origin} to {dest}. Do not invent route prices. Use only the project's documented source-backed figures and clearly label estimates as planning estimates. Include 4-6 useful FAQs, 2-4 internal links, and JSON-LD-ready facts for Service and FAQPage. If route-specific price evidence is unavailable, say so and direct users to the calculator/provider quotes. Return clean Markdown with frontmatter fields title, description, origin, destination.'''
-              payload={"contents":[{"parts":[{"text":prompt}]}]}
-              req=urllib.request.Request(f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",data=json.dumps(payload).encode(),headers={"x-goog-api-key":api,"Content-Type":"application/json"},method="POST")
+              slug=f'{origin.lower().replace(" ","-")}-to-{dest.lower().replace(" ","-")}'
+              prompt=f'''Create an evidence-led 500-800 word page titled Cost to Move from {origin} to {dest}. Do not invent route prices. Use only documented source-backed facts available in the repository and clearly label all estimates as planning estimates, not quotes. Include 4-6 useful FAQs, 2-4 internal links, and JSON-LD-ready facts for Service and FAQPage. If route-specific price evidence is unavailable, say so and direct users to the calculator and provider quotes. Return clean Markdown with frontmatter fields title, description, origin, destination.'''
+              payload={'contents':[{'parts':[{'text':prompt}]}]}
+              req=urllib.request.Request(f'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent',data=json.dumps(payload).encode(),headers={'x-goog-api-key':api,'Content-Type':'application/json'},method='POST')
               with urllib.request.urlopen(req,timeout=120) as r: data=json.load(r)
-              text=data["candidates"][0]["content"]["parts"][0]["text"]
-              Path("src/pages/moves").mkdir(parents=True,exist_ok=True)
-              Path(f"src/pages/moves/{slug}.md").write_text(text)
+              text=data['candidates'][0]['content']['parts'][0]['text']
+              Path('src/pages/moves').mkdir(parents=True,exist_ok=True)
+              Path(f'src/pages/moves/{slug}.md').write_text(text)
           PY
 
-      - name: Validate and commit generated review/data
+      - name: Validate generated output
         run: |
           test -s reports/gemini/daily-review.md
           python -m json.tool data/coefficients.json >/dev/null
-          if git diff --quiet -- data/coefficients.json reports/gemini; then
+
+      - name: Commit generated review/data
+        run: |
+          if git diff --quiet -- data/coefficients.json reports/gemini src/pages/moves; then
             echo "No generated changes to commit."
           else
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add data/coefficients.json reports/gemini src/pages/moves || true
-            git commit -m "chore: update Gemini review and source calibration [skip ci]" || true
+            git add data/coefficients.json reports/gemini src/pages/moves
+            git commit -m "chore: update Gemini review and calibration [skip ci]"
             git push
           fi
 
