@@ -64,6 +64,28 @@ import Layout from "../layouts/Layout.astro";
     <div class="mt-10 rounded-2xl border border-amber-200 bg-amber-50 p-6 text-sm leading-7 text-amber-950">
       <strong>About this estimate:</strong> this MVP uses a transparent planning model, not live mover quotes or a market-validated price database. Treat the result as a budgeting starting point and replace assumptions with real quotes.
     </div>
+
+    <section class="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-6 sm:p-8" aria-labelledby="methodology-heading">
+      <p class="text-sm font-semibold uppercase tracking-widest text-sky-600">How it works</p>
+      <h2 id="methodology-heading" class="mt-2 text-2xl font-bold tracking-tight">Transparent calculation methodology</h2>
+      <div class="mt-5 grid gap-6 md:grid-cols-3">
+        <div>
+          <h3 class="font-semibold">1. Transport baseline</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-600">The planning model starts with a fixed baseline plus a distance component, then adjusts that result for the selected home size and move type.</p>
+        </div>
+        <div>
+          <h3 class="font-semibold">2. Known extra costs</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-600">Travel, temporary housing, deposits/setup, and packing/extras are added exactly as you enter them. Unknown items remain at zero until you have an amount.</p>
+        </div>
+        <div>
+          <h3 class="font-semibold">3. Planning buffer</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-600">A 10% contingency is added to the move and known extra costs. The displayed range is a planning band, not a confidence interval or provider quote.</p>
+        </div>
+      </div>
+      <div class="mt-6 border-t border-slate-200 pt-5 text-sm leading-6 text-slate-600">
+        <strong class="text-slate-900">Current model status:</strong> the coefficients in this MVP are explicit product assumptions, not claims about current market prices. We will only replace them with market-derived values when reliable, documented data is available. Until then, use the calculator for planning and validate the result against real provider quotes.
+      </div>
+    </section>
   </section>
   <script>
     const form = document.querySelector("#calculator");
