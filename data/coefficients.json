@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0",
+  "status": "source_backed_benchmarks",
+  "last_reviewed": "2026-10-01",
+  "currency": "USD",
+  "methodology_note": "Do not treat any single public rate as a universal moving-price coefficient. Provider prices vary by route, truck size, date, availability, mileage and rental terms. Candidate coefficients must be calibrated from documented observations before replacing the calculator model.",
+  "benchmarks": {
+    "laborers_freight_stock_material_movers_hand_mean_annual_usd": {
+      "value": 42260,
+      "source": "U.S. Bureau of Labor Statistics, Occupational Employment and Wages, May 2025",
+      "url": "https://www.bls.gov/oes/2025/may/largest2.htm",
+      "source_type": "government",
+      "use": "labor-cost benchmark only; not a mover quote"
+    },
+    "budget_additional_mile_pre_pickup_usd": {
+      "value": 0.70,
+      "source": "Budget Truck Rental terms/FAQ",
+      "url": "https://www.budgettruck.com/faq/faqid/151",
+      "source_type": "provider",
+      "use": "additional-mile benchmark for one-way rentals before pickup; not a base rental rate"
+    },
+    "budget_additional_day_pre_pickup_usd": {
+      "value": 70,
+      "source": "Budget Truck Rental terms/FAQ",
+      "url": "https://www.budgettruck.com/faq/faqid/151",
+      "source_type": "provider",
+      "use": "additional-day benchmark before pickup; not a base rental rate"
+    },
+    "budget_additional_mile_at_or_after_pickup_usd": {
+      "value": 0.85,
+      "source": "Budget Truck Rental terms/FAQ",
+      "url": "https://www.budgettruck.com/faq/faqid/151",
+      "source_type": "provider",
+      "use": "additional-mile benchmark at/after pickup; not a base rental rate"
+    },
+    "budget_additional_day_at_or_after_pickup_usd": {
+      "value": 85,
+      "source": "Budget Truck Rental terms/FAQ",
+      "url": "https://www.budgettruck.com/faq/faqid/151",
+      "source_type": "provider",
+      "use": "additional-day benchmark at/after pickup; not a base rental rate"
+    }
+  },
+  "migration_data": {
+    "source": "U.S. Census Bureau, ACS 1-year State-to-State Migration Flows, 2024",
+    "url": "https://www.census.gov/data/tables/time-series/demo/geographic-mobility/state-to-state-migration.html",
+    "use": "route-demand/context signal, not a direct price coefficient"
+  },
+  "provider_rate_context": {
+    "uhaul": {
+      "url": "https://www.uhaulnow.com/",
+      "documented_rule": "One-way rates depend on truck size, origin, destination and move date; rates can change.",
+      "numeric_universal_rate": null
+    },
+    "budget_truck": {
+      "url": "https://www.budgettruck.com/faq",
+      "documented_rule": "Rates fluctuate daily and depend on reservation details; customers should obtain a route-specific rate.",
+      "numeric_universal_rate": null
+    }
+  },
+  "candidate_coefficients": {
+    "base_move_usd": null,
+    "distance_usd_per_km": null,
+    "home_size_multipliers": null,
+    "move_type_multipliers": null,
+    "reason": "A universal base/distance coefficient cannot be honestly derived from the cited public sources alone. The Gemini calibration workflow will propose candidates only when the evidence supports them."
+  }
+}
