@@ -1,6 +1,6 @@
 name: Gemini Daily Review
 
-on:
+"on":
   push:
     branches: [main]
   schedule:
