@@ -31,10 +31,10 @@ import Layout from "../layouts/Layout.astro";
         <h2 class="mt-10 text-xl font-bold">Other relocation costs</h2>
         <p class="mt-2 text-sm text-slate-500">Enter amounts you already know. Leave unknown items at zero.</p>
         <div class="mt-5 grid gap-5 sm:grid-cols-2">
-          <label class="block text-sm font-semibold">Travel <span class="font-normal text-slate-500">(€)</span><input id="travel" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
-          <label class="block text-sm font-semibold">Temporary housing <span class="font-normal text-slate-500">(€)</span><input id="housing" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
-          <label class="block text-sm font-semibold">Deposits / setup <span class="font-normal text-slate-500">(€)</span><input id="setup" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
-          <label class="block text-sm font-semibold">Packing / extras <span class="font-normal text-slate-500">(€)</span><input id="extras" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+          <label class="block text-sm font-semibold">Travel <span class="font-normal text-slate-500">(USD)</span><input id="travel" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+          <label class="block text-sm font-semibold">Temporary housing <span class="font-normal text-slate-500">(USD)</span><input id="housing" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+          <label class="block text-sm font-semibold">Deposits / setup <span class="font-normal text-slate-500">(USD)</span><input id="setup" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+          <label class="block text-sm font-semibold">Packing / extras <span class="font-normal text-slate-500">(USD)</span><input id="extras" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
         </div>
         <p id="inputError" class="mt-4 min-h-5 text-sm font-medium text-red-700" role="alert" aria-live="polite"></p>
         <div class="mt-8 grid gap-3 sm:grid-cols-2">
@@ -50,14 +50,14 @@ import Layout from "../layouts/Layout.astro";
 
       <aside class="h-fit rounded-2xl bg-slate-950 p-7 text-white sm:p-8 lg:sticky lg:top-6">
         <p class="text-sm text-slate-400">Estimated relocation budget</p>
-        <div id="result" class="mt-3 text-4xl font-bold">€0</div>
+        <div id="result" class="mt-3 text-4xl font-bold">$0</div>
         <p class="mt-3 text-sm leading-6 text-slate-300">Planning estimate, not a quote. Replace assumptions with provider quotes as you get them.</p>
         <div class="mt-7 space-y-3 border-t border-slate-800 pt-5 text-sm">
-          <div class="flex justify-between"><span class="text-slate-400">Move</span><strong id="moveResult">€0</strong></div>
-          <div class="flex justify-between"><span class="text-slate-400">Other costs</span><strong id="otherResult">€0</strong></div>
-          <div class="flex justify-between"><span class="text-slate-400">Contingency (10%)</span><strong id="contingencyResult">€0</strong></div>
+          <div class="flex justify-between"><span class="text-slate-400">Move</span><strong id="moveResult">$0</strong></div>
+          <div class="flex justify-between"><span class="text-slate-400">Other costs</span><strong id="otherResult">$0</strong></div>
+          <div class="flex justify-between"><span class="text-slate-400">Contingency (10%)</span><strong id="contingencyResult">$0</strong></div>
         </div>
-        <div class="mt-6 border-t border-slate-800 pt-5 text-sm text-slate-400">Indicative range <strong id="range" class="text-white">€0–€0</strong></div>
+        <div class="mt-6 border-t border-slate-800 pt-5 text-sm text-slate-400">Indicative range <strong id="range" class="text-white">$0–$0</strong></div>
       </aside>
     </div>
 
@@ -101,7 +101,7 @@ import Layout from "../layouts/Layout.astro";
     const share = document.querySelector("#share");
     const reset = document.querySelector("#reset");
     const shareStatus = document.querySelector("#shareStatus");
-    const money = n => new Intl.NumberFormat("en-US", {style:"currency", currency:"EUR", maximumFractionDigits:0}).format(n);
+    const money = n => new Intl.NumberFormat("en-US", {style:"currency", currency:"USD", maximumFractionDigits:0}).format(n);
     const limits = { distance: { min: 1, max: 50000 }, travel: { min: 0, max: 1000000 }, housing: { min: 0, max: 1000000 }, setup: { min: 0, max: 1000000 }, extras: { min: 0, max: 1000000 } };
     const validateInputs = () => {
       for (const id of Object.keys(limits)) {
@@ -110,7 +110,7 @@ import Layout from "../layouts/Layout.astro";
         if (!Number.isFinite(value) || value < min || value > max) {
           inputError.textContent = id === "distance"
             ? "Enter a distance from 1 to 50,000 km."
-            : "Enter an amount from €0 to €1,000,000 for each additional cost.";
+            : "Enter an amount from $0 to $1,000,000 for each additional cost.";
           fields[id]?.setAttribute("aria-invalid", "true");
           return false;
         }
