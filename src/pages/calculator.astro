@@ -118,11 +118,13 @@ import stateData from "../../data/state-distances.json";
     const stateCodes = Object.keys(stateData.states).sort((a, b) => stateData.states[a].name.localeCompare(stateData.states[b].name));
 
     stateCodes.forEach(code => {
-      const optionFrom = new Option(`${stateData.states[code].name} (${code})`, code);
-      const optionTo = new Option(`${stateData.states[code].name} (${code})`, code);
-      fields.fromState.append(optionFrom);
-      fields.toState.append(optionTo);
+      fields.fromState.append(new Option(`${stateData.states[code].name} (${code})`, code));
+      fields.toState.append(new Option(`${stateData.states[code].name} (${code})`, code));
     });
+
+    fields.fromState.value = defaults.fromState;
+    fields.toState.value = defaults.toState;
+    ids.forEach(id => fields[id].value = defaults[id]);
 
     const toRadians = degrees => degrees * Math.PI / 180;
     const stateMiles = (fromCode, toCode) => {
@@ -183,16 +185,20 @@ import stateData from "../../data/state-distances.json";
       const params = new URLSearchParams(location.search);
       ids.forEach(id => { if (params.has(id)) fields[id].value = params.get(id); });
     };
+    const loadSaved = () => {
+      try {
+        const saved = JSON.parse(localStorage.getItem("relocation-cost-inputs") || "null");
+        if (saved) ids.forEach(id => { if (saved[id] !== undefined) fields[id].value = saved[id]; });
+      } catch {}
+    };
     const resetCalculator = () => {
       ids.forEach(id => { fields[id].value = defaults[id]; fields[id].removeAttribute("aria-invalid"); });
       try { localStorage.removeItem("relocation-cost-inputs"); } catch {}
       shareStatus.textContent = "";
       applyStateDistance();
     };
-    try {
-      const saved = JSON.parse(localStorage.getItem("relocation-cost-inputs") || "null");
-      if (saved) ids.forEach(id => { if (saved[id] !== undefined) fields[id].value = saved[id]; });
-    } catch {}
+
+    loadSaved();
     loadQuery();
     form?.addEventListener("submit", e => { e.preventDefault(); calculate(); });
     fields.fromState?.addEventListener("change", applyStateDistance);
@@ -215,8 +221,6 @@ import stateData from "../../data/state-distances.json";
         shareStatus.textContent = url;
       }
     });
-    fields.fromState.value = fields.fromState.value || defaults.fromState;
-    fields.toState.value = fields.toState.value || defaults.toState;
-    applyStateDistance();
+    calculate();
   </script>
 </Layout>
