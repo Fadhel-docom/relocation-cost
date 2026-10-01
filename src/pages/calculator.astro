@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import stateData from "../../data/state-distances.json";
 ---
 <Layout title="Relocation Cost Calculator — Relocation Cost" description="Build a relocation budget from move distance, home size, move type, and additional relocation costs.">
   <section class="mx-auto max-w-6xl px-5 py-14">
@@ -13,6 +14,16 @@ import Layout from "../layouts/Layout.astro";
       <form id="calculator" class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" novalidate>
         <h2 class="text-xl font-bold">Move details</h2>
         <div class="mt-6 grid gap-5 sm:grid-cols-2">
+          <label class="block text-sm font-semibold">From State
+            <select id="fromState" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" aria-describedby="stateHelp"></select>
+          </label>
+          <label class="block text-sm font-semibold">To State
+            <select id="toState" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" aria-describedby="stateHelp"></select>
+          </label>
+        </div>
+        <p id="stateHelp" class="mt-2 text-xs leading-5 text-slate-500">State distance uses great-circle distance between state centroids as a planning starting point. You can edit the miles manually below.</p>
+
+        <div class="mt-5 grid gap-5 sm:grid-cols-2">
           <label class="block text-sm font-semibold">Distance <span class="font-normal text-slate-500">(miles)</span>
             <input id="distance" type="number" min="1" max="30000" value="500" inputmode="numeric" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500" />
           </label>
@@ -70,8 +81,8 @@ import Layout from "../layouts/Layout.astro";
       <h2 id="methodology-heading" class="mt-2 text-2xl font-bold tracking-tight">Transparent calculation methodology</h2>
       <div class="mt-5 grid gap-6 md:grid-cols-3">
         <div>
-          <h3 class="font-semibold">1. Transport baseline</h3>
-          <p class="mt-2 text-sm leading-6 text-slate-600">The planning model starts with a fixed baseline plus a distance component, then adjusts that result for the selected home size and move type.</p>
+          <h3 class="font-semibold">1. State distance</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-600">Selecting two states fills the distance with a great-circle calculation between their centroids. This is a planning approximation rather than road mileage.</p>
         </div>
         <div>
           <h3 class="font-semibold">2. Known extra costs</h3>
@@ -87,10 +98,10 @@ import Layout from "../layouts/Layout.astro";
       </div>
     </section>
   </section>
-  <script>
+  <script define:vars={{ stateData }}>
     const form = document.querySelector("#calculator");
-    const ids = ["distance","size","type","travel","housing","setup","extras"];
-    const defaults = { distance: "500", size: "1", type: "0.65", travel: "0", housing: "0", setup: "0", extras: "0" };
+    const ids = ["fromState","toState","distance","size","type","travel","housing","setup","extras"];
+    const defaults = { fromState: "CA", toState: "TX", distance: "1400", size: "1", type: "0.65", travel: "0", housing: "0", setup: "0", extras: "0" };
     const fields = Object.fromEntries(ids.map(id => [id, document.querySelector("#"+id)]));
     const result = document.querySelector("#result");
     const moveResult = document.querySelector("#moveResult");
@@ -101,8 +112,42 @@ import Layout from "../layouts/Layout.astro";
     const share = document.querySelector("#share");
     const reset = document.querySelector("#reset");
     const shareStatus = document.querySelector("#shareStatus");
+    const stateDistanceNote = document.querySelector("#stateHelp");
     const money = n => new Intl.NumberFormat("en-US", {style:"currency", currency:"USD", maximumFractionDigits:0}).format(n);
     const limits = { distance: { min: 1, max: 30000 }, travel: { min: 0, max: 1000000 }, housing: { min: 0, max: 1000000 }, setup: { min: 0, max: 1000000 }, extras: { min: 0, max: 1000000 } };
+    const stateCodes = Object.keys(stateData.states).sort((a, b) => stateData.states[a].name.localeCompare(stateData.states[b].name));
+
+    stateCodes.forEach(code => {
+      const optionFrom = new Option(`${stateData.states[code].name} (${code})`, code);
+      const optionTo = new Option(`${stateData.states[code].name} (${code})`, code);
+      fields.fromState.append(optionFrom);
+      fields.toState.append(optionTo);
+    });
+
+    const toRadians = degrees => degrees * Math.PI / 180;
+    const stateMiles = (fromCode, toCode) => {
+      const from = stateData.states[fromCode];
+      const to = stateData.states[toCode];
+      if (!from || !to || fromCode === toCode) return null;
+      const lat1 = toRadians(from.lat);
+      const lat2 = toRadians(to.lat);
+      const dLat = toRadians(to.lat - from.lat);
+      const dLon = toRadians(to.lon - from.lon);
+      const a = Math.sin(dLat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
+      return Math.round(3958.7613 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
+    };
+
+    const applyStateDistance = () => {
+      const miles = stateMiles(fields.fromState.value, fields.toState.value);
+      if (miles !== null) {
+        fields.distance.value = miles;
+        stateDistanceNote.textContent = `Auto-filled ${miles.toLocaleString("en-US")} miles from state centroids. You can edit the distance manually if you have a route-specific mileage estimate.`;
+      } else {
+        stateDistanceNote.textContent = "Same-state move selected. Enter the route distance manually in miles.";
+      }
+      calculate();
+    };
+
     const validateInputs = () => {
       for (const id of Object.keys(limits)) {
         const value = Number(fields[id]?.value);
@@ -142,7 +187,7 @@ import Layout from "../layouts/Layout.astro";
       ids.forEach(id => { fields[id].value = defaults[id]; fields[id].removeAttribute("aria-invalid"); });
       try { localStorage.removeItem("relocation-cost-inputs"); } catch {}
       shareStatus.textContent = "";
-      calculate();
+      applyStateDistance();
     };
     try {
       const saved = JSON.parse(localStorage.getItem("relocation-cost-inputs") || "null");
@@ -150,7 +195,9 @@ import Layout from "../layouts/Layout.astro";
     } catch {}
     loadQuery();
     form?.addEventListener("submit", e => { e.preventDefault(); calculate(); });
-    ids.forEach(id => fields[id]?.addEventListener("input", calculate));
+    fields.fromState?.addEventListener("change", applyStateDistance);
+    fields.toState?.addEventListener("change", applyStateDistance);
+    ["distance","size","type","travel","housing","setup","extras"].forEach(id => fields[id]?.addEventListener("input", calculate));
     reset?.addEventListener("click", resetCalculator);
     share?.addEventListener("click", async () => {
       const total = calculate();
@@ -168,6 +215,8 @@ import Layout from "../layouts/Layout.astro";
         shareStatus.textContent = url;
       }
     });
-    calculate();
+    fields.fromState.value = fields.fromState.value || defaults.fromState;
+    fields.toState.value = fields.toState.value || defaults.toState;
+    applyStateDistance();
   </script>
 </Layout>
