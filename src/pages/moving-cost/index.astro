@@ -1,0 +1,30 @@
+---
+import Layout from "../layouts/Layout.astro";
+import stateData from "../../data/state-distances.json";
+import routePages from "../../data/route-pages.json";
+---
+<Layout title="Moving Cost by State — Route Planning Guides" description="Browse state-to-state moving cost planning guides with transparent distance calculations and source-backed market context.">
+  <section class="mx-auto max-w-6xl px-5 py-14">
+    <div class="max-w-3xl">
+      <p class="text-sm font-semibold uppercase tracking-widest text-sky-600">Route planning guides</p>
+      <h1 class="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">Moving cost by state-to-state route</h1>
+      <p class="mt-5 text-lg leading-8 text-slate-600">Explore route-specific planning pages built from the same transparent calculator model. Each page explains the distance approximation, a published mileage-band benchmark, and illustrative scenarios.</p>
+    </div>
+    <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {routePages.routes.map(route => {
+        const from = stateData.states[route.from];
+        const to = stateData.states[route.to];
+        return (
+          <a href={`/moving-cost/${route.slug}`} class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-sky-300 hover:shadow">
+            <p class="text-sm font-semibold text-sky-700">Route guide</p>
+            <h2 class="mt-2 text-lg font-bold">{from.name} → {to.name}</h2>
+            <p class="mt-2 text-sm leading-6 text-slate-500">Planning distance, benchmark context, and scenario estimates.</p>
+          </a>
+        );
+      })}
+    </div>
+    <div class="mt-10 rounded-2xl border border-amber-200 bg-amber-50 p-6 text-sm leading-7 text-amber-950">
+      These pages are planning aids, not quotes. Distances use state centroids and the benchmark is kept separate from the calculator total because provider pricing varies by route, date, inventory, truck size, and service scope.
+    </div>
+  </section>
+</Layout>
