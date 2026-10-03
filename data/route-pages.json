@@ -1,0 +1,256 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Route-specific planning pages built from state centroid distance and the current transparent calculator model. These pages are planning aids, not quotes or claims of route popularity.",
+  "routes": [
+    {
+      "from": "CA",
+      "to": "TX",
+      "slug": "ca-to-tx"
+    },
+    {
+      "from": "TX",
+      "to": "CA",
+      "slug": "tx-to-ca"
+    },
+    {
+      "from": "NY",
+      "to": "FL",
+      "slug": "ny-to-fl"
+    },
+    {
+      "from": "FL",
+      "to": "NY",
+      "slug": "fl-to-ny"
+    },
+    {
+      "from": "WA",
+      "to": "CO",
+      "slug": "wa-to-co"
+    },
+    {
+      "from": "CO",
+      "to": "WA",
+      "slug": "co-to-wa"
+    },
+    {
+      "from": "CA",
+      "to": "FL",
+      "slug": "ca-to-fl"
+    },
+    {
+      "from": "FL",
+      "to": "CA",
+      "slug": "fl-to-ca"
+    },
+    {
+      "from": "NY",
+      "to": "TX",
+      "slug": "ny-to-tx"
+    },
+    {
+      "from": "TX",
+      "to": "NY",
+      "slug": "tx-to-ny"
+    },
+    {
+      "from": "IL",
+      "to": "TX",
+      "slug": "il-to-tx"
+    },
+    {
+      "from": "TX",
+      "to": "IL",
+      "slug": "tx-to-il"
+    },
+    {
+      "from": "AZ",
+      "to": "CA",
+      "slug": "az-to-ca"
+    },
+    {
+      "from": "CA",
+      "to": "AZ",
+      "slug": "ca-to-az"
+    },
+    {
+      "from": "NV",
+      "to": "CA",
+      "slug": "nv-to-ca"
+    },
+    {
+      "from": "CA",
+      "to": "NV",
+      "slug": "ca-to-nv"
+    },
+    {
+      "from": "WA",
+      "to": "CA",
+      "slug": "wa-to-ca"
+    },
+    {
+      "from": "CA",
+      "to": "WA",
+      "slug": "ca-to-wa"
+    },
+    {
+      "from": "OR",
+      "to": "CA",
+      "slug": "or-to-ca"
+    },
+    {
+      "from": "CA",
+      "to": "OR",
+      "slug": "ca-to-or"
+    },
+    {
+      "from": "GA",
+      "to": "FL",
+      "slug": "ga-to-fl"
+    },
+    {
+      "from": "FL",
+      "to": "GA",
+      "slug": "fl-to-ga"
+    },
+    {
+      "from": "NC",
+      "to": "FL",
+      "slug": "nc-to-fl"
+    },
+    {
+      "from": "FL",
+      "to": "NC",
+      "slug": "fl-to-nc"
+    },
+    {
+      "from": "VA",
+      "to": "FL",
+      "slug": "va-to-fl"
+    },
+    {
+      "from": "FL",
+      "to": "VA",
+      "slug": "fl-to-va"
+    },
+    {
+      "from": "PA",
+      "to": "FL",
+      "slug": "pa-to-fl"
+    },
+    {
+      "from": "FL",
+      "to": "PA",
+      "slug": "fl-to-pa"
+    },
+    {
+      "from": "NJ",
+      "to": "FL",
+      "slug": "nj-to-fl"
+    },
+    {
+      "from": "FL",
+      "to": "NJ",
+      "slug": "fl-to-nj"
+    },
+    {
+      "from": "MA",
+      "to": "FL",
+      "slug": "ma-to-fl"
+    },
+    {
+      "from": "FL",
+      "to": "MA",
+      "slug": "fl-to-ma"
+    },
+    {
+      "from": "OH",
+      "to": "FL",
+      "slug": "oh-to-fl"
+    },
+    {
+      "from": "FL",
+      "to": "OH",
+      "slug": "fl-to-oh"
+    },
+    {
+      "from": "MI",
+      "to": "FL",
+      "slug": "mi-to-fl"
+    },
+    {
+      "from": "FL",
+      "to": "MI",
+      "slug": "fl-to-mi"
+    },
+    {
+      "from": "TN",
+      "to": "TX",
+      "slug": "tn-to-tx"
+    },
+    {
+      "from": "TX",
+      "to": "TN",
+      "slug": "tx-to-tn"
+    },
+    {
+      "from": "CO",
+      "to": "TX",
+      "slug": "co-to-tx"
+    },
+    {
+      "from": "TX",
+      "to": "CO",
+      "slug": "tx-to-co"
+    },
+    {
+      "from": "AZ",
+      "to": "TX",
+      "slug": "az-to-tx"
+    },
+    {
+      "from": "TX",
+      "to": "AZ",
+      "slug": "tx-to-az"
+    },
+    {
+      "from": "NY",
+      "to": "NJ",
+      "slug": "ny-to-nj"
+    },
+    {
+      "from": "NJ",
+      "to": "NY",
+      "slug": "nj-to-ny"
+    },
+    {
+      "from": "NY",
+      "to": "PA",
+      "slug": "ny-to-pa"
+    },
+    {
+      "from": "PA",
+      "to": "NY",
+      "slug": "pa-to-ny"
+    },
+    {
+      "from": "CA",
+      "to": "NY",
+      "slug": "ca-to-ny"
+    },
+    {
+      "from": "NY",
+      "to": "CA",
+      "slug": "ny-to-ca"
+    },
+    {
+      "from": "IL",
+      "to": "NY",
+      "slug": "il-to-ny"
+    },
+    {
+      "from": "NY",
+      "to": "IL",
+      "slug": "ny-to-il"
+    }
+  ]
+}
