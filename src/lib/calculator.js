@@ -23,9 +23,11 @@ export function calculateBudget(
   { validate = true } = {},
 ) {
   if (validate) {
-    for (const [name, limits] of Object.entries(INPUT_LIMITS)) {
-      validateNumber(name, arguments[0][name], limits);
-    }
+    validateNumber("distance", distance, INPUT_LIMITS.distance);
+    validateNumber("travel", travel, INPUT_LIMITS.travel);
+    validateNumber("housing", housing, INPUT_LIMITS.housing);
+    validateNumber("setup", setup, INPUT_LIMITS.setup);
+    validateNumber("extras", extras, INPUT_LIMITS.extras);
     validateNumber("size", size, { min: 0, max: Number.POSITIVE_INFINITY });
     validateNumber("type", type, { min: 0, max: Number.POSITIVE_INFINITY });
   }
