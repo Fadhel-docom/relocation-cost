@@ -113,6 +113,7 @@ import stateData from "../../data/state-distances.json";
     const reset = document.querySelector("#reset");
     const shareStatus = document.querySelector("#shareStatus");
     const stateDistanceNote = document.querySelector("#stateHelp");
+    import { calculateBudget } from "../lib/calculator.js";
     const money = n => new Intl.NumberFormat("en-US", {style:"currency", currency:"USD", maximumFractionDigits:0}).format(n);
     const limits = { distance: { min: 1, max: 30000 }, travel: { min: 0, max: 1000000 }, housing: { min: 0, max: 1000000 }, setup: { min: 0, max: 1000000 }, extras: { min: 0, max: 1000000 } };
     const stateCodes = Object.keys(stateData.states).sort((a, b) => stateData.states[a].name.localeCompare(stateData.states[b].name));
@@ -169,17 +170,24 @@ import stateData from "../../data/state-distances.json";
     const num = id => Number(fields[id]?.value) || 0;
     const calculate = () => {
       if (!validateInputs()) return null;
-      const move = Math.max(350, 350 + num("distance") * 0.56 * num("size") * num("type"));
-      const other = ["travel","housing","setup","extras"].reduce((sum, id) => sum + num(id), 0);
-      const contingency = (move + other) * 0.10;
-      const total = move + other + contingency;
-      result.textContent = money(total);
-      moveResult.textContent = money(move);
-      otherResult.textContent = money(other);
-      contingencyResult.textContent = money(contingency);
-      range.textContent = money(total * .8) + "–" + money(total * 1.2);
+      const distance = num("distance");
+      const size = num("size");
+      const type = num("type");
+      const travel = num("travel");
+      const housing = num("housing");
+      const setup = num("setup");
+      const extras = num("extras");
+      const resultData = calculateBudget({
+        distance, size, type,
+        travel, housing, setup, extras
+      });
+      result.textContent = money(resultData.total);
+      moveResult.textContent = money(resultData.move);
+      otherResult.textContent = money(resultData.other);
+      contingencyResult.textContent = money(resultData.contingency);
+      range.textContent = money(resultData.rangeLow) + "–" + money(resultData.rangeHigh);
       try { localStorage.setItem("relocation-cost-inputs", JSON.stringify(Object.fromEntries(ids.map(id => [id, fields[id].value])))); } catch {}
-      return total;
+      return resultData.total;
     };
     const loadQuery = () => {
       const params = new URLSearchParams(location.search);
