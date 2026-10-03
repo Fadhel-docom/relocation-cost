@@ -4,17 +4,7 @@ import stateData from "../../../data/state-distances.json";
 import routePages from "../../../data/route-pages.json";
 import { calculateBudget, getUhaulBenchmark } from "../../lib/calculator.js";
 
-const toRadians = degrees => degrees * Math.PI / 180;
-const distanceBetween = (fromCode, toCode) => {
-  const from = stateData.states[fromCode];
-  const to = stateData.states[toCode];
-  const lat1 = toRadians(from.lat);
-  const lat2 = toRadians(to.lat);
-  const dLat = toRadians(to.lat - from.lat);
-  const dLon = toRadians(to.lon - from.lon);
-  const a = Math.sin(dLat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
-  return Math.round(3958.7613 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
-};
+
 
 const money = value => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
 const sizeOptions = [
@@ -30,6 +20,18 @@ const typeOptions = [
 ];
 
 export function getStaticPaths() {
+  const toRadians = degrees => degrees * Math.PI / 180;
+  const distanceBetween = (fromCode, toCode) => {
+    const from = stateData.states[fromCode];
+    const to = stateData.states[toCode];
+    const lat1 = toRadians(from.lat);
+    const lat2 = toRadians(to.lat);
+    const dLat = toRadians(to.lat - from.lat);
+    const dLon = toRadians(to.lon - from.lon);
+    const a = Math.sin(dLat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
+    return Math.round(3958.7613 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
+  };
+
   return routePages.routes.map(route => {
     const from = stateData.states[route.from];
     const to = stateData.states[route.to];
