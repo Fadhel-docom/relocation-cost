@@ -1,14 +1,11 @@
+import benchmarkData from "../../data/coefficients.json";
+
 const coefficients = {
-  uhaulOneWayByDistance: [
-    { maxMiles: 200, averageUsd: 202 },
-    { maxMiles: 500, averageUsd: 444 },
-    { maxMiles: 1000, averageUsd: 995 },
-    { maxMiles: 1500, averageUsd: 1657 },
-    { maxMiles: 2000, averageUsd: 2190 },
-    { maxMiles: 2500, averageUsd: 2694 },
-    { maxMiles: Number.POSITIVE_INFINITY, averageUsd: 3517 },
-  ],
-  blsLaborHourlyUsd: 20.32,
+  uhaulOneWayByDistance: benchmarkData.benchmarks.uhaul_one_way_average_by_distance.map(({ max_miles, average_usd }) => ({
+    maxMiles: max_miles ?? Number.POSITIVE_INFINITY,
+    averageUsd: average_usd,
+  })),
+  blsLaborHourlyUsd: benchmarkData.benchmarks.bls_laborers_freight_stock_material_movers_hand_mean_hourly_usd,
 };
 
 export const DEFAULT_CONTINGENCY_RATE = 0.10;
