@@ -1,0 +1,116 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import stateData from "../../../data/state-distances.json";
+import routePages from "../../../data/route-pages.json";
+import { calculateBudget, getUhaulBenchmark } from "../../lib/calculator.js";
+
+const toRadians = degrees => degrees * Math.PI / 180;
+const distanceBetween = (fromCode, toCode) => {
+  const from = stateData.states[fromCode];
+  const to = stateData.states[toCode];
+  const lat1 = toRadians(from.lat);
+  const lat2 = toRadians(to.lat);
+  const dLat = toRadians(to.lat - from.lat);
+  const dLon = toRadians(to.lon - from.lon);
+  const a = Math.sin(dLat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
+  return Math.round(3958.7613 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
+};
+
+const money = value => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
+const sizeOptions = [
+  { label: "Studio / 1 room", size: 1 },
+  { label: "2–3 rooms", size: 1.35 },
+  { label: "4–5 rooms", size: 1.8 },
+  { label: "6+ rooms", size: 2.4 }
+];
+const typeOptions = [
+  { label: "DIY", type: 0.65 },
+  { label: "Rental truck + labor", type: 1 },
+  { label: "Full-service movers", type: 1.65 }
+];
+
+export function getStaticPaths() {
+  return routePages.routes.map(route => {
+    const from = stateData.states[route.from];
+    const to = stateData.states[route.to];
+    const distance = distanceBetween(route.from, route.to);
+    return {
+      params: { route: route.slug },
+      props: { route, from, to, distance, benchmark: getUhaulBenchmark(distance) }
+    };
+  });
+}
+
+const { from, to, distance, benchmark } = Astro.props;
+const scenarios = typeOptions.map((option, index) => {
+  const size = sizeOptions[index + 1]?.size ?? 1;
+  const result = calculateBudget({ distance, size, type: option.type });
+  return { ...option, sizeLabel: sizeOptions[index + 1]?.label ?? sizeOptions[0].label, total: result.total, low: result.rangeLow, high: result.rangeHigh };
+});
+const calculatorUrl = `/calculator?fromState=${Astro.props.route.from}&toState=${Astro.props.route.to}&distance=${distance}`;
+---
+<Layout
+  title={`Moving Cost from ${from.name} to ${to.name} — Relocation Cost`}
+  description={`Plan a move from ${from.name} to ${to.name}: estimated distance, a published mileage-band benchmark, and transparent planning scenarios.`}
+>
+  <article class="mx-auto max-w-5xl px-5 py-14">
+    <p class="text-sm font-semibold uppercase tracking-widest text-sky-600">Route planning guide</p>
+    <h1 class="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">Moving cost from {from.name} to {to.name}</h1>
+    <p class="mt-5 max-w-3xl text-lg leading-8 text-slate-600">
+      Use this route page as a starting point for a relocation budget. The distance below is a state-centroid planning distance, not road mileage, and the dollar figures are illustrative planning outputs rather than quotes.
+    </p>
+
+    <div class="mt-10 grid gap-5 sm:grid-cols-3">
+      <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <p class="text-sm text-slate-500">Planning distance</p>
+        <p class="mt-2 text-3xl font-bold">{distance.toLocaleString("en-US")} mi</p>
+        <p class="mt-2 text-xs leading-5 text-slate-500">Great-circle distance between state centroids.</p>
+      </div>
+      <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <p class="text-sm text-slate-500">Published mileage-band benchmark</p>
+        <p class="mt-2 text-3xl font-bold">{money(benchmark)}</p>
+        <p class="mt-2 text-xs leading-5 text-slate-500">U-Haul one-way average for the applicable mileage band; not a route quote.</p>
+      </div>
+      <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <p class="text-sm text-slate-500">Next step</p>
+        <a href={calculatorUrl} class="mt-2 inline-block text-lg font-bold text-sky-700 underline">Open this route in the calculator →</a>
+        <p class="mt-2 text-xs leading-5 text-slate-500">Adjust distance, home size, move type, and known extra costs.</p>
+      </div>
+    </div>
+
+    <section class="mt-12" aria-labelledby="scenarios-heading">
+      <p class="text-sm font-semibold uppercase tracking-widest text-sky-600">Illustrative scenarios</p>
+      <h2 id="scenarios-heading" class="mt-2 text-3xl font-bold">Planning totals using the current MVP model</h2>
+      <p class="mt-3 max-w-3xl leading-7 text-slate-600">These examples use three move types and different home-size assumptions. They are not market averages, quotes, or predictions of what a mover will charge.</p>
+      <div class="mt-6 grid gap-5 md:grid-cols-3">
+        {scenarios.map(scenario => (
+          <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h3 class="text-lg font-bold">{scenario.label}</h3>
+            <p class="mt-1 text-sm text-slate-500">{scenario.sizeLabel}</p>
+            <p class="mt-5 text-3xl font-bold">{money(scenario.total)}</p>
+            <p class="mt-2 text-sm text-slate-500">Indicative range: {money(scenario.low)}–{money(scenario.high)}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="mt-12 rounded-2xl border border-slate-200 bg-slate-50 p-6 sm:p-8">
+      <h2 class="text-2xl font-bold">What can change the real price?</h2>
+      <ul class="mt-4 list-disc space-y-3 pl-6 leading-7 text-slate-700">
+        <li>Actual pickup and delivery addresses can differ substantially from state-centroid distance.</li>
+        <li>Truck size, inventory, reservation date, season, and route availability affect rental pricing.</li>
+        <li>Professional moving quotes depend on shipment volume, labor scope, access conditions, packing, and special items.</li>
+        <li>Travel, temporary housing, deposits, setup costs, and packing supplies can materially change the full relocation budget.</li>
+      </ul>
+    </section>
+
+    <section class="mt-10 rounded-2xl border border-amber-200 bg-amber-50 p-6 text-sm leading-7 text-amber-950">
+      <strong>Source and methodology note:</strong> the U-Haul benchmark is kept separate from the calculator total because a published mileage-band average does not establish a universal route price. The route distance is also an approximation. Replace both with route-specific information as soon as you have it.
+    </section>
+
+    <div class="mt-10 flex flex-wrap gap-3">
+      <a href={calculatorUrl} class="rounded-xl bg-slate-950 px-6 py-3 font-semibold text-white">Calculate this route</a>
+      <a href="/moving-cost" class="rounded-xl border border-slate-300 px-6 py-3 font-semibold text-slate-900">Browse route guides</a>
+    </div>
+  </article>
+</Layout>
