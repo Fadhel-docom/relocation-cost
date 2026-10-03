@@ -69,6 +69,11 @@ import stateData from "../../data/state-distances.json";
           <div class="flex justify-between"><span class="text-slate-400">Contingency (10%)</span><strong id="contingencyResult">$0</strong></div>
         </div>
         <div class="mt-6 border-t border-slate-800 pt-5 text-sm text-slate-400">Indicative range <strong id="range" class="text-white">$0–$0</strong></div>
+        <div class="mt-5 rounded-xl border border-slate-800 bg-slate-900 p-4 text-sm">
+          <p class="font-semibold text-slate-200">Market benchmark (context only)</p>
+          <p class="mt-1 text-slate-400">U-Haul published one-way rental average for this mileage band: <strong id="marketBenchmark" class="text-white">$0</strong>.</p>
+          <p class="mt-2 text-xs leading-5 text-slate-500">This is a documented mileage-band benchmark, not your route quote and not an input to the calculator total.</p>
+        </div>
       </aside>
     </div>
 
@@ -94,7 +99,8 @@ import stateData from "../../data/state-distances.json";
         </div>
       </div>
       <div class="mt-6 border-t border-slate-200 pt-5 text-sm leading-6 text-slate-600">
-        <strong class="text-slate-900">Current model status:</strong> the coefficients in this MVP are explicit product assumptions, not claims about current market prices. We will only replace them with market-derived values when reliable, documented data is available. Until then, use the calculator for planning and validate the result against real provider quotes.
+        <p><strong class="text-slate-900">Source notes:</strong> U-Haul mileage-band benchmark and BLS moving-labor wage benchmark are maintained in the product data with source attribution. These figures provide context, not quotes.</p>
+        <strong class="text-slate-900">Current model status:</strong> the core planning coefficients remain explicit MVP assumptions. Source-backed U-Haul and BLS figures are displayed as separate benchmarks and are not presented as universal mover prices. U-Haul notes that one-way rates vary by origin, destination, truck size, move date, and inventory. Validate the result against route-specific provider quotes.
       </div>
     </section>
   </section>
@@ -108,6 +114,7 @@ import stateData from "../../data/state-distances.json";
     const otherResult = document.querySelector("#otherResult");
     const contingencyResult = document.querySelector("#contingencyResult");
     const range = document.querySelector("#range");
+    const marketBenchmark = document.querySelector("#marketBenchmark");
     const inputError = document.querySelector("#inputError");
     const share = document.querySelector("#share");
     const reset = document.querySelector("#reset");
@@ -186,6 +193,7 @@ import stateData from "../../data/state-distances.json";
       otherResult.textContent = money(resultData.other);
       contingencyResult.textContent = money(resultData.contingency);
       range.textContent = money(resultData.rangeLow) + "–" + money(resultData.rangeHigh);
+      marketBenchmark.textContent = money(resultData.marketBenchmark);
       try { localStorage.setItem("relocation-cost-inputs", JSON.stringify(Object.fromEntries(ids.map(id => [id, fields[id].value])))); } catch {}
       return resultData.total;
     };
