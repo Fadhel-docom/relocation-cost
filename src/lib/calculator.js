@@ -1,8 +1,25 @@
+const coefficients = {
+  uhaulOneWayByDistance: [
+    { maxMiles: 200, averageUsd: 202 },
+    { maxMiles: 500, averageUsd: 444 },
+    { maxMiles: 1000, averageUsd: 995 },
+    { maxMiles: 1500, averageUsd: 1657 },
+    { maxMiles: 2000, averageUsd: 2190 },
+    { maxMiles: 2500, averageUsd: 2694 },
+    { maxMiles: Number.POSITIVE_INFINITY, averageUsd: 3517 },
+  ],
+  blsLaborHourlyUsd: 20.32,
+};
+
 export const DEFAULT_CONTINGENCY_RATE = 0.10;
 export const DEFAULT_RANGE_LOW = 0.80;
 export const DEFAULT_RANGE_HIGH = 1.20;
 export const MOVE_BASE_COST = 350;
 export const MOVE_PER_MILE = 0.56;
+export const SOURCE_BENCHMARKS = Object.freeze({
+  uhaulOneWayByDistance: coefficients.uhaulOneWayByDistance,
+  blsLaborHourlyUsd: coefficients.blsLaborHourlyUsd,
+});
 
 const INPUT_LIMITS = {
   distance: { min: 1, max: 30000 },
@@ -16,6 +33,11 @@ function validateNumber(name, value, { min, max }) {
   if (!Number.isFinite(value) || value < min || value > max) {
     throw new RangeError(`${name} must be a finite number between ${min} and ${max}.`);
   }
+}
+
+export function getUhaulBenchmark(distance) {
+  validateNumber("distance", distance, INPUT_LIMITS.distance);
+  return coefficients.uhaulOneWayByDistance.find(({ maxMiles }) => distance <= maxMiles).averageUsd;
 }
 
 export function calculateBudget(
@@ -44,5 +66,6 @@ export function calculateBudget(
     total,
     rangeLow: total * DEFAULT_RANGE_LOW,
     rangeHigh: total * DEFAULT_RANGE_HIGH,
+    marketBenchmark: getUhaulBenchmark(distance),
   };
 }
