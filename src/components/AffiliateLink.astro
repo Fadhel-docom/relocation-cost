@@ -1,0 +1,18 @@
+---
+// Use this for every affiliate or sponsored link on the site.
+// It marks the link as sponsored for search engines and shows a visible disclosure.
+// No real affiliate links exist yet: do not add one until the advertiser has approved the site.
+const { href, label, program = "" } = Astro.props;
+---
+<span class="inline">
+ <a
+ href={href}
+ rel="sponsored nofollow noopener"
+ target="_blank"
+ data-program={program}
+ class="font-semibold text-sky-700 underline"
+ >{label}</a>
+ <span class="text-xs text-slate-500"> (affiliate link, <a href="/disclosure" 
+class="underline">disclosure</a>)</span>
+</span>
+src/layouts/Layout.astro (REPLACE)
