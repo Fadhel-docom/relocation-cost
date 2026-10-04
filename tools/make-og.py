@@ -33,4 +33,3 @@ out = Path(__file__).resolve().parent.parent / "public" / "og-default.png"
 out.parent.mkdir(exist_ok=True)
 img.save(out, optimize=True)
 print("wrote", out)
-Binary files not included
