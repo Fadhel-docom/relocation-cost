@@ -17,10 +17,10 @@ FONT_CANDIDATES = [
  "C:/Windows/Fonts/arialbd.ttf",
 ]
 def font(size):
- for path in FONT_CANDIDATES:
- if Path(path).exists():
- return ImageFont.truetype(path, size)
- return ImageFont.load_default(size=size)
+    for path in FONT_CANDIDATES:
+        if Path(path).exists():
+            return ImageFont.truetype(path, size)
+    return ImageFont.load_default(size=size)
 img = Image.new("RGB", (W, H), BG)
 d = ImageDraw.Draw(img)
 d.rectangle([80, 120, 92, 330], fill=ACCENT)
