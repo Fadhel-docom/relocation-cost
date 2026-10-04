@@ -1,14 +1,15 @@
 LOCAL BLS EVIDENCE SNAPSHOT
 Source: U.S. Bureau of Labor Statistics, Occupational Employment and Wages, May 2025
-Official source URL: https://www.bls.gov/oes/2025/may/oes_nat.htm
-
-This repository snapshot intentionally contains only the BLS benchmark already documented in data/coefficients.json. It is local workflow input, not a substitute for the full BLS publication.
-
+Official source URL: https://www.bls.gov/oes/2025/may/largest2.htm
+This repository snapshot intentionally contains only the BLS benchmark already documented in 
+data/coefficients.json. It is local workflow input, not a substitute for the full BLS publication.
 Documented benchmark:
 Occupation: Laborers and Freight, Stock, and Material Movers, Hand
 Mean annual wage: $42,260
 Source: U.S. Bureau of Labor Statistics, Occupational Employment and Wages, May 2025
-Use constraint: labor-cost benchmark only; not a mover quote and not a universal moving-price coefficient.
-
+Use constraint: labor-cost benchmark only; not a mover quote and not a universal moving-price 
+coefficient.
 Important methodology constraint:
-BLS occupational wages do not establish a universal moving-company base price, distance price, home-size multiplier, or move-type multiplier. Candidate calculator coefficients must remain null unless supported by appropriate documented market-price evidence.
+BLS occupational wages do not establish a universal moving-company base price, distance price, home-size
+multiplier, or move-type multiplier. Candidate calculator coefficients must remain null unless supported
+by appropriate documented market-price evidence.
