@@ -1,0 +1,41 @@
+---
+import Layout from "../layouts/Layout.astro";
+import benchmarkData from "../../data/coefficients.json";
+---
+<Layout
+ title="About Relocation Cost"
+ description="What Relocation Cost is, how its estimates are made, what it does not do, and how it 
+handles sources and corrections."
+>
+ <article class="mx-auto max-w-3xl px-5 py-14">
+ <p class="text-sm font-semibold uppercase tracking-widest text-sky-600">About</p>
+ <h1 class="mt-2 text-4xl font-bold tracking-tight">About Relocation Cost</h1>
+ <p class="mt-5 text-lg leading-8 text-slate-600">Relocation Cost is an independent, free planning 
+tool for people preparing a move within the United States. It helps you see how distance, home size and 
+the way you move can change a budget before you start asking for quotes.</p>
+ <h2 class="mt-10 text-2xl font-bold">What it does</h2>
+ <ul class="mt-4 list-disc space-y-3 pl-6 leading-7 text-slate-700">
+ <li>Turns distance, home size and move type into a planning estimate with a range.</li>
+ <li>Lets you add known costs such as travel, temporary housing, deposits and packing.</li>
+ <li>Provides state-to-state route guides that compare DIY, rental truck with labor, and full-service moves for one home size.</li>
+ </ul>
+<PARSED TEXT FOR PAGE: 12 / 27>
+ <h2 class="mt-10 text-2xl font-bold">What it does not do</h2>
+ <ul class="mt-4 list-disc space-y-3 pl-6 leading-7 text-slate-700">
+ <li>It does not provide quotes and cannot replace written estimates from providers.</li>
+ <li>It does not use live prices from movers. The only market figure in the result is a published 
+truck-rental average by distance band.</li>
+ </ul>
+ <h2 class="mt-10 text-2xl font-bold">Sources and editorial approach</h2>
+ <p class="mt-4 leading-7 text-slate-700">Every number comes from a published source listed on the <a
+class="font-semibold text-sky-700 underline" href="/methodology">methodology page</a>, or is labeled as 
+an assumption. We do not invent statistics. The source data was last reviewed on 
+{benchmarkData.last_reviewed}.</p>
+ <p class="mt-4 leading-7 text-slate-700">How the site may earn money is explained in the <a 
+class="font-semibold text-sky-700 underline" href="/disclosure">disclosure</a>, and what it collects is 
+explained in the <a class="font-semibold text-sky-700 underline" href="/privacy">privacy policy</a>.</p>
+ <h2 class="mt-10 text-2xl font-bold">Corrections</h2>
+ <p class="mt-4 leading-7 text-slate-700">If you find a mistake, a broken source or an out-of-date 
+figure, please tell us and we will fix it and update the review date.</p>
+ </article>
+</Layout>
