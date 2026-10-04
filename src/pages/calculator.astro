@@ -1,108 +1,154 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import stateData from "../../data/state-distances.json";
 ---
-<Layout title="Relocation Cost Calculator — Relocation Cost" description="Build a relocation budget from move distance, home size, move type, and additional relocation costs.">
-  <section class="mx-auto max-w-6xl px-5 py-14">
-    <div class="max-w-3xl">
-      <p class="text-sm font-semibold uppercase tracking-widest text-sky-600">Relocation Cost Suite</p>
-      <h1 class="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">Build your moving budget</h1>
-      <p class="mt-5 text-lg leading-8 text-slate-600">Start with a transport planning estimate, then add the costs that can make a relocation more expensive than the move itself.</p>
-    </div>
-
-    <div class="mt-10 grid gap-8 lg:grid-cols-[1.15fr_.85fr]">
-      <form id="calculator" class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" novalidate>
-        <h2 class="text-xl font-bold">Move details</h2>
-        <div class="mt-6 grid gap-5 sm:grid-cols-2">
-          <label class="block text-sm font-semibold">From State
-            <select id="fromState" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" aria-describedby="stateHelp"></select>
-          </label>
-          <label class="block text-sm font-semibold">To State
-            <select id="toState" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" aria-describedby="stateHelp"></select>
-          </label>
-        </div>
-        <p id="stateHelp" class="mt-2 text-xs leading-5 text-slate-500">State distance uses great-circle distance between state centroids as a planning starting point. You can edit the miles manually below.</p>
-
-        <div class="mt-5 grid gap-5 sm:grid-cols-2">
-          <label class="block text-sm font-semibold">Distance <span class="font-normal text-slate-500">(miles)</span>
-            <input id="distance" type="number" min="1" max="30000" value="500" inputmode="numeric" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500" />
-          </label>
-          <label class="block text-sm font-semibold">Home size
-            <select id="size" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3">
-              <option value="1">Studio / 1 room</option><option value="1.35">2–3 rooms</option><option value="1.8">4–5 rooms</option><option value="2.4">6+ rooms</option>
-            </select>
-          </label>
-        </div>
-        <label class="mt-5 block text-sm font-semibold">Move type
-          <select id="type" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3">
-            <option value="0.65">DIY</option><option value="1">Rental truck + labor</option><option value="1.65">Full-service movers</option>
-          </select>
-        </label>
-
-        <h2 class="mt-10 text-xl font-bold">Other relocation costs</h2>
-        <p class="mt-2 text-sm text-slate-500">Enter amounts you already know. Leave unknown items at zero.</p>
-        <div class="mt-5 grid gap-5 sm:grid-cols-2">
-          <label class="block text-sm font-semibold">Travel <span class="font-normal text-slate-500">(USD)</span><input id="travel" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
-          <label class="block text-sm font-semibold">Temporary housing <span class="font-normal text-slate-500">(USD)</span><input id="housing" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
-          <label class="block text-sm font-semibold">Deposits / setup <span class="font-normal text-slate-500">(USD)</span><input id="setup" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
-          <label class="block text-sm font-semibold">Packing / extras <span class="font-normal text-slate-500">(USD)</span><input id="extras" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
-        </div>
-        <p id="inputError" class="mt-4 min-h-5 text-sm font-medium text-red-700" role="alert" aria-live="polite"></p>
-        <div class="mt-8 grid gap-3 sm:grid-cols-2">
-          <button class="rounded-xl bg-slate-950 px-5 py-3 font-semibold text-white hover:bg-slate-800" type="submit">Update my budget</button>
-          <button id="reset" class="rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-900 hover:bg-slate-50" type="button">Reset calculator</button>
-        </div>
-        <div class="mt-3 grid gap-3 sm:grid-cols-2">
-          <button id="share" class="rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-900 hover:bg-slate-50" type="button">Share this estimate</button>
-          <p id="shareStatus" class="flex items-center text-sm text-slate-500" aria-live="polite"></p>
-        </div>
-        <p class="mt-4 text-xs leading-5 text-slate-500">This calculator covers the planning inputs shown above. It does not automatically include visas, taxes, insurance, customs, utility connection fees, real-estate costs, or other country-specific charges unless you enter them under “Other relocation costs”.</p>
-      </form>
-
-      <aside class="h-fit rounded-2xl bg-slate-950 p-7 text-white sm:p-8 lg:sticky lg:top-6">
-        <p class="text-sm text-slate-400">Estimated relocation budget</p>
-        <div id="result" class="mt-3 text-4xl font-bold">$0</div>
-        <p class="mt-3 text-sm leading-6 text-slate-300">Planning estimate, not a quote. Replace assumptions with provider quotes as you get them.</p>
-        <div class="mt-7 space-y-3 border-t border-slate-800 pt-5 text-sm">
-          <div class="flex justify-between"><span class="text-slate-400">Move</span><strong id="moveResult">$0</strong></div>
-          <div class="flex justify-between"><span class="text-slate-400">Other costs</span><strong id="otherResult">$0</strong></div>
-          <div class="flex justify-between"><span class="text-slate-400">Contingency (10%)</span><strong id="contingencyResult">$0</strong></div>
-        </div>
-        <div class="mt-6 border-t border-slate-800 pt-5 text-sm text-slate-400">Indicative range <strong id="range" class="text-white">$0–$0</strong></div>
-        <div class="mt-5 rounded-xl border border-slate-800 bg-slate-900 p-4 text-sm">
-          <p class="font-semibold text-slate-200">Market benchmark (context only)</p>
-          <p class="mt-1 text-slate-400">U-Haul published one-way rental average for this mileage band: <strong id="marketBenchmark" class="text-white">$0</strong>.</p>
-          <p class="mt-2 text-xs leading-5 text-slate-500">This is a documented mileage-band benchmark, not your route quote and not an input to the calculator total.</p>
-        </div>
-      </aside>
-    </div>
-
-    <div class="mt-10 rounded-2xl border border-amber-200 bg-amber-50 p-6 text-sm leading-7 text-amber-950">
-      <strong>About this estimate:</strong> this MVP uses a transparent planning model, not live mover quotes or a market-validated price database. Treat the result as a budgeting starting point and replace assumptions with real quotes.
-    </div>
-
-    <section class="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-6 sm:p-8" aria-labelledby="methodology-heading">
-      <p class="text-sm font-semibold uppercase tracking-widest text-sky-600">How it works</p>
-      <h2 id="methodology-heading" class="mt-2 text-2xl font-bold tracking-tight">Transparent calculation methodology</h2>
-      <div class="mt-5 grid gap-6 md:grid-cols-3">
-        <div>
-          <h3 class="font-semibold">1. State distance</h3>
-          <p class="mt-2 text-sm leading-6 text-slate-600">Selecting two states fills the distance with a great-circle calculation between their centroids. This is a planning approximation rather than road mileage.</p>
-        </div>
-        <div>
-          <h3 class="font-semibold">2. Known extra costs</h3>
-          <p class="mt-2 text-sm leading-6 text-slate-600">Travel, temporary housing, deposits/setup, and packing/extras are added exactly as you enter them. Unknown items remain at zero until you have an amount.</p>
-        </div>
-        <div>
-          <h3 class="font-semibold">3. Planning buffer</h3>
-          <p class="mt-2 text-sm leading-6 text-slate-600">A 10% contingency is added to the move and known extra costs. The displayed range is a planning band, not a confidence interval or provider quote.</p>
-        </div>
-      </div>
-      <div class="mt-6 border-t border-slate-200 pt-5 text-sm leading-6 text-slate-600">
-        <p><strong class="text-slate-900">Source notes:</strong> U-Haul mileage-band benchmark and BLS moving-labor wage benchmark are maintained in the product data with source attribution. These figures provide context, not quotes.</p>
-        <strong class="text-slate-900">Current model status:</strong> the core planning coefficients remain explicit MVP assumptions. Source-backed U-Haul and BLS figures are displayed as separate benchmarks and are not presented as universal mover prices. U-Haul notes that one-way rates vary by origin, destination, truck size, move date, and inventory. Validate the result against route-specific provider quotes.
-      </div>
-    </section>
-  </section>
-  <script src="../scripts/calculator.js"></script>
+<Layout title="Moving Cost Calculator — Relocation Cost" description="Build a relocation budget from 
+move distance, home size, move type, and additional relocation costs. Free planning estimate for any US 
+state-to-state move.">
+ <section class="mx-auto max-w-6xl px-5 py-14 pb-28 lg:pb-14">
+ <div class="max-w-3xl">
+ <p class="text-sm font-semibold uppercase tracking-widest text-sky-600">Relocation Cost Suite</p>
+ <h1 class="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">Build your moving budget</h1>
+ <p class="mt-5 text-lg leading-8 text-slate-600">Start with a transport planning estimate, then 
+add the costs that can make a relocation more expensive than the move itself.</p>
+ </div>
+ <div class="mt-10 grid gap-8 lg:grid-cols-[1.15fr_.85fr]">
+ <form id="calculator" class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" 
+novalidate>
+ <h2 class="text-xl font-bold">Move details</h2>
+ <div class="mt-6 grid gap-5 sm:grid-cols-2">
+ <label class="block text-sm font-semibold">From State
+ <select id="fromState" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" 
+aria-describedby="stateHelp"></select>
+ </label>
+ <label class="block text-sm font-semibold">To State
+ <select id="toState" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" aria-describedby="stateHelp"></select>
+ </label>
+ </div>
+ <p id="stateHelp" class="mt-2 text-xs leading-5 text-slate-500">State distance uses great-circle
+distance between state centroids as a planning starting point. You can edit the miles manually 
+below.</p>
+ <div class="mt-5 grid gap-5 sm:grid-cols-2">
+ <label class="block text-sm font-semibold">Distance <span class="font-normal text-slate-500">(miles)</span>
+ <input id="distance" type="number" min="1" max="30000" value="1317" inputmode="numeric" 
+aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500" />
+ </label>
+ <label class="block text-sm font-semibold">Home size
+ <select id="size" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3">
+ <option value="1">Studio / 1 room</option><option value="1.35">2–3 rooms</option><option 
+value="1.8">4–5 rooms</option><option value="2.4">6+ rooms</option>
+ </select>
+ </label>
+ </div>
+ <label class="mt-5 block text-sm font-semibold">Move type
+ <select id="type" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3">
+ <option value="0.65">DIY</option><option value="1">Rental truck + labor</option><option 
+value="1.65">Full-service movers</option>
+ </select>
+<PARSED TEXT FOR PAGE: 13 / 27>
+ </label>
+ <h2 class="mt-10 text-xl font-bold">Other relocation costs</h2>
+ <p class="mt-2 text-sm text-slate-500">Enter amounts you already know. Leave unknown items at 
+zero.</p>
+ <div class="mt-5 grid gap-5 sm:grid-cols-2">
+ <label class="block text-sm font-semibold">Travel <span class="font-normal text-slate-500">(USD)</span><input id="travel" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+ <label class="block text-sm font-semibold">Temporary housing <span class="font-normal text-slate-500">(USD)</span><input id="housing" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+ <label class="block text-sm font-semibold">Deposits / setup <span class="font-normal text-slate-500">(USD)</span><input id="setup" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+ <label class="block text-sm font-semibold">Packing / extras <span class="font-normal text-slate-500">(USD)</span><input id="extras" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+ </div>
+ <p id="inputError" class="mt-4 min-h-5 text-sm font-medium text-red-700" role="alert" aria-live="polite"></p>
+ <p class="mt-8 text-sm text-slate-500">The estimate updates as you type.</p>
+ <div class="mt-3 grid gap-3 sm:grid-cols-2">
+ <button id="share" class="rounded-xl bg-slate-950 px-5 py-3 font-semibold text-white hover:bg-slate-800" type="button">Share this estimate</button>
+ <button id="reset" class="rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-900 hover:bg-slate-50" type="button">Reset calculator</button>
+ </div>
+ <p id="shareStatus" class="mt-3 min-h-5 break-all text-sm text-slate-500" 
+aria-live="polite"></p>
+ <p class="mt-4 text-xs leading-5 text-slate-500">This calculator covers the planning inputs 
+shown above. It does not automatically include taxes, insurance, utility connection fees, or real-estate
+costs unless you enter them under “Other relocation costs”. See the <a class="font-semibold text-sky-700
+underline" href="/methodology">methodology</a> for how the estimate is built.</p>
+ </form>
+ <aside class="h-fit rounded-2xl bg-slate-950 p-7 text-white sm:p-8 lg:sticky lg:top-6">
+ <p class="text-sm text-slate-400">Estimated relocation budget</p>
+ <div id="result" class="mt-3 text-4xl font-bold">$0</div>
+ <p class="mt-3 text-sm leading-6 text-slate-300">Planning estimate, not a quote. Replace 
+assumptions with provider quotes as you get them.</p>
+ <div class="mt-7 space-y-3 border-t border-slate-800 pt-5 text-sm">
+ <div class="flex justify-between"><span class="text-slate-400">Move</span><strong 
+id="moveResult">$0</strong></div>
+ <div class="flex justify-between"><span class="text-slate-400">Other costs</span><strong 
+id="otherResult">$0</strong></div>
+ <div class="flex justify-between"><span class="text-slate-400">Contingency (10%)</span><strong
+id="contingencyResult">$0</strong></div>
+ </div>
+ <div class="mt-6 border-t border-slate-800 pt-5 text-sm text-slate-400">Indicative range <strong
+id="range" class="text-white">$0–$0</strong></div>
+ <div class="mt-5 rounded-xl border border-slate-800 bg-slate-900 p-4 text-sm">
+ <p class="font-semibold text-slate-200">Published truck-rental average</p>
+ <p class="mt-1 text-slate-400">U-Haul published one-way rental average for this mileage band: 
+<strong id="marketBenchmark" class="text-white">$0</strong>.</p>
+ <p id="floorNote" class="mt-2 text-xs leading-5 text-sky-300" hidden>The move cost starts from
+this average because the basic model came out lower.</p>
+ <p class="mt-2 text-xs leading-5 text-slate-500">It is used only as a minimum base for the 
+move cost. It is a mileage-band average, not your route quote.</p>
+ </div>
+ </aside>
+ </div>
+ <div class="mt-10 rounded-2xl border border-amber-200 bg-amber-50 p-6 text-sm leading-7 text-amber-950">
+ <strong>About this estimate:</strong> this MVP uses a transparent planning model, not live mover 
+quotes or a market-validated price database. Treat the result as a budgeting starting point and replace 
+assumptions with real quotes.
+ </div>
+ <section class="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-6 sm:p-8" aria-labelledby="methodology-heading">
+ <p class="text-sm font-semibold uppercase tracking-widest text-sky-600">How it works</p>
+ <h2 id="methodology-heading" class="mt-2 text-2xl font-bold tracking-tight">Transparent 
+calculation methodology</h2>
+<PARSED TEXT FOR PAGE: 14 / 27>
+ <div class="mt-5 grid gap-6 md:grid-cols-3">
+ <div>
+ <h3 class="font-semibold">1. State distance</h3>
+ <p class="mt-2 text-sm leading-6 text-slate-600">Selecting two states fills the distance with 
+a great-circle calculation between their centroids. This is a planning approximation rather than road 
+mileage.</p>
+ </div>
+ <div>
+ <h3 class="font-semibold">2. Known extra costs</h3>
+ <p class="mt-2 text-sm leading-6 text-slate-600">Travel, temporary housing, deposits/setup, 
+and packing/extras are added exactly as you enter them. Unknown items remain at zero until you have an 
+amount.</p>
+ </div>
+ <div>
+ <h3 class="font-semibold">3. Planning buffer</h3>
+ <p class="mt-2 text-sm leading-6 text-slate-600">A 10% contingency is added to the move and 
+known extra costs. The displayed range is a planning band, not a confidence interval or provider 
+quote.</p>
+ </div>
+ </div>
+ <div class="mt-6 border-t border-slate-200 pt-5 text-sm leading-6 text-slate-600">
+ <p><strong class="text-slate-900">Source notes:</strong> the one-way truck-rental average by 
+mileage band comes from <a class="font-semibold text-sky-700 underline" 
+href="https://www.uhaul.com/Tips/Loading/How-To-Save-Money-ON-Truck-Rentals-35820/" rel="noopener">U-Haul</a> (September 2025 data). It sets the minimum base for the move cost. A BLS labor-wage figure is 
+stored for reference and does not change the result.</p>
+ <p class="mt-3"><strong class="text-slate-900">Current model status:</strong> the DIY base is 
+the larger of a simple distance model and the U-Haul average for the mileage band. Rental-truck and 
+full-service types add a labor/service premium on top of that base, and that premium is still an 
+explicit MVP assumption. Because the U-Haul figures are band averages, the estimate can step up when the
+distance crosses a band boundary (for example at 1,000 miles). U-Haul notes that one-way rates vary by 
+origin, destination, truck size, move date, and inventory. Validate the result against route-specific 
+provider quotes.</p>
+ </div>
+ </section>
+ </section>
+ <div class="fixed inset-x-0 bottom-0 z-20 border-t border-slate-800 bg-slate-950 px-5 py-3 text-white 
+lg:hidden" role="status" aria-live="polite">
+ <div class="mx-auto flex max-w-6xl items-center justify-between gap-4">
+ <div>
+ <p class="text-xs text-slate-400">Estimated budget</p>
+ <p id="mobileTotal" class="text-xl font-bold leading-6">$0</p>
+ </div>
+ <p class="text-right text-xs leading-5 text-slate-400">Range<br /><span id="mobileRange" 
+class="text-sm font-semibold text-white">$0–$0</span></p>
+ </div>
+ </div>
+ <script src="../scripts/calculator.js"></script>
 </Layout>
