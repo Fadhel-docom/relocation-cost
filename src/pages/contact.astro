@@ -1,0 +1,22 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { CONTACT_EMAIL } from "../lib/site.js";
+---
+<Layout
+ title="Contact — Relocation Cost"
+ description="How to reach Relocation Cost with corrections, questions or partnership enquiries."
+ noindex={!CONTACT_EMAIL}
+>
+ <article class="mx-auto max-w-3xl px-5 py-14">
+ <p class="text-sm font-semibold uppercase tracking-widest text-sky-600">Contact</p>
+ <h1 class="mt-2 text-4xl font-bold tracking-tight">Contact</h1>
+ {CONTACT_EMAIL ? (
+ <p class="mt-5 text-lg leading-8 text-slate-600">For corrections, questions or partnership 
+enquiries, email <a class="font-semibold text-sky-700 underline" href={`mailto:${CONTACT_EMAIL}`}
+>{CONTACT_EMAIL}</a>.</p>
+ ) : (
+ <p class="mt-5 text-lg leading-8 text-slate-600">Contact details have not been published yet.</p>
+ )}
+ </article>
+</Layout>
+<PARSED TEXT FOR PAGE: 15 / 27>
