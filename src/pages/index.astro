@@ -2,56 +2,46 @@
 import Layout from "../layouts/Layout.astro";
 ---
 <Layout
- title="US Moving Cost Calculator and Route Guides — Relocation Cost"
- description="Estimate what a US move could cost from distance, home size and move type. Transparent 
-method, sourced truck-rental benchmarks and state-to-state route guides."
+  title="US Moving Cost Calculator and Route Guides — Relocation Cost"
+  description="Estimate what a US move could cost from distance, home size and move type. Transparent method, sourced truck-rental benchmarks and state-to-state route guides."
 >
- <section class="bg-slate-950 text-white">
- <div class="mx-auto max-w-6xl px-5 py-20 sm:py-28">
- <div class="max-w-3xl">
- <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-sky-300">Relocation Cost 
-Suite</p>
- <h1 class="text-4xl font-bold tracking-tight sm:text-6xl">Know what your move could cost before 
-you move.</h1>
- <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-300">Build a practical moving budget from 
-distance, home size, move type, and the extra costs people often forget.</p>
- <div class="mt-8 flex flex-wrap gap-3">
- <a href="/calculator" class="inline-flex rounded-xl bg-white px-6 py-3 font-semibold text-slate-950 shadow-sm hover:bg-slate-100">Calculate my moving cost →</a>
- <a href="/guides/relocation-budget" class="inline-flex rounded-xl border border-slate-700 px-6
-py-3 font-semibold text-white hover:bg-slate-900">Read the budget guide</a>
- </div>
- <p class="mt-5 text-sm text-slate-400">Planning estimates only — replace assumptions with real 
-provider quotes.</p>
- </div>
- </div>
- </section>
- <section class="mx-auto max-w-6xl px-5 py-16">
- <div class="max-w-2xl">
- <p class="text-sm font-semibold uppercase tracking-widest text-sky-600">How it works</p>
- <h2 class="mt-2 text-3xl font-bold">Start with the costs you can control.</h2>
- <p class="mt-4 leading-7 text-slate-600">The calculator separates the move itself from travel, 
-temporary housing, deposits, setup, and extras so your first budget is easier to understand.</p>
- </div>
- <div class="mt-10 grid gap-5 md:grid-cols-3">
- {[
- ["01","Distance","Longer moves generally increase transport and travel costs."],
- ["02","Home size","More rooms usually mean more volume, labor, and packing."],
- ["03","Move type","Compare DIY, rental-truck, and full-service planning scenarios."]
-<PARSED TEXT FOR PAGE: 19 / 27>
- ].map(([n,t,d]) => <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"><span class="text-sm font-bold text-sky-600">{n}</span><h3 class="mt-4 text-xl font-bold">{t}</h3><p
-class="mt-2 leading-7 text-slate-600">{d}</p></article>)}
- </div>
- </section>
- <section class="border-y border-slate-200 bg-white">
- <div class="mx-auto max-w-6xl px-5 py-16">
- <div class="grid gap-8 md:grid-cols-3">
- <a href="/guides/moving-cost" class="rounded-2xl border border-slate-200 p-6 hover:border-slate-300"><p class="text-sm font-semibold text-sky-600">Guide</p><h2 class="mt-2 text-xl font-bold">What affects moving costs?</h2><p class="mt-2 leading-7 text-slate-600">Understand the main 
-variables before collecting quotes.</p></a>
- <a href="/guides/relocation-budget" class="rounded-2xl border border-slate-200 p-6 hover:border-slate-300"><p class="text-sm font-semibold text-sky-600">Guide</p><h2 class="mt-2 text-xl font-bold">Build a relocation budget</h2><p class="mt-2 leading-7 text-slate-600">Separate moving expenses 
-from the costs around the move.</p></a>
- <a href="/guides/diy-vs-movers" class="rounded-2xl border border-slate-200 p-6 hover:border-slate-300"><p class="text-sm font-semibold text-sky-600">Guide</p><h2 class="mt-2 text-xl font-bold">DIY
-vs. movers</h2><p class="mt-2 leading-7 text-slate-600">Compare planning considerations before choosing 
-a move type.</p></a>
- </div>
- </div>
- </section>
+  <section class="bg-slate-950 text-white">
+    <div class="mx-auto max-w-6xl px-5 py-20 sm:py-28">
+      <div class="max-w-3xl">
+        <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-sky-300">Relocation Cost Suite</p>
+        <h1 class="text-4xl font-bold tracking-tight sm:text-6xl">Know what your move could cost before you move.</h1>
+        <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-300">Build a practical moving budget from distance, home size, move type, and the extra costs people often forget.</p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/calculator" class="inline-flex rounded-xl bg-white px-6 py-3 font-semibold text-slate-950 shadow-sm hover:bg-slate-100">Calculate my moving cost →</a>
+          <a href="/guides/relocation-budget" class="inline-flex rounded-xl border border-slate-700 px-6 py-3 font-semibold text-white hover:bg-slate-900">Read the budget guide</a>
+        </div>
+        <p class="mt-5 text-sm text-slate-400">Planning estimates only — replace assumptions with real provider quotes.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-5 py-16">
+    <div class="max-w-2xl">
+      <p class="text-sm font-semibold uppercase tracking-widest text-sky-600">How it works</p>
+      <h2 class="mt-2 text-3xl font-bold">Start with the costs you can control.</h2>
+      <p class="mt-4 leading-7 text-slate-600">The calculator separates the move itself from travel, temporary housing, deposits, setup, and extras so your first budget is easier to understand.</p>
+    </div>
+    <div class="mt-10 grid gap-5 md:grid-cols-3">
+      {[
+        ["01","Distance","Longer moves generally increase transport and travel costs."],
+        ["02","Home size","More rooms usually mean more volume, labor, and packing."],
+        ["03","Move type","Compare DIY, rental-truck, and full-service planning scenarios."]
+      ].map(([n,t,d]) => <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"><span class="text-sm font-bold text-sky-600">{n}</span><h3 class="mt-4 text-xl font-bold">{t}</h3><p class="mt-2 leading-7 text-slate-600">{d}</p></article>)}
+    </div>
+  </section>
+
+  <section class="border-y border-slate-200 bg-white">
+    <div class="mx-auto max-w-6xl px-5 py-16">
+      <div class="grid gap-8 md:grid-cols-3">
+        <a href="/guides/moving-cost" class="rounded-2xl border border-slate-200 p-6 hover:border-slate-300"><p class="text-sm font-semibold text-sky-600">Guide</p><h2 class="mt-2 text-xl font-bold">What affects moving costs?</h2><p class="mt-2 leading-7 text-slate-600">Understand the main variables before collecting quotes.</p></a>
+        <a href="/guides/relocation-budget" class="rounded-2xl border border-slate-200 p-6 hover:border-slate-300"><p class="text-sm font-semibold text-sky-600">Guide</p><h2 class="mt-2 text-xl font-bold">Build a relocation budget</h2><p class="mt-2 leading-7 text-slate-600">Separate moving expenses from the costs around the move.</p></a>
+        <a href="/guides/diy-vs-movers" class="rounded-2xl border border-slate-200 p-6 hover:border-slate-300"><p class="text-sm font-semibold text-sky-600">Guide</p><h2 class="mt-2 text-xl font-bold">DIY vs. movers</h2><p class="mt-2 leading-7 text-slate-600">Compare planning considerations before choosing a move type.</p></a>
+      </div>
+    </div>
+  </section>
+</Layout>

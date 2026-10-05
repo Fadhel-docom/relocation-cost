@@ -2,68 +2,65 @@
 import "../styles/global.css";
 import Analytics from "@vercel/analytics/astro";
 import { CONTACT_EMAIL, SITE_NAME } from "../lib/site.js";
+
 const {
- title = "US Moving Cost Calculator — Relocation Cost",
- description = "Estimate what a US move could cost from distance, home size and move type, with a 
-transparent method and sourced truck-rental benchmarks.",
- image = "/og-default.png",
- noindex = false,
+  title = "US Moving Cost Calculator — Relocation Cost",
+  description = "Estimate what a US move could cost from distance, home size and move type, with a transparent method and sourced truck-rental benchmarks.",
+  image = "/og-default.png",
+  noindex = false,
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
 ---
 <!doctype html>
 <html lang="en">
- <head>
- <meta charset="UTF-8" />
- <meta name="viewport" content="width=device-width, initial-scale=1" />
- <meta name="description" content={description} />
- <link rel="canonical" href={canonical} />
- {noindex && <meta name="robots" content="noindex" />}
- <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
- <meta name="google-site-verification" content="7FepTLNzBMDMUqNl8HCZd8pfZKlyG42NlPuZWULfia8" />
- <meta property="og:site_name" content={SITE_NAME} />
- <meta property="og:title" content={title} />
- <meta property="og:description" content={description} />
- <meta property="og:type" content="website" />
- <meta property="og:url" content={canonical} />
- <meta property="og:image" content={ogImage} />
- <meta property="og:image:width" content="1200" />
- <meta property="og:image:height" content="630" />
- <meta name="twitter:card" content="summary_large_image" />
- <meta name="twitter:title" content={title} />
- <meta name="twitter:description" content={description} />
- <meta name="twitter:image" content={ogImage} />
- <title>{title}</title>
- <Analytics />
- </head>
- <body>
- <header class="border-b border-slate-200 bg-white">
- <div class="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
- <a href="/" class="text-lg font-bold tracking-tight text-slate-950">Relocation Cost</a>
- <nav class="flex gap-4 text-sm text-slate-600 sm:gap-6">
- <a href="/calculator" class="hover:text-slate-950">Calculator</a>
-<PARSED TEXT FOR PAGE: 8 / 27>
- <a href="/moving-cost" class="hidden hover:text-slate-950 sm:inline">Route costs</a>
- <a href="/guides/moving-cost" class="hidden hover:text-slate-950 sm:inline">Moving costs</a>
- <a href="/guides/relocation-budget" class="hidden hover:text-slate-950 sm:inline">Budget 
-guide</a>
- </nav>
- </div>
- </header>
- <main><slot /></main>
- <footer class="border-t border-slate-200 bg-white">
- <div class="mx-auto max-w-6xl px-5 py-8 text-sm text-slate-500">
- <nav class="flex flex-wrap gap-x-5 gap-y-2" aria-label="Footer">
- <a href="/methodology" class="hover:text-slate-950">Methodology</a>
- <a href="/disclosure" class="hover:text-slate-950">Disclosure</a>
- <a href="/privacy" class="hover:text-slate-950">Privacy</a>
- <a href="/about" class="hover:text-slate-950">About</a>
- {CONTACT_EMAIL && <a href="/contact" class="hover:text-slate-950">Contact</a>}
- </nav>
- <p class="mt-4">© {new Date().getFullYear()} Relocation Cost. Estimates are planning aids, not 
-quotes.</p>
- </div>
- </footer>
- </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="google-site-verification" content="7FepTLNzBMDMUqNl8HCZd8pfZKlyG42NlPuZWULfia8" />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <title>{title}</title>
+    <Analytics />
+  </head>
+  <body>
+    <header class="border-b border-slate-200 bg-white">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
+        <a href="/" class="text-lg font-bold tracking-tight text-slate-950">Relocation Cost</a>
+        <nav class="flex gap-4 text-sm text-slate-600 sm:gap-6">
+          <a href="/calculator" class="hover:text-slate-950">Calculator</a>
+          <a href="/moving-cost" class="hidden hover:text-slate-950 sm:inline">Route costs</a>
+          <a href="/guides/moving-cost" class="hidden hover:text-slate-950 sm:inline">Moving costs</a>
+          <a href="/guides/relocation-budget" class="hidden hover:text-slate-950 sm:inline">Budget guide</a>
+        </nav>
+      </div>
+    </header>
+    <main><slot /></main>
+    <footer class="border-t border-slate-200 bg-white">
+      <div class="mx-auto max-w-6xl px-5 py-8 text-sm text-slate-500">
+        <nav class="flex flex-wrap gap-x-5 gap-y-2" aria-label="Footer">
+          <a href="/methodology" class="hover:text-slate-950">Methodology</a>
+          <a href="/disclosure" class="hover:text-slate-950">Disclosure</a>
+          <a href="/privacy" class="hover:text-slate-950">Privacy</a>
+          <a href="/about" class="hover:text-slate-950">About</a>
+          {CONTACT_EMAIL && <a href="/contact" class="hover:text-slate-950">Contact</a>}
+        </nav>
+        <p class="mt-4">© {new Date().getFullYear()} Relocation Cost. Estimates are planning aids, not quotes.</p>
+      </div>
+    </footer>
+  </body>
 </html>
