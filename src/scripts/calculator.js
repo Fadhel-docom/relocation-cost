@@ -20,6 +20,7 @@ const share = document.querySelector("#share");
 const reset = document.querySelector("#reset");
 const shareStatus = document.querySelector("#shareStatus");
 const stateDistanceNote = document.querySelector("#stateHelp");
+const compareCards = [...document.querySelectorAll("[data-compare-type]")];
 
 const money = n => new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -127,6 +128,23 @@ const calculate = () => {
   if (mobileRange) mobileRange.textContent = money(resultData.rangeLow) + "–" + money(resultData.rangeHigh);
   marketBenchmark.textContent = money(resultData.marketBenchmark);
   if (floorNote) floorNote.hidden = !resultData.moveFloored;
+
+  compareCards.forEach(card => {
+    const typeValue = Number(card.dataset.compareType);
+    const alt = calculateBudget({
+      distance: num("distance"),
+      size: num("size"),
+      type: typeValue,
+      travel: num("travel"),
+      housing: num("housing"),
+      setup: num("setup"),
+      extras: num("extras")
+    });
+    card.querySelector("[data-compare-total]").textContent = money(alt.total);
+    card.querySelector("[data-compare-range]").textContent =
+      "Range " + money(alt.rangeLow) + "–" + money(alt.rangeHigh);
+    card.dataset.selected = String(typeValue === num("type"));
+  });
 
   try {
     localStorage.setItem(
