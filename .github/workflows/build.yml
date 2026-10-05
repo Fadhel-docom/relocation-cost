@@ -3,7 +3,7 @@ on:
   push:
     branches: ["main", "p0-seo-fixes"]
   pull_request:
-    branches: ["main"]
+    branches: ["main", "p0-seo-fixes"]
 
 jobs:
   build:
@@ -13,7 +13,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm install
+      - run: npm ci
       - run: npm test
       - run: npm run build
+      - run: node tools/verify-seo.mjs
       - run: node tools/verify-seo.mjs
