@@ -1,7 +1,30 @@
 ---
 import Layout from "../layouts/Layout.astro";
+
+const pageUrl = new URL("/calculator/", Astro.site).href;
+const appJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "Relocation Cost moving budget calculator",
+  url: pageUrl,
+  applicationCategory: "FinanceApplication",
+  operatingSystem: "Any",
+  browserRequirements: "Requires JavaScript",
+  description: "Free planning calculator for US state-to-state moves. Combines distance, home size, move type and other relocation costs into a budget range. Estimates are planning aids, not quotes.",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" }
+};
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: new URL("/", Astro.site).href },
+    { "@type": "ListItem", position: 2, name: "Calculator", item: pageUrl }
+  ]
+};
 ---
 <Layout title="Moving Cost Calculator — Relocation Cost" description="Build a relocation budget from move distance, home size, move type, and additional relocation costs. Free planning estimate for any US state-to-state move.">
+  <script type="application/ld+json" set:html={JSON.stringify(appJsonLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
   <section class="mx-auto max-w-6xl px-5 py-14 pb-28 lg:pb-14">
     <div class="max-w-3xl">
       <p class="text-sm font-semibold uppercase tracking-widest text-sky-600">Relocation Cost Suite</p>
@@ -53,7 +76,7 @@ import Layout from "../layouts/Layout.astro";
           <button id="reset" class="rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-900 hover:bg-slate-50" type="button">Reset calculator</button>
         </div>
         <p id="shareStatus" class="mt-3 min-h-5 break-all text-sm text-slate-500" aria-live="polite"></p>
-        <p class="mt-4 text-xs leading-5 text-slate-500">This calculator covers the planning inputs shown above. It does not automatically include taxes, insurance, utility connection fees, or real-estate costs unless you enter them under “Other relocation costs”. See the <a class="font-semibold text-sky-700 underline" href="/methodology">methodology</a> for how the estimate is built.</p>
+        <p class="mt-4 text-xs leading-5 text-slate-500">This calculator covers the planning inputs shown above. It does not automatically include taxes, insurance, utility connection fees, or real-estate costs unless you enter them under “Other relocation costs”. See the <a class="font-semibold text-sky-700 underline" href="/methodology/">methodology</a> for how the estimate is built.</p>
       </form>
 
       <aside class="h-fit rounded-2xl bg-slate-950 p-7 text-white sm:p-8 lg:sticky lg:top-6">
@@ -74,6 +97,28 @@ import Layout from "../layouts/Layout.astro";
         </div>
       </aside>
     </div>
+
+    <section class="mt-10" aria-labelledby="compare-heading">
+      <h2 id="compare-heading" class="text-2xl font-bold tracking-tight">Compare move types</h2>
+      <p class="mt-2 max-w-3xl text-sm leading-6 text-slate-600">Same distance, home size and other costs as above, with each move type. Planning estimates, not quotes.</p>
+      <div class="mt-5 grid gap-4 sm:grid-cols-3">
+        <div data-compare-type="0.65" data-selected="false" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm data-[selected=true]:border-sky-500 data-[selected=true]:ring-2 data-[selected=true]:ring-sky-200">
+          <p class="text-sm font-semibold text-slate-500">DIY</p>
+          <p data-compare-total class="mt-2 text-3xl font-bold">$0</p>
+          <p data-compare-range class="mt-1 text-xs text-slate-500">$0–$0</p>
+        </div>
+        <div data-compare-type="1" data-selected="false" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm data-[selected=true]:border-sky-500 data-[selected=true]:ring-2 data-[selected=true]:ring-sky-200">
+          <p class="text-sm font-semibold text-slate-500">Rental truck + labor</p>
+          <p data-compare-total class="mt-2 text-3xl font-bold">$0</p>
+          <p data-compare-range class="mt-1 text-xs text-slate-500">$0–$0</p>
+        </div>
+        <div data-compare-type="1.65" data-selected="false" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm data-[selected=true]:border-sky-500 data-[selected=true]:ring-2 data-[selected=true]:ring-sky-200">
+          <p class="text-sm font-semibold text-slate-500">Full-service movers</p>
+          <p data-compare-total class="mt-2 text-3xl font-bold">$0</p>
+          <p data-compare-range class="mt-1 text-xs text-slate-500">$0–$0</p>
+        </div>
+      </div>
+    </section>
 
     <div class="mt-10 rounded-2xl border border-amber-200 bg-amber-50 p-6 text-sm leading-7 text-amber-950">
       <strong>About this estimate:</strong> this MVP uses a transparent planning model, not live mover quotes or a market-validated price database. Treat the result as a budgeting starting point and replace assumptions with real quotes.

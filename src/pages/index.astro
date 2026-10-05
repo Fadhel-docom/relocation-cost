@@ -1,6 +1,15 @@
 ---
 import Layout from "../layouts/Layout.astro";
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Relocation Cost",
+  url: new URL("/", Astro.site).href,
+  description: "US moving cost calculator and route planning guides."
+};
 ---
+<script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
 <Layout
   title="US Moving Cost Calculator and Route Guides — Relocation Cost"
   description="Estimate what a US move could cost from distance, home size and move type. Transparent method, sourced truck-rental benchmarks and state-to-state route guides."
@@ -12,8 +21,8 @@ import Layout from "../layouts/Layout.astro";
         <h1 class="text-4xl font-bold tracking-tight sm:text-6xl">Know what your move could cost before you move.</h1>
         <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-300">Build a practical moving budget from distance, home size, move type, and the extra costs people often forget.</p>
         <div class="mt-8 flex flex-wrap gap-3">
-          <a href="/calculator" class="inline-flex rounded-xl bg-white px-6 py-3 font-semibold text-slate-950 shadow-sm hover:bg-slate-100">Calculate my moving cost →</a>
-          <a href="/guides/relocation-budget" class="inline-flex rounded-xl border border-slate-700 px-6 py-3 font-semibold text-white hover:bg-slate-900">Read the budget guide</a>
+          <a href="/calculator/" class="inline-flex rounded-xl bg-white px-6 py-3 font-semibold text-slate-950 shadow-sm hover:bg-slate-100">Calculate my moving cost →</a>
+          <a href="/guides/relocation-budget/" class="inline-flex rounded-xl border border-slate-700 px-6 py-3 font-semibold text-white hover:bg-slate-900">Read the budget guide</a>
         </div>
         <p class="mt-5 text-sm text-slate-400">Planning estimates only — replace assumptions with real provider quotes.</p>
       </div>
@@ -38,9 +47,9 @@ import Layout from "../layouts/Layout.astro";
   <section class="border-y border-slate-200 bg-white">
     <div class="mx-auto max-w-6xl px-5 py-16">
       <div class="grid gap-8 md:grid-cols-3">
-        <a href="/guides/moving-cost" class="rounded-2xl border border-slate-200 p-6 hover:border-slate-300"><p class="text-sm font-semibold text-sky-600">Guide</p><h2 class="mt-2 text-xl font-bold">What affects moving costs?</h2><p class="mt-2 leading-7 text-slate-600">Understand the main variables before collecting quotes.</p></a>
-        <a href="/guides/relocation-budget" class="rounded-2xl border border-slate-200 p-6 hover:border-slate-300"><p class="text-sm font-semibold text-sky-600">Guide</p><h2 class="mt-2 text-xl font-bold">Build a relocation budget</h2><p class="mt-2 leading-7 text-slate-600">Separate moving expenses from the costs around the move.</p></a>
-        <a href="/guides/diy-vs-movers" class="rounded-2xl border border-slate-200 p-6 hover:border-slate-300"><p class="text-sm font-semibold text-sky-600">Guide</p><h2 class="mt-2 text-xl font-bold">DIY vs. movers</h2><p class="mt-2 leading-7 text-slate-600">Compare planning considerations before choosing a move type.</p></a>
+        <a href="/guides/moving-cost/" class="rounded-2xl border border-slate-200 p-6 hover:border-slate-300"><p class="text-sm font-semibold text-sky-600">Guide</p><h2 class="mt-2 text-xl font-bold">What affects moving costs?</h2><p class="mt-2 leading-7 text-slate-600">Understand the main variables before collecting quotes.</p></a>
+        <a href="/guides/relocation-budget/" class="rounded-2xl border border-slate-200 p-6 hover:border-slate-300"><p class="text-sm font-semibold text-sky-600">Guide</p><h2 class="mt-2 text-xl font-bold">Build a relocation budget</h2><p class="mt-2 leading-7 text-slate-600">Separate moving expenses from the costs around the move.</p></a>
+        <a href="/guides/diy-vs-movers/" class="rounded-2xl border border-slate-200 p-6 hover:border-slate-300"><p class="text-sm font-semibold text-sky-600">Guide</p><h2 class="mt-2 text-xl font-bold">DIY vs. movers</h2><p class="mt-2 leading-7 text-slate-600">Compare planning considerations before choosing a move type.</p></a>
       </div>
     </div>
   </section>

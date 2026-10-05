@@ -42,10 +42,10 @@ const ogImage = new URL(image, Astro.site);
       <div class="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
         <a href="/" class="text-lg font-bold tracking-tight text-slate-950">Relocation Cost</a>
         <nav class="flex gap-4 text-sm text-slate-600 sm:gap-6">
-          <a href="/calculator" class="hover:text-slate-950">Calculator</a>
-          <a href="/moving-cost" class="hidden hover:text-slate-950 sm:inline">Route costs</a>
-          <a href="/guides/moving-cost" class="hidden hover:text-slate-950 sm:inline">Moving costs</a>
-          <a href="/guides/relocation-budget" class="hidden hover:text-slate-950 sm:inline">Budget guide</a>
+          <a href="/calculator/" class="hover:text-slate-950">Calculator</a>
+          <a href="/moving-cost/" class="hidden hover:text-slate-950 sm:inline">Route costs</a>
+          <a href="/guides/moving-cost/" class="hidden hover:text-slate-950 sm:inline">Moving costs</a>
+          <a href="/guides/relocation-budget/" class="hidden hover:text-slate-950 sm:inline">Budget guide</a>
         </nav>
       </div>
     </header>
@@ -53,11 +53,15 @@ const ogImage = new URL(image, Astro.site);
     <footer class="border-t border-slate-200 bg-white">
       <div class="mx-auto max-w-6xl px-5 py-8 text-sm text-slate-500">
         <nav class="flex flex-wrap gap-x-5 gap-y-2" aria-label="Footer">
-          <a href="/methodology" class="hover:text-slate-950">Methodology</a>
-          <a href="/disclosure" class="hover:text-slate-950">Disclosure</a>
-          <a href="/privacy" class="hover:text-slate-950">Privacy</a>
-          <a href="/about" class="hover:text-slate-950">About</a>
-          {CONTACT_EMAIL && <a href="/contact" class="hover:text-slate-950">Contact</a>}
+          <a href="/moving-cost/" class="hover:text-slate-950">Route costs</a>
+          <a href="/guides/moving-cost/" class="hover:text-slate-950">Moving costs</a>
+          <a href="/guides/relocation-budget/" class="hover:text-slate-950">Budget guide</a>
+          <a href="/guides/diy-vs-movers/" class="hover:text-slate-950">DIY vs movers</a>
+          <a href="/methodology/" class="hover:text-slate-950">Methodology</a>
+          <a href="/disclosure/" class="hover:text-slate-950">Disclosure</a>
+          <a href="/privacy/" class="hover:text-slate-950">Privacy</a>
+          <a href="/about/" class="hover:text-slate-950">About</a>
+          {CONTACT_EMAIL && <a href="/contact/" class="hover:text-slate-950">Contact</a>}
         </nav>
         <p class="mt-4">© {new Date().getFullYear()} Relocation Cost. Estimates are planning aids, not quotes.</p>
       </div>
