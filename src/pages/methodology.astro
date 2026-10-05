@@ -2,105 +2,81 @@
 import Layout from "../layouts/Layout.astro";
 import benchmarkData from "../../data/coefficients.json";
 import {
- MOVE_BASE_COST,
- MOVE_PER_MILE,
- DIY_TYPE_MULTIPLIER,
- DEFAULT_CONTINGENCY_RATE,
- DEFAULT_RANGE_LOW,
- DEFAULT_RANGE_HIGH,
+  MOVE_BASE_COST,
+  MOVE_PER_MILE,
+  DIY_TYPE_MULTIPLIER,
+  DEFAULT_CONTINGENCY_RATE,
+  DEFAULT_RANGE_LOW,
+  DEFAULT_RANGE_HIGH,
 } from "../lib/calculator.js";
-const money = value => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", 
-maximumFractionDigits: 0 }).format(value);
+
+const money = value => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
 const bands = benchmarkData.benchmarks.uhaul_one_way_average_by_distance;
 const bandLabel = (band, index) => {
- const from = index === 0 ? 1 : bands[index - 1].max_miles + 1;
- return band.max_miles === null ? `${from.toLocaleString("en-US")}+ miles` : `$
-{from.toLocaleString("en-US")}–${band.max_miles.toLocaleString("en-US")} miles`;
+  const from = index === 0 ? 1 : bands[index - 1].max_miles + 1;
+  return band.max_miles === null ? `${from.toLocaleString("en-US")}+ miles` : `${from.toLocaleString("en-US")}–${band.max_miles.toLocaleString("en-US")} miles`;
 };
 const sources = benchmarkData.sources;
 const percent = value => `${Math.round(value * 100)}%`;
 ---
 <Layout
- title="Methodology and Sources — Relocation Cost"
- description="How the Relocation Cost calculator works: the formula, every input, the sources behind 
-the benchmarks, when they were last reviewed, and the known limits."
+  title="Methodology and Sources — Relocation Cost"
+  description="How the Relocation Cost calculator works: the formula, every input, the sources behind the benchmarks, when they were last reviewed, and the known limits."
 >
- <article class="mx-auto max-w-3xl px-5 py-14">
- <p class="text-sm font-semibold uppercase tracking-widest text-sky-600">Methodology</p>
- <h1 class="mt-2 text-4xl font-bold tracking-tight">How the estimates are built</h1>
- <p class="mt-5 text-lg leading-8 text-slate-600">Relocation Cost gives planning estimates, not 
-quotes. This page shows exactly how the numbers are produced, which parts come from published sources, 
-and which parts are assumptions.</p>
- <p class="mt-3 text-sm text-slate-500">Data last reviewed: {benchmarkData.last_reviewed}</p>
- <h2 class="mt-10 text-2xl font-bold">Inputs</h2>
- <ul class="mt-4 list-disc space-y-3 pl-6 leading-7 text-slate-700">
- <li><strong>Distance:</strong> filled from the great-circle distance between the geographic 
-centers of the two states you pick, or typed by you. It is not road mileage.</li>
- <li><strong>Home size:</strong> studio or 1 room (×1), 2–3 rooms (×1.35), 4–5 rooms (×1.8), 6+ 
-rooms (×2.4).</li>
- <li><strong>Move type:</strong> DIY (×{DIY_TYPE_MULTIPLIER}), rental truck with labor (×1), full-service movers (×1.65).</li>
- <li><strong>Other costs:</strong> travel, temporary housing, deposits and setup, packing and 
-extras, added exactly as you enter them.</li>
- </ul>
-<PARSED TEXT FOR PAGE: 20 / 27>
- <h2 class="mt-10 text-2xl font-bold">The formula</h2>
- <div class="mt-4 overflow-x-auto rounded-xl border border-slate-200 bg-slate-50 p-4 font-mono text-sm leading-7 text-slate-800">
- <p>diy model = {money(MOVE_BASE_COST)} + distance × ${MOVE_PER_MILE} × home size × 
-{DIY_TYPE_MULTIPLIER}</p>
- <p>diy base = the larger of the diy model and the U-Haul average for the distance band</p>
- <p>premium = distance × ${MOVE_PER_MILE} × home size × (move type − {DIY_TYPE_MULTIPLIER}), never 
-below zero</p>
- <p>move = diy base + premium</p>
- <p>total = (move + other costs) × {(1 + DEFAULT_CONTINGENCY_RATE).toFixed(2)}</p>
- <p>range = total × {DEFAULT_RANGE_LOW.toFixed(2)} to total × {DEFAULT_RANGE_HIGH.toFixed(2)}</p>
- </div>
- <p class="mt-4 leading-7 text-slate-700">The {money(MOVE_BASE_COST)} base, the ${MOVE_PER_MILE} per 
-mile rate, the home-size and move-type multipliers, the {percent(DEFAULT_CONTINGENCY_RATE)} buffer and 
-the {percent(DEFAULT_RANGE_LOW)}–{percent(DEFAULT_RANGE_HIGH)} range are explicit planning assumptions. 
-They are not published market prices.</p>
- <h2 class="mt-10 text-2xl font-bold">What comes from a published source</h2>
- <p class="mt-4 leading-7 text-slate-700">The only market figure used in the result is the U-Haul 
-average for one-way truck rentals by distance band. It sets a minimum for the DIY base, so no estimate 
-falls below what a one-way truck rental costs on average for that distance.</p>
- <div class="mt-4 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
- <table class="w-full text-left text-sm leading-6">
- <thead class="border-b border-slate-200 bg-slate-50"><tr><th class="p-3 font-semibold">Distance 
-band</th><th class="p-3 font-semibold">U-Haul one-way average</th></tr></thead>
- <tbody class="text-slate-700">
- {bands.map((band, index) => (
- <tr class="border-b border-slate-100 last:border-0"><td class="p-3">{bandLabel(band, index)}
-</td><td class="p-3">{money(band.average_usd)}</td></tr>
- ))}
- </tbody>
- </table>
- </div>
- <h2 class="mt-10 text-2xl font-bold">Sources</h2>
- <ul class="mt-4 list-disc space-y-3 pl-6 leading-7 text-slate-700">
- <li><a class="font-semibold text-sky-700 underline" href={sources.uhaul.url} 
-rel="noopener">{sources.uhaul.name}</a>. Data period: {sources.uhaul.data_period}. Used for: 
-{sources.uhaul.use}.</li>
- <li><a class="font-semibold text-sky-700 underline" href={sources.bls.url} 
-rel="noopener">{sources.bls.name}</a>. Used for: {sources.bls.use}. Laborers and freight, stock and 
-material movers, hand: annual mean wage 
-{money(benchmarkData.benchmarks.bls_laborers_freight_stock_material_movers_hand_mean_annual_usd)}. This 
-figure is shown for context and does not change any result.</li>
- <li><a class="font-semibold text-sky-700 underline" href={sources.census.url} 
-rel="noopener">{sources.census.name}</a>. Used for: {sources.census.use}.</li>
- </ul>
- <h2 class="mt-10 text-2xl font-bold">Known limits</h2>
- <ul class="mt-4 list-disc space-y-3 pl-6 leading-7 text-slate-700">
- <li>U-Haul publishes averages for distance bands. The estimate can therefore step up when the 
-distance crosses a band boundary, for example at 1,000 miles.</li>
- <li>U-Haul states that one-way prices depend on origin, destination, truck size, move date and 
-inventory. A band average is not a quote for your route.</li>
- <li>The labor and service premium for rental-truck and full-service moves is an assumption, not a 
-market price.</li>
- <li>State-center distance can differ substantially from the road distance between your actual 
-addresses.</li>
- <li>The estimate does not include insurance, taxes, utility fees or real-estate costs unless you 
-enter them under other costs.</li>
- </ul>
- <p class="mt-8 leading-7 text-slate-700">Always replace these estimates with written quotes for your
-actual addresses, dates and inventory. Ready to try it? <a class="font-semibold text-sky-700 underline" 
-href="/calculator">Open the calculator</a>.</p>
- </article>
+  <article class="mx-auto max-w-3xl px-5 py-14">
+    <p class="text-sm font-semibold uppercase tracking-widest text-sky-600">Methodology</p>
+    <h1 class="mt-2 text-4xl font-bold tracking-tight">How the estimates are built</h1>
+    <p class="mt-5 text-lg leading-8 text-slate-600">Relocation Cost gives planning estimates, not quotes. This page shows exactly how the numbers are produced, which parts come from published sources, and which parts are assumptions.</p>
+    <p class="mt-3 text-sm text-slate-500">Data last reviewed: {benchmarkData.last_reviewed}</p>
+
+    <h2 class="mt-10 text-2xl font-bold">Inputs</h2>
+    <ul class="mt-4 list-disc space-y-3 pl-6 leading-7 text-slate-700">
+      <li><strong>Distance:</strong> filled from the great-circle distance between the geographic centers of the two states you pick, or typed by you. It is not road mileage.</li>
+      <li><strong>Home size:</strong> studio or 1 room (×1), 2–3 rooms (×1.35), 4–5 rooms (×1.8), 6+ rooms (×2.4).</li>
+      <li><strong>Move type:</strong> DIY (×{DIY_TYPE_MULTIPLIER}), rental truck with labor (×1), full-service movers (×1.65).</li>
+      <li><strong>Other costs:</strong> travel, temporary housing, deposits and setup, packing and extras, added exactly as you enter them.</li>
+    </ul>
+
+    <h2 class="mt-10 text-2xl font-bold">The formula</h2>
+    <div class="mt-4 overflow-x-auto rounded-xl border border-slate-200 bg-slate-50 p-4 font-mono text-sm leading-7 text-slate-800">
+      <p>diy model = {money(MOVE_BASE_COST)} + distance × ${MOVE_PER_MILE} × home size × {DIY_TYPE_MULTIPLIER}</p>
+      <p>diy base = the larger of the diy model and the U-Haul average for the distance band</p>
+      <p>premium = distance × ${MOVE_PER_MILE} × home size × (move type − {DIY_TYPE_MULTIPLIER}), never below zero</p>
+      <p>move = diy base + premium</p>
+      <p>total = (move + other costs) × {(1 + DEFAULT_CONTINGENCY_RATE).toFixed(2)}</p>
+      <p>range = total × {DEFAULT_RANGE_LOW.toFixed(2)} to total × {DEFAULT_RANGE_HIGH.toFixed(2)}</p>
+    </div>
+    <p class="mt-4 leading-7 text-slate-700">The {money(MOVE_BASE_COST)} base, the ${MOVE_PER_MILE} per mile rate, the home-size and move-type multipliers, the {percent(DEFAULT_CONTINGENCY_RATE)} buffer and the {percent(DEFAULT_RANGE_LOW)}–{percent(DEFAULT_RANGE_HIGH)} range are explicit planning assumptions. They are not published market prices.</p>
+
+    <h2 class="mt-10 text-2xl font-bold">What comes from a published source</h2>
+    <p class="mt-4 leading-7 text-slate-700">The only market figure used in the result is the U-Haul average for one-way truck rentals by distance band. It sets a minimum for the DIY base, so no estimate falls below what a one-way truck rental costs on average for that distance.</p>
+    <div class="mt-4 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+      <table class="w-full text-left text-sm leading-6">
+        <thead class="border-b border-slate-200 bg-slate-50"><tr><th class="p-3 font-semibold">Distance band</th><th class="p-3 font-semibold">U-Haul one-way average</th></tr></thead>
+        <tbody class="text-slate-700">
+          {bands.map((band, index) => (
+            <tr class="border-b border-slate-100 last:border-0"><td class="p-3">{bandLabel(band, index)}</td><td class="p-3">{money(band.average_usd)}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="mt-10 text-2xl font-bold">Sources</h2>
+    <ul class="mt-4 list-disc space-y-3 pl-6 leading-7 text-slate-700">
+      <li><a class="font-semibold text-sky-700 underline" href={sources.uhaul.url} rel="noopener">{sources.uhaul.name}</a>. Data period: {sources.uhaul.data_period}. Used for: {sources.uhaul.use}.</li>
+      <li><a class="font-semibold text-sky-700 underline" href={sources.bls.url} rel="noopener">{sources.bls.name}</a>. Used for: {sources.bls.use}. Laborers and freight, stock and material movers, hand: annual mean wage {money(benchmarkData.benchmarks.bls_laborers_freight_stock_material_movers_hand_mean_annual_usd)}. This figure is shown for context and does not change any result.</li>
+      <li><a class="font-semibold text-sky-700 underline" href={sources.census.url} rel="noopener">{sources.census.name}</a>. Used for: {sources.census.use}.</li>
+    </ul>
+
+    <h2 class="mt-10 text-2xl font-bold">Known limits</h2>
+    <ul class="mt-4 list-disc space-y-3 pl-6 leading-7 text-slate-700">
+      <li>U-Haul publishes averages for distance bands. The estimate can therefore step up when the distance crosses a band boundary, for example at 1,000 miles.</li>
+      <li>U-Haul states that one-way prices depend on origin, destination, truck size, move date and inventory. A band average is not a quote for your route.</li>
+      <li>The labor and service premium for rental-truck and full-service moves is an assumption, not a market price.</li>
+      <li>State-center distance can differ substantially from the road distance between your actual addresses.</li>
+      <li>The estimate does not include insurance, taxes, utility fees or real-estate costs unless you enter them under other costs.</li>
+    </ul>
+
+    <p class="mt-8 leading-7 text-slate-700">Always replace these estimates with written quotes for your actual addresses, dates and inventory. Ready to try it? <a class="font-semibold text-sky-700 underline" href="/calculator">Open the calculator</a>.</p>
+  </article>
+</Layout>
