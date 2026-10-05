@@ -102,3 +102,34 @@ test("distance 50000 is rejected", () => {
 test("negative travel is rejected", () => {
   assert.throws(() => calculateBudget({ distance: 1400, size: 1.35, type: 1, travel: -1 }), RangeError);
 });
+
+test("total never decreases as distance grows, for every size and move type", () => {
+  for (const size of [1, 1.35, 1.8, 2.4]) {
+    for (const type of [DIY, TRUCK, FULL]) {
+      let previous = 0;
+      for (let distance = 1; distance <= 5000; distance += 1) {
+        const { total } = calculateBudget({ distance, size, type });
+        assert.ok(total >= previous - 1e-9, `total fell at ${distance} mi (size ${size}, type ${type})`);
+        previous = total;
+      }
+    }
+  }
+});
+
+test("DIY <= rental truck + labor <= full-service at every distance and size", () => {
+  for (const size of [1, 1.35, 1.8, 2.4]) {
+    for (let distance = 1; distance <= 5000; distance += 13) {
+      const diy = calculateBudget({ distance, size, type: DIY }).total;
+      const truck = calculateBudget({ distance, size, type: TRUCK }).total;
+      const full = calculateBudget({ distance, size, type: FULL }).total;
+      assert.ok(diy <= truck && truck <= full, `ordering broke at ${distance} mi (size ${size})`);
+    }
+  }
+});
+
+test("the range always brackets the total", () => {
+  for (const distance of [1, 199, 200, 201, 500, 501, 1000, 1001, 2500, 2501, 30000]) {
+    const result = calculateBudget({ distance, size: 1.8, type: TRUCK, travel: 120, extras: 300 });
+    assert.ok(result.rangeLow < result.total && result.total < result.rangeHigh);
+  }
+});
