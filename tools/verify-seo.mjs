@@ -34,6 +34,8 @@ function read(file) {
 
 const pages = htmlFiles();
 const canonicalByPage = new Map();
+const internalTargets = new Map();
+const guidePaths = ["/guides/moving-cost/", "/guides/diy-vs-movers/", "/guides/relocation-budget/"];
 
 for (const file of pages) {
   const html = read(file);
@@ -53,11 +55,35 @@ for (const file of pages) {
     if (url.origin !== "https://relocation-cost-psi.vercel.app") continue;
     if (path.posix.extname(url.pathname)) continue;
     if (!url.pathname.endsWith("/")) failures.push(`${rel}: internal href lacks trailing slash: ${href}`);
+    if (!internalTargets.has(url.pathname)) internalTargets.set(url.pathname, rel);
+  }
+
+  for (const block of html.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
+    try {
+      JSON.parse(block[1]);
+    } catch {
+      failures.push(`${rel}: invalid JSON-LD block`);
+    }
   }
 
   const canonical = html.match(/<link\b[^>]*rel=["']canonical["'][^>]*href=["']([^"']+)["']/i)?.[1];
   if (!canonical) failures.push(`${rel}: canonical missing`);
   else canonicalByPage.set(rel, canonical);
+}
+
+for (const [target, source] of internalTargets) {
+  const exists = fs.existsSync(path.join(dist, target, "index.html")) || fs.existsSync(path.join(dist, target.replace(/\/$/, "") + ".html"));
+  if (!exists) failures.push(`${source}: internal link points to a page that was not built: ${target}`);
+}
+
+for (const guide of guidePaths) {
+  const file = path.join(dist, guide, "index.html");
+  if (!fs.existsSync(file)) continue;
+  const html = read(file);
+  if (!/"@type":"Article"/.test(html)) failures.push(`${guide}: Article JSON-LD missing`);
+  if (!/"@type":"BreadcrumbList"/.test(html)) failures.push(`${guide}: BreadcrumbList JSON-LD missing`);
+  if (!html.includes('href="/calculator/"')) failures.push(`${guide}: no link to the calculator`);
+  if (!html.includes('href="/moving-cost/"')) failures.push(`${guide}: no link to the route hub`);
 }
 
 const sitemapIndex = path.join(dist, "sitemap-index.xml");
