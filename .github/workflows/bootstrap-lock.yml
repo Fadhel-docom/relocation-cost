@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm install
+      - run: npm install --package-lock=true
       - name: Commit generated lockfile
         run: |
           if git diff --quiet -- package-lock.json; then
