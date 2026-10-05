@@ -79,7 +79,7 @@ const scenarios = typeOptions.map(option => {
   const result = calculateBudget({ distance, size: scenarioSize.size, type: option.type });
   return { ...option, sizeLabel: scenarioSize.label, total: result.total, low: result.rangeLow, high: result.rangeHigh };
 });
-const calculatorUrl = `/calculator?fromState=${route.from}&toState=${route.to}&distance=${distance}`;
+const calculatorUrl = `/calculator/?fromState=${route.from}&toState=${route.to}&distance=${distance}`;
 
 // Distance band of the published U-Haul average, derived from the data file.
 const bands = benchmarkData.benchmarks.uhaul_one_way_average_by_distance;
@@ -137,7 +137,7 @@ const breadcrumbJsonLd = {
   <article class="mx-auto max-w-5xl px-5 py-14">
     <nav aria-label="Breadcrumb" class="text-sm text-slate-500">
       <a href="/" class="hover:text-slate-900">Home</a> <span aria-hidden="true">/</span>
-      <a href="/moving-cost" class="hover:text-slate-900">Route costs</a> <span aria-hidden="true">/</span>
+      <a href="/moving-cost/" class="hover:text-slate-900">Route costs</a> <span aria-hidden="true">/</span>
       <span class="text-slate-700">{from.name} to {to.name}</span>
     </nav>
     <p class="mt-6 text-sm font-semibold uppercase tracking-widest text-sky-600">Route planning guide</p>
@@ -207,22 +207,22 @@ const breadcrumbJsonLd = {
         <h2 id="related-heading" class="text-2xl font-bold">Compare other routes</h2>
         <ul class="mt-4 grid gap-3 sm:grid-cols-2">
           {reverse && (
-            <li><a href={`/moving-cost/${reverse.slug}`} class="block rounded-xl border border-sky-200 bg-sky-50 px-5 py-4 font-semibold text-sky-900 hover:border-sky-400">Moving the other way: {reverse.label}</a></li>
+            <li><a href={`/moving-cost/${reverse.slug}/`} class="block rounded-xl border border-sky-200 bg-sky-50 px-5 py-4 font-semibold text-sky-900 hover:border-sky-400">Moving the other way: {reverse.label}</a></li>
           )}
           {related.map(item => (
-            <li><a href={`/moving-cost/${item.slug}`} class="block rounded-xl border border-slate-200 bg-white px-5 py-4 font-semibold text-slate-900 hover:border-sky-300">{item.label}</a></li>
+            <li><a href={`/moving-cost/${item.slug}/`} class="block rounded-xl border border-slate-200 bg-white px-5 py-4 font-semibold text-slate-900 hover:border-sky-300">{item.label}</a></li>
           ))}
         </ul>
       </section>
     )}
 
     <section class="mt-10 rounded-2xl border border-amber-200 bg-amber-50 p-6 text-sm leading-7 text-amber-950">
-      <strong>Source and methodology note:</strong> the U-Haul mileage-band average is used only as a minimum base for the move cost, because a published band average does not establish a universal route price. The labor and service premium for each move type is an explicit planning assumption. The route distance is also an approximation. Replace all of these with route-specific information as soon as you have it. Read the full <a href="/methodology" class="font-semibold underline">methodology and sources</a>.
+      <strong>Source and methodology note:</strong> the U-Haul mileage-band average is used only as a minimum base for the move cost, because a published band average does not establish a universal route price. The labor and service premium for each move type is an explicit planning assumption. The route distance is also an approximation. Replace all of these with route-specific information as soon as you have it. Read the full <a href="/methodology/" class="font-semibold underline">methodology and sources</a>.
     </section>
 
     <div class="mt-10 flex flex-wrap gap-3">
       <a href={calculatorUrl} data-route-cta="bottom" data-route={route.slug} class="rounded-xl bg-slate-950 px-6 py-3 font-semibold text-white">Calculate this route</a>
-      <a href="/moving-cost" class="rounded-xl border border-slate-300 px-6 py-3 font-semibold text-slate-900">Browse route guides</a>
+      <a href="/moving-cost/" class="rounded-xl border border-slate-300 px-6 py-3 font-semibold text-slate-900">Browse route guides</a>
     </div>
   </article>
 </Layout>
