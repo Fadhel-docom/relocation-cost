@@ -12,5 +12,6 @@ export default defineConfig({
       filter: page => Boolean(CONTACT_EMAIL) || !page.endsWith("/contact/")
     })
   ],
+  trailingSlash: "always",
   output: "static"
 });
