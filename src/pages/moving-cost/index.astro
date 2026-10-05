@@ -15,7 +15,7 @@ import routePages from "../../../data/route-pages.json";
         const from = stateData.states[route.from];
         const to = stateData.states[route.to];
         return (
-          <a href={`/moving-cost/${route.slug}`} class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-sky-300 hover:shadow">
+          <a href={`/moving-cost/${route.slug}/`} class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-sky-300 hover:shadow">
             <p class="text-sm font-semibold text-sky-700">Route guide</p>
             <h2 class="mt-2 text-lg font-bold">{from.name} → {to.name}</h2>
             <p class="mt-2 text-sm leading-6 text-slate-500">Planning distance, benchmark context, and scenario estimates.</p>
