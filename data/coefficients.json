@@ -1,59 +1,52 @@
 {
- "schema_version": "1.1",
- "status": "source_backed_benchmarks",
- "last_reviewed": "2026-10-03",
- "currency": "USD",
- "methodology_note": "Public sources provide useful benchmarks but do not establish a universal mover-price coefficient. U-Haul states that one-way prices vary by origin, destination, truck size, move date 
-and inventory. The calculator therefore uses the mileage-band average only as a lower bound on the DIY 
-base cost, so no estimate falls below the average one-way truck rental for its distance band; it is not 
-used as a per-mile coefficient, a quote or a guaranteed rate. BLS and Census figures remain context 
-only.",
- "benchmarks": {
- "uhaul_one_way_average_by_distance": [
- { "max_miles": 200, "average_usd": 202 },
- { "max_miles": 500, "average_usd": 444 },
- { "max_miles": 1000, "average_usd": 995 },
- { "max_miles": 1500, "average_usd": 1657 },
- { "max_miles": 2000, "average_usd": 2190 },
- { "max_miles": 2500, "average_usd": 2694 },
- { "max_miles": null, "average_usd": 3517 }
- ],
- "bls_laborers_freight_stock_material_movers_hand_mean_annual_usd": 42260,
- "bls_laborers_freight_stock_material_movers_hand_mean_hourly_usd": 20.32
- },
- "sources": {
- "uhaul": {
- "name": "U-Haul, How To Save Money On Truck Rentals",
- "url": "https://www.uhaul.com/Tips/Loading/How-To-Save-Money-ON-Truck-Rentals-35820/",
- "published_or_updated": "2025-09-10",
- "data_period": "September 2025",
- "use": "one-way truck rental market benchmark by mileage band"
- },
- "bls": {
- "name": "U.S. Bureau of Labor Statistics, Occupational Employment and Wages, May 2025",
- "url": "https://www.bls.gov/oes/2025/may/largest2.htm",
-<PARSED TEXT FOR PAGE: 4 / 27>
- "use": "labor-cost benchmark only; not a mover quote"
- },
- "census": {
- "name": "U.S. Census Bureau, ACS 1-year State-to-State Migration Flows, 2024",
- "url": "https://www.census.gov/data/tables/time-series/demo/geographic-mobility/state-to-state-migration.html",
- "use": "route-demand/context signal; not a price coefficient"
- }
- },
- "provider_rate_context": {
- "uhaul": {
- "documented_rule": "One-way rates depend on origin, destination, truck size, move date and rental 
-truck inventory.",
- "numeric_universal_rate": false
- }
- },
- "candidate_coefficients": {
- "base_move_usd": null,
- "distance_usd_per_mile": null,
- "home_size_multipliers": null,
- "move_type_multipliers": null,
- "reason": "Do not convert the U-Haul distance-band averages, BLS labor wage, or Census migration 
-flows into universal coefficients without route, truck-size, labor-scope and date calibration. The 
-current planning model remains explicit until that calibration is supported by enough observations."
- }
+  "schema_version": "1.1",
+  "status": "source_backed_benchmarks",
+  "last_reviewed": "2026-10-03",
+  "currency": "USD",
+  "methodology_note": "Public sources provide useful benchmarks but do not establish a universal mover-price coefficient. U-Haul states that one-way prices vary by origin, destination, truck size, move date and inventory. The calculator therefore uses the mileage-band average only as a lower bound on the DIY base cost, so no estimate falls below the average one-way truck rental for its distance band; it is not used as a per-mile coefficient, a quote or a guaranteed rate. BLS and Census figures remain context only.",
+  "benchmarks": {
+    "uhaul_one_way_average_by_distance": [
+      { "max_miles": 200, "average_usd": 202 },
+      { "max_miles": 500, "average_usd": 444 },
+      { "max_miles": 1000, "average_usd": 995 },
+      { "max_miles": 1500, "average_usd": 1657 },
+      { "max_miles": 2000, "average_usd": 2190 },
+      { "max_miles": 2500, "average_usd": 2694 },
+      { "max_miles": null, "average_usd": 3517 }
+    ],
+    "bls_laborers_freight_stock_material_movers_hand_mean_annual_usd": 42260,
+    "bls_laborers_freight_stock_material_movers_hand_mean_hourly_usd": 20.32
+  },
+  "sources": {
+    "uhaul": {
+      "name": "U-Haul, How To Save Money On Truck Rentals",
+      "url": "https://www.uhaul.com/Tips/Loading/How-To-Save-Money-ON-Truck-Rentals-35820/",
+      "published_or_updated": "2025-09-10",
+      "data_period": "September 2025",
+      "use": "one-way truck rental market benchmark by mileage band"
+    },
+    "bls": {
+      "name": "U.S. Bureau of Labor Statistics, Occupational Employment and Wages, May 2025",
+      "url": "https://www.bls.gov/oes/2025/may/largest2.htm",
+      "use": "labor-cost benchmark only; not a mover quote"
+    },
+    "census": {
+      "name": "U.S. Census Bureau, ACS 1-year State-to-State Migration Flows, 2024",
+      "url": "https://www.census.gov/data/tables/time-series/demo/geographic-mobility/state-to-state-migration.html",
+      "use": "route-demand/context signal; not a price coefficient"
+    }
+  },
+  "provider_rate_context": {
+    "uhaul": {
+      "documented_rule": "One-way rates depend on origin, destination, truck size, move date and rental truck inventory.",
+      "numeric_universal_rate": false
+    }
+  },
+  "candidate_coefficients": {
+    "base_move_usd": null,
+    "distance_usd_per_mile": null,
+    "home_size_multipliers": null,
+    "move_type_multipliers": null,
+    "reason": "Do not convert the U-Haul distance-band averages, BLS labor wage, or Census migration flows into universal coefficients without route, truck-size, labor-scope and date calibration. The current planning model remains explicit until that calibration is supported by enough observations."
+  }
+}
