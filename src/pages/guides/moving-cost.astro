@@ -1,11 +1,15 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import GuideSchema from "../../components/GuideSchema.astro";
+import GuideNext from "../../components/GuideNext.astro";
+
+const title = "What Affects Moving Costs? — Relocation Cost";
+const description = "Distance, home size, who does the work, timing and access all change what a move costs. Learn each factor so you can judge any moving estimate.";
+const path = "/guides/moving-cost/";
 ---
-<Layout
-  title="What Affects Moving Costs? — Relocation Cost"
-  description="Distance, home size, who does the work, timing and access all change what a move costs. Learn each factor so you can judge any moving estimate."
->
+<Layout title={title} description={description}>
   <article class="mx-auto max-w-3xl px-5 py-14">
+    <GuideSchema title={title} description={description} path={path} />
     <p class="text-sm font-semibold uppercase tracking-widest text-sky-600">Guide</p>
     <h1 class="mt-2 text-4xl font-bold tracking-tight">How much does moving cost?</h1>
     <p class="mt-5 text-lg leading-8 text-slate-600">There is no single price for a move. The cost depends on how far you go, how much you move, who does the work, and a handful of details that are easy to overlook until a quote arrives. This guide explains each factor so you can judge any estimate, including the one from our calculator.</p>
@@ -38,5 +42,6 @@ import Layout from "../../layouts/Layout.astro";
 
     <h2 class="mt-10 text-2xl font-bold">Use the estimate to plan, then confirm with quotes</h2>
     <p class="mt-4 leading-7 text-slate-700">Treat any online estimate as a starting point. Ask at least two providers for written estimates based on your actual addresses, dates and inventory, and compare what each one includes.</p>
+    <GuideNext current={path} />
   </article>
 </Layout>

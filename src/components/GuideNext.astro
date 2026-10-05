@@ -1,0 +1,36 @@
+---
+// "Keep planning" block for guide pages: calculator, sibling guides, example routes.
+import stateData from "../../data/state-distances.json";
+import routePages from "../../data/route-pages.json";
+
+const { current } = Astro.props;
+const guides = [
+  { href: "/guides/moving-cost/", label: "What affects moving costs?" },
+  { href: "/guides/diy-vs-movers/", label: "DIY vs professional movers" },
+  { href: "/guides/relocation-budget/", label: "How to build a relocation budget" }
+].filter(guide => guide.href !== current);
+const routes = routePages.routes.slice(0, 4).map(route => ({
+  href: `/moving-cost/${route.slug}/`,
+  label: `${stateData.states[route.from].name} to ${stateData.states[route.to].name}`
+}));
+---
+<aside class="mt-14 rounded-2xl border border-slate-200 bg-slate-50 p-6 sm:p-8" aria-labelledby="keep-planning">
+  <h2 id="keep-planning" class="text-xl font-bold">Keep planning</h2>
+  <p class="mt-2 text-sm leading-6 text-slate-600">Turn what you read into numbers, then confirm them with written quotes.</p>
+  <p class="mt-4"><a href="/calculator/" class="inline-block rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-800">Open the moving cost calculator</a></p>
+  <div class="mt-6 grid gap-6 sm:grid-cols-2">
+    <div>
+      <p class="text-sm font-semibold text-slate-900">More guides</p>
+      <ul class="mt-2 space-y-2 text-sm">
+        {guides.map(guide => <li><a class="text-sky-700 underline" href={guide.href}>{guide.label}</a></li>)}
+      </ul>
+    </div>
+    <div>
+      <p class="text-sm font-semibold text-slate-900">Example route costs</p>
+      <ul class="mt-2 space-y-2 text-sm">
+        {routes.map(route => <li><a class="text-sky-700 underline" href={route.href}>{route.label}</a></li>)}
+        <li><a class="font-semibold text-sky-700 underline" href="/moving-cost/">All route costs</a></li>
+      </ul>
+    </div>
+  </div>
+</aside>
