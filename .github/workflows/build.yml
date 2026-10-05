@@ -17,4 +17,3 @@ jobs:
       - run: npm test
       - run: npm run build
       - run: node tools/verify-seo.mjs
-      - run: node tools/verify-seo.mjs
