@@ -2,6 +2,29 @@
 import Layout from "../../layouts/Layout.astro";
 import GuideSchema from "../../components/GuideSchema.astro";
 import GuideNext from "../../components/GuideNext.astro";
+import benchmarkData from "../../../data/coefficients.json";
+import { calculateBudget } from "../../lib/calculator.js";
+
+const money = value => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
+const bands = benchmarkData.benchmarks.uhaul_one_way_average_by_distance;
+const bandRows = bands.map((band, index) => {
+  const start = index === 0 ? 1 : bands[index - 1].max_miles + 1;
+  const label = band.max_miles === null
+    ? `${start.toLocaleString("en-US")} miles or more`
+    : `${start.toLocaleString("en-US")} to ${band.max_miles.toLocaleString("en-US")} miles`;
+  return { label, average: band.average_usd };
+});
+// One example distance inside each published band, priced with the calculator's own model.
+const exampleDistances = [150, 400, 800, 1250, 1750, 2250, 2800];
+const typeColumns = [
+  { label: "DIY", type: 0.65 },
+  { label: "Rental truck + labor", type: 1 },
+  { label: "Full-service movers", type: 1.65 }
+];
+const exampleRows = exampleDistances.map(distance => ({
+  distance,
+  totals: typeColumns.map(column => calculateBudget({ distance, size: 1.35, type: column.type }).total)
+}));
 
 const title = "What Affects Moving Costs? — Relocation Cost";
 const description = "Distance, home size, who does the work, timing and access all change what a move costs. Learn each factor so you can judge any moving estimate.";
@@ -39,6 +62,42 @@ const path = "/guides/moving-cost/";
 
     <h2 class="mt-10 text-2xl font-bold">How the calculator treats these factors</h2>
     <p class="mt-4 leading-7 text-slate-700">The <a class="font-semibold text-sky-700 underline" href="/calculator/">moving cost calculator</a> turns distance, home size and move type into a planning estimate. The DIY base is never set below the published U-Haul average for that distance band. The other move types add a labor and service premium, which is a stated assumption and not a market price. Extra costs are added exactly as you enter them, and a 10% buffer is applied on top. The full formula and its limits are on the <a class="font-semibold text-sky-700 underline" href="/methodology/">methodology page</a>.</p>
+
+    <h2 class="mt-10 text-2xl font-bold">Average one-way truck rental by distance</h2>
+    <p class="mt-4 leading-7 text-slate-700">U-Haul publishes average one-way rental prices by distance band ({benchmarkData.sources.uhaul.data_period} data). These are averages across many routes, not quotes for yours, and the average steps up when a move crosses a band boundary.</p>
+    <div class="mt-4 overflow-x-auto rounded-2xl border border-slate-200">
+      <table class="w-full min-w-[20rem] text-left text-sm">
+        <caption class="sr-only">U-Haul average one-way truck rental price by distance band</caption>
+        <thead class="bg-slate-50 text-slate-600"><tr><th scope="col" class="px-4 py-3 font-semibold">Distance band</th><th scope="col" class="px-4 py-3 font-semibold">Published average</th></tr></thead>
+        <tbody class="divide-y divide-slate-200">
+          {bandRows.map(row => (<tr><th scope="row" class="px-4 py-3 font-medium text-slate-900">{row.label}</th><td class="px-4 py-3 text-slate-700">{money(row.average)}</td></tr>))}
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-3 text-xs leading-5 text-slate-500">Source: <a class="font-semibold text-sky-700 underline" href={benchmarkData.sources.uhaul.url} rel="noopener">{benchmarkData.sources.uhaul.name}</a>. Prices vary by origin, destination, truck size, move date and inventory.</p>
+
+    <h2 class="mt-10 text-2xl font-bold">Planning totals by distance</h2>
+    <p class="mt-4 leading-7 text-slate-700">The table below runs one example distance from each band through this site's calculator for a 2–3 room home, with no extra costs entered. The totals include the 10% planning buffer. They show how the three ways of moving compare as distance grows. They are planning estimates, not quotes.</p>
+    <div class="mt-4 overflow-x-auto rounded-2xl border border-slate-200">
+      <table class="w-full min-w-[28rem] text-left text-sm">
+        <caption class="sr-only">Planning totals for a 2 to 3 room home by example distance and move type</caption>
+        <thead class="bg-slate-50 text-slate-600">
+          <tr>
+            <th scope="col" class="px-4 py-3 font-semibold">Example distance</th>
+            {typeColumns.map(column => (<th scope="col" class="px-4 py-3 font-semibold">{column.label}</th>))}
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-200">
+          {exampleRows.map(row => (
+            <tr>
+              <th scope="row" class="px-4 py-3 font-medium text-slate-900">{row.distance.toLocaleString("en-US")} miles</th>
+              {row.totals.map(total => (<td class="px-4 py-3 text-slate-700">{money(total)}</td>))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-3 text-xs leading-5 text-slate-500">Want your own numbers? Use the <a class="font-semibold text-sky-700 underline" href="/calculator/">calculator</a> with your states, home size and extra costs.</p>
 
     <h2 class="mt-10 text-2xl font-bold">Use the estimate to plan, then confirm with quotes</h2>
     <p class="mt-4 leading-7 text-slate-700">Treat any online estimate as a starting point. Ask at least two providers for written estimates based on your actual addresses, dates and inventory, and compare what each one includes.</p>
