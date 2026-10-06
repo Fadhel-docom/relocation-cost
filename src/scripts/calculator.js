@@ -20,6 +20,9 @@ const share = document.querySelector("#share");
 const reset = document.querySelector("#reset");
 const shareStatus = document.querySelector("#shareStatus");
 const stateDistanceNote = document.querySelector("#stateHelp");
+const nextSteps = document.querySelector("#nextSteps");
+const routeGuideItem = document.querySelector("#routeGuideItem");
+const routeGuideLink = document.querySelector("#routeGuideLink");
 const compareCards = [...document.querySelectorAll("[data-compare-type]")];
 
 const money = n => new Intl.NumberFormat("en-US", {
@@ -104,9 +107,29 @@ const validateInputs = () => {
   return true;
 };
 
+const routeSlugs = (() => {
+  try { return new Set(JSON.parse(nextSteps?.dataset.routeSlugs || "[]")); } catch { return new Set(); }
+})();
+
+// Show a link to the matching route guide only when that guide page exists.
+const updateRouteGuide = () => {
+  if (!routeGuideItem || !routeGuideLink) return;
+  const slug = `${fields.fromState.value}-to-${fields.toState.value}`.toLowerCase();
+  if (routeSlugs.has(slug)) {
+    const from = stateData.states[fields.fromState.value]?.name;
+    const to = stateData.states[fields.toState.value]?.name;
+    routeGuideLink.href = `/moving-cost/${slug}/`;
+    routeGuideLink.textContent = `${from} to ${to} route guide`;
+    routeGuideItem.hidden = false;
+  } else {
+    routeGuideItem.hidden = true;
+  }
+};
+
 const num = id => Number(fields[id]?.value) || 0;
 
 const calculate = () => {
+  updateRouteGuide();
   if (!validateInputs()) return null;
 
   const resultData = calculateBudget({
@@ -217,6 +240,8 @@ fields.toState?.addEventListener("change", applyStateDistance);
 ["distance","size","type","travel","housing","setup","extras"].forEach(id =>
   fields[id]?.addEventListener("input", calculate)
 );
+
+routeGuideLink?.addEventListener("click", () => track("route_guide_clicked"));
 
 reset?.addEventListener("click", resetCalculator);
 

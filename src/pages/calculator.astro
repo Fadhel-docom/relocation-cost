@@ -1,5 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import routePages from "../../data/route-pages.json";
+
+const routeSlugs = routePages.routes.map(route => route.slug);
 
 const pageUrl = new URL("/calculator/", Astro.site).href;
 const appJsonLd = {
@@ -94,6 +97,14 @@ const breadcrumbJsonLd = {
           <p class="mt-1 text-slate-400">U-Haul published one-way rental average for this mileage band: <strong id="marketBenchmark" class="text-white">$0</strong>.</p>
           <p id="floorNote" class="mt-2 text-xs leading-5 text-sky-300" hidden>The move cost starts from this average because the basic model came out lower.</p>
           <p class="mt-2 text-xs leading-5 text-slate-500">It is used only as a minimum base for the move cost. It is a mileage-band average, not your route quote.</p>
+        </div>
+        <div id="nextSteps" class="mt-5 rounded-xl border border-slate-800 bg-slate-900 p-4 text-sm" data-route-slugs={JSON.stringify(routeSlugs)}>
+          <p class="font-semibold text-slate-200">Next steps</p>
+          <ul class="mt-2 space-y-2 text-slate-300">
+            <li id="routeGuideItem" hidden><a id="routeGuideLink" href="/moving-cost/" class="font-semibold text-sky-300 underline">Route guide</a></li>
+            <li><a href="/guides/diy-vs-movers/" class="font-semibold text-sky-300 underline">DIY vs movers</a>: when each option usually makes sense</li>
+            <li><a href="/guides/relocation-budget/" class="font-semibold text-sky-300 underline">Relocation budget guide</a>: costs beyond the move itself</li>
+          </ul>
         </div>
       </aside>
     </div>
