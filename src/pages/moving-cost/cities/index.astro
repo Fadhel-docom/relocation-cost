@@ -1,0 +1,34 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import cityData from "../../../../data/cities.json";
+import cityRoutes from "../../../../data/city-routes.json";
+
+const cities = cityData.cities;
+---
+<Layout title="Moving Cost Between Major US Cities — Route Planning Guides" description="Browse city-to-city moving cost planning guides for major US metros, with transparent distance calculations and source-backed market context.">
+  <section class="mx-auto max-w-6xl px-5 py-14">
+    <nav aria-label="Breadcrumb" class="text-sm text-slate-500">
+      <a href="/" class="hover:text-slate-900">Home</a> <span aria-hidden="true">/</span>
+      <a href="/moving-cost/" class="hover:text-slate-900">Route costs</a> <span aria-hidden="true">/</span>
+      <span class="text-slate-700">City routes</span>
+    </nav>
+    <div class="mt-6 max-w-3xl">
+      <p class="text-sm font-semibold uppercase tracking-widest text-sky-600">City route planning guides</p>
+      <h1 class="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">Moving cost between major US cities</h1>
+      <p class="mt-5 text-lg leading-8 text-slate-600">Each guide covers one pair of cities in both directions: a city-center planning distance, a published truck-rental benchmark, and planning totals by home size and move type from the same transparent calculator model.</p>
+    </div>
+    <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {cityRoutes.routes.map(route => (
+        <a href={`/moving-cost/cities/${route.slug}/`} class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-sky-300 hover:shadow">
+          <p class="text-sm font-semibold text-sky-700">City route guide</p>
+          <h2 class="mt-2 text-lg font-bold">{cities[route.from].name} → {cities[route.to].name}</h2>
+          <p class="mt-2 text-sm leading-6 text-slate-500">{cities[route.from].state} to {cities[route.to].state}: distance, benchmark and scenario totals.</p>
+        </a>
+      ))}
+    </div>
+    <p class="mt-10 text-sm leading-7 text-slate-600">Looking for the state-level view? Browse the <a href="/moving-cost/" class="font-semibold text-sky-700 underline">state-to-state route guides</a>.</p>
+    <div class="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-6 text-sm leading-7 text-amber-950">
+      These pages are planning aids, not quotes. Distances use city-center coordinates, and the benchmark is kept separate from the calculator total because provider pricing varies by route, date, inventory, truck size, and service scope.
+    </div>
+  </section>
+</Layout>

@@ -12,6 +12,7 @@ const expectedStatic = new Set([
   "/methodology/",
   "/contact/",
   "/moving-cost/",
+  "/moving-cost/cities/",
   "/guides/moving-cost/",
   "/guides/relocation-budget/",
   "/guides/diy-vs-movers/"
@@ -113,9 +114,16 @@ for (const [rel, canonical] of canonicalByPage) {
 
 const routeUrls = [...sitemapUrls].filter(url => {
   const p = new URL(url).pathname;
-  return p.startsWith("/moving-cost/") && p !== "/moving-cost/";
+  return p.startsWith("/moving-cost/") && p !== "/moving-cost/" && !p.startsWith("/moving-cost/cities/");
 });
 if (routeUrls.length !== 50) failures.push(`expected 50 route URLs, found ${routeUrls.length}`);
+
+const cityRouteCount = JSON.parse(fs.readFileSync(path.resolve("data/city-routes.json"), "utf8")).routes.length;
+const cityUrls = [...sitemapUrls].filter(url => {
+  const p = new URL(url).pathname;
+  return p.startsWith("/moving-cost/cities/") && p !== "/moving-cost/cities/";
+});
+if (cityUrls.length !== cityRouteCount) failures.push(`expected ${cityRouteCount} city route URLs, found ${cityUrls.length}`);
 
 for (const expected of expectedStatic) {
   const absolute = new URL(expected, "https://relocation-cost-psi.vercel.app").href;
@@ -126,6 +134,7 @@ const report = {
   htmlPages: pages.length,
   sitemapUrls: sitemapUrls.size,
   routePages: routeUrls.length,
+  cityRoutePages: cityUrls.length,
   staticPagesChecked: expectedStatic.size,
   failures
 };

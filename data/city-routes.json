@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0",
+  "purpose": "City-to-city planning pages built from city-center great-circle distance and the same transparent calculator model. Each pair has one page that covers both directions. Planning aids, not quotes or claims of route popularity.",
+  "routes": [
+    {
+      "from": "new-york",
+      "to": "miami",
+      "slug": "new-york-to-miami"
+    },
+    {
+      "from": "new-york",
+      "to": "los-angeles",
+      "slug": "new-york-to-los-angeles"
+    },
+    {
+      "from": "new-york",
+      "to": "chicago",
+      "slug": "new-york-to-chicago"
+    },
+    {
+      "from": "boston",
+      "to": "new-york",
+      "slug": "boston-to-new-york"
+    },
+    {
+      "from": "los-angeles",
+      "to": "austin",
+      "slug": "los-angeles-to-austin"
+    },
+    {
+      "from": "los-angeles",
+      "to": "phoenix",
+      "slug": "los-angeles-to-phoenix"
+    },
+    {
+      "from": "los-angeles",
+      "to": "las-vegas",
+      "slug": "los-angeles-to-las-vegas"
+    },
+    {
+      "from": "los-angeles",
+      "to": "san-francisco",
+      "slug": "los-angeles-to-san-francisco"
+    },
+    {
+      "from": "san-diego",
+      "to": "phoenix",
+      "slug": "san-diego-to-phoenix"
+    },
+    {
+      "from": "san-francisco",
+      "to": "seattle",
+      "slug": "san-francisco-to-seattle"
+    },
+    {
+      "from": "seattle",
+      "to": "portland",
+      "slug": "seattle-to-portland"
+    },
+    {
+      "from": "seattle",
+      "to": "denver",
+      "slug": "seattle-to-denver"
+    },
+    {
+      "from": "chicago",
+      "to": "dallas",
+      "slug": "chicago-to-dallas"
+    },
+    {
+      "from": "chicago",
+      "to": "nashville",
+      "slug": "chicago-to-nashville"
+    },
+    {
+      "from": "dallas",
+      "to": "denver",
+      "slug": "dallas-to-denver"
+    },
+    {
+      "from": "dallas",
+      "to": "houston",
+      "slug": "dallas-to-houston"
+    },
+    {
+      "from": "houston",
+      "to": "atlanta",
+      "slug": "houston-to-atlanta"
+    },
+    {
+      "from": "houston",
+      "to": "phoenix",
+      "slug": "houston-to-phoenix"
+    },
+    {
+      "from": "austin",
+      "to": "denver",
+      "slug": "austin-to-denver"
+    },
+    {
+      "from": "atlanta",
+      "to": "miami",
+      "slug": "atlanta-to-miami"
+    },
+    {
+      "from": "atlanta",
+      "to": "charlotte",
+      "slug": "atlanta-to-charlotte"
+    },
+    {
+      "from": "charlotte",
+      "to": "new-york",
+      "slug": "charlotte-to-new-york"
+    },
+    {
+      "from": "nashville",
+      "to": "atlanta",
+      "slug": "nashville-to-atlanta"
+    },
+    {
+      "from": "denver",
+      "to": "phoenix",
+      "slug": "denver-to-phoenix"
+    }
+  ]
+}
