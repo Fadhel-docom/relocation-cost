@@ -2,6 +2,28 @@
 import Layout from "../../layouts/Layout.astro";
 import GuideSchema from "../../components/GuideSchema.astro";
 import GuideNext from "../../components/GuideNext.astro";
+import { calculateBudget } from "../../lib/calculator.js";
+
+const money = value => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
+const types = [
+  { label: "DIY", type: 0.65 },
+  { label: "Rental truck + labor", type: 1 },
+  { label: "Full-service movers", type: 1.65 }
+];
+const homeSizes = [
+  { label: "Studio / 1 room", size: 1 },
+  { label: "2–3 rooms", size: 1.35 },
+  { label: "4–5 rooms", size: 1.8 },
+  { label: "6+ rooms", size: 2.4 }
+];
+const distances = [300, 1000, 2000];
+const comparisons = distances.map(distance => ({
+  distance,
+  rows: homeSizes.map(home => {
+    const totals = types.map(option => calculateBudget({ distance, size: home.size, type: option.type }).total);
+    return { home: home.label, totals, extra: totals[2] - totals[0] };
+  })
+}));
 
 const title = "DIY Move vs Professional Movers — Relocation Cost";
 const description = "Compare a DIY move, a rental truck with hired labor and full-service movers on cost, effort, risk and flexibility, plus the questions to ask before you choose.";
@@ -27,6 +49,36 @@ const path = "/guides/diy-vs-movers/";
         </tbody>
       </table>
     </div>
+
+    <h2 class="mt-10 text-2xl font-bold">What the price gap looks like in the calculator</h2>
+    <p class="mt-4 leading-7 text-slate-700">The tables below run three example distances and four home sizes through this site's calculator. They show how the gap between a DIY move and full-service movers changes with distance and volume. Totals include the 10% planning buffer and no extra costs. They are planning estimates, not quotes, and the premium for hired labor and full service is an explicit assumption of the model.</p>
+    {comparisons.map(group => (
+      <div class="mt-6">
+        <h3 class="text-lg font-bold">{group.distance.toLocaleString("en-US")} miles</h3>
+        <div class="mt-3 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+          <table class="w-full min-w-[34rem] text-left text-sm">
+            <caption class="sr-only">Planning totals for a {group.distance.toLocaleString("en-US")} mile move by home size and move type</caption>
+            <thead class="bg-slate-50 text-slate-600">
+              <tr>
+                <th scope="col" class="px-4 py-3 font-semibold">Home size</th>
+                {types.map(option => (<th scope="col" class="px-4 py-3 font-semibold">{option.label}</th>))}
+                <th scope="col" class="px-4 py-3 font-semibold">Full service vs DIY</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              {group.rows.map(row => (
+                <tr>
+                  <th scope="row" class="px-4 py-3 font-medium text-slate-900">{row.home}</th>
+                  {row.totals.map(total => (<td class="px-4 py-3 text-slate-700">{money(total)}</td>))}
+                  <td class="px-4 py-3 text-slate-700">+{money(row.extra)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    ))}
+    <p class="mt-4 leading-7 text-slate-700">Two patterns are worth noticing. First, the extra cost of full service grows with home size, because more volume means more labor and service in the model, so the choice matters most for larger homes. Second, the DIY column can look identical for different home sizes on a long move. That happens when the published U-Haul average for the distance band sets the minimum, and the model's own estimate for a smaller home falls below it. Test your own numbers in the <a class="font-semibold text-sky-700 underline" href="/calculator/">calculator</a>.</p>
 
     <h2 class="mt-10 text-2xl font-bold">Costs people forget about a DIY move</h2>
     <ul class="mt-4 list-disc space-y-3 pl-6 leading-7 text-slate-700">

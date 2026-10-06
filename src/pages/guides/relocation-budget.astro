@@ -2,6 +2,32 @@
 import Layout from "../../layouts/Layout.astro";
 import GuideSchema from "../../components/GuideSchema.astro";
 import GuideNext from "../../components/GuideNext.astro";
+import stateData from "../../../data/state-distances.json";
+import { calculateBudget } from "../../lib/calculator.js";
+
+const money = value => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
+const toRadians = degrees => degrees * Math.PI / 180;
+const miles = (fromCode, toCode) => {
+  const from = stateData.states[fromCode];
+  const to = stateData.states[toCode];
+  const dLat = toRadians(to.lat - from.lat);
+  const dLon = toRadians(to.lon - from.lon);
+  const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRadians(from.lat)) * Math.cos(toRadians(to.lat)) * Math.sin(dLon / 2) ** 2;
+  return Math.round(3958.7613 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
+};
+// Worked example: the other-cost amounts below are made-up illustrations chosen for the example, not benchmarks.
+const example = { from: "IL", to: "TX", distance: miles("IL", "TX"), size: 1.35, type: 1, travel: 400, housing: 900, setup: 1800, extras: 250 };
+const withoutExtras = calculateBudget({ distance: example.distance, size: example.size, type: example.type });
+const full = calculateBudget(example);
+const lines = [
+  { label: "Move (rental truck + labor, 2–3 rooms)", amount: full.move },
+  { label: "Travel", amount: example.travel },
+  { label: "Temporary housing", amount: example.housing },
+  { label: "Deposits / setup", amount: example.setup },
+  { label: "Packing / extras", amount: example.extras },
+  { label: "10% planning buffer", amount: full.contingency }
+];
+const extrasShare = Math.round(full.other / (full.move + full.other) * 100);
 
 const title = "How to Build a Relocation Budget — Relocation Cost";
 const description = "A four-bucket method for planning a relocation budget: moving costs, travel and housing, deposits and setup, and a buffer. Includes how to use the calculator.";
@@ -30,6 +56,20 @@ const path = "/guides/relocation-budget/";
 
     <h2 class="mt-10 text-2xl font-bold">Step 4: Replace estimates as quotes arrive</h2>
     <p class="mt-4 leading-7 text-slate-700">Update each line when you receive a real price. Keep the date of every quote and note what is included, so you can compare providers fairly and spot what is missing. The goal is a decision-ready budget, not false precision.</p>
+
+    <h2 class="mt-10 text-2xl font-bold">A worked example</h2>
+    <p class="mt-4 leading-7 text-slate-700">Here is how the four buckets look for a move from {stateData.states[example.from].name} to {stateData.states[example.to].name} (about {example.distance.toLocaleString("en-US")} miles by the calculator's state-centroid distance) with a 2–3 room home and a rental truck plus hired labor. The move line comes from the calculator. The four other amounts are invented for this illustration only, so replace them with your own figures.</p>
+    <div class="mt-4 overflow-x-auto rounded-2xl border border-slate-200">
+      <table class="w-full min-w-[20rem] text-left text-sm">
+        <caption class="sr-only">Worked example relocation budget</caption>
+        <thead class="bg-slate-50 text-slate-600"><tr><th scope="col" class="px-4 py-3 font-semibold">Line</th><th scope="col" class="px-4 py-3 font-semibold">Planning amount</th></tr></thead>
+        <tbody class="divide-y divide-slate-200">
+          {lines.map(line => (<tr><th scope="row" class="px-4 py-3 font-medium text-slate-900">{line.label}</th><td class="px-4 py-3 text-slate-700">{money(line.amount)}</td></tr>))}
+        </tbody>
+        <tfoot class="border-t border-slate-300 bg-slate-50"><tr><th scope="row" class="px-4 py-3 font-bold text-slate-900">Estimated budget</th><td class="px-4 py-3 font-bold text-slate-900">{money(full.total)}</td></tr></tfoot>
+      </table>
+    </div>
+    <p class="mt-4 leading-7 text-slate-700">The move alone comes to {money(withoutExtras.total)} with the buffer. Adding the other relocation costs lifts the budget to {money(full.total)}, and those costs make up about {extrasShare}% of the spending before the buffer. That is why the guide treats the move as only one of four buckets. The indicative range for the full budget is {money(full.rangeLow)} to {money(full.rangeHigh)}.</p>
 
     <h2 class="mt-10 text-2xl font-bold">Using the calculator for a first draft</h2>
     <p class="mt-4 leading-7 text-slate-700">The <a class="font-semibold text-sky-700 underline" href="/calculator/">calculator</a> gives you a planning estimate for the move from the states, distance, home size and move type you choose. The fields under “Other relocation costs” match the buckets above: travel, temporary housing, deposits and setup, and packing or extras. Enter the amounts you already know and leave the rest at zero until you have a figure.</p>
