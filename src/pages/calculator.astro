@@ -1,4 +1,5 @@
 ---
+import PartnerOffers from "../components/PartnerOffers.astro";
 import Layout from "../layouts/Layout.astro";
 import routePages from "../../data/route-pages.json";
 
@@ -130,6 +131,8 @@ const breadcrumbJsonLd = {
         </div>
       </div>
     </section>
+
+    <PartnerOffers heading="Next: get real quotes" />
 
     <div class="mt-10 rounded-2xl border border-amber-200 bg-amber-50 p-6 text-sm leading-7 text-amber-950">
       <strong>About this estimate:</strong> this MVP uses a transparent planning model, not live mover quotes or a market-validated price database. Treat the result as a budgeting starting point and replace assumptions with real quotes.
