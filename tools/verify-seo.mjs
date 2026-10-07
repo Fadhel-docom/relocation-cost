@@ -67,6 +67,10 @@ for (const file of pages) {
     }
   }
 
+  for (const link of html.matchAll(/<a\b[^>]*data-program=[^>]*>/gi)) {
+    if (!/rel=["'][^"']*sponsored/i.test(link[0])) failures.push(`${rel}: affiliate link without rel="sponsored"`);
+  }
+
   const canonical = html.match(/<link\b[^>]*rel=["']canonical["'][^>]*href=["']([^"']+)["']/i)?.[1];
   if (!canonical) failures.push(`${rel}: canonical missing`);
   else canonicalByPage.set(rel, canonical);

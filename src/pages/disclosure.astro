@@ -1,5 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { activePartners } from "../lib/partners.js";
+
+const hasPartners = activePartners().length > 0;
 ---
 <Layout
   title="Advertising and Affiliate Disclosure — Relocation Cost"
@@ -11,7 +14,9 @@ import Layout from "../layouts/Layout.astro";
     <p class="mt-5 text-lg leading-8 text-slate-600">Relocation Cost is a free planning tool. This page explains how the site may earn money, so you can judge what you read here.</p>
 
     <h2 class="mt-10 text-2xl font-bold">Current status</h2>
-    <p class="mt-4 leading-7 text-slate-700">At the time of writing, this site does not contain affiliate links or advertisements. If that changes, this page will be updated.</p>
+    {hasPartners
+      ? <p class="mt-4 leading-7 text-slate-700">This site contains affiliate links to moving, truck-rental, storage or insurance services. Each one is marked as an affiliate link next to the link itself. We may earn a commission if you use them, at no extra cost to you.</p>
+      : <p class="mt-4 leading-7 text-slate-700">At the time of writing, this site does not contain affiliate links or advertisements. If that changes, this page will be updated.</p>}
 
     <h2 class="mt-10 text-2xl font-bold">How the site may earn money</h2>
     <ul class="mt-4 list-disc space-y-3 pl-6 leading-7 text-slate-700">

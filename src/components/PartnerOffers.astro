@@ -1,0 +1,23 @@
+---
+import AffiliateLink from "./AffiliateLink.astro";
+import { activePartners } from "../lib/partners.js";
+
+// Renders nothing until at least one partner in src/lib/partners.js has a link.
+const partners = activePartners();
+const { heading = "Services that can help with this move" } = Astro.props;
+---
+{partners.length > 0 && (
+  <section class="mt-12 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="partners-heading" data-partner-block>
+    <h2 id="partners-heading" class="text-2xl font-bold">{heading}</h2>
+    <p class="mt-2 text-sm leading-6 text-slate-500">We may earn a commission if you use these links, at no extra cost to you. They never change the estimates on this site. See the <a href="/disclosure/" class="underline">disclosure</a>.</p>
+    <ul class="mt-5 grid gap-4 sm:grid-cols-2">
+      {partners.map(partner => (
+        <li class="rounded-xl border border-slate-200 p-4">
+          <p class="text-xs font-semibold uppercase tracking-widest text-sky-600">{partner.category}</p>
+          <p class="mt-2"><AffiliateLink href={partner.href} label={partner.label} program={partner.id} /></p>
+          <p class="mt-2 text-sm leading-6 text-slate-600">{partner.description}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
