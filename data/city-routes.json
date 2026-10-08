@@ -121,6 +121,106 @@
       "from": "denver",
       "to": "phoenix",
       "slug": "denver-to-phoenix"
+    },
+    {
+      "from": "new-york",
+      "to": "atlanta",
+      "slug": "new-york-to-atlanta"
+    },
+    {
+      "from": "chicago",
+      "to": "atlanta",
+      "slug": "chicago-to-atlanta"
+    },
+    {
+      "from": "chicago",
+      "to": "denver",
+      "slug": "chicago-to-denver"
+    },
+    {
+      "from": "chicago",
+      "to": "houston",
+      "slug": "chicago-to-houston"
+    },
+    {
+      "from": "houston",
+      "to": "austin",
+      "slug": "houston-to-austin"
+    },
+    {
+      "from": "dallas",
+      "to": "austin",
+      "slug": "dallas-to-austin"
+    },
+    {
+      "from": "dallas",
+      "to": "atlanta",
+      "slug": "dallas-to-atlanta"
+    },
+    {
+      "from": "dallas",
+      "to": "phoenix",
+      "slug": "dallas-to-phoenix"
+    },
+    {
+      "from": "san-francisco",
+      "to": "portland",
+      "slug": "san-francisco-to-portland"
+    },
+    {
+      "from": "san-francisco",
+      "to": "las-vegas",
+      "slug": "san-francisco-to-las-vegas"
+    },
+    {
+      "from": "san-francisco",
+      "to": "new-york",
+      "slug": "san-francisco-to-new-york"
+    },
+    {
+      "from": "seattle",
+      "to": "los-angeles",
+      "slug": "seattle-to-los-angeles"
+    },
+    {
+      "from": "portland",
+      "to": "los-angeles",
+      "slug": "portland-to-los-angeles"
+    },
+    {
+      "from": "las-vegas",
+      "to": "phoenix",
+      "slug": "las-vegas-to-phoenix"
+    },
+    {
+      "from": "denver",
+      "to": "las-vegas",
+      "slug": "denver-to-las-vegas"
+    },
+    {
+      "from": "miami",
+      "to": "charlotte",
+      "slug": "miami-to-charlotte"
+    },
+    {
+      "from": "boston",
+      "to": "miami",
+      "slug": "boston-to-miami"
+    },
+    {
+      "from": "charlotte",
+      "to": "nashville",
+      "slug": "charlotte-to-nashville"
+    },
+    {
+      "from": "san-diego",
+      "to": "los-angeles",
+      "slug": "san-diego-to-los-angeles"
+    },
+    {
+      "from": "atlanta",
+      "to": "boston",
+      "slug": "atlanta-to-boston"
     }
   ]
 }
