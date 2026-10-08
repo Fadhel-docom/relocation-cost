@@ -91,6 +91,18 @@ for (const guide of guidePaths) {
   if (!html.includes('href="/moving-cost/"')) failures.push(`${guide}: no link to the route hub`);
 }
 
+const robotsFile = path.join(dist, "robots.txt");
+if (!fs.existsSync(robotsFile)) {
+  failures.push("robots.txt missing");
+} else {
+  const robots = read(robotsFile);
+  if (!/^User-agent:\s*\*/mi.test(robots)) failures.push("robots.txt missing User-agent: *");
+  if (!/^Allow:\s*\/$/mi.test(robots)) failures.push("robots.txt missing Allow: /");
+  if (!/^Sitemap:\s*https:\/\/relocation-cost-psi\.vercel\.app\/sitemap-index\.xml$/mi.test(robots)) {
+    failures.push("robots.txt missing canonical sitemap declaration");
+  }
+}
+
 const sitemapIndex = path.join(dist, "sitemap-index.xml");
 const sitemap0 = path.join(dist, "sitemap-0.xml");
 if (!fs.existsSync(sitemapIndex)) failures.push("sitemap-index.xml missing");
