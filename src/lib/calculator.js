@@ -14,6 +14,16 @@ export const DEFAULT_RANGE_HIGH = 1.20;
 export const MOVE_BASE_COST = 350;
 export const MOVE_PER_MILE = 0.56;
 export const DIY_TYPE_MULTIPLIER = 0.65;
+export const HOME_SIZES = Object.freeze([1, 1.35, 1.8, 2.4]);
+export const MOVE_TYPES = Object.freeze([DIY_TYPE_MULTIPLIER, 1, 1.65]);
+
+// Returns the numeric value when it is one of the allowed options, otherwise
+// the fallback. Used to clean values restored from share links or storage.
+export function pickAllowed(value, allowed, fallback) {
+  const number = Number(value);
+  return value !== "" && value !== null && value !== undefined && allowed.includes(number) ? number : fallback;
+}
+
 export const SOURCE_BENCHMARKS = Object.freeze({
   uhaulOneWayByDistance: coefficients.uhaulOneWayByDistance,
   blsLaborHourlyUsd: coefficients.blsLaborHourlyUsd,
@@ -48,8 +58,12 @@ export function calculateBudget(
     validateNumber("housing", housing, INPUT_LIMITS.housing);
     validateNumber("setup", setup, INPUT_LIMITS.setup);
     validateNumber("extras", extras, INPUT_LIMITS.extras);
-    validateNumber("size", size, { min: 0, max: Number.POSITIVE_INFINITY });
-    validateNumber("type", type, { min: 0, max: Number.POSITIVE_INFINITY });
+    if (!HOME_SIZES.includes(size)) {
+      throw new RangeError(`size must be one of ${HOME_SIZES.join(", ")}.`);
+    }
+    if (!MOVE_TYPES.includes(type)) {
+      throw new RangeError(`type must be one of ${MOVE_TYPES.join(", ")}.`);
+    }
   }
 
   const marketBenchmark = getUhaulBenchmark(distance);
