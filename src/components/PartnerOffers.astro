@@ -1,6 +1,6 @@
 ---
 import AffiliateLink from "./AffiliateLink.astro";
-import { activePartners } from "../lib/partners.js";
+import { activePartners, trackedHref } from "../lib/partners.js";
 
 // Renders nothing until at least one partner in src/lib/partners.js has a link.
 const partners = activePartners();
@@ -14,7 +14,7 @@ const { heading = "Services that can help with this move" } = Astro.props;
       {partners.map(partner => (
         <li class="rounded-xl border border-slate-200 p-4">
           <p class="text-xs font-semibold uppercase tracking-widest text-sky-600">{partner.category}</p>
-          <p class="mt-2"><AffiliateLink href={partner.href} label={partner.label} program={partner.id} /></p>
+          <p class="mt-2"><AffiliateLink href={trackedHref(partner.href, Astro.url.pathname)} label={partner.label} program={partner.id} /></p>
           <p class="mt-2 text-sm leading-6 text-slate-600">{partner.description}</p>
         </li>
       ))}

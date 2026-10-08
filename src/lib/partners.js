@@ -40,3 +40,25 @@ export const PARTNERS = [
 ];
 
 export const activePartners = () => PARTNERS.filter(partner => partner.href.startsWith("https://"));
+
+// Awin accepts a free-text `clickref` on tracking links. We set it to the page
+// the click came from, so the Awin reports show which page earns commission.
+// Awin allows letters, digits, "-" and "_", up to 50 characters.
+export function clickrefFor(pathname = "") {
+  const slug = pathname.replace(/^\/+|\/+$/g, "").replace(/[^a-zA-Z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  return (slug || "home").slice(0, 50).replace(/-+$/, "");
+}
+
+export function trackedHref(href, pathname = "") {
+  let url;
+  try {
+    url = new URL(href);
+  } catch {
+    return href;
+  }
+  if (url.protocol !== "https:") return href;
+  if (url.hostname.endsWith("awin1.com") && !url.searchParams.has("clickref")) {
+    url.searchParams.set("clickref", clickrefFor(pathname));
+  }
+  return url.toString();
+}

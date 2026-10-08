@@ -69,6 +69,7 @@ for (const file of pages) {
 
   for (const link of html.matchAll(/<a\b[^>]*data-program=[^>]*>/gi)) {
     if (!/rel=["'][^"']*sponsored/i.test(link[0])) failures.push(`${rel}: affiliate link without rel="sponsored"`);
+    if (/awin1\.com/i.test(link[0]) && !/clickref=/i.test(link[0])) failures.push(`${rel}: Awin link without clickref`);
   }
 
   const canonical = html.match(/<link\b[^>]*rel=["']canonical["'][^>]*href=["']([^"']+)["']/i)?.[1];
