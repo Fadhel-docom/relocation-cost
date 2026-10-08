@@ -1,6 +1,6 @@
 import { track } from "@vercel/analytics";
 import stateData from "../../data/state-distances.json";
-import { calculateBudget } from "../lib/calculator.js";
+import { calculateBudget, HOME_SIZES, MOVE_TYPES, pickAllowed } from "../lib/calculator.js";
 
 const form = document.querySelector("#calculator");
 const ids = ["fromState","toState","distance","size","type","travel","housing","setup","extras"];
@@ -102,6 +102,11 @@ const validateInputs = () => {
     }
 
     fields[id]?.removeAttribute("aria-invalid");
+  }
+
+  if (!HOME_SIZES.includes(Number(fields.size.value)) || !MOVE_TYPES.includes(Number(fields.type.value))) {
+    inputError.textContent = "Choose a home size and a move type from the lists.";
+    return false;
   }
 
   inputError.textContent = "";
@@ -213,6 +218,16 @@ const loadSaved = () => {
   } catch {}
 };
 
+// Share links and saved inputs can be edited by hand. Any value that is not one
+// of the offered options falls back to the default instead of leaving a select
+// blank (which would silently read as 0 and give a wrong estimate).
+const sanitizeSelects = () => {
+  if (!stateCodes.includes(fields.fromState.value)) fields.fromState.value = defaults.fromState;
+  if (!stateCodes.includes(fields.toState.value)) fields.toState.value = defaults.toState;
+  fields.size.value = String(pickAllowed(fields.size.value, HOME_SIZES, Number(defaults.size)));
+  fields.type.value = String(pickAllowed(fields.type.value, MOVE_TYPES, Number(defaults.type)));
+};
+
 const resetCalculator = () => {
   ids.forEach(id => {
     fields[id].value = defaults[id];
@@ -228,6 +243,7 @@ const resetCalculator = () => {
 // from the selected states so the field and the helper text always agree.
 loadSaved();
 loadQuery();
+sanitizeSelects();
 if (fields.distance.value === "") {
   fillStateDistance();
 } else if (stateMiles(fields.fromState.value, fields.toState.value) === Number(fields.distance.value)) {

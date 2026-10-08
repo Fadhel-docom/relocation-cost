@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { calculateBudget, getUhaulBenchmark } from "./calculator.js";
+import { calculateBudget, getUhaulBenchmark, HOME_SIZES, MOVE_TYPES, pickAllowed } from "./calculator.js";
 
 const assertClose = (actual, expected) => {
   assert.ok(Math.abs(actual - expected) < 1e-9, `expected ${expected}, got ${actual}`);
@@ -109,6 +109,24 @@ test("CA → TX home-size comparison with DIY gives the documented totals", () =
   assertClose(totals[1], 1822.7);
   assertClose(totals[2], 1822.7);
   assertClose(totals[3], 1822.7);
+});
+
+test("home size and move type must be one of the offered options", () => {
+  for (const size of [0, -1, 1.5, 3, Number.NaN, Number.POSITIVE_INFINITY]) {
+    assert.throws(() => calculateBudget({ distance: 1000, size, type: TRUCK }), RangeError, `size ${size}`);
+  }
+  for (const type of [0, 0.5, 2, Number.NaN, Number.POSITIVE_INFINITY]) {
+    assert.throws(() => calculateBudget({ distance: 1000, size: 1.35, type }), RangeError, `type ${type}`);
+  }
+});
+
+test("pickAllowed keeps offered options and falls back for anything else", () => {
+  assert.equal(pickAllowed("1.35", HOME_SIZES, 1), 1.35);
+  assert.equal(pickAllowed("2.4", HOME_SIZES, 1), 2.4);
+  assert.equal(pickAllowed("1.65", MOVE_TYPES, 0.65), 1.65);
+  for (const bad of ["", "abc", "0", "1.5", "99", null, undefined]) {
+    assert.equal(pickAllowed(bad, HOME_SIZES, 1), 1, `value ${bad}`);
+  }
 });
 
 test("distance 0 is rejected", () => {
