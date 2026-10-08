@@ -24,6 +24,7 @@ const nextSteps = document.querySelector("#nextSteps");
 const routeGuideItem = document.querySelector("#routeGuideItem");
 const routeGuideLink = document.querySelector("#routeGuideLink");
 const compareCards = [...document.querySelectorAll("[data-compare-type]")];
+const sizeCompareCards = [...document.querySelectorAll("[data-compare-size]")];
 
 const money = n => new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -167,6 +168,23 @@ const calculate = () => {
     card.querySelector("[data-compare-range]").textContent =
       "Range " + money(alt.rangeLow) + "–" + money(alt.rangeHigh);
     card.dataset.selected = String(typeValue === num("type"));
+  });
+
+  sizeCompareCards.forEach(card => {
+    const sizeValue = Number(card.dataset.compareSize);
+    const alt = calculateBudget({
+      distance: num("distance"),
+      size: sizeValue,
+      type: num("type"),
+      travel: num("travel"),
+      housing: num("housing"),
+      setup: num("setup"),
+      extras: num("extras")
+    });
+    card.querySelector("[data-compare-total]").textContent = money(alt.total);
+    card.querySelector("[data-compare-range]").textContent =
+      "Range " + money(alt.rangeLow) + "–" + money(alt.rangeHigh);
+    card.dataset.selected = String(sizeValue === num("size"));
   });
 
   try {

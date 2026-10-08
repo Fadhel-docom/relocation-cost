@@ -91,6 +91,26 @@ test("CA → TX comparison uses one home size and gives three distinct, ordered 
   assertClose(totals[2], 2917.9172);
 });
 
+test("home-size comparison never decreases as the home gets larger, for every move type", () => {
+  const sizes = [1, 1.35, 1.8, 2.4];
+  for (const type of [DIY, TRUCK, FULL]) {
+    for (const distance of [100, 500, 1000, 1317, 2200, 3200]) {
+      const totals = sizes.map(size => calculateBudget({ distance, size, type, travel: 200 }).total);
+      for (let i = 1; i < totals.length; i += 1) {
+        assert.ok(totals[i] >= totals[i - 1] - 1e-9, `${distance}mi type ${type}: size ${sizes[i]} below size ${sizes[i - 1]}`);
+      }
+    }
+  }
+});
+
+test("CA → TX home-size comparison with DIY gives the documented totals", () => {
+  const totals = [1, 1.35, 1.8, 2.4].map(size => calculateBudget({ distance: 1317, size, type: DIY }).total);
+  assertClose(totals[0], 1822.7);
+  assertClose(totals[1], 1822.7);
+  assertClose(totals[2], 1822.7);
+  assertClose(totals[3], 1822.7);
+});
+
 test("distance 0 is rejected", () => {
   assert.throws(() => calculateBudget({ distance: 0, size: 1.35, type: 1 }), RangeError);
 });
