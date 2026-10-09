@@ -11,6 +11,8 @@ const {
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
+// Commit this page was built from, so the deployed version can be verified from the HTML itself.
+const buildCommit = (process.env.VERCEL_GIT_COMMIT_SHA ?? process.env.GITHUB_SHA ?? "local").slice(0, 40);
 ---
 <!doctype html>
 <html lang="en">
@@ -19,6 +21,7 @@ const ogImage = new URL(image, Astro.site);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <meta name="build-commit" content={buildCommit} />
     {noindex && <meta name="robots" content="noindex" />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta name="google-site-verification" content="7FepTLNzBMDMUqNl8HCZd8pfZKlyG42NlPuZWULfia8" />

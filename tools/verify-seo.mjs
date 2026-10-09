@@ -49,6 +49,11 @@ for (const file of pages) {
   if (titleCount !== 1) failures.push(`${rel}: expected exactly 1 title, found ${titleCount}`);
   if (descriptionCount !== 1) failures.push(`${rel}: expected exactly 1 meta description, found ${descriptionCount}`);
 
+  const buildCommits = [...html.matchAll(/<meta\b[^>]*name=["']build-commit["'][^>]*content=["']([^"']*)["'][^>]*>/gi)].map(m => m[1]);
+  if (buildCommits.length !== 1 || !/^([0-9a-f]{7,40}|local)$/.test(buildCommits[0])) {
+    failures.push(`${rel}: expected exactly 1 build-commit meta with a commit SHA or "local", found ${JSON.stringify(buildCommits)}`);
+  }
+
   for (const match of html.matchAll(/href=["']([^"'#]+)(?:#[^"']*)?["']/gi)) {
     const href = match[1];
     if (!href.startsWith("/") || href === "/") continue;
