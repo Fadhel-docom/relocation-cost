@@ -76,10 +76,10 @@ const fillStateDistance = () => {
   if (miles !== null) {
     fields.distance.value = miles;
     stateDistanceNote.textContent =
-      `Auto-filled ${miles.toLocaleString("en-US")} miles from state centroids. You can edit the distance manually if you have a route-specific mileage estimate.`;
+      `Auto-filled ${miles.toLocaleString("en-US")} miles: an approximate straight line between the centers of the two states, not road mileage. If you know your actual driving miles, type them in to replace it.`;
   } else {
     stateDistanceNote.textContent =
-      "Same-state move selected. Enter the route distance manually in miles.";
+      "Same-state move selected. Enter your driving distance in miles.";
   }
 };
 
@@ -134,9 +134,26 @@ const updateRouteGuide = () => {
 
 const num = id => Number(fields[id]?.value) || 0;
 
+// When an input is invalid, show dashes instead of leaving the last valid
+// estimate on screen next to the error message.
+const clearResults = () => {
+  const dash = "—";
+  [result, moveResult, otherResult, contingencyResult, range, mobileTotal, mobileRange, marketBenchmark]
+    .forEach(el => { if (el) el.textContent = dash; });
+  if (floorNote) floorNote.hidden = true;
+  [...compareCards, ...sizeCompareCards].forEach(card => {
+    card.querySelector("[data-compare-total]").textContent = dash;
+    card.querySelector("[data-compare-range]").textContent = "Fix the input above to compare";
+    card.dataset.selected = "false";
+  });
+};
+
 const calculate = () => {
   updateRouteGuide();
-  if (!validateInputs()) return null;
+  if (!validateInputs()) {
+    clearResults();
+    return null;
+  }
 
   const resultData = calculateBudget({
     distance: num("distance"),
@@ -250,7 +267,7 @@ if (fields.distance.value === "") {
   fillStateDistance();
 } else {
   stateDistanceNote.textContent =
-    "Distance restored from your saved or shared inputs. Change a state to refill it from state centroids.";
+    "Distance restored from your saved or shared inputs. Change a state to refill it with the approximate straight-line distance between state centers (not road mileage).";
 }
 
 let usageTracked = false;

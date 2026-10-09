@@ -31,7 +31,7 @@ const percent = value => `${Math.round(value * 100)}%`;
 
     <h2 class="mt-10 text-2xl font-bold">Inputs</h2>
     <ul class="mt-4 list-disc space-y-3 pl-6 leading-7 text-slate-700">
-      <li><strong>Distance:</strong> filled from the great-circle distance between the geographic centers of the two states you pick, or typed by you. It is not road mileage.</li>
+      <li><strong>Distance:</strong> filled from the great-circle distance between the geographic centers of the two states you pick, or typed by you. It is not road mileage. Replace it with your actual driving miles when you know them.</li>
       <li><strong>Home size:</strong> studio or 1 room (×1), 2–3 rooms (×1.35), 4–5 rooms (×1.8), 6+ rooms (×2.4).</li>
       <li><strong>Move type:</strong> DIY (×{DIY_TYPE_MULTIPLIER}), rental truck with labor (×1), full-service movers (×1.65).</li>
       <li><strong>Other costs:</strong> travel, temporary housing, deposits and setup, packing and extras, added exactly as you enter them.</li>
@@ -74,7 +74,11 @@ const percent = value => `${Math.round(value * 100)}%`;
       <li>U-Haul states that one-way prices depend on origin, destination, truck size, move date and inventory. A band average is not a quote for your route.</li>
       <li>The labor and service premium for rental-truck and full-service moves is an assumption, not a market price.</li>
       <li>State-center distance can differ substantially from the road distance between your actual addresses.</li>
-      <li>The estimate does not include insurance, taxes, utility fees or real-estate costs unless you enter them under other costs.</li>
+      <li>The estimate does not include insurance, taxes, utility fees or real-estate costs unless you enter them under other costs. A cost left at $0 is left out of the total. It is not known to be free.</li>
+      <li>For DIY moves, the U-Haul average often sets the minimum base, so several home sizes can show the same total. That is a rule of the model and does not mean a larger home costs the same. The model has no separate truck-size price. Rental truck + labor and full-service moves add a home-size premium, so their totals differ by size.</li>
+      <li>The {percent(DEFAULT_RANGE_LOW)}–{percent(DEFAULT_RANGE_HIGH)} range is a fixed planning band. It is not a statistically validated confidence interval.</li>
+      <li>The base amount, per-mile rate, home-size and move-type multipliers have not been calibrated against real quotes. Calibrating them needs a set of dated, route-specific quotes, and until then they stay unchanged.</li>
+      <li>Amounts are rounded to the nearest dollar for display, so the parts can differ from the total by a dollar.</li>
     </ul>
 
     <p class="mt-8 leading-7 text-slate-700">Always replace these estimates with written quotes for your actual addresses, dates and inventory. Ready to try it? <a class="font-semibold text-sky-700 underline" href="/calculator/">Open the calculator</a>.</p>
