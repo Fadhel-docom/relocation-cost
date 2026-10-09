@@ -49,6 +49,19 @@ for (const file of pages) {
   if (titleCount !== 1) failures.push(`${rel}: expected exactly 1 title, found ${titleCount}`);
   if (descriptionCount !== 1) failures.push(`${rel}: expected exactly 1 meta description, found ${descriptionCount}`);
 
+  const buildCommits = [...html.matchAll(/<meta\b[^>]*name=["']build-commit["'][^>]*content=["']([^"']*)["'][^>]*>/gi)].map(m => m[1]);
+  const inCi = Boolean(process.env.CI || process.env.GITHUB_ACTIONS);
+  const expectedCommit = process.env.GITHUB_SHA ? process.env.GITHUB_SHA.slice(0, 40) : null;
+  if (buildCommits.length !== 1) {
+    failures.push(`${rel}: expected exactly 1 build-commit meta, found ${buildCommits.length}`);
+  } else if (inCi) {
+    // In CI the commit must be a real SHA (never "local" or "unknown") and match this run's commit.
+    if (!/^[0-9a-f]{40}$/.test(buildCommits[0])) failures.push(`${rel}: build-commit is not a full commit SHA in CI: ${buildCommits[0]}`);
+    else if (expectedCommit && buildCommits[0] !== expectedCommit) failures.push(`${rel}: build-commit ${buildCommits[0]} does not match GITHUB_SHA ${expectedCommit}`);
+  } else if (!/^([0-9a-f]{7,40}|local)$/.test(buildCommits[0])) {
+    failures.push(`${rel}: build-commit must be a commit SHA or "local" outside CI, found ${buildCommits[0]}`);
+  }
+
   for (const match of html.matchAll(/href=["']([^"'#]+)(?:#[^"']*)?["']/gi)) {
     const href = match[1];
     if (!href.startsWith("/") || href === "/") continue;
