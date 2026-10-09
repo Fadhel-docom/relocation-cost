@@ -47,7 +47,7 @@ const breadcrumbJsonLd = {
             <select id="toState" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" aria-describedby="stateHelp"></select>
           </label>
         </div>
-        <p id="stateHelp" class="mt-2 text-xs leading-5 text-slate-500">State distance uses great-circle distance between state centroids as a planning starting point. You can edit the miles manually below.</p>
+        <p id="stateHelp" class="mt-2 text-xs leading-5 text-slate-500">The distance is filled in as an approximate straight line between the centers of the two states. It is not road mileage. If you know your actual driving miles, type them in below to replace it.</p>
 
         <div class="mt-5 grid gap-5 sm:grid-cols-2">
           <label class="block text-sm font-semibold">Distance <span class="font-normal text-slate-500">(miles)</span>
@@ -66,7 +66,7 @@ const breadcrumbJsonLd = {
         </label>
 
         <h2 class="mt-10 text-xl font-bold">Other relocation costs</h2>
-        <p class="mt-2 text-sm text-slate-500">Enter amounts you already know. Leave unknown items at zero.</p>
+        <p class="mt-2 text-sm text-slate-500">Enter amounts you already know. Anything left at $0 is left out of the total. It does not mean that cost is free, so add it once you know it.</p>
         <div class="mt-5 grid gap-5 sm:grid-cols-2">
           <label class="block text-sm font-semibold">Travel <span class="font-normal text-slate-500">(USD)</span><input id="travel" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
           <label class="block text-sm font-semibold">Temporary housing <span class="font-normal text-slate-500">(USD)</span><input id="housing" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
@@ -97,7 +97,7 @@ const breadcrumbJsonLd = {
           <p class="font-semibold text-slate-200">Published truck-rental average</p>
           <p class="mt-1 text-slate-400">U-Haul published one-way rental average for this mileage band: <strong id="marketBenchmark" class="text-white">$0</strong>.</p>
           <p id="floorNote" class="mt-2 text-xs leading-5 text-sky-300" hidden>The move cost starts from this average because the basic model came out lower.</p>
-          <p class="mt-2 text-xs leading-5 text-slate-500">It is used only as a minimum base for the move cost. It is a mileage-band average, not your route quote.</p>
+          <p class="mt-2 text-xs leading-5 text-slate-500">It is used only as a minimum in the DIY base for the move cost. It is an average for the whole mileage band, not a quote for your route.</p>
         </div>
         <div id="nextSteps" class="mt-5 rounded-xl border border-slate-800 bg-slate-900 p-4 text-sm" data-route-slugs={JSON.stringify(routeSlugs)}>
           <p class="font-semibold text-slate-200">Next steps</p>
@@ -109,6 +109,37 @@ const breadcrumbJsonLd = {
         </div>
       </aside>
     </div>
+
+    <section class="mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="read-heading">
+      <h2 id="read-heading" class="text-2xl font-bold tracking-tight">How to read your estimate</h2>
+      <dl class="mt-5 grid gap-x-8 gap-y-4 text-sm leading-6 md:grid-cols-2">
+        <div>
+          <dt class="font-semibold text-slate-900">Move</dt>
+          <dd class="text-slate-600">The modelled cost of transporting your move. It comes from the distance, home size and move type, and it is a planning assumption.</dd>
+        </div>
+        <div>
+          <dt class="font-semibold text-slate-900">Other costs</dt>
+          <dd class="text-slate-600">Only the amounts you typed in. A cost left at $0 is not in the total. It is not known to be free.</dd>
+        </div>
+        <div>
+          <dt class="font-semibold text-slate-900">Contingency (10%)</dt>
+          <dd class="text-slate-600">A 10% planning buffer added on top of the move and your other costs.</dd>
+        </div>
+        <div>
+          <dt class="font-semibold text-slate-900">Indicative range</dt>
+          <dd class="text-slate-600">The total minus 20% to the total plus 20%. It is a planning range, not a quote and not a statistically validated confidence interval.</dd>
+        </div>
+        <div>
+          <dt class="font-semibold text-slate-900">Published truck-rental average</dt>
+          <dd class="text-slate-600">U-Haul's published average one-way truck rental for your mileage band. The DIY base never goes below it. It is not your actual quote.</dd>
+        </div>
+        <div>
+          <dt class="font-semibold text-slate-900">Distance</dt>
+          <dd class="text-slate-600">Filled in as a straight line between state centers, not road mileage. Replace it with your driving miles when you know them.</dd>
+        </div>
+      </dl>
+      <p class="mt-4 text-xs leading-5 text-slate-500">Each amount is rounded to the nearest dollar for display, so the parts can differ from the total by a dollar.</p>
+    </section>
 
     <section class="mt-10" aria-labelledby="compare-heading">
       <h2 id="compare-heading" class="text-2xl font-bold tracking-tight">Compare move types</h2>
@@ -157,7 +188,7 @@ const breadcrumbJsonLd = {
           <p data-compare-range class="mt-1 text-xs text-slate-500">$0–$0</p>
         </div>
       </div>
-      <p class="mt-3 max-w-3xl text-xs leading-5 text-slate-500">Where several sizes show the same total, the published U-Haul average for the distance band is setting the minimum for the move. See the <a class="font-semibold text-sky-700 underline" href="/methodology/">methodology</a>.</p>
+      <p class="mt-3 max-w-3xl text-xs leading-5 text-slate-500">With DIY, the published U-Haul average for the distance band often sets the minimum move cost, so several home sizes can show the same total. That is a rule of this model. It does not mean a larger home costs the same, because the model has no separate truck-size price. Rental truck + labor and full-service add a home-size premium, so those totals differ by size. See the <a class="font-semibold text-sky-700 underline" href="/methodology/">methodology</a>.</p>
     </section>
 
     <PartnerOffers heading="Next: get real quotes" />

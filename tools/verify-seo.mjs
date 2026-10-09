@@ -117,6 +117,19 @@ for (const [rel, canonical] of canonicalByPage) {
   }
 }
 
+const clarityChecks = [
+  ["calculator/index.html", ["How to read your estimate", "not road mileage", "left out of the total"]],
+  ["methodology/index.html", ["not road mileage", "left out of the total", "statistically validated confidence interval"]]
+];
+for (const [file, phrases] of clarityChecks) {
+  const full = path.join(dist, file);
+  if (!fs.existsSync(full)) continue;
+  const html = read(full);
+  for (const phrase of phrases) {
+    if (!html.includes(phrase)) failures.push(`${file}: expected plain-language caveat missing: "${phrase}"`);
+  }
+}
+
 const routeUrls = [...sitemapUrls].filter(url => {
   const p = new URL(url).pathname;
   return p.startsWith("/moving-cost/") && p !== "/moving-cost/" && !p.startsWith("/moving-cost/cities/");

@@ -172,3 +172,41 @@ test("the range always brackets the total", () => {
     assert.ok(result.rangeLow < result.total && result.total < result.rangeHigh);
   }
 });
+test("audit: DIY home sizes tie while the benchmark floor dominates, truck and full-service never tie", () => {
+  const sizes = [1, 1.35, 1.8, 2.4];
+  const cents = (distance, type) => sizes.map(size => Math.round(calculateBudget({ distance, size, type }).total * 100));
+  assert.equal(new Set(cents(1317, DIY)).size, 1);
+  assert.ok(calculateBudget({ distance: 1317, size: 2.4, type: DIY }).moveFloored);
+  for (const type of [TRUCK, FULL]) {
+    for (const distance of [100, 500, 1317, 2200, 3200]) {
+      assert.equal(new Set(cents(distance, type)).size, sizes.length, `${distance} mi type ${type}`);
+    }
+  }
+});
+
+test("audit: the estimate steps up at U-Haul band boundaries (documented behavior)", () => {
+  const before = calculateBudget({ distance: 1000, size: 1, type: DIY });
+  const after = calculateBudget({ distance: 1001, size: 1, type: DIY });
+  assertClose(before.total, 1094.5);
+  assertClose(after.total, 1822.7);
+});
+
+test("audit: rounded move + other + contingency stays within $1 of the rounded total", () => {
+  for (const distance of [37, 480, 1317, 2250]) {
+    for (const size of [1, 1.35, 1.8, 2.4]) {
+      for (const type of [DIY, TRUCK, FULL]) {
+        const r = calculateBudget({ distance, size, type, travel: 100.4, housing: 100.4, setup: 66.3, extras: 66.3 });
+        const parts = Math.round(r.move) + Math.round(r.other) + Math.round(r.contingency);
+        assert.ok(Math.abs(parts - Math.round(r.total)) <= 1, `${distance}mi size ${size} type ${type}`);
+      }
+    }
+  }
+});
+
+test("audit: contingency is 10% of move plus other costs and the range is plus or minus 20%", () => {
+  const r = calculateBudget({ distance: 800, size: 1.8, type: TRUCK, travel: 250, extras: 400 });
+  assertClose(r.contingency, (r.move + r.other) * 0.1);
+  assertClose(r.total, r.move + r.other + r.contingency);
+  assertClose(r.rangeLow, r.total * 0.8);
+  assertClose(r.rangeHigh, r.total * 1.2);
+});
