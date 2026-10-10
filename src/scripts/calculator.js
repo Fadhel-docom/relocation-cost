@@ -1,6 +1,7 @@
 import { track } from "@vercel/analytics";
 import stateData from "../../data/state-distances.json";
 import { calculateBudget, HOME_SIZES, MOVE_TYPES, pickAllowed } from "../lib/calculator.js";
+import { createFunnel } from "../lib/calculator-analytics.js";
 
 const form = document.querySelector("#calculator");
 const ids = ["fromState","toState","distance","size","type","travel","housing","setup","extras"];
@@ -216,6 +217,8 @@ const calculate = () => {
     );
   } catch {}
 
+  funnel.estimate(true);
+
   return resultData.total;
 };
 
@@ -254,6 +257,7 @@ const resetCalculator = () => {
   try { localStorage.removeItem("relocation-cost-inputs"); } catch {}
   shareStatus.textContent = "";
   applyStateDistance();
+  funnel.reset();
 };
 
 // Start state: saved or shared values win; otherwise the distance is computed
@@ -270,20 +274,17 @@ if (fields.distance.value === "") {
     "Distance restored from your saved or shared inputs. Change a state to refill it with the approximate straight-line distance between state centers (not road mileage).";
 }
 
-let usageTracked = false;
-const trackUsage = () => {
-  if (usageTracked) return;
-  usageTracked = true;
-  track("calculator_used", { from: fields.fromState.value, to: fields.toState.value });
-};
+const funnel = createFunnel(track, () => ({ from: fields.fromState.value, to: fields.toState.value }));
 
 form?.addEventListener("submit", event => {
   event.preventDefault();
   calculate();
 });
 
-form?.addEventListener("input", trackUsage, { once: false });
-form?.addEventListener("change", trackUsage, { once: false });
+// Capture phase so the interaction is recorded before the field handlers run
+// calculate(), which lets the first valid estimate count as a funnel step.
+form?.addEventListener("input", () => funnel.interaction(), true);
+form?.addEventListener("change", () => funnel.interaction(), true);
 
 fields.fromState?.addEventListener("change", applyStateDistance);
 fields.toState?.addEventListener("change", applyStateDistance);
@@ -314,8 +315,10 @@ share?.addEventListener("click", async () => {
   try {
     await navigator.clipboard.writeText(url);
     shareStatus.textContent = "Share link copied to your clipboard.";
+    funnel.share("clipboard");
   } catch {
     shareStatus.textContent = url;
+    funnel.share("fallback");
   }
 });
 
