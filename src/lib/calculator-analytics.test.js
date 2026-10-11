@@ -64,3 +64,17 @@ test("a throwing tracker never breaks the calculator", () => {
     funnel.reset();
   });
 });
+
+test("a default estimate immediately after reset is not counted until a new interaction", () => {
+  const { calls, funnel } = setup();
+  funnel.interaction();
+  funnel.estimate(false);
+  funnel.reset();
+  funnel.estimate(true);
+  assert.deepEqual(calls.map(c => c[0]), [EVENTS.used, EVENTS.reset]);
+  funnel.interaction();
+  funnel.estimate(true);
+  assert.deepEqual(calls.map(c => c[0]), [
+    EVENTS.used, EVENTS.reset, EVENTS.used, EVENTS.estimateShown
+  ]);
+});
