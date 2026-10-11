@@ -256,8 +256,10 @@ const resetCalculator = () => {
 
   try { localStorage.removeItem("relocation-cost-inputs"); } catch {}
   shareStatus.textContent = "";
-  applyStateDistance();
+  // Reset the funnel before rendering defaults, so the default estimate is not
+  // misattributed to the previous user attempt.
   funnel.reset();
+  applyStateDistance();
 };
 
 // Start state: saved or shared values win; otherwise the distance is computed
