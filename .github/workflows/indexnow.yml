@@ -1,0 +1,19 @@
+name: IndexNow
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+    paths: ["src/**", "data/**", "public/**"]
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Wait for the Vercel deployment
+        if: github.event_name == 'push'
+        run: sleep 150
+      - run: node tools/indexnow-submit.mjs
