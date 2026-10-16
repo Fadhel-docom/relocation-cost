@@ -73,6 +73,26 @@ const breadcrumbJsonLd = {
           <label class="block text-sm font-semibold">Deposits / setup <span class="font-normal text-slate-500">(USD)</span><input id="setup" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
           <label class="block text-sm font-semibold">Packing / extras <span class="font-normal text-slate-500">(USD)</span><input id="extras" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
         </div>
+        <h3 class="mt-8 text-base font-bold">Itemize your costs <span class="font-normal text-slate-500">(optional)</span></h3>
+        <p class="mt-2 text-sm text-slate-500">Add known amounts one by one. They are added on top of the fields above, so do not enter the same cost twice. Left at $0, an item is left out of the total. It does not mean that cost is free.</p>
+        <div class="mt-5 grid gap-5 sm:grid-cols-2">
+          <label class="block text-sm font-semibold">Fuel <span class="font-normal text-slate-500">(USD)</span><input id="fuel" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+          <label class="block text-sm font-semibold">Moving insurance <span class="font-normal text-slate-500">(USD)</span><input id="insurance" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+          <label class="block text-sm font-semibold">Packing materials <span class="font-normal text-slate-500">(USD)</span><input id="packing" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+          <label class="block text-sm font-semibold">Equipment rental <span class="font-normal text-slate-500">(dolly, ramp, USD)</span><input id="equipment" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+          <label class="block text-sm font-semibold sm:col-span-2">Utility connection fees <span class="font-normal text-slate-500">(USD)</span><input id="utilities" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+        </div>
+
+        <h3 class="mt-8 text-base font-bold">Cash buffer until your first income <span class="font-normal text-slate-500">(optional)</span></h3>
+        <p class="mt-2 text-sm text-slate-500">Money to keep available for living costs until you are paid at the new place. It is shown separately, because it is cash you hold rather than an estimated moving expense.</p>
+        <div class="mt-5 grid gap-5 sm:grid-cols-2">
+          <label class="block text-sm font-semibold">Weeks to cover
+            <select id="reserveWeeks" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3">
+              <option value="0">None</option><option value="2">2 weeks</option><option value="4">4 weeks</option><option value="6">6 weeks</option><option value="8">8 weeks</option><option value="12">12 weeks</option>
+            </select>
+          </label>
+          <label class="block text-sm font-semibold">Living costs per week <span class="font-normal text-slate-500">(USD)</span><input id="weeklyLiving" type="number" min="0" max="100000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+        </div>
         <p id="inputError" class="mt-4 min-h-5 text-sm font-medium text-red-700" role="alert" aria-live="polite"></p>
         <p class="mt-8 text-sm text-slate-500">The estimate updates as you type.</p>
         <div class="mt-3 grid gap-3 sm:grid-cols-2">
@@ -93,6 +113,11 @@ const breadcrumbJsonLd = {
           <div class="flex justify-between"><span class="text-slate-400">Contingency (10%)</span><strong id="contingencyResult">$0</strong></div>
         </div>
         <div class="mt-6 border-t border-slate-800 pt-5 text-sm text-slate-400">Indicative range <strong id="range" class="text-white">$0–$0</strong></div>
+        <div id="cashBox" class="mt-5 space-y-2 rounded-xl border border-slate-800 bg-slate-900 p-4 text-sm" hidden>
+          <div class="flex justify-between"><span class="text-slate-400">Cash buffer</span><strong id="reserveResult">$0</strong></div>
+          <div class="flex justify-between border-t border-slate-800 pt-2"><span class="text-slate-300">Cash to have ready</span><strong id="cashNeededResult">$0</strong></div>
+          <p class="text-xs leading-5 text-slate-500">Budget plus your cash buffer. The buffer is outside the contingency and the indicative range.</p>
+        </div>
         <div class="mt-5 rounded-xl border border-slate-800 bg-slate-900 p-4 text-sm">
           <p class="font-semibold text-slate-200">Published truck-rental average</p>
           <p class="mt-1 text-slate-400">U-Haul published one-way rental average for this mileage band: <strong id="marketBenchmark" class="text-white">$0</strong>.</p>
@@ -119,7 +144,11 @@ const breadcrumbJsonLd = {
         </div>
         <div>
           <dt class="font-semibold text-slate-900">Other costs</dt>
-          <dd class="text-slate-600">Only the amounts you typed in. A cost left at $0 is not in the total. It is not known to be free.</dd>
+          <dd class="text-slate-600">Only the amounts you typed in, including any itemized costs. A cost left at $0 is not in the total. It is not known to be free.</dd>
+        </div>
+        <div>
+          <dt class="font-semibold text-slate-900">Cash buffer and cash to have ready</dt>
+          <dd class="text-slate-600">Weeks to cover times your weekly living costs. It is cash you plan to hold until your first income, so it is added after the estimate and is not part of the contingency or the range.</dd>
         </div>
         <div>
           <dt class="font-semibold text-slate-900">Contingency (10%)</dt>

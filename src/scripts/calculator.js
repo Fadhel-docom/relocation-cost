@@ -1,11 +1,11 @@
 import { track } from "@vercel/analytics";
 import stateData from "../../data/state-distances.json";
-import { calculateBudget, HOME_SIZES, MOVE_TYPES, pickAllowed } from "../lib/calculator.js";
+import { calculateBudget, HOME_SIZES, MOVE_TYPES, pickAllowed, RESERVE_WEEKS } from "../lib/calculator.js";
 import { createFunnel } from "../lib/calculator-analytics.js";
 
 const form = document.querySelector("#calculator");
-const ids = ["fromState","toState","distance","size","type","travel","housing","setup","extras"];
-const defaults = { fromState: "CA", toState: "TX", distance: "", size: "1", type: "0.65", travel: "0", housing: "0", setup: "0", extras: "0" };
+const ids = ["fromState","toState","distance","size","type","travel","housing","setup","extras","fuel","insurance","packing","equipment","utilities","reserveWeeks","weeklyLiving"];
+const defaults = { fromState: "CA", toState: "TX", distance: "", size: "1", type: "0.65", travel: "0", housing: "0", setup: "0", extras: "0", fuel: "0", insurance: "0", packing: "0", equipment: "0", utilities: "0", reserveWeeks: "0", weeklyLiving: "0" };
 const fields = Object.fromEntries(ids.map(id => [id, document.querySelector("#" + id)]));
 const result = document.querySelector("#result");
 const moveResult = document.querySelector("#moveResult");
@@ -14,6 +14,9 @@ const contingencyResult = document.querySelector("#contingencyResult");
 const range = document.querySelector("#range");
 const mobileTotal = document.querySelector("#mobileTotal");
 const mobileRange = document.querySelector("#mobileRange");
+const cashBox = document.querySelector("#cashBox");
+const reserveResult = document.querySelector("#reserveResult");
+const cashNeededResult = document.querySelector("#cashNeededResult");
 const marketBenchmark = document.querySelector("#marketBenchmark");
 const floorNote = document.querySelector("#floorNote");
 const inputError = document.querySelector("#inputError");
@@ -38,7 +41,13 @@ const limits = {
   travel: { min: 0, max: 1000000 },
   housing: { min: 0, max: 1000000 },
   setup: { min: 0, max: 1000000 },
-  extras: { min: 0, max: 1000000 }
+  extras: { min: 0, max: 1000000 },
+  fuel: { min: 0, max: 1000000 },
+  insurance: { min: 0, max: 1000000 },
+  packing: { min: 0, max: 1000000 },
+  equipment: { min: 0, max: 1000000 },
+  utilities: { min: 0, max: 1000000 },
+  weeklyLiving: { min: 0, max: 100000 }
 };
 
 const stateCodes = Object.keys(stateData.states).sort((a, b) =>
@@ -97,7 +106,9 @@ const validateInputs = () => {
     if (!Number.isFinite(value) || value < min || value > max) {
       inputError.textContent = id === "distance"
         ? "Enter a distance from 1 to 30,000 miles."
-        : "Enter an amount from $0 to $1,000,000 for each additional cost.";
+        : id === "weeklyLiving"
+          ? "Enter weekly living costs from $0 to $100,000."
+          : "Enter an amount from $0 to $1,000,000 for each additional cost.";
       fields[id]?.setAttribute("aria-invalid", "true");
       return false;
     }
@@ -107,6 +118,11 @@ const validateInputs = () => {
 
   if (!HOME_SIZES.includes(Number(fields.size.value)) || !MOVE_TYPES.includes(Number(fields.type.value))) {
     inputError.textContent = "Choose a home size and a move type from the lists.";
+    return false;
+  }
+
+  if (!RESERVE_WEEKS.includes(Number(fields.reserveWeeks.value))) {
+    inputError.textContent = "Choose the weeks of living costs to cover from the list.";
     return false;
   }
 
@@ -135,13 +151,33 @@ const updateRouteGuide = () => {
 
 const num = id => Number(fields[id]?.value) || 0;
 
+// All calculator inputs, optionally with some replaced (used by the comparison cards).
+const inputs = (overrides = {}) => ({
+  distance: num("distance"),
+  size: num("size"),
+  type: num("type"),
+  travel: num("travel"),
+  housing: num("housing"),
+  setup: num("setup"),
+  extras: num("extras"),
+  fuel: num("fuel"),
+  insurance: num("insurance"),
+  packing: num("packing"),
+  equipment: num("equipment"),
+  utilities: num("utilities"),
+  reserveWeeks: num("reserveWeeks"),
+  weeklyLiving: num("weeklyLiving"),
+  ...overrides
+});
+
 // When an input is invalid, show dashes instead of leaving the last valid
 // estimate on screen next to the error message.
 const clearResults = () => {
   const dash = "—";
-  [result, moveResult, otherResult, contingencyResult, range, mobileTotal, mobileRange, marketBenchmark]
+  [result, moveResult, otherResult, contingencyResult, range, mobileTotal, mobileRange, marketBenchmark, reserveResult, cashNeededResult]
     .forEach(el => { if (el) el.textContent = dash; });
   if (floorNote) floorNote.hidden = true;
+  if (cashBox) cashBox.hidden = true;
   [...compareCards, ...sizeCompareCards].forEach(card => {
     card.querySelector("[data-compare-total]").textContent = dash;
     card.querySelector("[data-compare-range]").textContent = "Fix the input above to compare";
@@ -156,15 +192,7 @@ const calculate = () => {
     return null;
   }
 
-  const resultData = calculateBudget({
-    distance: num("distance"),
-    size: num("size"),
-    type: num("type"),
-    travel: num("travel"),
-    housing: num("housing"),
-    setup: num("setup"),
-    extras: num("extras")
-  });
+  const resultData = calculateBudget(inputs());
 
   result.textContent = money(resultData.total);
   moveResult.textContent = money(resultData.move);
@@ -175,18 +203,15 @@ const calculate = () => {
   if (mobileRange) mobileRange.textContent = money(resultData.rangeLow) + "–" + money(resultData.rangeHigh);
   marketBenchmark.textContent = money(resultData.marketBenchmark);
   if (floorNote) floorNote.hidden = !resultData.moveFloored;
+  if (cashBox) {
+    cashBox.hidden = resultData.reserve <= 0;
+    reserveResult.textContent = money(resultData.reserve);
+    cashNeededResult.textContent = money(resultData.cashNeeded);
+  }
 
   compareCards.forEach(card => {
     const typeValue = Number(card.dataset.compareType);
-    const alt = calculateBudget({
-      distance: num("distance"),
-      size: num("size"),
-      type: typeValue,
-      travel: num("travel"),
-      housing: num("housing"),
-      setup: num("setup"),
-      extras: num("extras")
-    });
+    const alt = calculateBudget(inputs({ type: typeValue }));
     card.querySelector("[data-compare-total]").textContent = money(alt.total);
     card.querySelector("[data-compare-range]").textContent =
       "Range " + money(alt.rangeLow) + "–" + money(alt.rangeHigh);
@@ -195,15 +220,7 @@ const calculate = () => {
 
   sizeCompareCards.forEach(card => {
     const sizeValue = Number(card.dataset.compareSize);
-    const alt = calculateBudget({
-      distance: num("distance"),
-      size: sizeValue,
-      type: num("type"),
-      travel: num("travel"),
-      housing: num("housing"),
-      setup: num("setup"),
-      extras: num("extras")
-    });
+    const alt = calculateBudget(inputs({ size: sizeValue }));
     card.querySelector("[data-compare-total]").textContent = money(alt.total);
     card.querySelector("[data-compare-range]").textContent =
       "Range " + money(alt.rangeLow) + "–" + money(alt.rangeHigh);
@@ -246,6 +263,7 @@ const sanitizeSelects = () => {
   if (!stateCodes.includes(fields.toState.value)) fields.toState.value = defaults.toState;
   fields.size.value = String(pickAllowed(fields.size.value, HOME_SIZES, Number(defaults.size)));
   fields.type.value = String(pickAllowed(fields.type.value, MOVE_TYPES, Number(defaults.type)));
+  fields.reserveWeeks.value = String(pickAllowed(fields.reserveWeeks.value, RESERVE_WEEKS, Number(defaults.reserveWeeks)));
 };
 
 const resetCalculator = () => {
@@ -291,7 +309,7 @@ form?.addEventListener("change", () => funnel.interaction(), true);
 fields.fromState?.addEventListener("change", applyStateDistance);
 fields.toState?.addEventListener("change", applyStateDistance);
 
-["distance","size","type","travel","housing","setup","extras"].forEach(id =>
+["distance","size","type","travel","housing","setup","extras","fuel","insurance","packing","equipment","utilities","reserveWeeks","weeklyLiving"].forEach(id =>
   fields[id]?.addEventListener("input", calculate)
 );
 
