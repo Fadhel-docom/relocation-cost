@@ -121,3 +121,68 @@ export function calculateBudget(
     marketBenchmark,
   };
 }
+
+// Where the budget goes: each part of the total with its share. Percentages are
+// whole numbers that always add up to 100 (largest-remainder rounding). The cash
+// buffer is not part of the total, so it is not part of the breakdown either.
+export function costBreakdown(input, result) {
+  const get = key => input[key] ?? 0;
+  const parts = [
+    { key: "move", label: "Move", amount: result.move },
+    { key: "travel", label: "Travel", amount: get("travel") },
+    { key: "housing", label: "Temporary housing", amount: get("housing") },
+    { key: "setup", label: "Deposits / setup", amount: get("setup") },
+    {
+      key: "extras",
+      label: "Packing, extras and itemized costs",
+      amount: get("extras") + get("fuel") + get("insurance") + get("packing") + get("equipment") + get("utilities"),
+    },
+    { key: "contingency", label: "Contingency (10%)", amount: result.contingency },
+  ].filter(part => part.amount > 0);
+
+  const total = parts.reduce((sum, part) => sum + part.amount, 0);
+  if (total <= 0) return [];
+
+  const raw = parts.map(part => (part.amount / total) * 100);
+  const floors = raw.map(Math.floor);
+  let remaining = 100 - floors.reduce((sum, value) => sum + value, 0);
+  const order = raw.map((value, index) => ({ index, fraction: value - floors[index] }))
+    .sort((a, b) => b.fraction - a.fraction || a.index - b.index);
+  for (const { index } of order) {
+    if (remaining <= 0) break;
+    floors[index] += 1;
+    remaining -= 1;
+  }
+  return parts.map((part, index) => ({ ...part, percent: floors[index] }));
+}
+
+// Plain, non-numeric money-saving tips chosen from what the user entered. They
+// make no price claims; the last tip always reminds to replace assumptions with quotes.
+export function savingsTips(input, result) {
+  const get = key => input[key] ?? 0;
+  const breakdown = costBreakdown(input, result);
+  const largest = breakdown.reduce((best, part) => (part.amount > best.amount ? part : best), { amount: -1 });
+  const tips = [];
+
+  if (largest.key === "move") {
+    tips.push("Moving is your largest cost. Compare the three move types below and get at least two quotes before you book.");
+  }
+  if (input.type !== 1.65 && get("fuel") === 0) {
+    tips.push("Add fuel if you drive a rental truck. It is only counted when you enter it under “Itemize your costs”.");
+  }
+  if (get("packing") === 0 && get("extras") === 0) {
+    tips.push("Ask local stores and friends for used boxes before buying packing materials, then enter what you actually spend.");
+  }
+  if (get("insurance") === 0) {
+    tips.push("Check what coverage your mover or rental company already includes before you buy extra moving insurance.");
+  }
+  if (get("housing") > 0) {
+    tips.push("Compare weekly and monthly rates for temporary housing before you book.");
+  }
+  if (!input.reserveWeeks) {
+    tips.push("Consider a cash buffer for living costs until your first income. The buffer fields above add it to “Cash to have ready”.");
+  }
+
+  const finalTip = "Replace these planning assumptions with route-specific provider quotes as soon as you have them.";
+  return [...tips.slice(0, 3), finalTip];
+}

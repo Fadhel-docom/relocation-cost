@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { calculateBudget, getUhaulBenchmark, HOME_SIZES, ITEMIZED_KEYS, MOVE_TYPES, pickAllowed, RESERVE_WEEKS } from "./calculator.js";
+import { calculateBudget, costBreakdown, getUhaulBenchmark, HOME_SIZES, ITEMIZED_KEYS, MOVE_TYPES, pickAllowed, RESERVE_WEEKS, savingsTips } from "./calculator.js";
 
 const assertClose = (actual, expected) => {
   assert.ok(Math.abs(actual - expected) < 1e-9, `expected ${expected}, got ${actual}`);
@@ -259,4 +259,49 @@ test("itemized costs, weekly living cost and reserve weeks are validated", () =>
   for (const reserveWeeks of RESERVE_WEEKS) {
     assert.doesNotThrow(() => calculateBudget({ distance: 1000, size: 1.35, type: TRUCK, reserveWeeks, weeklyLiving: 300 }));
   }
+});
+
+test("cost breakdown percentages are whole numbers that always add up to 100", () => {
+  for (const distance of [100, 480, 1317, 2250]) {
+    for (const type of [DIY, TRUCK, FULL]) {
+      const input = { distance, size: 1.35, type, travel: 333, housing: 777, setup: 111, extras: 59, fuel: 41, packing: 23 };
+      const parts = costBreakdown(input, calculateBudget(input));
+      assert.equal(parts.reduce((sum, part) => sum + part.percent, 0), 100, `${distance} mi type ${type}`);
+      assert.ok(parts.every(part => Number.isInteger(part.percent) && part.amount > 0));
+    }
+  }
+});
+
+test("cost breakdown lists only costs above zero and matches the total", () => {
+  const input = { distance: 1317, size: 1.35, type: TRUCK, travel: 200 };
+  const result = calculateBudget(input);
+  const parts = costBreakdown(input, result);
+  assert.deepEqual(parts.map(part => part.key), ["move", "travel", "contingency"]);
+  assertClose(parts.reduce((sum, part) => sum + part.amount, 0), result.total);
+});
+
+test("cost breakdown folds extras and itemized costs together and ignores the cash buffer", () => {
+  const input = { distance: 800, size: 1.8, type: TRUCK, extras: 100, fuel: 50, insurance: 25, packing: 10, equipment: 5, utilities: 10, reserveWeeks: 4, weeklyLiving: 500 };
+  const result = calculateBudget(input);
+  const parts = costBreakdown(input, result);
+  assertClose(parts.find(part => part.key === "extras").amount, 200);
+  assertClose(parts.reduce((sum, part) => sum + part.amount, 0), result.total);
+});
+
+test("savings tips are chosen from the inputs and always end with the quotes reminder", () => {
+  const bare = { distance: 1317, size: 1.35, type: TRUCK };
+  const tips = savingsTips(bare, calculateBudget(bare));
+  assert.ok(tips.length >= 2 && tips.length <= 4);
+  assert.match(tips[tips.length - 1], /provider quotes/);
+  assert.ok(tips.some(tip => /largest cost/.test(tip)));
+
+  const full = {
+    distance: 1317, size: 1.35, type: FULL, travel: 900, housing: 1500, setup: 800, extras: 50,
+    fuel: 100, insurance: 60, packing: 40, reserveWeeks: 4, weeklyLiving: 400,
+  };
+  const fullTips = savingsTips(full, calculateBudget(full));
+  assert.ok(fullTips.every(tip => !/\$\d/.test(tip)), "tips make no price claims");
+  assert.ok(!fullTips.some(tip => /Add fuel/.test(tip)), "no fuel tip for full-service or when fuel is entered");
+  assert.ok(fullTips.some(tip => /temporary housing/.test(tip)));
+  assert.match(fullTips[fullTips.length - 1], /provider quotes/);
 });
