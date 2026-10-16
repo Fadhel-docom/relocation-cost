@@ -186,3 +186,22 @@ export function savingsTips(input, result) {
   const finalTip = "Replace these planning assumptions with route-specific provider quotes as soon as you have them.";
   return [...tips.slice(0, 3), finalTip];
 }
+
+// The costs the user actually entered (above zero), with fixed labels, for the
+// printable summary. Costs left at 0 are left out, as in the total.
+export function costLines(input) {
+  const lines = [
+    ["travel", "Travel"],
+    ["housing", "Temporary housing"],
+    ["setup", "Deposits / setup"],
+    ["extras", "Packing / extras"],
+    ["fuel", "Fuel"],
+    ["insurance", "Moving insurance"],
+    ["packing", "Packing materials"],
+    ["equipment", "Equipment rental"],
+    ["utilities", "Utility connection fees"],
+  ];
+  return lines
+    .map(([key, label]) => ({ key, label, amount: input[key] ?? 0 }))
+    .filter(line => line.amount > 0);
+}

@@ -30,13 +30,13 @@ const breadcrumbJsonLd = {
   <script type="application/ld+json" set:html={JSON.stringify(appJsonLd)} />
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
   <section class="mx-auto max-w-6xl px-5 py-14 pb-28 lg:pb-14">
-    <div class="max-w-3xl">
+    <div class="max-w-3xl print:hidden">
       <p class="text-sm font-semibold uppercase tracking-widest text-sky-700">Relocation Cost Suite</p>
       <h1 class="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">Build your moving budget</h1>
       <p class="mt-5 text-lg leading-8 text-slate-600">Start with a transport planning estimate, then add the costs that can make a relocation more expensive than the move itself.</p>
     </div>
 
-    <div class="mt-10 grid gap-8 lg:grid-cols-[1.15fr_.85fr]">
+    <div class="mt-10 grid gap-8 lg:grid-cols-[1.15fr_.85fr] print:hidden">
       <form id="calculator" class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" novalidate>
         <h2 class="text-xl font-bold">Move details</h2>
         <div class="mt-6 grid gap-5 sm:grid-cols-2">
@@ -99,6 +99,7 @@ const breadcrumbJsonLd = {
           <button id="share" class="rounded-xl bg-slate-950 px-5 py-3 font-semibold text-white hover:bg-slate-800" type="button">Share this estimate</button>
           <button id="reset" class="rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-900 hover:bg-slate-50" type="button">Reset calculator</button>
         </div>
+        <button id="print" class="mt-3 w-full rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-900 hover:bg-slate-50" type="button">Print or save as PDF</button>
         <p id="shareStatus" class="mt-3 min-h-5 break-all text-sm text-slate-500" aria-live="polite"></p>
         <p class="mt-4 text-xs leading-5 text-slate-500">This calculator covers the planning inputs shown above. It does not automatically include taxes, insurance, utility connection fees, or real-estate costs unless you enter them under “Other relocation costs”. See the <a class="font-semibold text-sky-700 underline" href="/methodology/">methodology</a> for how the estimate is built.</p>
       </form>
@@ -135,6 +136,31 @@ const breadcrumbJsonLd = {
       </aside>
     </div>
 
+    <section id="printSummary" class="hidden print:block" aria-label="Printable budget summary">
+      <p class="text-sm font-semibold uppercase tracking-widest text-sky-700">Relocation Cost</p>
+      <h2 class="mt-1 text-3xl font-bold tracking-tight">Relocation budget summary</h2>
+      <p class="mt-1 text-sm text-slate-600">Prepared <span id="printDate"></span> at relocation-cost-psi.vercel.app/calculator/</p>
+      <dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-2 text-sm">
+        <div><dt class="font-semibold text-slate-900">Route</dt><dd id="printRoute" class="text-slate-700"></dd></div>
+        <div><dt class="font-semibold text-slate-900">Distance</dt><dd id="printDistance" class="text-slate-700"></dd></div>
+        <div><dt class="font-semibold text-slate-900">Home size</dt><dd id="printSize" class="text-slate-700"></dd></div>
+        <div><dt class="font-semibold text-slate-900">Move type</dt><dd id="printType" class="text-slate-700"></dd></div>
+      </dl>
+      <h3 class="mt-6 text-lg font-bold">Costs you entered</h3>
+      <ul id="printCosts" class="mt-2 space-y-1 text-sm"></ul>
+      <h3 class="mt-6 text-lg font-bold">Estimate</h3>
+      <dl class="mt-2 space-y-1 text-sm">
+        <div class="flex justify-between"><dt class="text-slate-700">Move</dt><dd id="printMove" class="font-semibold"></dd></div>
+        <div class="flex justify-between"><dt class="text-slate-700">Other costs</dt><dd id="printOther" class="font-semibold"></dd></div>
+        <div class="flex justify-between"><dt class="text-slate-700">Contingency (10%)</dt><dd id="printContingency" class="font-semibold"></dd></div>
+        <div class="flex justify-between border-t border-slate-300 pt-1 text-base"><dt class="font-bold">Estimated budget</dt><dd id="printTotal" class="font-bold"></dd></div>
+        <div class="flex justify-between"><dt class="text-slate-700">Indicative range</dt><dd id="printRange" class="font-semibold"></dd></div>
+        <div id="printReserveRow" class="flex justify-between" hidden><dt class="text-slate-700">Cash buffer</dt><dd id="printReserve" class="font-semibold"></dd></div>
+        <div id="printCashRow" class="flex justify-between" hidden><dt class="font-bold">Cash to have ready</dt><dd id="printCash" class="font-bold"></dd></div>
+      </dl>
+      <p class="mt-4 text-xs leading-5 text-slate-600">Planning estimate, not a quote. Distance is a straight line between state centers unless you entered your own miles. Costs left at $0 are left out of the total. Replace these assumptions with route-specific provider quotes.</p>
+    </section>
+
     <section class="mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="breakdown-heading">
       <h2 id="breakdown-heading" class="text-2xl font-bold tracking-tight">Where your budget goes</h2>
       <p class="mt-2 max-w-3xl text-sm leading-6 text-slate-600">Each part of the estimated budget as a share of the total. The cash buffer is not included, because it is cash you hold rather than an estimated expense.</p>
@@ -145,7 +171,7 @@ const breadcrumbJsonLd = {
       <ul id="tipsList" class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-slate-700"></ul>
     </section>
 
-    <section class="mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="read-heading">
+    <section class="mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 print:hidden" aria-labelledby="read-heading">
       <h2 id="read-heading" class="text-2xl font-bold tracking-tight">How to read your estimate</h2>
       <dl class="mt-5 grid gap-x-8 gap-y-4 text-sm leading-6 md:grid-cols-2">
         <div>
@@ -180,7 +206,7 @@ const breadcrumbJsonLd = {
       <p class="mt-4 text-xs leading-5 text-slate-500">Each amount is rounded to the nearest dollar for display, so the parts can differ from the total by a dollar.</p>
     </section>
 
-    <section class="mt-10" aria-labelledby="compare-heading">
+    <section class="mt-10 print:hidden" aria-labelledby="compare-heading">
       <h2 id="compare-heading" class="text-2xl font-bold tracking-tight">Compare move types</h2>
       <p class="mt-2 max-w-3xl text-sm leading-6 text-slate-600">Same distance, home size and other costs as above, with each move type. Planning estimates, not quotes.</p>
       <div class="mt-5 grid gap-4 sm:grid-cols-3">
@@ -202,7 +228,7 @@ const breadcrumbJsonLd = {
       </div>
     </section>
 
-    <section class="mt-10" aria-labelledby="compare-size-heading">
+    <section class="mt-10 print:hidden" aria-labelledby="compare-size-heading">
       <h2 id="compare-size-heading" class="text-2xl font-bold tracking-tight">Compare home sizes</h2>
       <p class="mt-2 max-w-3xl text-sm leading-6 text-slate-600">Same distance, move type and other costs as above, with each home size. Planning estimates, not quotes.</p>
       <div class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -230,13 +256,13 @@ const breadcrumbJsonLd = {
       <p class="mt-3 max-w-3xl text-xs leading-5 text-slate-500">With DIY, the published U-Haul average for the distance band often sets the minimum move cost, so several home sizes can show the same total. That is a rule of this model. It does not mean a larger home costs the same, because the model has no separate truck-size price. Rental truck + labor and full-service add a home-size premium, so those totals differ by size. See the <a class="font-semibold text-sky-700 underline" href="/methodology/">methodology</a>.</p>
     </section>
 
-    <PartnerOffers heading="Next: get real quotes" />
+    <div class="print:hidden"><PartnerOffers heading="Next: get real quotes" /></div>
 
     <div class="mt-10 rounded-2xl border border-amber-200 bg-amber-50 p-6 text-sm leading-7 text-amber-950">
       <strong>About this estimate:</strong> this MVP uses a transparent planning model, not live mover quotes or a market-validated price database. Treat the result as a budgeting starting point and replace assumptions with real quotes.
     </div>
 
-    <section class="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-6 sm:p-8" aria-labelledby="methodology-heading">
+    <section class="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-6 sm:p-8 print:hidden" aria-labelledby="methodology-heading">
       <p class="text-sm font-semibold uppercase tracking-widest text-sky-700">How it works</p>
       <h2 id="methodology-heading" class="mt-2 text-2xl font-bold tracking-tight">Transparent calculation methodology</h2>
       <div class="mt-5 grid gap-6 md:grid-cols-3">
@@ -260,7 +286,7 @@ const breadcrumbJsonLd = {
     </section>
   </section>
 
-  <div class="fixed inset-x-0 bottom-0 z-20 border-t border-slate-800 bg-slate-950 px-5 py-3 text-white lg:hidden" role="status" aria-live="polite">
+  <div class="fixed inset-x-0 bottom-0 z-20 border-t border-slate-800 bg-slate-950 px-5 py-3 text-white lg:hidden print:hidden" role="status" aria-live="polite">
     <div class="mx-auto flex max-w-6xl items-center justify-between gap-4">
       <div>
         <p class="text-xs text-slate-400">Estimated budget</p>
@@ -269,5 +295,12 @@ const breadcrumbJsonLd = {
       <p class="text-right text-xs leading-5 text-slate-400">Range<br /><span id="mobileRange" class="text-sm font-semibold text-white">$0–$0</span></p>
     </div>
   </div>
+  <style is:global>
+    @media print {
+      header, footer { display: none !important; }
+      body { background: #fff !important; }
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
   <script src="../scripts/calculator.js"></script>
 </Layout>

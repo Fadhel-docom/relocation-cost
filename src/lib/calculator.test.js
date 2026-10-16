@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { calculateBudget, costBreakdown, getUhaulBenchmark, HOME_SIZES, ITEMIZED_KEYS, MOVE_TYPES, pickAllowed, RESERVE_WEEKS, savingsTips } from "./calculator.js";
+import { calculateBudget, costBreakdown, costLines, getUhaulBenchmark, HOME_SIZES, ITEMIZED_KEYS, MOVE_TYPES, pickAllowed, RESERVE_WEEKS, savingsTips } from "./calculator.js";
 
 const assertClose = (actual, expected) => {
   assert.ok(Math.abs(actual - expected) < 1e-9, `expected ${expected}, got ${actual}`);
@@ -304,4 +304,12 @@ test("savings tips are chosen from the inputs and always end with the quotes rem
   assert.ok(!fullTips.some(tip => /Add fuel/.test(tip)), "no fuel tip for full-service or when fuel is entered");
   assert.ok(fullTips.some(tip => /temporary housing/.test(tip)));
   assert.match(fullTips[fullTips.length - 1], /provider quotes/);
+});
+
+test("cost lines list only the entered costs above zero, in a fixed order, and sum to other costs", () => {
+  const input = { distance: 900, size: 1.35, type: TRUCK, housing: 600, travel: 150, fuel: 80, utilities: 45, packing: 0 };
+  const lines = costLines(input);
+  assert.deepEqual(lines.map(line => line.key), ["travel", "housing", "fuel", "utilities"]);
+  assertClose(lines.reduce((sum, line) => sum + line.amount, 0), calculateBudget(input).other);
+  assert.deepEqual(costLines({ distance: 900, size: 1.35, type: TRUCK }), []);
 });
