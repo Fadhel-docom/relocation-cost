@@ -135,6 +135,16 @@ const breadcrumbJsonLd = {
       </aside>
     </div>
 
+    <section class="mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="breakdown-heading">
+      <h2 id="breakdown-heading" class="text-2xl font-bold tracking-tight">Where your budget goes</h2>
+      <p class="mt-2 max-w-3xl text-sm leading-6 text-slate-600">Each part of the estimated budget as a share of the total. The cash buffer is not included, because it is cash you hold rather than an estimated expense.</p>
+      <div id="breakdownBar" class="mt-5 flex h-5 w-full overflow-hidden rounded-full bg-slate-100" role="img" aria-label="Cost breakdown is not available yet"></div>
+      <ul id="breakdownList" class="mt-5 grid gap-x-8 gap-y-3 text-sm sm:grid-cols-2"></ul>
+      <p id="breakdownNote" class="mt-3 text-xs leading-5 text-slate-500">Shares are rounded to whole percentages that add up to 100%.</p>
+      <h3 class="mt-8 text-lg font-bold">Ways to keep the budget down</h3>
+      <ul id="tipsList" class="mt-3 list-disc space-y-2 pl-5 text-sm leading-6 text-slate-700"></ul>
+    </section>
+
     <section class="mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="read-heading">
       <h2 id="read-heading" class="text-2xl font-bold tracking-tight">How to read your estimate</h2>
       <dl class="mt-5 grid gap-x-8 gap-y-4 text-sm leading-6 md:grid-cols-2">

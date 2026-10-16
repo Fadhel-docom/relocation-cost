@@ -1,6 +1,6 @@
 import { track } from "@vercel/analytics";
 import stateData from "../../data/state-distances.json";
-import { calculateBudget, HOME_SIZES, MOVE_TYPES, pickAllowed, RESERVE_WEEKS } from "../lib/calculator.js";
+import { calculateBudget, costBreakdown, HOME_SIZES, MOVE_TYPES, pickAllowed, RESERVE_WEEKS, savingsTips } from "../lib/calculator.js";
 import { createFunnel } from "../lib/calculator-analytics.js";
 
 const form = document.querySelector("#calculator");
@@ -14,6 +14,9 @@ const contingencyResult = document.querySelector("#contingencyResult");
 const range = document.querySelector("#range");
 const mobileTotal = document.querySelector("#mobileTotal");
 const mobileRange = document.querySelector("#mobileRange");
+const breakdownBar = document.querySelector("#breakdownBar");
+const breakdownList = document.querySelector("#breakdownList");
+const tipsList = document.querySelector("#tipsList");
 const cashBox = document.querySelector("#cashBox");
 const reserveResult = document.querySelector("#reserveResult");
 const cashNeededResult = document.querySelector("#cashNeededResult");
@@ -170,6 +173,59 @@ const inputs = (overrides = {}) => ({
   ...overrides
 });
 
+// Decorative segment colors. The legend text carries the information, so the
+// bar never depends on color alone.
+const BREAKDOWN_COLORS = {
+  move: "#0369a1",
+  travel: "#0f766e",
+  housing: "#7c3aed",
+  setup: "#b45309",
+  extras: "#be185d",
+  contingency: "#64748b"
+};
+
+const renderBreakdown = (inputData, resultData) => {
+  if (!breakdownBar || !breakdownList || !tipsList) return;
+  const parts = costBreakdown(inputData, resultData);
+
+  breakdownBar.replaceChildren();
+  breakdownList.replaceChildren();
+  tipsList.replaceChildren();
+
+  parts.forEach(part => {
+    const segment = document.createElement("div");
+    segment.style.width = part.percent + "%";
+    segment.style.backgroundColor = BREAKDOWN_COLORS[part.key];
+    breakdownBar.append(segment);
+
+    const item = document.createElement("li");
+    item.className = "flex items-center justify-between gap-3";
+    const label = document.createElement("span");
+    label.className = "flex items-center gap-2 text-slate-700";
+    const swatch = document.createElement("span");
+    swatch.className = "inline-block h-3 w-3 shrink-0 rounded-sm";
+    swatch.style.backgroundColor = BREAKDOWN_COLORS[part.key];
+    swatch.setAttribute("aria-hidden", "true");
+    label.append(swatch, part.label);
+    const value = document.createElement("strong");
+    value.className = "whitespace-nowrap text-slate-900";
+    value.textContent = `${money(part.amount)} · ${part.percent}%`;
+    item.append(label, value);
+    breakdownList.append(item);
+  });
+
+  breakdownBar.setAttribute(
+    "aria-label",
+    "Cost breakdown: " + parts.map(part => `${part.label} ${part.percent}%`).join(", ")
+  );
+
+  savingsTips(inputData, resultData).forEach(text => {
+    const tip = document.createElement("li");
+    tip.textContent = text;
+    tipsList.append(tip);
+  });
+};
+
 // When an input is invalid, show dashes instead of leaving the last valid
 // estimate on screen next to the error message.
 const clearResults = () => {
@@ -178,6 +234,18 @@ const clearResults = () => {
     .forEach(el => { if (el) el.textContent = dash; });
   if (floorNote) floorNote.hidden = true;
   if (cashBox) cashBox.hidden = true;
+  if (breakdownBar) {
+    breakdownBar.replaceChildren();
+    breakdownBar.setAttribute("aria-label", "Cost breakdown is not available until the inputs are fixed");
+  }
+  if (breakdownList) {
+    breakdownList.replaceChildren();
+    const message = document.createElement("li");
+    message.className = "text-slate-500";
+    message.textContent = "Fix the input above to see the breakdown.";
+    breakdownList.append(message);
+  }
+  if (tipsList) tipsList.replaceChildren();
   [...compareCards, ...sizeCompareCards].forEach(card => {
     card.querySelector("[data-compare-total]").textContent = dash;
     card.querySelector("[data-compare-range]").textContent = "Fix the input above to compare";
@@ -192,7 +260,8 @@ const calculate = () => {
     return null;
   }
 
-  const resultData = calculateBudget(inputs());
+  const currentInputs = inputs();
+  const resultData = calculateBudget(currentInputs);
 
   result.textContent = money(resultData.total);
   moveResult.textContent = money(resultData.move);
@@ -208,6 +277,8 @@ const calculate = () => {
     reserveResult.textContent = money(resultData.reserve);
     cashNeededResult.textContent = money(resultData.cashNeeded);
   }
+
+  renderBreakdown(currentInputs, resultData);
 
   compareCards.forEach(card => {
     const typeValue = Number(card.dataset.compareType);

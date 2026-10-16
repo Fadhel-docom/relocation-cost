@@ -14,7 +14,7 @@ other countries.
 ## P0: calculator depth
 
 - [x] Day 1: itemized costs (fuel, insurance, packing, equipment, utility connection) and a cash buffer until first income (PR #24)
-- [ ] Day 2: cost breakdown chart (share of each cost) and savings tips shown after the result
+- [x] Day 2: cost breakdown chart (share of each cost) and savings tips shown after the result
 - [ ] Day 3: PDF / print export of the budget
 
 ## P1: trust and content
