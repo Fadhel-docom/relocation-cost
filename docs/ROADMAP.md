@@ -15,7 +15,7 @@ other countries.
 
 - [x] Day 1: itemized costs (fuel, insurance, packing, equipment, utility connection) and a cash buffer until first income (PR #24)
 - [x] Day 2: cost breakdown chart (share of each cost) and savings tips shown after the result
-- [ ] Day 3: PDF / print export of the budget
+- [x] Day 3: print and save-as-PDF summary of the budget (browser print, no paid service)
 
 ## P1: trust and content
 

@@ -1,6 +1,6 @@
 import { track } from "@vercel/analytics";
 import stateData from "../../data/state-distances.json";
-import { calculateBudget, costBreakdown, HOME_SIZES, MOVE_TYPES, pickAllowed, RESERVE_WEEKS, savingsTips } from "../lib/calculator.js";
+import { calculateBudget, costBreakdown, costLines, HOME_SIZES, MOVE_TYPES, pickAllowed, RESERVE_WEEKS, savingsTips } from "../lib/calculator.js";
 import { createFunnel } from "../lib/calculator-analytics.js";
 
 const form = document.querySelector("#calculator");
@@ -17,6 +17,9 @@ const mobileRange = document.querySelector("#mobileRange");
 const breakdownBar = document.querySelector("#breakdownBar");
 const breakdownList = document.querySelector("#breakdownList");
 const tipsList = document.querySelector("#tipsList");
+const printButton = document.querySelector("#print");
+const printCosts = document.querySelector("#printCosts");
+const printEl = id => document.querySelector("#" + id);
 const cashBox = document.querySelector("#cashBox");
 const reserveResult = document.querySelector("#reserveResult");
 const cashNeededResult = document.querySelector("#cashNeededResult");
@@ -226,6 +229,53 @@ const renderBreakdown = (inputData, resultData) => {
   });
 };
 
+// Fills the printable summary (visible only when printing).
+const renderPrint = (inputData, resultData) => {
+  if (!printCosts) return;
+  const from = stateData.states[fields.fromState.value]?.name ?? fields.fromState.value;
+  const to = stateData.states[fields.toState.value]?.name ?? fields.toState.value;
+  const text = (id, value) => { const el = printEl(id); if (el) el.textContent = value; };
+
+  text("printDate", new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }));
+  text("printRoute", fields.fromState.value === fields.toState.value ? `Within ${from}` : `${from} to ${to}`);
+  text("printDistance", `${inputData.distance.toLocaleString("en-US")} miles`);
+  text("printSize", fields.size.selectedOptions[0]?.textContent ?? "");
+  text("printType", fields.type.selectedOptions[0]?.textContent ?? "");
+  text("printMove", money(resultData.move));
+  text("printOther", money(resultData.other));
+  text("printContingency", money(resultData.contingency));
+  text("printTotal", money(resultData.total));
+  text("printRange", money(resultData.rangeLow) + "–" + money(resultData.rangeHigh));
+
+  printCosts.replaceChildren();
+  const lines = costLines(inputData);
+  if (lines.length === 0) {
+    const none = document.createElement("li");
+    none.className = "text-slate-700";
+    none.textContent = "No additional costs entered. The estimate covers the move and the contingency only.";
+    printCosts.append(none);
+  }
+  lines.forEach(line => {
+    const item = document.createElement("li");
+    item.className = "flex justify-between";
+    const label = document.createElement("span");
+    label.className = "text-slate-700";
+    label.textContent = line.label;
+    const value = document.createElement("strong");
+    value.textContent = money(line.amount);
+    item.append(label, value);
+    printCosts.append(item);
+  });
+
+  const hasReserve = resultData.reserve > 0;
+  const reserveRow = printEl("printReserveRow");
+  const cashRow = printEl("printCashRow");
+  if (reserveRow) reserveRow.hidden = !hasReserve;
+  if (cashRow) cashRow.hidden = !hasReserve;
+  text("printReserve", money(resultData.reserve));
+  text("printCash", money(resultData.cashNeeded));
+};
+
 // When an input is invalid, show dashes instead of leaving the last valid
 // estimate on screen next to the error message.
 const clearResults = () => {
@@ -279,6 +329,7 @@ const calculate = () => {
   }
 
   renderBreakdown(currentInputs, resultData);
+  renderPrint(currentInputs, resultData);
 
   compareCards.forEach(card => {
     const typeValue = Number(card.dataset.compareType);
@@ -387,6 +438,19 @@ fields.toState?.addEventListener("change", applyStateDistance);
 routeGuideLink?.addEventListener("click", () => track("route_guide_clicked"));
 
 reset?.addEventListener("click", resetCalculator);
+
+printButton?.addEventListener("click", () => {
+  const total = calculate();
+
+  if (total === null) {
+    shareStatus.textContent = "Fix the input above before printing.";
+    return;
+  }
+
+  shareStatus.textContent = "";
+  track("print_clicked");
+  window.print();
+});
 
 share?.addEventListener("click", async () => {
   const total = calculate();
