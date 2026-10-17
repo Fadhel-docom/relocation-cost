@@ -19,11 +19,9 @@ Date: 2026-10-17. Read-only study of public pages. Nothing here changes the calc
 | moveBuddha (home) | Five-step plan (estimate, choose move type, find mover, plan logistics, real stories); city/state/route directory | Guides a beginner in order | Partly (Next steps card, guides) | A visible step-by-step path across our pages | S | https://www.movebuddha.com/ |
 | Move.org | Mover-type comparison table (full service, container, hybrid, hourly labor, truck rental) on loading, driving, storage; median cost by distance for a 3-bedroom (claimed, 2024, from their own quotes) | Explains what each service includes | We compare 3 move types by price; no inclusions table | "What is included" table per move type, no prices needed | S | https://www.move.org/moving-costs/ |
 | HireAHelper | Tables per option (labor + truck, labor + container, full service) plus a labor-only add-on; hidden fees list (long carry, stairs, tolls, last-minute booking, tipping); 10% buffer advice | Shows what drives the final bill | Buffer yes (10%); hidden fees partly | Hidden-fee explainer and optional fields for them | S | https://www.hireahelper.com/moving-cost-calculator/ |
-| HireAHelper (quality note) | Observed inconsistencies: two distance rows with identical figures, text says labor-only halves the bill but table shows about 39% | n/a | n/a | Our edge: internally consistent, tested numbers | S | same page |
 | U-Haul | Supply calculator link, storage size guide, moving help quote form, price lock banner | Planning supplies and space | Supplies and size tools no | Packing and truck-size tools | M | https://www.uhaul.com/ |
 | U-Pack | States what the rate includes and what it excludes (packing supplies, personal travel, reserve, optional add-ons); change shipment size on the quote screen to see the price move | Clear scope of a quote | Exclusions yes (methodology, "How to read") | Already close; keep the explicit "not included" list | S | https://www.upack.com/articles/moving-cost-calculator |
 | 101 Planners | Described inputs: move date (peak, month-end, weekend), specialty items, access (stairs, long carry, elevator), add-ons incl. crew tips, insurance, cleaning; all methods side by side; PDF/print/copy; says it runs in the browser with no email | Fuller cost picture; privacy | Print yes; side by side yes (types, sizes); date, access, specialty no | Optional user-entered access/specialty/tips fields; timing needs a source | S for fields, M for timing | https://www.101planners.com/moving-cost-calculator/ |
-| 101 Planners (quality note) | Rates and multipliers are stated but unsourced; observed inconsistent POD ranges between sections | n/a | n/a | Do not copy multipliers; they are not defensible | | same page |
 | Smooth Move | Methodology page in numbered steps; says range is not a confidence interval; lists what the estimate cannot know; says partner prices are not an input; states how driving distance is approximated (straight line plus 25%); caps on adjustments | Trust | Mostly yes (methodology page, margin note, sources) | Add an independence statement; consider a driving-distance factor only with a defensible source | S / M | https://www.smoothmove.io/estimate-methodology |
 | Extra Space Storage | Four tools: truck size calculator, box calculator, moving cost calculator, cost of living calculator; derivation of results not explained | Planning beyond price | Cost of living and size tools no | Truck size, box estimate, city comparison (all need sources) | M to L | https://www.extraspace.com/moving/tools/ |
 | Allied | Packing calculator (room or whole house); long-distance, interstate, cross-country calculators; claims forms; checklists only in the menu | Packing planning | no | Packing estimate | M | https://www.allied.com/moving-resources/tools-forms |
@@ -36,9 +34,7 @@ Date: 2026-10-17. Read-only study of public pages. Nothing here changes the calc
 
 1. Consumer calculators sell leads. We do not collect contact data. Keep "no email, runs in the browser" as a stated promise once we confirm it is literally true for the calculator inputs (assumption: inputs are not sent anywhere; the analytics events carry no amounts. Verify before publishing the claim).
 2. Competitors with the most public methodology (Smooth Move) say the range is not a confidence interval. We already say this.
-3. Several competitors show internal inconsistencies. Consistency checked by tests is a real differentiator.
-4. Only corporate sites offer relocation-package calculators, and they are for the employer. An employee-side "does my package cover my move" tool looks like open space (assumption, based on the pages above and one search).
-5. Competitors' multipliers (peak season, weekend, month-end) are mostly unsourced. We must not add them without a source.
+3. Only corporate sites offer relocation-package calculators, and they are for the employer. An employee-side "does my package cover my move" tool looks like open space (assumption, based on the pages above and one search).
 
 ## Classification
 
@@ -59,7 +55,7 @@ Date: 2026-10-17. Read-only study of public pages. Nothing here changes the calc
   12. Helpfulness feedback widget.
 - **Reject for now**
   - Container pricing (no sourced data; U-Pack shows no comparison data on the page we saw).
-  - Copying any competitor multiplier or per-pound rate.
+  - Any rate or multiplier that has no public source of our own.
   - Lead-gen forms or quote requests.
   - Local hourly moves (outside our state-to-state scope).
 
