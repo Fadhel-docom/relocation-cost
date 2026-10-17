@@ -21,7 +21,7 @@
   --amber-tint: #fffbeb; --amber-line: #fde68a; --amber-text: #451a03;
   --ring: #bae6fd;
   --card: #0f172a; --card-inset: #1e293b; --card-line: #1e293b; --card-line-2: #334155;
-  --card-text: #ffffff; --card-soft: #cbd5e1; --card-muted: #94a3b8; --card-accent: #7dd3fc;
+  --card-text: #ffffff; --card-soft: #e2e8f0; --card-muted: #cbd5e1; --card-accent: #7dd3fc;
   --inv-bg: #0f172a; --inv-fg: #ffffff; --inv-hover: #1e293b;
   --chart-move: #0369a1; --chart-travel: #0f766e; --chart-housing: #7c3aed;
   --chart-setup: #b45309; --chart-extras: #be185d; --chart-contingency: #64748b;
@@ -37,7 +37,7 @@
   --amber-tint: #2a2110; --amber-line: #5c4514; --amber-text: #fbe7b5;
   --ring: #1f6f9f;
   --card: #14233d; --card-inset: #1d3052; --card-line: #2b4166; --card-line-2: #36507c;
-  --card-text: #f1f5fb; --card-soft: #d3dcea; --card-muted: #a9b6ca; --card-accent: #7dd3fc;
+  --card-text: #f1f5fb; --card-soft: #e3e9f2; --card-muted: #cdd6e5; --card-accent: #7dd3fc;
   --inv-bg: #e8edf5; --inv-fg: #0b1220; --inv-hover: #ffffff;
   --chart-move: #5ab4e8; --chart-travel: #3fb5a5; --chart-housing: #a78bfa;
   --chart-setup: #e0a23c; --chart-extras: #f07fae; --chart-contingency: #94a3b8;
@@ -53,7 +53,7 @@
     --amber-tint: #2a2110; --amber-line: #5c4514; --amber-text: #fbe7b5;
     --ring: #1f6f9f;
     --card: #14233d; --card-inset: #1d3052; --card-line: #2b4166; --card-line-2: #36507c;
-    --card-text: #f1f5fb; --card-soft: #d3dcea; --card-muted: #a9b6ca; --card-accent: #7dd3fc;
+    --card-text: #f1f5fb; --card-soft: #e3e9f2; --card-muted: #cdd6e5; --card-accent: #7dd3fc;
     --inv-bg: #e8edf5; --inv-fg: #0b1220; --inv-hover: #ffffff;
     --chart-move: #5ab4e8; --chart-travel: #3fb5a5; --chart-housing: #a78bfa;
     --chart-setup: #e0a23c; --chart-extras: #f07fae; --chart-contingency: #94a3b8;
@@ -71,7 +71,7 @@
     --amber-tint: #fffbeb; --amber-line: #fde68a; --amber-text: #451a03;
     --ring: #bae6fd;
     --card: #0f172a; --card-inset: #1e293b; --card-line: #1e293b; --card-line-2: #334155;
-    --card-text: #ffffff; --card-soft: #cbd5e1; --card-muted: #94a3b8; --card-accent: #7dd3fc;
+    --card-text: #ffffff; --card-soft: #e2e8f0; --card-muted: #cbd5e1; --card-accent: #7dd3fc;
     --inv-bg: #0f172a; --inv-fg: #ffffff; --inv-hover: #1e293b;
     --chart-move: #0369a1; --chart-travel: #0f766e; --chart-housing: #7c3aed;
     --chart-setup: #b45309; --chart-extras: #be185d; --chart-contingency: #64748b;
@@ -125,6 +125,8 @@ input::placeholder { color: var(--t500); }
 .bg-slate-950 .text-slate-200, .bg-slate-950 .text-slate-300 { color: var(--card-soft); }
 .bg-slate-950 .text-slate-400, .bg-slate-950 .text-slate-500 { color: var(--card-muted); }
 .bg-slate-950 .text-sky-300 { color: var(--card-accent); }
+/* Small notes inside the dark cards were thin and hard to read on a phone: a little larger. */
+.bg-slate-950 .text-xs { font-size: 0.8125rem; line-height: 1.25rem; }
 .bg-slate-950 .bg-white { background-color: var(--inv-bg); color: var(--inv-fg); }
 .bg-slate-950 .bg-white:hover { background-color: var(--inv-hover); }
 
