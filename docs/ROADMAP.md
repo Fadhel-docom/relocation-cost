@@ -16,6 +16,7 @@ other countries.
 - [x] Day 1: itemized costs (fuel, insurance, packing, equipment, utility connection) and a cash buffer until first income (PR #24)
 - [x] Day 2: cost breakdown chart (share of each cost) and savings tips shown after the result
 - [x] Day 3: print and save-as-PDF summary of the budget (browser print, no paid service)
+- [x] Day 5: four more optional itemized costs (storage, crew tips, specialty items, access fees), a "Costs people often forget" section and an independence statement (ideas from docs/COMPETITOR_IDEAS_2.md)
 
 ## P1: trust and content
 

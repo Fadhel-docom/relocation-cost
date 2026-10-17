@@ -4,8 +4,8 @@ import { calculateBudget, costBreakdown, costLines, HOME_SIZES, MOVE_TYPES, pick
 import { createFunnel } from "../lib/calculator-analytics.js";
 
 const form = document.querySelector("#calculator");
-const ids = ["fromState","toState","distance","size","type","travel","housing","setup","extras","fuel","insurance","packing","equipment","utilities","reserveWeeks","weeklyLiving"];
-const defaults = { fromState: "CA", toState: "TX", distance: "", size: "1", type: "0.65", travel: "0", housing: "0", setup: "0", extras: "0", fuel: "0", insurance: "0", packing: "0", equipment: "0", utilities: "0", reserveWeeks: "0", weeklyLiving: "0" };
+const ids = ["fromState","toState","distance","size","type","travel","housing","setup","extras","fuel","insurance","packing","equipment","utilities","storage","tips","specialty","access","reserveWeeks","weeklyLiving"];
+const defaults = { fromState: "CA", toState: "TX", distance: "", size: "1", type: "0.65", travel: "0", housing: "0", setup: "0", extras: "0", fuel: "0", insurance: "0", packing: "0", equipment: "0", utilities: "0", storage: "0", tips: "0", specialty: "0", access: "0", reserveWeeks: "0", weeklyLiving: "0" };
 const fields = Object.fromEntries(ids.map(id => [id, document.querySelector("#" + id)]));
 const result = document.querySelector("#result");
 const moveResult = document.querySelector("#moveResult");
@@ -53,6 +53,10 @@ const limits = {
   packing: { min: 0, max: 1000000 },
   equipment: { min: 0, max: 1000000 },
   utilities: { min: 0, max: 1000000 },
+  storage: { min: 0, max: 1000000 },
+  tips: { min: 0, max: 1000000 },
+  specialty: { min: 0, max: 1000000 },
+  access: { min: 0, max: 1000000 },
   weeklyLiving: { min: 0, max: 100000 }
 };
 
@@ -171,6 +175,10 @@ const inputs = (overrides = {}) => ({
   packing: num("packing"),
   equipment: num("equipment"),
   utilities: num("utilities"),
+  storage: num("storage"),
+  tips: num("tips"),
+  specialty: num("specialty"),
+  access: num("access"),
   reserveWeeks: num("reserveWeeks"),
   weeklyLiving: num("weeklyLiving"),
   ...overrides
@@ -431,7 +439,7 @@ form?.addEventListener("change", () => funnel.interaction(), true);
 fields.fromState?.addEventListener("change", applyStateDistance);
 fields.toState?.addEventListener("change", applyStateDistance);
 
-["distance","size","type","travel","housing","setup","extras","fuel","insurance","packing","equipment","utilities","reserveWeeks","weeklyLiving"].forEach(id =>
+["distance","size","type","travel","housing","setup","extras","fuel","insurance","packing","equipment","utilities","storage","tips","specialty","access","reserveWeeks","weeklyLiving"].forEach(id =>
   fields[id]?.addEventListener("input", calculate)
 );
 

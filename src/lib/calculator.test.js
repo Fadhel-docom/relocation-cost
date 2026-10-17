@@ -215,7 +215,7 @@ test("itemized costs default to zero and leave every existing estimate unchanged
   const base = calculateBudget({ distance: 1317, size: 1.35, type: TRUCK, travel: 200, extras: 300 });
   const explicit = calculateBudget({
     distance: 1317, size: 1.35, type: TRUCK, travel: 200, extras: 300,
-    fuel: 0, insurance: 0, packing: 0, equipment: 0, utilities: 0, reserveWeeks: 0, weeklyLiving: 0,
+    fuel: 0, insurance: 0, packing: 0, equipment: 0, utilities: 0, storage: 0, tips: 0, specialty: 0, access: 0, reserveWeeks: 0, weeklyLiving: 0,
   });
   assertClose(explicit.total, base.total);
   assertClose(explicit.other, base.other);
@@ -225,13 +225,13 @@ test("itemized costs default to zero and leave every existing estimate unchanged
 
 test("itemized costs are added to other costs exactly as typed and get the 10% contingency", () => {
   const without = calculateBudget({ distance: 800, size: 1.8, type: TRUCK, travel: 250 });
-  const items = { fuel: 120, insurance: 40, packing: 85.5, equipment: 30, utilities: 60 };
+  const items = { fuel: 120, insurance: 40, packing: 85.5, equipment: 30, utilities: 60, storage: 90, tips: 150, specialty: 200, access: 75 };
   const withItems = calculateBudget({ distance: 800, size: 1.8, type: TRUCK, travel: 250, ...items });
-  const added = 120 + 40 + 85.5 + 30 + 60;
+  const added = 120 + 40 + 85.5 + 30 + 60 + 90 + 150 + 200 + 75;
   assertClose(withItems.other, without.other + added);
   assertClose(withItems.total, without.total + added * 1.1);
   assertClose(withItems.contingency, (withItems.move + withItems.other) * 0.1);
-  assert.deepEqual([...ITEMIZED_KEYS], ["fuel", "insurance", "packing", "equipment", "utilities"]);
+  assert.deepEqual([...ITEMIZED_KEYS], ["fuel", "insurance", "packing", "equipment", "utilities", "storage", "tips", "specialty", "access"]);
 });
 
 test("cash buffer is weeks times weekly living cost, outside contingency and range", () => {
@@ -312,4 +312,14 @@ test("cost lines list only the entered costs above zero, in a fixed order, and s
   assert.deepEqual(lines.map(line => line.key), ["travel", "housing", "fuel", "utilities"]);
   assertClose(lines.reduce((sum, line) => sum + line.amount, 0), calculateBudget(input).other);
   assert.deepEqual(costLines({ distance: 900, size: 1.35, type: TRUCK }), []);
+});
+
+test("every itemized key appears in the printable lines and in the breakdown group", () => {
+  const input = { distance: 900, size: 1.35, type: TRUCK };
+  for (const key of ITEMIZED_KEYS) input[key] = 10;
+  const lines = costLines(input);
+  assert.deepEqual(lines.map(line => line.key).sort(), [...ITEMIZED_KEYS].sort());
+  const result = calculateBudget(input);
+  const grouped = costBreakdown(input, result).find(part => part.key === "extras");
+  assertClose(grouped.amount, 10 * ITEMIZED_KEYS.length);
 });

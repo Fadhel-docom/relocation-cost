@@ -20,7 +20,7 @@ export const MOVE_TYPES = Object.freeze([DIY_TYPE_MULTIPLIER, 1, 1.65]);
 export const RESERVE_WEEKS = Object.freeze([0, 2, 4, 6, 8, 12]);
 // Optional itemized costs. Each one is added to "other costs" exactly as typed;
 // they default to 0 and are left out of the total until the user knows an amount.
-export const ITEMIZED_KEYS = Object.freeze(["fuel", "insurance", "packing", "equipment", "utilities"]);
+export const ITEMIZED_KEYS = Object.freeze(["fuel", "insurance", "packing", "equipment", "utilities", "storage", "tips", "specialty", "access"]);
 
 // Returns the numeric value when it is one of the allowed options, otherwise
 // the fallback. Used to clean values restored from share links or storage.
@@ -45,6 +45,10 @@ const INPUT_LIMITS = {
   packing: { min: 0, max: 1000000 },
   equipment: { min: 0, max: 1000000 },
   utilities: { min: 0, max: 1000000 },
+  storage: { min: 0, max: 1000000 },
+  tips: { min: 0, max: 1000000 },
+  specialty: { min: 0, max: 1000000 },
+  access: { min: 0, max: 1000000 },
   weeklyLiving: { min: 0, max: 100000 },
 };
 
@@ -63,6 +67,7 @@ export function calculateBudget(
   {
     distance, size, type, travel = 0, housing = 0, setup = 0, extras = 0,
     fuel = 0, insurance = 0, packing = 0, equipment = 0, utilities = 0,
+    storage = 0, tips = 0, specialty = 0, access = 0,
     reserveWeeks = 0, weeklyLiving = 0,
   },
   { validate = true } = {},
@@ -78,6 +83,10 @@ export function calculateBudget(
     validateNumber("packing", packing, INPUT_LIMITS.packing);
     validateNumber("equipment", equipment, INPUT_LIMITS.equipment);
     validateNumber("utilities", utilities, INPUT_LIMITS.utilities);
+    validateNumber("storage", storage, INPUT_LIMITS.storage);
+    validateNumber("tips", tips, INPUT_LIMITS.tips);
+    validateNumber("specialty", specialty, INPUT_LIMITS.specialty);
+    validateNumber("access", access, INPUT_LIMITS.access);
     validateNumber("weeklyLiving", weeklyLiving, INPUT_LIMITS.weeklyLiving);
     if (!RESERVE_WEEKS.includes(reserveWeeks)) {
       throw new RangeError(`reserveWeeks must be one of ${RESERVE_WEEKS.join(", ")}.`);
@@ -101,7 +110,7 @@ export function calculateBudget(
   const moveFloored = marketBenchmark > diyModel;
   const servicePremium = Math.max(0, perMileCost * (type - DIY_TYPE_MULTIPLIER));
   const move = diyBase + servicePremium;
-  const other = travel + housing + setup + extras + fuel + insurance + packing + equipment + utilities;
+  const other = travel + housing + setup + extras + fuel + insurance + packing + equipment + utilities + storage + tips + specialty + access;
   const contingency = (move + other) * DEFAULT_CONTINGENCY_RATE;
   const total = move + other + contingency;
   // The cash buffer is money the user plans to hold until the first income, not
@@ -135,7 +144,8 @@ export function costBreakdown(input, result) {
     {
       key: "extras",
       label: "Packing, extras and itemized costs",
-      amount: get("extras") + get("fuel") + get("insurance") + get("packing") + get("equipment") + get("utilities"),
+      amount: get("extras") + get("fuel") + get("insurance") + get("packing") + get("equipment") + get("utilities") +
+        get("storage") + get("tips") + get("specialty") + get("access"),
     },
     { key: "contingency", label: "Contingency (10%)", amount: result.contingency },
   ].filter(part => part.amount > 0);
@@ -200,6 +210,10 @@ export function costLines(input) {
     ["packing", "Packing materials"],
     ["equipment", "Equipment rental"],
     ["utilities", "Utility connection fees"],
+    ["storage", "Storage"],
+    ["tips", "Crew tips"],
+    ["specialty", "Specialty items"],
+    ["access", "Access fees (stairs, long carry, elevator)"],
   ];
   return lines
     .map(([key, label]) => ({ key, label, amount: input[key] ?? 0 }))

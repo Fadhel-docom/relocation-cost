@@ -34,7 +34,7 @@ const percent = value => `${Math.round(value * 100)}%`;
       <li><strong>Distance:</strong> filled from the great-circle distance between the geographic centers of the two states you pick, or typed by you. It is not road mileage. Replace it with your actual driving miles when you know them.</li>
       <li><strong>Home size:</strong> studio or 1 room (×1), 2–3 rooms (×1.35), 4–5 rooms (×1.8), 6+ rooms (×2.4).</li>
       <li><strong>Move type:</strong> DIY (×{DIY_TYPE_MULTIPLIER}), rental truck with labor (×1), full-service movers (×1.65).</li>
-      <li><strong>Other costs:</strong> travel, temporary housing, deposits and setup, packing and extras, added exactly as you enter them.</li>
+      <li><strong>Other costs:</strong> travel, temporary housing, deposits and setup, packing and extras, plus optional itemized amounts (fuel, insurance, packing materials, equipment rental, utility connection, storage, crew tips, specialty items, access fees), added exactly as you enter them. The site never guesses these amounts.</li>
     </ul>
 
     <h2 class="mt-10 text-2xl font-bold">The formula</h2>
@@ -67,6 +67,9 @@ const percent = value => `${Math.round(value * 100)}%`;
       <li><a class="font-semibold text-sky-700 underline" href={sources.bls.url} rel="noopener">{sources.bls.name}</a>. Used for: {sources.bls.use}. Laborers and freight, stock and material movers, hand: annual mean wage {money(benchmarkData.benchmarks.bls_laborers_freight_stock_material_movers_hand_mean_annual_usd)}. This figure is shown for context and does not change any result.</li>
       <li><a class="font-semibold text-sky-700 underline" href={sources.census.url} rel="noopener">{sources.census.name}</a>. Used for: {sources.census.use}.</li>
     </ul>
+
+    <h2 class="mt-10 text-2xl font-bold">Independence</h2>
+    <p class="mt-4 leading-7 text-slate-700">The formula and sources above are the same whether or not a provider pays us. Affiliate links, if the site ever has any, never change an estimate. See the <a class="font-semibold text-sky-700 underline" href="/disclosure/">disclosure</a>.</p>
 
     <h2 class="mt-10 text-2xl font-bold">Known limits</h2>
     <ul class="mt-4 list-disc space-y-3 pl-6 leading-7 text-slate-700">
