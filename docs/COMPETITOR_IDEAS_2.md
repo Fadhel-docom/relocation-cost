@@ -62,3 +62,19 @@ Date: 2026-10-17. Read-only study of public pages. Nothing here changes the calc
 ## Proposed order (for the daily plan)
 
 Day 5: P0 item 1 and 3 together (small, safe). Day 6: employer package mode. Day 7: moving checklist. Items 2 and 6 fit between them. P2 items wait for sources.
+
+## Problems seen in this market and how Relocation Cost answers them
+
+Written without naming sites. Each row is a pattern we saw across several tools, and what we do instead.
+
+| Common problem | Our answer | Status |
+|---|---|---|
+| Numbers on a page that do not agree with each other (a table row repeated for different routes, text that contradicts a table) | One calculation source for every page; tests check the whole size / service / distance grid for ordering and the benchmark floor | Tested (Day 6) |
+| Results hidden behind contact details or phone calls | No contact details asked; the estimate shows immediately | In place |
+| Rates and multipliers stated without a source | Sourced benchmark shown with its date; assumptions labelled as assumptions on the methodology page | In place |
+| Figures that look exact but are only a fixed band | Margin of error stated in plain words, not presented as a statistical interval | In place (Day 4) |
+| Employer relocation tools only exist for the employer | Employee-side package gap, with the range and the cash buffer; no tax guesses | Built (Day 6) |
+| A zero left in a form that quietly reads as "free" | Zero means "left out of the total", said next to the fields and in the print summary | In place |
+| Commercial links mixed into the estimate | Independence statement; the formula ignores partners | In place (Day 5) |
+
+Ideas still to build from these answers: a "reading a quote" guide (needs official sources), a dated checklist, and a "what is included" table per move type.

@@ -49,6 +49,8 @@ const INPUT_LIMITS = {
   tips: { min: 0, max: 1000000 },
   specialty: { min: 0, max: 1000000 },
   access: { min: 0, max: 1000000 },
+  employerCash: { min: 0, max: 1000000 },
+  employerDirect: { min: 0, max: 1000000 },
   weeklyLiving: { min: 0, max: 100000 },
 };
 
@@ -218,4 +220,25 @@ export function costLines(input) {
   return lines
     .map(([key, label]) => ({ key, label, amount: input[key] ?? 0 }))
     .filter(line => line.amount > 0);
+}
+
+// Employer relocation package: what the employer covers against your estimate.
+// "employerCash" is money paid to you (a lump sum); "employerDirect" is the value
+// of costs the employer pays itself (movers, housing). Both are typed by the user,
+// exactly as they will receive or use them. Taxes are never calculated here.
+// Returns null when the user entered nothing. A positive gap is what you pay.
+export function employerGap({ employerCash = 0, employerDirect = 0 }, result) {
+  validateNumber("employerCash", employerCash, INPUT_LIMITS.employerCash);
+  validateNumber("employerDirect", employerDirect, INPUT_LIMITS.employerDirect);
+  const covered = employerCash + employerDirect;
+  if (covered <= 0) return null;
+  const gap = result.total - covered;
+  return {
+    covered,
+    gap,
+    gapLow: result.rangeLow - covered,
+    gapHigh: result.rangeHigh - covered,
+    gapWithBuffer: result.reserve > 0 ? result.cashNeeded - covered : null,
+    status: gap > 0 ? "short" : gap < 0 ? "surplus" : "even",
+  };
 }
