@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { calculateBudget, costBreakdown, costLines, getUhaulBenchmark, HOME_SIZES, ITEMIZED_KEYS, MOVE_TYPES, pickAllowed, RESERVE_WEEKS, savingsTips } from "./calculator.js";
+import { calculateBudget, costBreakdown, costLines, employerGap, getUhaulBenchmark, HOME_SIZES, ITEMIZED_KEYS, MOVE_TYPES, pickAllowed, RESERVE_WEEKS, savingsTips } from "./calculator.js";
 
 const assertClose = (actual, expected) => {
   assert.ok(Math.abs(actual - expected) < 1e-9, `expected ${expected}, got ${actual}`);
@@ -322,4 +322,66 @@ test("every itemized key appears in the printable lines and in the breakdown gro
   const result = calculateBudget(input);
   const grouped = costBreakdown(input, result).find(part => part.key === "extras");
   assertClose(grouped.amount, 10 * ITEMIZED_KEYS.length);
+});
+
+test("employer package: no amounts entered means no comparison", () => {
+  const result = calculateBudget({ distance: 1000, size: 1.35, type: TRUCK });
+  assert.equal(employerGap({}, result), null);
+  assert.equal(employerGap({ employerCash: 0, employerDirect: 0 }, result), null);
+});
+
+test("employer package: gap is the budget minus what the employer covers, and does not change the estimate", () => {
+  const input = { distance: 1000, size: 1.35, type: TRUCK, travel: 300 };
+  const plain = calculateBudget(input);
+  const gap = employerGap({ employerCash: 2000, employerDirect: 500 }, plain);
+  assertClose(gap.covered, 2500);
+  assertClose(gap.gap, plain.total - 2500);
+  assertClose(gap.gapLow, plain.rangeLow - 2500);
+  assertClose(gap.gapHigh, plain.rangeHigh - 2500);
+  assert.equal(gap.gapWithBuffer, null);
+  const again = calculateBudget(input);
+  assertClose(again.total, plain.total);
+});
+
+test("employer package: status shows short, surplus or even, and the cash buffer is reported separately", () => {
+  const result = calculateBudget({ distance: 1000, size: 1.35, type: TRUCK, reserveWeeks: 4, weeklyLiving: 500 });
+  assert.equal(employerGap({ employerCash: 100 }, result).status, "short");
+  assert.equal(employerGap({ employerCash: result.total + 1 }, result).status, "surplus");
+  assert.equal(employerGap({ employerCash: result.total }, result).status, "even");
+  const withBuffer = employerGap({ employerCash: 1000 }, result);
+  assertClose(withBuffer.gapWithBuffer, result.total + 2000 - 1000);
+});
+
+test("employer package amounts are validated", () => {
+  const result = calculateBudget({ distance: 1000, size: 1.35, type: TRUCK });
+  for (const key of ["employerCash", "employerDirect"]) {
+    for (const bad of [-1, 1000001, Number.NaN]) {
+      assert.throws(() => employerGap({ [key]: bad }, result), RangeError, `${key} ${bad}`);
+    }
+  }
+});
+
+test("totals are consistent across the whole grid: never fall as size or service level grows, and never fall below the published benchmark", () => {
+  const distances = [1, 50, 99, 100, 250, 499, 500, 999, 1000, 1500, 2000, 2999, 3000, 5000, 30000];
+  const sizes = [...HOME_SIZES];
+  const types = [...MOVE_TYPES];
+  for (const distance of distances) {
+    for (const type of types) {
+      let previous = -Infinity;
+      for (const size of sizes) {
+        const r = calculateBudget({ distance, size, type });
+        assert.ok(r.total >= previous - 1e-9, `size order at ${distance} mi, type ${type}`);
+        assert.ok(r.move >= r.marketBenchmark - 1e-9, `benchmark floor at ${distance} mi`);
+        previous = r.total;
+      }
+    }
+    for (const size of sizes) {
+      let previous = -Infinity;
+      for (const type of types) {
+        const r = calculateBudget({ distance, size, type });
+        assert.ok(r.total >= previous - 1e-9, `type order at ${distance} mi, size ${size}`);
+        previous = r.total;
+      }
+    }
+  }
 });

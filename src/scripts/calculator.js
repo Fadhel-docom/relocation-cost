@@ -1,11 +1,11 @@
 import { track } from "@vercel/analytics";
 import stateData from "../../data/state-distances.json";
-import { calculateBudget, costBreakdown, costLines, HOME_SIZES, MOVE_TYPES, pickAllowed, RESERVE_WEEKS, savingsTips } from "../lib/calculator.js";
+import { calculateBudget, costBreakdown, costLines, employerGap, HOME_SIZES, MOVE_TYPES, pickAllowed, RESERVE_WEEKS, savingsTips } from "../lib/calculator.js";
 import { createFunnel } from "../lib/calculator-analytics.js";
 
 const form = document.querySelector("#calculator");
-const ids = ["fromState","toState","distance","size","type","travel","housing","setup","extras","fuel","insurance","packing","equipment","utilities","storage","tips","specialty","access","reserveWeeks","weeklyLiving"];
-const defaults = { fromState: "CA", toState: "TX", distance: "", size: "1", type: "0.65", travel: "0", housing: "0", setup: "0", extras: "0", fuel: "0", insurance: "0", packing: "0", equipment: "0", utilities: "0", storage: "0", tips: "0", specialty: "0", access: "0", reserveWeeks: "0", weeklyLiving: "0" };
+const ids = ["fromState","toState","distance","size","type","travel","housing","setup","extras","fuel","insurance","packing","equipment","utilities","storage","tips","specialty","access","employerCash","employerDirect","reserveWeeks","weeklyLiving"];
+const defaults = { fromState: "CA", toState: "TX", distance: "", size: "1", type: "0.65", travel: "0", housing: "0", setup: "0", extras: "0", fuel: "0", insurance: "0", packing: "0", equipment: "0", utilities: "0", storage: "0", tips: "0", specialty: "0", access: "0", employerCash: "0", employerDirect: "0", reserveWeeks: "0", weeklyLiving: "0" };
 const fields = Object.fromEntries(ids.map(id => [id, document.querySelector("#" + id)]));
 const result = document.querySelector("#result");
 const moveResult = document.querySelector("#moveResult");
@@ -23,6 +23,13 @@ const printEl = id => document.querySelector("#" + id);
 const cashBox = document.querySelector("#cashBox");
 const reserveResult = document.querySelector("#reserveResult");
 const cashNeededResult = document.querySelector("#cashNeededResult");
+const employerBox = document.querySelector("#employerBox");
+const employerCovered = document.querySelector("#employerCovered");
+const employerGapValue = document.querySelector("#employerGapValue");
+const employerGapLabel = document.querySelector("#employerGapLabel");
+const employerGapRange = document.querySelector("#employerGapRange");
+const employerBufferRow = document.querySelector("#employerBufferRow");
+const employerBufferGap = document.querySelector("#employerBufferGap");
 const marketBenchmark = document.querySelector("#marketBenchmark");
 const floorNote = document.querySelector("#floorNote");
 const inputError = document.querySelector("#inputError");
@@ -57,6 +64,8 @@ const limits = {
   tips: { min: 0, max: 1000000 },
   specialty: { min: 0, max: 1000000 },
   access: { min: 0, max: 1000000 },
+  employerCash: { min: 0, max: 1000000 },
+  employerDirect: { min: 0, max: 1000000 },
   weeklyLiving: { min: 0, max: 100000 }
 };
 
@@ -179,6 +188,8 @@ const inputs = (overrides = {}) => ({
   tips: num("tips"),
   specialty: num("specialty"),
   access: num("access"),
+  employerCash: num("employerCash"),
+  employerDirect: num("employerDirect"),
   reserveWeeks: num("reserveWeeks"),
   weeklyLiving: num("weeklyLiving"),
   ...overrides
@@ -284,6 +295,28 @@ const renderPrint = (inputData, resultData) => {
   text("printCash", money(resultData.cashNeeded));
 };
 
+// "You pay $X" / "Left over $X" wording for a gap amount (positive = you pay).
+const gapText = amount => amount > 0 ? `You pay ${money(amount)}` : amount < 0 ? `${money(-amount)} left over` : "Fully covered";
+
+const renderEmployer = (inputData, resultData) => {
+  const gap = employerGap(inputData, resultData);
+  if (employerBox) employerBox.hidden = !gap;
+  const printRow = printEl("printEmployerRow");
+  const printGapRow = printEl("printEmployerGapRow");
+  if (printRow) printRow.hidden = !gap;
+  if (printGapRow) printGapRow.hidden = !gap;
+  if (!gap) return;
+  const set = (el, value) => { if (el) el.textContent = value; };
+  set(employerCovered, money(gap.covered));
+  set(employerGapLabel, gap.status === "short" ? "Gap you would pay" : gap.status === "surplus" ? "Covered with a surplus" : "Fully covered");
+  set(employerGapValue, money(Math.abs(gap.gap)));
+  set(employerGapRange, `Across the indicative range: ${gapText(gap.gapLow)} to ${gapText(gap.gapHigh)}`);
+  if (employerBufferRow) employerBufferRow.hidden = gap.gapWithBuffer === null;
+  if (gap.gapWithBuffer !== null) set(employerBufferGap, gapText(gap.gapWithBuffer));
+  set(printEl("printEmployer"), money(gap.covered));
+  set(printEl("printEmployerGap"), gapText(gap.gap));
+};
+
 // When an input is invalid, show dashes instead of leaving the last valid
 // estimate on screen next to the error message.
 const clearResults = () => {
@@ -292,6 +325,7 @@ const clearResults = () => {
     .forEach(el => { if (el) el.textContent = dash; });
   if (floorNote) floorNote.hidden = true;
   if (cashBox) cashBox.hidden = true;
+  if (employerBox) employerBox.hidden = true;
   if (breakdownBar) {
     breakdownBar.replaceChildren();
     breakdownBar.setAttribute("aria-label", "Cost breakdown is not available until the inputs are fixed");
@@ -338,6 +372,7 @@ const calculate = () => {
 
   renderBreakdown(currentInputs, resultData);
   renderPrint(currentInputs, resultData);
+  renderEmployer(currentInputs, resultData);
 
   compareCards.forEach(card => {
     const typeValue = Number(card.dataset.compareType);
@@ -439,7 +474,7 @@ form?.addEventListener("change", () => funnel.interaction(), true);
 fields.fromState?.addEventListener("change", applyStateDistance);
 fields.toState?.addEventListener("change", applyStateDistance);
 
-["distance","size","type","travel","housing","setup","extras","fuel","insurance","packing","equipment","utilities","storage","tips","specialty","access","reserveWeeks","weeklyLiving"].forEach(id =>
+["distance","size","type","travel","housing","setup","extras","fuel","insurance","packing","equipment","utilities","storage","tips","specialty","access","employerCash","employerDirect","reserveWeeks","weeklyLiving"].forEach(id =>
   fields[id]?.addEventListener("input", calculate)
 );
 

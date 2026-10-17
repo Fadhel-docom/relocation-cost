@@ -94,6 +94,13 @@ const breadcrumbJsonLd = {
           <label class="block text-sm font-semibold sm:col-span-2">Access fees <span class="font-normal text-slate-500">(stairs, long carry, elevator, USD)</span><input id="access" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
         </div>
 
+        <h3 class="mt-8 text-base font-bold">Employer relocation package <span class="font-normal text-slate-500">(optional)</span></h3>
+        <p class="mt-2 text-sm text-slate-500">If your employer offers help, enter it to see how much of your estimate it covers. Enter amounts as you will receive or use them. Lump sums can be taxed, so ask your employer whether the amount is before or after tax. This calculator does not work out taxes.</p>
+        <div class="mt-5 grid gap-5 sm:grid-cols-2">
+          <label class="block text-sm font-semibold">Lump sum paid to you <span class="font-normal text-slate-500">(USD)</span><input id="employerCash" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+          <label class="block text-sm font-semibold">Costs the employer pays directly <span class="font-normal text-slate-500">(movers, housing, USD)</span><input id="employerDirect" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+        </div>
+
         <h3 class="mt-8 text-base font-bold">Cash buffer until your first income <span class="font-normal text-slate-500">(optional)</span></h3>
         <p class="mt-2 text-sm text-slate-500">Money to keep available for living costs until you are paid at the new place. It is shown separately, because it is cash you hold rather than an estimated moving expense.</p>
         <div class="mt-5 grid gap-5 sm:grid-cols-2">
@@ -131,6 +138,14 @@ const breadcrumbJsonLd = {
           <div class="flex justify-between border-t border-slate-800 pt-2"><span class="text-slate-300">Cash to have ready</span><strong id="cashNeededResult">$0</strong></div>
           <p class="text-xs leading-5 text-slate-500">Budget plus your cash buffer. The buffer is outside the contingency and the indicative range.</p>
         </div>
+        <div id="employerBox" class="mt-5 space-y-2 rounded-xl border border-slate-800 bg-slate-900 p-4 text-sm" hidden>
+          <p class="font-semibold text-slate-200">Employer package</p>
+          <div class="flex justify-between"><span class="text-slate-400">Covered by your employer</span><strong id="employerCovered">$0</strong></div>
+          <div class="flex justify-between border-t border-slate-800 pt-2"><span id="employerGapLabel" class="text-slate-300">Gap you would pay</span><strong id="employerGapValue">$0</strong></div>
+          <p id="employerGapRange" class="text-xs leading-5 text-slate-400"></p>
+          <p id="employerBufferRow" class="text-xs leading-5 text-slate-400" hidden>Including your cash buffer: <strong id="employerBufferGap" class="text-slate-200"></strong></p>
+          <p class="text-xs leading-5 text-slate-500">Estimated budget minus what the employer covers. It is not a tax calculation, and a planning estimate is not a quote.</p>
+        </div>
         <div class="mt-5 rounded-xl border border-slate-800 bg-slate-900 p-4 text-sm">
           <p class="font-semibold text-slate-200">Published truck-rental average</p>
           <p class="mt-1 text-slate-400">U-Haul published one-way rental average for this mileage band: <strong id="marketBenchmark" class="text-white">$0</strong>.</p>
@@ -167,6 +182,8 @@ const breadcrumbJsonLd = {
         <div class="flex justify-between"><dt class="text-slate-700">Contingency (10%)</dt><dd id="printContingency" class="font-semibold"></dd></div>
         <div class="flex justify-between border-t border-slate-300 pt-1 text-base"><dt class="font-bold">Estimated budget</dt><dd id="printTotal" class="font-bold"></dd></div>
         <div class="flex justify-between"><dt class="text-slate-700">Indicative range</dt><dd id="printRange" class="font-semibold"></dd></div>
+        <div id="printEmployerRow" class="flex justify-between" hidden><dt class="text-slate-700">Covered by your employer</dt><dd id="printEmployer" class="font-semibold"></dd></div>
+        <div id="printEmployerGapRow" class="flex justify-between" hidden><dt class="font-bold">Employer gap</dt><dd id="printEmployerGap" class="font-bold"></dd></div>
         <div id="printReserveRow" class="flex justify-between" hidden><dt class="text-slate-700">Cash buffer</dt><dd id="printReserve" class="font-semibold"></dd></div>
         <div id="printCashRow" class="flex justify-between" hidden><dt class="font-bold">Cash to have ready</dt><dd id="printCash" class="font-bold"></dd></div>
       </dl>
