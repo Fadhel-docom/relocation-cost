@@ -96,3 +96,14 @@ test("the print block resets every token, so printing never inherits the dark th
   const missing = Object.keys(dark).filter(key => !printTokens.has(key));
   assert.deepEqual(missing, []);
 });
+
+for (const [name, tokens] of [["light", light], ["dark", dark]]) {
+  test(`${name} theme: text inside the dark result card reaches AAA (7:1) so it stays readable in sunlight`, () => {
+    for (const text of ["card-text", "card-soft", "card-muted", "card-accent"]) {
+      for (const surface of ["card", "card-inset"]) {
+        const value = ratio(tokens[text], tokens[surface]);
+        assert.ok(value >= 7, `${name}: ${text} on ${surface} is ${value.toFixed(2)}:1`);
+      }
+    }
+  });
+}
