@@ -9,7 +9,7 @@ Date: 2026-10-17. Read-only study of public pages. Nothing here changes the calc
 - **Assumption** = our reading. Needs checking before it drives a decision.
 - Interactive calculators did not render in the fetched text for most sites. Where the form or result was not visible, the table says so. We did not see their real outputs.
 - Not studied: Moving.com (the fetch was blocked, we did not work around it).
-- Round 1 (relocation-company sites) is in `relocation-competitors-strengths.md`, kept outside the repo.
+- Round 1 (relocation-company sites) was delivered as a separate file (`relocation-competitors-strengths.md`) and is not part of this repository.
 
 ## Observed features and our status
 
