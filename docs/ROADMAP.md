@@ -29,7 +29,7 @@ other countries.
 
 - [ ] "Email me this estimate" (free, no paid service)
 - [ ] Cost-of-living comparison between two cities
-- [ ] Dark mode
+- [x] Dark mode (Day 7): automatic from the device setting, with a header button for Auto / Light / Dark; palette checked against WCAG AA by tests; see docs/DESIGN.md
 
 ## International expansion (only after the US site reaches its quality target)
 

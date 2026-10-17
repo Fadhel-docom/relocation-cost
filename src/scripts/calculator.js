@@ -198,12 +198,12 @@ const inputs = (overrides = {}) => ({
 // Decorative segment colors. The legend text carries the information, so the
 // bar never depends on color alone.
 const BREAKDOWN_COLORS = {
-  move: "#0369a1",
-  travel: "#0f766e",
-  housing: "#7c3aed",
-  setup: "#b45309",
-  extras: "#be185d",
-  contingency: "#64748b"
+  move: "var(--chart-move)",
+  travel: "var(--chart-travel)",
+  housing: "var(--chart-housing)",
+  setup: "var(--chart-setup)",
+  extras: "var(--chart-extras)",
+  contingency: "var(--chart-contingency)"
 };
 
 const renderBreakdown = (inputData, resultData) => {
