@@ -2,7 +2,139 @@
 @tailwind components;
 @tailwind utilities;
 
-:root { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color-scheme: light; }
+/* ------------------------------------------------------------------
+   Color tokens. The light values equal the Tailwind colors the pages were
+   written with (slate-500 text is slightly darker for strong contrast on
+   tinted panels). The dark values are chosen for comfort at night: no pure
+   black or pure white, text between 7:1 and 15:1, and cards that are lighter
+   than the page so depth reads without bright borders.
+   src/lib/contrast.test.js checks every pair below against WCAG AA.
+   Theme = system setting by default; the header button stores an override
+   in localStorage and sets data-theme on <html>.
+   ------------------------------------------------------------------ */
+:root {
+  --page: #f8fafc; --surface: #ffffff; --panel: #f8fafc; --inset: #f1f5f9;
+  --line-soft: #f1f5f9; --line: #e2e8f0; --line-strong: #cbd5e1; --field-border: #8190a5;
+  --t900: #0f172a; --t700: #334155; --t600: #475569; --t500: #546174; --t-hover: #020617;
+  --accent: #0369a1; --danger: #b91c1c;
+  --sky-tint: #f0f9ff; --sky-line: #bae6fd; --sky-strong: #0c4a6e;
+  --amber-tint: #fffbeb; --amber-line: #fde68a; --amber-text: #451a03;
+  --ring: #bae6fd;
+  --card: #0f172a; --card-inset: #1e293b; --card-line: #1e293b; --card-line-2: #334155;
+  --card-text: #ffffff; --card-soft: #cbd5e1; --card-muted: #94a3b8; --card-accent: #7dd3fc;
+  --inv-bg: #0f172a; --inv-fg: #ffffff; --inv-hover: #1e293b;
+  --chart-move: #0369a1; --chart-travel: #0f766e; --chart-housing: #7c3aed;
+  --chart-setup: #b45309; --chart-extras: #be185d; --chart-contingency: #64748b;
+  color-scheme: light;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+:root[data-theme="dark"] {
+  --page: #0b1220; --surface: #121c31; --panel: #0f182b; --inset: #1a2740;
+  --line-soft: #1a2740; --line: #26344f; --line-strong: #36486a; --field-border: #62779b;
+  --t900: #e8edf5; --t700: #cfd8e6; --t600: #b4c0d3; --t500: #97a6bd; --t-hover: #ffffff;
+  --accent: #86c9f2; --danger: #fca5a5;
+  --sky-tint: #0e2236; --sky-line: #1f4a6b; --sky-strong: #bfe3fa;
+  --amber-tint: #2a2110; --amber-line: #5c4514; --amber-text: #fbe7b5;
+  --ring: #1f6f9f;
+  --card: #14233d; --card-inset: #1d3052; --card-line: #2b4166; --card-line-2: #36507c;
+  --card-text: #f1f5fb; --card-soft: #d3dcea; --card-muted: #a9b6ca; --card-accent: #7dd3fc;
+  --inv-bg: #e8edf5; --inv-fg: #0b1220; --inv-hover: #ffffff;
+  --chart-move: #5ab4e8; --chart-travel: #3fb5a5; --chart-housing: #a78bfa;
+  --chart-setup: #e0a23c; --chart-extras: #f07fae; --chart-contingency: #94a3b8;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --page: #0b1220; --surface: #121c31; --panel: #0f182b; --inset: #1a2740;
+    --line-soft: #1a2740; --line: #26344f; --line-strong: #36486a; --field-border: #62779b;
+    --t900: #e8edf5; --t700: #cfd8e6; --t600: #b4c0d3; --t500: #97a6bd; --t-hover: #ffffff;
+    --accent: #86c9f2; --danger: #fca5a5;
+    --sky-tint: #0e2236; --sky-line: #1f4a6b; --sky-strong: #bfe3fa;
+    --amber-tint: #2a2110; --amber-line: #5c4514; --amber-text: #fbe7b5;
+    --ring: #1f6f9f;
+    --card: #14233d; --card-inset: #1d3052; --card-line: #2b4166; --card-line-2: #36507c;
+    --card-text: #f1f5fb; --card-soft: #d3dcea; --card-muted: #a9b6ca; --card-accent: #7dd3fc;
+    --inv-bg: #e8edf5; --inv-fg: #0b1220; --inv-hover: #ffffff;
+    --chart-move: #5ab4e8; --chart-travel: #3fb5a5; --chart-housing: #a78bfa;
+    --chart-setup: #e0a23c; --chart-extras: #f07fae; --chart-contingency: #94a3b8;
+    color-scheme: dark;
+  }
+}
+/* Printing is always on a light page, whatever the screen theme. */
+@media print {
+  :root, :root[data-theme="dark"], :root:not([data-theme]) {
+    --page: #ffffff; --surface: #ffffff; --panel: #ffffff; --inset: #f1f5f9;
+    --line-soft: #f1f5f9; --line: #cbd5e1; --line-strong: #94a3b8; --field-border: #64748b;
+    --t900: #0f172a; --t700: #1e293b; --t600: #334155; --t500: #475569; --t-hover: #020617;
+    --accent: #0369a1; --danger: #b91c1c;
+    --sky-tint: #f0f9ff; --sky-line: #bae6fd; --sky-strong: #0c4a6e;
+    --amber-tint: #fffbeb; --amber-line: #fde68a; --amber-text: #451a03;
+    --ring: #bae6fd;
+    --card: #0f172a; --card-inset: #1e293b; --card-line: #1e293b; --card-line-2: #334155;
+    --card-text: #ffffff; --card-soft: #cbd5e1; --card-muted: #94a3b8; --card-accent: #7dd3fc;
+    --inv-bg: #0f172a; --inv-fg: #ffffff; --inv-hover: #1e293b;
+    --chart-move: #0369a1; --chart-travel: #0f766e; --chart-housing: #7c3aed;
+    --chart-setup: #b45309; --chart-extras: #be185d; --chart-contingency: #64748b;
+    color-scheme: light;
+  }
+}
+
 html { scroll-behavior: smooth; }
-body { margin: 0; background: #f8fafc; color: #0f172a; }
+body { margin: 0; background: var(--page); color: var(--t900); -webkit-text-size-adjust: 100%; }
 * { box-sizing: border-box; }
+::selection { background: var(--accent); color: var(--page); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+
+/* Surfaces, text and lines used by the pages (Tailwind class names stay in the markup). */
+.bg-white { background-color: var(--surface); }
+.bg-slate-50 { background-color: var(--panel); }
+.bg-slate-100 { background-color: var(--inset); }
+.hover\:bg-slate-50:hover { background-color: var(--panel); }
+.hover\:bg-slate-100:hover { background-color: var(--inset); }
+.bg-sky-50 { background-color: var(--sky-tint); }
+.border-sky-200 { border-color: var(--sky-line); }
+.text-sky-900 { color: var(--sky-strong); }
+.bg-amber-50 { background-color: var(--amber-tint); }
+.border-amber-200 { border-color: var(--amber-line); }
+.text-amber-950 { color: var(--amber-text); }
+.border-slate-100 { border-color: var(--line-soft); }
+.border-slate-200 { border-color: var(--line); }
+.border-slate-300 { border-color: var(--line-strong); }
+.hover\:border-slate-300:hover { border-color: var(--line-strong); }
+.divide-slate-200 > :not([hidden]) ~ :not([hidden]) { border-color: var(--line); }
+.text-slate-950, .text-slate-900, .text-slate-800 { color: var(--t900); }
+.text-slate-700 { color: var(--t700); }
+.text-slate-600 { color: var(--t600); }
+.text-slate-500 { color: var(--t500); }
+.hover\:text-slate-950:hover, .hover\:text-slate-900:hover { color: var(--t-hover); }
+.text-sky-700 { color: var(--accent); }
+.text-red-700 { color: var(--danger); }
+input, select, textarea { background-color: var(--surface); color: var(--t900); }
+input.border-slate-300, select.border-slate-300, textarea.border-slate-300 { border-color: var(--field-border); }
+input::placeholder { color: var(--t500); }
+[class*="ring-sky-200"][data-selected="true"] { --tw-ring-color: var(--ring); }
+
+/* Dark cards (result card, hero, mobile bar). They keep light text in both themes. */
+.bg-slate-950 { background-color: var(--card); }
+.bg-slate-900 { background-color: var(--card-inset); }
+.bg-slate-800 { background-color: var(--card-inset); }
+.border-slate-800 { border-color: var(--card-line); }
+.border-slate-700 { border-color: var(--card-line-2); }
+.bg-slate-950 .text-white { color: var(--card-text); }
+.bg-slate-950 .text-slate-200, .bg-slate-950 .text-slate-300 { color: var(--card-soft); }
+.bg-slate-950 .text-slate-400, .bg-slate-950 .text-slate-500 { color: var(--card-muted); }
+.bg-slate-950 .text-sky-300 { color: var(--card-accent); }
+.bg-slate-950 .bg-white { background-color: var(--inv-bg); color: var(--inv-fg); }
+.bg-slate-950 .bg-white:hover { background-color: var(--inv-hover); }
+
+/* Primary buttons are dark in the light theme and light in the dark theme. */
+a.bg-slate-950, button.bg-slate-950 { background-color: var(--inv-bg); color: var(--inv-fg); }
+a.bg-slate-950:hover, button.bg-slate-950:hover,
+a.hover\:bg-slate-900:hover, button.hover\:bg-slate-800:hover { background-color: var(--inv-hover); }
+
+/* Higher contrast on request (bright sun, low-vision settings). */
+@media (prefers-contrast: more) {
+  :root { --t500: #3f4a5c; --t600: #334155; --line: #94a3b8; --line-strong: #64748b; }
+  :root[data-theme="dark"] { --t500: #bcc8da; --t600: #d3dbe8; --line: #5b6f93; --line-strong: #7b8fb3; }
+}

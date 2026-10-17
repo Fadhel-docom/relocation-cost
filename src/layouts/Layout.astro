@@ -23,6 +23,16 @@ const buildCommit = (
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)" />
+    <script is:inline>
+      // Apply a saved theme choice before the page paints, so there is no flash.
+      try {
+        var saved = localStorage.getItem("relocation-theme");
+        if (saved === "light" || saved === "dark") document.documentElement.setAttribute("data-theme", saved);
+      } catch (e) {}
+    </script>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <meta name="build-commit" content={buildCommit} />
@@ -53,10 +63,51 @@ const buildCommit = (
           <a href="/moving-cost/" class="hidden hover:text-slate-950 sm:inline">Route costs</a>
           <a href="/guides/moving-cost/" class="hidden hover:text-slate-950 sm:inline">Moving costs</a>
           <a href="/guides/relocation-budget/" class="hidden hover:text-slate-950 sm:inline">Budget guide</a>
+          <button id="themeToggle" type="button" class="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 px-2.5 py-1 text-slate-700 hover:border-slate-300 hover:text-slate-950 print:hidden" aria-label="Color theme: automatic. Press to change.">
+            <svg id="themeIcon" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"></path></svg>
+            <span id="themeLabel">Auto</span>
+          </button>
         </nav>
       </div>
     </header>
     <main><slot /></main>
+    <script is:inline>
+      // Theme choice: Auto follows the device, Light and Dark override it and are remembered.
+      (function () {
+        var button = document.getElementById("themeToggle");
+        if (!button) return;
+        var label = document.getElementById("themeLabel");
+        var icon = document.getElementById("themeIcon");
+        var order = ["auto", "light", "dark"];
+        var names = { auto: "Auto", light: "Light", dark: "Dark" };
+        var icons = {
+          auto: '<circle cx="12" cy="12" r="9"></circle><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"></path>',
+          light: '<circle cx="12" cy="12" r="4" fill="currentColor"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>',
+          dark: '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" fill="currentColor"></path>'
+        };
+        function current() {
+          var t = document.documentElement.getAttribute("data-theme");
+          return t === "light" || t === "dark" ? t : "auto";
+        }
+        function show() {
+          var mode = current();
+          label.textContent = names[mode];
+          icon.innerHTML = icons[mode];
+          button.setAttribute("aria-label", "Color theme: " + names[mode].toLowerCase() + ". Press to change.");
+        }
+        button.addEventListener("click", function () {
+          var next = order[(order.indexOf(current()) + 1) % order.length];
+          if (next === "auto") document.documentElement.removeAttribute("data-theme");
+          else document.documentElement.setAttribute("data-theme", next);
+          try {
+            if (next === "auto") localStorage.removeItem("relocation-theme");
+            else localStorage.setItem("relocation-theme", next);
+          } catch (e) {}
+          show();
+        });
+        show();
+      })();
+    </script>
     <footer class="border-t border-slate-200 bg-white">
       <div class="mx-auto max-w-6xl px-5 py-8 text-sm text-slate-500">
         <nav class="flex flex-wrap gap-x-5 gap-y-2" aria-label="Footer">
