@@ -2,8 +2,15 @@
 import PartnerOffers from "../components/PartnerOffers.astro";
 import Layout from "../layouts/Layout.astro";
 import routePages from "../../data/route-pages.json";
+import benchmarkData from "../../data/coefficients.json";
+import { formatReviewDate, marginSummary, trustSources } from "../lib/trust.js";
 
 const routeSlugs = routePages.routes.map(route => route.slug);
+const reviewDate = formatReviewDate(benchmarkData.last_reviewed);
+const uhaulPeriod = benchmarkData.sources.uhaul.data_period;
+const margin = marginSummary();
+const methodologyUrl = new URL("/methodology/", Astro.site).href;
+const trustList = trustSources(benchmarkData.sources);
 
 const pageUrl = new URL("/calculator/", Astro.site).href;
 const appJsonLd = {
@@ -114,6 +121,7 @@ const breadcrumbJsonLd = {
           <div class="flex justify-between"><span class="text-slate-400">Contingency (10%)</span><strong id="contingencyResult">$0</strong></div>
         </div>
         <div class="mt-6 border-t border-slate-800 pt-5 text-sm text-slate-400">Indicative range <strong id="range" class="text-white">$0–$0</strong></div>
+        <p class="mt-3 text-xs leading-5 text-slate-500">Margin of error: a fixed {margin.label} planning band, not a statistical interval. Benchmark data reviewed {reviewDate}. <a class="font-semibold text-sky-300 underline" href="#trust-heading">Sources</a></p>
         <div id="cashBox" class="mt-5 space-y-2 rounded-xl border border-slate-800 bg-slate-900 p-4 text-sm" hidden>
           <div class="flex justify-between"><span class="text-slate-400">Cash buffer</span><strong id="reserveResult">$0</strong></div>
           <div class="flex justify-between border-t border-slate-800 pt-2"><span class="text-slate-300">Cash to have ready</span><strong id="cashNeededResult">$0</strong></div>
@@ -159,6 +167,7 @@ const breadcrumbJsonLd = {
         <div id="printCashRow" class="flex justify-between" hidden><dt class="font-bold">Cash to have ready</dt><dd id="printCash" class="font-bold"></dd></div>
       </dl>
       <p class="mt-4 text-xs leading-5 text-slate-600">Planning estimate, not a quote. Distance is a straight line between state centers unless you entered your own miles. Costs left at $0 are left out of the total. Replace these assumptions with route-specific provider quotes.</p>
+      <p class="mt-2 text-xs leading-5 text-slate-600">Range is a fixed {margin.label} planning band. Benchmark data reviewed {reviewDate}; U-Haul figures from {uhaulPeriod}. Sources: {methodologyUrl}</p>
     </section>
 
     <section class="mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="breakdown-heading">
@@ -204,6 +213,31 @@ const breadcrumbJsonLd = {
         </div>
       </dl>
       <p class="mt-4 text-xs leading-5 text-slate-500">Each amount is rounded to the nearest dollar for display, so the parts can differ from the total by a dollar.</p>
+    </section>
+
+    <section class="mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 print:hidden" aria-labelledby="trust-heading">
+      <h2 id="trust-heading" class="text-2xl font-bold tracking-tight">How reliable is this estimate?</h2>
+      <dl class="mt-5 grid gap-x-8 gap-y-4 text-sm leading-6 md:grid-cols-3">
+        <div>
+          <dt class="font-semibold text-slate-900">Last updated</dt>
+          <dd class="text-slate-600">Benchmark data reviewed on {reviewDate}. The U-Haul figures describe {uhaulPeriod}.</dd>
+        </div>
+        <div>
+          <dt class="font-semibold text-slate-900">Margin of error</dt>
+          <dd class="text-slate-600">The indicative range is the total {margin.label}. It is a fixed planning band. It has not been checked against real quotes, so your actual price can fall outside it.</dd>
+        </div>
+        <div>
+          <dt class="font-semibold text-slate-900">What is assumed</dt>
+          <dd class="text-slate-600">The base amount, per-mile rate, home-size and move-type multipliers and the {margin.contingency}% contingency are planning assumptions, not market prices.</dd>
+        </div>
+      </dl>
+      <h3 class="mt-6 text-sm font-semibold text-slate-900">Sources</h3>
+      <ul class="mt-2 list-disc space-y-2 pl-5 text-sm leading-6 text-slate-600">
+        {trustList.map(source => (
+          <li><a class="font-semibold text-sky-700 underline" href={source.url} rel="noopener">{source.name}</a>. {source.role}.</li>
+        ))}
+      </ul>
+      <p class="mt-4 text-xs leading-5 text-slate-500">Full formula and known limits: <a class="font-semibold text-sky-700 underline" href="/methodology/">methodology</a>.</p>
     </section>
 
     <section class="mt-10 print:hidden" aria-labelledby="compare-heading">

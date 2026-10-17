@@ -21,7 +21,7 @@ other countries.
 
 - [ ] Employer relocation package mode: enter what the employer offers and see the gap
 - [ ] Expected vs actual budget tracking during the move
-- [ ] Visible last-updated date, sources and margin of error
+- [x] Day 4: visible last-updated date, sources and margin of error on the calculator page (shown by the result, in a "How reliable is this estimate?" section and in the print summary)
 - [ ] Real figures in meta descriptions for route pages
 
 ## P2: growth
