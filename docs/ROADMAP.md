@@ -24,6 +24,7 @@ other countries.
 - [x] Day 6: employer relocation package mode: enter what the employer offers and see the gap (the site does not calculate taxes)
 - [x] Day 9: planned vs actual budget tracker at /budget-tracker/ (line by line, saved in the browser, copies the costs typed in the calculator, totals compare like with like, printable, every number typed by the user)
 - [x] Day 4: visible last-updated date, sources and margin of error on the calculator page (shown by the result, in a "How reliable is this estimate?" section and in the print summary)
+- [x] Day 10: "What each option usually covers" in the DIY vs movers guide (who does what per move type, no prices; the list of costs outside the move cost is read from the calculator and tested against it)
 - [ ] Real figures in meta descriptions for route pages
 
 ## P2: growth

@@ -77,4 +77,4 @@ Written without naming sites. Each row is a pattern we saw across several tools,
 | A zero left in a form that quietly reads as "free" | Zero means "left out of the total", said next to the fields and in the print summary | In place |
 | Commercial links mixed into the estimate | Independence statement; the formula ignores partners | In place (Day 5) |
 
-Ideas still to build from these answers: a "reading a quote" guide (needs official sources), a dated checklist, and a "what is included" table per move type.
+Ideas still to build from these answers: a "reading a quote" guide (needs official sources). Built: the dated checklist (Day 8) and the "what is included" table per move type (Day 10).
