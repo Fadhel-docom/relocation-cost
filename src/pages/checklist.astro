@@ -1,0 +1,66 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { PHASES, ALL_ITEM_IDS } from "../lib/checklist.js";
+
+const total = ALL_ITEM_IDS.length;
+---
+<Layout
+  title="Moving Checklist — Relocation Cost"
+  description="A free moving checklist from 8 weeks before to after the move. Enter your move date to see when each step is due. Your progress stays in your browser and the list prints cleanly."
+>
+  <article class="mx-auto max-w-3xl px-5 py-14">
+    <p class="text-sm font-semibold uppercase tracking-widest text-sky-700">Checklist</p>
+    <h1 class="mt-2 text-4xl font-bold tracking-tight">Moving checklist</h1>
+    <p class="mt-5 text-lg leading-8 text-slate-600">Work through a move in order, from the first quote to the first week in your new home. Enter your move date to see when each step should be done. There are no prices here: use the <a class="font-semibold text-sky-700 underline" href="/calculator/">calculator</a> for the budget.</p>
+
+    <div class="mt-8 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6 print:hidden">
+      <div class="grid gap-5 sm:grid-cols-2 sm:items-end">
+        <label class="block text-sm font-semibold">Move date <span class="font-normal text-slate-500">(optional)</span>
+          <input id="moveDate" type="date" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" />
+        </label>
+        <div>
+          <p class="text-sm font-semibold"><span id="progressText">0 of {total} done</span></p>
+          <div class="mt-2 h-3 w-full overflow-hidden rounded-full bg-slate-100" role="progressbar" aria-label="Checklist progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressBar">
+            <div id="progressFill" class="h-full rounded-full" style="width:0%;background-color:var(--accent)"></div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-5 flex flex-wrap gap-3">
+        <button id="printList" type="button" class="rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white">Print or save as PDF</button>
+        <button id="resetList" type="button" class="rounded-xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50">Clear checklist</button>
+      </div>
+      <p class="mt-3 text-xs leading-5 text-slate-500">Your ticks and your move date are saved only in this browser. Nothing is sent anywhere.</p>
+    </div>
+
+    {PHASES.map(phase => (
+      <section class="mt-10 break-inside-avoid" aria-labelledby={`h-${phase.id}`}>
+        <div class="flex flex-wrap items-baseline justify-between gap-2">
+          <h2 id={`h-${phase.id}`} class="text-2xl font-bold">{phase.title}</h2>
+          <p class="text-sm font-semibold text-sky-700" data-due data-weeks={phase.weeksBefore} hidden></p>
+        </div>
+        <ul class="mt-4 space-y-3">
+          {phase.items.map(item => (
+            <li>
+              <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-slate-200 bg-white p-4 leading-6 text-slate-700">
+                <input type="checkbox" data-item={item.id} class="mt-1 h-5 w-5 shrink-0" />
+                <span data-text>{item.text}</span>
+              </label>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+
+    <p class="mt-10 text-sm leading-6 text-slate-600">This is a planning aid, not legal or financial advice. Deadlines and rules for registration, utilities, claims and deposits depend on your state, your provider and your contract, so confirm them with the source. Tell us what is missing on the <a class="font-semibold text-sky-700 underline" href="/about/">about page</a>.</p>
+  </article>
+  <style is:global>
+    input[type="checkbox"] { accent-color: var(--accent); }
+    [data-done="true"] > [data-text] { text-decoration: line-through; color: var(--t500); }
+    @media print {
+      header, footer { display: none !important; }
+      body { background: #fff !important; }
+      input[type="checkbox"] { appearance: auto; }
+    }
+  </style>
+  <script src="../scripts/checklist.js"></script>
+</Layout>

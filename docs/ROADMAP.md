@@ -20,6 +20,7 @@ other countries.
 
 ## P1: trust and content
 
+- [x] Day 8: moving checklist at /checklist/ (dated from the move date, saved in the browser, printable, no prices)
 - [x] Day 6: employer relocation package mode: enter what the employer offers and see the gap (the site does not calculate taxes)
 - [ ] Expected vs actual budget tracking during the move
 - [x] Day 4: visible last-updated date, sources and margin of error on the calculator page (shown by the result, in a "How reliable is this estimate?" section and in the print summary)

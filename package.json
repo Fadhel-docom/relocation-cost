@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "test": "node --test src/lib/calculator.test.js src/lib/partners.test.js src/lib/calculator-analytics.test.js src/lib/contrast.test.js src/lib/trust.test.js",
+    "test": "node --test src/lib/calculator.test.js src/lib/partners.test.js src/lib/calculator-analytics.test.js src/lib/contrast.test.js src/lib/trust.test.js src/lib/checklist.test.js",
     "preview": "astro preview"
   },
   "dependencies": {
