@@ -1,0 +1,79 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import GuideSchema from "../../components/GuideSchema.astro";
+import GuideNext from "../../components/GuideNext.astro";
+import { CHECKED_ON, COMPARISON, DESCRIPTION, QUESTIONS, RULE_GROUPS, SOURCES, TITLE, sourceNumber } from "../../lib/quote-guide.js";
+
+const path = "/guides/reading-a-moving-quote/";
+const date = iso => {
+  const [year, month, day] = iso.split("-").map(Number);
+  return new Intl.DateTimeFormat("en-US", { dateStyle: "long", timeZone: "UTC" }).format(new Date(Date.UTC(year, month - 1, day)));
+};
+---
+<Layout title={`${TITLE} — Relocation Cost`} description={DESCRIPTION}>
+  <article class="mx-auto max-w-3xl px-5 py-14">
+    <GuideSchema title={TITLE} description={DESCRIPTION} path={path} />
+    <p class="text-sm font-semibold uppercase tracking-widest text-sky-700">Guide</p>
+    <h1 class="mt-2 text-4xl font-bold tracking-tight">How to read a moving quote</h1>
+    <p class="mt-5 text-lg leading-8 text-slate-600">Two moving quotes can show the same number and mean very different things. What matters is whether the estimate is binding or non-binding, what it lists, and what can change after you sign. This guide explains the federal rules for moves between states in plain words, with a source for every rule.</p>
+
+    <div class="mt-8 rounded-2xl border border-slate-200 bg-white p-5 text-sm leading-6 text-slate-700">
+      <p><strong>Read this first.</strong> This is a summary of public rules, checked on {date(CHECKED_ON)}. It is not legal advice and it can go out of date, so rely on the official pages in the sources list and on your own written estimate. The rules below are FMCSA's rules for moves to a different state. For a move inside one state, ask your state's consumer protection or transportation office which rules apply. Renting a truck and moving yourself is a different arrangement: these estimate rules are about a mover transporting your goods.</p>
+    </div>
+
+    <h2 class="mt-10 text-2xl font-bold">Binding or non-binding at a glance</h2>
+    <div class="mt-4 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+      <table class="w-full min-w-[36rem] text-left text-sm leading-6">
+        <caption class="sr-only">Binding and non-binding estimates compared</caption>
+        <thead class="border-b border-slate-200 bg-slate-50">
+          <tr>
+            <th scope="col" class="p-4 font-semibold"></th>
+            <th scope="col" class="p-4 font-semibold">Binding estimate</th>
+            <th scope="col" class="p-4 font-semibold">Non-binding estimate</th>
+          </tr>
+        </thead>
+        <tbody class="text-slate-600">
+          {COMPARISON.map(row => (
+            <tr class="border-b border-slate-100 last:border-0">
+              <th scope="row" class="p-4 align-top font-semibold text-slate-900">{row.label}<sup class="ml-1 font-normal">{row.sources.map((id, index) => (<>{index > 0 ? ", " : ""}<a class="text-sky-700 underline" href={`#src-${id}`}>{sourceNumber(id)}</a></>))}</sup></th>
+              <td class="p-4 align-top">{row.binding}</td>
+              <td class="p-4 align-top">{row.nonBinding}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    {RULE_GROUPS.map(group => (
+      <section aria-labelledby={`h-${group.id}`}>
+        <h2 id={`h-${group.id}`} class="mt-10 text-2xl font-bold">{group.title}</h2>
+        <ul class="mt-4 list-disc space-y-3 pl-6 leading-7 text-slate-700">
+          {group.rules.map(rule => (
+            <li>{rule.text}<sup class="ml-1">{rule.sources.map((id, index) => (<>{index > 0 ? ", " : ""}<a class="text-sky-700 underline" href={`#src-${id}`}>{sourceNumber(id)}</a></>))}</sup></li>
+          ))}
+        </ul>
+      </section>
+    ))}
+
+    <h2 class="mt-10 text-2xl font-bold">Questions to ask before you sign</h2>
+    <p class="mt-4 leading-7 text-slate-700">These are suggestions, not legal requirements. Get the answers in writing, on the estimate itself where you can.</p>
+    <ul class="mt-4 list-disc space-y-3 pl-6 leading-7 text-slate-700">
+      {QUESTIONS.map(question => (<li>{question}</li>))}
+    </ul>
+
+    <h2 class="mt-10 text-2xl font-bold">Where the calculator fits</h2>
+    <p class="mt-4 leading-7 text-slate-700">The <a class="font-semibold text-sky-700 underline" href="/calculator/">calculator</a> gives a planning estimate, not a quote from a mover, and it is never binding. Use it to know what range to expect, then compare real written estimates against it. Costs the estimate leaves out are listed in the <a class="font-semibold text-sky-700 underline" href="/guides/diy-vs-movers/">DIY vs movers guide</a>. Once you hold a quote, the <a class="font-semibold text-sky-700 underline" href="/budget-tracker/">budget tracker</a> lets you compare what you planned with what you actually pay, and the <a class="font-semibold text-sky-700 underline" href="/checklist/">checklist</a> reminds you what paperwork to keep.</p>
+
+    <h2 class="mt-10 text-2xl font-bold">Sources</h2>
+    <p class="mt-4 text-sm leading-6 text-slate-600">Read on {date(CHECKED_ON)}. The Code of Federal Regulations pages are Cornell Law School's Legal Information Institute copies, and the current text is on eCFR.gov. If a page was updated after the date shown here, the newer text governs.</p>
+    <ol class="mt-4 list-decimal space-y-3 pl-6 text-sm leading-6 text-slate-700">
+      {SOURCES.map(source => (
+        <li id={`src-${source.id}`}>
+          <a class="font-semibold text-sky-700 underline" href={source.url} rel="noopener">{source.label}</a>
+          {source.pageUpdated && <span class="text-slate-600"> (page updated {date(source.pageUpdated)})</span>}
+        </li>
+      ))}
+    </ol>
+    <GuideNext current={path} />
+  </article>
+</Layout>
