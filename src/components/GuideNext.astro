@@ -7,7 +7,8 @@ const { current } = Astro.props;
 const guides = [
   { href: "/guides/moving-cost/", label: "What affects moving costs?" },
   { href: "/guides/diy-vs-movers/", label: "DIY vs professional movers" },
-  { href: "/guides/relocation-budget/", label: "How to build a relocation budget" }
+  { href: "/guides/relocation-budget/", label: "How to build a relocation budget" },
+  { href: "/guides/reading-a-moving-quote/", label: "How to read a moving quote" }
 ].filter(guide => guide.href !== current);
 const routes = routePages.routes.slice(0, 4).map(route => ({
   href: `/moving-cost/${route.slug}/`,
