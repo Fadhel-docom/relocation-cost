@@ -158,6 +158,27 @@ const cityUrls = [...sitemapUrls].filter(url => {
 });
 if (cityUrls.length !== cityRouteCount) failures.push(`expected ${cityRouteCount} city route URLs, found ${cityUrls.length}`);
 
+// Route guide descriptions carry real figures. Each must fit a search result, hold the planning
+// totals, repeat only amounts that are also on the page, and differ from every other route's.
+const descriptionsSeen = new Map();
+for (const url of [...routeUrls, ...cityUrls]) {
+  const pathname = new URL(url).pathname;
+  const file = path.join(dist, pathname, "index.html");
+  if (!fs.existsSync(file)) continue;
+  const html = read(file);
+  const description = html.match(/<meta\b[^>]*name=["']description["'][^>]*content=["']([^"']*)["']/i)?.[1]?.replaceAll("&#39;", "'").replaceAll("&amp;", "&");
+  if (!description) continue;
+  if (description.length > 160) failures.push(`${pathname}: meta description is ${description.length} characters (max 160)`);
+  const amounts = description.match(/\$\d+(?:,\d{3})*/g) ?? [];
+  if (amounts.length < 3) failures.push(`${pathname}: meta description should carry at least 3 dollar figures, found ${amounts.length}`);
+  const body = html.replace(/<meta\b[^>]*>/gi, "");
+  for (const amount of amounts) {
+    if (!body.includes(amount)) failures.push(`${pathname}: meta description figure ${amount} does not appear on the page`);
+  }
+  if (descriptionsSeen.has(description)) failures.push(`${pathname}: meta description duplicates ${descriptionsSeen.get(description)}`);
+  descriptionsSeen.set(description, pathname);
+}
+
 for (const expected of expectedStatic) {
   const absolute = new URL(expected, "https://relocation-cost-psi.vercel.app").href;
   if (!sitemapUrls.has(absolute)) failures.push(`static sitemap URL missing: ${absolute}`);
