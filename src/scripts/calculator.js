@@ -2,6 +2,7 @@ import { track } from "@vercel/analytics";
 import stateData from "../../data/state-distances.json";
 import { calculateBudget, costBreakdown, costLines, employerGap, HOME_SIZES, MOVE_TYPES, pickAllowed, RESERVE_WEEKS, savingsTips } from "../lib/calculator.js";
 import { createFunnel } from "../lib/calculator-analytics.js";
+import { buildEstimateEmail } from "../lib/estimate-email.js";
 
 const form = document.querySelector("#calculator");
 const ids = ["fromState","toState","distance","size","type","travel","housing","setup","extras","fuel","insurance","packing","equipment","utilities","storage","tips","specialty","access","employerCash","employerDirect","reserveWeeks","weeklyLiving"];
@@ -18,6 +19,7 @@ const breakdownBar = document.querySelector("#breakdownBar");
 const breakdownList = document.querySelector("#breakdownList");
 const tipsList = document.querySelector("#tipsList");
 const printButton = document.querySelector("#print");
+const emailButton = document.querySelector("#email");
 const printCosts = document.querySelector("#printCosts");
 const printEl = id => document.querySelector("#" + id);
 const cashBox = document.querySelector("#cashBox");
@@ -482,6 +484,12 @@ routeGuideLink?.addEventListener("click", () => track("route_guide_clicked"));
 
 reset?.addEventListener("click", resetCalculator);
 
+const shareUrl = () => {
+  const params = new URLSearchParams();
+  ids.forEach(id => params.set(id, fields[id].value));
+  return location.origin + location.pathname + "?" + params.toString();
+};
+
 printButton?.addEventListener("click", () => {
   const total = calculate();
 
@@ -495,6 +503,37 @@ printButton?.addEventListener("click", () => {
   window.print();
 });
 
+// Opens the person's own email app with the estimate written in. Nothing is sent to this site.
+emailButton?.addEventListener("click", () => {
+  const total = calculate();
+
+  if (total === null) {
+    shareStatus.textContent = "Fix the input above before emailing.";
+    return;
+  }
+
+  const currentInputs = inputs();
+  const resultData = calculateBudget(currentInputs);
+  const from = stateData.states[fields.fromState.value]?.name ?? fields.fromState.value;
+  const to = stateData.states[fields.toState.value]?.name ?? fields.toState.value;
+  const email = buildEstimateEmail({
+    route: fields.fromState.value === fields.toState.value ? `Within ${from}` : `${from} to ${to}`,
+    miles: currentInputs.distance,
+    sizeLabel: fields.size.selectedOptions[0]?.textContent ?? "",
+    typeLabel: fields.type.selectedOptions[0]?.textContent ?? "",
+    result: resultData,
+    lines: costLines(currentInputs),
+    employer: employerGap(currentInputs, resultData),
+    shareUrl: shareUrl()
+  });
+
+  track("email_clicked");
+  shareStatus.textContent = email.hasLink
+    ? "Opening your email app with the estimate. The estimate itself is not sent to this site. If nothing opens, use Share this estimate instead."
+    : "Opening your email app with the estimate. It was too long to include the share link, so use Share this estimate to copy it.";
+  window.location.href = email.href;
+});
+
 share?.addEventListener("click", async () => {
   const total = calculate();
 
@@ -503,10 +542,7 @@ share?.addEventListener("click", async () => {
     return;
   }
 
-  const params = new URLSearchParams();
-  ids.forEach(id => params.set(id, fields[id].value));
-
-  const url = location.origin + location.pathname + "?" + params.toString();
+  const url = shareUrl();
 
   track("share_clicked");
 

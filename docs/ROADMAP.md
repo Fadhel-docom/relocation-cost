@@ -30,7 +30,7 @@ other countries.
 
 ## P2: growth
 
-- [ ] "Email me this estimate" (free, no paid service)
+- [x] Day 13: "Email this estimate to myself" button on the calculator (opens the person's own email app with the summary and the share link; no server, no paid service; the message is shortened in a fixed order if the link would be too long)
 - [ ] Cost-of-living comparison between two cities
 - [x] Dark mode (Day 7): automatic from the device setting, with a header button for Auto / Light / Dark; palette checked against WCAG AA by tests; see docs/DESIGN.md
 
