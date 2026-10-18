@@ -22,7 +22,7 @@ other countries.
 
 - [x] Day 8: moving checklist at /checklist/ (dated from the move date, saved in the browser, printable, no prices)
 - [x] Day 6: employer relocation package mode: enter what the employer offers and see the gap (the site does not calculate taxes)
-- [ ] Expected vs actual budget tracking during the move
+- [x] Day 9: planned vs actual budget tracker at /budget-tracker/ (line by line, saved in the browser, copies the costs typed in the calculator, totals compare like with like, printable, every number typed by the user)
 - [x] Day 4: visible last-updated date, sources and margin of error on the calculator page (shown by the result, in a "How reliable is this estimate?" section and in the print summary)
 - [ ] Real figures in meta descriptions for route pages
 

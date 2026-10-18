@@ -1,0 +1,79 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { TRACKER_LINES } from "../lib/tracker.js";
+---
+<Layout
+  title="Moving Budget Tracker — Relocation Cost"
+  description="Track your planned moving budget against what you actually spend, line by line. Amounts stay in your browser, the totals compare like with like, and the page prints cleanly."
+>
+  <article class="mx-auto max-w-3xl px-5 py-14">
+    <p class="text-sm font-semibold uppercase tracking-widest text-sky-700">Budget tracker</p>
+    <h1 class="mt-2 text-4xl font-bold tracking-tight">Planned vs actual moving budget</h1>
+    <p class="mt-5 text-lg leading-8 text-slate-600">Enter what you planned to pay for each part of the move, then add the real amount as each bill arrives. The page shows where you are over or under. Every number is one you type: nothing here is an estimate or a quote. For a first estimate, use the <a class="font-semibold text-sky-700 underline" href="/calculator/">calculator</a>.</p>
+
+    <div class="mt-8 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6 print:hidden">
+      <div class="flex flex-wrap gap-3">
+        <button id="importPlanned" type="button" class="rounded-xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50">Copy my costs from the calculator</button>
+        <button id="printTracker" type="button" class="rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white">Print or save as PDF</button>
+        <button id="resetTracker" type="button" class="rounded-xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50">Clear everything</button>
+      </div>
+      <p id="trackerStatus" class="mt-3 text-sm font-semibold text-slate-700" role="status" aria-live="polite"></p>
+      <p class="mt-3 text-xs leading-5 text-slate-500">Your amounts are saved only in this browser. Nothing is sent anywhere. Copying from the calculator brings over only the costs you typed there (fuel, storage and so on), into the planned column, and replaces any planned amounts you entered here.</p>
+    </div>
+
+    <section class="mt-8" aria-labelledby="lines-heading">
+      <h2 id="lines-heading" class="text-2xl font-bold">Costs line by line</h2>
+      <p class="mt-2 text-sm leading-6 text-slate-600">Leave a line blank if it does not apply. Amounts are in US dollars.</p>
+      <div class="mt-4 hidden grid-cols-[1fr_8rem_8rem_9rem] gap-3 px-1 text-xs font-semibold uppercase tracking-wide text-slate-500 sm:grid">
+        <span>Cost</span><span>Planned</span><span>Actual</span><span>Difference</span>
+      </div>
+      <ul class="mt-2 space-y-3">
+        {TRACKER_LINES.map(line => (
+          <li data-line={line.key} data-empty="true" class="rounded-xl border border-slate-200 bg-white p-4">
+            <div class="grid grid-cols-2 gap-3 sm:grid-cols-[1fr_8rem_8rem_9rem] sm:items-center">
+              <p class="col-span-2 font-semibold leading-6 text-slate-900 sm:col-span-1">{line.label}</p>
+              <label class="block text-xs font-semibold text-slate-500 sm:text-[0px]">
+                <span class="sm:sr-only">Planned</span>
+                <input data-planned={line.key} type="number" inputmode="decimal" min="0" step="0.01" placeholder="0" aria-label={`${line.label}: planned amount in dollars`} class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 text-base sm:mt-0" />
+              </label>
+              <label class="block text-xs font-semibold text-slate-500 sm:text-[0px]">
+                <span class="sm:sr-only">Actual</span>
+                <input data-actual={line.key} type="number" inputmode="decimal" min="0" step="0.01" placeholder="0" aria-label={`${line.label}: actual amount in dollars`} class="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 text-base sm:mt-0" />
+              </label>
+              <p data-diff class="col-span-2 text-sm font-semibold text-slate-600 sm:col-span-1"></p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section id="summary" class="mt-10 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6" aria-labelledby="summary-heading" aria-live="polite">
+      <h2 id="summary-heading" class="text-2xl font-bold">Where you stand</h2>
+      <p id="summaryEmpty" class="mt-3 text-slate-600">Enter a planned or actual amount above to see your totals.</p>
+      <div id="summaryBody" hidden>
+        <p id="summaryHeadline" class="mt-3 text-lg font-semibold leading-7 text-slate-900"></p>
+        <dl class="mt-5 grid gap-x-8 gap-y-4 text-sm sm:grid-cols-2">
+          <div><dt class="font-semibold text-slate-900">Spent so far</dt><dd id="sumActual" class="mt-1 text-xl font-bold text-slate-900"></dd></div>
+          <div><dt class="font-semibold text-slate-900">Planned for those same lines</dt><dd id="sumSpentPlanned" class="mt-1 text-xl font-bold text-slate-900"></dd></div>
+          <div><dt class="font-semibold text-slate-900">Difference on those lines</dt><dd id="sumDifference" class="mt-1 text-xl font-bold text-slate-900"></dd></div>
+          <div><dt class="font-semibold text-slate-900">Planned, not spent yet</dt><dd id="sumPending" class="mt-1 text-xl font-bold text-slate-900"></dd></div>
+          <div><dt class="font-semibold text-slate-900">Total planned</dt><dd id="sumPlanned" class="mt-1 text-xl font-bold text-slate-900"></dd></div>
+          <div><dt class="font-semibold text-slate-900">Spent plus planned still to come</dt><dd id="sumExpected" class="mt-1 text-xl font-bold text-slate-900"></dd></div>
+        </dl>
+        <p class="mt-5 text-xs leading-5 text-slate-500">The difference compares only the lines where you have entered an actual amount, so a bill that has not arrived yet does not look like a saving. The last figure adds what you have spent to what you planned for the lines with no actual amount yet. It is a plain sum, not a forecast.</p>
+      </div>
+    </section>
+
+    <p class="mt-10 text-sm leading-6 text-slate-600">This is a planning aid, not financial advice. Keep your receipts and quotes: this page records what you type and checks nothing against a provider. The <a class="font-semibold text-sky-700 underline" href="/checklist/">moving checklist</a> lists the paperwork to keep.</p>
+  </article>
+  <style is:global>
+    @media print {
+      header, footer { display: none !important; }
+      body { background: #fff !important; }
+      [data-line][data-empty="true"] { display: none !important; }
+      input { border: 0 !important; padding: 0 !important; background: transparent !important; }
+      input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { display: none; }
+    }
+  </style>
+  <script src="../scripts/tracker.js"></script>
+</Layout>
