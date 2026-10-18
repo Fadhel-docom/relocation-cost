@@ -7,6 +7,7 @@ import cityData from "../../../data/cities.json";
 import cityRoutes from "../../../data/city-routes.json";
 import benchmarkData from "../../../data/coefficients.json";
 import { calculateBudget, getUhaulBenchmark } from "../../lib/calculator.js";
+import { routeDescription } from "../../lib/route-meta.js";
 
 const money = value => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
 const sizeOptions = [
@@ -207,7 +208,7 @@ const breadcrumbJsonLd = {
 ---
 <Layout
   title={`Moving Cost from ${from.name} to ${to.name} — Relocation Cost`}
-  description={`Plan a move from ${from.name} to ${to.name}: about ${distance.toLocaleString("en-US")} miles, a published truck-rental average, and DIY, truck and full-service planning totals.`}
+  description={routeDescription({ from: from.name, to: to.name, miles: distance.toLocaleString("en-US"), totals: scenarios.map(item => item.total), benchmark })}
 >
   <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />

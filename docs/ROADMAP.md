@@ -25,7 +25,7 @@ other countries.
 - [x] Day 9: planned vs actual budget tracker at /budget-tracker/ (line by line, saved in the browser, copies the costs typed in the calculator, totals compare like with like, printable, every number typed by the user)
 - [x] Day 4: visible last-updated date, sources and margin of error on the calculator page (shown by the result, in a "How reliable is this estimate?" section and in the print summary)
 - [x] Day 10: "What each option usually covers" in the DIY vs movers guide (who does what per move type, no prices; the list of costs outside the move cost is read from the calculator and tested against it)
-- [ ] Real figures in meta descriptions for route pages
+- [x] Day 11: real figures in the meta descriptions of the 50 state and 44 city route guides (2–3 room planning totals for the three move types and the U-Haul band average, from the same calculation as the page; build check: at most 160 characters, figures must also appear on the page, no duplicates)
 
 ## P2: growth
 
