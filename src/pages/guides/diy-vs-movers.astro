@@ -2,14 +2,13 @@
 import Layout from "../../layouts/Layout.astro";
 import GuideSchema from "../../components/GuideSchema.astro";
 import GuideNext from "../../components/GuideNext.astro";
-import { calculateBudget } from "../../lib/calculator.js";
+import { calculateBudget, DEFAULT_CONTINGENCY_RATE } from "../../lib/calculator.js";
+import { MOVE_OPTIONS, WHO_DOES_WHAT, notInMoveCost } from "../../lib/inclusions.js";
 
 const money = value => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
-const types = [
-  { label: "DIY", type: 0.65 },
-  { label: "Rental truck + labor", type: 1 },
-  { label: "Full-service movers", type: 1.65 }
-];
+const types = MOVE_OPTIONS;
+const outsideMoveCost = notInMoveCost();
+const bufferPercent = Math.round(DEFAULT_CONTINGENCY_RATE * 100);
 const homeSizes = [
   { label: "Studio / 1 room", size: 1 },
   { label: "2–3 rooms", size: 1.35 },
@@ -49,6 +48,36 @@ const path = "/guides/diy-vs-movers/";
         </tbody>
       </table>
     </div>
+
+    <h2 class="mt-10 text-2xl font-bold">What each option usually covers</h2>
+    <p class="mt-4 leading-7 text-slate-700">Who does the work is the first thing that changes between the three options. Scope varies by provider, so treat this as a map of what to ask about, and confirm each line in the written quote.</p>
+    <div class="mt-4 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+      <table class="w-full min-w-[40rem] text-left text-sm leading-6">
+        <caption class="sr-only">Who usually does each part of the move, by move type</caption>
+        <thead class="border-b border-slate-200 bg-slate-50">
+          <tr>
+            <th scope="col" class="p-4 font-semibold">Part of the move</th>
+            {types.map(option => (<th scope="col" class="p-4 font-semibold">{option.label}</th>))}
+          </tr>
+        </thead>
+        <tbody class="text-slate-600">
+          {WHO_DOES_WHAT.map(row => (
+            <tr class="border-b border-slate-100 last:border-0">
+              <th scope="row" class="p-4 align-top font-semibold text-slate-900">{row.task}</th>
+              {row.cells.map(cell => (<td class="p-4 align-top">{cell}</td>))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="mt-8 text-lg font-bold">What is inside this site's estimate</h3>
+    <p class="mt-3 leading-7 text-slate-700">In the <a class="font-semibold text-sky-700 underline" href="/calculator/">calculator</a>, the move cost starts from a base for the distance, which is never below the published U-Haul one-way average for that distance band. Rental truck + labor and full-service movers add a labor and service premium on top, which is an assumption of the model, not a market price (see the <a class="font-semibold text-sky-700 underline" href="/methodology/">methodology</a>). A {bufferPercent}% planning buffer is added for every move type.</p>
+    <p class="mt-3 leading-7 text-slate-700">These costs are not part of the move cost for any option. They are added only when you enter them, so a provider's quote may include some of them while the estimate does not:</p>
+    <ul class="mt-3 list-disc space-y-1 pl-6 leading-7 text-slate-700">
+      {outsideMoveCost.map(label => (<li>{label}</li>))}
+    </ul>
+    <p class="mt-3 leading-7 text-slate-700">When you compare a quote with the estimate, check which of these lines the quote already contains, and enter only the ones it does not.</p>
 
     <h2 class="mt-10 text-2xl font-bold">What the price gap looks like in the calculator</h2>
     <p class="mt-4 leading-7 text-slate-700">The tables below run three example distances and four home sizes through this site's calculator. They show how the gap between a DIY move and full-service movers changes with distance and volume. Totals include the 10% planning buffer and no extra costs. They are planning estimates, not quotes, and the premium for hired labor and full service is an explicit assumption of the model.</p>
