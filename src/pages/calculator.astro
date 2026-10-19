@@ -3,10 +3,13 @@ import PartnerOffers from "../components/PartnerOffers.astro";
 import Layout from "../layouts/Layout.astro";
 import routePages from "../../data/route-pages.json";
 import benchmarkData from "../../data/coefficients.json";
+import sourceChecks from "../../data/source-checks.json";
 import { formatReviewDate, marginSummary, trustSources } from "../lib/trust.js";
 
 const routeSlugs = routePages.routes.map(route => route.slug);
 const reviewDate = formatReviewDate(benchmarkData.last_reviewed);
+const uhaulCheckedRaw = sourceChecks.sources?.["uhaul-benchmarks"]?.lastVerified;
+const uhaulChecked = /^\d{4}-\d{2}-\d{2}$/.test(uhaulCheckedRaw ?? "") ? formatReviewDate(uhaulCheckedRaw) : "";
 const uhaulPeriod = benchmarkData.sources.uhaul.data_period;
 const margin = marginSummary();
 const methodologyUrl = new URL("/methodology/", Astro.site).href;
@@ -258,7 +261,7 @@ const breadcrumbJsonLd = {
       <dl class="mt-5 grid gap-x-8 gap-y-4 text-sm leading-6 md:grid-cols-3">
         <div>
           <dt class="font-semibold text-slate-900">Last updated</dt>
-          <dd class="text-slate-600">Benchmark data reviewed on {reviewDate}. The U-Haul figures describe {uhaulPeriod}.</dd>
+          <dd class="text-slate-600">Benchmark data reviewed on {reviewDate}. The U-Haul figures describe {uhaulPeriod}.{uhaulChecked && ` They are compared with U-Haul's published page every week; last matched on ${uhaulChecked}.`}</dd>
         </div>
         <div>
           <dt class="font-semibold text-slate-900">Margin of error</dt>

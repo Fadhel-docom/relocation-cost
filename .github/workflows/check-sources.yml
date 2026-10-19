@@ -5,8 +5,6 @@ name: Check sources
 # - Pages that block automated downloads (FMCSA) are re-read by hand: an issue reminds 30 days before the page warns readers.
 # - A later run that verifies again closes the issue by itself.
 on:
-  push:
-    branches: ["feature/uhaul-watch"] # temporary: first real run on the runner, removed before merge
   schedule:
     - cron: "17 5 * * 1"
   workflow_dispatch:
