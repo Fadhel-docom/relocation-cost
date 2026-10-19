@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "maxAgeDays": 180,
+  "lastVerified": "2026-10-18",
+  "note": "Maintained by tools/check-sources.mjs (weekly GitHub Action). lastVerified, contentHash and pageUpdated are written by the check; patterns are the phrases each page must still contain for the guide to be true.",
+  "sources": {
+    "fmcsa-estimates": {
+      "pageUpdated": "2023-10-26",
+      "contentHash": null,
+      "patterns": ["110 percent of the non-binding estimate", "binding estimate", "non-binding estimate"]
+    },
+    "fmcsa-avoid": {
+      "pageUpdated": "2023-10-26",
+      "contentHash": null,
+      "patterns": ["110 percent", "rate quote", "binding estimate"]
+    },
+    "fmcsa-rights": {
+      "pageUpdated": "2024-11-04",
+      "contentHash": null,
+      "patterns": ["Your Rights and Responsibilities When You Move", "Ready to Move"]
+    },
+    "cfr-401": {
+      "pageUpdated": null,
+      "contentHash": null,
+      "patterns": ["binding estimate", "non-binding estimate", "written estimate"]
+    },
+    "cfr-403": {
+      "pageUpdated": null,
+      "contentHash": null,
+      "patterns": ["15 percent", "binding estimate"]
+    },
+    "cfr-405": {
+      "pageUpdated": null,
+      "contentHash": null,
+      "patterns": ["110 percent of the non-binding estimate", "15 percent", "30 days"]
+    },
+    "cfr-201": {
+      "pageUpdated": null,
+      "contentHash": null,
+      "patterns": ["full\\s*(\\(replacement\\)\\s*)?value", "released rates"]
+    }
+  }
+}

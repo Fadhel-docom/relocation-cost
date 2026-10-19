@@ -2,7 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import GuideSchema from "../../components/GuideSchema.astro";
 import GuideNext from "../../components/GuideNext.astro";
-import { CHECKED_ON, COMPARISON, DESCRIPTION, QUESTIONS, RULE_GROUPS, SOURCES, TITLE, sourceNumber } from "../../lib/quote-guide.js";
+import { CHECKED_ON, COMPARISON, DESCRIPTION, MAX_AGE_DAYS, QUESTIONS, RULE_GROUPS, SOURCES, TITLE, sourceNumber } from "../../lib/quote-guide.js";
 
 const path = "/guides/reading-a-moving-quote/";
 const date = iso => {
@@ -17,8 +17,24 @@ const date = iso => {
     <h1 class="mt-2 text-4xl font-bold tracking-tight">How to read a moving quote</h1>
     <p class="mt-5 text-lg leading-8 text-slate-600">Two moving quotes can show the same number and mean very different things. What matters is whether the estimate is binding or non-binding, what it lists, and what can change after you sign. This guide explains the federal rules for moves between states in plain words, with a source for every rule.</p>
 
+    <p id="staleNotice" hidden data-checked={CHECKED_ON} data-max-days={MAX_AGE_DAYS} class="mt-8 rounded-2xl border border-amber-500 bg-white p-4 text-sm font-semibold leading-6 text-slate-900" role="status">These rules were last re-checked against the official pages on {date(CHECKED_ON)}, which is more than {MAX_AGE_DAYS} days ago. They may have changed. Confirm each rule on the official pages in the sources list before you rely on it.</p>
+    <script is:inline>
+      (function () {
+        var notice = document.getElementById("staleNotice");
+        if (!notice) return;
+        var parts = (notice.getAttribute("data-checked") || "").split("-").map(Number);
+        var limit = Number(notice.getAttribute("data-max-days"));
+        var checked = Date.UTC(parts[0], parts[1] - 1, parts[2]);
+        var now = new Date();
+        var today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+        var age = Math.round((today - checked) / 86400000);
+        // Anything that cannot be trusted (bad date, future date, too old) shows the warning.
+        if (!isFinite(age) || age < 0 || age > limit) notice.hidden = false;
+      })();
+    </script>
+
     <div class="mt-8 rounded-2xl border border-slate-200 bg-white p-5 text-sm leading-6 text-slate-700">
-      <p><strong>Read this first.</strong> This is a summary of public rules, checked on {date(CHECKED_ON)}. It is not legal advice and it can go out of date, so rely on the official pages in the sources list and on your own written estimate. The rules below are FMCSA's rules for moves to a different state. For a move inside one state, ask your state's consumer protection or transportation office which rules apply. Renting a truck and moving yourself is a different arrangement: these estimate rules are about a mover transporting your goods.</p>
+      <p><strong>Read this first.</strong> This is a summary of public rules. The official pages are re-read automatically every week, and the last time they were verified was {date(CHECKED_ON)}. It is not legal advice and it can go out of date, so rely on the official pages in the sources list and on your own written estimate. The rules below are FMCSA's rules for moves to a different state. For a move inside one state, ask your state's consumer protection or transportation office which rules apply. Renting a truck and moving yourself is a different arrangement: these estimate rules are about a mover transporting your goods.</p>
     </div>
 
     <h2 class="mt-10 text-2xl font-bold">Binding or non-binding at a glance</h2>
@@ -65,7 +81,7 @@ const date = iso => {
     <p class="mt-4 leading-7 text-slate-700">The <a class="font-semibold text-sky-700 underline" href="/calculator/">calculator</a> gives a planning estimate, not a quote from a mover, and it is never binding. Use it to know what range to expect, then compare real written estimates against it. Costs the estimate leaves out are listed in the <a class="font-semibold text-sky-700 underline" href="/guides/diy-vs-movers/">DIY vs movers guide</a>. Once you hold a quote, the <a class="font-semibold text-sky-700 underline" href="/budget-tracker/">budget tracker</a> lets you compare what you planned with what you actually pay, and the <a class="font-semibold text-sky-700 underline" href="/checklist/">checklist</a> reminds you what paperwork to keep.</p>
 
     <h2 class="mt-10 text-2xl font-bold">Sources</h2>
-    <p class="mt-4 text-sm leading-6 text-slate-600">Read on {date(CHECKED_ON)}. The Code of Federal Regulations pages are Cornell Law School's Legal Information Institute copies, and the current text is on eCFR.gov. If a page was updated after the date shown here, the newer text governs.</p>
+    <p class="mt-4 text-sm leading-6 text-slate-600">Last verified automatically on {date(CHECKED_ON)}: each page is downloaded weekly and checked for the figures this guide uses. The Code of Federal Regulations pages are Cornell Law School's Legal Information Institute copies, and the current text is on eCFR.gov. If a page was updated after the date shown here, the newer text governs.</p>
     <ol class="mt-4 list-decimal space-y-3 pl-6 text-sm leading-6 text-slate-700">
       {SOURCES.map(source => (
         <li id={`src-${source.id}`}>
