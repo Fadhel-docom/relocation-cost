@@ -58,7 +58,7 @@ export function missingPatterns(text, patterns) {
 
 // Decides what the weekly check does. `results` has one entry per source:
 // { id, fetched, error?, missing[], hash, pageUpdated }, `stored` maps id to { contentHash, pageUpdated }.
-// verified/baseline: facts present and the page unchanged (or first time seen): the date is refreshed.
+// verified/baseline: facts present and the page unchanged (or first time seen): each source's verified date is refreshed.
 // changed: facts missing or the page text differs: nothing is refreshed, a person must read the change.
 // failed: a page could not be downloaded: nothing is refreshed, the next run tries again.
 export function decide(results, stored, todayIso) {
@@ -76,8 +76,22 @@ export function decide(results, stored, todayIso) {
 
   const baseline = results.some(item => !stored[item.id]?.contentHash);
   const updates = {
-    lastVerified: todayIso,
-    sources: Object.fromEntries(results.map(item => [item.id, { contentHash: item.hash, pageUpdated: item.pageUpdated ?? stored[item.id]?.pageUpdated ?? null }])),
+    sources: Object.fromEntries(results.map(item => [item.id, { contentHash: item.hash, pageUpdated: item.pageUpdated ?? stored[item.id]?.pageUpdated ?? null, lastVerified: todayIso }])),
   };
   return { status: baseline ? "baseline" : "verified", reasons: [], updates };
+}
+
+// The earliest of several ISO dates, or null when any of them is missing or not a real date.
+export function oldestDate(dates) {
+  if (!dates.length || dates.some(date => !Number.isFinite(toUtc(date)))) return null;
+  return [...dates].sort()[0];
+}
+
+// Ids of hand-checked sources whose last check is close to (or past) the limit, so a reminder can be
+// raised before the page starts warning readers. `sources` is the sources map of data/source-checks.json.
+export function manualDue(sources, todayIso, maxDays, warnDays) {
+  return Object.entries(sources)
+    .filter(([, source]) => source.monitor === "manual")
+    .filter(([, source]) => isStale(source.lastVerified, todayIso, maxDays - warnDays))
+    .map(([id]) => id);
 }

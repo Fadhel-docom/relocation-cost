@@ -1,8 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import { ageInDays, decide, extractPageUpdated, htmlToText, isStale, missingPatterns } from "./source-freshness.js";
-import { CHECKED_ON, MAX_AGE_DAYS, SOURCES } from "./quote-guide.js";
+import { ageInDays, decide, extractPageUpdated, htmlToText, isStale, manualDue, missingPatterns, oldestDate } from "./source-freshness.js";
+import { CHECKED_AUTO, CHECKED_MANUAL, CHECKED_ON, MAX_AGE_DAYS, SOURCES } from "./quote-guide.js";
 
 const data = JSON.parse(fs.readFileSync(new URL("../../data/source-checks.json", import.meta.url), "utf8"));
 
@@ -60,7 +60,8 @@ test("decide: unchanged pages with every fact present are verified and the date 
   const decision = decide(ids.map(id => ok(id)), stored(ids), "2026-10-25");
   assert.equal(decision.status, "verified");
   assert.deepEqual(decision.reasons, []);
-  assert.equal(decision.updates.lastVerified, "2026-10-25");
+  assert.equal(decision.updates.sources.a.lastVerified, "2026-10-25");
+  assert.equal(decision.updates.sources.b.lastVerified, "2026-10-25");
   assert.equal(decision.updates.sources.a.pageUpdated, "2023-10-26", "keeps the stored page date when the page states none");
 });
 
@@ -93,15 +94,40 @@ test("decide: a page that cannot be downloaded is a failure, whatever else is tr
   assert.match(decision.reasons[0], /b: could not be downloaded \(HTTP 403\)/);
 });
 
+test("oldestDate gives the earliest valid date, and null when any date cannot be trusted", () => {
+  assert.equal(oldestDate(["2026-10-18", "2026-03-01", "2026-09-01"]), "2026-03-01");
+  assert.equal(oldestDate([]), null);
+  assert.equal(oldestDate(["2026-10-18", ""]), null);
+  assert.equal(oldestDate(["2026-10-18", "2026-02-30"]), null);
+  assert.equal(oldestDate(["2026-10-18", undefined]), null);
+});
+
+test("manualDue reminds before the page warns, only for hand-checked sources", () => {
+  const sources = {
+    a: { monitor: "auto", lastVerified: "2020-01-01" },
+    b: { monitor: "manual", lastVerified: "2026-10-18" },
+    c: { monitor: "manual", lastVerified: "2026-05-01" },
+    d: { monitor: "manual", lastVerified: "" },
+  };
+  assert.deepEqual(manualDue(sources, "2026-10-18", 180, 30), ["c", "d"]);
+  assert.equal(ageInDays("2026-05-01", "2026-10-18"), 170);
+  assert.deepEqual(manualDue({ x: { monitor: "manual", lastVerified: "2026-05-21" } }, "2026-10-18", 180, 30), [], "150 days old is not yet due");
+  assert.deepEqual(manualDue({ x: { monitor: "manual", lastVerified: "2026-05-20" } }, "2026-10-18", 180, 30), ["x"], "151 days old is due");
+});
+
 test("the check data matches the guide's sources", () => {
   assert.deepEqual(Object.keys(data.sources).sort(), SOURCES.map(source => source.id).sort());
   for (const [id, config] of Object.entries(data.sources)) {
+    assert.ok(["auto", "manual"].includes(config.monitor), `${id}: monitor must be auto or manual`);
+    assert.match(config.lastVerified, /^\d{4}-\d{2}-\d{2}$/, id);
     assert.ok(config.patterns.length >= 2, `${id} needs at least two expected phrases`);
     for (const pattern of config.patterns) assert.doesNotThrow(() => new RegExp(pattern, "i"), `${id}: ${pattern}`);
     assert.ok(config.contentHash === null || /^[0-9a-f]{64}$/.test(config.contentHash), id);
     assert.ok(config.pageUpdated === null || /^\d{4}-\d{2}-\d{2}$/.test(config.pageUpdated), id);
   }
-  assert.match(CHECKED_ON, /^\d{4}-\d{2}-\d{2}$/);
+  for (const date of [CHECKED_ON, CHECKED_AUTO, CHECKED_MANUAL]) assert.match(date, /^\d{4}-\d{2}-\d{2}$/);
+  assert.ok(CHECKED_ON <= CHECKED_AUTO && CHECKED_ON <= CHECKED_MANUAL, "overall date is the oldest");
+  assert.ok(Number.isInteger(data.manualWarnDays) && data.manualWarnDays > 0 && data.manualWarnDays < MAX_AGE_DAYS);
   assert.equal(MAX_AGE_DAYS, data.maxAgeDays);
   assert.ok(MAX_AGE_DAYS >= 30 && MAX_AGE_DAYS <= 366);
 });

@@ -1,43 +1,82 @@
 {
   "schema": 1,
   "maxAgeDays": 180,
-  "lastVerified": "2026-10-18",
-  "note": "Maintained by tools/check-sources.mjs (weekly GitHub Action). lastVerified, contentHash and pageUpdated are written by the check; patterns are the phrases each page must still contain for the guide to be true.",
+  "note": "Maintained by tools/check-sources.mjs (weekly GitHub Action). monitor=auto: the check downloads the page, confirms the patterns are still stated and refreshes lastVerified, contentHash and pageUpdated by itself. monitor=manual: the site blocks automated downloads, so a person re-reads it and sets lastVerified; an issue is opened manualWarnDays before the page warns readers.",
   "sources": {
     "fmcsa-estimates": {
+      "monitor": "manual",
+      "lastVerified": "2026-10-18",
       "pageUpdated": "2023-10-26",
       "contentHash": null,
-      "patterns": ["110 percent of the non-binding estimate", "binding estimate", "non-binding estimate"]
+      "patterns": [
+        "110 percent of the non-binding estimate",
+        "binding estimate",
+        "non-binding estimate"
+      ]
     },
     "fmcsa-avoid": {
+      "monitor": "manual",
+      "lastVerified": "2026-10-18",
       "pageUpdated": "2023-10-26",
       "contentHash": null,
-      "patterns": ["110 percent", "rate quote", "binding estimate"]
+      "patterns": [
+        "110 percent",
+        "rate quote",
+        "binding estimate"
+      ]
     },
     "fmcsa-rights": {
+      "monitor": "manual",
+      "lastVerified": "2026-10-18",
       "pageUpdated": "2024-11-04",
       "contentHash": null,
-      "patterns": ["Your Rights and Responsibilities When You Move", "Ready to Move"]
+      "patterns": [
+        "Your Rights and Responsibilities When You Move",
+        "Ready to Move"
+      ]
     },
     "cfr-401": {
+      "monitor": "auto",
+      "lastVerified": "2026-10-18",
       "pageUpdated": null,
       "contentHash": null,
-      "patterns": ["binding estimate", "non-binding estimate", "written estimate"]
+      "patterns": [
+        "binding estimate",
+        "non-binding estimate",
+        "written estimate"
+      ]
     },
     "cfr-403": {
+      "monitor": "auto",
+      "lastVerified": "2026-10-18",
       "pageUpdated": null,
       "contentHash": null,
-      "patterns": ["15 percent", "binding estimate"]
+      "patterns": [
+        "15 percent",
+        "binding estimate"
+      ]
     },
     "cfr-405": {
+      "monitor": "auto",
+      "lastVerified": "2026-10-18",
       "pageUpdated": null,
       "contentHash": null,
-      "patterns": ["110 percent of the non-binding estimate", "15 percent", "30 days"]
+      "patterns": [
+        "110 percent of the non-binding estimate",
+        "15 percent",
+        "30 days"
+      ]
     },
     "cfr-201": {
+      "monitor": "auto",
+      "lastVerified": "2026-10-18",
       "pageUpdated": null,
       "contentHash": null,
-      "patterns": ["full\\s*(\\(replacement\\)\\s*)?value", "released rates"]
+      "patterns": [
+        "full\\s*(\\(replacement\\)\\s*)?value",
+        "released rates"
+      ]
     }
-  }
+  },
+  "manualWarnDays": 30
 }

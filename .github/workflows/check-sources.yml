@@ -2,6 +2,7 @@ name: Check sources
 # Weekly: re-read the official pages behind the "How to read a moving quote" guide.
 # - Nothing changed and every fact is still stated: refresh the "checked on" date by itself (tests and build run first).
 # - Something changed or a page could not be read: open (or update) one issue with the details, change nothing.
+# - Pages that block automated downloads (FMCSA) are re-read by hand: an issue reminds 30 days before the page warns readers.
 # - A later run that verifies again closes the issue by itself.
 on:
   push:
@@ -50,13 +51,13 @@ jobs:
           git push origin HEAD:main
 
       - name: Open or update an issue when a person is needed
-        if: github.ref == 'refs/heads/main' && (steps.check.outputs.status == 'changed' || steps.check.outputs.status == 'failed')
+        if: github.ref == 'refs/heads/main' && (steps.check.outputs.status == 'changed' || steps.check.outputs.status == 'failed' || steps.check.outputs.manual_due == 'true')
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh label create source-check --color B60205 --description "Official source changed or could not be read" --force
           number=$(gh issue list --label source-check --state open --json number --jq '.[0].number // empty')
-          title="Sources need review: ${{ steps.check.outputs.status }} ($(date -u +%F))"
+          title="Sources need review: ${{ steps.check.outputs.status }}, manual due ${{ steps.check.outputs.manual_due }} ($(date -u +%F))"
           if [ -n "$number" ]; then
             gh issue edit "$number" --title "$title" --body-file source-report.md
           else
@@ -64,7 +65,7 @@ jobs:
           fi
 
       - name: Close the issue once the sources verify again
-        if: github.ref == 'refs/heads/main' && (steps.check.outputs.status == 'verified' || steps.check.outputs.status == 'baseline')
+        if: github.ref == 'refs/heads/main' && (steps.check.outputs.status == 'verified' || steps.check.outputs.status == 'baseline') && steps.check.outputs.manual_due != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
