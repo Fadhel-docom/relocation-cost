@@ -19,13 +19,13 @@ const reportPath = args.includes("--report") ? args[args.indexOf("--report") + 1
 const dataFile = path.resolve("data/source-checks.json");
 const data = JSON.parse(fs.readFileSync(dataFile, "utf8"));
 const today = new Date().toISOString().slice(0, 10);
-const USER_AGENT = "Mozilla/5.0 (compatible; RelocationCostSourceCheck/1.0; +https://relocation-cost-psi.vercel.app/about/)";
+const USER_AGENT = "RelocationCostSourceCheck/1.0 (weekly check of 7 public pages; https://relocation-cost-psi.vercel.app/about/)";
 
 async function download(url) {
   let lastError = "";
   for (let attempt = 1; attempt <= 3; attempt++) {
     try {
-      const response = await fetch(url, { headers: { "user-agent": USER_AGENT, accept: "text/html,application/xhtml+xml" }, redirect: "follow", signal: AbortSignal.timeout(30000) });
+      const response = await fetch(url, { headers: { "user-agent": USER_AGENT, accept: "text/html,application/xhtml+xml", "accept-language": "en-US,en;q=0.9" }, redirect: "follow", signal: AbortSignal.timeout(30000) });
       if (response.ok) return { html: await response.text() };
       lastError = `HTTP ${response.status}`;
       if (response.status === 403 || response.status === 404) break;
