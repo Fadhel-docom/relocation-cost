@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "maxAgeDays": 180,
-  "note": "Maintained by tools/check-sources.mjs (weekly GitHub Action). monitor=auto: the check downloads the page, confirms the patterns are still stated and refreshes lastVerified, contentHash and pageUpdated by itself. monitor=manual: the site blocks automated downloads, so a person re-reads it and sets lastVerified; an issue is opened manualWarnDays before the page warns readers. scope=calculator entries watch the data behind the estimate: patternsFrom=uhaul-bands builds the expected figures from data/coefficients.json, so the check follows the data. A mismatch opens an issue; no number is ever changed automatically.",
+  "note": "Maintained by tools/check-sources.mjs (weekly GitHub Action). monitor=auto: the check downloads the page, confirms the patterns are still stated and refreshes lastVerified, contentHash and pageUpdated by itself. monitor=manual: the site blocks automated downloads, so a person re-reads it and sets lastVerified; an issue is opened manualWarnDays before the page warns readers. scope=calculator entries watch the data behind the estimate: patternsFrom=uhaul-bands builds the expected figures from data/coefficients.json, so the check follows the data. A mismatch opens an issue; no number is ever changed automatically. scope=truck-guide: patternsFrom=truck-volumes builds the expected volumes from src/lib/truck-sizes.js.",
   "sources": {
     "fmcsa-estimates": {
       "monitor": "manual",
@@ -94,6 +94,17 @@
       "contentHash": null,
       "patterns": [],
       "patternsFrom": "uhaul-bands"
+    },
+    "uhaul-trucks": {
+      "scope": "truck-guide",
+      "monitor": "auto",
+      "trackHash": false,
+      "url": "https://www.uhaul.com/Truck-Rentals/",
+      "lastVerified": "2026-10-19",
+      "pageUpdated": null,
+      "contentHash": null,
+      "patterns": [],
+      "patternsFrom": "truck-volumes"
     }
   },
   "manualWarnDays": 30

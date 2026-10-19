@@ -1,0 +1,59 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import GuideSchema from "../../components/GuideSchema.astro";
+import GuideNext from "../../components/GuideNext.astro";
+import checks from "../../../data/source-checks.json";
+import { SOURCE, TIPS, TRUCKS, formatCubicFeet } from "../../lib/truck-sizes.js";
+
+const path = "/guides/truck-size/";
+const title = "Choosing a Moving Truck Size: Capacity by Truck";
+const description = "Interior volume of common rental moving trucks, from a pickup to a 29-foot truck, and how to check which size your inventory needs before you book.";
+const verified = checks.sources[SOURCE.id]?.lastVerified;
+const date = iso => {
+  if (typeof iso !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(iso)) return "an unknown date";
+  const [year, month, day] = iso.split("-").map(Number);
+  return new Intl.DateTimeFormat("en-US", { dateStyle: "long", timeZone: "UTC" }).format(new Date(Date.UTC(year, month - 1, day)));
+};
+---
+<Layout title={`${title} — Relocation Cost`} description={description}>
+  <article class="mx-auto max-w-3xl px-5 py-14">
+    <GuideSchema title={title} description={description} path={path} />
+    <p class="text-sm font-semibold uppercase tracking-widest text-sky-700">Guide</p>
+    <h1 class="mt-2 text-4xl font-bold tracking-tight">Choosing a moving truck size</h1>
+    <p class="mt-5 text-lg leading-8 text-slate-600">The right truck is the smallest one your belongings fit in with a little room to spare. Too small means a second trip; too big means paying for space you do not use. This guide shows the interior volume of the common rental sizes and how to compare them with your own inventory.</p>
+
+    <h2 class="mt-10 text-2xl font-bold">Truck sizes and their volume</h2>
+    <p class="mt-4 leading-7 text-slate-700">The figures below are the rental company's own, copied from its truck rentals page. The last column repeats the company's rough guide to the home each size suits; it is a starting point, not a measurement of your home.</p>
+    <div class="mt-4 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+      <table class="w-full min-w-[32rem] text-left text-sm leading-6">
+        <caption class="sr-only">Moving truck sizes, interior volume and the home size the company suggests</caption>
+        <thead class="border-b border-slate-200 bg-slate-50">
+          <tr>
+            <th scope="col" class="p-4 font-semibold">Truck</th>
+            <th scope="col" class="p-4 font-semibold">Volume</th>
+            <th scope="col" class="p-4 font-semibold">Company's home size guide</th>
+          </tr>
+        </thead>
+        <tbody class="text-slate-600">
+          {TRUCKS.map(truck => (
+            <tr class="border-b border-slate-100 last:border-0">
+              <th scope="row" class="p-4 align-top font-semibold text-slate-900">{truck.name}</th>
+              <td class="p-4 align-top">{formatCubicFeet(truck.cubicFeet)}</td>
+              <td class="p-4 align-top">{truck.homeSize}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-3 text-sm leading-6 text-slate-600">Source: <a class="font-semibold text-sky-700 underline" href={SOURCE.url} rel="noopener">{SOURCE.label}</a>. The volumes are compared with that page automatically every week; last matched on {date(verified)}. The company can change its fleet at any time, so confirm the exact truck when you book.</p>
+
+    <h2 class="mt-10 text-2xl font-bold">How to pick a size</h2>
+    <ul class="mt-4 list-disc space-y-3 pl-6 leading-7 text-slate-700">
+      {TIPS.map(tip => (<li>{tip}</li>))}
+    </ul>
+
+    <h2 class="mt-10 text-2xl font-bold">From size to cost</h2>
+    <p class="mt-4 leading-7 text-slate-700">Truck size is one input to the price, along with the route, the date and what is available. The <a class="font-semibold text-sky-700 underline" href="/calculator/">calculator</a> does not price by truck size: it gives a planning range for your route and move type. Use it to know what to expect, then compare real written quotes for the sizes you are considering. For what the rental usually does and does not include, see the <a class="font-semibold text-sky-700 underline" href="/guides/diy-vs-movers/">DIY vs movers guide</a>.</p>
+    <GuideNext current={path} />
+  </article>
+</Layout>
