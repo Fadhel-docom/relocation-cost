@@ -6,7 +6,7 @@ import checks from "../../data/source-checks.json" with { type: "json" };
 import { oldestDate } from "./source-freshness.js";
 
 export const MAX_AGE_DAYS = checks.maxAgeDays;
-const datesFor = monitor => Object.values(checks.sources).filter(source => source.monitor === monitor).map(source => source.lastVerified);
+const datesFor = monitor => Object.values(checks.sources).filter(source => (source.scope ?? "guide") === "guide" && source.monitor === monitor).map(source => source.lastVerified);
 // Oldest verification among the automatically checked sources, among the hand-checked ones, and overall.
 // null (never a made-up date) when any date is missing or invalid, which the page treats as stale.
 export const CHECKED_AUTO = oldestDate(datesFor("auto"));

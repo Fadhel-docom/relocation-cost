@@ -12,12 +12,13 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { SOURCES } from "../src/lib/quote-guide.js";
-import { ageInDays, decide, extractPageUpdated, htmlToText, manualDue, missingPatterns } from "../src/lib/source-freshness.js";
+import { ageInDays, decide, extractPageUpdated, htmlToText, manualDue, missingPatterns, uhaulBandPatterns } from "../src/lib/source-freshness.js";
 
 const args = process.argv.slice(2);
 const write = args.includes("--write");
 const reportPath = args.includes("--report") ? args[args.indexOf("--report") + 1] : null;
 const dataFile = path.resolve("data/source-checks.json");
+const coefficients = JSON.parse(fs.readFileSync(path.resolve("data/coefficients.json"), "utf8"));
 const data = JSON.parse(fs.readFileSync(dataFile, "utf8"));
 const today = new Date().toISOString().slice(0, 10);
 const USER_AGENT = "RelocationCostSourceCheck/1.0 (weekly check of 7 public pages; https://relocation-cost-psi.vercel.app/about/)";
@@ -38,29 +39,33 @@ async function download(url) {
   return { error: lastError };
 }
 
+// Every entry of data/source-checks.json is checked: the guide's sources (url from the guide) and the
+// calculator's data sources (url in the data file).
+const items = Object.entries(data.sources).map(([id, config]) => ({ id, config, url: config.url ?? SOURCES.find(source => source.id === id)?.url }));
 const results = [];
 const texts = new Map();
-for (const source of SOURCES) {
-  const config = data.sources[source.id];
-  if (config?.monitor === "manual") continue;
-  if (!config) {
-    results.push({ id: source.id, url: source.url, fetched: false, error: "no entry in data/source-checks.json", missing: [], hash: null, pageUpdated: null });
+for (const { id, config, url } of items) {
+  if (config.monitor === "manual") continue;
+  if (!url) {
+    results.push({ id, url, fetched: false, error: "no url for this source", missing: [], hash: null, pageUpdated: null });
     continue;
   }
-  const { html, error } = await download(source.url);
+  const { html, error } = await download(url);
   if (error) {
-    results.push({ id: source.id, url: source.url, fetched: false, error, missing: [], hash: null, pageUpdated: null });
+    results.push({ id, url, fetched: false, error, missing: [], hash: null, pageUpdated: null });
     continue;
   }
   const text = htmlToText(html);
-  texts.set(source.id, text);
+  texts.set(id, text);
+  const patterns = config.patternsFrom === "uhaul-bands" ? uhaulBandPatterns(coefficients) : config.patterns;
   results.push({
-    id: source.id,
-    url: source.url,
+    id,
+    url,
     fetched: true,
     textLength: text.length,
-    missing: text.length < 500 ? ["(page text is almost empty: the page may be blocked or has changed layout)"] : missingPatterns(text, config.patterns),
-    hash: crypto.createHash("sha256").update(text).digest("hex"),
+    missing: text.length < 500 ? ["(page text is almost empty: the page may be blocked or has changed layout)"] : missingPatterns(text, patterns),
+    // Pages that change for reasons unrelated to our figures (marketing pages) are judged on the expected figures only.
+    hash: config.trackHash === false ? null : crypto.createHash("sha256").update(text).digest("hex"),
     pageUpdated: extractPageUpdated(text),
   });
 }
@@ -73,7 +78,7 @@ lines.push(`# Source check ${today}: ${decision.status}`, "");
 lines.push("| Source | Downloaded | Facts found | Page changed | Page says updated |", "|---|---|---|---|---|");
 for (const item of results) {
   const stored = data.sources[item.id];
-  const changed = !item.fetched ? "?" : !stored?.contentHash ? "first check" : stored.contentHash !== item.hash ? "YES" : "no";
+  const changed = !item.fetched ? "?" : item.hash === null ? "figures only" : !stored?.contentHash ? "first check" : stored.contentHash !== item.hash ? "YES" : "no";
   lines.push(`| ${item.id} | ${item.fetched ? "yes" : "NO: " + item.error} | ${item.fetched ? (item.missing.length ? "MISSING " + item.missing.length : "yes") : "?"} | ${changed} | ${item.pageUpdated ?? "not stated"} |`);
 }
 for (const [id, source] of Object.entries(data.sources).filter(([, entry]) => entry.monitor === "manual")) {
@@ -81,7 +86,7 @@ for (const [id, source] of Object.entries(data.sources).filter(([, entry]) => en
   lines.push(`| ${id} | by hand (site blocks automated downloads) | last read ${source.lastVerified}, ${Number.isFinite(age) ? age + " days ago" : "date invalid"} | ${dueIds.includes(id) ? "REVIEW DUE" : "ok"} | ${source.pageUpdated ?? "not stated"} |`);
 }
 if (dueIds.length) {
-  lines.push("", "## Manual review due", ...dueIds.map(id => `- ${id}: re-read ${SOURCES.find(item => item.id === id)?.url} and confirm the guide still matches, then set \`lastVerified\` for it in data/source-checks.json (or ask Claude to "review the sources").`));
+  lines.push("", "## Manual review due", ...dueIds.map(id => `- ${id}: re-read ${items.find(item => item.id === id)?.url} and confirm the guide still matches, then set \`lastVerified\` for it in data/source-checks.json (or ask Claude to "review the sources").`));
 }
 if (decision.reasons.length) {
   lines.push("", "## What needs a person", ...decision.reasons.map(reason => `- ${reason}`));

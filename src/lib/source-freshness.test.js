@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import { ageInDays, decide, extractPageUpdated, htmlToText, isStale, manualDue, missingPatterns, oldestDate } from "./source-freshness.js";
+import { ageInDays, decide, extractPageUpdated, htmlToText, isStale, manualDue, missingPatterns, oldestDate, uhaulBandPatterns } from "./source-freshness.js";
 import { CHECKED_AUTO, CHECKED_MANUAL, CHECKED_ON, MAX_AGE_DAYS, SOURCES } from "./quote-guide.js";
 
 const data = JSON.parse(fs.readFileSync(new URL("../../data/source-checks.json", import.meta.url), "utf8"));
@@ -115,21 +115,52 @@ test("manualDue reminds before the page warns, only for hand-checked sources", (
   assert.deepEqual(manualDue({ x: { monitor: "manual", lastVerified: "2026-05-20" } }, "2026-10-18", 180, 30), ["x"], "151 days old is due");
 });
 
-test("the check data matches the guide's sources", () => {
-  assert.deepEqual(Object.keys(data.sources).sort(), SOURCES.map(source => source.id).sort());
+test("the check data matches the guide's sources and the calculator's data source", () => {
+  const scope = config => config.scope ?? "guide";
+  const guideIds = Object.entries(data.sources).filter(([, config]) => scope(config) === "guide").map(([id]) => id);
+  assert.deepEqual(guideIds.sort(), SOURCES.map(source => source.id).sort());
   for (const [id, config] of Object.entries(data.sources)) {
+    assert.ok(["guide", "calculator"].includes(scope(config)), `${id}: scope`);
     assert.ok(["auto", "manual"].includes(config.monitor), `${id}: monitor must be auto or manual`);
     assert.match(config.lastVerified, /^\d{4}-\d{2}-\d{2}$/, id);
-    assert.ok(config.patterns.length >= 2, `${id} needs at least two expected phrases`);
+    if (config.patternsFrom) assert.equal(config.patternsFrom, "uhaul-bands", id);
+    else assert.ok(config.patterns.length >= 2, `${id} needs at least two expected phrases`);
     for (const pattern of config.patterns) assert.doesNotThrow(() => new RegExp(pattern, "i"), `${id}: ${pattern}`);
     assert.ok(config.contentHash === null || /^[0-9a-f]{64}$/.test(config.contentHash), id);
     assert.ok(config.pageUpdated === null || /^\d{4}-\d{2}-\d{2}$/.test(config.pageUpdated), id);
+    if (scope(config) === "calculator") assert.match(config.url, /^https:\/\//, `${id} needs its own url`);
   }
   for (const date of [CHECKED_ON, CHECKED_AUTO, CHECKED_MANUAL]) assert.match(date, /^\d{4}-\d{2}-\d{2}$/);
   assert.ok(CHECKED_ON <= CHECKED_AUTO && CHECKED_ON <= CHECKED_MANUAL, "overall date is the oldest");
   assert.ok(Number.isInteger(data.manualWarnDays) && data.manualWarnDays > 0 && data.manualWarnDays < MAX_AGE_DAYS);
   assert.equal(MAX_AGE_DAYS, data.maxAgeDays);
   assert.ok(MAX_AGE_DAYS >= 30 && MAX_AGE_DAYS <= 366);
+});
+
+test("the guide's dates ignore the calculator's data source", () => {
+  const guideDates = Object.values(data.sources).filter(config => (config.scope ?? "guide") === "guide").map(config => config.lastVerified);
+  assert.equal(CHECKED_ON, oldestDate(guideDates));
+});
+
+test("the U-Haul expected figures come from the data the calculator uses", () => {
+  const coefficients = JSON.parse(fs.readFileSync(new URL("../../data/coefficients.json", import.meta.url), "utf8"));
+  const patterns = uhaulBandPatterns(coefficients);
+  assert.equal(patterns.length, coefficients.benchmarks.uhaul_one_way_average_by_distance.length);
+  const page = "Average one-way rental by distance: 1-200 miles $202, up to 500 miles $444, $995, $1,657, $2,190, $2,694 and over 2,500 miles $3,517.";
+  assert.deepEqual(missingPatterns(page, patterns), []);
+  assert.deepEqual(missingPatterns(page.replace("$1,657", "$1,799"), patterns), ["\\$1,657"], "a changed figure on the page is reported");
+  assert.throws(() => uhaulBandPatterns({}), TypeError);
+  assert.throws(() => uhaulBandPatterns({ benchmarks: { uhaul_one_way_average_by_distance: [{ average_usd: 12.5 }] } }), TypeError);
+});
+
+test("decide: a page judged on figures only is not treated as a first-time baseline every week", () => {
+  const untracked = { id: "u", fetched: true, missing: [], hash: null, pageUpdated: null };
+  const decision = decide([untracked], { u: { contentHash: null } }, "2026-10-25");
+  assert.equal(decision.status, "verified");
+  assert.equal(decision.updates.sources.u.contentHash, null);
+  assert.equal(decision.updates.sources.u.lastVerified, "2026-10-25");
+  const missing = decide([{ ...untracked, missing: ["\\$1,657"] }], { u: { contentHash: null } }, "2026-10-25");
+  assert.equal(missing.status, "changed");
 });
 
 test("the build never fails because a date got old: the age check only warns on the page", () => {
