@@ -12,6 +12,7 @@ const expectedStatic = new Set([
   "/methodology/",
   "/checklist/",
   "/budget-tracker/",
+  "/cost-of-living/",
   "/contact/",
   "/moving-cost/",
   "/moving-cost/cities/",
