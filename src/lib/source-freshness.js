@@ -74,9 +74,9 @@ export function decide(results, stored, todayIso) {
   for (const item of differs) reasons.push(`${item.id}: the page text changed since it was last verified`);
   if (reasons.length) return { status: "changed", reasons, updates: null };
 
-  const baseline = results.some(item => !stored[item.id]?.contentHash);
+  const baseline = results.some(item => item.hash && !stored[item.id]?.contentHash);
   const updates = {
-    sources: Object.fromEntries(results.map(item => [item.id, { contentHash: item.hash, pageUpdated: item.pageUpdated ?? stored[item.id]?.pageUpdated ?? null, lastVerified: todayIso }])),
+    sources: Object.fromEntries(results.map(item => [item.id, { contentHash: item.hash ?? null, pageUpdated: item.pageUpdated ?? stored[item.id]?.pageUpdated ?? null, lastVerified: todayIso }])),
   };
   return { status: baseline ? "baseline" : "verified", reasons: [], updates };
 }
@@ -94,4 +94,15 @@ export function manualDue(sources, todayIso, maxDays, warnDays) {
     .filter(([, source]) => source.monitor === "manual")
     .filter(([, source]) => isStale(source.lastVerified, todayIso, maxDays - warnDays))
     .map(([id]) => id);
+}
+
+// Expected phrases for the U-Haul one-way averages, built from the data the calculator actually uses
+// (data/coefficients.json), so the check cannot drift from the estimate. "$1,657" is matched as "\\$1,657".
+export function uhaulBandPatterns(benchmarkData) {
+  const bands = benchmarkData?.benchmarks?.uhaul_one_way_average_by_distance;
+  if (!Array.isArray(bands) || !bands.length) throw new TypeError("coefficients.json has no U-Haul distance bands.");
+  return bands.map(band => {
+    if (!Number.isInteger(band.average_usd) || band.average_usd <= 0) throw new TypeError("Each U-Haul band needs a positive whole-dollar average.");
+    return "\\$" + band.average_usd.toLocaleString("en-US");
+  });
 }

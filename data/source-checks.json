@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "maxAgeDays": 180,
-  "note": "Maintained by tools/check-sources.mjs (weekly GitHub Action). monitor=auto: the check downloads the page, confirms the patterns are still stated and refreshes lastVerified, contentHash and pageUpdated by itself. monitor=manual: the site blocks automated downloads, so a person re-reads it and sets lastVerified; an issue is opened manualWarnDays before the page warns readers.",
+  "note": "Maintained by tools/check-sources.mjs (weekly GitHub Action). monitor=auto: the check downloads the page, confirms the patterns are still stated and refreshes lastVerified, contentHash and pageUpdated by itself. monitor=manual: the site blocks automated downloads, so a person re-reads it and sets lastVerified; an issue is opened manualWarnDays before the page warns readers. scope=calculator entries watch the data behind the estimate: patternsFrom=uhaul-bands builds the expected figures from data/coefficients.json, so the check follows the data. A mismatch opens an issue; no number is ever changed automatically.",
   "sources": {
     "fmcsa-estimates": {
       "monitor": "manual",
@@ -12,7 +12,8 @@
         "110 percent of the non-binding estimate",
         "binding estimate",
         "non-binding estimate"
-      ]
+      ],
+      "scope": "guide"
     },
     "fmcsa-avoid": {
       "monitor": "manual",
@@ -23,7 +24,8 @@
         "110 percent",
         "rate quote",
         "binding estimate"
-      ]
+      ],
+      "scope": "guide"
     },
     "fmcsa-rights": {
       "monitor": "manual",
@@ -33,7 +35,8 @@
       "patterns": [
         "Your Rights and Responsibilities When You Move",
         "Ready to Move"
-      ]
+      ],
+      "scope": "guide"
     },
     "cfr-401": {
       "monitor": "auto",
@@ -44,7 +47,8 @@
         "binding estimate",
         "non-binding estimate",
         "written estimate"
-      ]
+      ],
+      "scope": "guide"
     },
     "cfr-403": {
       "monitor": "auto",
@@ -54,7 +58,8 @@
       "patterns": [
         "15 percent",
         "binding estimate"
-      ]
+      ],
+      "scope": "guide"
     },
     "cfr-405": {
       "monitor": "auto",
@@ -65,7 +70,8 @@
         "110 percent of the non-binding estimate",
         "15 percent",
         "30 days"
-      ]
+      ],
+      "scope": "guide"
     },
     "cfr-201": {
       "monitor": "auto",
@@ -75,7 +81,19 @@
       "patterns": [
         "full\\s*(\\(replacement\\)\\s*)?value",
         "released rates"
-      ]
+      ],
+      "scope": "guide"
+    },
+    "uhaul-benchmarks": {
+      "scope": "calculator",
+      "monitor": "auto",
+      "trackHash": false,
+      "url": "https://www.uhaul.com/Tips/Loading/How-To-Save-Money-ON-Truck-Rentals-35820/",
+      "lastVerified": "2026-10-03",
+      "pageUpdated": null,
+      "contentHash": null,
+      "patterns": [],
+      "patternsFrom": "uhaul-bands"
     }
   },
   "manualWarnDays": 30
