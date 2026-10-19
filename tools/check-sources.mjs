@@ -90,6 +90,16 @@ if (decision.status === "failed") {
   lines.push("", "Nothing was refreshed. The next weekly run tries again; the page keeps showing its last verified date and warns readers once that date is more than " + data.maxAgeDays + " days old.");
 }
 const report = lines.join("\n") + "\n";
+// Also publish a short version as workflow annotations, which stay readable through the GitHub API.
+if (process.env.GITHUB_ACTIONS) {
+  const clean = text => String(text).replace(/%/g, "%25").replace(/\r/g, "%0D").replace(/\n/g, "%0A");
+  console.log(`::notice title=source-check status::${clean(decision.status)}`);
+  for (const item of results) {
+    const stored = data.sources[item.id];
+    console.log(`::notice title=source ${item.id}::${clean(JSON.stringify({ fetched: item.fetched, error: item.error ?? null, textLength: item.textLength ?? null, missing: item.missing, pageUpdated: item.pageUpdated, hash: item.hash?.slice(0, 12) ?? null, storedHash: stored?.contentHash?.slice(0, 12) ?? null }))}`);
+  }
+  for (const reason of decision.reasons) console.log(`::warning title=source-check::${clean(reason)}`);
+}
 console.log(report);
 if (reportPath) fs.writeFileSync(reportPath, report);
 if (process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, report);
