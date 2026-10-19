@@ -1,0 +1,104 @@
+{
+  "schema": 1,
+  "source": {
+    "title": "U.S. Bureau of Economic Analysis, Real Personal Consumption Expenditures by State and Real Personal Income by State and Metropolitan Area, Table 4: Regional Price Parities and Implicit Regional Price Deflators, by Metropolitan Area, 2023",
+    "url": "https://www.bea.gov/sites/default/files/2024-12/rpp1224.pdf",
+    "methodologyUrl": "https://www.bea.gov/sites/default/files/methodologies/Methodology-for-Regional-Price-Parities_0.pdf",
+    "year": 2023,
+    "base": "U.S. average = 100",
+    "readOn": "2026-10-19",
+    "note": "Only the all-items column is used. Each value was read twice and checked against the printed implicit price deflator column (the deflator is the all-items RPP times one national constant, about 1.205, in every row). BEA's later releases publish RPPs by state; this is the latest metropolitan table found."
+  },
+  "cities": {
+    "new-york": {
+      "metro": "New York-Newark-Jersey City, NY-NJ-PA",
+      "rpp": 112.5,
+      "deflator": 135.5
+    },
+    "los-angeles": {
+      "metro": "Los Angeles-Long Beach-Anaheim, CA",
+      "rpp": 115.5,
+      "deflator": 139.1
+    },
+    "chicago": {
+      "metro": "Chicago-Naperville-Elgin, IL-IN-WI",
+      "rpp": 102.6,
+      "deflator": 123.6
+    },
+    "houston": {
+      "metro": "Houston-The Woodlands-Sugar Land, TX",
+      "rpp": 100.2,
+      "deflator": 120.8
+    },
+    "phoenix": {
+      "metro": "Phoenix-Mesa-Chandler, AZ",
+      "rpp": 105.5,
+      "deflator": 127.1
+    },
+    "dallas": {
+      "metro": "Dallas-Fort Worth-Arlington, TX",
+      "rpp": 103.3,
+      "deflator": 124.5
+    },
+    "austin": {
+      "metro": "Austin-Round Rock-Georgetown, TX",
+      "rpp": 97.6,
+      "deflator": 117.6
+    },
+    "san-francisco": {
+      "metro": "San Francisco-Oakland-Berkeley, CA",
+      "rpp": 118.2,
+      "deflator": 142.5
+    },
+    "seattle": {
+      "metro": "Seattle-Tacoma-Bellevue, WA",
+      "rpp": 113.0,
+      "deflator": 136.1
+    },
+    "denver": {
+      "metro": "Denver-Aurora-Lakewood, CO",
+      "rpp": 105.5,
+      "deflator": 127.1
+    },
+    "miami": {
+      "metro": "Miami-Fort Lauderdale-Pompano Beach, FL",
+      "rpp": 111.8,
+      "deflator": 134.7
+    },
+    "atlanta": {
+      "metro": "Atlanta-Sandy Springs-Alpharetta, GA",
+      "rpp": 100.9,
+      "deflator": 121.6
+    },
+    "boston": {
+      "metro": "Boston-Cambridge-Newton, MA-NH",
+      "rpp": 111.6,
+      "deflator": 134.4
+    },
+    "las-vegas": {
+      "metro": "Las Vegas-Henderson-Paradise, NV",
+      "rpp": 97.4,
+      "deflator": 117.4
+    },
+    "portland": {
+      "metro": "Portland-Vancouver-Hillsboro, OR-WA",
+      "rpp": 106.6,
+      "deflator": 128.5
+    },
+    "san-diego": {
+      "metro": "San Diego-Chula Vista-Carlsbad, CA",
+      "rpp": 111.5,
+      "deflator": 134.3
+    },
+    "charlotte": {
+      "metro": "Charlotte-Concord-Gastonia, NC-SC",
+      "rpp": 97.0,
+      "deflator": 116.9
+    },
+    "nashville": {
+      "metro": "Nashville-Davidson--Murfreesboro--Franklin, TN",
+      "rpp": 97.4,
+      "deflator": 117.4
+    }
+  }
+}
