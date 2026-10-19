@@ -12,6 +12,7 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { SOURCES } from "../src/lib/quote-guide.js";
+import { volumePatterns } from "../src/lib/truck-sizes.js";
 import { ageInDays, decide, extractPageUpdated, htmlToText, manualDue, missingPatterns, uhaulBandPatterns } from "../src/lib/source-freshness.js";
 
 const args = process.argv.slice(2);
@@ -57,7 +58,7 @@ for (const { id, config, url } of items) {
   }
   const text = htmlToText(html);
   texts.set(id, text);
-  const patterns = config.patternsFrom === "uhaul-bands" ? uhaulBandPatterns(coefficients) : config.patterns;
+  const patterns = config.patternsFrom === "uhaul-bands" ? uhaulBandPatterns(coefficients) : config.patternsFrom === "truck-volumes" ? volumePatterns() : config.patterns;
   results.push({
     id,
     url,

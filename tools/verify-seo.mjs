@@ -18,7 +18,8 @@ const expectedStatic = new Set([
   "/guides/moving-cost/",
   "/guides/relocation-budget/",
   "/guides/diy-vs-movers/",
-  "/guides/reading-a-moving-quote/"
+  "/guides/reading-a-moving-quote/",
+  "/guides/truck-size/"
 ]);
 
 function walk(dir) {
@@ -39,7 +40,7 @@ function read(file) {
 const pages = htmlFiles();
 const canonicalByPage = new Map();
 const internalTargets = new Map();
-const guidePaths = ["/guides/moving-cost/", "/guides/diy-vs-movers/", "/guides/relocation-budget/", "/guides/reading-a-moving-quote/"];
+const guidePaths = ["/guides/moving-cost/", "/guides/diy-vs-movers/", "/guides/relocation-budget/", "/guides/reading-a-moving-quote/", "/guides/truck-size/"];
 
 for (const file of pages) {
   const html = read(file);

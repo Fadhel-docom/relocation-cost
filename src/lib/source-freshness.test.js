@@ -120,15 +120,15 @@ test("the check data matches the guide's sources and the calculator's data sourc
   const guideIds = Object.entries(data.sources).filter(([, config]) => scope(config) === "guide").map(([id]) => id);
   assert.deepEqual(guideIds.sort(), SOURCES.map(source => source.id).sort());
   for (const [id, config] of Object.entries(data.sources)) {
-    assert.ok(["guide", "calculator"].includes(scope(config)), `${id}: scope`);
+    assert.ok(["guide", "calculator", "truck-guide"].includes(scope(config)), `${id}: scope`);
     assert.ok(["auto", "manual"].includes(config.monitor), `${id}: monitor must be auto or manual`);
     assert.match(config.lastVerified, /^\d{4}-\d{2}-\d{2}$/, id);
-    if (config.patternsFrom) assert.equal(config.patternsFrom, "uhaul-bands", id);
+    if (config.patternsFrom) assert.ok(["uhaul-bands", "truck-volumes"].includes(config.patternsFrom), id);
     else assert.ok(config.patterns.length >= 2, `${id} needs at least two expected phrases`);
     for (const pattern of config.patterns) assert.doesNotThrow(() => new RegExp(pattern, "i"), `${id}: ${pattern}`);
     assert.ok(config.contentHash === null || /^[0-9a-f]{64}$/.test(config.contentHash), id);
     assert.ok(config.pageUpdated === null || /^\d{4}-\d{2}-\d{2}$/.test(config.pageUpdated), id);
-    if (scope(config) === "calculator") assert.match(config.url, /^https:\/\//, `${id} needs its own url`);
+    if (scope(config) !== "guide") assert.match(config.url, /^https:\/\//, `${id} needs its own url`);
   }
   for (const date of [CHECKED_ON, CHECKED_AUTO, CHECKED_MANUAL]) assert.match(date, /^\d{4}-\d{2}-\d{2}$/);
   assert.ok(CHECKED_ON <= CHECKED_AUTO && CHECKED_ON <= CHECKED_MANUAL, "overall date is the oldest");
