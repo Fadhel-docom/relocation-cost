@@ -1,13 +1,22 @@
 // Content and sources for the "How to read a moving quote" guide. Every rule below is a plain-language
-// paraphrase of one of the official pages listed in SOURCES, which were read on CHECKED_ON. Nothing here is a
-// price or legal advice. Tests (quote-guide.test.js) require every rule to cite a listed source and limit the
-// figures to the ones the sources state.
-export const CHECKED_ON = "2026-10-18";
+// paraphrase of one of the official pages listed in SOURCES. Nothing here is a price or legal advice.
+// Tests (quote-guide.test.js) require every rule to cite a listed source and limit the figures to the ones
+// the sources state. The dates come from data/source-checks.json, which the weekly source check keeps up to date.
+import checks from "../../data/source-checks.json" with { type: "json" };
+import { oldestDate } from "./source-freshness.js";
+
+export const MAX_AGE_DAYS = checks.maxAgeDays;
+const datesFor = monitor => Object.values(checks.sources).filter(source => source.monitor === monitor).map(source => source.lastVerified);
+// Oldest verification among the automatically checked sources, among the hand-checked ones, and overall.
+// null (never a made-up date) when any date is missing or invalid, which the page treats as stale.
+export const CHECKED_AUTO = oldestDate(datesFor("auto"));
+export const CHECKED_MANUAL = oldestDate(datesFor("manual"));
+export const CHECKED_ON = oldestDate([...datesFor("auto"), ...datesFor("manual")]);
 
 export const TITLE = "How to Read a Moving Quote: Binding vs Non-Binding Estimates";
 export const DESCRIPTION = "What binding and non-binding moving estimates mean under federal rules for interstate moves, the 110% limit at delivery, and what to ask before you sign.";
 
-export const SOURCES = Object.freeze([
+const BASE_SOURCES = [
   {
     id: "fmcsa-estimates",
     label: "FMCSA: What is a binding move estimate?",
@@ -46,7 +55,14 @@ export const SOURCES = Object.freeze([
     label: "49 CFR § 375.201: What is the mover's liability for loss or damage?",
     url: "https://www.law.cornell.edu/cfr/text/49/375.201",
   },
-]);
+];
+
+// The page's own "last updated" date, where it states one, is filled in from the weekly check.
+export const SOURCES = Object.freeze(BASE_SOURCES.map(({ pageUpdated, ...source }) => {
+  const config = checks.sources[source.id] ?? {};
+  const updated = config.pageUpdated ?? pageUpdated ?? null;
+  return Object.freeze({ ...source, monitor: config.monitor ?? "manual", verified: config.lastVerified ?? null, ...(updated ? { pageUpdated: updated } : {}) });
+}));
 
 export const RULE_GROUPS = Object.freeze([
   {
