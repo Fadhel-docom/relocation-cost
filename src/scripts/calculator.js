@@ -2,6 +2,7 @@ import { track } from "@vercel/analytics";
 import stateData from "../../data/state-distances.json";
 import { calculateBudget, costBreakdown, costLines, employerGap, HOME_SIZES, MOVE_TYPES, pickAllowed, RESERVE_WEEKS, savingsTips } from "../lib/calculator.js";
 import { createFunnel } from "../lib/calculator-analytics.js";
+import { createFeedback } from "../lib/feedback.js";
 import { buildEstimateEmail } from "../lib/estimate-email.js";
 
 const form = document.querySelector("#calculator");
@@ -402,6 +403,8 @@ const calculate = () => {
   } catch {}
 
   funnel.estimate(true);
+  feedback.estimate(true);
+  syncFeedback();
 
   return resultData.total;
 };
@@ -444,6 +447,7 @@ const resetCalculator = () => {
   // Reset the funnel before rendering defaults, so the default estimate is not
   // misattributed to the previous user attempt.
   funnel.reset();
+  resetFeedback();
   applyStateDistance();
 };
 
@@ -462,6 +466,37 @@ if (fields.distance.value === "") {
 }
 
 const funnel = createFunnel(track, () => ({ from: fields.fromState.value, to: fields.toState.value }));
+const feedback = createFeedback(track);
+const feedbackBox = document.querySelector("#feedbackBox");
+const feedbackButtons = document.querySelector("#feedbackButtons");
+const feedbackStatus = document.querySelector("#feedbackStatus");
+const FEEDBACK_IDLE_TEXT = feedbackStatus?.textContent ?? "";
+
+// The question shows after a real interaction and a valid estimate, and stays
+// (as a thank-you line) once answered.
+const syncFeedback = () => {
+  if (!feedbackBox) return;
+  const answered = feedbackButtons?.hidden === true;
+  feedbackBox.hidden = !(feedback.canAsk() || answered);
+};
+
+const resetFeedback = () => {
+  feedback.reset();
+  if (feedbackButtons) feedbackButtons.hidden = false;
+  if (feedbackStatus) feedbackStatus.textContent = FEEDBACK_IDLE_TEXT;
+  if (feedbackBox) feedbackBox.hidden = true;
+};
+
+const answerFeedback = answer => {
+  const outcome = feedback.vote(answer);
+  if (outcome !== "sent") return;
+  if (feedbackButtons) feedbackButtons.hidden = true;
+  syncFeedback();
+  if (feedbackStatus) feedbackStatus.textContent = "Thank you. Your answer was counted without your amounts or route.";
+};
+
+document.querySelector("#feedbackYes")?.addEventListener("click", () => answerFeedback("yes"));
+document.querySelector("#feedbackNo")?.addEventListener("click", () => answerFeedback("no"));
 
 form?.addEventListener("submit", event => {
   event.preventDefault();
@@ -470,8 +505,9 @@ form?.addEventListener("submit", event => {
 
 // Capture phase so the interaction is recorded before the field handlers run
 // calculate(), which lets the first valid estimate count as a funnel step.
-form?.addEventListener("input", () => funnel.interaction(), true);
-form?.addEventListener("change", () => funnel.interaction(), true);
+const onInteraction = () => { funnel.interaction(); feedback.interaction(); };
+form?.addEventListener("input", onInteraction, true);
+form?.addEventListener("change", onInteraction, true);
 
 fields.fromState?.addEventListener("change", applyStateDistance);
 fields.toState?.addEventListener("change", applyStateDistance);
