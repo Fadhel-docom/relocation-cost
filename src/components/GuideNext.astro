@@ -2,6 +2,7 @@
 // "Keep planning" block for guide pages: calculator, sibling guides, example routes.
 import stateData from "../../data/state-distances.json";
 import routePages from "../../data/route-pages.json";
+import FeedbackWidget from "./FeedbackWidget.astro";
 
 const { current } = Astro.props;
 const guides = [
@@ -35,4 +36,5 @@ const routes = routePages.routes.slice(0, 4).map(route => ({
       </ul>
     </div>
   </div>
+  <FeedbackWidget />
 </aside>

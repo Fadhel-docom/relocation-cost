@@ -35,7 +35,8 @@ other countries.
 ## P2: growth
 
 - [x] Day 13: "Email this estimate to myself" button on the calculator (opens the person's own email app with the summary and the share link; no server, no paid service; the message is shortened in a fixed order if the link would be too long)
-- [ ] Cost-of-living comparison between two cities
+- [x] Cost-of-living comparison between two cities (done on Day 17, see above)
+- [x] Day 18: "Was this page helpful?" yes/no on the calculator result and every guide (one anonymous event with the page path and the answer; no text box, no amounts; a "No" points to the contact page)
 - [x] Dark mode (Day 7): automatic from the device setting, with a header button for Auto / Light / Dark; palette checked against WCAG AA by tests; see docs/DESIGN.md
 
 ## International expansion (only after the US site reaches its quality target)

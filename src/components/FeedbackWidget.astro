@@ -1,0 +1,52 @@
+---
+// "Was this page helpful?" Two buttons. The answer is counted as one anonymous
+// event (page path + yes/no). No text box, no amounts, no personal data.
+const { tone = "light" } = Astro.props;
+const dark = tone === "dark";
+const box = dark
+  ? "mt-5 rounded-xl border border-slate-800 bg-slate-900 p-4 text-sm"
+  : "mt-8 rounded-xl border border-slate-200 bg-white p-4 text-sm";
+const title = dark ? "font-semibold text-slate-200" : "font-semibold text-slate-900";
+const note = dark ? "text-slate-300" : "text-slate-600";
+const button = dark
+  ? "rounded-xl bg-white px-4 py-2 text-sm font-semibold text-slate-900"
+  : "rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-100";
+const link = dark ? "font-semibold text-sky-300 underline" : "font-semibold text-sky-700 underline";
+---
+<div class={box} data-feedback>
+  <div data-feedback-ask>
+    <p class={title} id="feedback-question">Was this page helpful?</p>
+    <div class="mt-3 flex gap-3" role="group" aria-labelledby="feedback-question">
+      <button type="button" class={button} data-feedback-answer="yes">Yes</button>
+      <button type="button" class={button} data-feedback-answer="no">No</button>
+    </div>
+    <p class={`mt-3 text-xs leading-5 ${note}`}>Counts one anonymous yes or no. Nothing you typed is sent.</p>
+  </div>
+  <div data-feedback-thanks hidden aria-live="polite">
+    <p class={title}>Thanks, your answer was counted.</p>
+    <p class={`mt-1 ${note}`} data-feedback-more hidden>
+      If something was missing or wrong, <a class={link} href="/contact/">tell us on the contact page</a>.
+    </p>
+  </div>
+</div>
+
+<script>
+  import { track } from "@vercel/analytics";
+  import { createFeedback } from "../lib/feedback.js";
+
+  document.querySelectorAll("[data-feedback]").forEach((box) => {
+    const feedback = createFeedback(track, () => location.pathname);
+    const ask = box.querySelector("[data-feedback-ask]");
+    const thanks = box.querySelector("[data-feedback-thanks]");
+    const more = box.querySelector("[data-feedback-more]");
+    box.querySelectorAll("[data-feedback-answer]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const answer = feedback.vote(button.getAttribute("data-feedback-answer"));
+        if (!answer) return;
+        ask.hidden = true;
+        thanks.hidden = false;
+        if (answer === "no") more.hidden = false;
+      });
+    });
+  });
+</script>
