@@ -1,5 +1,6 @@
 ---
 import PartnerOffers from "../components/PartnerOffers.astro";
+import FeedbackWidget from "../components/FeedbackWidget.astro";
 import Layout from "../layouts/Layout.astro";
 import routePages from "../../data/route-pages.json";
 import benchmarkData from "../../data/coefficients.json";
@@ -168,6 +169,7 @@ const breadcrumbJsonLd = {
             <li><a href="/budget-tracker/" class="font-semibold text-sky-300 underline">Budget tracker</a>: planned vs what you actually spend</li>
           </ul>
         </div>
+        <FeedbackWidget tone="dark" />
       </aside>
     </div>
 
