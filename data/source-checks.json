@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "maxAgeDays": 180,
-  "note": "Maintained by tools/check-sources.mjs (weekly GitHub Action). monitor=auto: the check downloads the page, confirms the patterns are still stated and refreshes lastVerified, contentHash and pageUpdated by itself. monitor=manual: the site blocks automated downloads, so a person re-reads it and sets lastVerified; an issue is opened manualWarnDays before the page warns readers. scope=calculator entries watch the data behind the estimate: patternsFrom=uhaul-bands builds the expected figures from data/coefficients.json, so the check follows the data. A mismatch opens an issue; no number is ever changed automatically. scope=truck-guide: patternsFrom=truck-volumes builds the expected volumes from src/lib/truck-sizes.js. scope=cost-of-living: a yearly federal table read by hand (monitor manual); the reminder issue asks whether BEA published a newer metropolitan table.",
+  "note": "Maintained by tools/check-sources.mjs (weekly GitHub Action). monitor=auto: the check downloads the page, confirms the patterns are still stated and refreshes lastVerified, contentHash and pageUpdated by itself. monitor=manual: the site blocks automated downloads, so a person re-reads it and sets lastVerified; an issue is opened manualWarnDays before the page warns readers. scope=calculator entries watch the data behind the estimate: patternsFrom=uhaul-bands builds the expected figures from data/coefficients.json, so the check follows the data. A mismatch opens an issue; no number is ever changed automatically. scope=truck-guide: patternsFrom=truck-volumes builds the expected volumes from src/lib/truck-sizes.js. scope=cost-of-living: a yearly federal table read by hand (monitor manual); the reminder issue asks whether BEA published a newer metropolitan table. scope=scam-guide: the four official pages behind /guides/checking-a-mover/ (FMCSA and FTC), all read by hand (monitor manual); the reminder issue opens before the page warns readers.",
   "sources": {
     "fmcsa-estimates": {
       "monitor": "manual",
@@ -116,6 +116,54 @@
       "patterns": [
         "Regional Price Parities",
         "Metropolitan Area"
+      ]
+    },
+    "fmcsa-faq": {
+      "scope": "scam-guide",
+      "monitor": "manual",
+      "url": "https://www.fmcsa.dot.gov/protect-your-move/faq",
+      "lastVerified": "2026-10-22",
+      "pageUpdated": "2026-10-08",
+      "contentHash": null,
+      "patterns": [
+        "110%",
+        "30 days"
+      ]
+    },
+    "fmcsa-rogue": {
+      "scope": "scam-guide",
+      "monitor": "manual",
+      "url": "https://www.fmcsa.dot.gov/consumer-protection/protect-your-move/how-can-i-avoid-fraudulent-or-rogue-moving-companies",
+      "lastVerified": "2026-10-22",
+      "pageUpdated": "2023-10-26",
+      "contentHash": null,
+      "patterns": [
+        "household goods",
+        "complaints"
+      ]
+    },
+    "ftc-alert": {
+      "scope": "scam-guide",
+      "monitor": "manual",
+      "url": "https://consumer.ftc.gov/consumer-alerts/2024/09/avoid-scams-when-you-hire-moving-company",
+      "lastVerified": "2026-10-22",
+      "pageUpdated": "2024-09-30",
+      "contentHash": null,
+      "patterns": [
+        "moving company",
+        "deposit"
+      ]
+    },
+    "fmcsa-brochure": {
+      "scope": "scam-guide",
+      "monitor": "manual",
+      "url": "https://www.fmcsa.dot.gov/sites/fmcsa.dot.gov/files/docs/Protect_Your_Move_Brochure.pdf",
+      "lastVerified": "2026-10-22",
+      "pageUpdated": null,
+      "contentHash": null,
+      "patterns": [
+        "Your Rights and Responsibilities",
+        "estimate"
       ]
     }
   },

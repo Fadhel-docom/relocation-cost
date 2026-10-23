@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "test": "node --test src/lib/calculator.test.js src/lib/partners.test.js src/lib/calculator-analytics.test.js src/lib/contrast.test.js src/lib/trust.test.js src/lib/checklist.test.js src/lib/tracker.test.js src/lib/inclusions.test.js src/lib/route-meta.test.js src/lib/quote-guide.test.js src/lib/estimate-email.test.js src/lib/source-freshness.test.js src/lib/truck-sizes.test.js src/lib/cost-of-living.test.js src/lib/feedback.test.js",
+    "test": "node --test src/lib/calculator.test.js src/lib/partners.test.js src/lib/calculator-analytics.test.js src/lib/contrast.test.js src/lib/trust.test.js src/lib/checklist.test.js src/lib/tracker.test.js src/lib/inclusions.test.js src/lib/route-meta.test.js src/lib/quote-guide.test.js src/lib/estimate-email.test.js src/lib/source-freshness.test.js src/lib/truck-sizes.test.js src/lib/cost-of-living.test.js src/lib/feedback.test.js src/lib/mover-checks.test.js",
     "preview": "astro preview"
   },
   "dependencies": {
