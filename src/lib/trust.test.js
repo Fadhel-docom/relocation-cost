@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { formatReviewDate, marginSummary, trustSources } from "./trust.js";
+import { formatReviewDate, marginSummary, trustSources, SEASON_NOTE } from "./trust.js";
 import { DEFAULT_RANGE_LOW, DEFAULT_RANGE_HIGH } from "./calculator.js";
 
 const data = JSON.parse(readFileSync(new URL("../../data/coefficients.json", import.meta.url), "utf8"));
@@ -32,5 +32,17 @@ test("the data file carries a valid review date and sourced benchmarks", () => {
     assert.ok(source.name, `${source.key} has a name`);
     assert.match(source.url, /^https:\/\//, `${source.key} has an https url`);
     assert.ok(source.role, `${source.key} has a role`);
+  }
+});
+
+test("season note says the date is not used, names no percentage and no price", () => {
+  assert.match(SEASON_NOTE, /does not use your move date/);
+  assert.doesNotMatch(SEASON_NOTE, /[0-9$%]/);
+});
+
+test("the calculator and methodology pages show the season note", () => {
+  for (const page of ["../pages/calculator.astro", "../pages/methodology.astro"]) {
+    const source = readFileSync(new URL(page, import.meta.url), "utf8");
+    assert.match(source, /SEASON_NOTE/);
   }
 });
