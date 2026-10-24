@@ -1,0 +1,100 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import GuideSchema from "../../components/GuideSchema.astro";
+import GuideNext from "../../components/GuideNext.astro";
+import { BOX_TYPES, CHECKED_ON, DESCRIPTION, DISAGREEMENTS, MAX_AGE_DAYS, NOT_STATED, RANGES, RULES, SOURCES, TIPS, TITLE, rangeLabel, sourceNumber } from "../../lib/packing-boxes.js";
+
+const path = "/guides/packing-boxes/";
+const date = iso => {
+  if (typeof iso !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(iso)) return "an unknown date";
+  const [year, month, day] = iso.split("-").map(Number);
+  return new Intl.DateTimeFormat("en-US", { dateStyle: "long", timeZone: "UTC" }).format(new Date(Date.UTC(year, month - 1, day)));
+};
+const cites = ids => ids.map((id, index) => ({ id, index }));
+---
+<Layout title={`${TITLE} — Relocation Cost`} description={DESCRIPTION}>
+  <article class="mx-auto max-w-3xl px-5 py-14">
+    <GuideSchema title={TITLE} description={DESCRIPTION} path={path} />
+    <p class="text-sm font-semibold uppercase tracking-widest text-sky-700">Guide</p>
+    <h1 class="mt-2 text-4xl font-bold tracking-tight">How many moving boxes do I need?</h1>
+    <p class="mt-5 text-lg leading-8 text-slate-600">Nobody can give an exact number, but a published range by home size is a useful place to start when you plan what to buy or collect. This guide shows one such range, which box size suits which items, and where the numbers disagree, with the source for every point.</p>
+
+    <p id="staleNotice" hidden data-checked={CHECKED_ON ?? ""} data-max-days={MAX_AGE_DAYS} class="mt-8 rounded-2xl border border-amber-500 bg-white p-4 text-sm font-semibold leading-6 text-slate-900" role="status">The source below was last verified more than {MAX_AGE_DAYS} days ago, or its check date is missing. The ranges may have changed. Confirm them on the source page before you rely on them.</p>
+    <script is:inline>
+      (function () {
+        var notice = document.getElementById("staleNotice");
+        if (!notice) return;
+        var parts = (notice.getAttribute("data-checked") || "").split("-").map(Number);
+        var limit = Number(notice.getAttribute("data-max-days"));
+        var checked = Date.UTC(parts[0], parts[1] - 1, parts[2]);
+        var now = new Date();
+        var today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+        var age = Math.round((today - checked) / 86400000);
+        // Anything that cannot be trusted (bad date, future date, too old) shows the warning.
+        if (!isFinite(age) || age < 0 || age > limit) notice.hidden = false;
+      })();
+    </script>
+
+    <div class="mt-8 rounded-2xl border border-slate-200 bg-white p-5 text-sm leading-6 text-slate-700">
+      <p><strong>Read this first.</strong> These are one publisher's rule-of-thumb ranges, last read by a person on {date(CHECKED_ON)}. They are not measured, not official and not a quote, and the moving cost estimate does not use them. This guide gives no prices.</p>
+    </div>
+
+    <h2 class="mt-10 text-2xl font-bold">Boxes by home size</h2>
+    <p class="mt-4 leading-7 text-slate-700">The article's table, as ranges for an average household<sup class="ml-1"><a class="text-sky-700 underline" href="#src-redfin-boxes">{sourceNumber("redfin-boxes")}</a></sup>:</p>
+    <div class="mt-4 overflow-x-auto">
+      <table class="w-full min-w-[18rem] border-collapse text-left text-sm">
+        <caption class="sr-only">Estimated number of moving boxes by home size</caption>
+        <thead>
+          <tr class="border-b border-slate-300 text-slate-900"><th scope="col" class="py-2 pr-4 font-semibold">Home size</th><th scope="col" class="py-2 font-semibold">Estimated boxes</th></tr>
+        </thead>
+        <tbody class="text-slate-700">
+          {RANGES.map(range => (<tr class="border-b border-slate-200"><th scope="row" class="py-2 pr-4 font-medium">{range.size}</th><td class="py-2">{rangeLabel(range)}</td></tr>))}
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="mt-10 text-2xl font-bold">Where the numbers disagree</h2>
+    <ul class="mt-4 list-disc space-y-3 pl-6 leading-7 text-slate-700">
+      {DISAGREEMENTS.map(line => (<li>{line}<sup class="ml-1"><a class="text-sky-700 underline" href="#src-redfin-boxes">{sourceNumber("redfin-boxes")}</a></sup></li>))}
+    </ul>
+
+    <h2 class="mt-10 text-2xl font-bold">Which box for which items</h2>
+    <ul class="mt-4 list-disc space-y-3 pl-6 leading-7 text-slate-700">
+      {BOX_TYPES.map(type => (<li><strong>{type.name}:</strong> {type.items}.<sup class="ml-1"><a class="text-sky-700 underline" href="#src-redfin-boxes">{sourceNumber("redfin-boxes")}</a></sup></li>))}
+    </ul>
+
+    <h2 class="mt-10 text-2xl font-bold">What the article advises</h2>
+    <ul class="mt-4 list-disc space-y-3 pl-6 leading-7 text-slate-700">
+      {RULES.map(rule => (
+        <li>{rule.text}<sup class="ml-1">{cites(rule.sources).map(({ id, index }) => (<>{index > 0 ? ", " : ""}<a class="text-sky-700 underline" href={`#src-${id}`}>{sourceNumber(id)}</a></>))}</sup></li>
+      ))}
+    </ul>
+
+    <h2 class="mt-10 text-2xl font-bold">What the source does not say</h2>
+    <ul class="mt-4 list-disc space-y-3 pl-6 leading-7 text-slate-700">
+      {NOT_STATED.map(line => (<li>{line}</li>))}
+    </ul>
+
+    <h2 class="mt-10 text-2xl font-bold">Practical steps</h2>
+    <p class="mt-4 leading-7 text-slate-700">These are suggestions of ours, not statements from the source.</p>
+    <ul class="mt-4 list-disc space-y-3 pl-6 leading-7 text-slate-700">
+      {TIPS.map(tip => (<li>{tip}</li>))}
+    </ul>
+
+    <h2 class="mt-10 text-2xl font-bold">Where the calculator fits</h2>
+    <p class="mt-4 leading-7 text-slate-700">Packing supplies are a cost you can type in yourself: the <a class="font-semibold text-sky-700 underline" href="/calculator/">calculator</a> has an optional packing line that stays out of the total until you enter an amount. Track what you actually spend in the <a class="font-semibold text-sky-700 underline" href="/budget-tracker/">budget tracker</a>, and see what a quote may or may not include in <a class="font-semibold text-sky-700 underline" href="/guides/diy-vs-movers/">DIY vs professional movers</a>.</p>
+
+    <h2 class="mt-10 text-2xl font-bold">Sources</h2>
+    <p class="mt-4 text-sm leading-6 text-slate-600">The source shows when a person last read it. If the page was changed after that date, the newer text governs.</p>
+    <ol class="mt-4 list-decimal space-y-3 pl-6 text-sm leading-6 text-slate-700">
+      {SOURCES.map(source => (
+        <li id={`src-${source.id}`}>
+          <a class="font-semibold text-sky-700 underline" href={source.url} rel="noopener">{source.label}</a>
+          {source.pageUpdated && <span class="text-slate-600"> (page updated {date(source.pageUpdated)})</span>}
+          <span class="block text-slate-600">Read by a person; last verified {source.verified ? date(source.verified) : "unknown"}.</span>
+        </li>
+      ))}
+    </ol>
+    <GuideNext current={path} />
+  </article>
+</Layout>
