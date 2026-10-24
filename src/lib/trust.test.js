@@ -35,9 +35,10 @@ test("the data file carries a valid review date and sourced benchmarks", () => {
   }
 });
 
-test("season note says the date is not used, names no percentage and no price", () => {
+test("season note says the date is not used, limits its claim to moving companies, and names no price", () => {
   assert.match(SEASON_NOTE, /does not use your move date/);
-  assert.doesNotMatch(SEASON_NOTE, /[0-9$%]/);
+  assert.match(SEASON_NOTE, /Moving companies may charge more/);
+  assert.doesNotMatch(SEASON_NOTE, /truck rentals|[0-9$%]/i);
 });
 
 test("the calculator and methodology pages show the season note", () => {
