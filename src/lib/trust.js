@@ -29,3 +29,7 @@ export function trustSources(sources) {
     { key: "census", role: "Context only, does not change any result", ...sources.census },
   ];
 }
+
+// Plain-language note: the model has no move-date input and applies no seasonal adjustment.
+// It states no percentage on purpose, because no published figure feeds the model.
+export const SEASON_NOTE = "This estimate does not use your move date. Movers and truck rentals often charge more in the busy spring and summer months and for weekend or month-end dates, so a quote for your date can come out higher or lower than this planning number.";

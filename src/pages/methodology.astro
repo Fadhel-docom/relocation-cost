@@ -9,6 +9,7 @@ import {
   DEFAULT_RANGE_LOW,
   DEFAULT_RANGE_HIGH,
 } from "../lib/calculator.js";
+import { SEASON_NOTE } from "../lib/trust.js";
 
 const money = value => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
 const bands = benchmarkData.benchmarks.uhaul_one_way_average_by_distance;
@@ -76,6 +77,7 @@ const percent = value => `${Math.round(value * 100)}%`;
       <li>U-Haul publishes averages for distance bands. The estimate can therefore step up when the distance crosses a band boundary, for example at 1,000 miles.</li>
       <li>U-Haul states that one-way prices depend on origin, destination, truck size, move date and inventory. A band average is not a quote for your route.</li>
       <li>The labor and service premium for rental-truck and full-service moves is an assumption, not a market price.</li>
+      <li>{SEASON_NOTE}</li>
       <li>State-center distance can differ substantially from the road distance between your actual addresses.</li>
       <li>The estimate does not include insurance, taxes, utility fees or real-estate costs unless you enter them under other costs. A cost left at $0 is left out of the total. It is not known to be free.</li>
       <li>For DIY moves, the U-Haul average often sets the minimum base, so several home sizes can show the same total. That is a rule of the model and does not mean a larger home costs the same. The model has no separate truck-size price. Rental truck + labor and full-service moves add a home-size premium, so their totals differ by size.</li>

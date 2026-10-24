@@ -5,7 +5,7 @@ import Layout from "../layouts/Layout.astro";
 import routePages from "../../data/route-pages.json";
 import benchmarkData from "../../data/coefficients.json";
 import sourceChecks from "../../data/source-checks.json";
-import { formatReviewDate, marginSummary, trustSources } from "../lib/trust.js";
+import { formatReviewDate, marginSummary, trustSources, SEASON_NOTE } from "../lib/trust.js";
 
 const routeSlugs = routePages.routes.map(route => route.slug);
 const reviewDate = formatReviewDate(benchmarkData.last_reviewed);
@@ -277,6 +277,7 @@ const breadcrumbJsonLd = {
           <dd class="text-slate-600">The base amount, per-mile rate, home-size and move-type multipliers and the {margin.contingency}% contingency are planning assumptions, not market prices.</dd>
         </div>
       </dl>
+      <p class="mt-5 text-sm leading-6 text-slate-600"><strong class="text-slate-900">Timing:</strong> {SEASON_NOTE}</p>
       <p class="mt-5 text-sm leading-6 text-slate-600"><strong class="text-slate-900">Independence:</strong> the formula is the same whether or not a provider pays us. Affiliate links, if any, never change an estimate. See the <a class="font-semibold text-sky-700 underline" href="/disclosure/">disclosure</a>.</p>
       <h3 class="mt-6 text-sm font-semibold text-slate-900">Sources</h3>
       <ul class="mt-2 list-disc space-y-2 pl-5 text-sm leading-6 text-slate-600">
