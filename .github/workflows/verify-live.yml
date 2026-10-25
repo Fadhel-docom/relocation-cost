@@ -1,0 +1,58 @@
+name: Verify live site
+# After every push to main: read the PUBLISHED pages and check that they come from the commit just pushed and show the
+# phrases they must show. A green build is not proof that visitors see the change; this is.
+# - The job never fails the build or blocks a deploy. A problem opens (or updates) one issue; a later passing run closes it.
+# - It waits for a deploy that is still running (up to about 7 minutes), and a page served from a NEWER commit counts as fine.
+# - Nothing in the repository is changed by this workflow.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: verify-live
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Read the published pages
+        id: live
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        run: node tools/verify-live.mjs --report live-report.md
+
+      - name: Open or update one issue when something is wrong
+        if: steps.live.outputs.status == 'problem'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create live-check --color B60205 --description "Published site does not match the latest commit" --force
+          number=$(gh issue list --label live-check --state open --json number --jq '.[0].number // empty')
+          title="Live site check: problem at ${GITHUB_SHA::7} ($(date -u +%F))"
+          if [ -n "$number" ]; then
+            gh issue edit "$number" --title "$title" --body-file live-report.md
+          else
+            gh issue create --label live-check --title "$title" --body-file live-report.md
+          fi
+
+      - name: Close the issue once the site matches again
+        if: steps.live.outputs.status == 'ok'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for number in $(gh issue list --label live-check --state open --json number --jq '.[].number'); do
+            gh issue close "$number" --comment "The published site matches commit ${GITHUB_SHA::7} (automatic check). Closing."
+          done
