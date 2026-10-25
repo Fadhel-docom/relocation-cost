@@ -1,7 +1,8 @@
 name: Rendered pages (report only)
 # On pull requests: build the site, open key pages in a real browser at phone (375px) and desktop (1280px) widths,
 # in light and dark, and REPORT problems (HTTP errors, no single <h1>, horizontal scroll, serious/critical axe issues).
-# This workflow never blocks a merge and never changes the repository. Results are in the job summary.
+# This workflow never blocks a merge and never changes the repository. Results are in the job summary and in one
+# comment on the pull request (updated on every run).
 # playwright and axe-core are installed on the runner only; they are not dependencies of the site.
 on:
   pull_request:
@@ -10,6 +11,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: write
 
 concurrency:
   group: render-check-${{ github.ref }}
@@ -43,3 +45,13 @@ jobs:
         run: |
           node tools/render-check.mjs --base=http://localhost:4321 --report=render-report.md || true
           cat render-report.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Post the report as one pull-request comment
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          { echo "<!-- render-check -->"; cat render-report.md; echo; echo "_Report only; this never blocks a merge. Commit ${GITHUB_SHA::7}._"; } > comment.md
+          ID=$(gh api "repos/$GITHUB_REPOSITORY/issues/$PR/comments" --paginate --jq '.[] | select(.body | startswith("<!-- render-check -->")) | .id' | head -1)
+          if [ -n "$ID" ]; then gh api -X PATCH "repos/$GITHUB_REPOSITORY/issues/comments/$ID" -F body=@comment.md > /dev/null
+          else gh api -X POST "repos/$GITHUB_REPOSITORY/issues/$PR/comments" -F body=@comment.md > /dev/null; fi
