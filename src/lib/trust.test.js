@@ -68,3 +68,25 @@ test("the premium really does depend on home size, so the floor note stays true"
   assert.equal(diyMoves.size, 1);
   assert.equal(laborMoves.size, HOME_SIZES.length);
 });
+
+
+test("calculator explains that no email or account is needed and email remains user-controlled", () => {
+  const calculator = readFileSync(new URL("../pages/calculator.astro", import.meta.url), "utf8");
+  const privacy = readFileSync(new URL("../pages/privacy.astro", import.meta.url), "utf8");
+  assert.match(calculator, /No email address or account is needed to see your estimate/);
+  assert.match(calculator, /opens your email app with a draft for you to review and send/);
+  assert.match(privacy, /without entering an email address or creating an account/);
+  assert.match(privacy, /the site does not send the email for you/);
+});
+
+test("overlooked-cost reminders cite official guidance and do not add new calculator fields", () => {
+  const calculator = readFileSync(new URL("../pages/calculator.astro", import.meta.url), "utf8");
+  assert.match(calculator, /Pet travel and care/);
+  assert.match(calculator, /Shipping a car/);
+  assert.match(calculator, /Time away from work/);
+  assert.match(calculator, /unitedvanlines\.com\/moving-tips\/blog\/how-to-move-with-pets/);
+  assert.match(calculator, /unitedvanlines\.com\/moving-services\/car-shipping/);
+  assert.match(calculator, /unitedvanlines\.com\/moving-tips\/blog\/calculating-pto-for-your-move/);
+  assert.match(calculator, /Field: Travel or Packing \/ extras/);
+  assert.match(calculator, /Field: Packing \/ extras or itemized costs/);
+});
