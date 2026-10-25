@@ -1,0 +1,45 @@
+name: Rendered pages (report only)
+# On pull requests: build the site, open key pages in a real browser at phone (375px) and desktop (1280px) widths,
+# in light and dark, and REPORT problems (HTTP errors, no single <h1>, horizontal scroll, serious/critical axe issues).
+# This workflow never blocks a merge and never changes the repository. Results are in the job summary.
+# playwright and axe-core are installed on the runner only; they are not dependencies of the site.
+on:
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: render-check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm run build
+      - name: Install the browser tooling (runner only)
+        run: |
+          mkdir -p "$RUNNER_TEMP/rc"
+          npm install --prefix "$RUNNER_TEMP/rc" --no-save playwright axe-core
+          "$RUNNER_TEMP/rc/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Start the built site
+        run: |
+          npx astro preview --port 4321 > preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf http://localhost:4321/ > /dev/null && exit 0; sleep 1; done
+          cat preview.log; exit 1
+      - name: Check the rendered pages
+        env:
+          RENDER_CHECK_MODULES: ${{ runner.temp }}/rc
+        run: |
+          node tools/render-check.mjs --base=http://localhost:4321 --report=render-report.md || true
+          cat render-report.md >> "$GITHUB_STEP_SUMMARY"
