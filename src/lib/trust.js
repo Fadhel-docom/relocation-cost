@@ -33,3 +33,7 @@ export function trustSources(sources) {
 // Plain-language note: the model has no move-date input and applies no seasonal adjustment.
 // It states no percentage on purpose, because no published figure feeds the model.
 export const SEASON_NOTE = "This estimate does not use your move date. Moving companies may charge more during the busy spring and summer months, near month-end, and on weekends. A quote for your date can therefore come out higher or lower than this planning number.";
+
+// Shown next to the U-Haul benchmark when it sets the move cost. It states the practical effect on home size
+// and nothing numeric, so it stays true for every distance and every move type.
+export const FLOOR_NOTE = "The move cost starts from this average because the basic model came out lower. Home size does not change this base amount. For rental-truck-with-labor and full-service moves, home size only changes the premium added on top.";
