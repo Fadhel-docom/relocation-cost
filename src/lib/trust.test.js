@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { formatReviewDate, marginSummary, trustSources, SEASON_NOTE } from "./trust.js";
+import { formatReviewDate, marginSummary, trustSources, SEASON_NOTE, FLOOR_NOTE } from "./trust.js";
 import { DEFAULT_RANGE_LOW, DEFAULT_RANGE_HIGH } from "./calculator.js";
 
 const data = JSON.parse(readFileSync(new URL("../../data/coefficients.json", import.meta.url), "utf8"));
@@ -46,4 +46,25 @@ test("the calculator and methodology pages show the season note", () => {
     const source = readFileSync(new URL(page, import.meta.url), "utf8");
     assert.match(source, /SEASON_NOTE/);
   }
+});
+
+test("floor note says home size does not change the base amount and names no number", () => {
+  assert.match(FLOOR_NOTE, /Home size does not change this base amount/);
+  assert.match(FLOOR_NOTE, /only changes the premium/);
+  assert.doesNotMatch(FLOOR_NOTE, /[0-9$%]/);
+});
+
+test("the calculator page renders the floor note from the shared constant", () => {
+  const source = readFileSync(new URL("../pages/calculator.astro", import.meta.url), "utf8");
+  assert.match(source, /id="floorNote"[^>]*>\{FLOOR_NOTE\}</);
+});
+
+test("the premium really does depend on home size, so the floor note stays true", async () => {
+  const { calculateBudget, HOME_SIZES, MOVE_TYPES } = await import("./calculator.js");
+  const [diy, labor] = MOVE_TYPES;
+  const distance = 1317; // the benchmark floors the DIY base here
+  const diyMoves = new Set(HOME_SIZES.map(size => Math.round(calculateBudget({ distance, size, type: diy }).move)));
+  const laborMoves = new Set(HOME_SIZES.map(size => Math.round(calculateBudget({ distance, size, type: labor }).move)));
+  assert.equal(diyMoves.size, 1);
+  assert.equal(laborMoves.size, HOME_SIZES.length);
 });
