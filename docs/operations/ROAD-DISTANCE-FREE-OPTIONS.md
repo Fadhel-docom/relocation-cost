@@ -13,7 +13,8 @@ The current calculator defaults to straight-line distance between state referenc
 
 - Supports directions and geocoding and requires an account/API key.
 - Official pages reviewed: https://openrouteservice.org/services/ ; https://staging.openrouteservice.org/plans/ ; https://openrouteservice.org/faq/.
-- The official Services page says “over 7000” requests per day; the official staging Plans page shows different per-endpoint limits, including Directions 2,000/day and 40/minute. Treat these figures as inconsistent until confirmed in the account dashboard and current terms. Do not hard-code a quota or promise a free production tier based on either page alone.
+- **Verified 2026-10-25 (Claude):** the official Plans page https://openrouteservice.org/plans/ lists a free Standard plan with Directions 2,000/day and 40/minute and Geocoding 1,000/day and 100/minute. Its Collaborative plan (higher limits) is restricted to humanitarian, academic, governmental or non-profit organisations and states "Commercial use not allowed". The "over 7000" figure from the Services page could not be opened and is not relied on; a 2019 forum post mentions "> 8000" and is outdated.
+- **Not confirmed:** whether the free Standard plan may be used on a site with affiliate income. 2019 forum posts say the team does not offer commercial plans and asks commercial users to contact them. Treat commercial use as NOT permitted until confirmed in writing or in the full terms of service.
 - Before any integration: confirm commercial use is permitted for the intended site, check route and geocoding quotas, storage/display rules, attribution requirements, and whether a key can be safely called server-side.
 
 ### 2. OSRM with OpenStreetMap data — open-source engine, not a guaranteed free hosted production API
@@ -54,4 +55,4 @@ The current calculator defaults to straight-line distance between state referenc
 
 ## Current decision
 
-**No production integration, no API key requested, and no pricing-formula changes.** The next person should verify OpenRouteService's current account-level quota and commercial terms, then decide whether a limited prototype is justified.
+**No production integration, no API key requested, and no pricing-formula changes.** Next: read OpenRouteService's full terms of service or ask HeiGIT whether an affiliate-supported site may use the free Standard plan. Only then decide whether a limited prototype is justified.
