@@ -59,7 +59,7 @@ const path = "/guides/relocation-budget/";
 
     <h2 class="mt-10 text-2xl font-bold">A worked example</h2>
     <p class="mt-4 leading-7 text-slate-700">Here is how the four buckets look for a move from {stateData.states[example.from].name} to {stateData.states[example.to].name} (about {example.distance.toLocaleString("en-US")} miles by the calculator's state-centroid distance) with a 2–3 room home and a rental truck plus hired labor. The move line comes from the calculator. The four other amounts are invented for this illustration only, so replace them with your own figures.</p>
-    <div class="mt-4 overflow-x-auto rounded-2xl border border-slate-200">
+    <div tabindex="0" role="region" aria-label="Scrollable table" class="mt-4 overflow-x-auto rounded-2xl border border-slate-200">
       <table class="w-full min-w-[20rem] text-left text-sm">
         <caption class="sr-only">Worked example relocation budget</caption>
         <thead class="bg-slate-50 text-slate-600"><tr><th scope="col" class="px-4 py-3 font-semibold">Line</th><th scope="col" class="px-4 py-3 font-semibold">Planning amount</th></tr></thead>

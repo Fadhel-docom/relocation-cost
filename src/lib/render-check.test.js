@@ -40,3 +40,58 @@ test("summary is ok only when every view is clean", () => {
   assert.equal(s.problemCount, 1);
   assert.match(s.text, /\/x\/ \(1280, dark\): HTTP 404/);
 });
+
+import { formatMoney, parseMoney, expectedDisplay, compareDisplay, judgeInvalidState } from "./render-check.js";
+import { calculateBudget } from "./calculator.js";
+
+test("money is written like the calculator page and read back", () => {
+  assert.equal(formatMoney(1234.56), "$1,235");
+  assert.equal(parseMoney("$1,235"), 1235);
+  assert.equal(parseMoney("—"), null);
+  assert.equal(parseMoney(""), null);
+  assert.equal(parseMoney(undefined), null);
+});
+
+test("expected display comes straight from the calculation", () => {
+  const r = calculateBudget({ distance: 500, size: 1.35, type: 1, travel: 100, fuel: 50 });
+  const d = expectedDisplay(r);
+  assert.equal(d.result, formatMoney(r.total));
+  assert.equal(d.mobileTotal, d.result);
+  assert.match(d.range, /^\$[\d,]+–\$[\d,]+$/);
+  assert.equal(parseMoney(d.other), 150);
+});
+
+test("a matching display has no problems, a stale one is named", () => {
+  const d = expectedDisplay(calculateBudget({ distance: 500, size: 1, type: 1 }));
+  assert.deepEqual(compareDisplay("typed values", { ...d }, d), []);
+  const stale = compareDisplay("typed values", { ...d, result: "$1" }, d);
+  assert.equal(stale.length, 1);
+  assert.match(stale[0], /result shows "\$1"/);
+});
+
+test("invalid input must show an error and dashes, never an old estimate", () => {
+  const dashes = { result: "—", mobileTotal: "—", move: "—", other: "—", contingency: "—", range: "—" };
+  assert.deepEqual(judgeInvalidState("distance 0", { ...dashes, error: "Enter a distance from 1 to 30,000 miles." }), []);
+  assert.equal(judgeInvalidState("distance 0", { ...dashes, error: "" }).length, 1);
+  const stale = judgeInvalidState("distance 0", { ...dashes, result: "$4,000", error: "x" });
+  assert.equal(stale.length, 1);
+  assert.match(stale[0], /result still shows "\$4,000"/);
+});
+
+test("the summary counts scenarios as well as page views", () => {
+  assert.match(summarize([{ path: "/calculator/ [typing]", viewport: "375", scheme: "light", problems: [] }]).text, /page views and calculator scenarios/);
+});
+
+import { readdirSync, readFileSync, statSync } from "node:fs";
+import { join } from "node:path";
+
+test("every horizontally scrollable box on a page can be reached with the keyboard", () => {
+  const files = [];
+  const walk = (dir) => { for (const f of readdirSync(dir)) { const p = join(dir, f); statSync(p).isDirectory() ? walk(p) : p.endsWith(".astro") && files.push(p); } };
+  walk(new URL("../pages", import.meta.url).pathname);
+  const bad = [];
+  for (const f of files) for (const line of readFileSync(f, "utf8").split("\n")) {
+    if (/<div[^>]*overflow-x-auto/.test(line) && !/tabindex="0"/.test(line)) bad.push(f);
+  }
+  assert.deepEqual(bad, []);
+});

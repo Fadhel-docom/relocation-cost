@@ -40,7 +40,7 @@
     },
     "cfr-401": {
       "monitor": "auto",
-      "lastVerified": "2026-10-19",
+      "lastVerified": "2026-10-26",
       "pageUpdated": null,
       "contentHash": "b821a2bf6e3c228759b1beff4233281f679bdf62cc921be85e3f9084062f89cb",
       "patterns": [
@@ -52,7 +52,7 @@
     },
     "cfr-403": {
       "monitor": "auto",
-      "lastVerified": "2026-10-19",
+      "lastVerified": "2026-10-26",
       "pageUpdated": null,
       "contentHash": "6dd28ccadd733fceb4459aaeb649d4cbf7d187c6b654139c9d03be9a053b55fc",
       "patterns": [
@@ -63,7 +63,7 @@
     },
     "cfr-405": {
       "monitor": "auto",
-      "lastVerified": "2026-10-19",
+      "lastVerified": "2026-10-26",
       "pageUpdated": null,
       "contentHash": "6eb26fcd00f32715cf5986f960d944a39f2ea72893c93dd1ddaaf8502c99a971",
       "patterns": [
@@ -75,7 +75,7 @@
     },
     "cfr-201": {
       "monitor": "auto",
-      "lastVerified": "2026-10-19",
+      "lastVerified": "2026-10-26",
       "pageUpdated": null,
       "contentHash": "58ecc79b0812f41fd5440fa2d318e9258333d9dd1fd405f5c4396ea705462c37",
       "patterns": [
@@ -89,7 +89,7 @@
       "monitor": "auto",
       "trackHash": false,
       "url": "https://www.uhaul.com/Tips/Loading/How-To-Save-Money-ON-Truck-Rentals-35820/",
-      "lastVerified": "2026-10-19",
+      "lastVerified": "2026-10-26",
       "pageUpdated": null,
       "contentHash": null,
       "patterns": [],
@@ -100,7 +100,7 @@
       "monitor": "auto",
       "trackHash": false,
       "url": "https://www.uhaul.com/Truck-Rentals/",
-      "lastVerified": "2026-10-19",
+      "lastVerified": "2026-10-26",
       "pageUpdated": null,
       "contentHash": null,
       "patterns": [],
