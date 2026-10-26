@@ -83,7 +83,9 @@ test("overlooked-cost reminders cite official guidance and do not add new calcul
   const calculator = readFileSync(new URL("../pages/calculator.astro", import.meta.url), "utf8");
   assert.match(calculator, /Pet travel and care/);
   assert.match(calculator, /Shipping a car/);
-  assert.doesNotMatch(calculator, /Time away from work/);
+  assert.match(calculator, /Time away from work/);
+  assert.match(calculator, /unitedvanlines\.com\/moving-tips\/moving-checklists/);
+  assert.match(calculator, /no field here puts a price on them/);
   assert.match(calculator, /unitedvanlines\.com\/moving-tips\/blog\/how-to-move-with-pets/);
   assert.match(calculator, /unitedvanlines\.com\/moving-services\/car-shipping\/faq/);
   assert.match(calculator, /Field: Travel or Packing \/ extras/);
