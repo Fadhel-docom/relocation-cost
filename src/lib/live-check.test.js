@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { LIVE_PAGES, ROUTE_INDEX_NOTE, TRUCK_GUIDE_LEAD, classifyPage, extractBuildCommits, isGood, isRetryable, pageText, summarize } from "./live-check.js";
-import { FLOOR_NOTE, SEASON_NOTE } from "./trust.js";
+import { FLOOR_NOTE, BAND_NOTE, SEASON_NOTE } from "./trust.js";
 import { TITLE as QUOTE_GUIDE_TITLE } from "./quote-guide.js";
 
 const SHA = "a".repeat(40);
@@ -14,7 +14,7 @@ const home = LIVE_PAGES.find(page => page.path === "/");
 const robots = LIVE_PAGES.find(page => page.path === "/robots.txt");
 
 const html = (commit, body = "") => `<!doctype html><html><head><meta name="build-commit" content="${commit}" /></head><body><main>${body}</main></body></html>`;
-const calculatorBody = `<p id="floorNote" hidden>${FLOOR_NOTE}</p><section><p>Timing: ${SEASON_NOTE}</p></section>`;
+const calculatorBody = `<p id="floorNote" hidden>${FLOOR_NOTE}</p><section><p>Distance bands: ${BAND_NOTE}</p><p>Timing: ${SEASON_NOTE}</p></section>`;
 
 test("every live page has a path, a kind and a list of phrases", () => {
   for (const page of LIVE_PAGES) {
@@ -26,11 +26,12 @@ test("every live page has a path, a kind and a list of phrases", () => {
 });
 
 test("the required phrases are the ones the pages render", () => {
-  assert.deepEqual(calculator.texts, [FLOOR_NOTE, SEASON_NOTE]);
+  assert.deepEqual(calculator.texts, [FLOOR_NOTE, BAND_NOTE, SEASON_NOTE]);
   assert.deepEqual(methodology.texts, [SEASON_NOTE]);
   const calculatorSource = readFileSync(new URL("../pages/calculator.astro", import.meta.url), "utf8");
   const methodologySource = readFileSync(new URL("../pages/methodology.astro", import.meta.url), "utf8");
   assert.match(calculatorSource, /\{FLOOR_NOTE\}/);
+  assert.match(calculatorSource, /\{BAND_NOTE\}/);
   assert.match(calculatorSource, /\{SEASON_NOTE\}/);
   assert.match(methodologySource, /\{SEASON_NOTE\}/);
 });
