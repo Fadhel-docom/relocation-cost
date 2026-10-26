@@ -140,6 +140,57 @@ const SCENARIOS = [
       return problems;
     },
   },
+
+  {
+    name: "print and share actions work and keep the estimate",
+    async run(page, base) {
+      const problems = [];
+      await page.addInitScript(() => {
+        window.print = () => { window.__renderCheckPrintCalled = true; };
+        Object.defineProperty(navigator, "clipboard", {
+          configurable: true,
+          value: { writeText: async (value) => { window.__renderCheckCopiedText = value; } },
+        });
+      });
+      await page.goto(base + "/calculator/", { waitUntil: "networkidle", timeout: 30000 });
+      await page.fill("#distance", "500");
+      const total = await page.locator("#result").textContent();
+      await page.click("#print");
+      const printState = await page.evaluate(() => ({
+        called: window.__renderCheckPrintCalled === true,
+        total: document.querySelector("#printTotal")?.textContent.trim(),
+        route: document.querySelector("#printRoute")?.textContent.trim(),
+        distance: document.querySelector("#printDistance")?.textContent.trim(),
+      }));
+      if (!printState.called) problems.push("print button did not call window.print()");
+      if (!printState.total || printState.total !== total?.trim()) problems.push(`print summary total shows "${printState.total}", expected "${total?.trim()}"`);
+      if (!printState.route) problems.push("print summary route is empty");
+      if (!/500/.test(printState.distance || "")) problems.push(`print summary distance is "${printState.distance}", expected it to include 500 miles`);
+      await page.click("#share");
+      const shareState = await page.evaluate(() => ({
+        status: document.querySelector("#shareStatus")?.textContent.trim(),
+        copied: window.__renderCheckCopiedText || "",
+      }));
+      if (shareState.status !== "Share link copied to your clipboard.") problems.push(`share status is "${shareState.status}"`);
+      if (!shareState.copied.includes("distance=500")) problems.push(`copied share link does not preserve distance=500: "${shareState.copied}"`);
+      if (!shareState.copied.includes("/calculator/?")) problems.push(`copied share link does not point to the calculator: "${shareState.copied}"`);
+      return problems;
+    },
+  },
+  {
+    name: "email action blocks invalid input instead of opening a draft",
+    async run(page, base) {
+      const problems = [];
+      await page.goto(base + "/calculator/", { waitUntil: "networkidle", timeout: 30000 });
+      await page.fill("#distance", "0");
+      await page.click("#email");
+      const status = await page.locator("#shareStatus").textContent();
+      if (!/Fix the input above before emailing\./.test(status || "")) {
+        problems.push(`email invalid-input message is "${status?.trim()}", expected a clear validation message`);
+      }
+      return problems;
+    },
+  },
 ];
 
 async function runScenarios() {
