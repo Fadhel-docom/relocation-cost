@@ -1,3 +1,22 @@
+## 2026-10-26 06:52 UTC — الطرف: ChatGPT (تحديث R4 من المصادر الرسمية وتسليم واضح)
+
+- **المهمة / الهدف:** استئناف غرفة العمليات من أحدث حالة على `main`، عدم تكرار R3/R5/R6، وتسجيل أحدث ما يلزم قبل أي قرار بشأن خرائط الطريق المجانية.
+- **الحالة:** توثيق على فرع مستقل؛ لا تغيير في التطبيق أو المعادلة أو الأسعار، ولم يُطلب مفتاح API.
+- **التحقق من الحالة:** قرأت أحدث `docs/operations/WORK-LOG.md` و`docs/operations/COMPETITOR-INFORMED-ROADMAP.md` على `main`. أحدث سجل Claude يذكر PR #67 و#68 مدمجين، 193/193 اختبارًا محليًا، ونتيجة فحص العرض بعد إصلاح صناديق التمرير دون مشكلات. لم أكرر تنفيذ هذه الاختبارات.
+- **تحديث R4 من المصادر الرسمية بتاريخ 2026-10-26:** أعلنت HeiGIT في 22 أكتوبر 2026 أن واجهة API القديمة `api.openrouteservice.org` ستُوقف خلال 2–6 نوفمبر 2026، ووجّهت المستخدمين إلى عنوان API الجديد `api.heigit.org`. مصدر الإعلان: https://ask.openrouteservice.org/t/reducing-the-quota-of-deprecated-api-api-openrouteservice-org/8013، وصفحة API الجديدة: https://api.heigit.org/. هذا تنبيه مهم لأي تجربة مستقبلية؛ لا نكتب تكاملًا يعتمد على العنوان القديم.
+- **قرار R4:** لم أجد في المصادر المفتوحة التي تحققت منها نصًا حاسمًا يسمح صراحةً بالاستخدام التجاري لخطة Standard المجانية لموقع مدعوم بالإحالات. وجود مفتاح مجاني أو حصة معلنة لا يثبت وحده أن الاستخدام التجاري مسموح. لذلك يظل القرار: لا تكامل، ولا مفتاح، ولا وعود بخريطة/مسافة طريق حتى تأكيد مكتوب من HeiGIT أو شروط واضحة تنطبق على الحالة.
+- **مسودة رسالة يرسلها المالك إلى HeiGIT عند الحاجة (لم تُرسل من ChatGPT):**
+  > Hello HeiGIT team,  
+  > I operate Relocation Cost, a public US moving-budget calculator website. The site may earn revenue through clearly disclosed affiliate links, and users would request a small number of driving-distance estimates between user-selected US cities or ZIP codes. Could you confirm in writing whether the free Standard API plan permits this commercial/affiliate-supported use? Please also confirm the current production API base URL, applicable daily/minute quotas, required attribution, caching/storage restrictions, and any conditions for displaying route distances on our website. We will not deploy the integration until these terms are clear.  
+  > Thank you.
+- **United Van Lines — تذكير تخطيطي فقط:** الصفحة الرسمية تنصح من يبقى لدى صاحب العمل الحالي بطلب إجازة حول موعد الانتقال، وتسأل عن مساعدة صاحب العمل أو التعويض. كما تذكر أن الانتقال الذاتي قد يتضمن وقتًا بعيدًا عن العمل ضمن المصاريف التي يجدر تذكرها. المصدر: https://www.unitedvanlines.com/moving-tips/moving-checklists. هذا يدعم تذكيرًا اختياريًا في قائمة التخطيط فقط، ولا يبرر افتراض دخل مفقود أو إضافة مبلغ تلقائي للحاسبة؛ لذلك لا أقترح تغيير كود في هذه الجولة.
+- **ما تغيّر فعليًا:** هذا الإدخال فقط في سجل العمل، على فرع `docs/chatgpt-session-2026-10-26`. لم تُستدعَ API ولم تُرسل رسالة إلى HeiGIT ولم تُغيّر أي صيغة سعر.
+- **التحقق والقيود:** راجعت صفحات ويب رسمية؛ لم أختبر API حيًا، ولم أتحقق من حصة الحساب الفعلية، ولم أجرِ بناءً لأن التغيير توثيقي فقط.
+- **ما يحتاجه Claude:** لا تكرر R3 أو R5/R6. إذا استؤنف R4، استخدم فقط عنوان `api.heigit.org` بعد حسم الشروط التجارية كتابةً؛ أبقِ الإدخال اليدوي للمسافة بديلًا. لا تضف تذكير وقت العمل إلى الناتج المالي، ولا تغيّر معاملات السعر دون بيانات عروض موثقة.
+- **الخطوة التالية المقترحة:** إما تنفيذ R3 إضافي صغير لاختبار الطباعة والمشاركة فقط إذا لم يكن مغطى بالفعل، أو الانتقال إلى بند الخطة التالي؛ لا تنشئ workflow مكررًا ولا تبدأ عملًا جديدًا في الخرائط قبل حسم شروط الاستخدام.
+
+---
+
 # سجل العمل المشترك — Relocation Cost
 > أضف إدخالًا جديدًا في الأعلى بعد كل مرحلة مهمة. لا تمسح السجلات السابقة؛ صححها بإضافة توضيح مؤرخ.
 
