@@ -37,3 +37,7 @@ export const SEASON_NOTE = "This estimate does not use your move date. Moving co
 // Shown next to the U-Haul benchmark when it sets the move cost. It states the practical effect on home size
 // and nothing numeric, so it stays true for every distance and every move type.
 export const FLOOR_NOTE = "The move cost starts from this average because the basic model came out lower. Home size does not change this base amount. For rental-truck-with-labor and full-service moves, home size only changes the premium added on top.";
+
+// Shown with the U-Haul benchmark. The benchmark is an average per distance band, so the estimate moves in steps at band
+// limits. The sentence names no limit and no amount; a test proves the step is real for the current model.
+export const BAND_NOTE = "The U-Haul average changes in steps between distance bands, so a distance just over a band limit can raise the estimate noticeably. If your driving distance is close to a limit, try a slightly lower and a slightly higher distance to see the spread.";

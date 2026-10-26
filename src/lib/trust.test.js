@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { formatReviewDate, marginSummary, trustSources, SEASON_NOTE, FLOOR_NOTE } from "./trust.js";
+import { formatReviewDate, marginSummary, trustSources, SEASON_NOTE, FLOOR_NOTE, BAND_NOTE } from "./trust.js";
 import { DEFAULT_RANGE_LOW, DEFAULT_RANGE_HIGH } from "./calculator.js";
 
 const data = JSON.parse(readFileSync(new URL("../../data/coefficients.json", import.meta.url), "utf8"));
@@ -90,4 +90,23 @@ test("overlooked-cost reminders cite official guidance and do not add new calcul
   assert.match(calculator, /unitedvanlines\.com\/moving-services\/car-shipping\/faq/);
   assert.match(calculator, /Field: Travel or Packing \/ extras/);
   assert.match(calculator, /Field: Packing \/ extras\./);
+});
+
+test("band note names no number and is rendered from the shared constant", () => {
+  assert.match(BAND_NOTE, /changes in steps between distance bands/);
+  assert.doesNotMatch(BAND_NOTE, /[0-9$%]/);
+  const source = readFileSync(new URL("../pages/calculator.astro", import.meta.url), "utf8");
+  assert.match(source, /id="bandNote"[^>]*>\{BAND_NOTE\}</);
+});
+
+test("the band note is true: DIY cost steps up across a band limit while a mile earlier it does not", async () => {
+  const { calculateBudget, HOME_SIZES, MOVE_TYPES } = await import("./calculator.js");
+  const [diy] = MOVE_TYPES;
+  const size = HOME_SIZES[0];
+  const move = distance => calculateBudget({ distance, size, type: diy }).move;
+  const limits = data.benchmarks.uhaul_one_way_average_by_distance.map(band => band.max_miles).filter(Number.isFinite);
+  assert.ok(limits.length > 0);
+  const steps = limits.filter(limit => move(limit + 1) - move(limit) > 100);
+  assert.ok(steps.length > 0, "at least one band limit produces a visible step");
+  for (const limit of limits) assert.ok(move(limit + 1) >= move(limit), "never steps down");
 });
