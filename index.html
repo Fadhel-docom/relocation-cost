@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Plan your move with a transparent relocation budget calculator. Estimate one-time moving costs, monthly expenses, and a safety buffer using your own figures.">
+  <meta name="theme-color" content="#102a43">
+  <title>Relocation Cost — Plan your move with confidence</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="Relocation Cost home"><span class="brand-mark">R</span><span>relocation<span class="brand-light">cost</span></span></a>
+    <a class="header-link" href="#calculator">Open calculator <span aria-hidden="true">↗</span></a>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="status-dot"></span> YOUR MOVE, BETTER PLANNED</p>
+        <h1>Move with a plan.<br><span>Not a surprise bill.</span></h1>
+        <p class="hero-description">Build a realistic relocation budget from your own numbers. See what your move may cost upfront, what life may cost each month, and how much buffer to keep.</p>
+        <a class="button button-primary" href="#calculator">Calculate my moving budget <span aria-hidden="true">↓</span></a>
+        <div class="trust-note"><span aria-hidden="true">✓</span> Transparent calculations. No made-up price estimates.</div>
+      </div>
+      <div class="hero-card" aria-label="Budget planning preview">
+        <div class="card-top"><span class="mini-icon">↗</span><span class="muted">YOUR RELOCATION PLAN</span><span class="pill">YOU'RE IN CONTROL</span></div>
+        <div class="preview-label">A clearer picture starts here</div>
+        <div class="preview-line"><span><i class="dot dot-blue"></i>One-time costs</span><strong>Enter yours</strong></div>
+        <div class="preview-line"><span><i class="dot dot-green"></i>Monthly costs</span><strong>Enter yours</strong></div>
+        <div class="preview-line"><span><i class="dot dot-amber"></i>Safety buffer</span><strong>You choose</strong></div>
+        <div class="preview-footer">Your plans. Your numbers. A more confident move.</div>
+      </div>
+      <div class="hero-orb orb-one"></div><div class="hero-orb orb-two"></div>
+    </section>
+
+    <section class="benefits" aria-label="Benefits">
+      <article><span class="benefit-icon">01</span><div><h3>Know the upfront cost</h3><p>Collect deposits, travel, shipping, and setup costs in one place.</p></div></article>
+      <article><span class="benefit-icon">02</span><div><h3>Plan monthly life</h3><p>Budget for housing, food, transport, utilities, and other essentials.</p></div></article>
+      <article><span class="benefit-icon">03</span><div><h3>Keep a safety buffer</h3><p>Add a contingency percentage that fits your own comfort level.</p></div></article>
+    </section>
+
+    <section class="calculator-section" id="calculator">
+      <div class="section-heading">
+        <p class="eyebrow">THE RELOCATION BUDGET BUILDER</p>
+        <h2>Make your move add up.</h2>
+        <p>Enter estimates from quotes, official sources, or your own research. Leave anything unknown at zero and update it when you have a figure.</p>
+      </div>
+      <div class="calculator-layout">
+        <form id="budget-form" class="budget-form">
+          <div class="form-top">
+            <div><h3>Your move details</h3><p>These labels help personalize your plan.</p></div>
+            <label class="currency-label" for="currency">Currency
+              <select id="currency" name="currency">
+                <option value="USD">USD ($)</option><option value="EUR">EUR (€)</option><option value="GBP">GBP (£)</option><option value="TND">TND</option><option value="CAD">CAD</option><option value="AUD">AUD</option><option value="AED">AED</option>
+              </select>
+            </label>
+          </div>
+          <div class="route-fields">
+            <label>Moving from<input id="origin" type="text" placeholder="e.g. Tunis" autocomplete="off"></label>
+            <span class="route-arrow" aria-hidden="true">→</span>
+            <label>Moving to<input id="destination" type="text" placeholder="e.g. Berlin" autocomplete="off"></label>
+          </div>
+          <div class="input-group">
+            <div class="group-heading"><span class="category-icon blue-bg">↗</span><div><h4>One-time moving costs</h4><p>Costs paid before or around move-in</p></div></div>
+            <div class="money-grid">
+              <label>Travel<input data-cost="travel" type="number" min="0" step="0.01" placeholder="0"></label>
+              <label>Shipping & moving<input data-cost="shipping" type="number" min="0" step="0.01" placeholder="0"></label>
+              <label>Visa & paperwork<input data-cost="paperwork" type="number" min="0" step="0.01" placeholder="0"></label>
+              <label>Rental deposit<input data-cost="deposit" type="number" min="0" step="0.01" placeholder="0"></label>
+              <label>Temporary stay<input data-cost="temporary" type="number" min="0" step="0.01" placeholder="0"></label>
+              <label>Furniture & setup<input data-cost="setup" type="number" min="0" step="0.01" placeholder="0"></label>
+              <label class="full-width">Other one-time costs<input data-cost="otherOnce" type="number" min="0" step="0.01" placeholder="0"></label>
+            </div>
+          </div>
+          <div class="input-group">
+            <div class="group-heading"><span class="category-icon green-bg">⌂</span><div><h4>Monthly living costs</h4><p>Your estimated ongoing expenses</p></div></div>
+            <div class="money-grid">
+              <label>Rent / housing<input data-cost="rent" type="number" min="0" step="0.01" placeholder="0"></label>
+              <label>Utilities & internet<input data-cost="utilities" type="number" min="0" step="0.01" placeholder="0"></label>
+              <label>Food & groceries<input data-cost="food" type="number" min="0" step="0.01" placeholder="0"></label>
+              <label>Transport<input data-cost="transport" type="number" min="0" step="0.01" placeholder="0"></label>
+              <label>Health & insurance<input data-cost="health" type="number" min="0" step="0.01" placeholder="0"></label>
+              <label>Other monthly costs<input data-cost="otherMonthly" type="number" min="0" step="0.01" placeholder="0"></label>
+            </div>
+          </div>
+          <div class="input-group buffer-group">
+            <div class="group-heading"><span class="category-icon amber-bg">◇</span><div><h4>Safety buffer</h4><p>A reserve for unexpected expenses</p></div></div>
+            <label class="buffer-label" for="buffer">Add a contingency to one-time costs <strong><span id="buffer-value">10</span>%</strong></label>
+            <input id="buffer" type="range" min="0" max="30" step="5" value="10">
+            <div class="range-labels"><span>0% — no buffer</span><span>30% — larger buffer</span></div>
+          </div>
+          <div class="form-actions"><button type="button" class="button button-secondary" id="reset-button">Reset figures</button><span class="privacy-note">Calculations happen in your browser.</span></div>
+        </form>
+
+        <aside class="results-card" aria-live="polite" aria-atomic="true">
+          <p class="results-kicker">YOUR ESTIMATED BUDGET</p>
+          <h3 id="result-route">Your next chapter</h3>
+          <p class="results-subtitle">Based only on the figures you enter.</p>
+          <div class="total-block"><span>Estimated cash needed to move</span><strong id="total-upfront">$0</strong><small>One-time costs + safety buffer</small></div>
+          <div class="result-row"><span>One-time costs</span><strong id="total-once">$0</strong></div>
+          <div class="result-row"><span>Safety buffer</span><strong id="total-buffer">$0</strong></div>
+          <div class="result-row monthly-row"><span>Estimated monthly living costs</span><strong id="total-monthly">$0</strong></div>
+          <div class="result-divider"></div>
+          <div class="total-block combined"><span>First month planning total</span><strong id="total-first">$0</strong><small>Upfront estimate + one month of living costs</small></div>
+          <button class="button button-light" id="download-button" type="button">Download my budget <span aria-hidden="true">↓</span></button>
+          <p class="results-disclaimer">Planning aid, not a quote. Costs vary by location, household, timing, and personal circumstances. Verify prices with providers and official sources.</p>
+        </aside>
+      </div>
+    </section>
+    <section class="bottom-cta"><div><p class="eyebrow">A BETTER MOVE STARTS WITH CLARITY</p><h2>Plan the numbers.<br>Make room for the next chapter.</h2></div><a href="#calculator" class="button button-primary">Build your budget ↑</a></section>
+  </main>
+  <footer class="site-footer"><a class="brand footer-brand" href="#"><span class="brand-mark">R</span><span>relocation<span class="brand-light">cost</span></span></a><span>Useful planning. Transparent numbers.</span><span>© <span id="year"></span> Relocation Cost</span></footer>
+</body>
+</html>
