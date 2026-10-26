@@ -39,7 +39,7 @@ const percent = value => `${Math.round(value * 100)}%`;
     </ul>
 
     <h2 class="mt-10 text-2xl font-bold">The formula</h2>
-    <div class="mt-4 overflow-x-auto rounded-xl border border-slate-200 bg-slate-50 p-4 font-mono text-sm leading-7 text-slate-800">
+    <div tabindex="0" role="region" aria-label="Scrollable formula" class="mt-4 overflow-x-auto rounded-xl border border-slate-200 bg-slate-50 p-4 font-mono text-sm leading-7 text-slate-800">
       <p>diy model = {money(MOVE_BASE_COST)} + distance × ${MOVE_PER_MILE} × home size × {DIY_TYPE_MULTIPLIER}</p>
       <p>diy base = the larger of the diy model and the U-Haul average for the distance band</p>
       <p>premium = distance × ${MOVE_PER_MILE} × home size × (move type − {DIY_TYPE_MULTIPLIER}), never below zero</p>
@@ -51,7 +51,7 @@ const percent = value => `${Math.round(value * 100)}%`;
 
     <h2 class="mt-10 text-2xl font-bold">What comes from a published source</h2>
     <p class="mt-4 leading-7 text-slate-700">The only market figure used in the result is the U-Haul average for one-way truck rentals by distance band. It sets a minimum for the DIY base, so no estimate falls below what a one-way truck rental costs on average for that distance.</p>
-    <div class="mt-4 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+    <div tabindex="0" role="region" aria-label="Scrollable table" class="mt-4 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
       <table class="w-full text-left text-sm leading-6">
         <thead class="border-b border-slate-200 bg-slate-50"><tr><th class="p-3 font-semibold">Distance band</th><th class="p-3 font-semibold">U-Haul one-way average</th></tr></thead>
         <tbody class="text-slate-700">

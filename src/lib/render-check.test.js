@@ -81,3 +81,17 @@ test("invalid input must show an error and dashes, never an old estimate", () =>
 test("the summary counts scenarios as well as page views", () => {
   assert.match(summarize([{ path: "/calculator/ [typing]", viewport: "375", scheme: "light", problems: [] }]).text, /page views and calculator scenarios/);
 });
+
+import { readdirSync, readFileSync, statSync } from "node:fs";
+import { join } from "node:path";
+
+test("every horizontally scrollable box on a page can be reached with the keyboard", () => {
+  const files = [];
+  const walk = (dir) => { for (const f of readdirSync(dir)) { const p = join(dir, f); statSync(p).isDirectory() ? walk(p) : p.endsWith(".astro") && files.push(p); } };
+  walk(new URL("../pages", import.meta.url).pathname);
+  const bad = [];
+  for (const f of files) for (const line of readFileSync(f, "utf8").split("\n")) {
+    if (/<div[^>]*overflow-x-auto/.test(line) && !/tabindex="0"/.test(line)) bad.push(f);
+  }
+  assert.deepEqual(bad, []);
+});
