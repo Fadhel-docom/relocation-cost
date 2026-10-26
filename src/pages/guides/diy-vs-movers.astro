@@ -35,7 +35,7 @@ const path = "/guides/diy-vs-movers/";
     <h1 class="mt-2 text-4xl font-bold tracking-tight">DIY vs professional movers</h1>
     <p class="mt-5 text-lg leading-8 text-slate-600">The cheaper headline price is not the whole comparison. Time, equipment, labor, travel and risk all matter. This guide lays out the trade-offs so you can choose with the full picture.</p>
 
-    <div class="mt-10 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+    <div tabindex="0" role="region" aria-label="Scrollable table" class="mt-10 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
       <table class="w-full min-w-[34rem] text-left text-sm leading-6">
         <thead class="border-b border-slate-200 bg-slate-50">
           <tr><th class="p-4 font-semibold">Factor</th><th class="p-4 font-semibold">DIY</th><th class="p-4 font-semibold">Professional movers</th></tr>
@@ -51,7 +51,7 @@ const path = "/guides/diy-vs-movers/";
 
     <h2 class="mt-10 text-2xl font-bold">What each option usually covers</h2>
     <p class="mt-4 leading-7 text-slate-700">Who does the work is the first thing that changes between the three options. Scope varies by provider, so treat this as a map of what to ask about, and confirm each line in the written quote.</p>
-    <div class="mt-4 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+    <div tabindex="0" role="region" aria-label="Scrollable table" class="mt-4 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
       <table class="w-full min-w-[40rem] text-left text-sm leading-6">
         <caption class="sr-only">Who usually does each part of the move, by move type</caption>
         <thead class="border-b border-slate-200 bg-slate-50">
@@ -84,7 +84,7 @@ const path = "/guides/diy-vs-movers/";
     {comparisons.map(group => (
       <div class="mt-6">
         <h3 class="text-lg font-bold">{group.distance.toLocaleString("en-US")} miles</h3>
-        <div class="mt-3 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+        <div tabindex="0" role="region" aria-label="Scrollable table" class="mt-3 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
           <table class="w-full min-w-[34rem] text-left text-sm">
             <caption class="sr-only">Planning totals for a {group.distance.toLocaleString("en-US")} mile move by home size and move type</caption>
             <thead class="bg-slate-50 text-slate-600">

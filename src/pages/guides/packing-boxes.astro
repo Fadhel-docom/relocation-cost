@@ -41,7 +41,7 @@ const cites = ids => ids.map((id, index) => ({ id, index }));
 
     <h2 class="mt-10 text-2xl font-bold">Boxes by home size</h2>
     <p class="mt-4 leading-7 text-slate-700">The article's table, as ranges for an average household<sup class="ml-1"><a class="text-sky-700 underline" href="#src-redfin-boxes">{sourceNumber("redfin-boxes")}</a></sup>:</p>
-    <div class="mt-4 overflow-x-auto">
+    <div tabindex="0" role="region" aria-label="Scrollable table" class="mt-4 overflow-x-auto">
       <table class="w-full min-w-[18rem] border-collapse text-left text-sm">
         <caption class="sr-only">Estimated number of moving boxes by home size</caption>
         <thead>
