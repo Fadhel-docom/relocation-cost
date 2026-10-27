@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "maxAgeDays": 180,
-  "note": "Maintained by tools/check-sources.mjs (weekly GitHub Action). monitor=auto: the check downloads the page, confirms the patterns are still stated and refreshes lastVerified, contentHash and pageUpdated by itself. monitor=manual: the site blocks automated downloads, so a person re-reads it and sets lastVerified; an issue is opened manualWarnDays before the page warns readers. scope=calculator entries watch the data behind the estimate: patternsFrom=uhaul-bands builds the expected figures from data/coefficients.json, so the check follows the data. A mismatch opens an issue; no number is ever changed automatically. scope=truck-guide: patternsFrom=truck-volumes builds the expected volumes from src/lib/truck-sizes.js. scope=cost-of-living: a yearly federal table read by hand (monitor manual); the reminder issue asks whether BEA published a newer metropolitan table. scope=scam-guide: the four official pages behind /guides/checking-a-mover/ (FMCSA and FTC), all read by hand (monitor manual); the reminder issue opens before the page warns readers. scope=packing-guide: the one published page behind /guides/packing-boxes/ (a publisher's rule of thumb, read by hand, monitor manual); the reminder issue opens before the page warns readers.",
+  "note": "Maintained by tools/check-sources.mjs (weekly GitHub Action). monitor=auto: the check downloads the page, confirms the patterns are still stated and refreshes lastVerified, contentHash and pageUpdated by itself. monitor=manual: the site blocks automated downloads, so a person re-reads it and sets lastVerified; an issue is opened manualWarnDays before the page warns readers. scope=calculator entries watch the data behind the estimate: patternsFrom=uhaul-bands builds the expected figures from data/coefficients.json, so the check follows the data. A mismatch opens an issue; no number is ever changed automatically. scope=truck-guide: patternsFrom=truck-volumes builds the expected volumes from src/lib/truck-sizes.js. scope=cost-of-living: a yearly federal table read by hand (monitor manual); the reminder issue asks whether BEA published a newer metropolitan table. scope=scam-guide: the four official pages behind /guides/checking-a-mover/ (FMCSA and FTC), all read by hand (monitor manual); the reminder issue opens before the page warns readers. scope=packing-guide: the one published page behind /guides/packing-boxes/ (a publisher's rule of thumb, read by hand, monitor manual); the reminder issue opens before the page warns readers. scope=tax-note: the two IRS pages behind the tax note in the calculator's employer package box (read by hand, monitor manual); the reminder issue opens before the note warns readers.",
   "sources": {
     "fmcsa-estimates": {
       "monitor": "manual",
@@ -176,6 +176,30 @@
       "patterns": [
         "How many boxes",
         "bedroom"
+      ]
+    },
+    "irs-p15b": {
+      "scope": "tax-note",
+      "monitor": "manual",
+      "url": "https://www.irs.gov/publications/p15b",
+      "lastVerified": "2026-10-27",
+      "pageUpdated": null,
+      "contentHash": null,
+      "patterns": [
+        "moving expense",
+        "Armed Forces"
+      ]
+    },
+    "irs-i3903": {
+      "scope": "tax-note",
+      "monitor": "manual",
+      "url": "https://www.irs.gov/node/62261",
+      "lastVerified": "2026-10-27",
+      "pageUpdated": "2026-04-30",
+      "contentHash": null,
+      "patterns": [
+        "moving expense",
+        "Armed Forces"
       ]
     }
   },

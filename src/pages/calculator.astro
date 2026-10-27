@@ -5,7 +5,9 @@ import Layout from "../layouts/Layout.astro";
 import routePages from "../../data/route-pages.json";
 import benchmarkData from "../../data/coefficients.json";
 import sourceChecks from "../../data/source-checks.json";
-import { formatReviewDate, marginSummary, trustSources, SEASON_NOTE, FLOOR_NOTE, BAND_NOTE } from "../lib/trust.js";
+import { formatReviewDate, marginSummary, trustSources, SEASON_NOTE, FLOOR_NOTE, BAND_NOTE, EMPLOYER_TAX_NOTE, TAX_SOURCES } from "../lib/trust.js";
+const taxRead = sourceChecks.sources?.["irs-p15b"]?.lastVerified;
+const taxChecked = /^\d{4}-\d{2}-\d{2}$/.test(taxRead ?? "") ? formatReviewDate(taxRead) : "";
 
 const routeSlugs = routePages.routes.map(route => route.slug);
 const reviewDate = formatReviewDate(benchmarkData.last_reviewed);
@@ -100,6 +102,7 @@ const breadcrumbJsonLd = {
 
         <h3 class="mt-8 text-base font-bold">Employer relocation package <span class="font-normal text-slate-500">(optional)</span></h3>
         <p class="mt-2 text-sm text-slate-500">If your employer offers help, enter it to see how much of your estimate it covers. Enter amounts as you will receive or use them. Lump sums can be taxed, so ask your employer whether the amount is before or after tax. This calculator does not work out taxes.</p>
+        <p id="employerTaxNote" class="mt-2 text-sm text-slate-500">{EMPLOYER_TAX_NOTE} Sources: {TAX_SOURCES.map((source, index) => (<><a class="font-semibold text-sky-700 underline" href={source.url} rel="noopener noreferrer">{source.label}</a>{index < TAX_SOURCES.length - 1 ? ", " : ""}</>))}{taxChecked ? `, read by a person on ${taxChecked}` : ""}.</p>
         <div class="mt-5 grid gap-5 sm:grid-cols-2">
           <label class="block text-sm font-semibold">Lump sum paid to you <span class="font-normal text-slate-500">(USD)</span><input id="employerCash" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
           <label class="block text-sm font-semibold">Costs the employer pays directly <span class="font-normal text-slate-500">(movers, housing, USD)</span><input id="employerDirect" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
