@@ -7,7 +7,7 @@
 //   unknown_commit the page has no readable build-commit marker, or Vercel reported "unknown"
 //   text_missing   the page is served from the expected commit but a phrase it must contain is absent
 // A page served from a NEWER commit than expected is fine ("superseded"): a later push already replaced it.
-import { FLOOR_NOTE, BAND_NOTE, SEASON_NOTE } from "./trust.js";
+import { FLOOR_NOTE, BAND_NOTE, SEASON_NOTE, EMPLOYER_TAX_NOTE, TAX_SOURCES } from "./trust.js";
 import { TITLE as QUOTE_GUIDE_TITLE } from "./quote-guide.js";
 
 // Phrases that sit in the page source itself (not in a shared constant). A unit test reads each page file and fails
@@ -18,7 +18,7 @@ export const TRUCK_GUIDE_LEAD = "The right truck is the smallest one your belong
 // What every deployed page must show. Phrases come from the same constants the pages render.
 export const LIVE_PAGES = Object.freeze([
   { path: "/", kind: "html", texts: [] },
-  { path: "/calculator/", kind: "html", texts: [FLOOR_NOTE, BAND_NOTE, SEASON_NOTE] },
+  { path: "/calculator/", kind: "html", texts: [FLOOR_NOTE, BAND_NOTE, SEASON_NOTE, EMPLOYER_TAX_NOTE], links: TAX_SOURCES.map(source => source.url) },
   { path: "/methodology/", kind: "html", texts: [SEASON_NOTE] },
   { path: "/moving-cost/", kind: "html", texts: [ROUTE_INDEX_NOTE] },
   { path: "/guides/reading-a-moving-quote/", kind: "html", texts: [QUOTE_GUIDE_TITLE] },
