@@ -9,6 +9,7 @@
 // A page served from a NEWER commit than expected is fine ("superseded"): a later push already replaced it.
 import { FLOOR_NOTE, BAND_NOTE, SEASON_NOTE, EMPLOYER_TAX_NOTE, TAX_SOURCES } from "./trust.js";
 import { TITLE as QUOTE_GUIDE_TITLE } from "./quote-guide.js";
+import { TITLE as ADDRESS_CHANGE_TITLE } from "./address-change.js";
 
 // Phrases that sit in the page source itself (not in a shared constant). A unit test reads each page file and fails
 // if the phrase is no longer there, so this list cannot drift away from what the pages render.
@@ -23,6 +24,7 @@ export const LIVE_PAGES = Object.freeze([
   { path: "/moving-cost/", kind: "html", texts: [ROUTE_INDEX_NOTE] },
   { path: "/guides/reading-a-moving-quote/", kind: "html", texts: [QUOTE_GUIDE_TITLE] },
   { path: "/guides/truck-size/", kind: "html", texts: [TRUCK_GUIDE_LEAD] },
+  { path: "/guides/address-change/", kind: "html", texts: [ADDRESS_CHANGE_TITLE] },
   { path: "/robots.txt", kind: "text", texts: [] },
 ]);
 
