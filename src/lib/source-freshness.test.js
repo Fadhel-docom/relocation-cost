@@ -120,7 +120,7 @@ test("the check data matches the guide's sources and the calculator's data sourc
   const guideIds = Object.entries(data.sources).filter(([, config]) => scope(config) === "guide").map(([id]) => id);
   assert.deepEqual(guideIds.sort(), SOURCES.map(source => source.id).sort());
   for (const [id, config] of Object.entries(data.sources)) {
-    assert.ok(["guide", "calculator", "truck-guide", "cost-of-living", "scam-guide", "packing-guide", "tax-note"].includes(scope(config)), `${id}: scope`);
+    assert.ok(["guide", "calculator", "truck-guide", "cost-of-living", "scam-guide", "packing-guide", "tax-note", "address-guide"].includes(scope(config)), `${id}: scope`);
     assert.ok(["auto", "manual"].includes(config.monitor), `${id}: monitor must be auto or manual`);
     assert.match(config.lastVerified, /^\d{4}-\d{2}-\d{2}$/, id);
     if (config.patternsFrom) assert.ok(["uhaul-bands", "truck-volumes"].includes(config.patternsFrom), id);
