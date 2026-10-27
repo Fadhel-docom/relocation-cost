@@ -82,6 +82,7 @@ export function classifyPage({ page, status, error, body, expectedSha, isNewerCo
   }
   const text = normalize(pageText(body));
   const missing = page.texts.filter(phrase => !text.includes(normalize(phrase)));
+  const missingLinks = (page.links ?? []).filter(url => !String(body ?? "").includes(url));
   if (missing.length) {
     return { ...base, result: "text_missing", detail: `Served from the expected commit, but missing: ${missing.map(phrase => `"${normalize(phrase).slice(0, 60)}…"`).join(", ")}` };
   }
