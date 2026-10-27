@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 import { LIVE_PAGES, ROUTE_INDEX_NOTE, TRUCK_GUIDE_LEAD, classifyPage, extractBuildCommits, isGood, isRetryable, pageText, summarize } from "./live-check.js";
 import { FLOOR_NOTE, BAND_NOTE, SEASON_NOTE, EMPLOYER_TAX_NOTE, TAX_SOURCES } from "./trust.js";
 import { TITLE as QUOTE_GUIDE_TITLE } from "./quote-guide.js";
+import { TITLE as ADDRESS_CHANGE_TITLE } from "./address-change.js";
 
 const SHA = "a".repeat(40);
 const OLD = "b".repeat(40);
@@ -12,6 +13,7 @@ const calculator = LIVE_PAGES.find(page => page.path === "/calculator/");
 const methodology = LIVE_PAGES.find(page => page.path === "/methodology/");
 const home = LIVE_PAGES.find(page => page.path === "/");
 const robots = LIVE_PAGES.find(page => page.path === "/robots.txt");
+const addressChange = LIVE_PAGES.find(page => page.path === "/guides/address-change/");
 
 const html = (commit, body = "") => `<!doctype html><html><head><meta name="build-commit" content="${commit}" /></head><body><main>${body}</main></body></html>`;
 const calculatorBody = `<p id="floorNote" hidden>${FLOOR_NOTE}</p><section><p>Distance bands: ${BAND_NOTE}</p><p>Timing: ${SEASON_NOTE}</p><p>${EMPLOYER_TAX_NOTE}</p>${TAX_SOURCES.map(source => `<a href="${source.url}">${source.label}</a>`).join("")}</section>`;
@@ -135,7 +137,7 @@ test("summarize explains each kind of problem and says nothing was changed", () 
 
 test("the route index and two guides are checked, each with a phrase that is really in the page", () => {
   const paths = LIVE_PAGES.map(page => page.path);
-  for (const path of ["/moving-cost/", "/guides/reading-a-moving-quote/", "/guides/truck-size/"]) assert.ok(paths.includes(path), path);
+  for (const path of ["/moving-cost/", "/guides/reading-a-moving-quote/", "/guides/truck-size/", "/guides/address-change/"]) assert.ok(paths.includes(path), path);
   assert.equal(new Set(paths).size, paths.length, "no page is listed twice");
   const read = file => readFileSync(new URL(file, import.meta.url), "utf8");
   assert.ok(read("../pages/moving-cost/index.astro").includes(ROUTE_INDEX_NOTE));
@@ -144,6 +146,8 @@ test("the route index and two guides are checked, each with a phrase that is rea
   assert.deepEqual(LIVE_PAGES.find(page => page.path === "/moving-cost/").texts, [ROUTE_INDEX_NOTE]);
   assert.deepEqual(LIVE_PAGES.find(page => page.path === "/guides/reading-a-moving-quote/").texts, [QUOTE_GUIDE_TITLE]);
   assert.deepEqual(LIVE_PAGES.find(page => page.path === "/guides/truck-size/").texts, [TRUCK_GUIDE_LEAD]);
+  assert.deepEqual(addressChange.texts, [ADDRESS_CHANGE_TITLE]);
+  assert.ok(read("../pages/guides/address-change.astro").includes("title={`${TITLE} — Relocation Cost`}"));
 });
 
 test("each new page passes with its phrase and is text_missing without it", () => {
