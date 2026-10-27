@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { LIVE_PAGES, ROUTE_INDEX_NOTE, TRUCK_GUIDE_LEAD, classifyPage, extractBuildCommits, isGood, isRetryable, pageText, summarize } from "./live-check.js";
-import { FLOOR_NOTE, BAND_NOTE, SEASON_NOTE } from "./trust.js";
+import { FLOOR_NOTE, BAND_NOTE, SEASON_NOTE, EMPLOYER_TAX_NOTE, TAX_SOURCES } from "./trust.js";
 import { TITLE as QUOTE_GUIDE_TITLE } from "./quote-guide.js";
 
 const SHA = "a".repeat(40);
@@ -14,7 +14,7 @@ const home = LIVE_PAGES.find(page => page.path === "/");
 const robots = LIVE_PAGES.find(page => page.path === "/robots.txt");
 
 const html = (commit, body = "") => `<!doctype html><html><head><meta name="build-commit" content="${commit}" /></head><body><main>${body}</main></body></html>`;
-const calculatorBody = `<p id="floorNote" hidden>${FLOOR_NOTE}</p><section><p>Distance bands: ${BAND_NOTE}</p><p>Timing: ${SEASON_NOTE}</p></section>`;
+const calculatorBody = `<p id="floorNote" hidden>${FLOOR_NOTE}</p><section><p>Distance bands: ${BAND_NOTE}</p><p>Timing: ${SEASON_NOTE}</p><p>${EMPLOYER_TAX_NOTE}</p>${TAX_SOURCES.map(source => `<a href="${source.url}">${source.label}</a>`).join("")}</section>`;
 
 test("every live page has a path, a kind and a list of phrases", () => {
   for (const page of LIVE_PAGES) {
@@ -26,7 +26,7 @@ test("every live page has a path, a kind and a list of phrases", () => {
 });
 
 test("the required phrases are the ones the pages render", () => {
-  assert.deepEqual(calculator.texts, [FLOOR_NOTE, BAND_NOTE, SEASON_NOTE]);
+  assert.deepEqual(calculator.texts, [FLOOR_NOTE, BAND_NOTE, SEASON_NOTE, EMPLOYER_TAX_NOTE]);\n  assert.deepEqual(calculator.links, TAX_SOURCES.map(source => source.url));
   assert.deepEqual(methodology.texts, [SEASON_NOTE]);
   const calculatorSource = readFileSync(new URL("../pages/calculator.astro", import.meta.url), "utf8");
   const methodologySource = readFileSync(new URL("../pages/methodology.astro", import.meta.url), "utf8");
@@ -54,7 +54,7 @@ test("a page from the expected commit with every phrase is ok", () => {
   assert.ok(isGood(result.result));
 });
 
-test("the same commit with a phrase missing is text_missing and is not retried", () => {
+test("a missing required source link is text_missing even when all required text exists", () => {\n  const body = `<p>${FLOOR_NOTE}</p><p>${BAND_NOTE}</p><p>${SEASON_NOTE}</p><p>${EMPLOYER_TAX_NOTE}</p><a href="${TAX_SOURCES[0].url}">${TAX_SOURCES[0].label}</a>`;\n  const result = classifyPage({ page: calculator, status: 200, body: html(SHA, body), expectedSha: SHA });\n  assert.equal(result.result, "text_missing");\n  assert.match(result.detail, /link https:\\/\\/www\\.irs\\.gov\\/node\\/62261/);\n});\n\ntest("the same commit with a phrase missing is text_missing and is not retried", () => {
   const result = classifyPage({ page: calculator, status: 200, body: html(SHA, `<p>${SEASON_NOTE}</p>`), expectedSha: SHA });
   assert.equal(result.result, "text_missing");
   assert.match(result.detail, /missing/);
