@@ -41,3 +41,11 @@ export const FLOOR_NOTE = "The move cost starts from this average because the ba
 // Shown with the U-Haul benchmark. The benchmark is an average per distance band, so the estimate moves in steps at band
 // limits. The sentence names no limit and no amount; a test proves the step is real for the current model.
 export const BAND_NOTE = "The U-Haul average changes in steps between distance bands, so a distance just over a band limit can raise the estimate noticeably. If your driving distance is close to a limit, try a slightly lower and a slightly higher distance to see the spread.";
+
+// Shown in the employer package box. It states no amount and calculates no tax. Each claim is paraphrased from the two
+// IRS pages listed in TAX_SOURCES (data/source-checks.json, scope "tax-note"), which a person re-reads before the note is stale.
+export const TAX_SOURCES = Object.freeze([
+  { id: "irs-p15b", label: "IRS Publication 15-B (2026)", url: "https://www.irs.gov/publications/p15b" },
+  { id: "irs-i3903", label: "IRS Instructions for Form 3903 (2025)", url: "https://www.irs.gov/node/62261" },
+]);
+export const EMPLOYER_TAX_NOTE = "For most employees, the federal tax exclusion for an employer's moving expense reimbursement no longer exists. IRS Publication 15-B (2026) says it was permanently eliminated, with exceptions for active-duty Armed Forces members and certain intelligence community employees, and the Form 3903 instructions say most people can no longer deduct moving expenses. Ask your employer or a tax professional how your package is reported.";
