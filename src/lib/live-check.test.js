@@ -26,13 +26,16 @@ test("every live page has a path, a kind and a list of phrases", () => {
 });
 
 test("the required phrases are the ones the pages render", () => {
-  assert.deepEqual(calculator.texts, [FLOOR_NOTE, BAND_NOTE, SEASON_NOTE, EMPLOYER_TAX_NOTE]);\n  assert.deepEqual(calculator.links, TAX_SOURCES.map(source => source.url));
+  assert.deepEqual(calculator.texts, [FLOOR_NOTE, BAND_NOTE, SEASON_NOTE, EMPLOYER_TAX_NOTE]);
+  assert.deepEqual(calculator.links, TAX_SOURCES.map(source => source.url));
   assert.deepEqual(methodology.texts, [SEASON_NOTE]);
   const calculatorSource = readFileSync(new URL("../pages/calculator.astro", import.meta.url), "utf8");
   const methodologySource = readFileSync(new URL("../pages/methodology.astro", import.meta.url), "utf8");
   assert.match(calculatorSource, /\{FLOOR_NOTE\}/);
   assert.match(calculatorSource, /\{BAND_NOTE\}/);
   assert.match(calculatorSource, /\{SEASON_NOTE\}/);
+  assert.match(calculatorSource, /\{EMPLOYER_TAX_NOTE\}/);
+  for (const source of TAX_SOURCES) assert.ok(calculatorSource.includes(source.url), `calculator source includes ${source.url}`);
   assert.match(calculatorSource, /\{EMPLOYER_TAX_NOTE\}/);
   for (const source of TAX_SOURCES) assert.ok(calculatorSource.includes(source.url), `calculator source includes ${source.url}`);
   assert.match(methodologySource, /\{SEASON_NOTE\}/);
