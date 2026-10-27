@@ -393,4 +393,8 @@ const breadcrumbJsonLd = {
     }
   </style>
   <script src="../scripts/calculator.js"></script>
+<style is:global>
+  /* The fixed estimate bar (mobile only) would otherwise cover the last line of the footer. */
+  @media screen and (max-width: 1023px) { body { padding-bottom: 5rem; } }
+</style>
 </Layout>
