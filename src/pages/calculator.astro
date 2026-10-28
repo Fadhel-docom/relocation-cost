@@ -102,7 +102,7 @@ const breadcrumbJsonLd = {
 
         <h3 class="mt-8 text-base font-bold">Employer relocation package <span class="font-normal text-slate-500">(optional)</span></h3>
         <p class="mt-2 text-sm text-slate-500">If your employer offers help, enter it to see how much of your estimate it covers. Enter amounts as you will receive or use them. Lump sums can be taxed, so ask your employer whether the amount is before or after tax. This calculator does not work out taxes.</p>
-        <p id="employerTaxNote" class="mt-2 text-sm text-slate-500">{EMPLOYER_TAX_NOTE} Sources: {TAX_SOURCES.map((source, index) => (<><a class="font-semibold text-sky-700 underline" href={source.url} rel="noopener noreferrer">{source.label}</a>{index < TAX_SOURCES.length - 1 ? ", " : ""}</>))}{taxChecked ? `, read by a person on ${taxChecked}` : ""}.</p>
+        <p id="employerTaxNote" class="mt-2 text-sm text-slate-500">{EMPLOYER_TAX_NOTE} Sources: {TAX_SOURCES.map((source, index) => (<><a class="font-semibold text-sky-700 underline" href={source.url} rel="noopener noreferrer">{source.label}</a>{index < TAX_SOURCES.length - 1 ? ", " : ""}</>))}{taxChecked ? `, read by a person on ${taxChecked}` : ""}. <a class="font-semibold text-sky-700 underline" href="/guides/employer-relocation-package/">What to ask your employer</a>.</p>
         <div class="mt-5 grid gap-5 sm:grid-cols-2">
           <label class="block text-sm font-semibold">Lump sum paid to you <span class="font-normal text-slate-500">(USD)</span><input id="employerCash" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
           <label class="block text-sm font-semibold">Costs the employer pays directly <span class="font-normal text-slate-500">(movers, housing, USD)</span><input id="employerDirect" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
@@ -171,6 +171,7 @@ const breadcrumbJsonLd = {
             <li><a href="/guides/checking-a-mover/" class="font-semibold text-sky-300 underline">Checking a mover</a>: registration and warning signs</li>
             <li><a href="/guides/packing-boxes/" class="font-semibold text-sky-300 underline">Packing boxes</a>: a published range by home size</li>
             <li><a href="/guides/address-change/" class="font-semibold text-sky-300 underline">Change of address</a>: who to tell, from official pages</li>
+            <li><a href="/guides/employer-relocation-package/" class="font-semibold text-sky-300 underline">Employer package</a>: what the IRS says, what to ask</li>
             <li><a href="/cost-of-living/" class="font-semibold text-sky-300 underline">Cost of living</a>: compare prices between two cities</li>
             <li><a href="/guides/relocation-budget/" class="font-semibold text-sky-300 underline">Relocation budget guide</a>: costs beyond the move itself</li>
             <li><a href="/checklist/" class="font-semibold text-sky-300 underline">Moving checklist</a>: what to do and when</li>

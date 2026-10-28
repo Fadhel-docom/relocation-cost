@@ -14,6 +14,7 @@ import { TITLE as QUOTE_GUIDE_TITLE } from "./quote-guide.js";
 // if the phrase is no longer there, so this list cannot drift away from what the pages render.
 export const ROUTE_INDEX_NOTE = "These pages are planning aids, not quotes.";
 export const ADDRESS_GUIDE_LEAD = "A move changes where your mail, tax letters and records go.";
+export const EMPLOYER_GUIDE_LEAD = "A relocation package can look generous until you ask how it is paid and reported.";
 export const TRUCK_GUIDE_LEAD = "The right truck is the smallest one your belongings fit in";
 
 // What every deployed page must show. Phrases come from the same constants the pages render.
@@ -25,6 +26,7 @@ export const LIVE_PAGES = Object.freeze([
   { path: "/guides/reading-a-moving-quote/", kind: "html", texts: [QUOTE_GUIDE_TITLE] },
   { path: "/guides/truck-size/", kind: "html", texts: [TRUCK_GUIDE_LEAD] },
   { path: "/guides/address-change/", kind: "html", texts: [ADDRESS_GUIDE_LEAD] },
+  { path: "/guides/employer-relocation-package/", kind: "html", texts: [EMPLOYER_GUIDE_LEAD] },
   { path: "/robots.txt", kind: "text", texts: [] },
 ]);
 
