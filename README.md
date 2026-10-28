@@ -31,6 +31,10 @@ npm test
 
 Tests run on plain Node (no install needed beyond the repository) and also run in CI before the build.
 
+## Mandatory quality policy
+
+All pages, tools, features, and SEO changes must comply with [قانون «القيمة قبل النشر» (Value Before Publishing)](docs/value-before-publishing.md), version 1.0. This policy requires evidence of user need, a clear value proposition, honest sourcing and assumptions, competitor/alternative review, appropriate functional and SEO checks, documented tests and limitations, and post-publication measurement. Do not publish work with a material quality, accuracy, or usefulness gap merely to increase page count.
+
 ## Product principles
 
 - Build useful tools before scaling content.
