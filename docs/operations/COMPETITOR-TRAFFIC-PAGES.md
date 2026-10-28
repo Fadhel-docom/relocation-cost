@@ -3,6 +3,10 @@
 **Research date:** 2026-10-28 UTC  
 **Purpose:** identify competitor pages worth studying because they show public evidence of use or strong search-intent fit, then extract useful product/SEO lessons for Relocation Cost.
 
+## Verification status (Claude, 2026-10-28)
+- Confirmed by Claude: only the moveBuddha monthly pricing refresh and the 400,000+ yearly figure, both from the company's press release (see section 1 for the exact scope).
+- Not independently confirmed by Claude: the Move.org, Moving.com, Forbes Home and Bankrate descriptions (those pages were not opened from Claude's session). Treat them as ChatGPT's reading until a second reading is logged.
+
 ## Important evidence limit
 
 Competitors' Google Search Console clicks, impressions, CTR and rankings are private. We do **not** have their Search Console accounts. Therefore this is **not** a verified ranking by competitor organic clicks. The evidence below is separated into:
@@ -16,12 +20,12 @@ A tool's annual users are not the same thing as organic clicks to one URL. Searc
 
 ### 1) moveBuddha — Moving Cost Calculator
 - **URL:** https://www.movebuddha.com/moving-cost-calculator/
-- **Evidence:** the page explicitly claims **400,000+ movers use its moving cost calculator annually**. This is the strongest public usage signal found in this pass, but it is the site's own claim, not a verified count of organic clicks.
-- **Why the page likely satisfies search intent:** one place to estimate cost, compare service types (full-service, containers, rental trucks and labor), and understand assumptions before requesting quotes. It says no email or personal information is required to use the calculator. The site says pricing data is refreshed monthly and describes its data inputs.
+- **Evidence:** moveBuddha's own press release says more than 400,000 people plan their move through moveBuddha each year (wording checked by Claude on 2026-10-28 in the press release at mediabistro.com, not on the calculator page). It is a company-wide figure, not a count of calculator uses and not a count of organic clicks. The earlier wording "400,000+ movers use its moving cost calculator annually" was not confirmed and has been replaced.
+- **Why the page likely satisfies search intent:** one place to estimate cost, compare service types (full-service, containers, rental trucks and labor), and understand assumptions before requesting quotes. The press release says the platform refreshes pricing averages monthly (confirmed by Claude). The claim that no email or personal information is required is **not confirmed**: the press release does not mention it and the calculator page could not be opened from Claude's session.
 - **Useful lesson:** lead with the tool; provide a useful answer before asking for contact details; explain why the estimate changes; make methodology and alternatives visible.
 - **Relocation Cost action:** keep the calculator directly accessible from the homepage; make its assumptions and estimate range easy to understand; strengthen the methodology link and explain the distinction between planning estimates and binding quotes. Do not claim equal accuracy without comparable data.
-- **Evidence strength:** **High for the competitor's self-reported annual calculator use; no public organic-click count.**
-- **Source checked:** 2026-10-28; public page and its visible usage claim.
+- **Evidence strength:** **Medium: a self-reported company-wide planning figure; no public calculator-use or organic-click count.**
+- **Source checked:** 2026-10-28 by ChatGPT (calculator page); 2026-10-28 by Claude (press release only; the calculator page is not on Claude's fetch allowlist).
 
 ### 2) Move.org — Moving Costs / 2026 Moving Cost Calculator
 - **URL:** https://www.move.org/moving-costs/
@@ -61,7 +65,7 @@ A tool's annual users are not the same thing as organic clicks to one URL. Searc
 
 ## What this means for Relocation Cost
 
-1. **Do not chase a fabricated “top clicked pages” list.** The only strong public usage figure in this pass is moveBuddha's self-reported 400,000+ annual calculator users. That is not its organic click count and does not establish that every other page gets fewer visits.
+1. **Do not chase a fabricated “top clicked pages” list.** The only strong public usage figure in this pass is moveBuddha's self-reported 400,000+ people planning moves through the company each year. That is not calculator usage, not its organic click count and does not establish that every other page gets fewer visits.
 2. **Prioritize one excellent utility page over many thin pages.** The strongest examples put the calculator or a direct answer near the top, then explain the estimate and answer related questions.
 3. **Keep evidence adjacent to numbers.** Where costs are shown, visitors should see the date/source/methodology and what the number does and does not include.
 4. **Earn trust before lead generation.** Anonymous, immediate planning value is a differentiator when some competitors lead toward quote requests.
