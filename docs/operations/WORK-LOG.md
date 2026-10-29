@@ -1,5 +1,16 @@
 # سجل العمل المشترك — Relocation Cost
 
+## 2026-10-29 UTC — ChatGPT: C2 HeiGIT / OpenRouteService terms review
+- **Goal:** Assess R4 before any route-distance integration, following `STATUS-AND-PLAN-2026-10-29.md`.
+- **Reviewed:** Official API landing page and restrictions page; HeiGIT announcement dated 2026-10-22; a 2026-10-12 forum answer from a HeiGIT team member; the current terms page was not readable in the browser (403).
+- **Result:** The HeiGIT forum reply says Standard-plan commercial usage is allowed and identifies CC-BY-SA 4.0 results; available terms excerpts indicate OSM attribution is normally required. Exact attribution wording, caching permission, and current quotas are **not fully verified**. The forum post's 2,000/day and 40/min figures are not treated as primary-source confirmation.
+- **Artifact:** Added `docs/operations/HEIGIT-TERMS-READING.md` on branch `docs/heigit-terms-reading-20261029`, with evidence table, limitations, decision, and an English inquiry draft.
+- **Decision:** R4 remains blocked. No API key, code, or production behavior changed. Keep current straight-line estimates until current terms/written clarification resolve licensing, attribution, caching, and quotas.
+- **Tests:** Not run; documentation-only change. No build/CI result claimed.
+- **What remains:** This branch still needs a review/PR and green CI before merge. Owner may send the drafted question to HeiGIT; Claude should not implement R4 before written clarification.
+
+---
+
 ## 2026-10-29 مساءً (محلي ~17:10) — الطرف: Claude (اليوم 41: مراجعة C1 وتصحيح عبارة الـ50 ميلًا)
 - **المهمة / الهدف:** «ابدأ الآن»: قراءة السجل، مراجعة تدقيق ChatGPT (PR #107)، والتحقق مستقلًّا من أهم نتيجة فيه قبل أي تعديل.
 - **المراجعة:** PR #107 (وثائق فقط، CI أخضر، ترويسة السجل في السطر 1) دُمج (main f8c7ce1). التقرير صادق في حدوده: وسم FTC «غير مؤكد» لأن الصفحة لم تُفتح، ولم يدّعِ ما لم يقرأه.
