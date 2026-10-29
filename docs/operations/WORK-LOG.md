@@ -1,5 +1,35 @@
 # سجل العمل المشترك — Relocation Cost
 
+## 2026-10-29 UTC — ChatGPT: C2 HeiGIT / OpenRouteService terms review
+- **Goal:** Assess R4 before any route-distance integration, following `STATUS-AND-PLAN-2026-10-29.md`.
+- **Reviewed:** Official API landing page and restrictions page; HeiGIT announcement dated 2026-10-22; a 2026-10-12 forum answer from a HeiGIT team member; the current terms page was not readable in the browser (403).
+- **Result:** The HeiGIT forum reply says Standard-plan commercial usage is allowed and identifies CC-BY-SA 4.0 results; available terms excerpts indicate OSM attribution is normally required. Exact attribution wording, caching permission, and current quotas are **not fully verified**. The forum post's 2,000/day and 40/min figures are not treated as primary-source confirmation.
+- **Artifact:** Added `docs/operations/HEIGIT-TERMS-READING.md` on branch `docs/heigit-terms-reading-20261029`, with evidence table, limitations, decision, and an English inquiry draft.
+- **Decision:** R4 remains blocked. No API key, code, or production behavior changed. Keep current straight-line estimates until current terms/written clarification resolve licensing, attribution, caching, and quotas.
+- **Tests:** Not run; documentation-only change. No build/CI result claimed.
+- **What remains:** This branch still needs a review/PR and green CI before merge. Owner may send the drafted question to HeiGIT; Claude should not implement R4 before written clarification.
+
+---
+
+## 2026-10-29 UTC — ChatGPT: C3 ethical link research + C4 Canada source readiness
+- **Goals:** Research ten plausible pages for legitimate citation opportunities (research only), and inventory official/usable Canadian sources before considering expansion.
+- **C3 artifact:** Added `docs/operations/LINK-RESEARCH.md` with 10 real pages, checked 2026-10-29, topical fit, limits, and non-spam safeguards. No outreach, link placement, or publication performed. Most university pages are narrow campus move-out/institutional resources; NerdWallet is relevant but editorial acceptance is unknown; ARC Relocation is a direct competitor and is benchmark-only.
+- **C4 artifact:** Added `docs/operations/CANADA-READINESS.md`. CRA moving-expense guidance/Form T1-M and Canada Post address/mail guidance are available. Transport Canada has aggregate road-network data, not national city-to-city driving distances. Vendor price examples found were US examples; no verified Canadian public price table was established. Canadian route distance and defensible cost inputs remain unresolved.
+- **Decision:** Do not implement or publish Canada pages yet. Do not pursue paid/exchanged/manipulative links; do not claim a prospect will link. Resolve a permitted route-distance source and establish defensible Canadian pricing methodology first.
+- **Tests:** Not run; research/documentation-only changes. No build/CI result claimed.
+- **Next:** Review the branch diff and wait for CI before merge. Claude may review the evidence and identify any source that needs a second direct check; do not duplicate the research or begin Canada implementation.
+
+---
+
+## 2026-10-29 UTC — ChatGPT: FTC follow-up + C5 search-intent review
+- **FTC follow-up to C1:** Successfully opened the official FTC alert “Avoid scams when you hire a moving company” on 2026-10-29: https://consumer.ftc.gov/consumer-alerts/2024/09/avoid-scams-when-you-hire-moving-company. Its visible text supports the guide claims about registration/reputation, written estimates and inventory, insurance/damage questions, blank paperwork, large deposits/cash, and complaint routing. Updated the matching rows and evidence limits in `docs/operations/CITATION-AUDIT-ChatGPT.md`. The IRS Form 3903 page-update date remains unverified because the official page could not be opened in this browser; do not rely on “April 30, 2026” until a visible official field confirms it.
+- **C5 — search intent:** Reviewed live search results for “calculate relocation costs,” “calculating relocation expenses,” and related wording on 2026-10-29. Results show **mixed intent**: consumer household-move planning (Angi's cost guide and Moving.com's calculator with quote-lead capture) coexists with employee/employer relocation-package content (Indeed career advice; Mercer’s paid corporate relocation calculator). This is not evidence that the query is exclusively employer-related. The current general-purpose household calculator is directionally relevant; do not create another page from this small sample. Better next step is to improve the existing calculator's relevance and clarity and observe actual query/page data over time.
+- **Sources reviewed:** https://www.angi.com/articles/how-use-relocation-calculator.htm ; https://www.moving.com/movers/moving-cost-calculator.asp ; https://www.indeed.com/career-advice/starting-new-job/relocation-cost ; https://shop.mercer.com/domestic-relocation-costs-united-states-domestic-relocation-calculator-premium-online-up-to-5-users.html
+- **Limits:** Search-result sample is qualitative and small; no ranking census, search volume estimate, or competitor click data was produced. No page or code was added. Tests/build not run; documentation-only changes.
+- **Next:** Review the audit diff, verify that all replacements preserve the table structure, and wait for CI before merge. Keep the Form 3903 update date unresolved unless directly verified.
+
+---
+
 ## 2026-10-29 مساءً (محلي ~17:10) — الطرف: Claude (اليوم 41: مراجعة C1 وتصحيح عبارة الـ50 ميلًا)
 - **المهمة / الهدف:** «ابدأ الآن»: قراءة السجل، مراجعة تدقيق ChatGPT (PR #107)، والتحقق مستقلًّا من أهم نتيجة فيه قبل أي تعديل.
 - **المراجعة:** PR #107 (وثائق فقط، CI أخضر، ترويسة السجل في السطر 1) دُمج (main f8c7ce1). التقرير صادق في حدوده: وسم FTC «غير مؤكد» لأن الصفحة لم تُفتح، ولم يدّعِ ما لم يقرأه.
