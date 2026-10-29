@@ -211,4 +211,9 @@ const report = {
 };
 console.log(JSON.stringify(report, null, 2));
 
+// GitHub turns these lines into check-run annotations, which are readable without downloading the full job log.
+if (failures.length && process.env.GITHUB_ACTIONS) {
+  for (const failure of failures.slice(0, 20)) console.log(`::error title=verify-seo::${failure.replaceAll("%", "%25").replaceAll("\n", "%0A")}`);
+}
+
 if (failures.length) process.exit(1);
