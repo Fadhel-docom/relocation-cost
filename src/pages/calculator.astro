@@ -27,7 +27,7 @@ const appJsonLd = {
   applicationCategory: "FinanceApplication",
   operatingSystem: "Any",
   browserRequirements: "Requires JavaScript",
-  description: "Free planning calculator for US state-to-state moves. Combines distance, home size, move type and other relocation costs into a budget range. Estimates are planning aids, not quotes.",
+  description: "Estimate a US move, then compare your budget with an employer lump sum and costs paid directly. Free planning range; no tax calculation or binding quote.",
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" }
 };
 const breadcrumbJsonLd = {
@@ -39,7 +39,7 @@ const breadcrumbJsonLd = {
   ]
 };
 ---
-<Layout title="Moving Cost Calculator — Relocation Cost" description="Build a relocation budget from move distance, home size, move type, and additional relocation costs. Free planning estimate for any US state-to-state move.">
+<Layout title="Moving Cost & Employer Package Calculator — Relocation Cost" description="Estimate a US move, then compare your budget with an employer lump sum and costs paid directly. Free planning range; no tax calculation or binding quote.">
   <script type="application/ld+json" set:html={JSON.stringify(appJsonLd)} />
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
   <section class="mx-auto max-w-6xl px-5 py-14 pb-28 lg:pb-14">
