@@ -17,7 +17,7 @@
     },
     "fmcsa-avoid": {
       "monitor": "manual",
-      "lastVerified": "2026-10-18",
+      "lastVerified": "2026-10-29",
       "pageUpdated": "2023-10-26",
       "contentHash": null,
       "patterns": [
