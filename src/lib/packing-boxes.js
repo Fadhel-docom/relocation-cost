@@ -13,7 +13,7 @@ const entries = Object.entries(checks.sources).filter(([, source]) => source.sco
 // which the page treats as stale.
 export const CHECKED_ON = oldestDate(entries.map(([, source]) => source.lastVerified));
 
-export const TITLE = "How Many Moving Boxes Do I Need? A Range by Home Size";
+export const TITLE = "How Many Moving Boxes Do I Need? By Home Size";
 export const DESCRIPTION = "A published rule of thumb for how many moving boxes a studio to a 5-bedroom home needs, which box size suits which items, and why to plan some extra.";
 
 const BASE_SOURCES = [

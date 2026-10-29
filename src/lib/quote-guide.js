@@ -13,7 +13,7 @@ export const CHECKED_AUTO = oldestDate(datesFor("auto"));
 export const CHECKED_MANUAL = oldestDate(datesFor("manual"));
 export const CHECKED_ON = oldestDate([...datesFor("auto"), ...datesFor("manual")]);
 
-export const TITLE = "How to Read a Moving Quote: Binding vs Non-Binding Estimates";
+export const TITLE = "Reading a Moving Quote: Binding vs Non-Binding";
 export const DESCRIPTION = "What binding and non-binding moving estimates mean under federal rules for interstate moves, the 110% limit at delivery, and what to ask before you sign.";
 
 const BASE_SOURCES = [
