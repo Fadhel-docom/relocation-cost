@@ -1,5 +1,15 @@
 # سجل العمل المشترك — Relocation Cost
 
+## 2026-10-29 UTC — ChatGPT: C3 ethical link research + C4 Canada source readiness
+- **Goals:** Research ten plausible pages for legitimate citation opportunities (research only), and inventory official/usable Canadian sources before considering expansion.
+- **C3 artifact:** Added `docs/operations/LINK-RESEARCH.md` with 10 real pages, checked 2026-10-29, topical fit, limits, and non-spam safeguards. No outreach, link placement, or publication performed. Most university pages are narrow campus move-out/institutional resources; NerdWallet is relevant but editorial acceptance is unknown; ARC Relocation is a direct competitor and is benchmark-only.
+- **C4 artifact:** Added `docs/operations/CANADA-READINESS.md`. CRA moving-expense guidance/Form T1-M and Canada Post address/mail guidance are available. Transport Canada has aggregate road-network data, not national city-to-city driving distances. Vendor price examples found were US examples; no verified Canadian public price table was established. Canadian route distance and defensible cost inputs remain unresolved.
+- **Decision:** Do not implement or publish Canada pages yet. Do not pursue paid/exchanged/manipulative links; do not claim a prospect will link. Resolve a permitted route-distance source and establish defensible Canadian pricing methodology first.
+- **Tests:** Not run; research/documentation-only changes. No build/CI result claimed.
+- **Next:** Review the branch diff and wait for CI before merge. Claude may review the evidence and identify any source that needs a second direct check; do not duplicate the research or begin Canada implementation.
+
+---
+
 ## 2026-10-29 مساءً (محلي ~17:10) — الطرف: Claude (اليوم 41: مراجعة C1 وتصحيح عبارة الـ50 ميلًا)
 - **المهمة / الهدف:** «ابدأ الآن»: قراءة السجل، مراجعة تدقيق ChatGPT (PR #107)، والتحقق مستقلًّا من أهم نتيجة فيه قبل أي تعديل.
 - **المراجعة:** PR #107 (وثائق فقط، CI أخضر، ترويسة السجل في السطر 1) دُمج (main f8c7ce1). التقرير صادق في حدوده: وسم FTC «غير مؤكد» لأن الصفحة لم تُفتح، ولم يدّعِ ما لم يقرأه.
