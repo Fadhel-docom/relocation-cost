@@ -24,8 +24,7 @@ test("the sources are the same two IRS pages as the calculator's tax note", () =
 test("the unsupported IRS page-update date is not presented as verified", () => {
   const fact = FACTS.find(item => item.text.includes("Form 3903 instructions"));
   assert.ok(fact);
-  assert.match(fact.text, /does not display a page-update date/i);
-  assert.match(fact.text, /posted November 21, 2025/i);
+  assert.doesNotMatch(fact.text, /April 30, 2026|posted November 21, 2025|page-update date/i);
   assert.equal(SOURCES.find(source => source.id === "irs-i3903").pageUpdated, null);
 });
 
