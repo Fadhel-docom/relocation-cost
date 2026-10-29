@@ -76,3 +76,16 @@
 ## Limits and next step
 
 This audit confirms the claims listed above from opened sources, including the FTC moving-scam alert read on 2026-10-29. The FTC findings are limited to the page's visible text; they do not validate claims beyond that page. The clear scope mismatch remains the 50-mile survey sentence, which was narrowed in the code on the following Claude work item. No guide code or tax calculations were changed in this follow-up documentation-only update.
+
+
+## Follow-up: directly verify displayed FMCSA page-update dates — 2026-10-29 UTC
+
+The three dates previously flagged by the operations-room handoff were checked against the visible text of the live official pages today:
+
+| Source record | Official page's visible date | Result | Evidence |
+|---|---|---|---|
+| `fmcsa-estimates` | October 26, 2023 | Confirmed | The page “What is a binding move estimate?” displays “Last Updated: October 26, 2023” at the bottom of the page. https://www.fmcsa.dot.gov/consumer-protection/protect-your-move/what-binding-move-estimate (read 2026-10-29). |
+| `fmcsa-avoid` | October 26, 2023 | Confirmed | The page “How can I avoid unexpected moving costs?” displays “Last Updated: October 26, 2023” at the bottom of the page. https://www.fmcsa.dot.gov/consumer-protection/protect-your-move/how-can-i-avoid-unexpected-moving-costs (read 2026-10-29). |
+| `fmcsa-rights` | November 4, 2024 | Confirmed | The page “Consumer Rights and Responsibilities” displays “Last updated: Monday, November 4, 2024” at the bottom of the page. https://www.fmcsa.dot.gov/protect-your-move/consumer-rights (read 2026-10-29). |
+
+**Data action:** `pageUpdated` values remain unchanged because they match visible official page text. `lastVerified` was refreshed to `2026-10-29` for these three manually monitored sources because each page was opened and checked directly. No guide wording or code was changed. This confirms the visible page dates only; it does not independently establish when underlying content was last substantively revised.
