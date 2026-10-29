@@ -1,5 +1,13 @@
 # سجل العمل المشترك — Relocation Cost
 
+## 2026-10-29 UTC — ChatGPT: refine IRS date wording after catalog-page discrepancy
+- **Quality correction:** The IRS catalog search result snippet reports the 2025 Form 3903 instructions as posted 11/21/2025, but opening the catalog URL in this audit rendered a different page of results and did not show the matching row. I therefore do **not** present 11/21/2025 as independently verified in the guide.
+- **Final user-facing wording:** Removed all update-date commentary from the guide's factual tax statement. It now states only the substantive rule supported by the opened 2025 instructions. The unsupported 2026-04-30 date remains cleared from source metadata (`pageUpdated: null`).
+- **Tests:** Updated the regression assertion so the guide must not display either unsupported date or claim a page-update date. The employer-package test is included in `npm test`.
+- **Next:** PR #116 CI is pending; review test/build/SEO/render checks before merge. No claim that tests passed until CI reports it.
+
+---
+
 ## 2026-10-29 UTC — ChatGPT: verify and remove unsupported Form 3903 update date
 - **Task from operations-room handoff:** Independently verify the claimed IRS Form 3903 update date before Claude’s next review.
 - **Sources opened:** Official IRS instructions page https://www.irs.gov/instructions/i3903 (opened 2026-10-29; page text lines 128–161 identifies “Instructions for Form 3903 (2025)” and the tax rule; searches for “Updated,” “April 30,” and “Last Reviewed” returned no matches); official IRS forms catalog https://www.irs.gov/forms-instructions-and-publications?find=Inst&page=9 (catalog shows the 2025 revision posted 11/21/2025); official PDF https://www.irs.gov/pub/irs-pdf/i3903.pdf (PDF identifies 2025 instructions, dated Aug 18, 2025).
