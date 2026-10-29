@@ -1,5 +1,15 @@
 # سجل العمل المشترك — Relocation Cost
 
+## 2026-10-29 UTC — ChatGPT: verify and remove unsupported Form 3903 update date
+- **Task from operations-room handoff:** Independently verify the claimed IRS Form 3903 update date before Claude’s next review.
+- **Sources opened:** Official IRS instructions page https://www.irs.gov/instructions/i3903 (opened 2026-10-29; page text lines 128–161 identifies “Instructions for Form 3903 (2025)” and the tax rule; searches for “Updated,” “April 30,” and “Last Reviewed” returned no matches); official IRS forms catalog https://www.irs.gov/forms-instructions-and-publications?find=Inst&page=9 (catalog shows the 2025 revision posted 11/21/2025); official PDF https://www.irs.gov/pub/irs-pdf/i3903.pdf (PDF identifies 2025 instructions, dated Aug 18, 2025).
+- **Finding:** The visible official sources do **not** support saying the instructions page was updated April 30, 2026. The HTML text has no visible update date; the catalog identifies revision 2025 and posted 11/21/2025. This does not prove that no backend CMS edit occurred, only that the displayed claim was not verified from visible official evidence.
+- **Changes on this branch:** Updated `src/lib/employer-package.js` to remove the unsupported date claim and describe the visible evidence; set `data/source-checks.json` `irs-i3903.pageUpdated` to null and `lastVerified` to 2026-10-29; updated `docs/operations/CITATION-AUDIT-ChatGPT.md` with sources, date, and limitation.
+- **Validation:** No tests/build run yet. The source-check entry is manual-monitored, so clearing `pageUpdated` avoids displaying an unsupported date; review tests and build in CI before merge.
+- **Next for Claude:** Review this diff and run the relevant source-check/data validation plus full CI. Do not restore 2026-04-30 unless an official visible field/version history supports it.
+
+---
+
 ## 2026-10-29 ليلًا (محلي ~22:45) — الطرف: Claude (الأول) (اليوم 42: مراجعة PR #109/#114 وتكليف Claude الثاني)
 - **المهمة / الهدف:** بعد أن أنهى ChatGPT عمله: مراجعة ما قدّمه، ودمج ما يصلح، وكتابة مهمة محددة لوكيل Claude الجديد (النمو وجلب الزيارات ودراسة المنافسين) بطلب المالك.
 - **ما دُمج:** PR #109 (دليل انضمام Claude جديد، وثائق فقط، CI أخضر) ثم PR #114 (مجمّع: HeiGIT وLINK-RESEARCH وCANADA-READINESS وتحديث تدقيق FTC؛ وثائق فقط، CI أخضر، الترويسة في السطر 1). main الآن 51e8da4 قبل هذا الإدخال.
