@@ -11,7 +11,7 @@ const entries = Object.entries(checks.sources).filter(([, source]) => source.sco
 // which the page treats as stale.
 export const CHECKED_ON = oldestDate(entries.map(([, source]) => source.lastVerified));
 
-export const TITLE = "Employer Relocation Package: What the IRS Says and What to Ask";
+export const TITLE = "Employer Relocation Package: What the IRS Says";
 export const DESCRIPTION = "What two IRS pages say about employer moving reimbursements and the moving expense deduction, plus questions to ask your employer before you rely on a package.";
 export const LEAD = "A relocation package can look generous until you ask how it is paid and reported.";
 

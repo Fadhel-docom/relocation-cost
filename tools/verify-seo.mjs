@@ -58,6 +58,17 @@ for (const file of pages) {
   if (titleCount !== 1) failures.push(`${rel}: expected exactly 1 title, found ${titleCount}`);
   if (descriptionCount !== 1) failures.push(`${rel}: expected exactly 1 meta description, found ${descriptionCount}`);
 
+  // Search-result limits (Ahrefs flags titles over 70 characters, descriptions over 160 or under 110).
+  // The check reads the rendered title, which includes the site suffix, not the page constant.
+  if (rel !== "404.html") {
+    const renderedTitle = html.match(/<title\b[^>]*>([^<]*)<\/title>/i)?.[1]?.replaceAll("&amp;", "&").replaceAll("&#39;", "'");
+    const descriptionMatch = html.match(/<meta\b[^>]*name=["']description["'][^>]*content=(?:"([^"]*)"|'([^']*)')/i);
+    const renderedDescription = (descriptionMatch?.[1] ?? descriptionMatch?.[2])?.replaceAll("&#39;", "'").replaceAll("&amp;", "&");
+    if (renderedTitle && renderedTitle.length > 70) failures.push(`${rel}: title is ${renderedTitle.length} characters (max 70)`);
+    if (renderedDescription && renderedDescription.length > 160) failures.push(`${rel}: meta description is ${renderedDescription.length} characters (max 160)`);
+    if (renderedDescription && renderedDescription.length < 110) failures.push(`${rel}: meta description is ${renderedDescription.length} characters (min 110)`);
+  }
+
   const buildCommits = [...html.matchAll(/<meta\b[^>]*name=["']build-commit["'][^>]*content=["']([^"']*)["'][^>]*>/gi)].map(m => m[1]);
   const inCi = Boolean(process.env.CI || process.env.GITHUB_ACTIONS);
   const expectedCommit = process.env.GITHUB_SHA ? process.env.GITHUB_SHA.slice(0, 40) : null;
@@ -200,5 +211,10 @@ const report = {
   failures
 };
 console.log(JSON.stringify(report, null, 2));
+
+// GitHub turns these lines into check-run annotations, which are readable without downloading the full job log.
+if (failures.length && process.env.GITHUB_ACTIONS) {
+  for (const failure of failures.slice(0, 20)) console.log(`::error title=verify-seo::${failure.replaceAll("%", "%25").replaceAll("\n", "%0A")}`);
+}
 
 if (failures.length) process.exit(1);
