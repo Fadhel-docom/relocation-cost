@@ -62,7 +62,8 @@ for (const file of pages) {
   // The check reads the rendered title, which includes the site suffix, not the page constant.
   if (rel !== "404.html") {
     const renderedTitle = html.match(/<title\b[^>]*>([^<]*)<\/title>/i)?.[1]?.replaceAll("&amp;", "&").replaceAll("&#39;", "'");
-    const renderedDescription = html.match(/<meta\b[^>]*name=["']description["'][^>]*content=["']([^"']*)["']/i)?.[1]?.replaceAll("&#39;", "'").replaceAll("&amp;", "&");
+    const descriptionMatch = html.match(/<meta\b[^>]*name=["']description["'][^>]*content=(?:"([^"]*)"|'([^']*)')/i);
+    const renderedDescription = (descriptionMatch?.[1] ?? descriptionMatch?.[2])?.replaceAll("&#39;", "'").replaceAll("&amp;", "&");
     if (renderedTitle && renderedTitle.length > 70) failures.push(`${rel}: title is ${renderedTitle.length} characters (max 70)`);
     if (renderedDescription && renderedDescription.length > 160) failures.push(`${rel}: meta description is ${renderedDescription.length} characters (max 160)`);
     if (renderedDescription && renderedDescription.length < 110) failures.push(`${rel}: meta description is ${renderedDescription.length} characters (min 110)`);
