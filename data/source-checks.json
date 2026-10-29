@@ -5,7 +5,7 @@
   "sources": {
     "fmcsa-estimates": {
       "monitor": "manual",
-      "lastVerified": "2026-10-18",
+      "lastVerified": "2026-10-29",
       "pageUpdated": "2023-10-26",
       "contentHash": null,
       "patterns": [
@@ -17,7 +17,7 @@
     },
     "fmcsa-avoid": {
       "monitor": "manual",
-      "lastVerified": "2026-10-18",
+      "lastVerified": "2026-10-29",
       "pageUpdated": "2023-10-26",
       "contentHash": null,
       "patterns": [
@@ -29,7 +29,7 @@
     },
     "fmcsa-rights": {
       "monitor": "manual",
-      "lastVerified": "2026-10-18",
+      "lastVerified": "2026-10-29",
       "pageUpdated": "2024-11-04",
       "contentHash": null,
       "patterns": [

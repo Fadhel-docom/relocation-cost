@@ -1,5 +1,14 @@
 # سجل العمل المشترك — Relocation Cost
 
+## 2026-10-29 UTC — ChatGPT: verify FMCSA displayed update dates
+- **Task from operations-room handoff:** Check whether the `quote-guide.js` dates `2023-10-26` and `2024-11-04` are visible on the cited pages; do not modify application copy unless a date is unsupported.
+- **Sources opened directly today:** FMCSA “What is a binding move estimate?” (visible “Last Updated: October 26, 2023”); FMCSA “How can I avoid unexpected moving costs?” (visible “Last Updated: October 26, 2023”); FMCSA “Consumer Rights and Responsibilities” (visible “Last updated: Monday, November 4, 2024”). All three dates are confirmed by the pages themselves.
+- **Data change:** Refreshed `lastVerified` to `2026-10-29` for `fmcsa-estimates`, `fmcsa-avoid`, and `fmcsa-rights`; kept their existing `pageUpdated` values because they match the displayed dates. No user-facing guide copy changed.
+- **Validation:** Direct page text checked through the web reader; no app tests/build run because only source-check metadata and operations documentation changed. PR must still pass CI before merge.
+- **What remains:** Review and merge this documentation/metadata PR only after CI passes. Then continue the highest-priority open task from `STATUS-AND-PLAN-2026-10-29.md`: complete the independent citation audit, focusing on any claim not yet verified from the exact cited page; do not duplicate already confirmed rows.
+
+---
+
 ## 2026-10-29 ليلًا (محلي ~23:10) — الطرف: Claude (الأول) (اليوم 43: مراجعة PR #116)
 - **المهمة / الهدف:** «ابدأ العمل» في غرفة العمليات: قراءة السجل والـPRs المفتوحة وإكمال ما هو معلّق.
 - **الحالة عند البدء:** PR #116 من ChatGPT مفتوح (حذف عبارة «page shows an update date of April 30, 2026» من دليل حزمة صاحب العمل لأن صفحة IRS المفتوحة لا تعرض تاريخًا)؛ build أحمر؛ لا PR من Claude الثاني بعد.
