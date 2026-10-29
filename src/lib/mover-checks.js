@@ -106,7 +106,7 @@ export const RULE_GROUPS = Object.freeze([
         sources: ["ftc-alert"],
       },
       {
-        text: "FMCSA's page says a mover must physically survey your goods if you live within 50 miles of the mover's location, unless you waive the survey.",
+        text: "FMCSA's page lists a physical survey among the requirements for a move arranged through a broker: the mover that will transport your goods, not the broker, must do it when your goods are within 50 miles of the mover's or its agent's location (the closer of the two counts), unless you waive the survey.",
         sources: ["fmcsa-faq"],
       },
       {
