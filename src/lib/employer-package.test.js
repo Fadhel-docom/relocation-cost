@@ -18,7 +18,15 @@ test("the sources are the same two IRS pages as the calculator's tax note", () =
     assert.match(source.verified, iso);
   }
   assert.match(CHECKED_ON, iso);
-  assert.equal(SOURCES.find(source => source.id === "irs-i3903").pageUpdated, "2026-04-30");
+  assert.equal(SOURCES.find(source => source.id === "irs-i3903").pageUpdated, null);
+});
+
+test("the unsupported IRS page-update date is not presented as verified", () => {
+  const fact = FACTS.find(item => item.text.includes("Form 3903 instructions"));
+  assert.ok(fact);
+  assert.match(fact.text, /does not display a page-update date/i);
+  assert.match(fact.text, /posted November 21, 2025/i);
+  assert.equal(SOURCES.find(source => source.id === "irs-i3903").pageUpdated, null);
 });
 
 test("every fact cites a listed source and the numbering follows the list", () => {
