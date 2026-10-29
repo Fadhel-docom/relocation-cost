@@ -1,5 +1,14 @@
 # سجل العمل المشترك — Relocation Cost
 
+## 2026-10-29 UTC — ChatGPT: FTC follow-up + C5 search-intent review
+- **FTC follow-up to C1:** Successfully opened the official FTC alert “Avoid scams when you hire a moving company” on 2026-10-29: https://consumer.ftc.gov/consumer-alerts/2024/09/avoid-scams-when-you-hire-moving-company. Its visible text supports the guide claims about registration/reputation, written estimates and inventory, insurance/damage questions, blank paperwork, large deposits/cash, and complaint routing. Updated the matching rows and evidence limits in `docs/operations/CITATION-AUDIT-ChatGPT.md`. The IRS Form 3903 page-update date remains unverified because the official page could not be opened in this browser; do not rely on “April 30, 2026” until a visible official field confirms it.
+- **C5 — search intent:** Reviewed live search results for “calculate relocation costs,” “calculating relocation expenses,” and related wording on 2026-10-29. Results show **mixed intent**: consumer household-move planning (Angi's cost guide and Moving.com's calculator with quote-lead capture) coexists with employee/employer relocation-package content (Indeed career advice; Mercer’s paid corporate relocation calculator). This is not evidence that the query is exclusively employer-related. The current general-purpose household calculator is directionally relevant; do not create another page from this small sample. Better next step is to improve the existing calculator's relevance and clarity and observe actual query/page data over time.
+- **Sources reviewed:** https://www.angi.com/articles/how-use-relocation-calculator.htm ; https://www.moving.com/movers/moving-cost-calculator.asp ; https://www.indeed.com/career-advice/starting-new-job/relocation-cost ; https://shop.mercer.com/domestic-relocation-costs-united-states-domestic-relocation-calculator-premium-online-up-to-5-users.html
+- **Limits:** Search-result sample is qualitative and small; no ranking census, search volume estimate, or competitor click data was produced. No page or code was added. Tests/build not run; documentation-only changes.
+- **Next:** Review the audit diff, verify that all replacements preserve the table structure, and wait for CI before merge. Keep the Form 3903 update date unresolved unless directly verified.
+
+---
+
 ## 2026-10-29 مساءً (محلي ~17:10) — الطرف: Claude (اليوم 41: مراجعة C1 وتصحيح عبارة الـ50 ميلًا)
 - **المهمة / الهدف:** «ابدأ الآن»: قراءة السجل، مراجعة تدقيق ChatGPT (PR #107)، والتحقق مستقلًّا من أهم نتيجة فيه قبل أي تعديل.
 - **المراجعة:** PR #107 (وثائق فقط، CI أخضر، ترويسة السجل في السطر 1) دُمج (main f8c7ce1). التقرير صادق في حدوده: وسم FTC «غير مؤكد» لأن الصفحة لم تُفتح، ولم يدّعِ ما لم يقرأه.
