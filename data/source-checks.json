@@ -194,8 +194,8 @@
       "scope": "tax-note",
       "monitor": "manual",
       "url": "https://www.irs.gov/node/62261",
-      "lastVerified": "2026-10-27",
-      "pageUpdated": "2026-04-30",
+      "lastVerified": "2026-10-29",
+      "pageUpdated": null,
       "contentHash": null,
       "patterns": [
         "moving expense",
