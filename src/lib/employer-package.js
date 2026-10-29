@@ -34,7 +34,7 @@ export const FACTS = Object.freeze([
   { text: "Publication 15-B (2026) says the exclusion for qualified moving expense reimbursements was permanently eliminated. For most employees, a reimbursement for moving costs is therefore no longer left out of income.", sources: ["irs-p15b"] },
   { text: "The same page keeps the exclusion for members of the U.S. Armed Forces on active duty, limited to reimbursement of moving expenses the member could deduct. It also makes it available to an employee or new appointee of the intelligence community, under the same limit.", sources: ["irs-p15b"] },
   { text: "The publication's general rule for a taxable fringe benefit is that it is generally subject to employment taxes and must be reported on Form W-2.", sources: ["irs-p15b"] },
-  { text: "The Form 3903 instructions say the moving expense deduction was eliminated for tax years after 2017, except for certain Armed Forces members. They say you can no longer deduct moving expenses unless you are a member of the Armed Forces on active duty. The page shows an update date of April 30, 2026.", sources: ["irs-i3903"] },
+  { text: "The Form 3903 instructions say the moving expense deduction was eliminated for tax years after 2017, except for certain Armed Forces members. They say you can no longer deduct moving expenses unless you are a member of the Armed Forces on active duty.", sources: ["irs-i3903"] },
 ]);
 
 // What the sources do not say. Listed so nobody assumes this guide fills the gap.
