@@ -1,0 +1,29 @@
+# Canada readiness — source inventory only
+**Reviewed by:** ChatGPT  
+**Checked:** 2026-10-29 UTC  
+**Scope:** Research only. No Canadian pages, calculator logic, or pricing coefficients were created. “Available” means an accessible source was found for the narrow item stated; it does not mean all data needed for a Canadian estimator is ready.
+
+| Item | Source | Status | Notes / limits |
+|---|---|---|---|
+| Canadian moving-expense deduction | CRA, Line 21900 — Moving expenses: https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/deductions-credits-expenses/line-21900-moving-expenses.html | **Available — official, opened via current search result (2026-10-29)** | Current page describes eligibility, eligible/ineligible costs, the 40 km closer rule, and Form T1-M. Must distinguish tax eligibility from ordinary moving-cost estimates; do not imply every mover qualifies. |
+| Official detailed tax interpretation | CRA Income Tax Folio S1-F3-C4 — Moving Expenses: https://www.canada.ca/en/revenue-agency/services/tax/technical-information/income-tax/income-tax-folios-index/series-1-individuals/folio-3-family-unit-issues/income-tax-folio-s1-f3-c4-moving-expenses.html | **Available — official (2026-10-29)** | Suitable for checking detailed eligibility questions; the public page is older, so confirm current return-year instructions before publishing any tax explanation. |
+| Official tax form | CRA Form T1-M: https://www.canada.ca/en/revenue-agency/services/forms-publications/forms/t1-m.html | **Available — official (2026-10-29)** | Form is the primary calculation aid for eligible deductions; it is not a general move-cost calculator. |
+| Change of address / mail forwarding | Canada Post, Support: How to get started with Mail Forwarding: https://www.canadapost-postescanada.ca/cpc/en/support/kb/receiving/forwarding-mail/how-to-get-started-with-mail-forwarding.page | **Available — official (2026-10-29)** | Explains eligibility, timing, and limitations. CRA's moving-expense page lists mail-forwarding costs as ineligible; do not include them as deductible expenses. |
+| Moving checklist / postal guidance | Canada Post, Don't miss any mail when you move: https://www.canadapost-postescanada.ca/cpc/en/personal/manage-mail/moving-to-new-home.page | **Available — official (2026-10-29)** | Useful for a checklist/resource link, not a cost coefficient. |
+| Units and currency | Canada commonly uses kilometres and Canadian dollars in this product context. Official road-network tables are metric; pricing must be taken from a vendor's Canadian quote flow and displayed as CAD. | **Partly available; implementation specification needed** | Use explicit km and CAD labels and conversions. No exchange-rate conversion should be needed for domestic Canadian estimates. No single official source supplies relocation-cost rates. |
+| Truck-rental prices | U-Haul's public guidance explains that rates vary by origin, destination, truck size, date, mileage, and inventory: https://www.uhaul.com/FrequentlyAskedQuestions/Truck-Rentals/ | **Partly available** | The opened pricing examples found during this review are US examples, not a validated Canadian price table. Canadian rates should be obtained from a live Canadian quote flow for a defined route/date, or treated as unavailable; do not reuse US dollar rates or fabricate CAD coefficients. |
+| National / provincial road-network context | Transport Canada, Table RO2 — Length of Public Road Network in Canada, 2024: https://tdih-cdit.tc.canada.ca/en/addendum-tables/2024/table-ro2-length-public-road-network-canada-2024-0 | **Available — official (2026-10-29)** | This is aggregate network-length data, not city-to-city driving distances. It cannot replace a route-distance source. |
+| City-to-city road-distance table | No national official table of city-to-city driving routes was found in this review. A specific Parks Canada page does publish distances for its local destinations: https://parks.canada.ca/pn-np/bc/yoho/visit/directions | **Not available as a comprehensive national source** | Local park distances are not suitable as a nationwide route matrix. Need an approved route API/provider or another documented route dataset; HeiGIT R4 terms remain unresolved. |
+| Current vendor prices by route/date | U-Haul's FAQ says one-way rates depend on origin, destination, truck size, and move date; rates can change: https://www.uhaul.com/FrequentlyAskedQuestions/Truck-Rentals/ | **Not available as a stable public dataset** | If ever used, quote live and label as a point-in-time vendor quote with date/location/vehicle assumptions. A single static rate is not a defensible nationwide cost model. |
+
+## Decision
+
+**Not ready to launch a Canada calculator or route pages.** Official CRA and Canada Post sources are available for a carefully scoped guide/checklist. But a defensible Canadian estimator still lacks a verified, reproducible nationwide driving-distance method and a reliable Canadian moving-truck price dataset or a transparent alternative model. Do not copy US pricing assumptions into CAD or publish route pages merely to expand coverage.
+
+## Next research gates before implementation
+
+1. Resolve R4 (HeiGIT/OpenRouteService terms, licensing, attribution, caching, quota) or identify another permissible route-distance source.
+2. Determine whether the product will estimate only DIY truck costs, professional movers, or both. Each requires different data and uncertainty treatment.
+3. Collect and document a small, dated Canadian quote sample only if the vendor terms permit retention/use; otherwise design around clearly labelled assumptions without claiming market averages.
+4. Verify all tax wording against current CRA guidance and separate it from the core cost estimate.
+5. Apply the Value Before Publishing policy before any Canada landing page is drafted.
