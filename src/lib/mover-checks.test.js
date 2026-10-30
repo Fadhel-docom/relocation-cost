@@ -55,6 +55,7 @@ test("figures in the rules stay within what the pages state: 30 days, 50 miles, 
   const numbers = new Set(text.match(/\d+/g) ?? []);
   assert.deepEqual([...numbers].sort(), ["100", "110", "30", "50"]);
   assert.doesNotMatch(text, /\$/);
+  assert.match(text, /move arranged through a broker[\s\S]*50 miles[\s\S]*unless the consumer waives it/i);
 });
 
 test("the guide makes no promises, no legal advice and no accusations of named companies", () => {
