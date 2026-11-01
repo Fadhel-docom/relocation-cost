@@ -1192,3 +1192,23 @@
 - **موافقة على القرارات:** لا طلبات فهرسة ولا إعادة إرسال sitemap ولا تغيير canonical/noindex/محتوى قبل 2026-11-05؛ لا اعتراض. ملاحظة تفسيرية: لا نستنتج من «URL unknown» لـ`/calculator/` وصفحة دليل صاحب العمل أن Google قرر استبعادهما؛ هو اكتشاف لم يحدث بعد حسب هذا الفحص فقط.
 - **ما تغيّر فعليًا:** هذا الإدخال فقط؛ لا كود، لا نصوص منشورة، لا معاملات، لا طلبات فهرسة.
 - **الخطوة التالية:** 2026-11-05: قراءة GSC لنافذة ثابتة من 27 يومًا ومقارنتها بالأساس، ثم M1 (الرئيسية) ثم M3 (قالب المسارات)؛ R4 دون تغيير (انتظار HeiGIT).
+
+
+## 2026-11-01 07:05 UTC — ChatGPT — اعتماد خطة SEO v2.0 وبدء مسار AI Answer / Search / Embed
+- **الفرع:** strategy/seo-growth-ai-visibility-20261101 (من main عند c8b7ffa).
+- **ما قُرئ:** خارطة 2026-10-31 كاملة، OPS-ROOM، WORK-LOG، قانون value-before-publishing، public/robots.txt، calculator.js، calculator.astro، moving-cost guide، employer package guide، route page template.
+- **أعمال البحث:** راجعت الإرشادات الرسمية الحالية لـGoogle AI search، Google Gen AI performance report، Bing Webmaster Guidelines، Bing AI Performance وAI Preferences، وOpenAI crawler/publisher guidance. راجعت أمثلة منافسين عن cost breakdowns، طرق النقل، وشفافية الحاسبات؛ لم أستنتج traffic المنافسين من SERP.
+- **نتيجة تقنية من المصدر:** robots.txt الحالي يسمح للجميع عبر User-agent:* Allow:/، ولا يحظر OAI-SearchBot أو Bingbot صراحة. يجب فحص CDN/hosting والـHTTP logs وإعدادات Bing AI Grounding؛ robots وحده غير كافٍ.
+- **نتيجة منتج جوهرية:** calculator.js/واجهة calculator تبين أن المسافة الافتراضية خط مستقيم بين مركزي الولايات وليست road mileage، مع إمكانية إدخال أميال قيادة يعرفها المستخدم. الحاسبة planning estimate وليست binding quote. يعتمد نموذج DIY على متوسطات U-Haul المنشورة حسب شرائح المسافة كحد أدنى، ثم افتراضات خدمة وبافر 10%. أي جواب AI يجب أن يصرح بهذه الحدود ولا يعرض النتائج كمتوسط سوق.
+- **مخرجات موثقة:** SEARCH-GROWTH-STRATEGY-2026-11-01.md + AI-ANSWER-QUESTION-MAP-2026-11-01.md. لا تغييرات إنتاجية ولا محتوى منشور ولا طلبات فهرسة.
+- **التوجيه:** أربع مسارات متكاملة: AI answer bank، Google/Bing SEO، embed partner utility، قنوات توزيع إضافية. الاقتراح الأساسي لجعل المواقع تحتاج إلينا هو Free Embeddable Moving Budget Calculator، لكن البرمجة الكاملة مشروطة بإشارتين طلب على الأقل.
+- **إلى Claude:** راجع الخطة وخريطة الأسئلة. نفذ تدقيق جاهزية AI discovery (OAI-SearchBot/Bingbot عبر robots/CDN/headers، Bing AI Grounding preferences، توفر Google Gen AI report وBing AI Performance) وتقييم قابلية embed الحالية. وثّق المصادر والنتائج والقيود؛ لا production changes أو URL submissions أو API keys/billing أو نشر محتوى.
+- **بوابة القياس:** المحافظة على نافذة 2026-11-05؛ يبدأ الآن البحث والتصميم والتوثيق فقط. لا تعديل على الرئيسية أو calculator أو المعادلات أو sitemap قبل البوابة.
+
+
+## 2026-11-01 07:10 UTC — ChatGPT — بدء إنتاج مخرجات تنفيذية لخطة SEO v2.0
+- أضيفت مسودات AI Answer Pack بعشرة أسئلة وأجوبة تربط كود الحاسبة ومصادر FMCSA/U-Haul بالصفحات الحالية. لم تُنشر؛ تحتاج مراجعة بشرية/تحريرية وتوافقًا مع نافذة 2026-11-05.
+- أضيفت قائمة أولية لفرص ناشرين/مواقع موارد (UNF، Waterloo، UCSF، ARC Relocation، WHR Global، Military OneSource) مع تقييم الملاءمة والعوائق. هذه جهات مرشحة فقط، لا توجد موافقة أو تواصل.
+- نقطة تميّز محتوى مهمة: نطاق النتائج ±20% ليس دقة إحصائية؛ وcontingency 10% في النموذج ليس قاعدة FMCSA 110% لتقديرات النقل interstate. يجب عدم الخلط بينهما.
+- مصادر FMCSA الأولية المضافة لمسودات الإجابة: binding estimates، subpart D، select mover، moving checklist. لا ننشر أي معلومة تنظيمية دون مراجعة النص الرسمي وتحديد أنها تخص interstate moves.
+- الملفات الجديدة: AI-ANSWER-PACK-DRAFT-2026-11-01.md وEMBED-PUBLISHER-PROSPECTS-2026-11-01.md. توثيق فقط، لا تغييرات production ولا تواصل خارجي.
