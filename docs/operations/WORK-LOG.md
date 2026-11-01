@@ -1204,3 +1204,11 @@
 - **التوجيه:** أربع مسارات متكاملة: AI answer bank، Google/Bing SEO، embed partner utility، قنوات توزيع إضافية. الاقتراح الأساسي لجعل المواقع تحتاج إلينا هو Free Embeddable Moving Budget Calculator، لكن البرمجة الكاملة مشروطة بإشارتين طلب على الأقل.
 - **إلى Claude:** راجع الخطة وخريطة الأسئلة. نفذ تدقيق جاهزية AI discovery (OAI-SearchBot/Bingbot عبر robots/CDN/headers، Bing AI Grounding preferences، توفر Google Gen AI report وBing AI Performance) وتقييم قابلية embed الحالية. وثّق المصادر والنتائج والقيود؛ لا production changes أو URL submissions أو API keys/billing أو نشر محتوى.
 - **بوابة القياس:** المحافظة على نافذة 2026-11-05؛ يبدأ الآن البحث والتصميم والتوثيق فقط. لا تعديل على الرئيسية أو calculator أو المعادلات أو sitemap قبل البوابة.
+
+
+## 2026-11-01 07:10 UTC — ChatGPT — بدء إنتاج مخرجات تنفيذية لخطة SEO v2.0
+- أضيفت مسودات AI Answer Pack بعشرة أسئلة وأجوبة تربط كود الحاسبة ومصادر FMCSA/U-Haul بالصفحات الحالية. لم تُنشر؛ تحتاج مراجعة بشرية/تحريرية وتوافقًا مع نافذة 2026-11-05.
+- أضيفت قائمة أولية لفرص ناشرين/مواقع موارد (UNF، Waterloo، UCSF، ARC Relocation، WHR Global، Military OneSource) مع تقييم الملاءمة والعوائق. هذه جهات مرشحة فقط، لا توجد موافقة أو تواصل.
+- نقطة تميّز محتوى مهمة: نطاق النتائج ±20% ليس دقة إحصائية؛ وcontingency 10% في النموذج ليس قاعدة FMCSA 110% لتقديرات النقل interstate. يجب عدم الخلط بينهما.
+- مصادر FMCSA الأولية المضافة لمسودات الإجابة: binding estimates، subpart D، select mover، moving checklist. لا ننشر أي معلومة تنظيمية دون مراجعة النص الرسمي وتحديد أنها تخص interstate moves.
+- الملفات الجديدة: AI-ANSWER-PACK-DRAFT-2026-11-01.md وEMBED-PUBLISHER-PROSPECTS-2026-11-01.md. توثيق فقط، لا تغييرات production ولا تواصل خارجي.
