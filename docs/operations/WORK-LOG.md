@@ -1294,3 +1294,29 @@
 - اختبار AI surfaces المباشر لم ينفذ؛ لا نسجل صفر ظهور. exact-domain search المحدود لم يرجع نتائج، ولا يثبت الغياب من AI answers.
 - لا تغييرات production أو indexing أو معادلات. تبقى بوابة 2026-11-05 قائمة.
 - **إلى Claude:** راجع معيار الأسئلة، مواصفة embed، وتقييم Quote Scope Checker، وسجل ملاحظات مدعومة بالأدلة. لا production ولا outreach ولا بناء embed.
+
+## 2026-11-01 13:25 UTC — ChatGPT — تنفيذ أولوية AI Search والمنتج والتوزيع
+
+### AI Search
+- أُنشئ اختبار ثابت من 30 سؤالًا موزعًا على تكلفة الانتقال، المسارات، المنهجية والثقة، مقارنة عروض شركات النقل، وحزم انتقال الموظفين: `docs/operations/AI-ANSWER-VISIBILITY-BENCHMARK-30-QUESTIONS-2026-11-01.md`.
+- أُجري spot-check عبر نتائج البحث العامة لاسم النطاق وموضوع التكلفة والمسار CA→TX ومقارنة عروض النقل. لم يظهر Relocation Cost في النتائج المعادة ضمن هذا الفحص المحدود. ظهرت منافسون/مصادر فعلية منها This Old House وmoveBuddha وFreightWaves Checkpoint وGoodMigrations وThree Movers، وفي مقارنة العروض MoveDayMap وHave a Good Move.
+- **لم يتم اختبار الإجابات مباشرة داخل ChatGPT Search أو Google AI Overviews/AI Mode أو Copilot**؛ الحالة Not tested وليست صفر استشهادات. نتائج محرك البحث ليست دليلًا على استشهاد AI.
+- تم توثيق قيود Google AI features وأدوات القياس، وأولوية فحص Bing Webmaster Tools > AI Performance (Citations & Pages وGrounding Queries وTopics Portfolio إن ظهر) وGoogle Search Console Generative AI report في حساب المالك.
+- مصادر الملاحظات موثقة في ملف benchmark؛ لا نعتبر لقطة البحث ترتيبًا ثابتًا أو قياسًا شاملًا.
+
+### المنتج والتوزيع
+- أُنشئ مفهوم Embed MVP ومتطلبات القبول وبوابة الطلب: لا بناء كامل قبل إشارتين حقيقيتين من ناشرين. الملف: `docs/operations/EMBED-MVP-CONCEPT-2026-11-01.md`.
+- أُنشئ تقييم أداة مقارنة عروض النقل: توجد أدوات منافسة بالفعل (MoveDayMap Quote Decoder وHave a Good Move review/comparison). التوصية الحالية: لا نبنِ نسخة عامة قبل إثبات فجوة؛ الفرضية الممكنة هي مقارنة نطاق الخدمات وإظهار البنود المجهولة دون رفع مستندات أو ترتيب مزودي الخدمة. الملف: `docs/operations/MOVING-QUOTE-COMPARISON-TOOL-ASSESSMENT-2026-11-01.md`.
+- أُنشئت خطة قنوات مجانية قابلة للقياس (ناشرون، checklist أصلية، إجابات مجتمعية وفق القواعد، أدلة أدوات منتقاة، مشاركة آمنة، PR قائم على الدليل): `docs/operations/FREE-CHANNEL-EXPERIMENTS-2026-11-01.md`.
+- لم يتم إرسال رسائل أو نشر حملات أو بناء embed أو أداة مقارنة.
+
+### إلى Claude — المطلوب التالي
+1. افتح benchmark ذي 30 سؤالًا وسجل مباشرة في ChatGPT Search وGoogle AI surfaces وCopilot فقط إذا كانت واجهة الاختبار متاحة لديك. اختبر عينة 10 أولًا ثم أكمل 30؛ سجّل prompt كما هو، التاريخ، surface، mention/citation، URL المستشهد به، المنافسين، صحة الإجابة، ولقطة/دليل. إذا لم تتوفر الواجهة فاكتب Not tested وسبب عدم الإتاحة؛ لا تستبدلها بنتائج بحث ويب.
+2. من لوحات الحساب المرتبطة، افحص Bing Webmaster Tools > AI Performance (Citations & Pages، Grounding Queries، Topics Portfolio إن توفر) وGoogle Search Console > Generative AI performance. أرفق الأرقام والفترة ولقطات/exports، أو وثق أن التقرير غير ظاهر.
+3. راجع مفهوم embed وتقييم Quote Scope Checker. ابحث عن إشارات اهتمام ناشرين فعلية/منافسين إضافيين، لكن لا تتواصل مع أحد ولا تبنِ كودًا.
+4. اكتب رأيك المستقل في وجود فجوة حقيقية لأداة مقارنة العروض، خصوصًا بعد العثور على MoveDayMap وHave a Good Move.
+
+### القيود
+- لا production changes ولا طلبات indexing قبل بوابة 2026-11-05.
+- لا إرسال outreach ولا إطلاق حملات دون موافقة المالك.
+- لا ندّعي AI citations من نتائج web search.
