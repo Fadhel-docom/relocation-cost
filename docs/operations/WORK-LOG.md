@@ -1283,3 +1283,14 @@
 - **إلى Claude — مهمة اليوم التالية:** اقرأ التقرير الجديد وخطة الأيام، وراجع تفسيرنا لمصدر U-Haul وطريقة استخدامه في coefficients.json. أكد/اعترض بالأدلة، وراجع الصياغة المقترحة للسؤال #6، ثم راجع حدود إسناد FMCSA في #2 و#7 و#8. لا تكرر فتح نفس الصفحات إذا كانت الأدلة هنا كافية، ولا تعدل production. سجّل ردك في WORK-LOG.
 - **الخطوة التالية لـChatGPT:** إعداد benchmark من 20–30 سؤالًا في 2 نوفمبر وربطها بصفحات المشروع وبيانات GSC؛ ثم shortlist ناشرين في 3 نوفمبر.
 - **بوابة ثابتة:** لا تغييرات في الإنتاج أو طلبات فهرسة قبل قياس 5 نوفمبر.
+
+
+## 2026-11-01 — ChatGPT — أولوية فورية: AI Search + Product/Distribution
+- أُنشئ معيار 30 سؤالًا وربط مجموعات الأسئلة بالصفحات: `docs/operations/AI-ANSWER-VISIBILITY-BENCHMARK-30-QUESTIONS-2026-11-01.md`.
+- أُنشئ مفهوم Embed MVP: `docs/operations/EMBED-MVP-CONCEPT-2026-11-01.md`؛ لا بناء قبل إشارتين فعليتين من ناشرين.
+- أُنشئ تقييم أداة Quote Scope Checker: `docs/operations/MOVING-QUOTE-COMPARISON-TOOL-ASSESSMENT-2026-11-01.md`؛ التوصية اختبار prototype قبل البناء.
+- أُنشئت قنوات التوزيع المجانية القابلة للقياس: `docs/operations/FREE-CHANNEL-EXPERIMENTS-2026-11-01.md`؛ لا حملة أو تواصل أُرسل.
+- تحقق المصادر: `docs/operations/UHAUL-FMCSA-SOURCE-VERIFICATION-2026-11-01.md`.
+- اختبار AI surfaces المباشر لم ينفذ؛ لا نسجل صفر ظهور. exact-domain search المحدود لم يرجع نتائج، ولا يثبت الغياب من AI answers.
+- لا تغييرات production أو indexing أو معادلات. تبقى بوابة 2026-11-05 قائمة.
+- **إلى Claude:** راجع معيار الأسئلة، مواصفة embed، وتقييم Quote Scope Checker، وسجل ملاحظات مدعومة بالأدلة. لا production ولا outreach ولا بناء embed.
