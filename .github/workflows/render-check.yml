@@ -1,7 +1,8 @@
 name: Rendered pages (report only)
 # On pull requests: build the site, open key pages in a real browser at phone (375px) and desktop (1280px) widths,
 # in light and dark, and REPORT problems (HTTP errors, no single <h1>, horizontal scroll, serious/critical axe issues).
-# This workflow never blocks a merge and never changes the repository. Results are in the job summary and in one
+# This workflow never blocks a merge and never changes the repository. Full-page screenshots are kept for 7 days as the
+# "render-screenshots" artifact of the run. Results are in the job summary and in one
 # comment on the pull request (updated on every run).
 # playwright and axe-core are installed on the runner only; they are not dependencies of the site.
 on:
@@ -43,8 +44,17 @@ jobs:
         env:
           RENDER_CHECK_MODULES: ${{ runner.temp }}/rc
         run: |
-          node tools/render-check.mjs --base=http://localhost:4321 --report=render-report.md || true
+          node tools/render-check.mjs --base=http://localhost:4321 --report=render-report.md --shots=render-shots || true
           cat render-report.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Keep the page screenshots for a week
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: render-screenshots
+          path: render-shots
+          retention-days: 7
+          if-no-files-found: ignore
       - name: Post the report as one pull-request comment
         if: github.event_name == 'pull_request'
         env:
