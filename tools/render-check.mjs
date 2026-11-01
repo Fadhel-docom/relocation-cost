@@ -4,12 +4,17 @@
 // "status=..." (for GitHub outputs) and a Markdown report.
 // Needs playwright and axe-core; RENDER_CHECK_MODULES points at a folder where they were installed (not in package.json).
 import { createRequire } from "node:module";
-import { writeFileSync } from "node:fs";
+import { writeFileSync, mkdirSync } from "node:fs";
 import { seriousViolations, judgePage, summarize, formatMoney, parseMoney, expectedDisplay, compareDisplay, judgeInvalidState } from "../src/lib/render-check.js";
 import { calculateBudget } from "../src/lib/calculator.js";
 
 const base = (process.argv.find((a) => a.startsWith("--base=")) || "--base=http://localhost:4321").slice(7);
 const reportPath = (process.argv.find((a) => a.startsWith("--report=")) || "--report=render-report.md").slice(9);
+// Optional: --shots=DIR saves one full-page PNG per page, width and colour scheme so a person (or Claude) can look at
+// the pages. A screenshot that fails is skipped; it never adds a problem to the report and never fails the check.
+const shotsDir = (process.argv.find((a) => a.startsWith("--shots=")) || "").slice(8);
+if (shotsDir) mkdirSync(shotsDir, { recursive: true });
+const shotName = (path, vp, scheme) => `${(path.replace(/^\/|\/$/g, "").replace(/\//g, "_") || "home")}-${vp}-${scheme}.png`;
 const PAGES = [
   "/", "/calculator/", "/methodology/", "/checklist/", "/budget-tracker/", "/cost-of-living/",
   "/guides/diy-vs-movers/", "/guides/reading-a-moving-quote/", "/guides/truck-size/",
@@ -230,6 +235,9 @@ try {
           axe: (await window.axe.run(document)).violations.map((v) => ({ id: v.id, impact: v.impact, help: v.help, nodes: v.nodes.map(() => 1) })),
         }));
         problems = judgePage({ status: res ? res.status() : 0, h1Count: facts.h1Count, scrollWidth: facts.scrollWidth, innerWidth: facts.innerWidth, violations: seriousViolations(facts.axe) });
+        if (shotsDir) {
+          try { await page.screenshot({ path: `${shotsDir}/${shotName(path, vp.name, scheme)}`, fullPage: true }); } catch { /* skipped on purpose */ }
+        }
       } catch (e) {
         problems = [`could not check: ${String(e.message).split("\n")[0]}`];
       }
