@@ -52,10 +52,10 @@
 ## Target page map
 | Prompt range | Main page(s) | Citation / accuracy guardrail |
 |---|---|---|
-| 1–8 | /guides/moving-cost/ and /calculator/ | No universal national average without a defensible sample; label outputs as planning estimates. |
+| 1–8 | /guides/moving-cost/, /calculator/, plus /guides/diy-vs-movers/ (5–6), /guides/relocation-budget/ (3), /guides/reading-a-moving-quote/ (8) | No universal national average without a defensible sample; label outputs as planning estimates. |
 | 9–14 | Existing route pages only where present; /calculator/ | Route-specific values must come from the calculator/model and show straight-line vs road-mile distinction. |
 | 15–21 | /methodology/ and /calculator/ | Explain assumptions, U-Haul September 2025 benchmark, zero fields, 10% contingency and ±20% planning band accurately. |
-| 22–26 | /guides/moving-cost/ | Use FMCSA primary sources; distinguish mover quote types and compare equal inventory/services. |
+| 22–26 | /guides/reading-a-moving-quote/ (22–25), /guides/checking-a-mover/ (26) — corrected 2026-11-01, see AI-BENCHMARK-30-ROW-AUDIT-2026-11-01.md | Use FMCSA primary sources; distinguish mover quote types and compare equal inventory/services. |
 | 27–30 | /guides/employer-relocation-package/ and /calculator/ | No tax advice; prompt 30 requires current IRS primary-source verification before publishing a substantive answer. |
 
 ## Competitor recording
