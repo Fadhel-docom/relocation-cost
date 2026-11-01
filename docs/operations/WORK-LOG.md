@@ -1212,3 +1212,16 @@
 - نقطة تميّز محتوى مهمة: نطاق النتائج ±20% ليس دقة إحصائية؛ وcontingency 10% في النموذج ليس قاعدة FMCSA 110% لتقديرات النقل interstate. يجب عدم الخلط بينهما.
 - مصادر FMCSA الأولية المضافة لمسودات الإجابة: binding estimates، subpart D، select mover، moving checklist. لا ننشر أي معلومة تنظيمية دون مراجعة النص الرسمي وتحديد أنها تخص interstate moves.
 - الملفات الجديدة: AI-ANSWER-PACK-DRAFT-2026-11-01.md وEMBED-PUBLISHER-PROSPECTS-2026-11-01.md. توثيق فقط، لا تغييرات production ولا تواصل خارجي.
+
+
+## 2026-11-01 (٠٨:٣٠ محلي) — الطرف: Claude (الأول) — مراجعة PR #143 وتدقيق جاهزية AI discovery وقابلية التضمين
+
+- **المستودع/الفرع:** Fadhel-docom/relocation-cost؛ PR #143 دُمج (main = 3a218f3، CI build + render أخضر، توثيق فقط)؛ تقريري على فرع docs/claude-ai-discovery-audit.
+- **ما قرأتُه:** OPS-ROOM.md، آخر WORK-LOG، الاستراتيجية (SEARCH-GROWTH-STRATEGY)، مسودة AI Answer Pack، خريطة الأسئلة، قائمة الناشرين.
+- **مراجعة #143:** لا اعتراض على القرارات (لا تغيير إنتاجي قبل 05/11، لا تواصل خارجي، بوابة طلب قبل بناء embed). تحققتُ من الكود: contingency 10% على (النقل + الإضافات)، نطاق 0.80–1.20، فترة U-Haul «September 2025»، البنود عند 0 مستبعدة، وشرح المسافة بخط مستقيم ✓. تصحيح واحد: «فجوة الثقة رقم 1» مبالغ فيها؛ الجملة ظاهرة أصلًا تحت اختيار الولايتين (calculator.astro سطر 63) وفي ملاحظة النتيجة (209). روابط FMCSA/U-Haul/IRS في المسودة لم أفتحها: غير مؤكدة.
+- **التقرير:** docs/operations/AI-DISCOVERY-READINESS-AND-EMBED-AUDIT-2026-11-01.md. الخلاصة: robots.txt يسمح للجميع ولا ترويسات ولا CSP في المستودع، فلا شيء في الكود يحجب الزحف؛ الحاسبة الحالية غير صالحة للتضمين كما هي (ترويسة وتذييل وشريط ثابت وJSON-LD، وأزرار طباعة وبريد)؛ المقترح مسار /embed/calculator/ مبسّط بترويسة frame-ancestors على هذا المسار وحده، ولا يُبنى قبل بوابة الطلب.
+- **ما لم أستطع فعله:** فحص الاستجابة الحية بوكلاء OAI-SearchBot/Bingbot (WebFetch يرفض نطاق الموقع ولا سجلات CDN لدي)؛ قراءة إعدادات Vercel Firewall؛ قراءة Bing AI Performance/AI Preferences (موصل Composio لا يعرض أداة لها)؛ التأكد من وجود تقرير Google Generative AI performance.
+- **المطلوب من ChatGPT:** (1) لا تعد استنتاجَ «مدفون في المساعدة» قبل مراجعة الأسطر المذكورة؛ (2) هل يعرض اتصال Bing لديك أداة تقرأ AI Performance أو AI Preferences؟ إن نعم فاقرأها واكتب النتيجة هنا، وإن لا فاكتب ذلك صراحة؛ (3) افتح روابط FMCSA وU-Haul في المسودة وسجّل ما قرأته حرفيًا قبل أي نشر.
+- **المطلوب من المالك:** لقطة Vercel Firewall (Attack Challenge Mode وقواعد البوتات) وSettings ← Billing؛ لقطات Bing AI Performance/Preferences وGoogle Generative AI report إن ظهرت. لا استعجال.
+- **ما تغيّر فعليًا:** ملفان توثيقيان فقط؛ لا كود ولا نصوص منشورة ولا معاملات ولا طلبات فهرسة.
+- **الخطوة التالية:** GSC يوم 05/11 (نافذة ثابتة 27 يومًا) ثم M1 ثم M3؛ R4 دون تغيير (انتظار HeiGIT).
