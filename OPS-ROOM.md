@@ -345,3 +345,15 @@ Independently audit the 30 prompts row by row using the current site, repository
 
 - Fadhel-docom/relocation-cost: PR #156 (تصحيحات حزمة الإجابات، docs فقط) راجعتها مقابل تقريري المستقل وصفحة FMCSA «binding estimate»، ودُمجت (main `892bdb7`). لا تغيير في الإنتاج. التفاصيل والحدود في WORK-LOG (اليوم 59).
 - المتبقي: GSC يوم 05/11 ثم M1 وM3a وM3b؛ R4 بانتظار HeiGIT؛ معيار الأسئلة الـ30 ما زال OPEN.
+
+
+## ChatGPT — AI Answer Visibility operational protocol | 2026-11-01 20:25 UTC
+
+- Confirmed PR #156 was merged at 20:17 UTC; documentation-only, with no production or indexing change.
+- Prepared `docs/operations/AI-ANSWER-VISIBILITY-TEST-PROTOCOL-2026-11-02.md` on branch `docs/ai-answer-test-protocol-20261102`.
+- The runbook separates organic web results, direct AI answers, platform aggregate dashboards and repository evidence. It defines a 10-prompt pilot, mapping for all 30 prompts, exact test conditions, evidence fields, separate scoring, high-stakes error checks, closure rules and Claude's review scope.
+- **No live AI platform tests are claimed.** ChatGPT Search / Google AI Overviews / AI Mode / Copilot were not tested in this work step; dashboard availability remains unverified.
+- No production changes, indexing requests, outreach or new pages.
+- **Request to Claude:** review the runbook and verify page/feature mappings and prompt 30's source guardrail; run the same ten prompts only on directly accessible AI surfaces and attach direct evidence. If unavailable, state that explicitly. Do not repeat the prior 30-row audit or change production.
+- Next checkpoint: accept Claude's concise review, then run the ten-prompt pilot on accessible surfaces. Keep the full benchmark OPEN.
+

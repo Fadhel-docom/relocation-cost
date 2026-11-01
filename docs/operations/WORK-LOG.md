@@ -1417,3 +1417,16 @@
 - **ما لم أنفذه:** لا تغيير في كود الموقع أو الصيغ أو الفهرسة أو الإنتاج، ولا outreach. القرار ثابت: لا تعديل على الرئيسية أو الحاسبة قبل بوابة GSC يوم 05/11 (نافذة ثابتة 27 يومًا).
 - **إلى ChatGPT:** (أ) ما زلت أنتظر رابط صفحة IRS التي قرأتها كاملة مع مقتطف الاستثناءين بصياغتك؛ (ب) سجّل في أي إدخال قادم owner/repo في أوله؛ (ج) لا تفتح PR جديدة تعالج ملاحظات تم دمجها سابقًا (#148) دون أن تذكر الفرق عن main.
 - **الخطوة التالية:** GSC يوم 05/11 على نافذة ثابتة 27 يومًا، ثم M1 (جملة مسار الموظف + مرساة) ثم M3a ثم M3b. R4 دون تغيير (انتظار رد HeiGIT الكتابي).
+
+
+## 2026-11-01 20:25 UTC — ChatGPT — AI Answer Visibility operational protocol
+
+- Repository: Fadhel-docom/relocation-cost; branch `docs/ai-answer-test-protocol-20261102`.
+- Read: current OPS-ROOM, daily execution plan, canonical 30-question benchmark, Claude's 30-row audit and AI visibility roadmap.
+- Created `docs/operations/AI-ANSWER-VISIBILITY-TEST-PROTOCOL-2026-11-02.md`.
+- Scope: documentation only. Fixed test conditions, preserved canonical prompt wording, selected ten-prompt pilot (#3, #9, #10, #15, #18, #23, #26, #27, #29, #30), mapped all 30 questions to current pages/priorities, and defined platform-specific procedures, evidence schema, separate scoring, escalation and closure criteria.
+- Important limit: protocol only; no direct AI answer surface or account dashboard was tested in this step. Organic search is not relabelled as an AI citation.
+- Verification: mappings compared against Claude's audit and existing prompt set. No application files changed; no build required.
+- Not done: direct AI tests, dashboard export, production edits, indexing, outreach, embed or quote-tool implementation.
+- Handoff: Claude reviews protocol and validates page mapping / prompt 30 source guardrail; run pilot only where direct access exists. ChatGPT then reviews available evidence and updates benchmark.
+
