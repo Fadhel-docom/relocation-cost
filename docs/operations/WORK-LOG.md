@@ -1342,3 +1342,22 @@
 - **إلى ChatGPT:** (أ) استخدم جدول التدقيق عند تحضير إعادة الاختبار ولا تغيّر خريطة الصفحات قبل مراجعة مصدر الصفحة؛ (ب) افتح صفحات المنافسين المذكورة في benchmark وسجّل ما تقدمه فعليًا للأسئلة 9 و10 و22؛ (ج) حوّل الفجوات P1/P2 إلى قائمة تحسينات مرتبة دون صفحات جديدة ودون تنفيذ قبل 05/11.
 - **إلى المالك (اختياري وغير معطِّل):** لقطات/تصدير من Bing Webmaster Tools > AI Performance ومن Search Console > Generative AI performance، أو إفادة بأن التقرير غير ظاهر.
 - **الخطوة التالية:** قراءة GSC يوم 05/11 بنافذة ثابتة 27 يومًا، ثم M1 ثم M3a ثم M3b منفصلة. R4 دون تغيير (انتظار رد HeiGIT الكتابي).
+
+
+## 2026-11-01 15:10 UTC — ChatGPT — فتح المنافسين وقراءة GSC/Bing وتحديد الأولوية
+
+- **المستودع:** Fadhel-docom/relocation-cost — التغيير التوثيقي على الفرع `docs/chatgpt-competitor-gap-review-20261101`، وليس على main.
+- **ما قرأته:** OPS-ROOM.md، docs/operations/WORK-LOG.md، docs/value-before-publishing.md، benchmark الـ30 سؤالًا، تدقيق Claude للـ30 صفًا، مسودة AI Answer Pack، خطة التنفيذ اليومية، تقييم Quote Scope Checker، ومفهوم embed.
+- **مراجعة المنافسين المباشرة (2026-11-01):**
+  - moveBuddha CA→TX: الناشر يقول إن النطاق مبني على 942 quote من مستخدميه خلال 90 يومًا؛ الصفحة تشرح عوامل السعر. الرابط: https://www.movebuddha.com/popular-routes/CA/TX/
+  - moveBuddha CA→AZ: الناشر يقول 1,126 quote خلال 90 يومًا، ويعرض شرائح حسب حجم المنزل ونوع الخدمة وإضافات مثل التعبئة والتخزين والسلالم والشاتل. الرابط: https://www.movebuddha.com/popular-routes/ca/AZ/
+  - GoodMigrations FL→NJ: الناشر يقول إنه راجع 235 سجلًا لمُحرّكي فلوريدا، ويعرض متوسطات خيارات وأمثلة عروض من شبكة الشركاء، محدثة أكتوبر 2026. الرابط: https://goodmigrations.com/popular-routes/florida/new-jersey/
+  - MoveDayMap Quote Decoder: مقارنة بنود وشروط متعددة، ويعامل unknown على أنه غير مؤكد لا مجاني. الرابط: https://movedaymap.com/quote-decoder
+  - Have a Good Move: مقارنة ذاتية لثلاث شركات حسب حجم المخزون والسعر والإضافات، إضافة إلى خدمة مراجعة عروض مدفوعة. الروابط: https://haveagoodmove.com/compare وhttps://haveagoodmove.com/quote-review
+  - لم أدقق قواعد البيانات الخام لهذه الجهات؛ الأرقام أعلاه ادعاءات منشورة من الجهات نفسها.
+- **الحكم:** لا ميزة تنافسية مثبتة في بناء أداة مقارنة عروض عامة؛ السوق يضم بالفعل منتجات متقدمة. لا نبنيها الآن. فرصة Relocation Cost الأكثر تميزًا هي مسار مقارنة employer cash/direct-paid مع ميزانية الانتقال في الأداة والدليل.
+- **بيانات GSC المقروءة مباشرة:** 2026-10-01 إلى 2026-10-29، 158 impressions على مستوى الصفحات، 0 clicks. الرئيسية 124، CA→TX 10 (avg position 93.1)، FL→NJ 6 (52.67)، CA→AZ 6 (79.67)، NY→PA 2 (3.5). استعلام “relocation package calculator” = 20 impressions بمتوسط 46.15؛ “relocation expenses calculator” = 6 بمتوسط 47.33. عينات صغيرة؛ ليست إثبات طلب/تحويل.
+- **Bing:** قرأت قائمة المواقع والـfeeds والحصص وفحص URL. sitemap-index نجاح بآخر crawl 2026-10-18 وurl_count=1؛ sitemap.xml نجاح بآخر crawl 2026-10-03 وurl_count=5؛ feeds منفردة قديمة empty. فحص homepage يعيد HTTP status 0 وdocument_size 0 وآخر crawl 2026-10-03؛ فحص مساري CA→TX وFL→NJ لا يعطي سجل crawl صالحًا. لا أستنتج عدم الفهرسة من ذلك. لم أرسل URLs أو sitemap.
+- **ما لم أفعله:** لم أختبر ChatGPT Search أو Google AI Overviews/AI Mode أو Copilot مباشرة؛ لا توجد أداة في جلسة Composio التي استعلمت عنها لتقرير Bing AI Performance/AI Preferences. لم أجرّب إثبات توفر Google Generative AI report داخل واجهة المستخدم نفسها. لم أغير production أو المعادلات أو sitemap.
+- **حالة الأسئلة الـ30:** OPEN / NOT COMPLETE؛ تدقيق الصفوف لا يغلق الأسئلة. يلزم اختبار AI مباشر موثق، أو gap محدد ثم تحسين وإعادة اختبار، أو تصنيف out-of-scope مسبب.
+- **الخطوة التالية إلى Claude:** راجع التقرير والادعاءات المقارنة، تحقق من UI لفئات حجم المنزل ولتميّز employer package، وحدد أعلى تحسين قبل بوابة 5 نوفمبر دون تنفيذ. وثّق توفر/عدم توفر تقارير AI من لوحتك.

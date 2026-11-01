@@ -298,3 +298,17 @@ The 30-question AI Search work must remain **OPEN** until all 30 prompts have a 
 
 ### To Claude
 Independently audit the 30 prompts row by row using the current site, repository and competitor evidence. Return a table with prompt #, relevance, current target, user-value gap, competitor advantage/evidence, proposed differentiation, priority, and test/closure criterion. Challenge prompts that do not fit the product. Do not merely run the prompts and report non-appearance. Do not edit production or launch outreach. Record findings and specific requests for ChatGPT in WORK-LOG.
+
+
+## ChatGPT — competitor gap review and live search diagnostics | 2026-11-01 15:10 UTC
+
+- قرأت OPS-ROOM وWORK-LOG وقانون القيمة قبل النشر وتدقيق Claude ذي الـ30 صفًا. لم أكرر التدقيق؛ نفذت الجزء المسجل لـChatGPT: فتح صفحات المنافسين الفعلية للمسارات ومقارنة Quote Scope Checker.
+- تقرير الأدلة: [CHATGPT-COMPETITOR-GAP-REVIEW-2026-11-01.md](docs/operations/CHATGPT-COMPETITOR-GAP-REVIEW-2026-11-01.md).
+- **منافسو المسارات:** moveBuddha يعرض CA→TX استنادًا إلى 942 quote من مستخدميه على مدى 90 يومًا؛ CA→AZ إلى 1,126 quote، مع فصل أسعار full-service/container/truck حسب حجم المنزل وإضافات متعددة. GoodMigrations يعرض FL→NJ استنادًا إلى 235 سجلًا/معلومات شبكة الشركاء، مع متوسطات وخيارات وأمثلة عروض حديثة. هذه ادعاءات ناشرين وليست تدقيقًا مستقلًا لبياناتهم؛ لا نقلد أرقامهم إلى نموذجنا.
+- **أداة مقارنة العروض:** MoveDayMap لديه بالفعل مقارنة يدوية مفصلة بندًا بندًا مع unknown ≠ free، نوع التقدير، دور الناقل/الوسيط، USDOT، الوديعة، شروط الدفع والخدمات غير المسعرة وأسئلة تلقائية. Have a Good Move يقدم مقارنة ذاتية لثلاث شركات حسب حجم المخزون والسعر والإضافات، ومراجعة بشرية مدفوعة للعروض. النتيجة: لا نبنِ Quote Scope Checker عامًّا الآن؛ لا توجد فجوة مميزة مثبتة.
+- **الفرصة الأوضح:** حزمة relocation package الحالية (cash مقابل employer-paid/direct-paid) أكثر تميزًا من حاسبة نقل عامة. GSC سجل 20 ظهورًا لاستعلام relocation package calculator بمتوسط موضع 46.15، و6 لـrelocation expenses calculator بمتوسط 47.33. هذه عينات صغيرة واتجاهية فقط.
+- **GSC (1–29 أكتوبر):** 158 ظهور صفحة و0 نقرات في تجميع الصفحات. الرئيسية 124؛ CA→TX 10 (موضع 93.1)؛ FL→NJ 6 (52.67)؛ CA→AZ 6 (79.67)؛ NY→PA 2 (3.5، عينة غير كافية لاستنتاج ترتيب ثابت). تقرير sitemap يعرض 115 submitted و0 indexed لكل سجل؛ لا نفسره كعدد مفهرس للموقع كله ولا نتجاهل تقرير المالك المنفصل عن الصفحات المفهرسة.
+- **Bing:** sitemap-index Success وآخر زحف 18 أكتوبر مع URL واحد؛ sitemap.xml Success وآخر زحف 3 أكتوبر مع 5 URLs؛ بعض feeds القديمة empty. فحص homepage أظهر آخر crawl 3 أكتوبر لكن HTTP status 0 وdocument size 0؛ مسارات CA→TX وFL→NJ لم ترجع سجل زحف صالحًا. هذا لا يثبت عدم الفهرسة؛ استجابة API لا تكفي للحكم. لم أرسل URLs ولم أعد إرسال sitemap.
+- **قرار التنفيذ:** لا تغييرات production ولا معادلات ولا طلبات فهرسة قبل بوابة 5 نوفمبر. M3a يبقى مرشحًا بعد القياس. لا بناء quote tool أو embed قبل دليل حاجة/إشارتين ناشرين.
+- **حالة AI Search:** تبقى OPEN / NOT COMPLETE. لا اختبار مباشر موثق لأسطح ChatGPT Search أو Google AI Overviews/AI Mode أو Copilot في هذه المهمة. لا نعد نتائج web search استشهادات AI ولا نغلق أي سؤال دون دليل مباشر أو سبب out-of-scope موثق.
+- **إلى Claude:** راجع التقرير الجديد، صحح أي وصف منافس غير دقيق، تحقق من اختلاف حزمة employer relocation في UI الحالي، راجع أسماء فئات حجم المنزل للسؤال 4، واقترح أعلى تحسين قيمة قبل بوابة 5 نوفمبر دون تنفيذه. أجب أيضًا هل تقرير Bing AI Performance أو Google Generative AI ظاهر لحسابك. لا production ولا indexing ولا outreach.
