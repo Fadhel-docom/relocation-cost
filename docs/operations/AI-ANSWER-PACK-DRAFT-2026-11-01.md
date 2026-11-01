@@ -11,7 +11,7 @@
 **شرط النشر:** التأكد من تطابق شرح methodology مع التطبيق والروابط المعبأة في صفحات المسارات.
 
 ## 2) Is the Relocation Cost result a binding moving quote?
-**مسودة جواب:** No. Relocation Cost provides a planning estimate, not a mover's written quote or contract. An interstate mover's written estimate should describe the shipment and services. Under FMCSA guidance, a binding estimate is a written agreement for the listed quantities and services; a non-binding estimate is not a guaranteed final price. Ask the mover for a written estimate based on an actual or virtual survey.
+**مسودة جواب:** No. Relocation Cost provides a planning estimate, not a mover's written quote or contract. An interstate mover's written estimate should describe the shipment and services. Under FMCSA guidance for U.S. interstate moves, a binding estimate is a written estimate that guarantees the price for the services and shipment described, subject to the applicable rules. A non-binding estimate is not a guaranteed final price. Ask the mover for a written estimate based on a survey of your shipment; do not assume every mover may use the same survey method.
 
 **مصدر أولي:** FMCSA — https://www.fmcsa.dot.gov/consumer-protection/protect-your-move/what-binding-move-estimate  
 **مصدر إضافي:** https://www.fmcsa.dot.gov/consumer-protection/protect-your-move/select-mover  
@@ -37,20 +37,20 @@
 **مسودة جواب:** The displayed low and high figures are calculated as 80% and 120% of the model total. They are a planning band chosen by the tool, not a statistically validated confidence interval and not a promise that a mover's final quote will fall inside it. Actual prices depend on the shipment, services, route, date and mover's terms.
 
 **الدليل الداخلي:** `DEFAULT_RANGE_LOW = 0.80` and `DEFAULT_RANGE_HIGH = 1.20` in `src/lib/calculator.js`.  
-**مصدر أولي للسياق:** FMCSA written estimates — https://www.fmcsa.dot.gov/protect-your-move/how-to/subpartD  
+**المصدر:** منطق الحاسبة فقط (`DEFAULT_RANGE_LOW = 0.80`, `DEFAULT_RANGE_HIGH = 1.20`). لا يُستخدم Subpart D كمصدر لهذا النطاق؛ فهو افتراض عرض داخلي وليس قاعدة FMCSA.  
 **الرابط المقترح:** /methodology/ + /calculator/  
 **شرط النشر:** هذا جواب ذو قيمة عالية للثقة؛ يجب أن يظهر قرب نتيجة الحاسبة إن وافق المالك على تعديل المحتوى بعد بوابة القياس.
 
 ## 6) How does the calculator use U-Haul price data?
-**مسودة جواب:** The calculator uses U-Haul's published one-way rental averages by mileage band as a lower bound for its DIY moving-cost base. It does not treat those figures as a universal per-mile rate, a full-service mover price, a route-specific quote or a guaranteed rental rate. U-Haul says actual one-way prices vary by origin, destination, truck size, move date and inventory.
+**مسودة جواب:** Our DIY model uses stored one-way truck-rental benchmark values in distance bands as one input to its estimate. These values are not live prices, a route-specific quote, a full-service mover price or a guaranteed rental rate. The original U-Haul page, its stated period and its methodology have not been independently re-verified in this review, so this attribution and date must not be presented as freshly confirmed.
 
 **مصدر البيانات:** U-Haul — https://www.uhaul.com/Tips/Loading/How-To-Save-Money-ON-Truck-Rentals-35820/  
 **الدليل الداخلي:** `data/coefficients.json`, `getUhaulBenchmark()`, `calculateBudget()`.  
 **الرابط المقترح:** /methodology/ + /guides/moving-cost/  
-**شرط النشر:** مراجعة تاريخ البيانات وفترة September 2025 الظاهرة في ملف coefficients، وعدم وصفها بأنها أحدث أسعار 2026.
+**شرط النشر:** لا تذكر U-Haul أو September 2025 في نص عام قبل أن يفتح مراجع بشري الصفحة الأصلية ويتحقق من الفترة والمنهجية؛ إلى ذلك الحين اشرحها كقيم benchmark تاريخية مخزنة في النموذج دون ادعاء تحقق خارجي.
 
 ## 7) Why can two interstate moving estimates be different?
-**مسودة جواب:** Two estimates can differ when the shipment inventory, estimated weight, requested services or access requirements differ. FMCSA says an interstate mover's written estimate should include transportation, accessorial and advance charges, and that a non-binding estimate is based on estimated shipment weight and requested services. Compare written estimates with the same inventory and service scope rather than comparing headline totals alone.
+**مسودة جواب:** Two estimates can differ when the shipment inventory, estimated weight, requested services or access requirements differ. FMCSA says an interstate mover's written estimate should include transportation, accessorial and advance charges, and that a non-binding estimate is based on estimated shipment weight and requested services. Practical recommendation from Relocation Cost (not a quoted FMCSA instruction): compare written estimates using the same inventory and service scope rather than headline totals alone.
 
 **مصدر أولي:** FMCSA — https://www.fmcsa.dot.gov/protect-your-move/how-to/subpartD  
 **مصدر مساند:** https://www.fmcsa.dot.gov/consumer-protection/protect-your-move/how-can-i-avoid-unexpected-moving-costs  
@@ -58,7 +58,7 @@
 **شرط النشر:** إضافة checklist قصيرة للمقارنة بعد مراجعة النص الحالي حتى لا نكرر المحتوى.
 
 ## 8) What should I prepare before asking an interstate mover for an estimate?
-**مسودة جواب:** Prepare a clear inventory, both addresses, preferred dates, access details such as stairs or parking restrictions, special or high-value items, and the services you want included. FMCSA recommends getting written estimates from multiple movers and checking that the interstate mover is registered. Ask each mover to price the same shipment and services so the estimates are comparable.
+**مسودة جواب:** As a practical preparation tip from Relocation Cost, gather your inventory, addresses, preferred dates, access details, special items and requested services. Separately, FMCSA recommends obtaining written estimates from at least three movers and checking that an interstate mover is registered. Asking each mover to price the same shipment and services is our recommendation for making comparisons more useful.
 
 **مصدر أولي:** FMCSA Moving Checklist — https://www.fmcsa.dot.gov/protect-your-move/moving-checklist  
 **مصدر إضافي:** https://www.fmcsa.dot.gov/protect-your-move/select-mover  
@@ -66,14 +66,14 @@
 **شرط النشر:** لا نقدم القائمة بوصفها متطلبات قانونية كاملة؛ هي تجهيز عملي مع إحالة إلى FMCSA.
 
 ## 9) How can I compare an employer relocation package with my moving budget?
-**مسودة جواب:** Separate money paid to you from expenses the employer pays directly. Enter the cash amount and direct-paid costs in the calculator's employer section, then compare them with the moving budget you entered. This is a budgeting comparison only: it does not determine tax treatment, reimbursement eligibility or what your employer's policy covers.
+**مسودة جواب:** Separate money paid to you from expenses the employer pays directly. Enter the cash amount and direct-paid costs in the calculator's employer section, then compare them with the estimate generated by the calculator. This is a budgeting comparison only: it does not determine tax treatment, reimbursement eligibility or what your employer's policy covers.
 
 **الدليل الداخلي:** `src/lib/calculator.js`, `src/pages/guides/employer-relocation-package.astro`.  
 **الرابط المقترح:** /calculator/ + /guides/employer-relocation-package/  
 **شرط النشر:** إعادة التحقق من IRS source checks قبل أي جواب ضريبي، وعدم إعطاء tax advice.
 
 ## 10) Does a $0 optional cost mean that the move is free?
-**مسودة جواب:** No. In this calculator, an optional cost left at $0 is omitted from the total because no amount was entered. It does not mean the cost will not occur. Add a realistic amount when you know it, and avoid entering the same expense in both a general field and an itemized field.
+**مسودة جواب:** No. In this calculator, an optional cost left at $0 is omitted from the total because no amount was entered. It does not mean the cost will not occur. Add a realistic amount when you know it. Check the field descriptions carefully so you understand which costs each input represents.
 
 **الدليل الداخلي:** `src/pages/calculator.astro` helper text and input handling.  
 **الرابط المقترح:** /calculator/  
