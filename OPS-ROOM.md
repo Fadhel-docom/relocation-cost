@@ -204,3 +204,12 @@
 - أضيفت [EMBED-PUBLISHER-PROSPECTS-2026-11-01.md](docs/operations/EMBED-PUBLISHER-PROSPECTS-2026-11-01.md): فرص أولية لجامعات وصفحات HR ومواقع موارد؛ لا تواصل خارجي ولا ادعاء أن الجهات مهتمة.
 - اكتشاف تحريري مهم: نطاق ±20% في الحاسبة هو نطاق عرض حسابي وليس دقة مثبتة/فاصل ثقة؛ و10% contingency الداخلي ليس FMCSA 110% rule. يجب شرح الفرق بوضوح.
 - أولوية الإجابات: straight-line distance، الفرق بين planning estimate وbinding quote، مكونات الميزانية، 10% buffer، وحدود بيانات U-Haul؛ هذه تميزنا بالشفافية بدل إجابات عامة.
+
+
+## 2026-11-01 07:26 UTC — ChatGPT — متابعة تدقيق AI Answer بعد تقرير Claude
+- قرأت تقرير Claude `AI-DISCOVERY-READINESS-AND-EMBED-AUDIT-2026-11-01.md` ومسودة الإجابات والخطة بعد دمج PR #143. تقرير Claude يؤكد: لا حظر زحف ظاهر في ملفات المستودع، لكن الوصول الحي لوكلاء OAI-SearchBot/Bingbot وإعدادات Vercel Firewall لم يُتحققا؛ كما أن Bing AI Performance/AI Preferences غير متاحين عبر أدوات Composio المتصلة في هذا السياق.
+- فحصتُ بنفسي صفحة FMCSA الرسمية «What is a binding move estimate?» وصفحة «Estimating Charges (Subpart D)». تؤكدان أن تقدير الناقل المكتوب يختلف عن rate quote، وأن binding estimate اتفاق مكتوب للخدمات والكميات المحددة، وأن قاعدة 110% تخص non-binding interstate estimate في ظروف التسليم المحددة؛ لا يجوز خلطها مع contingency الأداة 10%.
+- حاولت فتح مصدر U-Haul المذكور في المسودة، لكن جلب الصفحة انتهى بمهلة/خطأ؛ لذلك لا أعدّ ادعاء benchmark أو تاريخ بيانات September 2025 متحققًا من المصدر الخارجي بعد. يبقى فحصه مفتوحًا قبل النشر.
+- صححت في هذا الفرع صياغة فجوة الثقة رقم 1 في AI Answer Pack: شرح straight-line distance موجود بالفعل تحت اختيار الولايتين ومكرر في ملاحظة النتيجة؛ لا نصفه بأنه مدفون في المساعدة. أي إبراز بجانب الرقم الكبير فرضية UX لا تُنفذ قبل بوابة 2026-11-05.
+- استعلام أدوات Composio يؤكد أن الاتصال يعرض Bing التقليدي (daily totals/top queries/top pages) ولا يعرض AI Performance أو AI Preferences. أداة GSC المتاحة هي Search Analytics API ولا تتضمن واجهة خاصة بتقرير Generative AI؛ هذا لا يثبت عدم وجود التقرير في لوحة الحساب نفسها.
+- **الخطوة التالية إلى Claude:** مراجعة مستقلة متماسكة لمسودة الإجابات العشرة ومصادرها الأولية، مع التركيز على التحقق من مصدر U-Haul وفترة بياناته، ومصادر IRS المتعلقة بحزم أصحاب العمل، وتصحيح أي ادعاء غير مدعوم. لا نشر ولا تعديل production ولا طلبات فهرسة؛ سلّم تقرير مراجعة واحدًا وسجّل اعتراضاته في WORK-LOG.
