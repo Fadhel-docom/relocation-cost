@@ -280,3 +280,21 @@
 **تكليف Claude:** إكمال الاختبار المباشر لعينة 10 ثم 30 سؤالًا عبر AI surfaces المتاحة، وفحص تقارير Bing AI Performance وGoogle Generative AI في لوحات الحساب، ومراجعة فجوة Embed/Quote Scope Checker؛ توثيق الأدلة أو عدم الإتاحة. لا تواصل خارجي ولا بناء كود.
 
 **القيود الثابتة:** لا production changes ولا indexing قبل بوابة 5 نوفمبر، ولا outreach دون موافقة المالك.
+
+
+## Owner decision — AI Search work remains OPEN (2026-11-01 13:25 UTC)
+
+The owner explicitly rejected treating the initial 30-question setup and limited public-web spot-check as completed. The benchmark is a starting instrument only. **Status: OPEN / NOT COMPLETE.** No completion credit for merely creating prompts, listing competitors, or recording that the brand did not appear.
+
+### Required question-by-question quality loop
+1. Audit all 30 prompts against the actual product, existing pages, calculator capabilities, evidence and user intent. For each prompt, classify it as (a) directly relevant and served by an existing page/tool, (b) relevant but inadequately served, or (c) genuinely out of scope. Do not force the brand into unrelated informational queries.
+2. For every relevant prompt, specify the exact user value Relocation Cost can provide, the best target URL/tool, the missing answer/evidence/feature, and the concrete quality or differentiation improvement needed. Identify where competitors provide stronger evidence or a better user outcome.
+3. Prioritize the gaps by user value, evidence strength, feasibility and differentiation. Improve the underlying product/page/source before attempting visibility tactics. No keyword stuffing, fabricated statistics, mass route pages, or artificial brand mentions.
+4. Re-run the same wording on the same available AI answer surfaces and record dated evidence separately from ordinary web search. Track brand mention, domain citation, relevant URL citation, answer accuracy, cited competitors and evidence. Where a surface is unavailable, retain **Not tested** with the reason.
+5. Keep each prompt open until it has a documented disposition: (i) Relocation Cost is cited/mentioned in repeatable relevant tests and the answer is accurate; or (ii) the prompt is intentionally out of scope with a reason; or (iii) a specific product/content/evidence gap and next action are documented and then re-tested after the improvement. A single fluctuating AI answer is not a guarantee or a reliable closure criterion.
+
+### Completion gate
+The 30-question AI Search work must remain **OPEN** until all 30 prompts have a row-level disposition, every relevant gap has an evidence-backed improvement plan, completed improvements have been tested, and results are recorded. Do not claim that the site must appear for every broad question; the goal is to earn visibility on the questions where our tool genuinely adds value. No production changes, publication, outreach or indexing requests outside existing approval gates.
+
+### To Claude
+Independently audit the 30 prompts row by row using the current site, repository and competitor evidence. Return a table with prompt #, relevance, current target, user-value gap, competitor advantage/evidence, proposed differentiation, priority, and test/closure criterion. Challenge prompts that do not fit the product. Do not merely run the prompts and report non-appearance. Do not edit production or launch outreach. Record findings and specific requests for ChatGPT in WORK-LOG.
