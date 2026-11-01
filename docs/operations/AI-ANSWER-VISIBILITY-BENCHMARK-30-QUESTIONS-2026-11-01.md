@@ -67,6 +67,27 @@ Record only competitors actually cited by the platform for each prompt. Likely c
 - Bing AI Performance: official documentation confirms the report measures cited URLs, citation counts, grounding queries and trends across Copilot, Bing AI summaries and selected partner integrations. The report is aggregated and sampled; it is not a prompt-by-prompt answer log. Verify availability in the actual property dashboard.
 - Google: official guidance says normal SEO fundamentals and distinctive, useful content remain foundational; it rejects special AEO hacks, unnecessary llms.txt, and inauthentic mentions. A Google generative AI performance report is described in current guidance, but account availability must be checked directly.
 
+
+## Evidence-based spot checks — 2026-11-01 (web search, not AI-answer tests)
+These observations are from public web search result pages returned during this session. They are not direct tests of ChatGPT Search, Google AI Overviews/AI Mode, or Copilot answers.
+
+| Query / prompt sample | Relocation Cost observed? | Competitors / sources actually surfaced | Interpretation |
+|---|---|---|---|
+| Exact production hostname + brand/methodology terms | No result surfaced in this tool's result set | None | Limited discovery signal only; not proof of Google absence. Check Search Console and direct search surfaces. |
+| #1 How much does an interstate move cost? | No Relocation Cost result surfaced | This Old House; moveBuddha; USMove; Moving-Calculator.net; MoveBuddha cost dataset | Generic cost intent is crowded by pages with price ranges and source datasets. Differentiate with transparent assumptions and clear “planning estimate” boundaries. |
+| #9 California to Texas cost | No Relocation Cost result surfaced | FreightWaves Checkpoint; GoodMigrations; moveBuddha; Three Movers; other route pages | Route intent is highly competitive and many pages publish quote-derived ranges. Do not imitate market-average claims unless our evidence supports them. |
+| #22–25 compare moving estimates / quote comparison | No Relocation Cost result surfaced | MoveDayMap Quote Decoder; Have a Good Move paid quote review/comparison | The quote-comparison concept already has direct competitors. Our concept needs a clearly differentiated, privacy-minimal, no-upload scope-normalization job before any build. |
+
+Competitor evidence:
+- This Old House reports a 2026 interstate average based on its analysis of 1,000+ moving quotes: turn423269search0.
+- FreightWaves Checkpoint, GoodMigrations, moveBuddha and Three Movers surfaced for California→Texas route intent: turn423269search1 turn423269search2 turn423269search3 turn423269search10.
+- MoveDayMap presents a quote decoder and side-by-side comparison; Have a Good Move offers paid human quote comparison: turn423269search6 turn423269search7.
+
+## Platform-level AI visibility measurement
+- Bing AI Performance is the best immediate owner-side source to inspect: Microsoft says it reports citations, average cited pages, grounding queries, page-level citations and trends across Copilot, Bing AI summaries and selected partner integrations. A newer Topics Portfolio beta groups topics and opportunity queries; availability may depend on site activity. turn835492search0 turn835492search1
+- Google Search Central says AI Overviews/AI Mode rely on foundational SEO and helpful, reliable content; there are no special AI-only technical requirements or required llms.txt/schema. The current Google documentation describes a Generative AI performance report in Search Console, but the actual property view must be checked by an authorized account user. turn835492search4 turn835492search9 turn835492search3
+- Direct AI answer tests remain **Not tested** in this environment. The web search engine results above cannot be represented as AI citations. To complete the 30-prompt platform test, run the fixed prompt set directly in each AI surface and capture dated screenshots/URLs, or export Bing AI Performance and Google Search Console reports.
+
 ## Blank observation template
 | Date | Platform / surface | Prompt # | Brand mention | Domain cited | URL cited | Competitors cited | Answer accurate? | Evidence / notes |
 |---|---|---:|---:|---|---|---|---|---|
