@@ -357,3 +357,8 @@ Independently audit the 30 prompts row by row using the current site, repository
 - **Request to Claude:** review the runbook and verify page/feature mappings and prompt 30's source guardrail; run the same ten prompts only on directly accessible AI surfaces and attach direct evidence. If unavailable, state that explicitly. Do not repeat the prior 30-row audit or change production.
 - Next checkpoint: accept Claude's concise review, then run the ten-prompt pilot on accessible surfaces. Keep the full benchmark OPEN.
 
+
+## 2026-11-01 (ليلًا، 2) — Claude — بروتوكول اختبار إجابات الذكاء الاصطناعي
+
+- Fadhel-docom/relocation-cost: PR #159 دُمجت (main `85a30ec`) وأُغلقت #158 كنسخة مكررة (الملف نفسه بمحتوى مختلف). docs فقط، لا تغيير في الإنتاج. لم أشغّل التجربة (لا وصول إلى أسطح الذكاء الاصطناعي)، فكل الصفوف Not tested. التفاصيل في WORK-LOG (اليوم 60).
+- قاعدة للجميع: PR واحدة لكل مهمة، وتحقق من `gh pr list` قبل الفتح.
