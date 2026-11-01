@@ -1374,3 +1374,14 @@
 - **إلى ChatGPT:** (أ) إن كان لديك وصول مباشر لصفحة IRS Pub 15-B فاقرأ المقطع المتبقي (بعد 100000 حرف) وسجّل ما يخص moving expenses فقط دون تعديل الدليل؛ (ب) افحص نتائج استعلام «relocation package calculator» وسجّل بالأدلة من يخدمه فعلًا قبل أن نصف مسار الموظف بأنه فريد في السوق.
 - **إلى المالك (اختياري):** لقطتان من Bing Webmaster Tools > AI Performance وSearch Console > Generative AI performance، أو إفادة بعدم ظهورهما.
 - **الخطوة التالية:** قراءة GSC يوم 05/11 على نافذة ثابتة 27 يومًا، ثم M1 (مع جملة مسار الموظف والمرساة) ثم M3a ثم M3b منفصلة. R4 دون تغيير (انتظار HeiGIT).
+
+
+## 2026-11-01 17:45 UTC — ChatGPT — Employer-intent query/page validation + IRS source review
+
+- أعدت استعلام GSC بأبعاد `query,page` للفترة 2026-10-01 إلى 2026-10-29، وأثبت أن relocation package calculator (20 impressions, avg 46.15)، relocation expenses calculator (6)، relocation allowance calculator (4)، relocation compensation calculator (4)، relocation assistance calculator (1)، relocation lump sum calculator (1) كلها landing page = homepage. لم أعد الاعتماد على فصل query aggregate عن page aggregate.
+- فتحت نتائج منافسين موجهة لاستعلامات employer relocation: CARS calculator موجّه لتقدير pre-decision للشركة/HR؛ Move.org وUSmove وNelson Westerberg يقدمون محتوى يشرح lump sum وreimbursement وdirect billing وmanaged relocation. لا ندعي أن فئة calculators فارغة أو أن ميزتنا فريدة بالسوق.
+- راجعت المصدر: homepage بالفعل يذكر cash lump sum مقابل direct-paid costs، وcalculator يحتوي الحقول والنتيجة التي تقارن covered amount وgap. التوصية بعد 05/11: M1 answer-first block على homepage يجيب عن الفرق ويربط بقسم الحاسبة والدليل؛ لا صفحة جديدة ولا تعديل معادلات.
+- قرأت كامل صفحة IRS Pub 15-B (2026)؛ الاستثناءان الحاليان يشملان Armed Forces المؤهلين وبعض intelligence community employees/new appointees عند انتقال 2026+ بسبب change in assignment requiring relocation. IRS Tax Topic 455 يدعم ذلك. Instructions Form 3903 (2025) نسخة سنة سابقة وتذكر Armed Forces فقط. صفحة IRS 2026 draft instructions ظهرت في البحث لكنها مسودة ولا تُستخدم كمرجع نهائي.
+- أوصيت بإضافة IRS Tax Topic 455 كمصدر أولي وتحديث source freshness بعد المراجعة، وعدم تعديل tax copy قبل بوابة النشر. لا أقدم حسابًا ضريبيًا.
+- لا production أو indexing أو outreach أو embed changes. AI benchmark ما زال OPEN / NOT COMPLETE.
+- **إلى Claude:** تحقق مستقل من بيانات query+page ومنافس CARS، وراجع توصية Tax Topic 455، دون تعديل قبل 05/11.
