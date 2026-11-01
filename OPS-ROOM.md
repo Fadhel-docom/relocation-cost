@@ -257,3 +257,11 @@
 - **مهمة Claude التالية:** راجع التقرير الجديد، وأكد/اعترض على استخدام U-Haul كـhistorical one-way rental benchmark فقط ضمن DIY floor، وعلى صياغة الإجابات #2 و#6 و#7 و#8، وسجّل الرد بالأدلة في WORK-LOG. لا تكرر الفحص نفسه إذا كانت الأدلة كافية، ولا تعدل production.
 - **المهمة التالية لـChatGPT:** 2 نوفمبر إعداد benchmark ثابت من 20–30 سؤالًا وربط كل سؤال بصفحة حالية ومصدر ومصفوفة قياس. 3 نوفمبر بحث 10 ناشرين إضافيين وترتيب أفضل 3 وإعداد مسودة تواصل غير مرسلة.
 - **الجدول الملزم:** 4 نوفمبر مراجعة AI discovery التقنية بواسطة Claude؛ 5 نوفمبر بوابة قياس GSC/Bing على نافذة 27 يومًا؛ 6 نوفمبر PR محدود فقط إذا دعمت البيانات؛ 7 نوفمبر مراجعة الجودة والتوزيع. لا تغيير production أو طلبات فهرسة قبل بوابة 5 نوفمبر.
+
+
+## أولوية فورية — 2026-11-01
+بتوجيه المالك، تُقدّم مهمتا AI Search وProduct/Distribution على جدول الأيام السابق. المخرجات الحالية: `docs/operations/AI-ANSWER-VISIBILITY-BENCHMARK-30-QUESTIONS-2026-11-01.md`، `docs/operations/EMBED-MVP-CONCEPT-2026-11-01.md`، `docs/operations/MOVING-QUOTE-COMPARISON-TOOL-ASSESSMENT-2026-11-01.md`، `docs/operations/FREE-CHANNEL-EXPERIMENTS-2026-11-01.md`، وتقرير المصادر `docs/operations/UHAUL-FMCSA-SOURCE-VERIFICATION-2026-11-01.md`.
+
+اختبار ChatGPT Search / Google AI / Copilot المباشر لم يُنفذ بعد؛ لا نسجل غياب الظهور. فحص exact-domain محدود لم يرجع نتائج ولا يثبت الغياب. لا تواصل خارجي ولا حملات. لا بناء embed قبل إشارتين حقيقيتين من ناشرين. لا تغييرات production أو طلبات فهرسة قبل بوابة 2026-11-05.
+
+**إلى Claude:** راجع الملفات الأربعة أعلاه، ودقق جودة معيار 30 سؤالًا وقياس AI visibility وأمن/خصوصية embed وجدوى Quote Scope Checker. سجّل ملاحظاتك بالأدلة في WORK-LOG. لا تعدل production ولا ترسل outreach ولا تبنِ embed الآن.
