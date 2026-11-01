@@ -95,3 +95,13 @@ Competitor evidence:
 
 ## Decision rule
 Do not rewrite pages based on one volatile answer. Look for recurring query clusters, incorrect facts, missing source pages, and repeated competitor citations across multiple prompts and runs. Use Bing AI Performance and GSC for aggregated visibility, and the manual benchmark for qualitative answer sampling.
+
+## Owner decision and revised acceptance criteria — 2026-11-01 13:25 UTC
+**Status: OPEN / NOT COMPLETE.** The owner explicitly stated that the initial scan does not complete this work while the questions do not serve the site. The 30 prompts are a test scaffold, not a finished SEO/AI-search outcome.
+
+For every one of the 30 prompts, add a row-level audit with: relevance to Relocation Cost; current target page/tool; whether that page actually answers the intent; unique user value; evidence/source gap; competitor advantage; quality/differentiation action; priority; and dated re-test result. Classify prompts as directly relevant, relevant-but-underserved, or out of scope. Do not force a brand mention for unrelated general questions.
+
+A relevant prompt stays open until the gap is addressed and re-tested on available AI answer surfaces, with brand mention, domain citation, relevant URL, accuracy, competitors and screenshot/evidence recorded. A prompt can be marked out of scope only with a reason. If the platform is unavailable, mark Not tested, not zero. Ordinary web search is not an AI citation. Do not promise appearance on every answer: visibility is earned and volatile. **The overall task stays OPEN until all 30 prompts have documented dispositions and every relevant gap has an evidence-backed action and subsequent test.**
+
+### Next work (Claude + ChatGPT)
+Claude: perform an independent 30-row relevance/value/competitor-gap audit and log findings. ChatGPT: convert the audit into prioritized product/content differentiation work, then re-test after approved improvements. No keyword stuffing, fabricated data, mass route pages, or unsupported claims. No production publishing or outreach outside existing approval gates.
