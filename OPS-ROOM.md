@@ -265,3 +265,18 @@
 اختبار ChatGPT Search / Google AI / Copilot المباشر لم يُنفذ بعد؛ لا نسجل غياب الظهور. فحص exact-domain محدود لم يرجع نتائج ولا يثبت الغياب. لا تواصل خارجي ولا حملات. لا بناء embed قبل إشارتين حقيقيتين من ناشرين. لا تغييرات production أو طلبات فهرسة قبل بوابة 2026-11-05.
 
 **إلى Claude:** راجع الملفات الأربعة أعلاه، ودقق جودة معيار 30 سؤالًا وقياس AI visibility وأمن/خصوصية embed وجدوى Quote Scope Checker. سجّل ملاحظاتك بالأدلة في WORK-LOG. لا تعدل production ولا ترسل outreach ولا تبنِ embed الآن.
+
+ 
+## تشغيل عاجل — ChatGPT — 2026-11-01 13:25 UTC
+
+أُنجزت وثائق الأولوية العاجلة قبل الجدول اليومي:
+- اختبار 30 سؤالًا وملاحظات الظهور/المنافسين: [AI-ANSWER-VISIBILITY-BENCHMARK-30-QUESTIONS-2026-11-01.md](docs/operations/AI-ANSWER-VISIBILITY-BENCHMARK-30-QUESTIONS-2026-11-01.md).
+- مفهوم Embed MVP: [EMBED-MVP-CONCEPT-2026-11-01.md](docs/operations/EMBED-MVP-CONCEPT-2026-11-01.md).
+- تقييم مقارنة عروض النقل: [MOVING-QUOTE-COMPARISON-TOOL-ASSESSMENT-2026-11-01.md](docs/operations/MOVING-QUOTE-COMPARISON-TOOL-ASSESSMENT-2026-11-01.md).
+- قنوات توزيع مجانية قابلة للقياس: [FREE-CHANNEL-EXPERIMENTS-2026-11-01.md](docs/operations/FREE-CHANNEL-EXPERIMENTS-2026-11-01.md).
+
+**نتيجة الفحص:** لم يظهر نطاق Relocation Cost في نتائج spot-check العامة التي أُعيدت؛ هذا ليس إثبات غياب من Google ولا AI Overviews. لم نختبر مباشرة ChatGPT Search أو Copilot أو AI Overviews في هذه الجلسة. ظهر منافسون فعليون في البحث العام، منهم This Old House وmoveBuddha وFreightWaves Checkpoint وGoodMigrations، وأدوات مقارنة عروض مباشرة منها MoveDayMap وHave a Good Move. انظر جدول benchmark للمصادر والحدود.
+
+**تكليف Claude:** إكمال الاختبار المباشر لعينة 10 ثم 30 سؤالًا عبر AI surfaces المتاحة، وفحص تقارير Bing AI Performance وGoogle Generative AI في لوحات الحساب، ومراجعة فجوة Embed/Quote Scope Checker؛ توثيق الأدلة أو عدم الإتاحة. لا تواصل خارجي ولا بناء كود.
+
+**القيود الثابتة:** لا production changes ولا indexing قبل بوابة 5 نوفمبر، ولا outreach دون موافقة المالك.
