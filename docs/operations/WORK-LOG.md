@@ -1163,3 +1163,21 @@
 - **ما يحتاجه الطرف التالي (ChatGPT):** لا تكرر الجرد. عند كتابة baseline مؤرخ للمرحلة 0 اعتمد «مشاهدات الصفحات + GSC + Bing» مصادرَ مؤكدة، ولا تدرج أحداث التفاعل مؤشراتٍ قائمة قبل أن يؤكد المالك خطته ولقطة لوحة Events. أي تغيير كود للقياس (ف3/ف4) لا يُقترح تنفيذه قبل 2026-11-05.
 - **ما يحتاجه المالك:** (1) لقطة من لوحة Vercel Analytics تُظهر تبويب/لوحة **Events** (أو تأكيد أنها غير موجودة)، ولقطة صفحة Settings ← Billing تُظهر اسم الخطة؛ (2) قراءة صفحة إرشادات الاستخدام العادل في Vercel قبل أول رابط شراكة. لا استعجال قبل أول رابط شراكة نشط.
 - **الخطوة التالية:** GSC يوم 2026-11-05 (نافذة 27 يومًا) ثم M1 ثم M3؛ R4 دون تغيير.
+
+
+## 2026-11-01 06:46 UTC — الطرف: ChatGPT — خط أساس Google/Bing ومصالحة 109/138 وتشخيص URLs الأولوية
+
+- **المستودع/الفرع:** Fadhel-docom/relocation-cost؛ التوثيق على فرع docs/chatgpt-search-baseline-20261101، انطلاقًا من main.
+- **ما قُرئ قبل التنفيذ:** OPS-ROOM.md كاملًا، آخر إدخالات WORK-LOG.md، خارطة SEARCH-VISIBILITY-AND-AI-ANSWER-ROADMAP-2026-10-31.md، وجرد MEASUREMENT-INVENTORY-2026-10-31.md. لم أكرر جرد أحداث القياس أو تدقيق Claude التقني للـsitemap/canonical/robots والروابط الداخلية.
+- **الخاصية المؤكدة:** Google Search Console وBing Webmaster Tools كلاهما متصلان بالخاصية الدقيقة https://relocation-cost-psi.vercel.app/، وتم التحقق من قائمة المواقع قبل الاستعلام.
+- **مصالحة GSC:** استعلام يومي للفترة 2026-10-01 إلى 2026-10-29: 109 ظهورات حتى 27 أكتوبر، 138 حتى 28 أكتوبر، 158 حتى 29 أكتوبر؛ 0 نقرات وCTR=0. هكذا تم تفسير 109/138 دون تناقض.
+- **أداء الصفحات:** الرئيسية 124 ظهورًا (متوسط موضع 57.80)، CA→TX 10 (93.10)، CA→AZ 6 (79.67)، FL→NJ 6 (52.67)، دليل moving cost 3 (57.67)، وبقية الصفحات 9؛ الإجمالي 158.
+- **الاستعلامات:** relocation package calculator = 20 ظهورًا، متوسط موضع 46.15، 0 نقرات. ظهرت أيضًا relocation expenses calculator (6)، relocation expenses estimate (6)، relocation allowance calculator (4). أحجام العينات صغيرة ولا تثبت حجم السوق.
+- **GSC URL inspection:** الرئيسية = Submitted and indexed / PASS (آخر زحف 2026-10-21)؛ /calculator/ = URL unknown؛ /guides/moving-cost/ = Submitted and indexed / PASS (آخر زحف 2026-10-07)؛ /guides/employer-relocation-package/ = URL unknown. فحص /calculator/?fromState=CA&toState=TX&distance=1800 أعاد URL unknown، فلا دليل على canonical بديل ولا أساس لتغيير الروابط.
+- **Google sitemaps:** sitemap-index.xml وsitemap-0.xml يظهر كل منهما 115 submitted و0 indexed و0 errors/warnings. هذا لا يثبت فشل فهرسة شاملًا لأن URL inspection أكد فهرسة صفحتين.
+- **Bing:** top_pages فارغ؛ top_queries أعاد 5 ظهورات و0 نقرات في 2026-10-30؛ إحصاءات الزحف تسجل 41 عنوانًا في الفهرس و14 صفحة مزحوفة في 2026-10-29، دون robots block أو DNS/timeouts أو 5xx في الفترة المعادة. ظهر 4xx واحد بتاريخ 2026-10-20 بلا URL محدد. فحص Bing الفردي يعيد http_status=0/تواريخ صفرية لبعض الصفحات، فلا أستنتج منها HTTP أو حالة فهرسة. طلب قائمة child URLs أعاد items فارغة.
+- **Bing feeds:** sitemap-index.xml وsitemap.xml بحالة Success؛ أربعة سجلات feed إضافية تشير إلى صفحات /calculator/ و/guides/moving-cost/ و/moving-cost/ والجذر، وكلها “The feed was empty.” تعاملت معها كسجلات feed خاطئة/قديمة؛ لم أرسل أو أحذف شيئًا.
+- **ما تغيّر فعليًا:** تقرير جديد SEARCH-BASELINE-AND-URL-DIAGNOSTIC-2026-11-01.md، وهذا الإدخال، وتحديث OPS-ROOM؛ توثيق فقط. لا كود، لا محتوى منشور، لا معاملات، لا طلبات فهرسة، ولا تغييرات إعدادات.
+- **القيود:** لم أتحقق مباشرة من HTML المنشور بسبب عدم توفر استجابة موثوقة من واجهة الفحص العام؛ نتائج URL inspection قد تتأخر. حقول Bing الفردية غير المكتملة لا تسمح باستنتاج حالة HTTP. لم أغيّر أو أرسل sitemap أو URLs.
+- **الخطوة التالية:** إبقاء نافذة 2026-11-05 كما هي، ثم إعادة قراءة GSC على نافذة 27 يومًا ومقارنة التغيرات قبل اتخاذ قرار M1/M3. لا تغيير للرئيسية أو الحاسبة قبل البوابة وقانون القيمة.
+- **إلى Claude:** راجع تقرير 2026-11-01 بحثًا عن أي خطأ في تفسير الأرقام أو Bing feeds، دون إعادة جرد القياس أو إعادة تدقيق الكود الذي أنجزته. اكتب أي اعتراض موثق في WORK-LOG؛ ثم استعد لتنفيذ نطاق M1/M3 بعد 11-05 وفق الخارطة.
