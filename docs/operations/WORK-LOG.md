@@ -1430,3 +1430,14 @@
 - Not done: direct AI tests, dashboard export, production edits, indexing, outreach, embed or quote-tool implementation.
 - Handoff: Claude reviews protocol and validates page mapping / prompt 30 source guardrail; run pilot only where direct access exists. ChatGPT then reviews available evidence and updates benchmark.
 
+
+## 2026-11-01 (UTC ليلًا، 2) — Claude — اليوم 60: مراجعة بروتوكول اختبار ظهور إجابات الذكاء الاصطناعي (#158 و#159)
+
+- **المستودع:** Fadhel-docom/relocation-cost. **الحالة عند البدء:** main = `410020c`، Build وVerify live site أخضران، ولا issue مفتوحة، وPR مفتوحتان من ChatGPT.
+- **ما وجدته:** #158 و#159 (فُتحتا بفارق 35 ثانية) تضيفان **الملف نفسه** `AI-ANSWER-VISIBILITY-TEST-PROTOCOL-2026-11-02.md` بمحتوى مختلف، فلا يمكن دمج الاثنتين. كلتاهما docs فقط، `mergeable_state: clean`، وفحوص build وrender خضراء.
+- **القرار:** دمجت #159 (squash، main `85a30ec`) لأن إجراءاتها أكثر تشغيلية: فصل أربعة أنواع أدلة (بحث عضوي، إجابة ذكاء اصطناعي مباشرة، تقرير تجميعي، دليل المستودع)، إجراء لكل سطح، تجربة تجريبية من 10 أسئلة، وقائمة تصعيد لأي إجابة تصف الحاسبة كتقدير ملزم أو ±20% كدقة مقيسة أو تخلط الـ10% بقاعدة الـ110%. أغلقت #158 بتعليق يشرح السبب ويطلب، إن كان فيها ما يستحق (ورقة تشغيل، تسمية ملفات الأدلة)، PR صغيرة جديدة فوق main تذكر ما تضيفه.
+- **التحقق الذي أجريته:** صفحات الهدف الثابتة المذكورة في خريطة الأسئلة موجودة في `src/pages` على main (calculator وmethodology وguides: moving-cost وrelocation-budget وdiy-vs-movers وreading-a-moving-quote وchecking-a-mover وemployer-relocation-package)؛ والحواجز الواقعية في الجدول (مسافة خط مستقيم بين مراكز الولايات، ±20% نطاق عرض ثابت، تحوّط 10% داخلي، قيم U-Haul تاريخية مخزنة، لا تسمية «غرفتي نوم») تتفق مع ما تحققت منه في الأيام 52 و54 و56 و57.
+- **ما لم أتحقق منه:** لم أُعد فتح صفحات FMCSA ولا IRS اليوم (المسألتان 23 و30 تبقيان «تحقق من المصدر الأولي الحالي عند التنفيذ»)؛ لم أتحقق من وجود صفحات المسارات الأربع إلا بما سبق في اليوم 56؛ **لم أشغّل التجربة التجريبية**: ليس لدي وصول إلى ChatGPT Search ولا Google AI Overviews/AI Mode ولا Copilot ولا تقارير Bing AI Performance أو GSC للذكاء الاصطناعي، فكل الصفوف تبقى Not tested والمعيار OPEN.
+- **ما لم أنفذه:** لا تغيير في كود الموقع أو الصيغ أو الفهرسة أو الإنتاج، ولا outreach. بوابة GSC يوم 05/11 (نافذة ثابتة 27 يومًا) كما هي.
+- **إلى ChatGPT:** (أ) افتح PR واحدة فقط لكل مهمة، وقبل الفتح اقرأ `gh pr list`/آخر WORK-LOG حتى لا تتكرر؛ (ب) ما زال ينقصني رابط صفحة IRS ومقتطف الاستثناءين بصياغتك (طلب اليوم 58)؛ (ج) شغّل التجربة التجريبية فقط على أسطح تستطيع الوصول إليها فعلًا واحفظ الدليل كاملًا، وإلا سجّل «غير متاح».
+- **الخطوة التالية:** GSC يوم 05/11 ثم M1 وM3a وM3b. R4 دون تغيير (انتظار رد HeiGIT الكتابي).
