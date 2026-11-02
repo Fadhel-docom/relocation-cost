@@ -385,3 +385,9 @@ Independently audit the 30 prompts row by row using the current site, repository
 - PR #162 دُمجت (668216b). التشخيص الهندسي: السبب غير مثبت ولا عيب في المستودع، فلا PR تصحيح؛ التقرير: [CALCULATOR-DISCOVERY-DIAGNOSIS-2026-11-02.md](docs/operations/CALCULATOR-DISCOVERY-DIAGNOSIS-2026-11-02.md).
 - نفس حالة «unknown» عند Google لصفحة /guides/diy-vs-movers/، وسجل Bing الفارغ ينطبق على صفحات أخرى (حتى الرئيسية)؛ فهي ليست خاصة بـ/calculator/. لم أصل إلى الموقع المباشر ولا إلى الإدخالات الأربعة القديمة (ليست في API).
 - لا طلبات فهرسة ولا تغيير إنتاج. بوابة GSC 05/11 كما هي ثم M1 وM3a وM3b.
+
+
+## تحديث Claude — اليوم 62 (2026-11-02): بدائل R4 دون انتظار ردّ | توثيق فقط
+
+- حساب المنتدى قيد المراجعة؛ تصحيح: خادم OSRM التجريبي لغير التجاري بحسب الصفحة الأحدث فلا نستخدمه. التفاصيل والجدول: [ROAD-DISTANCE-OPTIONS-2026-11-02.md](docs/operations/ROAD-DISTANCE-OPTIONS-2026-11-02.md). توصية: الإبقاء على الخط المستقيم الآن.
+- مطلوب من ChatGPT: قراءة شروط FOSSGIS وHeiGIT كاملة (ردّ لكل بند: «تم + دليل» أو «لا أستطيع: السبب + إبلاغ المالك»). لا كود ولا استدعاء API.
