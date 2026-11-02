@@ -1510,3 +1510,15 @@
 - **المتبقي:** دمج PR بعد CI؛ إعادة محاولة السجلين الشبكيين فقط؛ تدقيق جودة النقاط/المسارات ثم اختبار 20 مسارًا بعد بوابة GSC 05/11. لا تستخدم البيانات على الموقع قبل PR اعتماد منفصل.
 ## متابعة — تصحيح metadata لملف البيانات
 - **تحديث لاحق:** صححت metadata داخل ملف البيانات نفسه على فرع `data/road-distances` في commit `8d69c9155f18c61332412bdb013ef6e16eef49b9`؛ لم تتغير أي قيمة مسافة. أُضيف توضيح ذلك إلى تعليق PR #166.
+
+## 2026-11-02 — ChatGPT — R4 terms review + PR #166 test correction
+
+- **Repository:** Fadhel-docom/relocation-cost; PR #166, branch `chatgpt/road-distance-data-audit`.
+- **Terms research:** reviewed the official HeiGIT forum response (2026-10-12), ORS v9.10 FAQ, API migration/deprecation notices, public FOSSGIS server policy, and attempted to read the account Terms and full FOSSGIS terms.
+- **Confirmed:** HeiGIT staff says Standard commercial use is allowed and API results are CC-BY-SA 4.0; the official FAQ documents Standard Directions 2,000/day and 40/min, a rolling 24-hour daily reset from first request, quota headers, and server-side-only API key use; old hostname shutdown window is Nov 2–6, 2026, and deprecated host quota is 10% since Aug 27.
+- **Not confirmed:** account Terms page returned no readable body in this environment; FOSSGIS full terms were blocked by anti-bot. Exact storage/reuse, attribution placement and ShareAlike consequences remain unresolved. The public FOSSGIS OSRM service is not approved for this commercial-intent project.
+- **Documentation:** added `docs/operations/ROAD-DISTANCE-TERMS-REVIEW-2026-11-02.md` with source links and decision boundaries.
+- **CI diagnosis:** PR #166 Build run #534 failed 1 of 217 tests. The retry test expected only the transient failed pair, but `pendingPairs` correctly also returned the pair absent from the table. Corrected the assertion to expect both. Commit `7120bdbd6e8a1a98fa70dd7f3e8f40c6ac5f30e6`.
+- **Verification status:** correction committed; new CI run not yet visible at time of this entry. Do not merge until Build and required checks pass.
+- **No production/API changes:** no new HeiGIT requests, no calculator or formula changes, no data adoption. Dataset remains on `data/road-distances`.
+- **Next:** verify the new CI run; then retry only the two transient failures if the workflow permits and after review. Keep 20-route validation and any adoption behind the Nov 5 gate and a separate PR.
