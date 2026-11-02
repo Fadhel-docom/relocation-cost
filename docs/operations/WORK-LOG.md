@@ -1508,3 +1508,5 @@
 - **مصادر:** [قيود ORS](https://openrouteservice.org/restrictions/) تحد Directions عند 6,000 كم وMatrix عند 3,500 خلية/طلب؛ [FAQ](https://giscience.github.io/openrouteservice/v9.10.0/frequently-asked-questions) يذكر 2,000 Directions/day و40/min؛ [رموز الأخطاء](https://giscience.github.io/openrouteservice/api-reference/error-codes) يعرّف 2010 كنقطة غير موجودة و2004 كتجاوز حد؛ ورد HeiGIT يؤكد Standard التجاري وCC-BY-SA 4.0 لنتائج API.
 - **التغيير:** PR مراجعة ChatGPT #166 على فرع `chatgpt/road-distance-data-audit`: تصحيح ترخيص metadata، إعادة محاولة الأخطاء العابرة فقط، backoff لأخطاء الشبكة، اختبار جديد، وتحديث التقرير وغرفة العمليات. لا تغيير في الإنتاج أو معادلات الحاسبة.
 - **المتبقي:** دمج PR بعد CI؛ إعادة محاولة السجلين الشبكيين فقط؛ تدقيق جودة النقاط/المسارات ثم اختبار 20 مسارًا بعد بوابة GSC 05/11. لا تستخدم البيانات على الموقع قبل PR اعتماد منفصل.
+## متابعة — تصحيح metadata لملف البيانات
+- **تحديث لاحق:** صححت metadata داخل ملف البيانات نفسه على فرع `data/road-distances` في commit `8d69c9155f18c61332412bdb013ef6e16eef49b9`؛ لم تتغير أي قيمة مسافة. أُضيف توضيح ذلك إلى تعليق PR #166.
