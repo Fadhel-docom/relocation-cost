@@ -90,10 +90,10 @@ test("pending pairs skip finished ones and only retry failures on request", () =
   ];
   const table = {
     "A|B": { status: "ok" },
-    "A|C": { status: "failed" }
+    "A|C": { status: "failed", reason: "network_error" }
   };
   assert.deepEqual(pendingPairs(pairs, table).map(pair => pair.key), ["B|C"]);
-  assert.deepEqual(pendingPairs(pairs, table, { retryFailed: true }).map(pair => pair.key), ["A|C", "B|C"]);
+  assert.deepEqual(pendingPairs(pairs, table, { retryFailed: true }).map(pair => pair.key), ["A|C"]);
 });
 
 test("summary counts statuses and flagged entries", () => {
@@ -104,4 +104,12 @@ test("summary counts statuses and flagged entries", () => {
     d: { status: "rejected" }
   });
   assert.deepEqual(counts, { ok: 2, rejected: 1, failed: 1, flagged: 1 });
+});
+
+
+test("retry mode excludes permanent point-not-found and route-limit failures", () => {
+  const reasons = ["network_error", "http_429", "http_503", "http_404_2010", "http_400_2004"];
+  const pairs = reasons.map((reason, i) => ({ key: String(i) }));
+  const table = Object.fromEntries(reasons.map((reason, i) => [String(i), { status: "failed", reason }]));
+  assert.deepEqual(pendingPairs(pairs, table, { retryFailed: true }).map(pair => pair.key), ["0", "1", "2"]);
 });
