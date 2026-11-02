@@ -93,7 +93,7 @@ test("pending pairs skip finished ones and only retry failures on request", () =
     "A|C": { status: "failed", reason: "network_error" }
   };
   assert.deepEqual(pendingPairs(pairs, table).map(pair => pair.key), ["B|C"]);
-  assert.deepEqual(pendingPairs(pairs, table, { retryFailed: true }).map(pair => pair.key), ["A|C"]);
+  assert.deepEqual(pendingPairs(pairs, table, { retryFailed: true }).map(pair => pair.key), ["A|C", "B|C"]);
 });
 
 test("summary counts statuses and flagged entries", () => {
