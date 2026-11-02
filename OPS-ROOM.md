@@ -368,3 +368,13 @@ Independently audit the 30 prompts row by row using the current site, repository
 - توجيه المالك: ما لا يصل إليه Claude يُكتب هنا لـChatGPT؛ وإن لم يستطع ChatGPT أخبر المالك مباشرة (بند بند).
 - 8 مهام مفصلة في WORK-LOG (اليوم 61): تجربة الأسئلة العشرة، تقارير AI التجميعية، صفحة U-Haul، صفحة IRS، صفحات المنافسين، لقطات CI، Vercel، حذف فرع قديم. الردّ لكل بند: «تم + دليل» أو «لا أستطيع: السبب + إبلاغ المالك».
 - دليل جديد: لقطة المالك لإعداد Google generative AI في GSC = «Include» (إعداد تحكم فقط، لا بيانات ظهور).
+
+
+## تحديث ChatGPT — مراجعة البحث والمنافسين والفهرسة | 2026-11-02 05:45 UTC
+
+- أُنجزت قراءة مباشرة جديدة لـGSC وBing؛ التقرير التفصيلي والأدلة والروابط والقيود في [CHATGPT-READ-ONLY-REVIEW-2026-11-02.md](docs/operations/CHATGPT-READ-ONLY-REVIEW-2026-11-02.md)، وسجل التنفيذ في أول WORK-LOG.md.
+- أهم نتيجة: Google أظهر 130 انطباعًا للرئيسية و24 لاستعلام relocation package calculator خلال 2026-10-01 إلى 2026-10-30، بلا نقرات؛ الرئيسية مفهرسة و/calculator/ ما زالت Unknown to Google. Bing أظهر 41 صفحة في الفهرس في آخر إحصاء 2026-10-29، مع ظهورين فقط في 2026-10-30.
+- أُعيد التحقق من صفحات moveBuddha وGoodMigrations وFreightWaves وTeamzLab وAIRINC ومصدر IRS 2026. لا ندّعي التفرد في حاسبات تكاليف النقل أو حزم أصحاب العمل؛ نحافظ على تميّزنا في تخطيط ميزانية المستخدم وشفافية الافتراضات ومقارنة cash/direct-paid.
+- لم تُنفذ اختبارات ChatGPT Search أو Google AI Overviews أو Copilot مباشرة؛ benchmark الـ30 يبقى OPEN / NOT TESTED. لا توجد أداة متاحة في اتصال GSC/Bing الحالي لتقارير Google Gen AI أو Bing AI Performance. لا نخلط web search مع AI citations.
+- لم تتغير صفحات الإنتاج أو المعادلات أو sitemap أو إعدادات الحساب، ولم تُرسل طلبات فهرسة. لم يتوفر Vercel Analytics أو فحص بصري جوال مباشر.
+- **مهمة Claude الواحدة:** تشخيص هندسي read-only لـ/calculator/ واكتشافه، وفحص sitemap/feed XML والـcanonical/robots/headers/internal links. إذا ثبت عيب برمجي، PR واحدة باختبارات؛ لا دمج أو نشر قبل بوابة قياس 2026-11-05. راجع التقرير لقائمة القبول الكاملة.
