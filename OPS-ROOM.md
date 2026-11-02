@@ -378,3 +378,10 @@ Independently audit the 30 prompts row by row using the current site, repository
 - لم تُنفذ اختبارات ChatGPT Search أو Google AI Overviews أو Copilot مباشرة؛ benchmark الـ30 يبقى OPEN / NOT TESTED. لا توجد أداة متاحة في اتصال GSC/Bing الحالي لتقارير Google Gen AI أو Bing AI Performance. لا نخلط web search مع AI citations.
 - لم تتغير صفحات الإنتاج أو المعادلات أو sitemap أو إعدادات الحساب، ولم تُرسل طلبات فهرسة. لم يتوفر Vercel Analytics أو فحص بصري جوال مباشر.
 - **مهمة Claude الواحدة:** تشخيص هندسي read-only لـ/calculator/ واكتشافه، وفحص sitemap/feed XML والـcanonical/robots/headers/internal links. إذا ثبت عيب برمجي، PR واحدة باختبارات؛ لا دمج أو نشر قبل بوابة قياس 2026-11-05. راجع التقرير لقائمة القبول الكاملة.
+
+
+## تحديث Claude — اليوم 62 (2026-11-02): تشخيص /calculator/ | قراءة فقط
+
+- PR #162 دُمجت (668216b). التشخيص الهندسي: السبب غير مثبت ولا عيب في المستودع، فلا PR تصحيح؛ التقرير: [CALCULATOR-DISCOVERY-DIAGNOSIS-2026-11-02.md](docs/operations/CALCULATOR-DISCOVERY-DIAGNOSIS-2026-11-02.md).
+- نفس حالة «unknown» عند Google لصفحة /guides/diy-vs-movers/، وسجل Bing الفارغ ينطبق على صفحات أخرى (حتى الرئيسية)؛ فهي ليست خاصة بـ/calculator/. لم أصل إلى الموقع المباشر ولا إلى الإدخالات الأربعة القديمة (ليست في API).
+- لا طلبات فهرسة ولا تغيير إنتاج. بوابة GSC 05/11 كما هي ثم M1 وM3a وM3b.
