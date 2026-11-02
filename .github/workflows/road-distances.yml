@@ -1,0 +1,61 @@
+name: Road distances
+# Manual only. Asks openrouteservice (HeiGIT) once for road miles between the calculator's state and city
+# points and stores them in data/road-distances.json on the branch "data/road-distances".
+# Nothing on main changes and the site does not read the file yet: adopting it is a separate, measured PR.
+# Needs the repository secret ORS_API_KEY (Settings > Secrets and variables > Actions).
+on:
+  workflow_dispatch:
+    inputs:
+      kind:
+        description: "Which pairs to ask for"
+        type: choice
+        options: [all, state, city]
+        default: all
+      limit:
+        description: "Maximum requests in this run (3 = smoke test)"
+        type: string
+        default: "3"
+      retry_failed:
+        description: "Ask again for pairs that failed before"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: road-distances
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Continue from the data branch if it exists
+        run: |
+          git fetch origin data/road-distances || true
+          if git rev-parse --verify origin/data/road-distances >/dev/null 2>&1; then
+            git show origin/data/road-distances:data/road-distances.json > data/road-distances.json || rm -f data/road-distances.json
+          fi
+
+      - name: Ask for the distances
+        id: build
+        env:
+          ORS_API_KEY: ${{ secrets.ORS_API_KEY }}
+        run: node tools/road-distances-build.mjs --kind="${{ inputs.kind }}" --limit="${{ inputs.limit }}" --retry-failed="${{ inputs.retry_failed }}"
+
+      - name: Publish the data to its own branch
+        if: always() && hashFiles('data/road-distances.json') != ''
+        run: |
+          git config user.name "road-distances[bot]"
+          git config user.email "road-distances@users.noreply.github.com"
+          git checkout -B data/road-distances
+          git add data/road-distances.json
+          if git diff --cached --quiet; then echo "Nothing new to publish."; exit 0; fi
+          git commit -m "data: road distances (${{ steps.build.outputs.status }})"
+          git push --force origin data/road-distances
