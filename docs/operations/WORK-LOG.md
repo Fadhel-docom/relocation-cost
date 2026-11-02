@@ -1522,3 +1522,13 @@
 - **Verification status:** correction committed; new CI run not yet visible at time of this entry. Do not merge until Build and required checks pass.
 - **No production/API changes:** no new HeiGIT requests, no calculator or formula changes, no data adoption. Dataset remains on `data/road-distances`.
 - **Next:** verify the new CI run; then retry only the two transient failures if the workflow permits and after review. Keep 20-route validation and any adoption behind the Nov 5 gate and a separate PR.
+
+
+## 2026-11-02 — ChatGPT — AI Answer Pack source verification and competitor page review
+
+- **Repository:** Fadhel-docom/relocation-cost; current research recorded on branch `chatgpt/road-distance-data-audit` pending PR review.
+- **U-Haul:** opened the exact original source page. Confirmed last updated 2025-09-10, September 2025 mileage-band averages, and all seven values exactly match `data/coefficients.json`. This verifies attribution for the stored historical benchmark; it does not make the values live rates or route-specific/full-service quotes.
+- **IRS:** read 2026 Pub 15-B and current Tax Topic 455. Confirmed the Armed Forces active-duty permanent-change-of-station exception and the intelligence-community employee/new-appointee relocation exception for assignment changes requiring relocation; Tax Topic 455 confirms intelligence-community moves in 2026 or later.
+- **Competitors:** directly inspected MoveDayMap Quote Decoder and Have a Good Move Compare. Both already provide meaningful quote-comparison functions, so no generic quote-comparison feature is justified without a distinct gap and demand evidence. CARS page was inaccessible; no claim made.
+- **AI surfaces:** direct ChatGPT Search, Google AI Overviews/AI Mode and Copilot interfaces were not directly inspectable in this session. Ordinary web search is not treated as AI citations. The 10-prompt pilot and 30-prompt benchmark remain OPEN / NOT TESTED. No connected GSC Generative AI or Bing AI Performance action was available; this is not evidence of zero data.
+- **Documentation:** added `docs/operations/AI-SOURCE-VERIFICATION-2026-11-02.md`. No public AI answer copy, production page, formula, sitemap or indexing action changed.
