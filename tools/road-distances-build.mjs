@@ -86,6 +86,12 @@ for (const pair of todo) {
         body: JSON.stringify(buildDirectionsBody(from, to))
       });
     } catch (error) {
+      if (attempt < 2) {
+        const wait = 2000 * (attempt + 1);
+        console.log(`Network error; retrying in ${wait}ms (attempt ${attempt + 1}/3)`);
+        await sleep(wait);
+        continue;
+      }
       table[pair.key] = makeFailure(pair, `network_${error.code ?? "error"}`, new Date().toISOString());
       done = true;
       break;
