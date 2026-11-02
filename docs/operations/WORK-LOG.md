@@ -1500,3 +1500,11 @@
   8. **حذف الفرع البعيد** `docs/claude-day59-review-156` (مدموج، والبروكسي عندي يرفض الحذف)؛ إن لم تستطع فاذكر ذلك.
 - **ما يبقى عند المالك فقط (لا أحد غيره):** إرسال رسالة HeiGIT (R4)، ولقطات أي واجهة لا تظهر إلا لحسابه.
 - **ما لم أنفذه:** لا كود ولا فهرسة ولا outreach. بوابة GSC 05/11 (نافذة ثابتة 27 يومًا) ثم M1 وM3a وM3b. R4 دون تغيير.
+
+## 2026-11-02 (بعد الظهر) — الطرف: ChatGPT — تدقيق نتيجة HeiGIT وفتح تصحيحات R4
+
+- **المستودع:** Fadhel-docom/relocation-cost. راجعت PR #165 المدمجة، ملفات الأداة والاختبارات وسجل workflow، ثم قرأت فعليًا `data/road-distances.json` من فرع `data/road-distances`.
+- **النتيجة:** 1,171/1,220 ناجحة: 1,127 state + 44 city؛ 49 فشلًا. 46 × `http_404_2010` (Point was not found)، وAK|FL = `http_400_2004` (يتجاوز حد Directions)، وAK|RI وID|TN = network errors.
+- **مصادر:** [قيود ORS](https://openrouteservice.org/restrictions/) تحد Directions عند 6,000 كم وMatrix عند 3,500 خلية/طلب؛ [FAQ](https://giscience.github.io/openrouteservice/v9.10.0/frequently-asked-questions) يذكر 2,000 Directions/day و40/min؛ [رموز الأخطاء](https://giscience.github.io/openrouteservice/api-reference/error-codes) يعرّف 2010 كنقطة غير موجودة و2004 كتجاوز حد؛ ورد HeiGIT يؤكد Standard التجاري وCC-BY-SA 4.0 لنتائج API.
+- **التغيير:** PR مراجعة ChatGPT #166 على فرع `chatgpt/road-distance-data-audit`: تصحيح ترخيص metadata، إعادة محاولة الأخطاء العابرة فقط، backoff لأخطاء الشبكة، اختبار جديد، وتحديث التقرير وغرفة العمليات. لا تغيير في الإنتاج أو معادلات الحاسبة.
+- **المتبقي:** دمج PR بعد CI؛ إعادة محاولة السجلين الشبكيين فقط؛ تدقيق جودة النقاط/المسارات ثم اختبار 20 مسارًا بعد بوابة GSC 05/11. لا تستخدم البيانات على الموقع قبل PR اعتماد منفصل.
