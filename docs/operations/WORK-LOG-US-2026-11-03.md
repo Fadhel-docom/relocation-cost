@@ -24,3 +24,12 @@
 4. Continue exact BLS OEWS area-ID mapping and official municipal-rule research.
 5. Score source completeness and visitor value before approving any 2–3-city pilot.
 6. Keep the international workstream separate until Claude's review is complete.
+
+
+## Continuation — ACS route + PR verification | 2026-11-03 (ChatGPT)
+
+- Verified Vercel status for the earlier PR #173 head is now `success`; PR #173 remains open/unmerged and has no recorded review. The workflow-run lookup returned no runs, so do not infer all CI checks from Vercel alone.
+- Added `docs/operations/US-ACS-2025-RETRIEVAL-AND-QUALITY-GATE-2026-11-03.md`, documenting the official 2025 ACS B25064 Summary File route, estimate/MOE/annotation fields, geography join, validation and publication gates.
+- Updated `OPS-ROOM.md` with the handoff and next actions.
+- Still not completed: downloading/parsing 2025 ACS geography and B25064 files, exact 18 MSA GEOIDs, BLS OEWS IDs, municipal rule verification, pilot selection, production imports, city pages, formula changes, outreach or indexing.
+- Source references are listed in the new retrieval-and-quality-gate report. The Census Summary File is the alternative to requiring an API key; actual values must still be parsed and checked, not guessed.
