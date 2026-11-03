@@ -450,3 +450,20 @@ Independently audit the 30 prompts row by row using the current site, repository
 - **R-CA-6:** توجيه OQLF يطلب نسخة فرنسية كاملة للموقع التجاري، ومعلومات وخدمة بالفرنسية، والفرنسية مهيمنة بوضوح في الإعلان التجاري. العقود adhesion لها متطلبات فرنسية منفصلة. القرار: تجربة فرنسية كاملة شرط دخول سوق Québec، وليست مهمة قبل بوابة 5 نوفمبر.
 - **HeiGIT:** النص الكامل الذي قدمه المالك يثبت CC-BY-SA 4.0 ونص الإسناد © openrouteservice by HeiGIT | Data from OpenStreetMap؛ لا يتضمن بندًا صريحًا عن التخزين أو الاستخدام التجاري. لا نستنتج إذنًا أو منعًا من الصمت. سؤال ShareAlike لجدول داخل الحاسبة ما زال مفتوحًا.
 - PRs #166–#169 مدمجة في main. لم يتغير الموقع أو المعادلات أو الصفحات أو الفهرسة. لا توسع أو نشر قبل بوابة 05/11 وM1/M3a.
+
+## US market value workstream — 2026-11-03 (ChatGPT)
+
+**Scope:** US only. Canada, England/UK and EU remain with the separate Claude workstream and are not included here.
+
+- Created `docs/operations/US-MARKET-VALUE-ROADMAP-2026-11-03.md` as the operating plan for the four owner-approved stages: (1) whole-move budget and evidence-based calibration, (2) useful local profiles for the existing 18 cities, (3) a lawful and defensible moving-cost observation dataset, and (4) distribution through Google/Bing, AI answer engines, embeddable tools and publisher partnerships.
+- Re-checked the repository data files: 18 city coordinate records; 44 city-pair routes; 50 state-to-state route pages. City routes use great-circle city-centre distances, not road mileage. The coefficient file explicitly keeps universal coefficients null and treats U-Haul, BLS and Census data as different kinds of context/benchmarks rather than interchangeable quote data.
+- Recorded the potential product position as a hypothesis: a whole-move cash plan connecting move costs, employer assistance/reimbursement timing, employee-funded gap and post-arrival cash runway. It is not yet a proven moat or a uniqueness claim.
+- Added the required source hierarchy, observation schema, calibration gates, 18-city research queue, geography crosswalk requirement, local-page acceptance test, data-rights/privacy/representativeness safeguards and distribution gates.
+- Official source roles were reviewed at desk-research level: BEA RPP for broad price-level context; ACS for local housing/rent/income context; BLS for selected metro CPI and occupational wage context; EIA for fuel-price context; GSA per diem/mileage for defined federal allowance purposes; IRS mileage rules for defined tax cases. None is a direct substitute for dated moving-company quotes.
+- Important: the GSA/IRS 2026 mileage values are defined reimbursement/tax rates, not consumer fuel costs or mover prices. The report prohibits using them as a consumer moving-cost coefficient.
+- **No production code, calculator formula, price, public city page, data import, API call, deployment, indexing request or external outreach was changed/performed.** PR #172 remains a separate research-only publisher shortlist; no message was sent.
+- **Next:** finish the city-to-source geography crosswalk and inspect the current budget feature flow; then propose a 2–3-city evidence-complete pilot. No new cities and no formula change before their evidence gates.
+- **Claude handoff:** after the separate international research is complete, independently review this US plan and challenge the source/geography mapping and calibration methodology without duplicating the international work.
+- **Evidence/limitations:** this is a repository and official-source desk audit, not a complete live audit of all city pages, all source data rows, current GSC/Bing data, quote samples or direct AI answer surfaces.
+
+Report: [US-MARKET-VALUE-ROADMAP-2026-11-03.md](docs/operations/US-MARKET-VALUE-ROADMAP-2026-11-03.md).
