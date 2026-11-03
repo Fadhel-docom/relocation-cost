@@ -467,3 +467,13 @@ Independently audit the 30 prompts row by row using the current site, repository
 - **Evidence/limitations:** this is a repository and official-source desk audit, not a complete live audit of all city pages, all source data rows, current GSC/Bing data, quote samples or direct AI answer surfaces.
 
 Report: [US-MARKET-VALUE-ROADMAP-2026-11-03.md](docs/operations/US-MARKET-VALUE-ROADMAP-2026-11-03.md).
+
+ 
+### متابعة تنفيذ الخطة الأمريكية — crosswalk وتدقيق الميزانية | 2026-11-03 (ChatGPT)
+
+- **المدينة/المصادر:** أنشأت `docs/operations/US-CITY-SOURCE-CROSSWALK-2026-11-03.md` بعد مراجعة BEA 2024 وCensus ACS 2025 وBLS OEWS May 2025 وBLS CPI وEIA. يوضح الملف أن أسماء/حدود المناطق قد تختلف بين المصادر؛ لذلك يمنع الربط على اسم المدينة فقط.
+- **نتيجة التغطية:** BEA RPP 2024 موجود الآن لكل المدن الـ18 عبر PR #174 المدمجة. ACS 2025 1-year صدر في 29 أكتوبر 2026 ويتيح MSA/place بحسب عتبة النشر؛ لم تُستخرج قيم الإيجار بعد، ويجب تثبيت رموز الجغرافيا لعام 2025 أولًا. BLS CPI metro القياسي يغطي 13 من أسواقنا؛ لا توجد سلسلة metro منفصلة منشورة لـAustin وCharlotte وNashville، وLas Vegas وPortland يظهران ضمن مجاميع أساسية أوسع لا كسلسلتين metro مستقلتين.
+- **تحذير crosswalk:** توجد تسميات BLS/BEA مختلفة أو اختلافات محتملة في العضوية الجغرافية، منها New York وChicago وHouston وPhoenix وAustin وSan Francisco وDenver وLas Vegas وSan Diego. يلزم مطابقة CBSA/county definitions قبل جمع الأرقام.
+- **تدقيق المنتج:** أنشأت `docs/operations/US-BUDGET-FEATURE-AUDIT-2026-11-03.md`. الخلاصة: أجزاء الميزانية الشاملة موجودة بالفعل، لكن الفجوة هي التدفق النقدي والتكامل: لا توجد آلية منفصلة لتعويض المصروفات المؤجل، أهلية المصروفات والحدود وتاريخ المطالبة/السداد؛ واحتياطي المعيشة الحالي مجرد أسابيع × مبلغ أسبوعي؛ وأداة التتبع لا تنقل حاليًا دعم صاحب العمل/التعويض/الاحتياطي كعناصر مستقلة.
+- **القرار:** لا تغيير للمعادلات أو المعاملات أو نطاق ±20% أو contingency 10%؛ لا بيانات أسعار فعلية جُمعت، ولا صفحات مدن نُشرت، ولا بيانات ACS استوردت. لا نختار مدن التجربة قبل اكتمال رموز ACS والتحقق من المصادر البلدية.
+- **روابط العمل:** [crosswalk](docs/operations/US-CITY-SOURCE-CROSSWALK-2026-11-03.md) · [budget audit](docs/operations/US-BUDGET-FEATURE-AUDIT-2026-11-03.md) · [BEA 18-city refresh PR #174](https://github.com/Fadhel-docom/relocation-cost/pull/174).
