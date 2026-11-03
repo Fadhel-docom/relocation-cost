@@ -192,3 +192,11 @@ This baseline is based on repository files on `main` and official source pages l
 - The existing budget workflow was audited in [US-BUDGET-FEATURE-AUDIT-2026-11-03.md](US-BUDGET-FEATURE-AUDIT-2026-11-03.md). The main gap is reimbursement eligibility/timing and integration of one-time costs, recurring living costs, employer support and first-pay cash runway.
 - 2025 ACS 1-year estimates were released 2026-10-29 and include MSA/place geographies above the applicable population threshold. Exact geography IDs and estimate/MOE fields remain to be resolved before import.
 - Next deliverable: source-ID crosswalk for all 18 plus validated 2025 ACS median-gross-rent values with margins of error. No public city page or pilot is approved until this is complete.
+
+
+## Follow-up — ACS route and branch safety | 2026-11-03
+
+- Added the detailed [2025 ACS retrieval and quality gate](US-ACS-2025-RETRIEVAL-AND-QUALITY-GATE-2026-11-03.md). It confirms the official table-based Summary File route, B25064 estimate/MOE/annotation requirements, geography join protocol and strict publication gate.
+- Exact 2025 MSA GEOIDs and rent observations remain unextracted. No rent figures are included in the product or treated as moving-cost evidence.
+- PR #173 branch is now 13 commits ahead and 2 behind `main` (diverged). Do not merge until the two mainline commits are reconciled, the resulting diff is reviewed, and checks run on the reconciled head. The earlier head had a Vercel success status; the latest documentation head has no reported status checks yet.
+- Continue with ACS file retrieval/parsing, then BLS area IDs and official city-level truck/parking rules. No formula changes, no new cities, and no production changes.
