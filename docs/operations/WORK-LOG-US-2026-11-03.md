@@ -30,3 +30,9 @@
 6. Continue exact BLS OEWS area-ID mapping and official municipal-rule research.
 7. Score source completeness and visitor value before approving any 2–3-city pilot.
 8. Keep the international workstream separate until Claude's review is complete.
+
+
+## BLS geography-source follow-up — 2026-11-03 (ChatGPT)
+
+- Confirmed the BLS May 2025 OEWS metro-area page and documentation identify the official May 2025 MSA definitions XLSX; technical notes say OEWS uses OMB Bulletin 23-01 definitions.
+- Source links and the precise limitation are recorded in `OPS-ROOM.md`. The XLSX could not be downloaded in this runtime, so exact BLS area IDs and county membership remain open. No area IDs were guessed, and no wages were imported or used as moving-price evidence.
