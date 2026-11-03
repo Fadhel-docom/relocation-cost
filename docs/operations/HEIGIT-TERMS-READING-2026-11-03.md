@@ -26,3 +26,38 @@
 - Straight-line fallback (Alaska, Hawaii, city pairs outside the 44) said on the page; formulas and coefficients unchanged; ±20 % band and "not a quote" unchanged.
 - Tests: every state pair present or Alaska/Hawaii; road ≥ straight line; the 10 pairs with ratio above 1.6 listed so a change is deliberate; attribution present on the built page (verify-seo).
 - Owner decision still needed: is a typical +7 % to +14 % higher estimate acceptable as the new default (46 % of pairs change U-Haul band)?
+
+
+## 2026-11-03 — independent CC BY-SA 4.0 database-rights analysis (ChatGPT)
+
+**Official materials reviewed:** CC BY-SA 4.0 deed and legal code (especially Sections 1, 2, 3 and 4), plus Creative Commons' explanatory database-rights page and FAQ:
+- Legal code: https://creativecommons.org/licenses/by-sa/4.0/legalcode
+- Deed: https://creativecommons.org/licenses/by-sa/4.0/
+- CC explanation of sui generis database rights: https://wiki.creativecommons.org/wiki/4.0/Sui_generis_database_rights
+- CC FAQ: https://creativecommons.org/faq/
+
+### What the licence itself establishes
+1. CC BY-SA 4.0 permits sharing and adaptation for any purpose, including commercial purposes, subject to attribution and ShareAlike when adapted material is shared. The CC licence itself is not a NonCommercial licence.
+2. The licence's definition of Copyright and Similar Rights includes sui generis database rights (SGDRs). Section 4 grants extraction, reuse, reproduction and sharing of all or a substantial portion of database contents where those rights apply.
+3. Under Section 4(b), if all or a substantial portion of a licensed database is included in another database in which the reuser has SGDRs, that resulting database (not its individual contents) is Adapted Material. If shared, the applicable ShareAlike condition applies to the rights in that resulting database.
+4. Creative Commons' explanatory page says SGDRs depend on the applicable jurisdictions; it describes Adapted Material in this database-rights context as requiring extraction/reuse of all or a substantial portion in another database that itself qualifies for SGDRs. It says other uses of the licensed database do not create Adapted Material. That explanatory page is archived historical guidance (last edited 2013); the current legal code controls.
+
+### Application to our route table — limits, not a legal conclusion
+- The project has 1,172 successful route-pair outputs generated through separate API requests. The evidence currently available does **not** establish whether HeiGIT claims SGDRs in the API results or an underlying database, whether our generated result table is legally an extraction of a substantial part of such a database, or whether our own table qualifies for SGDR protection in a relevant jurisdiction.
+- A single route-distance fact and a complete precomputed route-pair table are not equivalent. The risk analysis must assess the aggregate dataset, not assume every individual numeric result independently creates an adapted database.
+- The licence does **not** automatically place the entire website, calculator code, or all unrelated site content under CC BY-SA merely because a result is displayed. The relevant question under Section 4 is whether the statutory database-rights conditions for an adapted database are actually met. Other copyright/contract rights and the account Terms remain separate.
+- Keeping the route table as a separate JSON asset with a clear CC BY-SA 4.0 notice and required attribution is a conservative separation measure. It is not a substitute for checking the applicable contract terms or determining whether SGDRs apply.
+- The account Terms text supplied by the owner has no express storage/caching/retention clause. CC BY-SA describes the licence applied to results, but does not by itself settle every API-account contractual question about storage, caching, retention or deletion.
+
+### Updated decision
+**Do not describe the ShareAlike question as a blanket blocker on the whole website.** The actual scope is narrower and depends on the database-rights facts above. Keep the route table isolated and do not integrate it into the calculator until the account-terms/storage question and the database-rights scope have been clarified or an informed owner decision has been documented. No production change is authorised by this research.
+
+### Exact written clarification to request from HeiGIT
+1. Does HeiGIT claim sui generis database rights in the API results themselves or in a source database from which route results are extracted?
+2. Is the CC BY-SA 4.0 licence applied to each returned route result, the aggregate result set, or both?
+3. Is a table of independently requested route pairs (not a bulk database export) considered extraction/reuse of all or a substantial part of any HeiGIT database for CC BY-SA Section 4?
+4. If the table is distributed as a separate JSON asset under CC BY-SA 4.0, does that satisfy the licence for the results, without extending to separately developed calculator code or unrelated site content?
+5. Does the Standard account contract expressly permit storing, caching and serving these precomputed results to website visitors, including for a commercial/affiliate-supported service? What retention/deletion limits apply?
+6. Confirm the required attribution text and whether the exact line supplied in the account Terms must appear on the calculator page, methodology page, or both.
+
+**Status:** CC BY-SA legal-code mechanics researched; factual application and API-account storage terms remain open. No legal advice claimed.
