@@ -4,22 +4,23 @@
 **Branch:** `chatgpt/us-market-value-roadmap-20261103`  
 **PR:** https://github.com/Fadhel-docom/relocation-cost/pull/173
 
-## Completed in this session
-- Verified PR #174 merged. It refreshes all 18 existing city metro records to BEA 2024 all-items and services: rents indices, with caveats about metro definitions and the fact that rent RPP is not a dollar rent.
-- Created `US-CITY-SOURCE-CROSSWALK-2026-11-03.md`: all 18 BEA metro labels cross-referenced to BLS May 2025 OEWS area labels; BLS CPI coverage mapped; ACS 2025 release/geography availability recorded; source geography mismatch cautions documented.
-- Created `US-BUDGET-FEATURE-AUDIT-2026-11-03.md`: audited current calculator, employer support, cash buffer and planned/actual tracker. Found existing feature components; principal gap is reimbursement eligibility/timing and connected cash-flow tracking.
-- Updated the US roadmap with execution status and next data gate.
-- Updated `OPS-ROOM.md` with links, findings and next actions.
+## Completed in this continuation
+- Rechecked PR #173: Vercel status is now success for the recorded head commit, but GitHub still reports `mergeable=false`; PR remains open and unmerged.
+- Rechecked PR #174: merged successfully; the 2024 BEA all-items and services:rents update for all 18 metro records is in main.
+- Researched the 2025 ACS 1-year Summary File path. Confirmed the Census Bureau publishes a table-based file with estimates and margins of error, a separate geography file, and a table list. The 2025 FTP directory explicitly lists the B25064 data file.
+- Corrected the acquisition assumption: a Census API key is not required to obtain the B25064 data; the official Summary File is an alternate route.
+- Confirmed B25064 is Median Gross Rent (Dollars), universe renter-occupied housing units paying cash rent. Recorded estimate, 90% MOE and annotation fields to retain.
+- Created `US-ACS-2025-RETRIEVAL-AND-QUALITY-GATE-2026-11-03.md` and this operations-room addendum.
 
-## Verification and limits
-- Read repository source files and official BEA, Census, BLS and EIA pages. Direct citations and limitations are recorded in the crosswalk.
-- PR #173 Vercel preview status was pending at the last check; no claim that its checks passed.
-- No formula/coefficient/contingency/range change; no new cities; no ACS data import; no public city pages; no production deployment; no indexing; no outreach; no live quote collection.
-- The canonical `docs/operations/WORK-LOG.md` append was blocked by the connector's safety/size gate while attempting to submit its full existing file contents. This addendum preserves the complete session record instead of overwriting or truncating the existing log.
+## Verification limits
+- The current runtime could not resolve the Census FTP host, so the B25064 data file was not downloaded or parsed. No 2025 MSA GEOIDs, rent values or MOEs are claimed.
+- No production data import, public city-page change, calculator formula/coefficient/range change, new city, deployment, indexing request, road-distance adoption or outreach was performed.
+- PR #173 Vercel status is success, but `mergeable=false` remains unresolved; do not merge on this status alone.
 
 ## Next actions
-1. Resolve exact 2025 ACS MSA/place identifiers for all 18 cities.
-2. Extract ACS median gross rent with estimate, margin of error, universe and vintage.
-3. Match BLS May 2025 OEWS geography/area IDs and verify municipal moving-truck/parking rules.
-4. Score source completeness; only then choose a 2–3-city pilot.
-5. Keep formula calibration and dataset publication behind their separate evidence, rights and privacy gates.
+1. Use the 2025 geography file to resolve exact MSA GEOIDs for all 18 markets.
+2. Parse B25064 from the official 2025 table-based Summary File and join by official geography keys.
+3. Validate estimate/MOE/annotations and all joins against data.census.gov.
+4. Continue exact BLS OEWS area-ID mapping and official municipal-rule research.
+5. Score source completeness and visitor value before approving any 2–3-city pilot.
+6. Keep the international workstream separate until Claude's review is complete.
