@@ -4,7 +4,7 @@ import fs from "node:fs";
 import {
   METERS_PER_MILE, metersToMiles, pairKey, buildStatePairs, buildCityPairs, pointFor,
   buildDirectionsBody, parseDirections, checkRatio, makeEntry, makeFailure, pendingPairs,
-  straightLineMiles, summarize, NO_ROAD_STATES
+  straightLineMiles, summarize, NO_ROAD_STATES, DATASET_METADATA
 } from "./road-distance.js";
 
 const stateData = JSON.parse(fs.readFileSync(new URL("../../data/state-distances.json", import.meta.url)));
@@ -112,4 +112,11 @@ test("retry mode excludes permanent point-not-found and route-limit failures", (
   const pairs = reasons.map((reason, i) => ({ key: String(i) }));
   const table = Object.fromEntries(reasons.map((reason, i) => [String(i), { status: "failed", reason }]));
   assert.deepEqual(pendingPairs(pairs, table, { retryFailed: true }).map(pair => pair.key), ["0", "1", "2"]);
+});
+
+test("dataset metadata carries the licence and the exact attribution the HeiGIT terms ask for", () => {
+  assert.match(DATASET_METADATA.data_licence, /CC-BY-SA 4\.0/);
+  assert.match(DATASET_METADATA.data_licence, /OpenStreetMap contributors/);
+  assert.equal(DATASET_METADATA.attribution, "© openrouteservice by HeiGIT | Data from OpenStreetMap");
+  assert.ok(DATASET_METADATA.licence_url.startsWith("https://creativecommons.org/licenses/by-sa/4.0"));
 });

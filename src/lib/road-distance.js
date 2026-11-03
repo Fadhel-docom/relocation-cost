@@ -130,6 +130,9 @@ export const DATASET_METADATA = {
   schema_version: "1.0",
   unit: "miles",
   source: "openrouteservice (HeiGIT), driving-car profile, directions endpoint",
-  data_licence: "openrouteservice API results: CC-BY-SA 4.0; underlying map data: © OpenStreetMap contributors (ODbL 1.0)",
+  data_licence: "CC-BY-SA 4.0 (results obtained from openrouteservice, per the HeiGIT Terms of Service); underlying map data: © OpenStreetMap contributors (ODbL 1.0)",
+  licence_url: "https://creativecommons.org/licenses/by-sa/4.0/",
+  attribution: "© openrouteservice by HeiGIT | Data from OpenStreetMap",
+  terms: "https://account.heigit.org/info/tos",
   note: "Planning input only. Distance between the same state or city points the calculator uses for its straight-line distance, snapped to the nearest road. Not a quote and not a navigation route."
 };
