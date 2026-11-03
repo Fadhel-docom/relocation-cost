@@ -109,13 +109,14 @@
     "bea-rpp": {
       "scope": "cost-of-living",
       "monitor": "manual",
-      "url": "https://www.bea.gov/sites/default/files/2024-12/rpp1224.pdf",
-      "lastVerified": "2026-10-19",
+      "url": "https://www.bea.gov/data/prices-inflation/regional-price-parities-state-and-metro-area",
+      "lastVerified": "2026-11-03",
       "pageUpdated": null,
       "contentHash": null,
       "patterns": [
         "Regional Price Parities",
-        "Metropolitan Area"
+        "metropolitan areas",
+        "2024"
       ]
     },
     "fmcsa-faq": {
