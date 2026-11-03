@@ -1559,3 +1559,14 @@
 - **Competitors:** directly inspected MoveDayMap Quote Decoder and Have a Good Move Compare. Both already provide meaningful quote-comparison functions, so no generic quote-comparison feature is justified without a distinct gap and demand evidence. CARS page was inaccessible; no claim made.
 - **AI surfaces:** direct ChatGPT Search, Google AI Overviews/AI Mode and Copilot interfaces were not directly inspectable in this session. Ordinary web search is not treated as AI citations. The 10-prompt pilot and 30-prompt benchmark remain OPEN / NOT TESTED. No connected GSC Generative AI or Bing AI Performance action was available; this is not evidence of zero data.
 - **Documentation:** added `docs/operations/AI-SOURCE-VERIFICATION-2026-11-02.md`. No public AI answer copy, production page, formula, sitemap or indexing action changed.
+
+
+## 2026-11-03 — ChatGPT — Canada research tasks R-CA-3 / R-CA-5 / R-CA-6
+
+- **Repository:** Fadhel-docom/relocation-cost; branch chatgpt/canada-research-r-ca-3-5-6-20261103.
+- **R-CA-3:** no authoritative Canadian public dataset found mapping home size to moving labour hours or moving-truck fuel consumption. NRCan 2026 guide covers light-duty vehicles; NRCan heavy-duty fleet benchmark is from 1999 and unsuitable as a current moving-truck default. Provider local-move tables vary by location, crew and access. Decision: labour hours and L/100 km remain user inputs; no invented national coefficients.
+- **R-CA-5:** verified Statistics Canada Open Licence + FAQ and CMHC licence. Both permit commercial use/value-added products with distinct attribution; StatCan excludes identified third-party materials; CMHC licence is revocable and downstream redistribution requires recipients to accept CMHC terms. Recorded exact raw/adapted notices for both agencies.
+- **R-CA-6:** verified OQLF guidance. Businesses operating in Québec must provide French customer information/service and a complete French version of commercial website publications; French must be clearly predominant in commercial advertising/public signage. Adhesion contracts have separate French-first rules. Decision: full French experience is a Québec market-entry gate.
+- **HeiGIT terms boundary:** owner-provided TOS confirms CC-BY-SA 4.0 and exact attribution; no express commercial-use or storage/caching clause. Silence is not permission or prohibition. ShareAlike treatment of a calculator lookup table remains open.
+- **Documentation:** added docs/operations/CANADA-RESEARCH-R-CA-3-5-6-2026-11-03.md; updated OPS-ROOM and WORK-LOG. No production/code/formula/page/indexing changes.
+- **Merged baseline:** PR #166, #167, #168 and #169 are merged into main. November 5 GSC gate and M1/M3a remain.
