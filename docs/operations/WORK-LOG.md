@@ -1570,3 +1570,17 @@
 - **HeiGIT terms boundary:** owner-provided TOS confirms CC-BY-SA 4.0 and exact attribution; no express commercial-use or storage/caching clause. Silence is not permission or prohibition. ShareAlike treatment of a calculator lookup table remains open.
 - **Documentation:** added docs/operations/CANADA-RESEARCH-R-CA-3-5-6-2026-11-03.md; updated OPS-ROOM and WORK-LOG. No production/code/formula/page/indexing changes.
 - **Merged baseline:** PR #166, #167, #168 and #169 are merged into main. November 5 GSC gate and M1/M3a remain.
+
+## 2026-11-03 — ChatGPT — US market value roadmap and evidence gates
+
+- **Branch:** `chatgpt/us-market-value-roadmap-20261103`.
+- **Scope:** United States only. Canada, England/UK and EU research remains assigned to the separate Claude workstream and is intentionally excluded.
+- **Repository audit:** `data/cities.json` contains 18 city-centre records; `data/city-routes.json` contains 44 city-pair pages; `data/route-pages.json` contains 50 state-to-state pages. City route pages explicitly use great-circle distance between city centres, not road mileage. `data/coefficients.json` keeps candidate universal coefficients null and warns against turning U-Haul, BLS or Census context into universal moving-price coefficients.
+- **Product decision:** prioritize a connected whole-move cash plan: moving cost components + employer assistance/reimbursement policy and timing + employee-funded gap + post-arrival cash runway + planned-versus-actual tracking. This is a hypothesis to validate, not a claim of unique market differentiation.
+- **Source research:** documented appropriate roles and limitations for BEA RPP, Census ACS, BLS metro CPI/OEWS/ECI, EIA fuel data, GSA per diem/mileage and IRS mileage rules. Government allowance/tax rates are not consumer moving prices. Dated, comparable provider quotes or paid-price observations remain the primary calibration evidence.
+- **City work:** defined a city-to-county-to-OMB-metro-to-source geography crosswalk before importing local data. The 18-city table is a research queue, not a claim that every source series is available for every city. No city expansion.
+- **Data asset:** specified observation provenance, scope, dates, rights, privacy, sample coverage, representativeness, holdout validation, uncertainty and correction requirements. No national-study label unless the sample design supports it.
+- **Distribution:** preserve the 2026-11-05 GSC gate; direct ChatGPT Search / Google AI Overviews or AI Mode / Copilot checks remain NOT TESTED until the actual surfaces are tested. PR #172 remains research-only; no outreach or embed release.
+- **Changes:** added `docs/operations/US-MARKET-VALUE-ROADMAP-2026-11-03.md`; appended this handoff to `OPS-ROOM.md` and this log.
+- **Not done:** no application code, formula/coefficient, live prices, city page, API/data import, deployment, indexing, external contact or live quote collection. No build/tests run because this PR is documentation-only.
+- **Next:** complete source/geography crosswalk; inspect existing budget workflow and identify concrete gaps; select a 2–3-city pilot only after source completeness and user value are demonstrated.
