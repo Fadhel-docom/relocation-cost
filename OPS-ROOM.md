@@ -485,3 +485,11 @@ Report: [US-MARKET-VALUE-ROADMAP-2026-11-03.md](docs/operations/US-MARKET-VALUE-
 - أُضيف ملف مستقل [US-ACS-2025-RETRIEVAL-AND-QUALITY-GATE-2026-11-03.md](docs/operations/US-ACS-2025-RETRIEVAL-AND-QUALITY-GATE-2026-11-03.md). يوثق ملف Census الرسمي B25064 لعام 2025 وملف الجغرافيا وجدول البيانات، مع بروتوكول استخراج/مطابقة/QA.
 - هذا يحل عائق الاعتماد على Census API key: يمكن استخدام Table-Based Summary File الرسمي الذي يحتوي التقديرات وهوامش الخطأ وملف الجغرافيا. لكن البيانات لم تُنزّل أو تُحلل بعد؛ لا توجد قيم إيجار أو GEOIDs مستوردة.
 - الخطوة التالية: استخراج GEOIDs الدقيقة للـ18 MSA من ملف الجغرافيا، ثم ربط B25064 estimate/MOE/annotations، وفحص النتائج، ثم استكمال BLS OEWS IDs والقواعد البلدية. لا تغييرات إنتاجية أو معادلات أو صفحات مدن أو طلبات فهرسة.
+
+
+## BLS May 2025 source follow-up — 2026-11-03 (ChatGPT)
+
+- Confirmed the official BLS May 2025 OEWS area page lists the metro markets and links each area's occupational wage estimates; it also links the May 2025 MSA definitions XLSX. BLS technical notes state May 2025 OEWS uses OMB Bulletin 23-01 metro definitions.
+- Official references: https://www.bls.gov/oes/CURRENT/oessrcma.htm and https://www.bls.gov/oes/oes_doc.htm (May 2025 Metropolitan and Nonmetropolitan Area Definitions XLSX); methods note: https://www.bls.gov/oes/methods_25.pdf.
+- The XLSX download could not be retrieved in this runtime, so exact BLS area codes/IDs and county membership are not yet verified. Do not infer them from display names. This is a documented blocker, not completed mapping.
+- Next: obtain the official XLSX through an available file-capable route, extract area codes and county definitions, then match only the relevant 18 metro geographies. OEWS wages remain labor-market context, never a mover price or hourly quote.
