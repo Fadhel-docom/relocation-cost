@@ -1500,3 +1500,35 @@
   8. **حذف الفرع البعيد** `docs/claude-day59-review-156` (مدموج، والبروكسي عندي يرفض الحذف)؛ إن لم تستطع فاذكر ذلك.
 - **ما يبقى عند المالك فقط (لا أحد غيره):** إرسال رسالة HeiGIT (R4)، ولقطات أي واجهة لا تظهر إلا لحسابه.
 - **ما لم أنفذه:** لا كود ولا فهرسة ولا outreach. بوابة GSC 05/11 (نافذة ثابتة 27 يومًا) ثم M1 وM3a وM3b. R4 دون تغيير.
+
+## 2026-11-02 (بعد الظهر) — الطرف: ChatGPT — تدقيق نتيجة HeiGIT وفتح تصحيحات R4
+
+- **المستودع:** Fadhel-docom/relocation-cost. راجعت PR #165 المدمجة، ملفات الأداة والاختبارات وسجل workflow، ثم قرأت فعليًا `data/road-distances.json` من فرع `data/road-distances`.
+- **النتيجة:** 1,171/1,220 ناجحة: 1,127 state + 44 city؛ 49 فشلًا. 46 × `http_404_2010` (Point was not found)، وAK|FL = `http_400_2004` (يتجاوز حد Directions)، وAK|RI وID|TN = network errors.
+- **مصادر:** [قيود ORS](https://openrouteservice.org/restrictions/) تحد Directions عند 6,000 كم وMatrix عند 3,500 خلية/طلب؛ [FAQ](https://giscience.github.io/openrouteservice/v9.10.0/frequently-asked-questions) يذكر 2,000 Directions/day و40/min؛ [رموز الأخطاء](https://giscience.github.io/openrouteservice/api-reference/error-codes) يعرّف 2010 كنقطة غير موجودة و2004 كتجاوز حد؛ ورد HeiGIT يؤكد Standard التجاري وCC-BY-SA 4.0 لنتائج API.
+- **التغيير:** PR مراجعة ChatGPT #166 على فرع `chatgpt/road-distance-data-audit`: تصحيح ترخيص metadata، إعادة محاولة الأخطاء العابرة فقط، backoff لأخطاء الشبكة، اختبار جديد، وتحديث التقرير وغرفة العمليات. لا تغيير في الإنتاج أو معادلات الحاسبة.
+- **المتبقي:** دمج PR بعد CI؛ إعادة محاولة السجلين الشبكيين فقط؛ تدقيق جودة النقاط/المسارات ثم اختبار 20 مسارًا بعد بوابة GSC 05/11. لا تستخدم البيانات على الموقع قبل PR اعتماد منفصل.
+## متابعة — تصحيح metadata لملف البيانات
+- **تحديث لاحق:** صححت metadata داخل ملف البيانات نفسه على فرع `data/road-distances` في commit `8d69c9155f18c61332412bdb013ef6e16eef49b9`؛ لم تتغير أي قيمة مسافة. أُضيف توضيح ذلك إلى تعليق PR #166.
+
+## 2026-11-02 — ChatGPT — R4 terms review + PR #166 test correction
+
+- **Repository:** Fadhel-docom/relocation-cost; PR #166, branch `chatgpt/road-distance-data-audit`.
+- **Terms research:** reviewed the official HeiGIT forum response (2026-10-12), ORS v9.10 FAQ, API migration/deprecation notices, public FOSSGIS server policy, and attempted to read the account Terms and full FOSSGIS terms.
+- **Confirmed:** HeiGIT staff says Standard commercial use is allowed and API results are CC-BY-SA 4.0; the official FAQ documents Standard Directions 2,000/day and 40/min, a rolling 24-hour daily reset from first request, quota headers, and server-side-only API key use; old hostname shutdown window is Nov 2–6, 2026, and deprecated host quota is 10% since Aug 27.
+- **Not confirmed:** account Terms page returned no readable body in this environment; FOSSGIS full terms were blocked by anti-bot. Exact storage/reuse, attribution placement and ShareAlike consequences remain unresolved. The public FOSSGIS OSRM service is not approved for this commercial-intent project.
+- **Documentation:** added `docs/operations/ROAD-DISTANCE-TERMS-REVIEW-2026-11-02.md` with source links and decision boundaries.
+- **CI diagnosis:** PR #166 Build run #534 failed 1 of 217 tests. The retry test expected only the transient failed pair, but `pendingPairs` correctly also returned the pair absent from the table. Corrected the assertion to expect both. Commit `7120bdbd6e8a1a98fa70dd7f3e8f40c6ac5f30e6`.
+- **Verification status:** correction committed; new CI run not yet visible at time of this entry. Do not merge until Build and required checks pass.
+- **No production/API changes:** no new HeiGIT requests, no calculator or formula changes, no data adoption. Dataset remains on `data/road-distances`.
+- **Next:** verify the new CI run; then retry only the two transient failures if the workflow permits and after review. Keep 20-route validation and any adoption behind the Nov 5 gate and a separate PR.
+
+
+## 2026-11-02 — ChatGPT — AI Answer Pack source verification and competitor page review
+
+- **Repository:** Fadhel-docom/relocation-cost; current research recorded on branch `chatgpt/road-distance-data-audit` pending PR review.
+- **U-Haul:** opened the exact original source page. Confirmed last updated 2025-09-10, September 2025 mileage-band averages, and all seven values exactly match `data/coefficients.json`. This verifies attribution for the stored historical benchmark; it does not make the values live rates or route-specific/full-service quotes.
+- **IRS:** read 2026 Pub 15-B and current Tax Topic 455. Confirmed the Armed Forces active-duty permanent-change-of-station exception and the intelligence-community employee/new-appointee relocation exception for assignment changes requiring relocation; Tax Topic 455 confirms intelligence-community moves in 2026 or later.
+- **Competitors:** directly inspected MoveDayMap Quote Decoder and Have a Good Move Compare. Both already provide meaningful quote-comparison functions, so no generic quote-comparison feature is justified without a distinct gap and demand evidence. CARS page was inaccessible; no claim made.
+- **AI surfaces:** direct ChatGPT Search, Google AI Overviews/AI Mode and Copilot interfaces were not directly inspectable in this session. Ordinary web search is not treated as AI citations. The 10-prompt pilot and 30-prompt benchmark remain OPEN / NOT TESTED. No connected GSC Generative AI or Bing AI Performance action was available; this is not evidence of zero data.
+- **Documentation:** added `docs/operations/AI-SOURCE-VERIFICATION-2026-11-02.md`. No public AI answer copy, production page, formula, sitemap or indexing action changed.

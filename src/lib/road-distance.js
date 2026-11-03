@@ -113,7 +113,7 @@ export function pendingPairs(pairs, table, { retryFailed = false } = {}) {
   return pairs.filter(pair => {
     const entry = table[pair.key];
     if (!entry) return true;
-    return retryFailed && entry.status === "failed";
+    return retryFailed && entry.status === "failed" && (entry.reason?.startsWith("network_") || /^http_(429|5\d\d)/.test(entry.reason ?? ""));
   });
 }
 
@@ -130,6 +130,6 @@ export const DATASET_METADATA = {
   schema_version: "1.0",
   unit: "miles",
   source: "openrouteservice (HeiGIT), driving-car profile, directions endpoint",
-  data_licence: "OpenStreetMap data, ODbL 1.0: © OpenStreetMap contributors",
+  data_licence: "openrouteservice API results: CC-BY-SA 4.0; underlying map data: © OpenStreetMap contributors (ODbL 1.0)",
   note: "Planning input only. Distance between the same state or city points the calculator uses for its straight-line distance, snapped to the nearest road. Not a quote and not a navigation route."
 };
