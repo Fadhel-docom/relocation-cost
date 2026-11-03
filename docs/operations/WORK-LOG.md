@@ -1570,3 +1570,12 @@
 - **HeiGIT terms boundary:** owner-provided TOS confirms CC-BY-SA 4.0 and exact attribution; no express commercial-use or storage/caching clause. Silence is not permission or prohibition. ShareAlike treatment of a calculator lookup table remains open.
 - **Documentation:** added docs/operations/CANADA-RESEARCH-R-CA-3-5-6-2026-11-03.md; updated OPS-ROOM and WORK-LOG. No production/code/formula/page/indexing changes.
 - **Merged baseline:** PR #166, #167, #168 and #169 are merged into main. November 5 GSC gate and M1/M3a remain.
+
+
+## 2026-11-03 — ChatGPT — 10 additional publisher prospects
+
+- Reviewed ten new public pages across HR software/editorial publishers, consumer moving guides and university HR resources. The six earlier prospects in `EMBED-PUBLISHER-PROSPECTS-2026-11-01.md` were not duplicated.
+- Prioritised Workable, HRCloud and Indeed; NerdWallet is a high-barrier fourth option. Rent.com was deprioritised because its Moving Center already embeds a moving-quote iframe. University HR pages were marked low/medium due to narrow internal policy audiences and no evidence of third-party link acceptance.
+- Drafted three tailored messages, not sent. No contact details gathered, no forms submitted and no outreach initiated. Owner approval remains mandatory.
+- Full evidence, fit scores, obstacles and stop/go rules: `docs/operations/PUBLISHER-OUTREACH-SHORTLIST-2026-11-03.md`.
+- No production changes, embed build, indexing, or code changes.
