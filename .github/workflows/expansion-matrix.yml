@@ -1,0 +1,39 @@
+name: Expansion matrix (experimental branch only)
+# Runs ONLY on the branch exp/expansion-matrix-run. Never merge this file to main.
+# Trigger: a push that changes data/expansion/run-request.txt (first line = ca | uk | eu).
+# The ORS_API_KEY secret is injected by GitHub; nobody reads its value.
+on:
+  push:
+    branches: [exp/expansion-matrix-run]
+    paths: ['data/expansion/run-request.txt']
+permissions:
+  contents: write
+concurrency:
+  group: expansion-matrix
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Read the requested set
+        id: req
+        run: |
+          SET=$(head -n1 data/expansion/run-request.txt | tr -d '[:space:]')
+          case "$SET" in ca|uk|eu) ;; *) echo "unsupported set: $SET"; exit 1;; esac
+          echo "set=$SET" >> "$GITHUB_OUTPUT"
+      - name: Build the matrix
+        env:
+          ORS_API_KEY: ${{ secrets.ORS_API_KEY }}
+        run: node tools/expansion/ors-matrix.mjs "${{ steps.req.outputs.set }}"
+      - name: Commit results to this branch
+        if: always()
+        run: |
+          git config user.name "expansion-matrix[bot]"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/expansion/*road-matrix.json data/expansion/*road-matrix.csv || true
+          if git diff --cached --quiet; then echo "nothing to commit"; else git commit -m "exp: road matrix result (${{ steps.req.outputs.set }})" && git push origin HEAD:${{ github.ref_name }}; fi
