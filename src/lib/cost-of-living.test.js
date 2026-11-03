@@ -23,6 +23,34 @@ test("source is the BEA metro release, with year and national base stated", () =
   assert.match(SOURCE.base, /100/);
 });
 
+test("all 18 2024 metro values match the checked BEA table", () => {
+  const expected = {
+    "new-york": [112.563, 148.616],
+    "los-angeles": [113.566, 170.433],
+    "chicago": [103.595, 112.010],
+    "houston": [98.629, 104.510],
+    "phoenix": [103.316, 121.236],
+    "dallas": [103.090, 117.874],
+    "austin": [98.066, 120.361],
+    "san-francisco": [115.613, 194.718],
+    "seattle": [111.133, 151.314],
+    "denver": [105.782, 146.919],
+    "miami": [114.155, 155.551],
+    "atlanta": [100.058, 111.022],
+    "boston": [108.266, 148.424],
+    "las-vegas": [100.215, 115.538],
+    "portland": [105.421, 125.114],
+    "san-diego": [111.887, 179.267],
+    "charlotte": [97.348, 97.635],
+    "nashville": [96.338, 104.626],
+  };
+  assert.deepEqual(Object.keys(data.cities).sort(), Object.keys(expected).sort());
+  for (const [slug, [rpp, housingRpp]] of Object.entries(expected)) {
+    assert.equal(data.cities[slug].rpp, rpp, slug + " all-items");
+    assert.equal(data.cities[slug].housingRpp, housingRpp, slug + " services-rents");
+  }
+});
+
 test("cities are sorted from lowest to highest all-items price level", () => {
   for (let i = 1; i < CITIES.length; i++) assert.ok(CITIES[i].rpp >= CITIES[i - 1].rpp);
 });
