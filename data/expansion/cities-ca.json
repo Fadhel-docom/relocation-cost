@@ -336,5 +336,10 @@
     "ferry_or_island": false
    }
   ]
- }
+ },
+ "variant": "home-only",
+ "avoid_countries": [
+  214
+ ],
+ "home_country_id": 35
 }
