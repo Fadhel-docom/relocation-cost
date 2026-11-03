@@ -1570,3 +1570,12 @@
 - **HeiGIT terms boundary:** owner-provided TOS confirms CC-BY-SA 4.0 and exact attribution; no express commercial-use or storage/caching clause. Silence is not permission or prohibition. ShareAlike treatment of a calculator lookup table remains open.
 - **Documentation:** added docs/operations/CANADA-RESEARCH-R-CA-3-5-6-2026-11-03.md; updated OPS-ROOM and WORK-LOG. No production/code/formula/page/indexing changes.
 - **Merged baseline:** PR #166, #167, #168 and #169 are merged into main. November 5 GSC gate and M1/M3a remain.
+
+
+## 2026-11-03 — ChatGPT — HeiGIT CC BY-SA database-rights review
+
+- **Repository:** Fadhel-docom/relocation-cost; branch `chatgpt/heigit-cc-by-sa-database-review-20261103`.
+- Reviewed the current CC BY-SA 4.0 legal code and Creative Commons' explanatory database-rights material. CC BY-SA permits commercial use; Section 4's ShareAlike rule for databases is conditional on the relevant SGDRs applying and substantial extraction/reuse into another database that itself qualifies for SGDR protection.
+- Corrected the risk framing: this does not automatically license the whole website or calculator code. The route table's legal status depends on the actual source/database rights, substantiality, applicable jurisdictions and how the generated dataset is treated.
+- Account Terms storage/caching/retention remains unanswered; keep the dataset isolated pending written clarification or an explicit informed owner decision. No API calls, production edits, formula changes, deployment or indexing.
+- Updated `HEIGIT-TERMS-READING-2026-11-03.md` with official CC sources, conditional analysis, and six precise questions for HeiGIT.
