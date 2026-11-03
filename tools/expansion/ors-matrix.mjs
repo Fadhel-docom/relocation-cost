@@ -15,6 +15,7 @@ const CHUNK = 20; // source rows per matrix request (keeps each request far belo
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const cfg = JSON.parse(fs.readFileSync(`data/expansion/cities-${SET}.json`, 'utf8'));
 let requests = 0;
+let lastRate = null;
 
 function hav(a, b) {
   const R = 6371, rad = (x) => (x * Math.PI) / 180;
@@ -33,6 +34,7 @@ async function call(path, body) {
       body: JSON.stringify(body),
     });
     const text = await res.text();
+    lastRate = { limit: res.headers.get('x-ratelimit-limit'), remaining: res.headers.get('x-ratelimit-remaining'), reset: res.headers.get('x-ratelimit-reset') };
     if (res.ok) { await sleep(GAP_MS); return JSON.parse(text); }
     if ((res.status === 429 || res.status >= 500) && attempt < 3) {
       const wait = Number(res.headers.get('retry-after')) || 30;
@@ -70,7 +72,7 @@ async function runGroup(code, cities) {
   const T = Array.from({ length: n }, () => Array(n).fill(null));
   for (let s = 0; s < n; s += CHUNK) {
     const idx = Array.from({ length: Math.min(CHUNK, n - s) }, (_, k) => s + k);
-    const r = await call(`/v2/matrix/${PROFILE}`, { locations: coords, sources: idx, destinations: Array.from({ length: n }, (_, k) => k), metrics: ['distance', 'duration'], units: 'km', resolve_locations: true });
+    const r = await call(`/v2/matrix/${PROFILE}`, { locations: coords, sources: idx, destinations: Array.from({ length: n }, (_, k) => k), metrics: ['distance', 'duration'], units: 'km', resolve_locations: true, ...(cfg.avoid_countries ? { options: { avoid_countries: cfg.avoid_countries } } : {}) });
     if (r.__error) { out.errors.push({ rows: idx, status: r.status, body: r.body }); continue; }
     idx.forEach((i, a) => { for (let j = 0; j < n; j++) { D[i][j] = r.distances[a][j]; T[i][j] = r.durations[a][j]; } });
     if (r.destinations) r.destinations.forEach((d, j) => { if (d && d.snapped_distance != null) out.cities[j].matrix_snap_m = Math.round(d.snapped_distance); });
@@ -104,7 +106,7 @@ const result = {
     unit_distance: 'km', unit_duration: 'seconds', what_it_measures: 'driving distance between model points (city centres snapped to the nearest road), not between addresses',
     attribution: '© openrouteservice by HeiGIT | Data from OpenStreetMap', licence: 'CC-BY-SA 4.0 (results obtained from openrouteservice, per its Terms of Service read 2026-11-03)',
     licence_url: 'https://creativecommons.org/licenses/by-sa/4.0/', terms: 'https://account.heigit.org/info/tos', city_source: cfg.source || 'Natural Earth populated places (public domain)',
-    selftest: SELFTEST, api_requests: 0,
+    selftest: SELFTEST, api_requests: 0, variant: cfg.variant || 'fastest', avoid_countries: cfg.avoid_countries || [], rate_limit_headers_last_response: null,
   },
   groups: {},
 };
@@ -116,10 +118,13 @@ for (const [code, cities] of Object.entries(groups)) {
   for (const e of result.groups[code].errors) console.log('  matrix error', e.status, e.body);
 }
 result.metadata.api_requests = requests;
+result.metadata.rate_limit_headers_last_response = lastRate;
+console.log('rate-limit headers (last response):', JSON.stringify(lastRate));
 fs.mkdirSync('data/expansion', { recursive: true });
-fs.writeFileSync(`data/expansion/${SET}-road-matrix.json`, JSON.stringify(result));
+const SUF = cfg.variant ? `-${cfg.variant}` : '';
+fs.writeFileSync(`data/expansion/${SET}-road-matrix${SUF}.json`, JSON.stringify(result));
 // long-format CSV (one row per directed pair)
 const rows = ['group,from_id,to_id,km,minutes'];
 for (const [code, g] of Object.entries(result.groups)) g.cities.forEach((a, i) => g.cities.forEach((b, j) => { if (i !== j && g.km[i][j] != null) rows.push(`${code},${a.id},${b.id},${g.km[i][j]},${Math.round(g.seconds[i][j] / 60)}`); }));
-fs.writeFileSync(`data/expansion/${SET}-road-matrix.csv`, rows.join('\n') + '\n');
+fs.writeFileSync(`data/expansion/${SET}-road-matrix${SUF}.csv`, rows.join('\n') + '\n');
 console.log(`done: ${requests} API requests, ${rows.length - 1} directed pairs`);
