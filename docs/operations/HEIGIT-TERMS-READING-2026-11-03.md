@@ -61,3 +61,16 @@
 6. Confirm the required attribution text and whether the exact line supplied in the account Terms must appear on the calculator page, methodology page, or both.
 
 **Status:** CC BY-SA legal-code mechanics researched; factual application and API-account storage terms remain open. No legal advice claimed.
+
+## 2026-11-03 — HeiGIT support reply (owner's e-mail, pasted by the owner)
+
+The owner e-mailed HeiGIT (communications address) on 2026-11-03 08:56 with three questions: (1) is storing and reusing the results in a static file allowed on the Standard plan, (2) is the Standard plan allowed for a site that may later earn affiliate revenue, (3) does CC-BY-SA 4.0 apply only to the data file and not to the rest of the site or its source code. The data file was described as miles only, no geometry, no personal data, with the attribution line and a CC-BY-SA 4.0 notice. It was addressed to HeiGIT's communications address; the reply came from HeiGIT's smart-mobility support (signed Jakob Schnell) and was received on 2026-11-03; the pasted text does not show the reply's own time stamp. Paraphrased:
+
+| Owner's question | What the reply says | Status |
+|---|---|---|
+| 1. Static file with stored results | Only a caution: if the underlying OpenStreetMap data or the openrouteservice service changes, a later response to the same query can differ. No explicit yes or no. | **Implicit at best, not a written confirmation.** The caution matches the Terms line that HeiGIT does not guarantee reproducibility. Record the calculation date in the data file. |
+| 2. Commercial use of the Standard plan | The Standard plan may be used for commercial purposes. | **Answered, explicit, in writing.** Keep the e-mail as the proof. |
+| 3. ShareAlike scope (data file only?) | Not answered; refers to the Terms of Service for attribution and licence of results. | **Open.** The Terms (read 2026-11-03) give the exact attribution line and say results are licensed CC-BY-SA 4.0; they say nothing about the scope of ShareAlike beyond that. |
+
+What this changes: the "commercial/affiliate use of the Standard plan" part of clarification question 5 is closed by an explicit statement. Clarification questions 1–4 (database rights, scope of the licence, whether a table of separately requested pairs is extraction/reuse, whether a separate JSON asset under CC BY-SA satisfies the licence) and the storage and retention part of question 5 and question 6 (where the attribution must appear) remain without a written answer.
+Unchanged decisions: the route table stays isolated on `data/road-distances`; no adoption into the calculator before the 2026-11-05 gate and a separate PR using the checklist above; no formula, page, sitemap or indexing change. The reply is not legal advice and is not a contract amendment; the account Terms (which can change at any time) remain the reference, so re-read them at adoption time. Optional follow-up: a short second e-mail asking only for explicit confirmation of questions 1 and 3 (the owner decides whether to send it).
