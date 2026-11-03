@@ -1,1 +1,2 @@
-ca-transit
+ca
+# home-only variant (avoid_countries 214)
