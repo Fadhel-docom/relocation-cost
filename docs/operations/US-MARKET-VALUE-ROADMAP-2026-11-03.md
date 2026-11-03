@@ -183,3 +183,12 @@ A smaller, honest set of route-level observations is more valuable than a broad 
 ## Evidence and limitations
 
 This baseline is based on repository files on `main` and official source pages linked above, checked 2026-11-03. It is a desk audit and operating plan, not a full audit of every live page, all 18 city datasets, provider quotes, GSC/Bing current data, or direct AI answer surfaces. Those checks remain explicitly open. No live price calibration, city-page publishing, API call, outreach, deployment or indexing action was performed.
+
+
+## Execution update — 2026-11-03
+
+- PR #174 merged: all 18 city cost-of-living records now use BEA 2024 all-items and services: rents indices. These are relative metro indices, not dollar rents or mover prices.
+- The 18-city source/geography crosswalk is documented in [US-CITY-SOURCE-CROSSWALK-2026-11-03.md](US-CITY-SOURCE-CROSSWALK-2026-11-03.md). It identifies BLS/BEA label and coverage mismatches. No ACS values or final 2025 CBSA codes have been imported yet.
+- The existing budget workflow was audited in [US-BUDGET-FEATURE-AUDIT-2026-11-03.md](US-BUDGET-FEATURE-AUDIT-2026-11-03.md). The main gap is reimbursement eligibility/timing and integration of one-time costs, recurring living costs, employer support and first-pay cash runway.
+- 2025 ACS 1-year estimates were released 2026-10-29 and include MSA/place geographies above the applicable population threshold. Exact geography IDs and estimate/MOE fields remain to be resolved before import.
+- Next deliverable: source-ID crosswalk for all 18 plus validated 2025 ACS median-gross-rent values with margins of error. No public city page or pilot is approved until this is complete.
