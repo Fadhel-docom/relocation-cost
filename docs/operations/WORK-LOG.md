@@ -1601,3 +1601,14 @@
 - Corrected the risk framing: this does not automatically license the whole website or calculator code. The route table's legal status depends on the actual source/database rights, substantiality, applicable jurisdictions and how the generated dataset is treated.
 - Account Terms storage/caching/retention remains unanswered; keep the dataset isolated pending written clarification or an explicit informed owner decision. No API calls, production edits, formula changes, deployment or indexing.
 - Updated `HEIGIT-TERMS-READING-2026-11-03.md` with official CC sources, conditional analysis, and six precise questions for HeiGIT.
+
+
+## 2026-11-05 — ChatGPT — M3a: answer-first summary for state route pages
+
+- **Repository:** Fadhel-docom/relocation-cost; branch `chatgpt/m3a-route-answer-20261105`.
+- Read the current state-route template, route calculator scenarios, route metadata tests and npm test script on main after Claude's GSC gate and M1 merge.
+- Added an answer-first summary near the top of each state-to-state route page. It uses the same three calculated 2–3-room scenario totals already shown in the page table, explains that the values are planning estimates based on approximate state-centre straight-line distance (not road miles or quotes), and links directly to the scenario table.
+- Added pure helper `src/lib/route-answer.js`, two tests in `src/lib/route-answer.test.js`, and included the new test in `npm test`.
+- No formula, coefficient, distance, benchmark, route data, city page, production setting, sitemap or indexing change.
+- **Verification pending:** GitHub CI must run on the PR; no local build/test execution is claimed in this connector session. Do not merge until checks pass and the diff is reviewed.
+- **Measurement:** use the fixed post-M1 baseline; compare route-page GSC impressions/positions/clicks after 7 and 14 days (approximately Nov 12 and Nov 19), and do not claim causal impact from a small sample.
