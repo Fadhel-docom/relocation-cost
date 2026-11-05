@@ -10,6 +10,7 @@ const SELFTEST = process.env.ORS_SELFTEST === '1';
 const KEY = process.env.ORS_API_KEY || '';
 if (!SELFTEST && !KEY) { console.error('ORS_API_KEY is missing'); process.exit(1); }
 const ID_CAN = 35, ID_MEX = 128, ID_USA = 214, M_PER_MILE = 1609.344;
+const MAX_REQUESTS = Number(process.env.MAX_REQUESTS || 190); // self-imposed daily cap: stay below the account's observed 200 Directions requests per day
 const START = Date.now(), MAX_MS = 100 * 60 * 1000;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -71,6 +72,7 @@ out.metadata = { provider: 'openrouteservice by HeiGIT (Standard plan)', endpoin
 let requests = 0, quotaStop = false, lastRate = null, sinceSave = 0;
 const save = () => { out.metadata.api_requests_this_run = requests; out.metadata.rate_limit_headers_last_response = lastRate; out.metadata.updated_at = new Date().toISOString(); fs.writeFileSync(OUT, JSON.stringify(out)); };
 async function dir(from, to, avoid) {
+  if (requests >= MAX_REQUESTS) { quotaStop = true; return { ok: false, quota: true, error: 'self-imposed cap ' + MAX_REQUESTS + ' reached' }; }
   for (let attempt = 1; attempt <= 3; attempt++) {
     requests++;
     const body = { coordinates: [[from.lon, from.lat], [to.lon, to.lat]], radiuses: [-1, -1], instructions: false, units: 'm', extra_info: ['countryinfo'] };
