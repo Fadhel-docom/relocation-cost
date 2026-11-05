@@ -1601,3 +1601,14 @@
 - Corrected the risk framing: this does not automatically license the whole website or calculator code. The route table's legal status depends on the actual source/database rights, substantiality, applicable jurisdictions and how the generated dataset is treated.
 - Account Terms storage/caching/retention remains unanswered; keep the dataset isolated pending written clarification or an explicit informed owner decision. No API calls, production edits, formula changes, deployment or indexing.
 - Updated `HEIGIT-TERMS-READING-2026-11-03.md` with official CC sources, conditional analysis, and six precise questions for HeiGIT.
+
+
+## 2026-11-05 — ChatGPT — إعادة تأسيس حزمة أبحاث السوق الأمريكية على main
+
+- **Repository:** Fadhel-docom/relocation-cost; branch `chatgpt/us-market-value-clean-20261105`; clean replacement for conflicting PR #173.
+- Re-applied seven unique US research artifacts from the original PR branch on top of current main, preserving the source crosswalk, 2025 ACS retrieval/QA protocol, budget-feature audit, US market roadmap, discovery-only cash-flow MVP specification, US ops addendum and supplemental US work log.
+- Scope is US only. No new cities, public city pages, ACS data imports, live moving-price claims, formula/coefficient changes, production changes, deployment, indexing, outreach or embed launch.
+- Evidence remains incomplete: BEA 2024 city context is available after PR #174; ACS B25064 MSA GEOIDs/estimates/MOEs still need extraction and QA; BLS OEWS area IDs and municipal rules remain to be completed. Government context series are not mover prices.
+- Cash-flow planner remains discovery/specification only; no implementation approval, bank/payroll integrations, employer document uploads or server-side financial data.
+- Next: complete ACS extraction/QA and BLS/geography mapping, then score evidence completeness before any 2–3-city pilot proposal.
+- CI and review pending; do not merge until checks pass and the full diff is inspected.
