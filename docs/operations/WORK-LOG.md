@@ -1601,3 +1601,14 @@
 - Corrected the risk framing: this does not automatically license the whole website or calculator code. The route table's legal status depends on the actual source/database rights, substantiality, applicable jurisdictions and how the generated dataset is treated.
 - Account Terms storage/caching/retention remains unanswered; keep the dataset isolated pending written clarification or an explicit informed owner decision. No API calls, production edits, formula changes, deployment or indexing.
 - Updated `HEIGIT-TERMS-READING-2026-11-03.md` with official CC sources, conditional analysis, and six precise questions for HeiGIT.
+
+
+## 2026-11-05 — ChatGPT — direct AI answer surface access attempt
+
+- **Repository:** Fadhel-docom/relocation-cost; branch chatgpt/ai-surface-access-check-20261105.
+- Attempted canonical prompt #3 exactly as written on Google AI Mode, Google AI Overview, Microsoft Copilot and the connected ChatGPT answer connector.
+- All four calls returned HTTP 403 before producing an answer. No citations, URLs or screenshots were returned. The remaining nine pilot prompts were not run; no retries were made.
+- Correct status: prompt #3 is **Not tested** on all four surfaces. The failure is an access restriction at the integration/provider boundary; its cause is unknown. The generic ChatGPT connector does not prove the official ChatGPT Search surface was invoked.
+- The connected GSC tool set exposes Search Analytics, URL inspection and sitemap operations, but no Generative AI report action. The Bing tool set exposes conventional site/page/query performance, but no AI Performance report action. Absence of an action is not evidence of zero citations.
+- Added the access-attempt report and updated the canonical benchmark with this evidence boundary. Benchmark remains OPEN / NOT COMPLETE.
+- No production edits, indexing, sitemap submissions, outreach or retries.
