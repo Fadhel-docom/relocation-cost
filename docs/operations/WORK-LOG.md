@@ -1601,3 +1601,12 @@
 - Corrected the risk framing: this does not automatically license the whole website or calculator code. The route table's legal status depends on the actual source/database rights, substantiality, applicable jurisdictions and how the generated dataset is treated.
 - Account Terms storage/caching/retention remains unanswered; keep the dataset isolated pending written clarification or an explicit informed owner decision. No API calls, production edits, formula changes, deployment or indexing.
 - Updated `HEIGIT-TERMS-READING-2026-11-03.md` with official CC sources, conditional analysis, and six precise questions for HeiGIT.
+
+
+## 2026-11-05 — ChatGPT — إعادة تأسيس بحث الناشرين على main
+
+- **Repository:** Fadhel-docom/relocation-cost; branch `chatgpt/publisher-prospects-clean-20261105`; supersedes the conflicting documentation-only branch from PR #172.
+- Re-applied the unique publisher shortlist file from PR #172 on a fresh branch from current main; retained the ten additional candidates and three tailored draft messages.
+- No outreach, contact harvesting, email sending, form submission, paid placement, embed build, production change or indexing action. Owner approval remains required before any external contact.
+- The shortlist is a research hypothesis: editorial-fit scores are directional, not measured acceptance probabilities; current external-link policies and editorial routes remain unverified.
+- CI and review are pending; do not merge until checks pass.
