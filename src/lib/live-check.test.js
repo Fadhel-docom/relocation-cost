@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import { ROUTE_ANSWER_NOTE } from "./route-answer.js";
 import { ADDRESS_GUIDE_LEAD, EMPLOYER_GUIDE_LEAD, LIVE_PAGES, ROUTE_INDEX_NOTE, TRUCK_GUIDE_LEAD, classifyPage, extractBuildCommits, isGood, isRetryable, pageText, summarize } from "./live-check.js";
 import { LEAD } from "./employer-package.js";
 import { FLOOR_NOTE, BAND_NOTE, SEASON_NOTE, EMPLOYER_TAX_NOTE, TAX_SOURCES } from "./trust.js";
@@ -136,7 +137,7 @@ test("summarize explains each kind of problem and says nothing was changed", () 
 
 test("the route index and two guides are checked, each with a phrase that is really in the page", () => {
   const paths = LIVE_PAGES.map(page => page.path);
-  for (const path of ["/moving-cost/", "/guides/reading-a-moving-quote/", "/guides/truck-size/", "/guides/address-change/", "/guides/employer-relocation-package/"]) assert.ok(paths.includes(path), path);
+  for (const path of ["/moving-cost/", "/moving-cost/ca-to-tx/", "/guides/reading-a-moving-quote/", "/guides/truck-size/", "/guides/address-change/", "/guides/employer-relocation-package/"]) assert.ok(paths.includes(path), path);
   assert.equal(new Set(paths).size, paths.length, "no page is listed twice");
   const read = file => readFileSync(new URL(file, import.meta.url), "utf8");
   assert.ok(read("../pages/moving-cost/index.astro").includes(ROUTE_INDEX_NOTE));
@@ -149,10 +150,12 @@ test("the route index and two guides are checked, each with a phrase that is rea
   assert.deepEqual(LIVE_PAGES.find(page => page.path === "/moving-cost/").texts, [ROUTE_INDEX_NOTE]);
   assert.deepEqual(LIVE_PAGES.find(page => page.path === "/guides/reading-a-moving-quote/").texts, [QUOTE_GUIDE_TITLE]);
   assert.deepEqual(LIVE_PAGES.find(page => page.path === "/guides/truck-size/").texts, [TRUCK_GUIDE_LEAD]);
+  assert.deepEqual(LIVE_PAGES.find(page => page.path === "/moving-cost/ca-to-tx/").texts, [ROUTE_ANSWER_NOTE]);
+  assert.match(read("../pages/moving-cost/[route].astro"), /routeAnswer\(\{ from: from\.name/);
 });
 
 test("each new page passes with its phrase and is text_missing without it", () => {
-  for (const path of ["/moving-cost/", "/guides/reading-a-moving-quote/", "/guides/truck-size/", "/guides/address-change/", "/guides/employer-relocation-package/"]) {
+  for (const path of ["/moving-cost/", "/moving-cost/ca-to-tx/", "/guides/reading-a-moving-quote/", "/guides/truck-size/", "/guides/address-change/", "/guides/employer-relocation-package/"]) {
     const page = LIVE_PAGES.find(entry => entry.path === path);
     const good = classifyPage({ page, status: 200, body: html(SHA, `<p>${page.texts[0]}</p>`), expectedSha: SHA });
     assert.equal(good.result, "ok", path);

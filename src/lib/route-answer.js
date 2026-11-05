@@ -6,6 +6,9 @@ const money = value => new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 0
 }).format(value);
 
+// Closing sentence of every route answer. Exported so the post-deploy check can require the same words.
+export const ROUTE_ANSWER_NOTE = "These are planning estimates based on approximate straight-line distance between state centers, not quotes.";
+
 export function routeAnswer({ from, to, homeSize, scenarios }) {
   if (typeof from !== "string" || !from.trim() || typeof to !== "string" || !to.trim()) {
     throw new TypeError("from and to must be non-empty route names.");
@@ -19,5 +22,5 @@ export function routeAnswer({ from, to, homeSize, scenarios }) {
   }
 
   const totals = scenarios.map(item => `${money(item.total)} for ${item.label.toLowerCase()}`);
-  return `For a ${homeSize} home, this model puts a move from ${from} to ${to} at ${totals[0]}, ${totals[1]}, or ${totals[2]}. These are planning estimates based on approximate straight-line distance between state centers, not quotes.`;
+  return `For a ${homeSize} home, this model puts a move from ${from} to ${to} at ${totals[0]}, ${totals[1]}, or ${totals[2]}. ${ROUTE_ANSWER_NOTE}`;
 }

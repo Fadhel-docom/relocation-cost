@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { routeAnswer } from "./route-answer.js";
+import { routeAnswer, ROUTE_ANSWER_NOTE } from "./route-answer.js";
 
 const scenarios = [
   { label: "DIY", total: 1200 },
@@ -23,6 +23,7 @@ test("route answer uses the exact route and scenario totals supplied by the page
   assert.match(answer, /planning estimates/);
   assert.match(answer, /not quotes/);
   assert.match(answer, /straight-line distance between state centers/);
+  assert.ok(answer.endsWith(ROUTE_ANSWER_NOTE));
 });
 
 test("route answer rejects missing names, labels or non-finite totals", () => {

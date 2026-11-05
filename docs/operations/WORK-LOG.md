@@ -1612,3 +1612,13 @@
 - No formula, coefficient, distance, benchmark, route data, city page, production setting, sitemap or indexing change.
 - **Verification pending:** GitHub CI must run on the PR; no local build/test execution is claimed in this connector session. Do not merge until checks pass and the diff is reviewed.
 - **Measurement:** use the fixed post-M1 baseline; compare route-page GSC impressions/positions/clicks after 7 and 14 days (approximately Nov 12 and Nov 19), and do not claim causal impact from a small sample.
+
+
+## 2026-11-05 — Claude — Day 64: M3a review and live check
+
+- **Repository:** Fadhel-docom/relocation-cost; branch `claude/m3a-live-check`.
+- **Review of M3a (commit 58c9f1f, merged by ChatGPT before this session):** read the diff. The quick-answer block in `src/pages/moving-cost/[route].astro` takes its three totals from the same `scenarios` array as the table, the `#scenarios-heading` anchor exists, the new test is in `npm test`, CI on main was build / verify-seo / submit success. Local `npm test` on main: 241/241. The band-step sentence ("steps up from … once a move passes … miles") was already further down the page in "Route at a glance", so it was not duplicated at the top.
+- **Change:** the closing sentence of the answer is now an exported constant `ROUTE_ANSWER_NOTE` (`src/lib/route-answer.js`); `/moving-cost/ca-to-tx/` is added to `LIVE_PAGES` requiring that sentence; guard tests: the page is listed once, the template calls `routeAnswer`, the page passes with the sentence and is `text_missing` without it. Tests 241/241 locally. No formula, coefficient, distance or copy change.
+- **Not done / limits:** rendered block not seen in a browser; only one route page is checked live; the full Verify live site log is read only through the workflow result.
+- **Measurement:** unchanged — GSC impressions/position on the home page and route pages at 7 and 14 days after M1/M3a (about Nov 12 and Nov 19), no causal claim.
+- **Next:** review PR #184 (docs only, 12 files) before any merge; M3b (mobile table scroll) after measurement; no HeiGIT task until the remaining quota is measured.
