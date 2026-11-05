@@ -100,7 +100,7 @@ const breadcrumbJsonLd = {
           <label class="block text-sm font-semibold sm:col-span-2">Access fees <span class="font-normal text-slate-500">(stairs, long carry, elevator, USD)</span><input id="access" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
         </div>
 
-        <h3 class="mt-8 text-base font-bold">Employer relocation package <span class="font-normal text-slate-500">(optional)</span></h3>
+        <h3 id="employer-package" class="mt-8 scroll-mt-24 text-base font-bold">Employer relocation package <span class="font-normal text-slate-500">(optional)</span></h3>
         <p class="mt-2 text-sm text-slate-500">If your employer offers help, enter it to see how much of your estimate it covers. Enter amounts as you will receive or use them. Lump sums can be taxed, so ask your employer whether the amount is before or after tax. This calculator does not work out taxes.</p>
         <p id="employerTaxNote" class="mt-2 text-sm text-slate-500">{EMPLOYER_TAX_NOTE} Sources: {TAX_SOURCES.map((source, index) => (<><a class="font-semibold text-sky-700 underline" href={source.url} rel="noopener noreferrer">{source.label}</a>{index < TAX_SOURCES.length - 1 ? ", " : ""}</>))}{taxChecked ? `, read by a person on ${taxChecked}` : ""}. <a class="font-semibold text-sky-700 underline" href="/guides/employer-relocation-package/">What to ask your employer</a>.</p>
         <div class="mt-5 grid gap-5 sm:grid-cols-2">
