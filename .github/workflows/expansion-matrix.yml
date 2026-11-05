@@ -24,13 +24,13 @@ jobs:
         id: req
         run: |
           SET=$(head -n1 data/expansion/run-request.txt | tr -d '[:space:]')
-          case "$SET" in ca|uk|eu|ca-transit|ca-home) ;; *) echo "unsupported set: $SET"; exit 1;; esac
+          case "$SET" in ca|uk|eu|ca-transit|ca-home|ca-borders) ;; *) echo "unsupported set: $SET"; exit 1;; esac
           echo "set=$SET" >> "$GITHUB_OUTPUT"
       - name: Build the matrix
         env:
           ORS_API_KEY: ${{ secrets.ORS_API_KEY }}
         run: |
-          if [ "${{ steps.req.outputs.set }}" = "ca-home" ]; then node tools/expansion/ors-home-routes.mjs ca 35 214 winnipeg-mb; elif [ "${{ steps.req.outputs.set }}" = "ca-transit" ]; then node tools/expansion/ors-transit-check.mjs ca 35 214; else node tools/expansion/ors-matrix.mjs "${{ steps.req.outputs.set }}"; fi
+          if [ "${{ steps.req.outputs.set }}" = "ca-borders" ]; then node tools/expansion/ors-borders-test.mjs; elif [ "${{ steps.req.outputs.set }}" = "ca-home" ]; then node tools/expansion/ors-home-routes.mjs ca 35 214 winnipeg-mb; elif [ "${{ steps.req.outputs.set }}" = "ca-transit" ]; then node tools/expansion/ors-transit-check.mjs ca 35 214; else node tools/expansion/ors-matrix.mjs "${{ steps.req.outputs.set }}"; fi
       - name: Commit results to this branch
         if: always()
         run: |
