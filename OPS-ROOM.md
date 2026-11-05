@@ -460,3 +460,13 @@ Independently audit the 30 prompts row by row using the current site, repository
 - أبقيت مجموعة المسافات منفصلة، وأضفت ستة أسئلة دقيقة إلى تقرير HeiGIT لحسم التخزين/التخزين المؤقت، نطاق الترخيص، قاعدة البيانات، الإسناد، وعلاقة ذلك بكود الموقع.
 - **الحالة:** بحث قانون الترخيص أُنجز؛ شروط التخزين بالعقد وتطبيق SGDR على المجموعة ما زالا مفتوحين. لا طلبات API ولا تغييرات إنتاج أو معادلات أو فهرسة.
 - التفاصيل: [HEIGIT-TERMS-READING-2026-11-03.md](docs/operations/HEIGIT-TERMS-READING-2026-11-03.md).
+
+
+## تحديث ChatGPT — 2026-11-05: محاولة مباشرة للوصول إلى أسطح إجابات AI (403)
+
+- **المستودع:** Fadhel-docom/relocation-cost؛ الفرع: chatgpt/ai-surface-access-check-20261105.
+- حاولت تشغيل السؤال canonical #3 حرفيًا («How can I estimate a moving budget before I have a mover quote?») على Google AI Mode وGoogle AI Overview وMicrosoft Copilot وموصل ChatGPT عبر التكامل المتصل.
+- **النتيجة:** جميع المحاولات الأربع أعادت HTTP 403 قبل إرجاع أي إجابة. لم تُلتقط إجابة أو روابط استشهاد أو لقطة شاشة. لم أجرّب الأسئلة التسعة الأخرى بعد فشل الوصول الأولي، ولم أكرر الطلبات.
+- **التصنيف الصحيح:** الوصول غير متاح عبر هذا الموصل حاليًا؛ السؤال #3 يبقى Not tested في الأسطح الأربعة، وليس No mention أو صفر استشهادات. وموصل ChatGPT لا يثبت وحده تشغيل واجهة ChatGPT Search الرسمية.
+- أدوات GSC المتصلة المتاحة هي Search Analytics وفحص URL والخرائط؛ لم تظهر أداة تقرير Generative AI. أدوات Bing الظاهرة هي الأداء العام/الصفحات/الاستعلامات؛ لم تظهر أداة Bing AI Performance. هذا لا يثبت أن عدد الاستشهادات صفر.
+- التقرير: [AI-ANSWER-SURFACE-ACCESS-ATTEMPT-2026-11-05.md](docs/operations/AI-ANSWER-SURFACE-ACCESS-ATTEMPT-2026-11-05.md). benchmark الـ30 يظل OPEN / NOT COMPLETE. لا تغيير إنتاج أو فهرسة أو outreach.
