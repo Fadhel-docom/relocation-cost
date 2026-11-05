@@ -88,7 +88,11 @@ async function dir(from, to, avoid) {
     return { ok: false, error: `${res.status} ${text.slice(0, 250)}` };
   }
 }
-const keys = Object.entries(prod).filter(([, v]) => v.kind === 'state' && v.status === 'ok').map(([k]) => k).sort();
+// Heuristic priority (NOT an exclusion): pairs where a Canadian shortcut is geographically plausible go first, because the daily Directions quota is small.
+const NORTH = new Set(['MI', 'WI', 'MN', 'ND', 'ME', 'VT', 'NH', 'NY', 'WA', 'ID', 'MT']);
+const NEAR = new Set(['OH', 'PA', 'IN', 'IL', 'MA', 'CT', 'RI', 'NJ', 'SD', 'OR', 'WY', 'IA', 'NE']);
+const tierOf = (p) => ((NORTH.has(p.from) && (NORTH.has(p.to) || NEAR.has(p.to))) || (NORTH.has(p.to) && NEAR.has(p.from))) ? 1 : (NORTH.has(p.from) || NORTH.has(p.to)) ? 2 : 3;
+const keys = Object.entries(prod).filter(([, v]) => v.kind === 'state' && v.status === 'ok').map(([k, v]) => [k, tierOf(v)]).sort((a, b) => a[1] - b[1] || (a[0] < b[0] ? -1 : 1)).map(([k]) => k);
 console.log('contiguous state pairs to check:', keys.length);
 outer: for (const key of keys) {
   if (quotaStop || Date.now() - START > MAX_MS) break;
@@ -97,7 +101,7 @@ outer: for (const key of keys) {
   const r = await dir(A, B); if (r.quota) break outer;
   if (!r.ok) { out.routes[key] = { status: 'failed', error: r.error }; continue; }
   const can = crossings(IX.CAN, r.coords), mex = crossings(IX.MEX, r.coords);
-  const rec = { status: 'ok', from: p.from, to: p.to, stored_miles: p.roadMiles, rerun_miles: +r.miles.toFixed(1), rerun_diff_pct: +(Math.abs(r.miles - p.roadMiles) / p.roadMiles * 100).toFixed(2), route_points: r.coords.length, ors_country_ids: r.ids,
+  const rec = { status: 'ok', tier: tierOf(p), from: p.from, to: p.to, stored_miles: p.roadMiles, rerun_miles: +r.miles.toFixed(1), rerun_diff_pct: +(Math.abs(r.miles - p.roadMiles) / p.roadMiles * 100).toFixed(2), route_points: r.coords.length, ors_country_ids: r.ids,
     A_canada: r.ids.includes(ID_CAN), A_mexico: r.ids.includes(ID_MEX), B_canada_segments: can, B_canada_km: +can.reduce((s, x) => s + x.km, 0).toFixed(1), B_mexico_segments: mex, B_mexico_km: +mex.reduce((s, x) => s + x.km, 0).toFixed(1) };
   rec.affected = rec.A_canada || rec.A_mexico || can.length > 0 || mex.length > 0;
   rec.methods_agree = (rec.A_canada === (can.length > 0)) && (rec.A_mexico === (mex.length > 0));
@@ -109,7 +113,8 @@ outer: for (const key of keys) {
   if (++sinceSave >= 25) { save(); sinceSave = 0; console.log(`progress ${Object.keys(out.routes).length}/${keys.length}, requests ${requests}`); }
 }
 const all = Object.values(out.routes), ok = all.filter((x) => x.status === 'ok'), aff = ok.filter((x) => x.affected);
-out.summary = { total: keys.length, checked_ok: ok.length, failed: all.length - ok.length, remaining: keys.length - ok.length, complete: ok.length === keys.length, affected: aff.length, affected_by_ors_canada: ok.filter((x) => x.A_canada).length, affected_by_polygon_canada: ok.filter((x) => x.B_canada_segments.length).length, affected_by_mexico: ok.filter((x) => x.A_mexico || x.B_mexico_segments.length).length,
+const tiers = {}; for (const x of ok) { tiers[x.tier] = (tiers[x.tier] || 0) + 1; }
+out.summary = { checked_by_tier: tiers, total: keys.length, checked_ok: ok.length, failed: all.length - ok.length, remaining: keys.length - ok.length, complete: ok.length === keys.length, affected: aff.length, affected_by_ors_canada: ok.filter((x) => x.A_canada).length, affected_by_polygon_canada: ok.filter((x) => x.B_canada_segments.length).length, affected_by_mexico: ok.filter((x) => x.A_mexico || x.B_mexico_segments.length).length,
   methods_disagree: ok.filter((x) => !x.methods_agree).length, rerun_diff_over_1pct: ok.filter((x) => x.rerun_diff_pct > 1).length, rerun_diff_max_pct: ok.length ? Math.max(...ok.map((x) => x.rerun_diff_pct)) : null, alternatives_found: aff.filter((x) => x.alternative && x.alternative.miles).length, alternatives_failed: aff.filter((x) => x.alternative && x.alternative.error).length, quota_stop: quotaStop, run_minutes: +((Date.now() - START) / 60000).toFixed(1) };
 save();
 const rows = ['from,to,stored_miles,rerun_miles,ors_canada,polygon_canada_km,mexico,alt_miles,alt_delta_pct'];
