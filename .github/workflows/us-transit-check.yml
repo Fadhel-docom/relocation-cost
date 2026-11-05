@@ -1,0 +1,36 @@
+name: US transit check (experimental branch only)
+# Runs ONLY on the branch exp/us-transit-check. Never merge this file to main.
+# Trigger: a push that changes data/expansion-us/run-request.txt. Shares the concurrency group with the Canada run so requests never overlap.
+on:
+  push:
+    branches: [exp/us-transit-check]
+    paths: ['data/expansion-us/run-request.txt']
+permissions:
+  contents: write
+concurrency:
+  group: expansion-matrix
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 130
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Geometry self-test (no API key, no quota)
+        run: ORS_SELFTEST=1 node tools/expansion/ors-us-transit.mjs
+      - name: Check the 1,128 contiguous-state routes
+        env:
+          ORS_API_KEY: ${{ secrets.ORS_API_KEY }}
+        run: node tools/expansion/ors-us-transit.mjs
+      - name: Commit results to this branch
+        if: always()
+        run: |
+          git config user.name "expansion-matrix[bot]"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/expansion-us/ || true
+          if git diff --cached --quiet; then echo "nothing to commit"; else git commit -m "exp: US transit check result" && git push origin HEAD:${{ github.ref_name }}; fi
