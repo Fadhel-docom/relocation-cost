@@ -1612,3 +1612,12 @@
 - No formula, coefficient, distance, benchmark, route data, city page, production setting, sitemap or indexing change.
 - **Verification pending:** GitHub CI must run on the PR; no local build/test execution is claimed in this connector session. Do not merge until checks pass and the diff is reviewed.
 - **Measurement:** use the fixed post-M1 baseline; compare route-page GSC impressions/positions/clicks after 7 and 14 days (approximately Nov 12 and Nov 19), and do not claim causal impact from a small sample.
+
+
+## 2026-11-05 — ChatGPT — مراجعة ساكنة لسكربت عبور الولايات المتحدة
+
+- **المستودع:** Fadhel-docom/relocation-cost؛ الفرع `chatgpt/us-transit-static-review-20261105`.
+- **المراجع:** تقرير Claude II في PR #186، و`tools/expansion/ors-us-transit.mjs` على `exp/us-transit-check`.
+- **ما أنجزته:** راجعت السكربت ساكنًا دون تشغيله ودون أي استدعاء HeiGIT. وجدت أن سقف 190 طلبًا لا يساوي الرصيد المتبقي، وأن فحص المضلع يعتمد على نقاط المسار ولا يحسب تقاطع القطع بدقة كاملة، وأن مصدر Natural Earth غير مثبت الإصدار، مع نقص فحوص الاستجابة ومعالجة أخطاء الشبكة/حفظ التقدم. وثّقت التفاصيل في `docs/operations/US-TRANSIT-SCRIPT-STATIC-REVIEW-CHATGPT-2026-11-05.md` وأضفتها تعليقًا إلى PR #186.
+- **ما لم أنفذه:** لا تشغيل HeiGIT، لا قراءة/نسخ للمفتاح، لا تعديل للسكربت أو البيانات، لا دمج ولا تغيير إنتاج. لا يُشغّل إلا بعد قياس المالك للرصيد الفعلي وإذنه الصريح.
+- **التالي:** Claude II يعالج ملاحظات المراجعة ويثبت إصدار الحدود ويضيف اختبارات هندسية/حفظ آمن؛ ثم مراجعة جديدة قبل أي تشغيل. بعد الإذن، تنفيذ دفعة محدودة بسقف أقل من الرصيد المقاس وهامش أمان.
