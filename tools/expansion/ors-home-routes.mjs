@@ -28,7 +28,7 @@ async function dir(a, b, avoid = true) {
     requests++;
     const body = { coordinates: [a, b], units: 'km', instructions: false, extra_info: ['countryinfo'] };
     if (avoid) body.options = { avoid_countries: AVOID };
-    const res = await fetch('https://api.openrouteservice.org/v2/directions/driving-car', { method: 'POST', headers: { Authorization: KEY, 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(body) });
+    const res = await fetch('https://api.heigit.org/openrouteservice/v2/directions/driving-car', { method: 'POST', headers: { Authorization: KEY, 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(body) });
     const text = await res.text();
     lastRate = { limit: res.headers.get('x-ratelimit-limit'), remaining: res.headers.get('x-ratelimit-remaining'), reset: res.headers.get('x-ratelimit-reset') };
     await sleep(2000);
