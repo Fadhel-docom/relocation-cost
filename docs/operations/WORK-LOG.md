@@ -1724,3 +1724,13 @@
 - لم تتغير معادلات الحاسبة أو بيانات المسارات أو صفحات الإنتاج أو النشر أو sitemap أو إعدادات الفهرسة. يبقى M3b مؤجلًا إلى قراءة GSC التالية حول 12 نوفمبر، وتظل اختبارات AI answer engines مفتوحة/غير مكتملة.
 
 - **تدقيق إضافي قبل تشغيل الاختبار:** مراجعة منطق `inside()` أظهرت أن اختبار السير على الحد قد يُصنّف نقطة الحد كداخل المضلع وفق ray-casting وحده. لذلك أضفت في PR #195 فحصًا صريحًا للنقطة على حافة المضلع واعتبارها خارجًا قبل ray-casting؛ هذا يطابق تعريف الاختبار بأن الملامسة/السير على الحد ليس عبورًا. ما زال التشغيل الفعلي للحالات الجديدة مطلوبًا ولم أضع علامة نجاح لها.
+
+
+## 2026-11-06 — Claude — Day 69: review of PR #195 (border-touch tests) and #196
+
+- **Repository:** Fadhel-docom/relocation-cost; branch `claude/day69-log`. Main at start 8e65645, verify-live success.
+- **#195 (ChatGPT, merged into `exp/us-transit-check` only):** `inside()` now treats points on a polygon edge as outside, and the self-test adds three cases (vertex-only touch, route riding an outer edge, route fully inside). I ran the script from the PR head with `ORS_SELFTEST=1`, no key, no HeiGIT request: the three new cases OK, hole and narrow-crossing cases OK, 11 point tests OK, `SELFTEST PASSED`. CI on that PR = Vercel check only (no Node/Actions run on the experimental branch).
+- **#196 (ChatGPT, docs, build + render green, merged to main).**
+- **Not checked:** a route that touches the border over a long stretch within 1e-10 degrees on real Natural Earth edges (real borders are rarely collinear); how the 1,128 real routes classify; the live run path.
+- **Rule unchanged:** no HeiGIT run until the owner records the dashboard balance and authorises a specific run with an explicit `MAX_REQUESTS`. Nothing on main changed except logs.
+- **Next:** M3b after the GSC reading around Nov 12.
