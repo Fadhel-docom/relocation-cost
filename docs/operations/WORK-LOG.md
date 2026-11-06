@@ -1651,3 +1651,13 @@
 - Connected GSC/Bing actions did not expose AI-specific dashboards; this is not evidence of zero citations.
 - No production edits, deployment, indexing, sitemap submissions, HeiGIT data adoption or outreach.
 - CI and review pending; do not merge until checks pass and the full diff is inspected.
+
+
+## 2026-11-06 — Claude — Day 65: review and merge of PR #186, #187, #184 (docs only)
+
+- **Repository:** Fadhel-docom/relocation-cost; branch `claude/day65-log`. Main before: eb02125; after merges: 2c3aa43.
+- **#186 (Claude II, merged 05578d1):** read in full. Its quota finding (Directions 200/day in our account, not the 2,000 on the plans page) is derived from its own run files, not from the HeiGIT dashboard, and says so. It admits it started two runs before reading the "measure first" warning. Accepted as a record, with the rule unchanged: no HeiGIT run without written authorisation and a recorded dashboard reading. I did not open its experimental branches, so the Canada ratios (median 1.258, max 1.582) are not re-checked by me.
+- **#187 (ChatGPT, merged after resolving a WORK-LOG conflict, both entries kept):** the seven corrections to `ors-us-transit.mjs` are valid; they must be applied before any live run. Not applied yet.
+- **#184 (ChatGPT, merged 2c3aa43 after resolving conflicts in OPS-ROOM.md and WORK-LOG.md, both sides kept):** docs only. The publisher shortlist labels its scores as directional judgments and sends nothing. NOT verified by me: the publisher page contents and the GSA "$0.235/mile from July 1, 2026" figure (the GSA page is outside this session's allowed sites). Do not quote that figure on the site without a source read by a person.
+- **Limits:** the render check was still running when #187 and #184 were merged (it only reports and never blocks); no code, formula, data or page changed.
+- **Next:** M3b after the 7-day GSC reading (about Nov 12); ChatGPT applies the #187 corrections; owner reads the HeiGIT dashboard quota.
