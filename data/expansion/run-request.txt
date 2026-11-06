@@ -1,2 +1,2 @@
 ca-home
-# second batch 2026-11-06 (headers confirm 1810 remaining)
+# third batch 2026-11-06 after transient network crash

@@ -28,8 +28,14 @@ async function dir(a, b, avoid = true) {
     requests++;
     const body = { coordinates: [a, b], units: 'km', instructions: false, extra_info: ['countryinfo'] };
     if (avoid) body.options = { avoid_countries: AVOID };
-    const res = await fetch('https://api.heigit.org/openrouteservice/v2/directions/driving-car', { method: 'POST', headers: { Authorization: KEY, 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(body) });
-    const text = await res.text();
+    let res, text;
+    try {
+      res = await fetch('https://api.heigit.org/openrouteservice/v2/directions/driving-car', { method: 'POST', headers: { Authorization: KEY, 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(body) });
+      text = await res.text();
+    } catch (e) { // transient network/parser error (seen 2026-11-06: UND_ERR_HTTP_PARSER): retry, never crash the run
+      if (attempt < 3) { await sleep(10000); continue; }
+      return { ok: false, status: 0, error: 'network: ' + String((e && e.message) || e).slice(0, 200) };
+    }
     lastRate = { limit: res.headers.get('x-ratelimit-limit'), remaining: res.headers.get('x-ratelimit-remaining'), reset: res.headers.get('x-ratelimit-reset') };
     await sleep(2000);
     if (res.ok) {
