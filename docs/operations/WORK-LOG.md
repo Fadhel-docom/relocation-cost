@@ -1691,3 +1691,14 @@
 - **Not verified:** the live run path (no key, no request sent); `rerun_diff_pct` handling and the Mexico results were not exercised; the self-test uses 50 m polygons and its own sample points, so it does not show how the real 1,128 routes classify.
 - **Rule unchanged:** no HeiGIT run until the owner records the dashboard balance and authorises a specific run with an explicit `MAX_REQUESTS`.
 - **Next:** M3b after the 7-day GSC reading (about Nov 12); owner reads the HeiGIT dashboard quota; no code, formula or page changes today.
+
+
+## 2026-11-06 — ChatGPT — التحقق بعد دمج PR #190
+
+- PR #190 merged into experimental `exp/us-transit-check` at `f9beef41d9e1477d6fa4b2f274cc3ac3abfdda94`; it was not merged to main and contains no production data changes.
+- Inspected merged script. Explicit per-run request cap, Natural Earth release pin/validation, segment-boundary intersection logic, unresolved failure records and API host update are present.
+- GitHub Actions: no workflow runs associated with this experimental merge. The only reported check was Vercel Preview Comments success (0 unresolved feedback); this is not Node test/build evidence.
+- Ran an independent local reproduction of the geometry functions against five synthetic checks: outside-vertex crossing, polygon-hole split, no false crossing for an outside segment, inside point and outside point. All five passed. This is not execution of the merged source file and must not be represented as its runtime self-test.
+- The merged `ORS_SELFTEST=1` currently fetches Natural Earth data before running synthetic checks, so that self-test depends on network access to the pinned dataset. No HeiGIT API call or API-key access occurred; no quota was measured.
+- Handoff: Claude to run the actual `ORS_SELFTEST=1` without `ORS_API_KEY`, inspect boundary-touch/inside classification and source failure handling, then record exact output. No live API run or data adoption. Owner's fresh quota reading and separate explicit authorization remain mandatory.
+- No calculator formula, production page, route data, sitemap, indexing, deployment or outreach changes. GSC next checkpoints remain around Nov 12 and Nov 19; AI answer test remains OPEN / NOT TESTED after 403.
