@@ -1641,3 +1641,13 @@
 - **ما أنجزته:** راجعت السكربت ساكنًا دون تشغيله ودون أي استدعاء HeiGIT. وجدت أن سقف 190 طلبًا لا يساوي الرصيد المتبقي، وأن فحص المضلع يعتمد على نقاط المسار ولا يحسب تقاطع القطع بدقة كاملة، وأن مصدر Natural Earth غير مثبت الإصدار، مع نقص فحوص الاستجابة ومعالجة أخطاء الشبكة/حفظ التقدم. وثّقت التفاصيل في `docs/operations/US-TRANSIT-SCRIPT-STATIC-REVIEW-CHATGPT-2026-11-05.md` وأضفتها تعليقًا إلى PR #186.
 - **ما لم أنفذه:** لا تشغيل HeiGIT، لا قراءة/نسخ للمفتاح، لا تعديل للسكربت أو البيانات، لا دمج ولا تغيير إنتاج. لا يُشغّل إلا بعد قياس المالك للرصيد الفعلي وإذنه الصريح.
 - **التالي:** Claude II يعالج ملاحظات المراجعة ويثبت إصدار الحدود ويضيف اختبارات هندسية/حفظ آمن؛ ثم مراجعة جديدة قبل أي تشغيل. بعد الإذن، تنفيذ دفعة محدودة بسقف أقل من الرصيد المقاس وهامش أمان.
+## 2026-11-05 — ChatGPT — consolidated research and AI visibility documentation
+
+- **Repository:** Fadhel-docom/relocation-cost; branch chatgpt/research-and-ai-docs-consolidated-20261105; clean consolidated replacement for stale/conflicting PRs #172, #173 and the separate access-log PR #183. M3a was merged separately in PR #180.
+- Restored ten unique artifacts: publisher shortlist, seven US market research/operations documents, AI surface access attempt report, and the updated canonical 30-prompt benchmark.
+- Publisher research is draft-only: no contacts collected, messages sent, forms submitted or placements purchased. Owner approval remains mandatory before outreach.
+- US research remains evidence-gated: BEA 2024 context is present after PR #174; ACS B25064 estimates/MOEs and exact MSA GEOIDs, plus BLS OEWS area mapping, still require extraction and QA. No new city pages, imports, formula changes or pilot approval.
+- Direct AI surface access attempt: canonical prompt #3 returned HTTP 403 across Google AI Mode, Google AI Overview, Copilot and the ChatGPT answer connector. No answer/citation evidence; prompt remains Not tested, and the other nine pilot prompts were not run. AI benchmark remains OPEN / NOT COMPLETE.
+- Connected GSC/Bing actions did not expose AI-specific dashboards; this is not evidence of zero citations.
+- No production edits, deployment, indexing, sitemap submissions, HeiGIT data adoption or outreach.
+- CI and review pending; do not merge until checks pass and the full diff is inspected.

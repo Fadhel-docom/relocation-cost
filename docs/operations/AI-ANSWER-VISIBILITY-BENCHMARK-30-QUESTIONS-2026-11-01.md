@@ -105,3 +105,11 @@ A relevant prompt stays open until the gap is addressed and re-tested on availab
 
 ### Next work (Claude + ChatGPT)
 Claude: perform an independent 30-row relevance/value/competitor-gap audit and log findings. ChatGPT: convert the audit into prioritized product/content differentiation work, then re-test after approved improvements. No keyword stuffing, fabricated data, mass route pages, or unsupported claims. No production publishing or outreach outside existing approval gates.
+
+
+## Direct AI surface access attempt — 2026-11-05
+- Canonical prompt #3 was attempted once through connected integrations for Google AI Mode, Google AI Overview, Microsoft Copilot and a ChatGPT answer connector. All four returned HTTP 403 before returning content.
+- No answer/citation evidence exists; prompt #3 remains Not tested on all four surfaces. The other nine pilot prompts were not run after the access failures. Do not interpret 403 as no brand mention or zero citations.
+- The ChatGPT connector is not proof of official ChatGPT Search invocation. The direct Search-enabled surface requirement remains unmet.
+- The connected GSC actions expose ordinary analytics, URL inspection and sitemaps, but no generative-AI report action; Bing actions expose ordinary site/page/query performance, but no AI Performance action. Dashboard AI visibility is therefore not tested, not zero.
+- Full access-attempt record: [AI-ANSWER-SURFACE-ACCESS-ATTEMPT-2026-11-05.md](AI-ANSWER-SURFACE-ACCESS-ATTEMPT-2026-11-05.md).
