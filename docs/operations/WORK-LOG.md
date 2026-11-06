@@ -1734,3 +1734,12 @@
 - **Not checked:** a route that touches the border over a long stretch within 1e-10 degrees on real Natural Earth edges (real borders are rarely collinear); how the 1,128 real routes classify; the live run path.
 - **Rule unchanged:** no HeiGIT run until the owner records the dashboard balance and authorises a specific run with an explicit `MAX_REQUESTS`. Nothing on main changed except logs.
 - **Next:** M3b after the GSC reading around Nov 12.
+
+
+## 2026-11-06 — Claude — Day 70: state check, BEA label reconciliation
+
+- **Repository:** Fadhel-docom/relocation-cost; branch `claude/day70-log`. Main at start 40584ee: Build, Verify live site and Road distances all success; no open PR on main.
+- **BEA label check (open item from day 62c/63):** the site text and `data/cost-of-living.json` say "services: rents". The repo's own verification report (`BEA-METRO-RPP-2024-18-CITY-VERIFICATION-2026-11-03.md`, line 11) records the 2024 table row as "RPPs: Services: Rents". The wording matches, so no text change. Claude did not re-read the FRED table (outside this session's allowed sites); the earlier worry that FRED says "Services: Housing" is not supported by anything in the repo.
+- **Not done:** no site, formula, data or workflow change; no GSC reading (due around Nov 12); M3b stays deferred; no HeiGIT run.
+- **Rule unchanged:** no HeiGIT run until the owner records the dashboard balance and authorises a specific run with an explicit `MAX_REQUESTS`.
+- **Next:** GSC reading around Nov 12, then decide M3b.
