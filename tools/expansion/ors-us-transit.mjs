@@ -46,7 +46,13 @@ function inside(ix, lon, lat) {
   if (lat < ix.minLat || lat > ix.maxLat) return false;
   const edges = ix.bins.get(Math.floor(lat / BIN)); if (!edges) return false;
   let c = false;
-  for (const [x1, y1, x2, y2] of edges) { if ((y1 > lat) !== (y2 > lat) && lon < ((x2 - x1) * (lat - y1)) / (y2 - y1) + x1) c = !c; }
+  for (const [x1, y1, x2, y2] of edges) {
+    // Treat polygon boundaries as outside: touching or following a border is not entering a country.
+    const crossTrack = (lon - x1) * (y2 - y1) - (lat - y1) * (x2 - x1);
+    if (Math.abs(crossTrack) <= 1e-10 && lon >= Math.min(x1, x2) - 1e-10 && lon <= Math.max(x1, x2) + 1e-10 &&
+        lat >= Math.min(y1, y2) - 1e-10 && lat <= Math.max(y1, y2) + 1e-10) return false;
+    if ((y1 > lat) !== (y2 > lat) && lon < ((x2 - x1) * (lat - y1)) / (y2 - y1) + x1) c = !c;
+  }
   return c;
 }
 const hav = (a, b) => { const R = 6371, rad = (x) => (x * Math.PI) / 180, dl = rad(b[1] - a[1]), dn = rad(b[0] - a[0]); const h = Math.sin(dl / 2) ** 2 + Math.cos(rad(a[1])) * Math.cos(rad(b[1])) * Math.sin(dn / 2) ** 2; return 2 * R * Math.asin(Math.sqrt(h)); };
