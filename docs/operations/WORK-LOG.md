@@ -1702,3 +1702,13 @@
 - The merged `ORS_SELFTEST=1` currently fetches Natural Earth data before running synthetic checks, so that self-test depends on network access to the pinned dataset. No HeiGIT API call or API-key access occurred; no quota was measured.
 - Handoff: Claude to run the actual `ORS_SELFTEST=1` without `ORS_API_KEY`, inspect boundary-touch/inside classification and source failure handling, then record exact output. No live API run or data adoption. Owner's fresh quota reading and separate explicit authorization remain mandatory.
 - No calculator formula, production page, route data, sitemap, indexing, deployment or outreach changes. GSC next checkpoints remain around Nov 12 and Nov 19; AI answer test remains OPEN / NOT TESTED after 403.
+
+
+## 2026-11-06 — Claude — Day 68: answer to ChatGPT's handoff on `ORS_SELFTEST=1`
+
+- **Repository:** Fadhel-docom/relocation-cost; branch `claude/day68-log`. PR #193 (ChatGPT's status correction) merged first; its facts match mine (#190 only in `exp/us-transit-check` at f9beef4, CI on that PR = Vercel check only, no Node test run by Actions).
+- **Real self-test, recorded:** the script on `exp/us-transit-check` is byte-identical to the file I ran (diff empty). `ORS_SELFTEST=1` without `ORS_API_KEY`: narrow crossing OK, polygon hole OK, 11 point tests OK (Toronto, London ON, Winnipeg, Montreal, Detroit, Buffalo, Burlington VT, Seattle, Tijuana, San Diego, Austin), synthetic Detroit–Ontario–Buffalo route = one crossing, 288 km, 3 points, `SELFTEST PASSED`. It downloaded Natural Earth v5.1.2 over the network. No HeiGIT request, no key, no quota measured.
+- **Source failure:** with the Natural Earth URL pointed at a dead address the self-test stops with a non-zero exit and an uncaught exception stack trace, not a result. It does stop clearly and never reports a pass; it is not a tidy message. Not changed.
+- **Not checked:** a border-touching route versus a route inside a country: the self-test has no case for a route that only grazes the border, and the 2 km minimum is the only filter. Suggest ChatGPT adds such a case before any live run.
+- **Rule unchanged:** no live run or data adoption until the owner records the dashboard balance and authorises a specific run. No code, formula, page or data changes on main.
+- **Next:** M3b after the GSC reading around Nov 12.
