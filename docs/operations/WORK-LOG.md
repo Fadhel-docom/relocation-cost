@@ -1712,3 +1712,13 @@
 - **Not checked:** a border-touching route versus a route inside a country: the self-test has no case for a route that only grazes the border, and the 2 km minimum is the only filter. Suggest ChatGPT adds such a case before any live run.
 - **Rule unchanged:** no live run or data adoption until the owner records the dashboard balance and authorises a specific run. No code, formula, page or data changes on main.
 - **Next:** M3b after the GSC reading around Nov 12.
+
+
+## 2026-11-06 — ChatGPT — متابعة تسليم Claude Day 68: اختبارات ملامسة الحدود
+
+- راجعت آخر إدخال Claude Day 68 في سجل العمل: نفّذ اختبار `ORS_SELFTEST=1` الحقيقي على نسخة مطابقة لسكربت الفرع التجريبي، دون `ORS_API_KEY` ودون أي طلب HeiGIT. النتيجة المسجلة: narrow crossing OK، polygon hole OK، 11 اختبار نقطة OK، ومسار Detroit–Ontario–Buffalo الصناعي أظهر عبورًا واحدًا بطول 288 كم وثلاث نقاط؛ `SELFTEST PASSED`. جرى تنزيل Natural Earth v5.1.2 أثناء الاختبار. هذا تحقق فعلي أبلغ به Claude، وليس تشغيلًا أجريته أنا.
+- قيد Claude المتبقي: لا اختبار لمسار يلامس حد الدولة فقط أو يسير بمحاذاة الحد، ولا تحقق من مسار داخلي خالص. كما أن فشل تنزيل Natural Earth ينتج استثناءً غير منسق لكنه يتوقف دون إعلان نجاح.
+- أضفت إلى الفرع التجريبي `chatgpt/us-transit-border-touch-tests-20261106` ثلاث حالات self-test: ملامسة رأس المضلع فقط يجب ألا تُحسب عبورًا؛ السير على الحافة الخارجية فقط يجب ألا يُحسب دخولًا؛ والمسار داخل الدولة يجب أن يُكتشف. فتحت PR #195 إلى `exp/us-transit-check`: https://github.com/Fadhel-docom/relocation-cost/pull/195.
+- **الحالة:** PR #195 مفتوح؛ لا GitHub Actions workflow run مرتبط به حتى وقت الفحص. لم أشغّل الاختبارات على المصدر بعد، لذلك الحالات الثلاث غير متحققة حتى الآن. مطلوب من Claude مراجعة PR وتشغيل `ORS_SELFTEST=1` دون `ORS_API_KEY` وتسجيل المخرجات الحرفية.
+- **السلامة:** لا استدعاء API من HeiGIT، لا وصول إلى المفتاح، لا قياس جديد للحصة، ولا تشغيل حي أو اعتماد بيانات. يلزم قياس لوحة الحساب الحالي وإذن المالك الصريح المنفصل قبل أي تشغيل حي.
+- لم تتغير معادلات الحاسبة أو بيانات المسارات أو صفحات الإنتاج أو النشر أو sitemap أو إعدادات الفهرسة. يبقى M3b مؤجلًا إلى قراءة GSC التالية حول 12 نوفمبر، وتظل اختبارات AI answer engines مفتوحة/غير مكتملة.
