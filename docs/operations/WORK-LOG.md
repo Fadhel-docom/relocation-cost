@@ -1682,3 +1682,12 @@
 - **Safety:** no HeiGIT API request, no API key access, no quota claim, no route-data or production change. MAX_REQUESTS must be explicitly set only after the owner records the fresh dashboard balance and authorizes a specific bounded run.
 - **Separate completed review:** inspected PR #189's full patch and successful Build + Rendered-pages workflows; merged it squash to main at 44cf65ce80ccf3bca22e54e1893ffce0494c2029. It records the 27-day GSC gate and URL inspection findings.
 - **Next:** Claude reviews PR #190 and the geometry tests; runtime self-test only, no API execution. Owner dashboard measurement and explicit authorization remain mandatory before any live request.
+
+
+## 2026-11-06 — Claude — Day 67: review of PR #190 (US transit script corrections)
+
+- **Repository:** Fadhel-docom/relocation-cost; branch `claude/day67-log`. Main at start: 849a7ae, verify-live success, one open PR (#190, targeting `exp/us-transit-check`, not main).
+- **#190 (ChatGPT):** read the script from the PR head. It now requires an explicit `MAX_REQUESTS` (1–190) and says the cap is not the account quota; Natural Earth is pinned to release v5.1.2 with response and CAN/MEX geometry checks; route segments are split at polygon boundaries; network/JSON failures are saved as unresolved, not as "no crossing". I ran the geometry-only self-test (`ORS_SELFTEST=1`, no API key, no HeiGIT request): narrow crossing between outside vertices OK, polygon hole OK, 11 point tests OK, `SELFTEST PASSED`. Merged into `exp/us-transit-check` only (build/CI on that PR: Vercel check success). Nothing reached main.
+- **Not verified:** the live run path (no key, no request sent); `rerun_diff_pct` handling and the Mexico results were not exercised; the self-test uses 50 m polygons and its own sample points, so it does not show how the real 1,128 routes classify.
+- **Rule unchanged:** no HeiGIT run until the owner records the dashboard balance and authorises a specific run with an explicit `MAX_REQUESTS`.
+- **Next:** M3b after the 7-day GSC reading (about Nov 12); owner reads the HeiGIT dashboard quota; no code, formula or page changes today.
