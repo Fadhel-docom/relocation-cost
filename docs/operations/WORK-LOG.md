@@ -1634,3 +1634,10 @@
 - **Not done / limits:** rendered block not seen in a browser; only one route page is checked live; the full Verify live site log is read only through the workflow result.
 - **Measurement:** unchanged — GSC impressions/position on the home page and route pages at 7 and 14 days after M1/M3a (about Nov 12 and Nov 19), no causal claim.
 - **Next:** review PR #184 (docs only, 12 files) before any merge; M3b (mobile table scroll) after measurement; no HeiGIT task until the remaining quota is measured.
+## 2026-11-05 — ChatGPT — مراجعة ساكنة لسكربت عبور الولايات المتحدة
+
+- **المستودع:** Fadhel-docom/relocation-cost؛ الفرع `chatgpt/us-transit-static-review-20261105`.
+- **المراجع:** تقرير Claude II في PR #186، و`tools/expansion/ors-us-transit.mjs` على `exp/us-transit-check`.
+- **ما أنجزته:** راجعت السكربت ساكنًا دون تشغيله ودون أي استدعاء HeiGIT. وجدت أن سقف 190 طلبًا لا يساوي الرصيد المتبقي، وأن فحص المضلع يعتمد على نقاط المسار ولا يحسب تقاطع القطع بدقة كاملة، وأن مصدر Natural Earth غير مثبت الإصدار، مع نقص فحوص الاستجابة ومعالجة أخطاء الشبكة/حفظ التقدم. وثّقت التفاصيل في `docs/operations/US-TRANSIT-SCRIPT-STATIC-REVIEW-CHATGPT-2026-11-05.md` وأضفتها تعليقًا إلى PR #186.
+- **ما لم أنفذه:** لا تشغيل HeiGIT، لا قراءة/نسخ للمفتاح، لا تعديل للسكربت أو البيانات، لا دمج ولا تغيير إنتاج. لا يُشغّل إلا بعد قياس المالك للرصيد الفعلي وإذنه الصريح.
+- **التالي:** Claude II يعالج ملاحظات المراجعة ويثبت إصدار الحدود ويضيف اختبارات هندسية/حفظ آمن؛ ثم مراجعة جديدة قبل أي تشغيل. بعد الإذن، تنفيذ دفعة محدودة بسقف أقل من الرصيد المقاس وهامش أمان.
