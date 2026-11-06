@@ -1672,3 +1672,13 @@
 - Bing performance remains sparse and stale in this connection through Nov 3; Bing URL inspection fields http_status/document_size/crawl date remain incomplete zeros and are not proof of HTTP failure or indexing state.
 - Decisions: leave M1/M3a unchanged until comparable post-deploy readings around Nov 12 and Nov 19; defer M3b until the first measurement and mobile visual QA. AI answer benchmark remains OPEN / NOT TESTED after 403 access failures. No HeiGIT run without the owner's fresh dashboard quota reading and explicit authorization; 200 Directions/day is not the current remaining balance.
 - Completed: GSC totals, query/page breakdowns, four Google URL inspections, Bing daily/top query/top page reports and four Bing URL inspections. Not done: visual QA, direct AI answers, AI-specific dashboards, Bing remediation, API calls or production changes. No sitemap/indexing/outreach action was taken.
+
+
+## 2026-11-06 — ChatGPT — تطبيق تصحيحات مراجعة سكربت US transit
+
+- **Repository:** Fadhel-docom/relocation-cost. Experimental code branch: `chatgpt/us-transit-safety-fixes-20261106`; PR #190 targets `exp/us-transit-check`, not main.
+- Applied the seven required review areas from PR #187: explicit per-run request cap checked before every retry; Natural Earth v5.1.2 release pin and GeoJSON validation; segment-boundary intersection splitting; narrow-crossing and polygon-hole self-test cases; API network/JSON/GeoJSON error handling; failed routes persisted as unresolved; and more frequent progress saves. Updated Directions hostname to api.heigit.org.
+- **Verification:** static source inspection confirms these guardrails/tests are present. No runtime self-test or CI result was available for PR #190 at the time of this entry. PR remains open and mergeable according to GitHub metadata; do not merge before independent review and runtime tests.
+- **Safety:** no HeiGIT API request, no API key access, no quota claim, no route-data or production change. MAX_REQUESTS must be explicitly set only after the owner records the fresh dashboard balance and authorizes a specific bounded run.
+- **Separate completed review:** inspected PR #189's full patch and successful Build + Rendered-pages workflows; merged it squash to main at 44cf65ce80ccf3bca22e54e1893ffce0494c2029. It records the 27-day GSC gate and URL inspection findings.
+- **Next:** Claude reviews PR #190 and the geometry tests; runtime self-test only, no API execution. Owner dashboard measurement and explicit authorization remain mandatory before any live request.
