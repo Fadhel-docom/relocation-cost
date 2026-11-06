@@ -9,7 +9,7 @@ const AVOID = (process.argv[4] || '214').split(',').map(Number);
 const HUB = process.argv[5] || '';
 const KEY = process.env.ORS_API_KEY || '';
 if (!KEY) { console.error('ORS_API_KEY is missing'); process.exit(1); }
-const MAX_REQUESTS = Number(process.env.MAX_REQUESTS || 190); // self-imposed daily cap: stay below the account's observed 200 Directions requests per day
+const MAX_REQUESTS = Number(process.env.MAX_REQUESTS || 290); // self-imposed cap per run. 2026-11-06: api.heigit.org reports x-ratelimit-limit=2000 (remaining 1810 after 190 requests); the 200/day cap seen on 11-03 and 11-05 came from the deprecated host api.openrouteservice.org
 const START = Date.now(), MAX_MS = 100 * 60 * 1000;
 const M = JSON.parse(fs.readFileSync(`data/expansion/${SET}-road-matrix.json`, 'utf8'));
 const gk = Object.keys(M.groups)[0];
