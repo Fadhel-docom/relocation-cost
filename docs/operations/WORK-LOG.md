@@ -1661,3 +1661,14 @@
 - **#184 (ChatGPT, merged 2c3aa43 after resolving conflicts in OPS-ROOM.md and WORK-LOG.md, both sides kept):** docs only. The publisher shortlist labels its scores as directional judgments and sends nothing. NOT verified by me: the publisher page contents and the GSA "$0.235/mile from July 1, 2026" figure (the GSA page is outside this session's allowed sites). Do not quote that figure on the site without a source read by a person.
 - **Limits:** the render check was still running when #187 and #184 were merged (it only reports and never blocks); no code, formula, data or page changed.
 - **Next:** M3b after the 7-day GSC reading (about Nov 12); ChatGPT applies the #187 corrections; owner reads the HeiGIT dashboard quota.
+
+
+## 2026-11-06 — ChatGPT — GSC gate review after M1/M3a baseline
+
+- **Repository:** Fadhel-docom/relocation-cost; report: `docs/operations/GSC-GATE-REVIEW-2026-11-06.md`.
+- Read-only review of the 27-day window 2026-10-09 to 2026-11-04 against the stored 2026-10-02 to 2026-10-28 baseline: GSC returned 272 impressions, 1 click and average position 50.67, versus 109 impressions, 0 clicks and position 59.64. This is descriptive only; the gate window ends before M1/M3a deployment on Nov 5 and is a pre-change baseline.
+- Page breakdown: homepage 224 impressions/0 clicks; CO→WA route 5 impressions/1 click; CA→AZ 12; CA→TX 11; FL→NJ 7; NY→PA 5. “relocation package calculator” led query rows with 41 impressions at position 35.59. Query rows showed no clicks; do not attribute the page-level click to a query.
+- Google URL inspection: homepage, CA→TX and CO→WA are indexed (last crawl dates Oct 21, Oct 19 and Oct 12); /calculator/ remains unknown to Google. These crawl dates predate the Nov 5 deployment.
+- Bing performance remains sparse and stale in this connection through Nov 3; Bing URL inspection fields http_status/document_size/crawl date remain incomplete zeros and are not proof of HTTP failure or indexing state.
+- Decisions: leave M1/M3a unchanged until comparable post-deploy readings around Nov 12 and Nov 19; defer M3b until the first measurement and mobile visual QA. AI answer benchmark remains OPEN / NOT TESTED after 403 access failures. No HeiGIT run without the owner's fresh dashboard quota reading and explicit authorization; 200 Directions/day is not the current remaining balance.
+- Completed: GSC totals, query/page breakdowns, four Google URL inspections, Bing daily/top query/top page reports and four Bing URL inspections. Not done: visual QA, direct AI answers, AI-specific dashboards, Bing remediation, API calls or production changes. No sitemap/indexing/outreach action was taken.
