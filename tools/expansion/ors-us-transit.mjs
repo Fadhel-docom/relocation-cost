@@ -46,7 +46,13 @@ function inside(ix, lon, lat) {
   if (lat < ix.minLat || lat > ix.maxLat) return false;
   const edges = ix.bins.get(Math.floor(lat / BIN)); if (!edges) return false;
   let c = false;
-  for (const [x1, y1, x2, y2] of edges) { if ((y1 > lat) !== (y2 > lat) && lon < ((x2 - x1) * (lat - y1)) / (y2 - y1) + x1) c = !c; }
+  for (const [x1, y1, x2, y2] of edges) {
+    // Treat polygon boundaries as outside: touching or following a border is not entering a country.
+    const crossTrack = (lon - x1) * (y2 - y1) - (lat - y1) * (x2 - x1);
+    if (Math.abs(crossTrack) <= 1e-10 && lon >= Math.min(x1, x2) - 1e-10 && lon <= Math.max(x1, x2) + 1e-10 &&
+        lat >= Math.min(y1, y2) - 1e-10 && lat <= Math.max(y1, y2) + 1e-10) return false;
+    if ((y1 > lat) !== (y2 > lat) && lon < ((x2 - x1) * (lat - y1)) / (y2 - y1) + x1) c = !c;
+  }
   return c;
 }
 const hav = (a, b) => { const R = 6371, rad = (x) => (x * Math.PI) / 180, dl = rad(b[1] - a[1]), dn = rad(b[0] - a[0]); const h = Math.sin(dl / 2) ** 2 + Math.cos(rad(a[1])) * Math.cos(rad(b[1])) * Math.sin(dn / 2) ** 2; return 2 * R * Math.asin(Math.sqrt(h)); };
@@ -95,6 +101,14 @@ if (SELFTEST) {
   const holed = indexGeometry({ type: 'Polygon', coordinates: [[[0, 0], [4, 0], [4, 4], [0, 4], [0, 0]], [[1, 1], [3, 1], [3, 3], [1, 3], [1, 1]]] });
   const holeCross = crossings(holed, [[-1, 2], [5, 2]], 0);
   if (narrow.length !== 1 || narrow[0].km < 100 || holeCross.length !== 2) { console.error('segment intersection / polygon-hole tests FAILED', narrow, holeCross); process.exit(1); }
+  // A route that only touches a polygon vertex or follows its outer edge must not be counted as entering it.
+  const tangent = crossings(square, [[-1, 1], [0, 0], [-1, -1]], 0);
+  const borderRide = crossings(square, [[-1, 0], [2, 0]], 0);
+  const interior = crossings(square, [[0.2, 0.5], [0.8, 0.5]], 0);
+  if (tangent.length !== 0 || borderRide.length !== 0 || interior.length !== 1) {
+    console.error('boundary-touch / interior tests FAILED', { tangent, borderRide, interior }); process.exit(1);
+  }
+  console.log('vertex-only border touch: OK; outer-edge-only route: OK; route inside country: OK');
   console.log('narrow crossing between outside vertices: OK; polygon hole splits crossing: OK');
   const tests = [['Toronto', -79.38, 43.65, 'CAN', true], ['London ON', -81.25, 42.98, 'CAN', true], ['Winnipeg', -97.14, 49.9, 'CAN', true], ['Montreal', -73.57, 45.5, 'CAN', true], ['Detroit', -83.05, 42.33, 'CAN', false], ['Buffalo', -78.88, 42.89, 'CAN', false], ['Burlington VT', -73.21, 44.48, 'CAN', false], ['Seattle', -122.33, 47.61, 'CAN', false], ['Tijuana', -117.04, 32.51, 'MEX', true], ['San Diego', -117.16, 32.72, 'MEX', false], ['Austin', -97.74, 30.27, 'MEX', false]];
   let bad = 0; for (const [n, x, y, c, exp] of tests) { const got = inside(IX[c], x, y); if (got !== exp) bad++; console.log(n, c, got === exp ? 'OK' : 'WRONG'); }
