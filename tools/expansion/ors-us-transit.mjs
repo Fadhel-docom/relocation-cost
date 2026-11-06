@@ -11,8 +11,8 @@ const KEY = process.env.ORS_API_KEY || '';
 if (!SELFTEST && !KEY) { console.error('ORS_API_KEY is missing'); process.exit(1); }
 const ID_CAN = 35, ID_MEX = 128, ID_USA = 214, M_PER_MILE = 1609.344;
 const MAX_REQUESTS = Number(process.env.MAX_REQUESTS || 0); // Must be explicitly set after a fresh dashboard quota reading; this is NOT the remaining account quota.
-if (!SELFTEST && (!Number.isInteger(MAX_REQUESTS) || MAX_REQUESTS < 1 || MAX_REQUESTS > 190)) {
-  console.error('Set MAX_REQUESTS to an explicit positive integer <= 190 only after recording the current HeiGIT dashboard balance and reserving a safety margin.');
+if (!SELFTEST && (!Number.isInteger(MAX_REQUESTS) || MAX_REQUESTS < 1 || MAX_REQUESTS > 1300)) {
+  console.error('Set MAX_REQUESTS to an explicit positive integer <= 1300 only after recording the current x-ratelimit-remaining and reserving a safety margin (2026-11-06: limit 2000 on api.heigit.org; the old 200 cap came from the deprecated host api.openrouteservice.org).');
   process.exit(1);
 }
 const START = Date.now(), MAX_MS = 100 * 60 * 1000;

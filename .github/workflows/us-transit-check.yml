@@ -26,6 +26,7 @@ jobs:
       - name: Check the 1,128 contiguous-state routes
         env:
           ORS_API_KEY: ${{ secrets.ORS_API_KEY }}
+          MAX_REQUESTS: '1250'
         run: node tools/expansion/ors-us-transit.mjs
       - name: Commit results to this branch
         if: always()
