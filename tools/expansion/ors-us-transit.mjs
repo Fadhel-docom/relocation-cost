@@ -115,6 +115,7 @@ const save = () => { out.metadata.api_requests_this_run = requests; out.metadata
 async function dir(from, to, avoid) {
   if (requests >= MAX_REQUESTS) { quotaStop = true; return { ok: false, quota: true, error: 'self-imposed cap ' + MAX_REQUESTS + ' reached' }; }
   for (let attempt = 1; attempt <= 3; attempt++) {
+    if (requests >= MAX_REQUESTS) { quotaStop = true; return { ok: false, quota: true, error: 'explicit per-run MAX_REQUESTS cap reached' }; }
     requests++;
     const body = { coordinates: [[from.lon, from.lat], [to.lon, to.lat]], radiuses: [-1, -1], instructions: false, units: 'm', extra_info: ['countryinfo'] };
     if (avoid) body.options = { avoid_countries: avoid };
@@ -151,7 +152,7 @@ outer: for (const key of keys) {
   if (out.routes[key] && out.routes[key].status === 'ok') continue;
   const p = prod[key], A = states[p.from], B = states[p.to];
   const r = await dir(A, B); if (r.quota) break outer;
-  if (!r.ok) { out.routes[key] = { status: 'failed', error: r.error }; continue; }
+  if (!r.ok) { out.routes[key] = { status: 'failed', error: r.error, unresolved: true }; save(); continue; }
   const can = crossings(IX.CAN, r.coords), mex = crossings(IX.MEX, r.coords);
   const rec = { status: 'ok', tier: tierOf(p), from: p.from, to: p.to, stored_miles: p.roadMiles, rerun_miles: +r.miles.toFixed(1), rerun_diff_pct: +(Math.abs(r.miles - p.roadMiles) / p.roadMiles * 100).toFixed(2), route_points: r.coords.length, ors_country_ids: r.ids,
     A_canada: r.ids.includes(ID_CAN), A_mexico: r.ids.includes(ID_MEX), B_canada_segments: can, B_canada_km: +can.reduce((s, x) => s + x.km, 0).toFixed(1), B_mexico_segments: mex, B_mexico_km: +mex.reduce((s, x) => s + x.km, 0).toFixed(1) };
