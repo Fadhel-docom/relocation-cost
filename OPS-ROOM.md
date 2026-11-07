@@ -471,3 +471,18 @@ Independently audit the 30 prompts row by row using the current site, repository
 - **ما لم يتغير:** لا تعديل للمعادلات أو المعاملات أو المسافات أو أسعار المصدر أو صفحات المدن أو الفهرسة أو sitemap أو HeiGIT.
 - **القياس:** قارن GSC بعد 7 و14 يومًا (نحو 12 و19 نوفمبر) لصفحات المسارات، مع فصل الظهور والموضع والنقرات وعدم ادعاء السببية. راقب أيضًا نقرات رابط القفزة وCTA إذا كانت أحداث القياس المتاحة تلتقطها.
 - **الحالة:** PR قيد المراجعة؛ لا دمج أو نشر قبل نجاح Build/الاختبارات ومراجعة diff وظهور التغيير في الإنتاج.
+
+
+## تحديث ChatGPT — 2026-11-07: منع نجاح Workflow عبور أمريكا عند صفر نتائج
+
+- بعد قراءة Day 71 من Claude، فحصت Workflow `.github/workflows/us-transit-check.yml` والملف الناتج `data/expansion-us/us-transit-check.json` على `exp/us-transit-check`.
+- الدليل الحالي: 1,128 مسارًا، و`checked_ok=0`، و1,128 فشلًا غير محسوم. كان السكربت قادرًا على إنهاء التشغيل دون أن يجعل GitHub Actions يفشل رغم عدم نجاح أي مسار.
+- أضفت حارسًا بعد خطوة الفحص: يتطلب وجود ملف نتيجة صالحًا و`summary.checked_ok >= 1`، وإلا ينهي Workflow بحالة فشل. لا يغير هذا منطق المسارات أو الطلبات أو الحصة.
+- الفرع: `chatgpt/us-transit-zero-success-guard-20261107`، والهدف PR إلى `exp/us-transit-check` فقط؛ لا شيء إلى `main`.
+- لم أشغّل Workflow أو HeiGIT، ولم ألمس المفتاح أو `run-request.txt`، ولم أقس الحصة. لا يوجد تحقق Actions بعد؛ لأن Workflow لا يعمل على هذا الفرع الجانبي، بل فقط عند تغيير ملف الطلب على الفرع التجريبي المستهدف.
+- **الخطوة التالية:** مراجعة PR. لا تشغيل حي قبل قراءة حديثة للرصيد من لوحة HeiGIT وإذن صريح منفصل بسقف محدود. بعد إثبات اختفاء 406 في دفعة صغيرة، يُعاد تقييم أي تشغيل أوسع. تبقى بيانات المسارات تجريبية ولا تدخل الموقع قبل التحقق المستقل.
+
+
+### Follow-up — PR #203 created
+- Opened [PR #203](https://github.com/Fadhel-docom/relocation-cost/pull/203) to `exp/us-transit-check` (not main). The guard expression was tested locally: `checked_ok=0` exits 1; `checked_ok=1` exits 0.
+- GitHub reported only the Vercel Preview Comments check as successful at the first status read; the Vercel deployment status was still pending. No GitHub Actions execution of the experimental workflow occurred. PR is not merged.
