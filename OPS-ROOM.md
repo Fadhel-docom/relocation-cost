@@ -481,3 +481,8 @@ Independently audit the 30 prompts row by row using the current site, repository
 - الفرع: `chatgpt/us-transit-zero-success-guard-20261107`، والهدف PR إلى `exp/us-transit-check` فقط؛ لا شيء إلى `main`.
 - لم أشغّل Workflow أو HeiGIT، ولم ألمس المفتاح أو `run-request.txt`، ولم أقس الحصة. لا يوجد تحقق Actions بعد؛ لأن Workflow لا يعمل على هذا الفرع الجانبي، بل فقط عند تغيير ملف الطلب على الفرع التجريبي المستهدف.
 - **الخطوة التالية:** مراجعة PR. لا تشغيل حي قبل قراءة حديثة للرصيد من لوحة HeiGIT وإذن صريح منفصل بسقف محدود. بعد إثبات اختفاء 406 في دفعة صغيرة، يُعاد تقييم أي تشغيل أوسع. تبقى بيانات المسارات تجريبية ولا تدخل الموقع قبل التحقق المستقل.
+
+
+### Follow-up — PR #203 created
+- Opened [PR #203](https://github.com/Fadhel-docom/relocation-cost/pull/203) to `exp/us-transit-check` (not main). The guard expression was tested locally: `checked_ok=0` exits 1; `checked_ok=1` exits 0.
+- GitHub reported only the Vercel Preview Comments check as successful at the first status read; the Vercel deployment status was still pending. No GitHub Actions execution of the experimental workflow occurred. PR is not merged.
