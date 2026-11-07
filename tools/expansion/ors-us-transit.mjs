@@ -12,7 +12,7 @@ if (!SELFTEST && !KEY) { console.error('ORS_API_KEY is missing'); process.exit(1
 const ID_CAN = 35, ID_MEX = 128, ID_USA = 214, M_PER_MILE = 1609.344;
 const MAX_REQUESTS = Number(process.env.MAX_REQUESTS || 0); // Must be explicitly set after a fresh dashboard quota reading; this is NOT the remaining account quota.
 if (!SELFTEST && (!Number.isInteger(MAX_REQUESTS) || MAX_REQUESTS < 1 || MAX_REQUESTS > 1300)) {
-  console.error('Set MAX_REQUESTS to an explicit positive integer <= 1300 only after recording the current x-ratelimit-remaining and reserving a safety margin (2026-11-06: limit 2000 on api.heigit.org; the old 200 cap came from the deprecated host api.openrouteservice.org).');
+  console.error('Set MAX_REQUESTS to an explicit positive integer <= 1300 only after recording the current account-dashboard balance and the latest x-ratelimit-remaining, then reserving a safety margin. Do not infer the account quota from the public plan page (which lists up to 2,000/day) or from earlier runs that observed 200/day; neither establishes the current remaining balance. The per-run cap is a local safety ceiling, not the provider quota.');
   process.exit(1);
 }
 const START = Date.now(), MAX_MS = 100 * 60 * 1000;
