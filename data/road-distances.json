@@ -1,0 +1,4701 @@
+{
+ "schema_version": "1.0",
+ "unit": "miles",
+ "source": "openrouteservice (HeiGIT), driving-car profile, directions endpoint",
+ "data_licence": "CC-BY-SA 4.0 (results obtained from openrouteservice, per the HeiGIT Terms of Service); underlying map data: © OpenStreetMap contributors (ODbL 1.0)",
+ "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+ "attribution": "© openrouteservice by HeiGIT | Data from OpenStreetMap",
+ "terms": "https://account.heigit.org/info/tos",
+ "note": "Planning input only. Distance between the same state or city points the calculator uses for its straight-line distance, snapped to the nearest road. Not a quote and not a navigation route.",
+ "generated_at": "2026-11-06T20:16:04.108Z",
+ "pairs": {
+  "AL|AR": {
+   "road": 453.9,
+   "straight": 353.3
+  },
+  "AL|AZ": {
+   "road": 1687.7,
+   "straight": 1421.5
+  },
+  "AL|CA": {
+   "road": 2181.5,
+   "straight": 1878.6
+  },
+  "AL|CO": {
+   "road": 1419.2,
+   "straight": 1119.9
+  },
+  "AL|CT": {
+   "road": 1148.6,
+   "straight": 980.5
+  },
+  "AL|DE": {
+   "road": 905.6,
+   "straight": 773.4
+  },
+  "AL|FL": {
+   "road": 569.7,
+   "straight": 462.5
+  },
+  "AL|GA": {
+   "road": 241.8,
+   "straight": 183.3
+  },
+  "AL|IA": {
+   "road": 926.7,
+   "straight": 726.5
+  },
+  "AL|ID": {
+   "road": 2165.5,
+   "straight": 1680.9
+  },
+  "AL|IL": {
+   "road": 645,
+   "straight": 535.1
+  },
+  "AL|IN": {
+   "road": 553.6,
+   "straight": 487.5
+  },
+  "AL|KS": {
+   "road": 922.8,
+   "straight": 682.9
+  },
+  "AL|KY": {
+   "road": 451,
+   "straight": 356.6
+  },
+  "AL|LA": {
+   "road": 436.1,
+   "straight": 318.2
+  },
+  "AL|MA": {
+   "road": 1238.8,
+   "straight": 1057.1
+  },
+  "AL|MD": {
+   "road": 823.3,
+   "straight": 705.8
+  },
+  "AL|ME": {
+   "road": 1454.8,
+   "straight": 1242
+  },
+  "AL|MI": {
+   "road": 836.8,
+   "straight": 737.1
+  },
+  "AL|MN": {
+   "road": 1205.2,
+   "straight": 967.3
+  },
+  "AL|MO": {
+   "road": 643.4,
+   "straight": 497.4
+  },
+  "AL|MS": {
+   "road": 218,
+   "straight": 167.8
+  },
+  "AL|MT": {
+   "road": 1942,
+   "straight": 1578.6
+  },
+  "AL|NC": {
+   "road": 531.5,
+   "straight": 444
+  },
+  "AL|ND": {
+   "road": 1548.6,
+   "straight": 1223.2
+  },
+  "AL|NE": {
+   "road": 1055,
+   "straight": 854
+  },
+  "AL|NH": {
+   "road": 1336.4,
+   "straight": 1104
+  },
+  "AL|NJ": {
+   "road": 980.5,
+   "straight": 854
+  },
+  "AL|NM": {
+   "road": 1288.7,
+   "straight": 1123.9
+  },
+  "AL|NV": {
+   "road": 2111.6,
+   "straight": 1734.9
+  },
+  "AL|NY": {
+   "road": 1056.9,
+   "straight": 914.7
+  },
+  "AL|OH": {
+   "road": 682.6,
+   "straight": 569.3
+  },
+  "AL|OK": {
+   "road": 741.7,
+   "straight": 609.6
+  },
+  "AL|OR": {
+   "road": 2600.3,
+   "straight": 2048.9
+  },
+  "AL|PA": {
+   "road": 871.9,
+   "straight": 754.7
+  },
+  "AL|RI": {
+   "road": 1195.5,
+   "straight": 1037.7
+  },
+  "AL|SC": {
+   "road": 426.9,
+   "straight": 345.1
+  },
+  "AL|SD": {
+   "road": 1290.4,
+   "straight": 1045.1
+  },
+  "AL|TN": {
+   "road": 239.4,
+   "straight": 203.3
+  },
+  "AL|TX": {
+   "road": 718.6,
+   "straight": 642.9
+  },
+  "AL|UT": {
+   "road": 1878.7,
+   "straight": 1476.3
+  },
+  "AL|VA": {
+   "road": 708.6,
+   "straight": 594.5
+  },
+  "AL|VT": {
+   "road": 1300.7,
+   "straight": 1085.1
+  },
+  "AL|WA": {
+   "road": 2654.8,
+   "straight": 2068.6
+  },
+  "AL|WI": {
+   "road": 960.9,
+   "straight": 806.4
+  },
+  "AL|WV": {
+   "road": 638,
+   "straight": 511.3
+  },
+  "AL|WY": {
+   "road": 1717.2,
+   "straight": 1308.9
+  },
+  "AR|AZ": {
+   "road": 1246.9,
+   "straight": 1088.9
+  },
+  "AR|CA": {
+   "road": 1740.8,
+   "straight": 1532.3
+  },
+  "AR|CO": {
+   "road": 978.5,
+   "straight": 766.8
+  },
+  "AR|CT": {
+   "road": 1382.6,
+   "straight": 1154.9
+  },
+  "AR|DE": {
+   "road": 1139.6,
+   "straight": 974.5
+  },
+  "AR|FL": {
+   "road": 1030,
+   "straight": 802.3
+  },
+  "AR|GA": {
+   "road": 617.4,
+   "straight": 517.3
+  },
+  "AR|IA": {
+   "road": 650.4,
+   "straight": 488.6
+  },
+  "AR|ID": {
+   "road": 1724.8,
+   "straight": 1333.7
+  },
+  "AR|IL": {
+   "road": 507.8,
+   "straight": 415.2
+  },
+  "AR|IN": {
+   "road": 606.3,
+   "straight": 475.5
+  },
+  "AR|KS": {
+   "road": 482,
+   "straight": 344.1
+  },
+  "AR|KY": {
+   "road": 568.1,
+   "straight": 467.4
+  },
+  "AR|LA": {
+   "road": 347.3,
+   "straight": 264.2
+  },
+  "AR|MA": {
+   "road": 1472.8,
+   "straight": 1228
+  },
+  "AR|MD": {
+   "road": 1057.3,
+   "straight": 903
+  },
+  "AR|ME": {
+   "road": 1688.8,
+   "straight": 1385.7
+  },
+  "AR|MI": {
+   "road": 908,
+   "straight": 713.2
+  },
+  "AR|MN": {
+   "road": 911,
+   "straight": 745.3
+  },
+  "AR|MO": {
+   "road": 317.4,
+   "straight": 240.9
+  },
+  "AR|MS": {
+   "road": 294.4,
+   "straight": 218.2
+  },
+  "AR|MT": {
+   "road": 1664.8,
+   "straight": 1248.5
+  },
+  "AR|NC": {
+   "road": 852.6,
+   "straight": 709.6
+  },
+  "AR|ND": {
+   "road": 1162,
+   "straight": 948.2
+  },
+  "AR|NE": {
+   "road": 720.7,
+   "straight": 532.4
+  },
+  "AR|NH": {
+   "road": 1570.5,
+   "straight": 1253.9
+  },
+  "AR|NJ": {
+   "road": 1214.5,
+   "straight": 1041.6
+  },
+  "AR|NM": {
+   "road": 848,
+   "straight": 785.6
+  },
+  "AR|NV": {
+   "road": 1670.8,
+   "straight": 1383.5
+  },
+  "AR|NY": {
+   "road": 1290.9,
+   "straight": 1061.7
+  },
+  "AR|OH": {
+   "road": 799.7,
+   "straight": 644.5
+  },
+  "AR|OK": {
+   "road": 300.9,
+   "straight": 260.3
+  },
+  "AR|OR": {
+   "road": 2159.6,
+   "straight": 1699
+  },
+  "AR|PA": {
+   "road": 1105.9,
+   "straight": 912.9
+  },
+  "AR|RI": {
+   "road": 1429.5,
+   "straight": 1218.2
+  },
+  "AR|SC": {
+   "road": 764.1,
+   "straight": 655.6
+  },
+  "AR|SD": {
+   "road": 953.1,
+   "straight": 745.6
+  },
+  "AR|TN": {
+   "road": 378.7,
+   "straight": 324.5
+  },
+  "AR|TX": {
+   "road": 480.2,
+   "straight": 404.4
+  },
+  "AR|UT": {
+   "road": 1437.9,
+   "straight": 1123.1
+  },
+  "AR|VA": {
+   "road": 942.6,
+   "straight": 812.6
+  },
+  "AR|VT": {
+   "road": 1486.7,
+   "straight": 1216.8
+  },
+  "AR|WA": {
+   "road": 2214,
+   "straight": 1725.9
+  },
+  "AR|WI": {
+   "road": 795.5,
+   "straight": 658.9
+  },
+  "AR|WV": {
+   "road": 819,
+   "straight": 676.9
+  },
+  "AR|WY": {
+   "road": 1276.5,
+   "straight": 964.5
+  },
+  "AZ|CA": {
+   "road": 606.3,
+   "straight": 495.4
+  },
+  "AZ|CO": {
+   "road": 799.9,
+   "straight": 501.2
+  },
+  "AZ|CT": {
+   "road": 2496.6,
+   "straight": 2164.7
+  },
+  "AZ|DE": {
+   "road": 2372.6,
+   "straight": 2018
+  },
+  "AZ|FL": {
+   "road": 2227.3,
+   "straight": 1806.9
+  },
+  "AZ|GA": {
+   "road": 1850.4,
+   "straight": 1599
+  },
+  "AZ|IA": {
+   "road": 1415.6,
+   "straight": 1143.3
+  },
+  "AZ|ID": {
+   "road": 1044.7,
+   "straight": 744.3
+  },
+  "AZ|IL": {
+   "road": 1583.5,
+   "straight": 1315.2
+  },
+  "AZ|IN": {
+   "road": 1670.8,
+   "straight": 1450.1
+  },
+  "AZ|KS": {
+   "road": 1046.7,
+   "straight": 883.7
+  },
+  "AZ|KY": {
+   "road": 1748.1,
+   "straight": 1520.7
+  },
+  "AZ|LA": {
+   "road": 1461.9,
+   "straight": 1152.5
+  },
+  "AZ|MA": {
+   "road": 2595.6,
+   "straight": 2229
+  },
+  "AZ|MD": {
+   "road": 2290.3,
+   "straight": 1948.7
+  },
+  "AZ|ME": {
+   "road": 2811.5,
+   "straight": 2345.5
+  },
+  "AZ|MI": {
+   "road": 1972.6,
+   "straight": 1588.5
+  },
+  "AZ|MN": {
+   "road": 1694.9,
+   "straight": 1240.6
+  },
+  "AZ|MO": {
+   "road": 1332,
+   "straight": 1115.1
+  },
+  "AZ|MS": {
+   "road": 1558.4,
+   "straight": 1256.6
+  },
+  "AZ|MT": {
+   "road": 1364.2,
+   "straight": 912.9
+  },
+  "AZ|NC": {
+   "road": 2085.6,
+   "straight": 1794
+  },
+  "AZ|ND": {
+   "road": 1652.4,
+   "straight": 1129.5
+  },
+  "AZ|NE": {
+   "road": 1251.9,
+   "straight": 883.1
+  },
+  "AZ|NH": {
+   "road": 2618.8,
+   "straight": 2231.5
+  },
+  "AZ|NJ": {
+   "road": 2357.2,
+   "straight": 2070.6
+  },
+  "AZ|NM": {
+   "road": 423.4,
+   "straight": 305.6
+  },
+  "AZ|NV": {
+   "road": 583.4,
+   "straight": 446
+  },
+  "AZ|NY": {
+   "road": 2407.7,
+   "straight": 2054.1
+  },
+  "AZ|OH": {
+   "road": 1882.8,
+   "straight": 1638
+  },
+  "AZ|OK": {
+   "road": 972.3,
+   "straight": 833.2
+  },
+  "AZ|OR": {
+   "road": 1236.3,
+   "straight": 939.6
+  },
+  "AZ|PA": {
+   "road": 2240.2,
+   "straight": 1930
+  },
+  "AZ|RI": {
+   "road": 2581.8,
+   "straight": 2229
+  },
+  "AZ|SC": {
+   "road": 1997.1,
+   "straight": 1744
+  },
+  "AZ|SD": {
+   "road": 1390.1,
+   "straight": 971.5
+  },
+  "AZ|TN": {
+   "road": 1611.7,
+   "straight": 1407.8
+  },
+  "AZ|TX": {
+   "road": 1064.5,
+   "straight": 829.2
+  },
+  "AZ|UT": {
+   "road": 652.1,
+   "straight": 444.2
+  },
+  "AZ|VA": {
+   "road": 2175.6,
+   "straight": 1875.9
+  },
+  "AZ|VT": {
+   "road": 2569.8,
+   "straight": 2177.9
+  },
+  "AZ|WA": {
+   "road": 1475.4,
+   "straight": 1080
+  },
+  "AZ|WI": {
+   "road": 1737.9,
+   "straight": 1372.7
+  },
+  "AZ|WV": {
+   "road": 1996.3,
+   "straight": 1724.5
+  },
+  "AZ|WY": {
+   "road": 972.8,
+   "straight": 662.4
+  },
+  "CA|CO": {
+   "road": 1128.3,
+   "straight": 811.7
+  },
+  "CA|CT": {
+   "road": 2972.7,
+   "straight": 2521.7
+  },
+  "CA|DE": {
+   "road": 2866.8,
+   "straight": 2400.5
+  },
+  "CA|FL": {
+   "road": 2660.2,
+   "straight": 2285.6
+  },
+  "CA|GA": {
+   "road": 2344.7,
+   "straight": 2049.4
+  },
+  "CA|IA": {
+   "road": 1824.8,
+   "straight": 1470.7
+  },
+  "CA|ID": {
+   "road": 972.6,
+   "straight": 624.6
+  },
+  "CA|IL": {
+   "road": 2077.8,
+   "straight": 1682.7
+  },
+  "CA|IN": {
+   "road": 2165.1,
+   "straight": 1827.6
+  },
+  "CA|KS": {
+   "road": 1623.4,
+   "straight": 1268.9
+  },
+  "CA|KY": {
+   "road": 2242.3,
+   "straight": 1926.4
+  },
+  "CA|LA": {
+   "road": 1881.8,
+   "straight": 1630
+  },
+  "CA|MA": {
+   "road": 3050.9,
+   "straight": 2578.8
+  },
+  "CA|MD": {
+   "road": 2784.5,
+   "straight": 2334.7
+  },
+  "CA|ME": {
+   "road": 3266.8,
+   "straight": 2667.9
+  },
+  "CA|MI": {
+   "road": 2357,
+   "straight": 1917.6
+  },
+  "CA|MN": {
+   "road": 1969.2,
+   "straight": 1491.2
+  },
+  "CA|MO": {
+   "road": 1826.3,
+   "straight": 1508.9
+  },
+  "CA|MS": {
+   "road": 1978.4,
+   "straight": 1718.8
+  },
+  "CA|MT": {
+   "road": 1419.9,
+   "straight": 884.8
+  },
+  "CA|NC": {
+   "road": 2579.9,
+   "straight": 2216.8
+  },
+  "CA|ND": {
+   "road": 1813.8,
+   "straight": 1286.4
+  },
+  "CA|NE": {
+   "road": 1526.2,
+   "straight": 1203.1
+  },
+  "CA|NH": {
+   "road": 3074.1,
+   "straight": 2568
+  },
+  "CA|NJ": {
+   "road": 2851.5,
+   "straight": 2442.3
+  },
+  "CA|NM": {
+   "road": 917.7,
+   "straight": 760.3
+  },
+  "CA|NV": {
+   "road": 441.3,
+   "straight": 209.6
+  },
+  "CA|NY": {
+   "road": 2863,
+   "straight": 2405.3
+  },
+  "CA|OH": {
+   "road": 2377.1,
+   "straight": 2009.9
+  },
+  "CA|OK": {
+   "road": 1466.6,
+   "straight": 1272
+  },
+  "CA|OR": {
+   "road": 732.2,
+   "straight": 597.6
+  },
+  "CA|PA": {
+   "road": 2716.2,
+   "straight": 2299.5
+  },
+  "CA|RI": {
+   "road": 3057.8,
+   "straight": 2584.6
+  },
+  "CA|SC": {
+   "road": 2491.4,
+   "straight": 2183.9
+  },
+  "CA|SD": {
+   "road": 1645,
+   "straight": 1204
+  },
+  "CA|TN": {
+   "road": 2106,
+   "straight": 1836.8
+  },
+  "CA|TX": {
+   "road": 1546,
+   "straight": 1317
+  },
+  "CA|UT": {
+   "road": 734.5,
+   "straight": 507.9
+  },
+  "CA|VA": {
+   "road": 2669.8,
+   "straight": 2276.3
+  },
+  "CA|VT": {
+   "road": 3084,
+   "straight": 2507.6
+  },
+  "CA|WA": {
+   "road": 1014.7,
+   "straight": 785.2
+  },
+  "CA|WI": {
+   "road": 2147.1,
+   "straight": 1672.6
+  },
+  "CA|WV": {
+   "road": 2490.6,
+   "straight": 2119.1
+  },
+  "CA|WY": {
+   "road": 1139.5,
+   "straight": 802.9
+  },
+  "CO|CT": {
+   "road": 1975.3,
+   "straight": 1713.5
+  },
+  "CO|DE": {
+   "road": 1801.2,
+   "straight": 1588.9
+  },
+  "CO|FL": {
+   "road": 1902.4,
+   "straight": 1563.1
+  },
+  "CO|GA": {
+   "road": 1510.6,
+   "straight": 1276.1
+  },
+  "CO|IA": {
+   "road": 827.4,
+   "straight": 666.7
+  },
+  "CO|ID": {
+   "road": 899.7,
+   "straight": 592.8
+  },
+  "CO|IL": {
+   "road": 997,
+   "straight": 871.1
+  },
+  "CO|IN": {
+   "road": 1111,
+   "straight": 1016
+  },
+  "CO|KS": {
+   "road": 541.6,
+   "straight": 463.6
+  },
+  "CO|KY": {
+   "road": 1226.4,
+   "straight": 1119.9
+  },
+  "CO|LA": {
+   "road": 1124.1,
+   "straight": 933.5
+  },
+  "CO|MA": {
+   "road": 2053.5,
+   "straight": 1772.8
+  },
+  "CO|MD": {
+   "road": 1705.8,
+   "straight": 1523.1
+  },
+  "CO|ME": {
+   "road": 2269.4,
+   "straight": 1873
+  },
+  "CO|MI": {
+   "road": 1359.6,
+   "straight": 1116.4
+  },
+  "CO|MN": {
+   "road": 971.8,
+   "straight": 739.9
+  },
+  "CO|MO": {
+   "road": 776.9,
+   "straight": 702.3
+  },
+  "CO|MS": {
+   "road": 1220.6,
+   "straight": 975.9
+  },
+  "CO|MT": {
+   "road": 839.8,
+   "straight": 601.9
+  },
+  "CO|NC": {
+   "road": 1648.7,
+   "straight": 1416
+  },
+  "CO|ND": {
+   "road": 929.3,
+   "straight": 647.4
+  },
+  "CO|NE": {
+   "road": 528.8,
+   "straight": 398.5
+  },
+  "CO|NH": {
+   "road": 2076.7,
+   "straight": 1766.5
+  },
+  "CO|NJ": {
+   "road": 1797.4,
+   "straight": 1631.3
+  },
+  "CO|NM": {
+   "road": 407.3,
+   "straight": 296.1
+  },
+  "CO|NV": {
+   "road": 871.3,
+   "straight": 635
+  },
+  "CO|NY": {
+   "road": 1865.6,
+   "straight": 1598.4
+  },
+  "CO|OH": {
+   "road": 1323,
+   "straight": 1198.4
+  },
+  "CO|OK": {
+   "road": 707.2,
+   "straight": 519.8
+  },
+  "CO|OR": {
+   "road": 1334.6,
+   "straight": 941
+  },
+  "CO|PA": {
+   "road": 1718.8,
+   "straight": 1488.6
+  },
+  "CO|RI": {
+   "road": 2060.4,
+   "straight": 1776.9
+  },
+  "CO|SC": {
+   "road": 1638.7,
+   "straight": 1396.2
+  },
+  "CO|SD": {
+   "road": 667,
+   "straight": 471.9
+  },
+  "CO|TN": {
+   "road": 1218.6,
+   "straight": 1045.2
+  },
+  "CO|TX": {
+   "road": 862.2,
+   "straight": 705
+  },
+  "CO|UT": {
+   "road": 506.3,
+   "straight": 356.7
+  },
+  "CO|VA": {
+   "road": 1661,
+   "straight": 1466.6
+  },
+  "CO|VT": {
+   "road": 2086.6,
+   "straight": 1708.7
+  },
+  "CO|WA": {
+   "road": 1389,
+   "straight": 994.6
+  },
+  "CO|WI": {
+   "road": 1149.6,
+   "straight": 884.6
+  },
+  "CO|WV": {
+   "road": 1445.9,
+   "straight": 1308.6
+  },
+  "CO|WY": {
+   "road": 451.4,
+   "straight": 275.7
+  },
+  "CT|DE": {
+   "road": 263.8,
+   "straight": 213.8
+  },
+  "CT|FL": {
+   "road": 1255.3,
+   "straight": 1080.5
+  },
+  "CT|GA": {
+   "road": 1009.6,
+   "straight": 839.8
+  },
+  "CT|IA": {
+   "road": 1187.8,
+   "straight": 1051.4
+  },
+  "CT|ID": {
+   "road": 2508.7,
+   "straight": 2096.2
+  },
+  "CT|IL": {
+   "road": 998.8,
+   "straight": 849.8
+  },
+  "CT|IN": {
+   "road": 830.7,
+   "straight": 716.5
+  },
+  "CT|KS": {
+   "road": 1452.9,
+   "straight": 1281
+  },
+  "CT|KY": {
+   "road": 861.7,
+   "straight": 688.9
+  },
+  "CT|LA": {
+   "road": 1539.5,
+   "straight": 1279.6
+  },
+  "CT|MA": {
+   "road": 88.6,
+   "straight": 76.7
+  },
+  "CT|MD": {
+   "road": 311.5,
+   "straight": 275.8
+  },
+  "CT|ME": {
+   "road": 304.6,
+   "straight": 273.2
+  },
+  "CT|MI": {
+   "road": 751.2,
+   "straight": 611.7
+  },
+  "CT|MN": {
+   "road": 1364.9,
+   "straight": 1090.8
+  },
+  "CT|MO": {
+   "road": 1204.9,
+   "straight": 1053.6
+  },
+  "CT|MS": {
+   "road": 1321.4,
+   "straight": 1111.6
+  },
+  "CT|MT": {
+   "road": 2214.6,
+   "straight": 1882.5
+  },
+  "CT|NC": {
+   "road": 685.6,
+   "straight": 560.8
+  },
+  "CT|ND": {
+   "road": 1708.3,
+   "straight": 1384.1
+  },
+  "CT|NE": {
+   "road": 1472.2,
+   "straight": 1318.6
+  },
+  "CT|NH": {
+   "road": 186.2,
+   "straight": 141.8
+  },
+  "CT|NJ": {
+   "road": 150.6,
+   "straight": 128.6
+  },
+  "CT|NM": {
+   "road": 2091.6,
+   "straight": 1864.4
+  },
+  "CT|NV": {
+   "road": 2680.9,
+   "straight": 2331.4
+  },
+  "CT|NY": {
+   "road": 176.4,
+   "straight": 119.4
+  },
+  "CT|OH": {
+   "road": 624.1,
+   "straight": 528.3
+  },
+  "CT|OK": {
+   "road": 1536.4,
+   "straight": 1365.3
+  },
+  "CT|OR": {
+   "road": 2943.6,
+   "straight": 2459
+  },
+  "CT|PA": {
+   "road": 312.6,
+   "straight": 242.1
+  },
+  "CT|RI": {
+   "road": 91.6,
+   "straight": 64.5
+  },
+  "CT|SC": {
+   "road": 830.5,
+   "straight": 696.7
+  },
+  "CT|SD": {
+   "road": 1631.4,
+   "straight": 1356.2
+  },
+  "CT|TN": {
+   "road": 1029.9,
+   "straight": 852.1
+  },
+  "CT|TX": {
+   "road": 1819.5,
+   "straight": 1553.4
+  },
+  "CT|UT": {
+   "road": 2306.3,
+   "straight": 2028
+  },
+  "CT|VA": {
+   "road": 456.3,
+   "straight": 390.8
+  },
+  "CT|VT": {
+   "road": 199.9,
+   "straight": 169.2
+  },
+  "CT|WA": {
+   "road": 2905.2,
+   "straight": 2394.8
+  },
+  "CT|WI": {
+   "road": 1120.6,
+   "straight": 871
+  },
+  "CT|WV": {
+   "road": 617.2,
+   "straight": 483.6
+  },
+  "CT|WY": {
+   "road": 2060.4,
+   "straight": 1758.3
+  },
+  "DE|FL": {
+   "road": 1018.1,
+   "straight": 873.3
+  },
+  "DE|GA": {
+   "road": 772.4,
+   "straight": 627.2
+  },
+  "DE|IA": {
+   "road": 1094.4,
+   "straight": 944.5
+  },
+  "DE|ID": {
+   "road": 2415.3,
+   "straight": 2017.1
+  },
+  "DE|IL": {
+   "road": 864.5,
+   "straight": 718
+  },
+  "DE|IN": {
+   "road": 695.9,
+   "straight": 573.3
+  },
+  "DE|KS": {
+   "road": 1318.2,
+   "straight": 1139.3
+  },
+  "DE|KY": {
+   "road": 667.2,
+   "straight": 508.2
+  },
+  "DE|LA": {
+   "road": 1297.7,
+   "straight": 1078.8
+  },
+  "DE|MA": {
+   "road": 351.7,
+   "straight": 289.4
+  },
+  "DE|MD": {
+   "road": 92.3,
+   "straight": 71.5
+  },
+  "DE|ME": {
+   "road": 567.6,
+   "straight": 486.4
+  },
+  "DE|MI": {
+   "road": 718.5,
+   "straight": 543.8
+  },
+  "DE|MN": {
+   "road": 1271.4,
+   "straight": 1032.1
+  },
+  "DE|MO": {
+   "road": 1070.2,
+   "straight": 903.2
+  },
+  "DE|MS": {
+   "road": 1079.5,
+   "straight": 911.4
+  },
+  "DE|MT": {
+   "road": 2121.1,
+   "straight": 1822.1
+  },
+  "DE|NC": {
+   "road": 448.4,
+   "straight": 347.1
+  },
+  "DE|ND": {
+   "road": 1614.9,
+   "straight": 1336.4
+  },
+  "DE|NE": {
+   "road": 1378.8,
+   "straight": 1203.8
+  },
+  "DE|NH": {
+   "road": 449.3,
+   "straight": 351.1
+  },
+  "DE|NJ": {
+   "road": 115.7,
+   "straight": 85.6
+  },
+  "DE|NM": {
+   "road": 1974.8,
+   "straight": 1714
+  },
+  "DE|NV": {
+   "road": 2587.5,
+   "straight": 2217.9
+  },
+  "DE|NY": {
+   "road": 270.6,
+   "straight": 198.9
+  },
+  "DE|OH": {
+   "road": 525.9,
+   "straight": 391.9
+  },
+  "DE|OK": {
+   "road": 1427.8,
+   "straight": 1200.4
+  },
+  "DE|OR": {
+   "road": 2850.1,
+   "straight": 2387.4
+  },
+  "DE|PA": {
+   "road": 169.1,
+   "straight": 125.9
+  },
+  "DE|RI": {
+   "road": 330.4,
+   "straight": 265.9
+  },
+  "DE|SC": {
+   "road": 593.3,
+   "straight": 482.9
+  },
+  "DE|SD": {
+   "road": 1537.9,
+   "straight": 1274.5
+  },
+  "DE|TN": {
+   "road": 788.1,
+   "straight": 660.1
+  },
+  "DE|TX": {
+   "road": 1577.7,
+   "straight": 1365.3
+  },
+  "DE|UT": {
+   "road": 2212.9,
+   "straight": 1919
+  },
+  "DE|VA": {
+   "road": 219.1,
+   "straight": 179.3
+  },
+  "DE|VT": {
+   "road": 453.1,
+   "straight": 357
+  },
+  "DE|WA": {
+   "road": 2811.7,
+   "straight": 2340.3
+  },
+  "DE|WI": {
+   "road": 1027.2,
+   "straight": 801.8
+  },
+  "DE|WV": {
+   "road": 422.7,
+   "straight": 298.4
+  },
+  "DE|WY": {
+   "road": 1967,
+   "straight": 1664
+  },
+  "FL|GA": {
+   "road": 425.6,
+   "straight": 382.6
+  },
+  "FL|IA": {
+   "road": 1400.8,
+   "straight": 1178.7
+  },
+  "FL|ID": {
+   "road": 2613.5,
+   "straight": 2136.1
+  },
+  "FL|IL": {
+   "road": 1126,
+   "straight": 963.7
+  },
+  "FL|IN": {
+   "road": 1030.7,
+   "straight": 874.8
+  },
+  "FL|KS": {
+   "road": 1432.1,
+   "straight": 1141.6
+  },
+  "FL|KY": {
+   "road": 855.6,
+   "straight": 705.7
+  },
+  "FL|LA": {
+   "road": 830.9,
+   "straight": 655.7
+  },
+  "FL|MA": {
+   "road": 1342.6,
+   "straight": 1150.9
+  },
+  "FL|MD": {
+   "road": 939.2,
+   "straight": 829.5
+  },
+  "FL|ME": {
+   "road": 1558.5,
+   "straight": 1352.3
+  },
+  "FL|MI": {
+   "road": 1305,
+   "straight": 1086.8
+  },
+  "FL|MN": {
+   "road": 1686.2,
+   "straight": 1407.5
+  },
+  "FL|MO": {
+   "road": 1184.1,
+   "straight": 958.7
+  },
+  "FL|MS": {
+   "road": 758.6,
+   "straight": 587.6
+  },
+  "FL|MT": {
+   "road": 2479.6,
+   "straight": 2040.8
+  },
+  "FL|NC": {
+   "road": 624.9,
+   "straight": 554.4
+  },
+  "FL|ND": {
+   "road": 2029.7,
+   "straight": 1677.6
+  },
+  "FL|NE": {
+   "road": 1592.6,
+   "straight": 1316.4
+  },
+  "FL|NH": {
+   "road": 1440.2,
+   "straight": 1221.7
+  },
+  "FL|NJ": {
+   "road": 1106.6,
+   "straight": 957.3
+  },
+  "FL|NM": {
+   "road": 1756.8,
+   "straight": 1525.4
+  },
+  "FL|NV": {
+   "road": 2579.7,
+   "straight": 2158.7
+  },
+  "FL|NY": {
+   "road": 1236.5,
+   "straight": 1064.6
+  },
+  "FL|OH": {
+   "road": 1057.7,
+   "straight": 874.3
+  },
+  "FL|OK": {
+   "road": 1308.3,
+   "straight": 1044
+  },
+  "FL|OR": {
+   "road": 3048.3,
+   "straight": 2500.3
+  },
+  "FL|PA": {
+   "road": 1078.3,
+   "straight": 921.9
+  },
+  "FL|RI": {
+   "road": 1321.4,
+   "straight": 1119.8
+  },
+  "FL|SC": {
+   "road": 503.4,
+   "straight": 423.1
+  },
+  "FL|SD": {
+   "road": 1828,
+   "straight": 1506.1
+  },
+  "FL|TN": {
+   "road": 727.2,
+   "straight": 624.7
+  },
+  "FL|TX": {
+   "road": 1169.4,
+   "straight": 981.3
+  },
+  "FL|UT": {
+   "road": 2411.1,
+   "straight": 1916.6
+  },
+  "FL|VA": {
+   "road": 863.2,
+   "straight": 720.5
+  },
+  "FL|VT": {
+   "road": 1444.1,
+   "straight": 1230
+  },
+  "FL|WA": {
+   "road": 3102.8,
+   "straight": 2527.3
+  },
+  "FL|WI": {
+   "road": 1441.9,
+   "straight": 1221.8
+  },
+  "FL|WV": {
+   "road": 872.5,
+   "straight": 742.2
+  },
+  "FL|WY": {
+   "road": 2165.2,
+   "straight": 1766.2
+  },
+  "GA|IA": {
+   "road": 999.5,
+   "straight": 810.7
+  },
+  "GA|ID": {
+   "road": 2212.2,
+   "straight": 1821
+  },
+  "GA|IL": {
+   "road": 724.7,
+   "straight": 585.1
+  },
+  "GA|IN": {
+   "road": 629.4,
+   "straight": 492.3
+  },
+  "GA|KS": {
+   "road": 1030.8,
+   "straight": 824.4
+  },
+  "GA|KY": {
+   "road": 454.3,
+   "straight": 324.9
+  },
+  "GA|LA": {
+   "road": 674.5,
+   "straight": 498.3
+  },
+  "GA|MA": {
+   "road": 1098.1,
+   "straight": 916.1
+  },
+  "GA|MD": {
+   "road": 694.7,
+   "straight": 564.6
+  },
+  "GA|ME": {
+   "road": 1314.1,
+   "straight": 1108.9
+  },
+  "GA|MI": {
+   "road": 903.7,
+   "straight": 712.3
+  },
+  "GA|MN": {
+   "road": 1284.9,
+   "straight": 1029.8
+  },
+  "GA|MO": {
+   "road": 782.8,
+   "straight": 611.9
+  },
+  "GA|MS": {
+   "road": 456.4,
+   "straight": 350.7
+  },
+  "GA|MT": {
+   "road": 2078.3,
+   "straight": 1699.6
+  },
+  "GA|NC": {
+   "road": 352.7,
+   "straight": 282.7
+  },
+  "GA|ND": {
+   "road": 1628.4,
+   "straight": 1308.3
+  },
+  "GA|NE": {
+   "road": 1191.3,
+   "straight": 978.6
+  },
+  "GA|NH": {
+   "road": 1195.8,
+   "straight": 971.2
+  },
+  "GA|NJ": {
+   "road": 862.2,
+   "straight": 711.3
+  },
+  "GA|NM": {
+   "road": 1454,
+   "straight": 1299
+  },
+  "GA|NV": {
+   "road": 2276.8,
+   "straight": 1899.6
+  },
+  "GA|NY": {
+   "road": 966.5,
+   "straight": 789
+  },
+  "GA|OH": {
+   "road": 701.1,
+   "straight": 510
+  },
+  "GA|OK": {
+   "road": 906.9,
+   "straight": 777.4
+  },
+  "GA|OR": {
+   "road": 2647,
+   "straight": 2192.9
+  },
+  "GA|PA": {
+   "road": 781.5,
+   "straight": 631.1
+  },
+  "GA|RI": {
+   "road": 1076.9,
+   "straight": 892.9
+  },
+  "GA|SC": {
+   "road": 206.7,
+   "straight": 165.4
+  },
+  "GA|SD": {
+   "road": 1426.7,
+   "straight": 1150
+  },
+  "GA|TN": {
+   "road": 325.9,
+   "straight": 255.3
+  },
+  "GA|TX": {
+   "road": 956.9,
+   "straight": 826.1
+  },
+  "GA|UT": {
+   "road": 2009.8,
+   "straight": 1632.7
+  },
+  "GA|VA": {
+   "road": 559.8,
+   "straight": 449
+  },
+  "GA|VT": {
+   "road": 1210.3,
+   "straight": 961.1
+  },
+  "GA|WA": {
+   "road": 2701.5,
+   "straight": 2200.9
+  },
+  "GA|WI": {
+   "road": 1040.6,
+   "straight": 839.5
+  },
+  "GA|WV": {
+   "road": 565.1,
+   "straight": 405.6
+  },
+  "GA|WY": {
+   "road": 1763.9,
+   "straight": 1447.2
+  },
+  "IA|ID": {
+   "road": 1360.6,
+   "straight": 1080.4
+  },
+  "IA|IL": {
+   "road": 304.3,
+   "straight": 247.8
+  },
+  "IA|IN": {
+   "road": 460.5,
+   "straight": 392.3
+  },
+  "IA|KS": {
+   "road": 390.6,
+   "straight": 303.8
+  },
+  "IA|KY": {
+   "road": 665.4,
+   "straight": 543
+  },
+  "IA|LA": {
+   "road": 971.1,
+   "straight": 752.8
+  },
+  "IA|MA": {
+   "road": 1267.4,
+   "straight": 1108.2
+  },
+  "IA|MD": {
+   "road": 1012,
+   "straight": 883.8
+  },
+  "IA|ME": {
+   "road": 1483.3,
+   "straight": 1207
+  },
+  "IA|MI": {
+   "road": 573.5,
+   "straight": 449.7
+  },
+  "IA|MN": {
+   "road": 299.1,
+   "straight": 256.8
+  },
+  "IA|MO": {
+   "road": 297.2,
+   "straight": 250.4
+  },
+  "IA|MS": {
+   "road": 813.9,
+   "straight": 669
+  },
+  "IA|MT": {
+   "road": 1110.6,
+   "straight": 913.1
+  },
+  "IA|NC": {
+   "road": 1052.1,
+   "straight": 844.1
+  },
+  "IA|ND": {
+   "road": 643.7,
+   "straight": 498.9
+  },
+  "IA|NE": {
+   "road": 324.1,
+   "straight": 268.5
+  },
+  "IA|NH": {
+   "road": 1290.6,
+   "straight": 1100
+  },
+  "IA|NJ": {
+   "road": 1106.4,
+   "straight": 977.5
+  },
+  "IA|NM": {
+   "road": 1014.8,
+   "straight": 860.7
+  },
+  "IA|NV": {
+   "road": 1532.8,
+   "straight": 1280.3
+  },
+  "IA|NY": {
+   "road": 1079.5,
+   "straight": 934.7
+  },
+  "IA|OH": {
+   "road": 685.5,
+   "straight": 554.1
+  },
+  "IA|OK": {
+   "road": 582.9,
+   "straight": 488.2
+  },
+  "IA|OR": {
+   "road": 1795.4,
+   "straight": 1454.5
+  },
+  "IA|PA": {
+   "road": 932.7,
+   "straight": 835.1
+  },
+  "IA|RI": {
+   "road": 1274.3,
+   "straight": 1114.1
+  },
+  "IA|SC": {
+   "road": 1102.1,
+   "straight": 872.6
+  },
+  "IA|SD": {
+   "road": 459,
+   "straight": 351.4
+  },
+  "IA|TN": {
+   "road": 705.2,
+   "straight": 556.6
+  },
+  "IA|TX": {
+   "road": 924.7,
+   "straight": 794.4
+  },
+  "IA|UT": {
+   "road": 1158.2,
+   "straight": 977.9
+  },
+  "IA|VA": {
+   "road": 1064.4,
+   "straight": 848.1
+  },
+  "IA|VT": {
+   "road": 1300.5,
+   "straight": 1042.1
+  },
+  "IA|WA": {
+   "road": 1713.3,
+   "straight": 1429
+  },
+  "IA|WI": {
+   "road": 328.6,
+   "straight": 239
+  },
+  "IA|WV": {
+   "road": 849.3,
+   "straight": 689.8
+  },
+  "IA|WY": {
+   "road": 912.3,
+   "straight": 720.2
+  },
+  "ID|IL": {
+   "road": 1625.6,
+   "straight": 1324.7
+  },
+  "ID|IN": {
+   "road": 1781.8,
+   "straight": 1471.7
+  },
+  "ID|KS": {
+   "road": 1288.1,
+   "straight": 998.7
+  },
+  "ID|KY": {
+   "road": 1925.8,
+   "straight": 1610.4
+  },
+  "ID|LA": {
+   "road": 2007.6,
+   "straight": 1522.3
+  },
+  "ID|MA": {
+   "road": 2588.8,
+   "straight": 2141.7
+  },
+  "ID|MD": {
+   "road": 2333.4,
+   "straight": 1959.9
+  },
+  "ID|ME": {
+   "road": 2804.7,
+   "straight": 2194.9
+  },
+  "ID|MI": {
+   "road": 1894.9,
+   "straight": 1486.7
+  },
+  "ID|MN": {
+   "road": 1283.9,
+   "straight": 1008.2
+  },
+  "ID|MO": {
+   "road": 1493.4,
+   "straight": 1213.9
+  },
+  "ID|MS": {
+   "road": 2005.3,
+   "straight": 1549.7
+  },
+  "ID|MT": {
+   "road": 514.9,
+   "straight": 268.6
+  },
+  "ID|NC": {
+   "road": 2348.1,
+   "straight": 1914.5
+  },
+  "ID|ND": {
+   "road": 999.5,
+   "straight": 741
+  },
+  "ID|NE": {
+   "road": 1064.1,
+   "straight": 849.5
+  },
+  "ID|NH": {
+   "road": 2612,
+   "straight": 2114.5
+  },
+  "ID|NJ": {
+   "road": 2427.7,
+   "straight": 2040.6
+  },
+  "ID|NM": {
+   "road": 984.6,
+   "straight": 782.7
+  },
+  "ID|NV": {
+   "road": 592.3,
+   "straight": 430.8
+  },
+  "ID|NY": {
+   "road": 2400.8,
+   "straight": 1976.8
+  },
+  "ID|OH": {
+   "road": 2006.8,
+   "straight": 1631.6
+  },
+  "ID|OK": {
+   "road": 1462.4,
+   "straight": 1103
+  },
+  "ID|OR": {
+   "road": 629.5,
+   "straight": 375.3
+  },
+  "ID|PA": {
+   "road": 2254.1,
+   "straight": 1901.2
+  },
+  "ID|RI": {
+   "road": 2595.7,
+   "straight": 2154.9
+  },
+  "ID|SC": {
+   "road": 2338.1,
+   "straight": 1920.6
+  },
+  "ID|SD": {
+   "road": 1029.6,
+   "straight": 743.1
+  },
+  "ID|TN": {
+   "road": 1918,
+   "straight": 1574
+  },
+  "ID|TX": {
+   "road": 1685.2,
+   "straight": 1293.6
+  },
+  "ID|UT": {
+   "road": 413.6,
+   "straight": 312.7
+  },
+  "ID|VA": {
+   "road": 2360.4,
+   "straight": 1928.5
+  },
+  "ID|VT": {
+   "road": 2621.9,
+   "straight": 2048.2
+  },
+  "ID|WA": {
+   "road": 657.9,
+   "straight": 401.8
+  },
+  "ID|WI": {
+   "road": 1565.4,
+   "straight": 1225.6
+  },
+  "ID|WV": {
+   "road": 2145.3,
+   "straight": 1770.1
+  },
+  "ID|WY": {
+   "road": 494.4,
+   "straight": 373.9
+  },
+  "IL|IN": {
+   "road": 162.4,
+   "straight": 148.2
+  },
+  "IL|KS": {
+   "road": 520.1,
+   "straight": 431.6
+  },
+  "IL|KY": {
+   "road": 367.3,
+   "straight": 296.6
+  },
+  "IL|LA": {
+   "road": 824,
+   "straight": 654.4
+  },
+  "IL|MA": {
+   "road": 1078,
+   "straight": 913.9
+  },
+  "IL|MD": {
+   "road": 770.2,
+   "straight": 653.2
+  },
+  "IL|ME": {
+   "road": 1294,
+   "straight": 1039.5
+  },
+  "IL|MI": {
+   "road": 384.1,
+   "straight": 307.8
+  },
+  "IL|MN": {
+   "road": 540,
+   "straight": 444.8
+  },
+  "IL|MO": {
+   "road": 265.7,
+   "straight": 219.5
+  },
+  "IL|MS": {
+   "road": 602.8,
+   "straight": 527
+  },
+  "IL|MT": {
+   "road": 1389.7,
+   "straight": 1160.8
+  },
+  "IL|NC": {
+   "road": 754,
+   "straight": 596.3
+  },
+  "IL|ND": {
+   "road": 883.4,
+   "straight": 730
+  },
+  "IL|NE": {
+   "road": 589.2,
+   "straight": 488.6
+  },
+  "IL|NH": {
+   "road": 1101.3,
+   "straight": 919.4
+  },
+  "IL|NJ": {
+   "road": 861.8,
+   "straight": 761.1
+  },
+  "IL|NM": {
+   "road": 1180,
+   "straight": 1016.6
+  },
+  "IL|NV": {
+   "road": 1797.9,
+   "straight": 1500.4
+  },
+  "IL|NY": {
+   "road": 890.1,
+   "straight": 739
+  },
+  "IL|OH": {
+   "road": 387.4,
+   "straight": 327.4
+  },
+  "IL|OK": {
+   "road": 624.8,
+   "straight": 544.1
+  },
+  "IL|OR": {
+   "road": 2060.6,
+   "straight": 1699.5
+  },
+  "IL|PA": {
+   "road": 744.8,
+   "straight": 618.8
+  },
+  "IL|RI": {
+   "road": 1086.4,
+   "straight": 914
+  },
+  "IL|SC": {
+   "road": 804,
+   "straight": 630
+  },
+  "IL|SD": {
+   "road": 770.9,
+   "straight": 599
+  },
+  "IL|TN": {
+   "road": 430,
+   "straight": 341.5
+  },
+  "IL|TX": {
+   "road": 963.5,
+   "straight": 801.6
+  },
+  "IL|UT": {
+   "road": 1423.3,
+   "straight": 1203.1
+  },
+  "IL|VA": {
+   "road": 766.3,
+   "straight": 606.6
+  },
+  "IL|VT": {
+   "road": 1111.1,
+   "straight": 869.7
+  },
+  "IL|WA": {
+   "road": 2025.2,
+   "straight": 1676.8
+  },
+  "IL|WI": {
+   "road": 295.7,
+   "straight": 272.7
+  },
+  "IL|WV": {
+   "road": 551.2,
+   "straight": 447.3
+  },
+  "IL|WY": {
+   "road": 1177.4,
+   "straight": 959.6
+  },
+  "IN|KS": {
+   "road": 628.5,
+   "straight": 567.7
+  },
+  "IN|KY": {
+   "road": 214.4,
+   "straight": 173.3
+  },
+  "IN|LA": {
+   "road": 827.6,
+   "straight": 677.3
+  },
+  "IN|MA": {
+   "road": 931.8,
+   "straight": 783.9
+  },
+  "IN|MD": {
+   "road": 601.9,
+   "straight": 507.1
+  },
+  "IN|ME": {
+   "road": 1147.7,
+   "straight": 923.3
+  },
+  "IN|MI": {
+   "road": 307.5,
+   "straight": 256.2
+  },
+  "IN|MN": {
+   "road": 655.5,
+   "straight": 559.2
+  },
+  "IN|MO": {
+   "road": 380.6,
+   "straight": 337
+  },
+  "IN|MS": {
+   "road": 652.1,
+   "straight": 526.6
+  },
+  "IN|MT": {
+   "road": 1505.2,
+   "straight": 1302.9
+  },
+  "IN|NC": {
+   "road": 601.1,
+   "straight": 457.2
+  },
+  "IN|ND": {
+   "road": 999,
+   "straight": 857.1
+  },
+  "IN|NE": {
+   "road": 744.8,
+   "straight": 636.7
+  },
+  "IN|NH": {
+   "road": 955,
+   "straight": 797.2
+  },
+  "IN|NJ": {
+   "road": 693.4,
+   "straight": 620.9
+  },
+  "IN|NM": {
+   "road": 1267.3,
+   "straight": 1148.4
+  },
+  "IN|NV": {
+   "road": 1953.5,
+   "straight": 1647
+  },
+  "IN|NY": {
+   "road": 743.9,
+   "straight": 610.5
+  },
+  "IN|OH": {
+   "road": 219,
+   "straight": 188.3
+  },
+  "IN|OK": {
+   "road": 712,
+   "straight": 653.5
+  },
+  "IN|OR": {
+   "road": 2216.1,
+   "straight": 1846.3
+  },
+  "IN|PA": {
+   "road": 576.4,
+   "straight": 479.9
+  },
+  "IN|RI": {
+   "road": 918,
+   "straight": 781
+  },
+  "IN|SC": {
+   "road": 651.1,
+   "straight": 507.4
+  },
+  "IN|SD": {
+   "road": 926.5,
+   "straight": 741.5
+  },
+  "IN|TN": {
+   "road": 339.1,
+   "straight": 284.4
+  },
+  "IN|TX": {
+   "road": 1044.3,
+   "straight": 878.5
+  },
+  "IN|UT": {
+   "road": 1578.9,
+   "straight": 1350.6
+  },
+  "IN|VA": {
+   "road": 613.4,
+   "straight": 458.4
+  },
+  "IN|VT": {
+   "road": 906,
+   "straight": 753
+  },
+  "IN|WA": {
+   "road": 2180.7,
+   "straight": 1820.3
+  },
+  "IN|WI": {
+   "road": 411.2,
+   "straight": 350.5
+  },
+  "IN|WV": {
+   "road": 398.3,
+   "straight": 299.1
+  },
+  "IN|WY": {
+   "road": 1333,
+   "straight": 1107.6
+  },
+  "KS|KY": {
+   "road": 743.7,
+   "straight": 657.8
+  },
+  "KS|LA": {
+   "road": 807.8,
+   "straight": 577.9
+  },
+  "KS|MA": {
+   "road": 1553.1,
+   "straight": 1345.5
+  },
+  "KS|MD": {
+   "road": 1223.1,
+   "straight": 1071.4
+  },
+  "KS|ME": {
+   "road": 1769,
+   "straight": 1467.6
+  },
+  "KS|MI": {
+   "road": 895.4,
+   "straight": 716.6
+  },
+  "KS|MN": {
+   "road": 652.5,
+   "straight": 515.9
+  },
+  "KS|MO": {
+   "road": 285.9,
+   "straight": 240
+  },
+  "KS|MS": {
+   "road": 762.8,
+   "straight": 562.1
+  },
+  "KS|MT": {
+   "road": 1228.4,
+   "straight": 904.3
+  },
+  "KS|NC": {
+   "road": 1166,
+   "straight": 952.4
+  },
+  "KS|ND": {
+   "road": 798.7,
+   "straight": 640.7
+  },
+  "KS|NE": {
+   "road": 284.4,
+   "straight": 197.3
+  },
+  "KS|NH": {
+   "road": 1576.3,
+   "straight": 1350
+  },
+  "KS|NJ": {
+   "road": 1314.7,
+   "straight": 1188.5
+  },
+  "KS|NM": {
+   "road": 648,
+   "straight": 585.4
+  },
+  "KS|NV": {
+   "road": 1366.5,
+   "straight": 1098.3
+  },
+  "KS|NY": {
+   "road": 1365.1,
+   "straight": 1170.6
+  },
+  "KS|OH": {
+   "road": 840.3,
+   "straight": 755
+  },
+  "KS|OK": {
+   "road": 262.5,
+   "straight": 204.9
+  },
+  "KS|OR": {
+   "road": 1723.2,
+   "straight": 1369
+  },
+  "KS|PA": {
+   "road": 1197.6,
+   "straight": 1047.2
+  },
+  "KS|RI": {
+   "road": 1539.2,
+   "straight": 1345.3
+  },
+  "KS|SC": {
+   "road": 1156,
+   "straight": 935.8
+  },
+  "KS|SD": {
+   "road": 549,
+   "straight": 422.9
+  },
+  "KS|TN": {
+   "road": 735.9,
+   "straight": 584.7
+  },
+  "KS|TX": {
+   "road": 579.8,
+   "straight": 518.4
+  },
+  "KS|UT": {
+   "road": 1001.5,
+   "straight": 815.6
+  },
+  "KS|VA": {
+   "road": 1178.3,
+   "straight": 1007.9
+  },
+  "KS|VT": {
+   "road": 1527.3,
+   "straight": 1298.5
+  },
+  "KS|WA": {
+   "road": 1777.6,
+   "straight": 1386
+  },
+  "KS|WI": {
+   "road": 714.2,
+   "straight": 541.1
+  },
+  "KS|WV": {
+   "road": 963.2,
+   "straight": 851.7
+  },
+  "KS|WY": {
+   "road": 840,
+   "straight": 626.1
+  },
+  "KY|LA": {
+   "road": 833.3,
+   "straight": 607.8
+  },
+  "KY|MA": {
+   "road": 951.7,
+   "straight": 763
+  },
+  "KY|MD": {
+   "road": 570,
+   "straight": 436.9
+  },
+  "KY|ME": {
+   "road": 1167.6,
+   "straight": 929.2
+  },
+  "KY|MI": {
+   "road": 471.1,
+   "straight": 391
+  },
+  "KY|MN": {
+   "road": 866.2,
+   "straight": 730
+  },
+  "KY|MO": {
+   "road": 496.1,
+   "straight": 417.9
+  },
+  "KY|MS": {
+   "road": 565,
+   "straight": 442.4
+  },
+  "KY|MT": {
+   "road": 1715.9,
+   "straight": 1455.6
+  },
+  "KY|NC": {
+   "road": 423.6,
+   "straight": 304.1
+  },
+  "KY|ND": {
+   "road": 1209.6,
+   "straight": 1023.9
+  },
+  "KY|NE": {
+   "road": 904.6,
+   "straight": 763.4
+  },
+  "KY|NH": {
+   "road": 1049.3,
+   "straight": 794.3
+  },
+  "KY|NJ": {
+   "road": 703.6,
+   "straight": 574.2
+  },
+  "KY|NM": {
+   "road": 1348.8,
+   "straight": 1215.3
+  },
+  "KY|NV": {
+   "road": 2097.8,
+   "straight": 1755
+  },
+  "KY|NY": {
+   "road": 769.7,
+   "straight": 601.1
+  },
+  "KY|OH": {
+   "road": 268.5,
+   "straight": 214
+  },
+  "KY|OK": {
+   "road": 793.5,
+   "straight": 694.6
+  },
+  "KY|OR": {
+   "road": 2360.4,
+   "straight": 1985.7
+  },
+  "KY|PA": {
+   "road": 562.1,
+   "straight": 447.7
+  },
+  "KY|RI": {
+   "road": 946.6,
+   "straight": 751.7
+  },
+  "KY|SC": {
+   "road": 438.7,
+   "straight": 336
+  },
+  "KY|SD": {
+   "road": 1131.4,
+   "straight": 894.3
+  },
+  "KY|TN": {
+   "road": 218.7,
+   "straight": 173.6
+  },
+  "KY|TX": {
+   "road": 1005.3,
+   "straight": 864.5
+  },
+  "KY|UT": {
+   "road": 1723.2,
+   "straight": 1466.2
+  },
+  "KY|VA": {
+   "road": 482.1,
+   "straight": 355.3
+  },
+  "KY|VT": {
+   "road": 955.5,
+   "straight": 763.5
+  },
+  "KY|WA": {
+   "road": 2385.7,
+   "straight": 1969.9
+  },
+  "KY|WI": {
+   "road": 621.9,
+   "straight": 523.7
+  },
+  "KY|WV": {
+   "road": 267.1,
+   "straight": 209.9
+  },
+  "KY|WY": {
+   "road": 1477.3,
+   "straight": 1240.5
+  },
+  "LA|MA": {
+   "road": 1632.3,
+   "straight": 1355.7
+  },
+  "LA|MD": {
+   "road": 1216.7,
+   "straight": 1009.1
+  },
+  "LA|ME": {
+   "road": 1848.2,
+   "straight": 1532.2
+  },
+  "LA|MI": {
+   "road": 1128.9,
+   "straight": 930.8
+  },
+  "LA|MN": {
+   "road": 1229.4,
+   "straight": 1009.5
+  },
+  "LA|MO": {
+   "road": 641,
+   "straight": 504
+  },
+  "LA|MS": {
+   "road": 268.9,
+   "straight": 168.1
+  },
+  "LA|MT": {
+   "road": 1948.3,
+   "straight": 1468.7
+  },
+  "LA|NC": {
+   "road": 924.9,
+   "straight": 760.2
+  },
+  "LA|ND": {
+   "road": 1480.4,
+   "straight": 1205.3
+  },
+  "LA|NE": {
+   "road": 1004.1,
+   "straight": 774.5
+  },
+  "LA|NH": {
+   "road": 1729.9,
+   "straight": 1395.4
+  },
+  "LA|NJ": {
+   "road": 1373.9,
+   "straight": 1156.2
+  },
+  "LA|NM": {
+   "road": 988.9,
+   "straight": 870.1
+  },
+  "LA|NV": {
+   "road": 1811.8,
+   "straight": 1507.1
+  },
+  "LA|NY": {
+   "road": 1450.3,
+   "straight": 1202.9
+  },
+  "LA|OH": {
+   "road": 1064.2,
+   "straight": 815.2
+  },
+  "LA|OK": {
+   "road": 538.6,
+   "straight": 421.2
+  },
+  "LA|OR": {
+   "road": 2443,
+   "straight": 1874.1
+  },
+  "LA|PA": {
+   "road": 1265.3,
+   "straight": 1045
+  },
+  "LA|RI": {
+   "road": 1589,
+   "straight": 1339.4
+  },
+  "LA|SC": {
+   "road": 820.4,
+   "straight": 662.5
+  },
+  "LA|SD": {
+   "road": 1302.2,
+   "straight": 996
+  },
+  "LA|TN": {
+   "road": 625.5,
+   "straight": 434.7
+  },
+  "LA|TX": {
+   "road": 405.1,
+   "straight": 337
+  },
+  "LA|UT": {
+   "road": 1584.3,
+   "straight": 1278.3
+  },
+  "LA|VA": {
+   "road": 1102,
+   "straight": 902.3
+  },
+  "LA|VT": {
+   "road": 1694.1,
+   "straight": 1369.1
+  },
+  "LA|WA": {
+   "road": 2497.4,
+   "straight": 1921.9
+  },
+  "LA|WI": {
+   "road": 1102,
+   "straight": 913.3
+  },
+  "LA|WV": {
+   "road": 1031.5,
+   "straight": 798.3
+  },
+  "LA|WY": {
+   "road": 1559.9,
+   "straight": 1165.6
+  },
+  "MA|MD": {
+   "road": 400.5,
+   "straight": 352.4
+  },
+  "MA|ME": {
+   "road": 226,
+   "straight": 201.4
+  },
+  "MA|MI": {
+   "road": 771.8,
+   "straight": 663.2
+  },
+  "MA|MN": {
+   "road": 1443.9,
+   "straight": 1134
+  },
+  "MA|MO": {
+   "road": 1305.1,
+   "straight": 1120.8
+  },
+  "MA|MS": {
+   "road": 1411.7,
+   "straight": 1187.6
+  },
+  "MA|MT": {
+   "road": 2293.5,
+   "straight": 1922.6
+  },
+  "MA|NC": {
+   "road": 774.6,
+   "straight": 636.4
+  },
+  "MA|ND": {
+   "road": 1787.3,
+   "straight": 1422.2
+  },
+  "MA|NE": {
+   "road": 1551.2,
+   "straight": 1376.3
+  },
+  "MA|NH": {
+   "road": 107.7,
+   "straight": 84.5
+  },
+  "MA|NJ": {
+   "road": 239.6,
+   "straight": 204.8
+  },
+  "MA|NM": {
+   "road": 2191.8,
+   "straight": 1930
+  },
+  "MA|NV": {
+   "road": 2759.9,
+   "straight": 2386.6
+  },
+  "MA|NY": {
+   "road": 242.7,
+   "straight": 175
+  },
+  "MA|OH": {
+   "road": 724.3,
+   "straight": 596.3
+  },
+  "MA|OK": {
+   "road": 1636.5,
+   "straight": 1434.9
+  },
+  "MA|OR": {
+   "road": 3022.5,
+   "straight": 2501.5
+  },
+  "MA|PA": {
+   "road": 403,
+   "straight": 315.3
+  },
+  "MA|RI": {
+   "road": 44.2,
+   "straight": 38
+  },
+  "MA|SC": {
+   "road": 919.5,
+   "straight": 771.8
+  },
+  "MA|SD": {
+   "road": 1710.4,
+   "straight": 1404.6
+  },
+  "MA|TN": {
+   "road": 1120.3,
+   "straight": 927.4
+  },
+  "MA|TX": {
+   "road": 1909.9,
+   "straight": 1627.5
+  },
+  "MA|UT": {
+   "road": 2385.3,
+   "straight": 2082.4
+  },
+  "MA|VA": {
+   "road": 545.3,
+   "straight": 467.2
+  },
+  "MA|VT": {
+   "road": 189,
+   "straight": 138.9
+  },
+  "MA|WA": {
+   "road": 2984.1,
+   "straight": 2431.9
+  },
+  "MA|WI": {
+   "road": 1199.6,
+   "straight": 919.1
+  },
+  "MA|WV": {
+   "road": 707.5,
+   "straight": 558.9
+  },
+  "MA|WY": {
+   "road": 2139.4,
+   "straight": 1809.1
+  },
+  "MD|ME": {
+   "road": 615.3,
+   "straight": 544.6
+  },
+  "MD|MI": {
+   "road": 638.3,
+   "straight": 498.1
+  },
+  "MD|MN": {
+   "road": 1191.3,
+   "straight": 982.8
+  },
+  "MD|MO": {
+   "road": 976.8,
+   "straight": 834.4
+  },
+  "MD|MS": {
+   "road": 996.7,
+   "straight": 841.5
+  },
+  "MD|MT": {
+   "road": 2041,
+   "straight": 1769.6
+  },
+  "MD|NC": {
+   "road": 371.7,
+   "straight": 289
+  },
+  "MD|ND": {
+   "road": 1534.7,
+   "straight": 1288.5
+  },
+  "MD|NE": {
+   "road": 1298.6,
+   "straight": 1140.6
+  },
+  "MD|NH": {
+   "road": 497,
+   "straight": 407.2
+  },
+  "MD|NJ": {
+   "road": 163.4,
+   "straight": 148.3
+  },
+  "MD|NM": {
+   "road": 1892,
+   "straight": 1644.4
+  },
+  "MD|NV": {
+   "road": 2507.3,
+   "straight": 2153.5
+  },
+  "MD|NY": {
+   "road": 310.1,
+   "straight": 235.3
+  },
+  "MD|OH": {
+   "road": 432.5,
+   "straight": 329.7
+  },
+  "MD|OK": {
+   "road": 1345,
+   "straight": 1129.6
+  },
+  "MD|OR": {
+   "road": 2770,
+   "straight": 2331.4
+  },
+  "MD|PA": {
+   "road": 140,
+   "straight": 107.7
+  },
+  "MD|RI": {
+   "road": 378.1,
+   "straight": 331.9
+  },
+  "MD|SC": {
+   "road": 516.6,
+   "straight": 427
+  },
+  "MD|SD": {
+   "road": 1457.8,
+   "straight": 1218.3
+  },
+  "MD|TN": {
+   "road": 705.3,
+   "straight": 588.8
+  },
+  "MD|TX": {
+   "road": 1494.8,
+   "straight": 1294
+  },
+  "MD|UT": {
+   "road": 2132.7,
+   "straight": 1855.7
+  },
+  "MD|VA": {
+   "road": 142.3,
+   "straight": 116.1
+  },
+  "MD|VT": {
+   "road": 500.8,
+   "straight": 403.9
+  },
+  "MD|WA": {
+   "road": 2731.6,
+   "straight": 2288.4
+  },
+  "MD|WI": {
+   "road": 947,
+   "straight": 751.6
+  },
+  "MD|WV": {
+   "road": 329.3,
+   "straight": 227.1
+  },
+  "MD|WY": {
+   "road": 1886.8,
+   "straight": 1604
+  },
+  "ME|MI": {
+   "road": 912.3,
+   "straight": 757.8
+  },
+  "ME|MN": {
+   "road": 1595.6,
+   "straight": 1191.1
+  },
+  "ME|MO": {
+   "road": 1520.8,
+   "straight": 1254.8
+  },
+  "ME|MS": {
+   "road": 1627.5,
+   "straight": 1364.4
+  },
+  "ME|MT": {
+   "road": 2445.3,
+   "straight": 1961.4
+  },
+  "ME|NC": {
+   "road": 990.3,
+   "straight": 832.4
+  },
+  "ME|ND": {
+   "road": 1939.1,
+   "straight": 1459.8
+  },
+  "ME|NE": {
+   "road": 1703,
+   "straight": 1474.5
+  },
+  "ME|NH": {
+   "road": 176.6,
+   "straight": 138.2
+  },
+  "ME|NJ": {
+   "road": 455.4,
+   "straight": 400.8
+  },
+  "ME|NM": {
+   "road": 2407.5,
+   "straight": 2052.5
+  },
+  "ME|NV": {
+   "road": 2911.7,
+   "straight": 2469.8
+  },
+  "ME|NY": {
+   "road": 458.4,
+   "straight": 329.3
+  },
+  "ME|OH": {
+   "road": 940,
+   "straight": 742.2
+  },
+  "ME|OK": {
+   "road": 1852.2,
+   "straight": 1576.2
+  },
+  "ME|OR": {
+   "road": 3174.3,
+   "straight": 2543.9
+  },
+  "ME|PA": {
+   "road": 618.7,
+   "straight": 488.2
+  },
+  "ME|RI": {
+   "road": 266.7,
+   "straight": 234.2
+  },
+  "ME|SC": {
+   "road": 1135.2,
+   "straight": 969.1
+  },
+  "ME|SD": {
+   "road": 1862.1,
+   "straight": 1473.1
+  },
+  "ME|TN": {
+   "road": 1336,
+   "straight": 1099.1
+  },
+  "ME|TX": {
+   "road": 2125.6,
+   "straight": 1789.1
+  },
+  "ME|UT": {
+   "road": 2537.1,
+   "straight": 2164.4
+  },
+  "ME|VA": {
+   "road": 761,
+   "straight": 660.6
+  },
+  "ME|VT": {
+   "road": 299.4,
+   "straight": 170.4
+  },
+  "ME|WA": {
+   "road": 3135.9,
+   "straight": 2458.8
+  },
+  "ME|WI": {
+   "road": 1351.3,
+   "straight": 995.4
+  },
+  "ME|WV": {
+   "road": 923.3,
+   "straight": 734.5
+  },
+  "ME|WY": {
+   "road": 2291.2,
+   "straight": 1881
+  },
+  "MI|MN": {
+   "road": 749.1,
+   "straight": 489.2
+  },
+  "MI|MO": {
+   "road": 640.9,
+   "straight": 526.1
+  },
+  "MI|MS": {
+   "road": 953.8,
+   "straight": 782.7
+  },
+  "MI|MT": {
+   "road": 1598.8,
+   "straight": 1281.5
+  },
+  "MI|NC": {
+   "road": 730.8,
+   "straight": 588.3
+  },
+  "MI|ND": {
+   "road": 1092.5,
+   "straight": 792.7
+  },
+  "MI|NE": {
+   "road": 856.4,
+   "straight": 718
+  },
+  "MI|NH": {
+   "road": 795.3,
+   "straight": 650.7
+  },
+  "MI|NJ": {
+   "road": 729.3,
+   "straight": 556.1
+  },
+  "MI|NM": {
+   "road": 1568.9,
+   "straight": 1298.4
+  },
+  "MI|NV": {
+   "road": 2065.1,
+   "straight": 1723.8
+  },
+  "MI|NY": {
+   "road": 610.6,
+   "straight": 492.8
+  },
+  "MI|OH": {
+   "road": 281.6,
+   "straight": 222.5
+  },
+  "MI|OK": {
+   "road": 1013.7,
+   "straight": 849.7
+  },
+  "MI|OR": {
+   "road": 2327.7,
+   "straight": 1852.6
+  },
+  "MI|PA": {
+   "road": 555.7,
+   "straight": 421
+  },
+  "MI|RI": {
+   "road": 800.7,
+   "straight": 672.4
+  },
+  "MI|SC": {
+   "road": 838.9,
+   "straight": 682.2
+  },
+  "MI|SD": {
+   "road": 1015.6,
+   "straight": 745
+  },
+  "MI|TN": {
+   "road": 622.2,
+   "straight": 536
+  },
+  "MI|TX": {
+   "road": 1345.9,
+   "straight": 1107.7
+  },
+  "MI|UT": {
+   "road": 1690.5,
+   "straight": 1419.3
+  },
+  "MI|VA": {
+   "road": 720.7,
+   "straight": 508.7
+  },
+  "MI|VT": {
+   "road": 793.6,
+   "straight": 592.4
+  },
+  "MI|WA": {
+   "road": 2289.4,
+   "straight": 1798.5
+  },
+  "MI|WI": {
+   "road": 504.8,
+   "straight": 261.5
+  },
+  "MI|WV": {
+   "road": 524.1,
+   "straight": 382.8
+  },
+  "MI|WY": {
+   "road": 1444.6,
+   "straight": 1146.8
+  },
+  "MN|MO": {
+   "road": 591.2,
+   "straight": 506.9
+  },
+  "MN|MS": {
+   "road": 1083.2,
+   "straight": 922.7
+  },
+  "MN|MT": {
+   "road": 877.2,
+   "straight": 793.1
+  },
+  "MN|NC": {
+   "road": 1234.9,
+   "straight": 1011.7
+  },
+  "MN|ND": {
+   "road": 371,
+   "straight": 306.6
+  },
+  "MN|NE": {
+   "road": 477.8,
+   "straight": 384.2
+  },
+  "MN|NH": {
+   "road": 1459.1,
+   "straight": 1106.5
+  },
+  "MN|NJ": {
+   "road": 1274.9,
+   "straight": 1044.6
+  },
+  "MN|NM": {
+   "road": 1276.5,
+   "straight": 990.7
+  },
+  "MN|NV": {
+   "road": 1655.4,
+   "straight": 1287.7
+  },
+  "MN|NY": {
+   "road": 1248,
+   "straight": 971.5
+  },
+  "MN|OH": {
+   "road": 830.9,
+   "straight": 670.3
+  },
+  "MN|OK": {
+   "road": 844.5,
+   "straight": 717.5
+  },
+  "MN|OR": {
+   "road": 1765,
+   "straight": 1368.2
+  },
+  "MN|PA": {
+   "road": 1101.2,
+   "straight": 910.1
+  },
+  "MN|RI": {
+   "road": 1442.8,
+   "straight": 1148.3
+  },
+  "MN|SC": {
+   "road": 1303.2,
+   "straight": 1065.9
+  },
+  "MN|SD": {
+   "road": 366.9,
+   "straight": 287.2
+  },
+  "MN|TN": {
+   "road": 990.6,
+   "straight": 783.3
+  },
+  "MN|TX": {
+   "road": 1186.4,
+   "straight": 1030.5
+  },
+  "MN|UT": {
+   "road": 1280.8,
+   "straight": 983.5
+  },
+  "MN|VA": {
+   "road": 1247.2,
+   "straight": 975.9
+  },
+  "MN|VT": {
+   "road": 1477.6,
+   "straight": 1040.7
+  },
+  "MN|WA": {
+   "road": 1567.8,
+   "straight": 1309.4
+  },
+  "MN|WI": {
+   "road": 309.2,
+   "straight": 231.3
+  },
+  "MN|WV": {
+   "road": 1032.1,
+   "straight": 827.9
+  },
+  "MN|WY": {
+   "road": 902.1,
+   "straight": 693
+  },
+  "MO|MS": {
+   "road": 527.8,
+   "straight": 421.1
+  },
+  "MO|MT": {
+   "road": 1359.8,
+   "straight": 1088.4
+  },
+  "MO|NC": {
+   "road": 918.4,
+   "straight": 714.9
+  },
+  "MO|ND": {
+   "road": 917.2,
+   "straight": 731.6
+  },
+  "MO|NE": {
+   "road": 472.8,
+   "straight": 367
+  },
+  "MO|NH": {
+   "road": 1328.7,
+   "straight": 1131.7
+  },
+  "MO|NJ": {
+   "road": 1067.1,
+   "straight": 955.8
+  },
+  "MO|NM": {
+   "road": 933.7,
+   "straight": 812.2
+  },
+  "MO|NV": {
+   "road": 1666,
+   "straight": 1337.3
+  },
+  "MO|NY": {
+   "road": 1117.5,
+   "straight": 947
+  },
+  "MO|OH": {
+   "road": 592.7,
+   "straight": 525.3
+  },
+  "MO|OK": {
+   "road": 378.4,
+   "straight": 324.6
+  },
+  "MO|OR": {
+   "road": 1928.6,
+   "straight": 1587.9
+  },
+  "MO|PA": {
+   "road": 950,
+   "straight": 816
+  },
+  "MO|RI": {
+   "road": 1291.6,
+   "straight": 1118
+  },
+  "MO|SC": {
+   "road": 908.4,
+   "straight": 707.4
+  },
+  "MO|SD": {
+   "road": 708.2,
+   "straight": 547.7
+  },
+  "MO|TN": {
+   "road": 488.3,
+   "straight": 360.6
+  },
+  "MO|TX": {
+   "road": 740.3,
+   "straight": 592.3
+  },
+  "MO|UT": {
+   "road": 1291.4,
+   "straight": 1050.9
+  },
+  "MO|VA": {
+   "road": 930.7,
+   "straight": 768.2
+  },
+  "MO|VT": {
+   "road": 1279.7,
+   "straight": 1084.6
+  },
+  "MO|WA": {
+   "road": 1983,
+   "straight": 1589.5
+  },
+  "MO|WI": {
+   "road": 551.3,
+   "straight": 424.8
+  },
+  "MO|WV": {
+   "road": 715.6,
+   "straight": 612.7
+  },
+  "MO|WY": {
+   "road": 1045.5,
+   "straight": 840.3
+  },
+  "MS|MT": {
+   "road": 1947.3,
+   "straight": 1466.4
+  },
+  "MS|NC": {
+   "road": 706.9,
+   "straight": 598.2
+  },
+  "MS|ND": {
+   "road": 1387.2,
+   "straight": 1150.5
+  },
+  "MS|NE": {
+   "road": 1003.1,
+   "straight": 747.9
+  },
+  "MS|NH": {
+   "road": 1511.9,
+   "straight": 1227.5
+  },
+  "MS|NJ": {
+   "road": 1155.9,
+   "straight": 988.4
+  },
+  "MS|NM": {
+   "road": 1085,
+   "straight": 961.3
+  },
+  "MS|NV": {
+   "road": 1907.9,
+   "straight": 1580.5
+  },
+  "MS|NY": {
+   "road": 1232.3,
+   "straight": 1035.1
+  },
+  "MS|OH": {
+   "road": 796.9,
+   "straight": 652.5
+  },
+  "MS|OK": {
+   "road": 583.4,
+   "straight": 458
+  },
+  "MS|OR": {
+   "road": 2442,
+   "straight": 1912.8
+  },
+  "MS|PA": {
+   "road": 1047.3,
+   "straight": 876.9
+  },
+  "MS|RI": {
+   "road": 1371,
+   "straight": 1171.4
+  },
+  "MS|SC": {
+   "road": 602.4,
+   "straight": 510.1
+  },
+  "MS|SD": {
+   "road": 1178.3,
+   "straight": 955.6
+  },
+  "MS|TN": {
+   "road": 366.3,
+   "straight": 268.7
+  },
+  "MS|TX": {
+   "road": 551.2,
+   "straight": 476.8
+  },
+  "MS|UT": {
+   "road": 1720.4,
+   "straight": 1330.4
+  },
+  "MS|VA": {
+   "road": 884,
+   "straight": 735.6
+  },
+  "MS|VT": {
+   "road": 1476.1,
+   "straight": 1201.7
+  },
+  "MS|WA": {
+   "road": 2496.5,
+   "straight": 1943.2
+  },
+  "MS|WI": {
+   "road": 914.7,
+   "straight": 796.4
+  },
+  "MS|WV": {
+   "road": 813.5,
+   "straight": 630.3
+  },
+  "MS|WY": {
+   "road": 1558.9,
+   "straight": 1181.7
+  },
+  "MT|NC": {
+   "road": 2084.8,
+   "straight": 1757.2
+  },
+  "MT|ND": {
+   "road": 593.2,
+   "straight": 502
+  },
+  "MT|NE": {
+   "road": 901.9,
+   "straight": 724.6
+  },
+  "MT|NH": {
+   "road": 2309.1,
+   "straight": 1889.3
+  },
+  "MT|NJ": {
+   "road": 2124.8,
+   "straight": 1837.5
+  },
+  "MT|NM": {
+   "road": 1170.7,
+   "straight": 862.8
+  },
+  "MT|NV": {
+   "road": 1034,
+   "straight": 682.4
+  },
+  "MT|NY": {
+   "road": 2097.9,
+   "straight": 1763.4
+  },
+  "MT|OH": {
+   "road": 1680.9,
+   "straight": 1447.1
+  },
+  "MT|OK": {
+   "road": 1402.7,
+   "straight": 1050.3
+  },
+  "MT|OR": {
+   "road": 890.7,
+   "straight": 582.5
+  },
+  "MT|PA": {
+   "road": 1951.2,
+   "straight": 1701.8
+  },
+  "MT|RI": {
+   "road": 2292.8,
+   "straight": 1938.7
+  },
+  "MT|SC": {
+   "road": 2153.2,
+   "straight": 1780.6
+  },
+  "MT|SD": {
+   "road": 711.2,
+   "straight": 561.8
+  },
+  "MT|TN": {
+   "road": 1784,
+   "straight": 1445.7
+  },
+  "MT|TX": {
+   "road": 1625.6,
+   "straight": 1292.8
+  },
+  "MT|UT": {
+   "road": 733.2,
+   "straight": 473.2
+  },
+  "MT|VA": {
+   "road": 2097.1,
+   "straight": 1750.6
+  },
+  "MT|VT": {
+   "road": 2327.5,
+   "straight": 1821.3
+  },
+  "MT|WA": {
+   "road": 693.4,
+   "straight": 519.1
+  },
+  "MT|WI": {
+   "road": 1159.1,
+   "straight": 1020.8
+  },
+  "MT|WV": {
+   "road": 1882,
+   "straight": 1595.4
+  },
+  "MT|WY": {
+   "road": 517.2,
+   "straight": 326.6
+  },
+  "NC|ND": {
+   "road": 1578.3,
+   "straight": 1313.1
+  },
+  "NC|NE": {
+   "road": 1326.5,
+   "straight": 1067
+  },
+  "NC|NH": {
+   "road": 871.8,
+   "straight": 695.7
+  },
+  "NC|NJ": {
+   "road": 538.3,
+   "straight": 432.2
+  },
+  "NC|NM": {
+   "road": 1701.5,
+   "straight": 1488.8
+  },
+  "NC|NV": {
+   "road": 2524.4,
+   "straight": 2050.6
+  },
+  "NC|NY": {
+   "road": 634.6,
+   "straight": 521.5
+  },
+  "NC|OH": {
+   "road": 465,
+   "straight": 366.1
+  },
+  "NC|OK": {
+   "road": 1154.5,
+   "straight": 960.8
+  },
+  "NC|OR": {
+   "road": 2782.3,
+   "straight": 2289.8
+  },
+  "NC|PA": {
+   "road": 449.5,
+   "straight": 370.6
+  },
+  "NC|RI": {
+   "road": 753,
+   "straight": 611.9
+  },
+  "NC|SC": {
+   "road": 173.4,
+   "straight": 138.5
+  },
+  "NC|SD": {
+   "road": 1518.2,
+   "straight": 1195.4
+  },
+  "NC|TN": {
+   "road": 514.8,
+   "straight": 386.4
+  },
+  "NC|TX": {
+   "road": 1207.1,
+   "straight": 1070.8
+  },
+  "NC|UT": {
+   "road": 2145,
+   "straight": 1765.7
+  },
+  "NC|VA": {
+   "road": 221,
+   "straight": 173.4
+  },
+  "NC|VT": {
+   "road": 875.7,
+   "straight": 692.1
+  },
+  "NC|WA": {
+   "road": 2772.5,
+   "straight": 2272.7
+  },
+  "NC|WI": {
+   "road": 990.6,
+   "straight": 790.2
+  },
+  "NC|WV": {
+   "road": 279.8,
+   "straight": 207.6
+  },
+  "NC|WY": {
+   "road": 1899.1,
+   "straight": 1544.4
+  },
+  "ND|NE": {
+   "road": 524.5,
+   "straight": 448.7
+  },
+  "ND|NH": {
+   "road": 1802.9,
+   "straight": 1387.5
+  },
+  "ND|NJ": {
+   "road": 1618.6,
+   "straight": 1345.5
+  },
+  "ND|NM": {
+   "road": 1260.6,
+   "straight": 938.1
+  },
+  "ND|NV": {
+   "road": 1430.3,
+   "straight": 1077.2
+  },
+  "ND|NY": {
+   "road": 1591.7,
+   "straight": 1265.5
+  },
+  "ND|OH": {
+   "road": 1174.7,
+   "straight": 976.6
+  },
+  "ND|OK": {
+   "road": 980.5,
+   "straight": 839.5
+  },
+  "ND|OR": {
+   "road": 1480.8,
+   "straight": 1084.1
+  },
+  "ND|PA": {
+   "road": 1445,
+   "straight": 1213.4
+  },
+  "ND|RI": {
+   "road": 1786.6,
+   "straight": 1439.2
+  },
+  "ND|SC": {
+   "road": 1646.9,
+   "straight": 1359.3
+  },
+  "ND|SD": {
+   "road": 288.7,
+   "straight": 223.7
+  },
+  "ND|TN": {
+   "road": 1334.3,
+   "straight": 1055.1
+  },
+  "ND|TX": {
+   "road": 1297.8,
+   "straight": 1144.3
+  },
+  "ND|UT": {
+   "road": 1129.4,
+   "straight": 787.2
+  },
+  "ND|VA": {
+   "road": 1590.9,
+   "straight": 1282.3
+  },
+  "ND|VT": {
+   "road": 1821.3,
+   "straight": 1319.4
+  },
+  "ND|WA": {
+   "road": 1283.5,
+   "straight": 1010.6
+  },
+  "ND|WI": {
+   "road": 652.9,
+   "straight": 537.7
+  },
+  "ND|WV": {
+   "road": 1375.8,
+   "straight": 1133.3
+  },
+  "ND|WY": {
+   "road": 693.4,
+   "straight": 492.5
+  },
+  "NE|NH": {
+   "road": 1566.9,
+   "straight": 1368.4
+  },
+  "NE|NJ": {
+   "road": 1382.6,
+   "straight": 1241.2
+  },
+  "NE|NM": {
+   "road": 863,
+   "straight": 613.8
+  },
+  "NE|NV": {
+   "road": 1238.6,
+   "straight": 1015.1
+  },
+  "NE|NY": {
+   "road": 1355.7,
+   "straight": 1202.4
+  },
+  "NE|OH": {
+   "road": 961.7,
+   "straight": 811.9
+  },
+  "NE|OK": {
+   "road": 458.9,
+   "straight": 390.9
+  },
+  "NE|OR": {
+   "road": 1501.2,
+   "straight": 1224.4
+  },
+  "NE|PA": {
+   "road": 1209,
+   "straight": 1098.4
+  },
+  "NE|RI": {
+   "road": 1550.6,
+   "straight": 1381.6
+  },
+  "NE|SC": {
+   "road": 1317.3,
+   "straight": 1071.5
+  },
+  "NE|SD": {
+   "road": 274.2,
+   "straight": 227.2
+  },
+  "NE|TN": {
+   "road": 897.2,
+   "straight": 727.5
+  },
+  "NE|TX": {
+   "road": 776.2,
+   "straight": 696.9
+  },
+  "NE|UT": {
+   "road": 863.9,
+   "straight": 715.2
+  },
+  "NE|VA": {
+   "road": 1339.6,
+   "straight": 1094.5
+  },
+  "NE|VT": {
+   "road": 1576.8,
+   "straight": 1310.3
+  },
+  "NE|WA": {
+   "road": 1555.6,
+   "straight": 1222.5
+  },
+  "NE|WI": {
+   "road": 613,
+   "straight": 489.7
+  },
+  "NE|WV": {
+   "road": 1124.5,
+   "straight": 935.1
+  },
+  "NE|WY": {
+   "road": 618.1,
+   "straight": 477.5
+  },
+  "NH|NJ": {
+   "road": 337.3,
+   "straight": 265.7
+  },
+  "NH|NM": {
+   "road": 2289.4,
+   "straight": 1935.5
+  },
+  "NH|NV": {
+   "road": 2857.5,
+   "straight": 2372.8
+  },
+  "NH|NY": {
+   "road": 340.3,
+   "straight": 193.2
+  },
+  "NH|OH": {
+   "road": 821.9,
+   "straight": 612.9
+  },
+  "NH|OK": {
+   "road": 1734.1,
+   "straight": 1450.6
+  },
+  "NH|OR": {
+   "road": 3120.2,
+   "straight": 2470.2
+  },
+  "NH|PA": {
+   "road": 500.6,
+   "straight": 350.7
+  },
+  "NH|RI": {
+   "road": 148.6,
+   "straight": 122.4
+  },
+  "NH|SC": {
+   "road": 1017.1,
+   "straight": 832.9
+  },
+  "NH|SD": {
+   "road": 1808,
+   "straight": 1382.9
+  },
+  "NH|TN": {
+   "road": 1217.9,
+   "straight": 963.1
+  },
+  "NH|TX": {
+   "road": 2007.5,
+   "straight": 1656.3
+  },
+  "NH|UT": {
+   "road": 2482.9,
+   "straight": 2067.8
+  },
+  "NH|VA": {
+   "road": 642.9,
+   "straight": 523.3
+  },
+  "NH|VT": {
+   "road": 96.7,
+   "straight": 70.4
+  },
+  "NH|WA": {
+   "road": 3081.8,
+   "straight": 2394.5
+  },
+  "NH|WI": {
+   "road": 1297.2,
+   "straight": 899.3
+  },
+  "NH|WV": {
+   "road": 805.2,
+   "straight": 597.3
+  },
+  "NH|WY": {
+   "road": 2237,
+   "straight": 1789.6
+  },
+  "NJ|NM": {
+   "road": 1954.9,
+   "straight": 1768
+  },
+  "NJ|NV": {
+   "road": 2599.4,
+   "straight": 2256.2
+  },
+  "NJ|NY": {
+   "road": 183.5,
+   "straight": 130.9
+  },
+  "NJ|OH": {
+   "road": 543.2,
+   "straight": 434
+  },
+  "NJ|OK": {
+   "road": 1399.6,
+   "straight": 1260.4
+  },
+  "NJ|OR": {
+   "road": 2862,
+   "straight": 2408.1
+  },
+  "NJ|PA": {
+   "road": 181.8,
+   "straight": 142.8
+  },
+  "NJ|RI": {
+   "road": 218.1,
+   "straight": 183.7
+  },
+  "NJ|SC": {
+   "road": 683.6,
+   "straight": 568.4
+  },
+  "NJ|SD": {
+   "road": 1549.9,
+   "straight": 1297.7
+  },
+  "NJ|TN": {
+   "road": 876.3,
+   "straight": 732.4
+  },
+  "NJ|TX": {
+   "road": 1665.9,
+   "straight": 1436.5
+  },
+  "NJ|UT": {
+   "road": 2224.8,
+   "straight": 1955.1
+  },
+  "NJ|VA": {
+   "road": 309.4,
+   "straight": 262.4
+  },
+  "NJ|VT": {
+   "road": 340.7,
+   "straight": 275
+  },
+  "NJ|WA": {
+   "road": 2823.6,
+   "straight": 2353.9
+  },
+  "NJ|WI": {
+   "road": 1039.1,
+   "straight": 817.5
+  },
+  "NJ|WV": {
+   "road": 460.3,
+   "straight": 365.4
+  },
+  "NJ|WY": {
+   "road": 1978.9,
+   "straight": 1693.4
+  },
+  "NM|NV": {
+   "road": 847.8,
+   "straight": 645.3
+  },
+  "NM|NY": {
+   "road": 2009,
+   "straight": 1755.3
+  },
+  "NM|OH": {
+   "road": 1484.1,
+   "straight": 1336.6
+  },
+  "NM|OK": {
+   "road": 573.6,
+   "straight": 528.3
+  },
+  "NM|OR": {
+   "road": 1382.3,
+   "straight": 1073.5
+  },
+  "NM|PA": {
+   "road": 1841.5,
+   "straight": 1628.1
+  },
+  "NM|RI": {
+   "road": 2183.1,
+   "straight": 1928.8
+  },
+  "NM|SC": {
+   "road": 1598.4,
+   "straight": 1441.2
+  },
+  "NM|SD": {
+   "road": 1004.7,
+   "straight": 746.8
+  },
+  "NM|TN": {
+   "road": 1213,
+   "straight": 1102.8
+  },
+  "NM|TX": {
+   "road": 653.1,
+   "straight": 567.1
+  },
+  "NM|UT": {
+   "road": 620.3,
+   "straight": 478.6
+  },
+  "NM|VA": {
+   "road": 1776.9,
+   "straight": 1570.5
+  },
+  "NM|VT": {
+   "road": 2171.1,
+   "straight": 1883.7
+  },
+  "NM|WA": {
+   "road": 1436.8,
+   "straight": 1171.6
+  },
+  "NM|WI": {
+   "road": 1339.2,
+   "straight": 1096.2
+  },
+  "NM|WV": {
+   "road": 1597.6,
+   "straight": 1419.7
+  },
+  "NM|WY": {
+   "road": 789.1,
+   "straight": 549.8
+  },
+  "NV|NY": {
+   "road": 2573.2,
+   "straight": 2214.1
+  },
+  "NV|OH": {
+   "road": 2179.2,
+   "straight": 1826.2
+  },
+  "NV|OK": {
+   "road": 1396.6,
+   "straight": 1125.2
+  },
+  "NV|OR": {
+   "road": 661.6,
+   "straight": 504.2
+  },
+  "NV|PA": {
+   "road": 2426.4,
+   "straight": 2113.5
+  },
+  "NV|RI": {
+   "road": 2768,
+   "straight": 2393.8
+  },
+  "NV|SC": {
+   "road": 2421.4,
+   "straight": 2026.6
+  },
+  "NV|SD": {
+   "road": 1306,
+   "straight": 1000.8
+  },
+  "NV|TN": {
+   "road": 2036,
+   "straight": 1676.6
+  },
+  "NV|TX": {
+   "road": 1476.1,
+   "straight": 1212.5
+  },
+  "NV|UT": {
+   "road": 420.1,
+   "straight": 305.5
+  },
+  "NV|VA": {
+   "road": 2532.8,
+   "straight": 2100.5
+  },
+  "NV|VT": {
+   "road": 2794.2,
+   "straight": 2311.3
+  },
+  "NV|WA": {
+   "road": 889.4,
+   "straight": 666.6
+  },
+  "NV|WI": {
+   "road": 1857.3,
+   "straight": 1474.9
+  },
+  "NV|WV": {
+   "road": 2317.7,
+   "straight": 1942
+  },
+  "NV|WY": {
+   "road": 800.6,
+   "straight": 596.5
+  },
+  "NY|OH": {
+   "road": 537,
+   "straight": 423.9
+  },
+  "NY|OK": {
+   "road": 1449.3,
+   "straight": 1262.9
+  },
+  "NY|OR": {
+   "road": 2835.3,
+   "straight": 2339.7
+  },
+  "NY|PA": {
+   "road": 221.6,
+   "straight": 160
+  },
+  "NY|RI": {
+   "road": 271.1,
+   "straight": 179.8
+  },
+  "NY|SC": {
+   "road": 790.8,
+   "straight": 660
+  },
+  "NY|SD": {
+   "road": 1523.1,
+   "straight": 1237
+  },
+  "NY|TN": {
+   "road": 938.9,
+   "straight": 770.1
+  },
+  "NY|TX": {
+   "road": 1728.5,
+   "straight": 1463.6
+  },
+  "NY|UT": {
+   "road": 2198.1,
+   "straight": 1910.4
+  },
+  "NY|VA": {
+   "road": 477.9,
+   "straight": 348.3
+  },
+  "NY|VT": {
+   "road": 232.8,
+   "straight": 172.1
+  },
+  "NY|WA": {
+   "road": 2796.9,
+   "straight": 2276.2
+  },
+  "NY|WI": {
+   "road": 1012.3,
+   "straight": 751.7
+  },
+  "NY|WV": {
+   "road": 526.1,
+   "straight": 405.5
+  },
+  "NY|WY": {
+   "road": 1952.2,
+   "straight": 1639.5
+  },
+  "OH|OK": {
+   "road": 922,
+   "straight": 839.1
+  },
+  "OH|OR": {
+   "road": 2386.3,
+   "straight": 2004
+  },
+  "OH|PA": {
+   "road": 364.7,
+   "straight": 292.2
+  },
+  "OH|RI": {
+   "road": 706.3,
+   "straight": 592.8
+  },
+  "OH|SC": {
+   "road": 573.6,
+   "straight": 462.3
+  },
+  "OH|SD": {
+   "road": 1074.2,
+   "straight": 891.5
+  },
+  "OH|TN": {
+   "road": 457.7,
+   "straight": 385.2
+  },
+  "OH|TX": {
+   "road": 1229.7,
+   "straight": 1048.7
+  },
+  "OH|UT": {
+   "road": 1749.1,
+   "straight": 1527.1
+  },
+  "OH|VA": {
+   "road": 477.8,
+   "straight": 305.7
+  },
+  "OH|VT": {
+   "road": 694.4,
+   "straight": 572.6
+  },
+  "OH|WA": {
+   "road": 2347.9,
+   "straight": 1966.2
+  },
+  "OH|WI": {
+   "road": 563.4,
+   "straight": 440.6
+  },
+  "OH|WV": {
+   "road": 258.7,
+   "straight": 162.8
+  },
+  "OH|WY": {
+   "road": 1503.2,
+   "straight": 1274.3
+  },
+  "OK|OR": {
+   "road": 1897.6,
+   "straight": 1459.9
+  },
+  "OK|PA": {
+   "road": 1286.3,
+   "straight": 1124.4
+  },
+  "OK|RI": {
+   "road": 1627.9,
+   "straight": 1429.6
+  },
+  "OK|SC": {
+   "road": 1051.9,
+   "straight": 914.4
+  },
+  "OK|SD": {
+   "road": 756.9,
+   "straight": 617.9
+  },
+  "OK|TN": {
+   "road": 666.5,
+   "straight": 574.6
+  },
+  "OK|TX": {
+   "road": 349.5,
+   "straight": 313.8
+  },
+  "OK|UT": {
+   "road": 1176,
+   "straight": 872.7
+  },
+  "OK|VA": {
+   "road": 1230.4,
+   "straight": 1048.9
+  },
+  "OK|VT": {
+   "road": 1616,
+   "straight": 1405.8
+  },
+  "OK|WA": {
+   "road": 1952.1,
+   "straight": 1501.6
+  },
+  "OK|WI": {
+   "road": 917.3,
+   "straight": 714.7
+  },
+  "OK|WV": {
+   "road": 1042.4,
+   "straight": 902.8
+  },
+  "OK|WY": {
+   "road": 1014.5,
+   "straight": 744.4
+  },
+  "OR|PA": {
+   "road": 2715.2,
+   "straight": 2269.9
+  },
+  "OR|RI": {
+   "road": 3056.8,
+   "straight": 2516.4
+  },
+  "OR|SC": {
+   "road": 2799.3,
+   "straight": 2295.1
+  },
+  "OR|SD": {
+   "road": 1510.5,
+   "straight": 1113.1
+  },
+  "OR|TN": {
+   "road": 2379.2,
+   "straight": 1947.6
+  },
+  "OR|TX": {
+   "road": 2146.4,
+   "straight": 1621.1
+  },
+  "OR|UT": {
+   "road": 815.9,
+   "straight": 603.5
+  },
+  "OR|VA": {
+   "road": 2821.6,
+   "straight": 2302.4
+  },
+  "OR|VT": {
+   "road": 3083,
+   "straight": 2402.6
+  },
+  "OR|WA": {
+   "road": 328.8,
+   "straight": 197.4
+  },
+  "OR|WI": {
+   "road": 2046.3,
+   "straight": 1591.1
+  },
+  "OR|WV": {
+   "road": 2606.5,
+   "straight": 2144.2
+  },
+  "OR|WY": {
+   "road": 1089.4,
+   "straight": 747.7
+  },
+  "PA|RI": {
+   "road": 398.2,
+   "straight": 305.9
+  },
+  "PA|SC": {
+   "road": 605.4,
+   "straight": 508.5
+  },
+  "PA|SD": {
+   "road": 1376.9,
+   "straight": 1158.1
+  },
+  "PA|TN": {
+   "road": 753.5,
+   "straight": 613.7
+  },
+  "PA|TX": {
+   "road": 1543.1,
+   "straight": 1312.2
+  },
+  "PA|UT": {
+   "road": 2051.8,
+   "straight": 1812.5
+  },
+  "PA|VA": {
+   "road": 292.5,
+   "straight": 201.6
+  },
+  "PA|VT": {
+   "road": 465.1,
+   "straight": 331.3
+  },
+  "PA|WA": {
+   "road": 2650.7,
+   "straight": 2219.3
+  },
+  "PA|WI": {
+   "road": 866.1,
+   "straight": 681
+  },
+  "PA|WV": {
+   "road": 318.4,
+   "straight": 246.6
+  },
+  "PA|WY": {
+   "road": 1805.9,
+   "straight": 1552
+  },
+  "RI|SC": {
+   "road": 899.6,
+   "straight": 745.9
+  },
+  "RI|SD": {
+   "road": 1716.8,
+   "straight": 1416
+  },
+  "RI|TN": {
+   "road": 1077.3,
+   "straight": 913.5
+  },
+  "RI|TX": {
+   "road": 1866.9,
+   "straight": 1615.9
+  },
+  "RI|UT": {
+   "road": 2391.7,
+   "straight": 2090.1
+  },
+  "RI|VA": {
+   "road": 525.3,
+   "straight": 445
+  },
+  "RI|VT": {
+   "road": 212.3,
+   "straight": 174.3
+  },
+  "RI|WA": {
+   "road": 2990.6,
+   "straight": 2449.6
+  },
+  "RI|WI": {
+   "road": 1206,
+   "straight": 930.5
+  },
+  "RI|WV": {
+   "road": 667.1,
+   "straight": 545.2
+  },
+  "RI|WY": {
+   "road": 2145.8,
+   "straight": 1819.1
+  },
+  "SC|SD": {
+   "road": 1554,
+   "straight": 1221.9
+  },
+  "SC|TN": {
+   "road": 468.5,
+   "straight": 351.2
+  },
+  "SC|TX": {
+   "road": 1103.7,
+   "straight": 986.9
+  },
+  "SC|UT": {
+   "road": 2137.1,
+   "straight": 1750.8
+  },
+  "SC|VA": {
+   "road": 383.4,
+   "straight": 311.8
+  },
+  "SC|VT": {
+   "road": 1019.6,
+   "straight": 830.5
+  },
+  "SC|WA": {
+   "road": 2828.8,
+   "straight": 2290.6
+  },
+  "SC|WI": {
+   "road": 1058.4,
+   "straight": 855.6
+  },
+  "SC|WV": {
+   "road": 388.6,
+   "straight": 320.2
+  },
+  "SC|WY": {
+   "road": 1891.2,
+   "straight": 1547.4
+  },
+  "SD|TN": {
+   "road": 1131.7,
+   "straight": 894.7
+  },
+  "SD|TX": {
+   "road": 1032.8,
+   "straight": 920.8
+  },
+  "SD|UT": {
+   "road": 931.1,
+   "straight": 696.4
+  },
+  "SD|VA": {
+   "road": 1530.6,
+   "straight": 1192.4
+  },
+  "SD|VT": {
+   "road": 1743.1,
+   "straight": 1318.8
+  },
+  "SD|WA": {
+   "road": 1313.5,
+   "straight": 1078.8
+  },
+  "SD|WI": {
+   "road": 569,
+   "straight": 485.6
+  },
+  "SD|WV": {
+   "road": 1315.5,
+   "straight": 1035.8
+  },
+  "SD|WY": {
+   "road": 552.4,
+   "straight": 407.9
+  },
+  "TN|TX": {
+   "road": 816.7,
+   "straight": 705.3
+  },
+  "TN|UT": {
+   "road": 1714.7,
+   "straight": 1399.6
+  },
+  "TN|VA": {
+   "road": 590.1,
+   "straight": 491.8
+  },
+  "TN|VT": {
+   "road": 1154.2,
+   "straight": 934.8
+  },
+  "TN|WA": {
+   "road": 2406.4,
+   "straight": 1949.7
+  },
+  "TN|WI": {
+   "road": 745.6,
+   "straight": 608.6
+  },
+  "TN|WV": {
+   "road": 486.6,
+   "straight": 368.5
+  },
+  "TN|WY": {
+   "road": 1468.8,
+   "straight": 1200.3
+  },
+  "TX|UT": {
+   "road": 1249.1,
+   "straight": 1017.7
+  },
+  "TX|VA": {
+   "road": 1379.5,
+   "straight": 1195.9
+  },
+  "TX|VT": {
+   "road": 1923.6,
+   "straight": 1620.5
+  },
+  "TX|WA": {
+   "road": 2175.7,
+   "straight": 1694.8
+  },
+  "TX|WI": {
+   "road": 1248.5,
+   "straight": 1010
+  },
+  "TX|WV": {
+   "road": 1256,
+   "straight": 1071.2
+  },
+  "TX|WY": {
+   "road": 1238.2,
+   "straight": 969.6
+  },
+  "UT|VA": {
+   "road": 2158.2,
+   "straight": 1806.8
+  },
+  "UT|VT": {
+   "road": 2419.6,
+   "straight": 2006
+  },
+  "UT|WA": {
+   "road": 844.3,
+   "straight": 693
+  },
+  "UT|WI": {
+   "road": 1482.7,
+   "straight": 1169.5
+  },
+  "UT|WV": {
+   "road": 1943.1,
+   "straight": 1647.7
+  },
+  "UT|WY": {
+   "road": 426,
+   "straight": 296.9
+  },
+  "VA|VT": {
+   "road": 642.2,
+   "straight": 518.7
+  },
+  "VA|WA": {
+   "road": 2785.6,
+   "straight": 2269.5
+  },
+  "VA|WI": {
+   "road": 1003.7,
+   "straight": 745.6
+  },
+  "VA|WV": {
+   "road": 246.7,
+   "straight": 159.3
+  },
+  "VA|WY": {
+   "road": 1912.2,
+   "straight": 1565.8
+  },
+  "VT|WA": {
+   "road": 3017.9,
+   "straight": 2325.5
+  },
+  "VT|WI": {
+   "road": 1233.3,
+   "straight": 836.7
+  },
+  "VT|WV": {
+   "road": 770.4,
+   "straight": 574.4
+  },
+  "VT|WY": {
+   "road": 2173.1,
+   "straight": 1726
+  },
+  "WA|WI": {
+   "road": 1853,
+   "straight": 1538.6
+  },
+  "WA|WV": {
+   "road": 2573.9,
+   "straight": 2113.9
+  },
+  "WA|WY": {
+   "road": 1123.2,
+   "straight": 761.5
+  },
+  "WI|WV": {
+   "road": 787.8,
+   "straight": 600.2
+  },
+  "WI|WY": {
+   "road": 1062.4,
+   "straight": 890.6
+  },
+  "WV|WY": {
+   "road": 1696.6,
+   "straight": 1406.7
+  },
+  "atlanta|boston": {
+   "road": 1123.2,
+   "straight": 936
+  },
+  "atlanta|charlotte": {
+   "road": 244.4,
+   "straight": 226.2
+  },
+  "atlanta|chicago": {
+   "road": 717,
+   "straight": 588.8
+  },
+  "atlanta|dallas": {
+   "road": 781.4,
+   "straight": 719.6
+  },
+  "atlanta|houston": {
+   "road": 792.9,
+   "straight": 701.1
+  },
+  "atlanta|miami": {
+   "road": 662.5,
+   "straight": 606.4
+  },
+  "atlanta|nashville": {
+   "road": 248.3,
+   "straight": 214.9
+  },
+  "atlanta|new-york": {
+   "road": 879.8,
+   "straight": 745.8
+  },
+  "austin|dallas": {
+   "road": 195.5,
+   "straight": 182.1
+  },
+  "austin|denver": {
+   "road": 918.7,
+   "straight": 771.7
+  },
+  "austin|houston": {
+   "road": 165.5,
+   "straight": 146.2
+  },
+  "austin|los-angeles": {
+   "road": 1377.6,
+   "straight": 1225.1
+  },
+  "boston|miami": {
+   "road": 1504.4,
+   "straight": 1258.5
+  },
+  "boston|new-york": {
+   "road": 216.2,
+   "straight": 190.2
+  },
+  "charlotte|miami": {
+   "road": 728.3,
+   "straight": 655.1
+  },
+  "charlotte|nashville": {
+   "road": 411.2,
+   "straight": 339.4
+  },
+  "charlotte|new-york": {
+   "road": 643,
+   "straight": 531
+  },
+  "chicago|dallas": {
+   "road": 968.2,
+   "straight": 804.6
+  },
+  "chicago|denver": {
+   "road": 1002.4,
+   "straight": 918.2
+  },
+  "chicago|houston": {
+   "road": 1082.8,
+   "straight": 941.9
+  },
+  "chicago|nashville": {
+   "road": 475.4,
+   "straight": 397.5
+  },
+  "chicago|new-york": {
+   "road": 792.2,
+   "straight": 711
+  },
+  "dallas|denver": {
+   "road": 795.2,
+   "straight": 662.6
+  },
+  "dallas|houston": {
+   "road": 238.8,
+   "straight": 224.8
+  },
+  "dallas|phoenix": {
+   "road": 1064.1,
+   "straight": 884.5
+  },
+  "denver|las-vegas": {
+   "road": 748.8,
+   "straight": 605
+  },
+  "denver|phoenix": {
+   "road": 909.1,
+   "straight": 585.5
+  },
+  "denver|seattle": {
+   "road": 1316.7,
+   "straight": 1019.5
+  },
+  "houston|phoenix": {
+   "road": 1174.3,
+   "straight": 1014.2
+  },
+  "las-vegas|los-angeles": {
+   "road": 270.7,
+   "straight": 228.4
+  },
+  "las-vegas|phoenix": {
+   "road": 301.1,
+   "straight": 256.1
+  },
+  "las-vegas|san-francisco": {
+   "road": 568.2,
+   "straight": 416.7
+  },
+  "los-angeles|new-york": {
+   "road": 2790.9,
+   "straight": 2445.6
+  },
+  "los-angeles|phoenix": {
+   "road": 372.3,
+   "straight": 356.8
+  },
+  "los-angeles|portland": {
+   "road": 963.4,
+   "straight": 825.9
+  },
+  "los-angeles|san-diego": {
+   "road": 120.3,
+   "straight": 111.5
+  },
+  "los-angeles|san-francisco": {
+   "road": 382.9,
+   "straight": 347.4
+  },
+  "los-angeles|seattle": {
+   "road": 1143.1,
+   "straight": 960.2
+  },
+  "miami|new-york": {
+   "road": 1290.1,
+   "straight": 1092.3
+  },
+  "new-york|san-francisco": {
+   "road": 2909.9,
+   "straight": 2565.7
+  },
+  "phoenix|san-diego": {
+   "road": 354.6,
+   "straight": 298.8
+  },
+  "portland|san-francisco": {
+   "road": 634.4,
+   "straight": 535
+  },
+  "portland|seattle": {
+   "road": 180.7,
+   "straight": 145.4
+  },
+  "san-francisco|seattle": {
+   "road": 814.1,
+   "straight": 679.3
+  }
+ }
+}
