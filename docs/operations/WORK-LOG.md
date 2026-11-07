@@ -1622,3 +1622,8 @@
 - **Verification limits:** reviewed the workflow diff and the exact result schema. No Actions run was triggered because the workflow is restricted to pushes changing `data/expansion-us/run-request.txt` on `exp/us-transit-check`; no API call was made. The guard's runtime execution in Actions remains pending.
 - **Safety:** no key access, no HeiGIT request, no quota measurement, no run-request change, no production formula/data/page/deployment/indexing change. Do not trigger the live workflow until the owner records a fresh dashboard balance and separately authorizes a bounded run.
 - **Next:** review PR for the isolated experimental branch; if accepted, the next live run must begin with a small authorized request cap after quota reset and verify the 406 fix before any broader run. Keep all route data experimental until independently validated.
+
+
+### Follow-up — PR #203 created
+- Opened [PR #203](https://github.com/Fadhel-docom/relocation-cost/pull/203) to `exp/us-transit-check` (not main). The guard expression was tested locally: `checked_ok=0` exits 1; `checked_ok=1` exits 0.
+- GitHub reported only the Vercel Preview Comments check as successful at the first status read; the Vercel deployment status was still pending. No GitHub Actions execution of the experimental workflow occurred. PR is not merged.
