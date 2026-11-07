@@ -28,6 +28,9 @@ jobs:
           ORS_API_KEY: ${{ secrets.ORS_API_KEY }}
           MAX_REQUESTS: '1250'
         run: node tools/expansion/ors-us-transit.mjs
+      - name: Fail if no US routes were checked successfully
+        run: |
+          node --input-type=module -e 'import fs from "node:fs"; const p="data/expansion-us/us-transit-check.json"; if (!fs.existsSync(p)) { console.error("US transit result file is missing"); process.exit(1); } const data=JSON.parse(fs.readFileSync(p,"utf8")); const n=data.summary?.checked_ok; if (!Number.isInteger(n) || n < 1) { console.error("US transit check produced no successful routes; refusing a green workflow.", data.summary ?? "summary missing"); process.exit(1); } console.log("US transit check recorded", n, "successful routes.");'
       - name: Commit results to this branch
         if: always()
         run: |
