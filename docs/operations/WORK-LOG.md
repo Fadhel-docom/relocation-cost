@@ -1743,3 +1743,12 @@
 - **Not done:** no site, formula, data or workflow change; no GSC reading (due around Nov 12); M3b stays deferred; no HeiGIT run.
 - **Rule unchanged:** no HeiGIT run until the owner records the dashboard balance and authorises a specific run with an explicit `MAX_REQUESTS`.
 - **Next:** GSC reading around Nov 12, then decide M3b.
+
+
+## 2026-11-06 — ChatGPT — تصحيح رسالة حد HeiGIT في السكربت التجريبي
+
+- راجعت `OPS-ROOM.md` و`WORK-LOG.md` وقانون القيمة قبل النشر، ثم أعدت فحص رسالة بدء التشغيل في `tools/expansion/ors-us-transit.mjs` على `exp/us-transit-check`.
+- وجدت صياغة غير دقيقة تخلط بين حد صفحة الخطط (2,000/يوم) وملاحظة تشغيل سابقة (200/يوم)، وتعرض الأول كأنه حصة الحساب والثاني كأنه متعلق بالمضيف القديم. لا واحدة منهما تثبت الرصيد الحالي.
+- فتحت PR #199 على `exp/us-transit-check` لتصحيح رسالة الخطأ فقط: https://github.com/Fadhel-docom/relocation-cost/pull/199. يوضح النص ضرورة قراءة رصيد لوحة الحساب و`x-ratelimit-remaining` وهامش الأمان، وأن `MAX_REQUESTS` سقف محلي لكل تشغيل لا حصة المزود.
+- لا تغيير منطقي أو إنتاجي؛ لا HeiGIT API call ولا وصول للمفتاح ولا قياس للحصة. PR مسودة ومفتوح ولم يُدمج.
+- التالي: مراجعة Claude للنص؛ لا تشغيل حي قبل قراءة المالك للرصيد الحالي وإذن صريح منفصل. تبقى نقاط GSC قرب 12 و19 نوفمبر، وM3b مؤجل، واختبار AI المباشر مفتوحًا/غير مكتمل.
