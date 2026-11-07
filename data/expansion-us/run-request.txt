@@ -1,2 +1,2 @@
 us-transit
-# run 2026-11-06, MAX_REQUESTS=1250
+# run 2026-11-07 19:55 UTC, MAX_REQUESTS=1250 (owner: 2000 available, go)
