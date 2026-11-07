@@ -1791,3 +1791,16 @@
 - **Not done / needs the owner:** no HeiGIT request by me. Do not re-run before 19:55 UTC today (remaining 347 at the last header). Before the next run: he reads the dashboard again and authorises a specific run. Suggested: a small first run (`MAX_REQUESTS` around 10) to confirm the 406 is gone, then the full one after the reset.
 - **Suggestion for ChatGPT (experimental workflow):** make the workflow report failure when `checked_ok=0` instead of "success", so a silent zero cannot look like a pass. Not changed by me.
 - **Next:** GSC reading around Nov 12, then M3b; UK not started.
+
+
+## 2026-11-07 18:25 UTC — ChatGPT — فجوة تميّز حاسبة حزمة الانتقال (مذكرة بحث، بلا كود)
+
+- قرأت `OPS-ROOM.md` و`WORK-LOG.md` وقانون القيمة قبل النشر، وتحققت من المستودع وحالة PR. لا توجد PR مفتوحة وقت الفحص. راجعت آخر تسليم Claude Day 71: PR #190/#195/#199 مدمجة في `exp/us-transit-check` فقط، وPR #200/#201 توثيقية في `main`. لا بيانات عبور أمريكية معتمدة في الإنتاج.
+- راجعت `src/pages/calculator.astro` و`src/lib/calculator.js` و`src/scripts/calculator.js` و`src/pages/cost-of-living.astro` و`src/lib/cost-of-living.js` و`src/pages/guides/employer-relocation-package.astro`. القدرات الحالية تشمل ميزانية الانتقال، دعم صاحب العمل النقدي/المباشر، احتياطي السيولة، ومقارنة BEA لـ18 منطقة؛ لا نكرر هذه الميزات.
+- استخدمت قراءة GSC المؤرخة 06/11: «relocation package calculator» 41 ظهورًا ومتوسط 35.59 ضمن نافذة 27 يومًا حتى 04/11. هذه عينة صغيرة واتجاهية وليست حجم بحث أو دليل تحويل.
+- بحثت بدائل منافسة بتاريخ 07/11. North American وMercer أدوات من منظور صاحب العمل؛ SalaryEquate وWage101 وTixpapa تقدم بالفعل مقارنات دخل/إنفاق أو حساب استرداد تكلفة الانتقال. لذلك لا مبرر لحاسبة رواتب أو payback عامة منفصلة.
+- أعددت `docs/operations/EMPLOYEE-RELOCATION-DECISION-GAP-2026-11-07.md` على فرع مستقل. تقترح اختبار فرضية أضيق: ربط تكلفة الانتقال ودعم صاحب العمل الفعلي بصافي الدخل الشهري والمصروفات الشهرية التي يدخلها الموظف بنفسه، وإظهار تغير الفائض الشهري ومدة الاسترداد فقط إذا كان التحسن موجبًا.
+- قيود التصميم المقترح: لا gross salary أو حساب ضريبة أو tax gross-up؛ لا استخدام مؤشر BEA لتخمين إنفاق شخصي؛ لا جمع نفقات الانتقال ضمن المصروفات الشهرية؛ لا إرسال/تخزين قيم الدخل والإنفاق أو تمريرها إلى analytics أو روابط المشاركة. لا تُعامل النتيجة كنصيحة مالية أو توصية لقبول وظيفة.
+- **التغيير الفعلي:** ملف بحث/مواصفة فقط. لا تغيير في الكود أو المعادلات أو البيانات أو صفحات الإنتاج أو إعدادات SEO والفهرسة.
+- **التحقق:** لم أشغّل build/tests لكون التغيير وثائقيًا فقط؛ لم أختبر حاسبات المنافسين تفاعليًا، ولم أنفذ QA بصريًا. هذه الحدود موضحة في المذكرة.
+- **الخطوة التالية:** Claude يراجع المذكرة بصورة مستقلة ويقرر اعتماد MVP الأدنى أو تضييقه أو رفضه، مع تدقيق الصيغ والحالات الحدية والخصوصية. لا يبدأ التنفيذ قبل هذا القرار وبوابة القيمة قبل النشر. نقاط GSC التالية قرب 12 و19 نوفمبر؛ AI-answer المباشر ما زال غير مختبر؛ لا HeiGIT run دون رصيد حديث وإذن صريح.
