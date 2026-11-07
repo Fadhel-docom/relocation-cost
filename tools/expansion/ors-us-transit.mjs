@@ -135,7 +135,7 @@ async function dir(from, to, avoid) {
     if (avoid) body.options = { avoid_countries: avoid };
     let res, text;
     try {
-      res = await fetch('https://api.heigit.org/openrouteservice/v2/directions/driving-car/geojson', { method: 'POST', headers: { Authorization: KEY, 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(body) });
+      res = await fetch('https://api.heigit.org/openrouteservice/v2/directions/driving-car/geojson', { method: 'POST', headers: { Authorization: KEY, 'Content-Type': 'application/json', Accept: 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8' }, body: JSON.stringify(body) });
       text = await res.text();
     } catch (err) {
       return { ok: false, error: `network error: ${String(err).slice(0, 200)}` };
@@ -161,12 +161,14 @@ const NEAR = new Set(['OH', 'PA', 'IN', 'IL', 'MA', 'CT', 'RI', 'NJ', 'SD', 'OR'
 const tierOf = (p) => ((NORTH.has(p.from) && (NORTH.has(p.to) || NEAR.has(p.to))) || (NORTH.has(p.to) && NEAR.has(p.from))) ? 1 : (NORTH.has(p.from) || NORTH.has(p.to)) ? 2 : 3;
 const keys = Object.entries(prod).filter(([, v]) => v.kind === 'state' && v.status === 'ok').map(([k, v]) => [k, tierOf(v)]).sort((a, b) => a[1] - b[1] || (a[0] < b[0] ? -1 : 1)).map(([k]) => k);
 console.log('contiguous state pairs to check:', keys.length);
+let consecFail = 0; // circuit breaker: stop after 5 failures in a row so a systematic error cannot burn the daily quota (2026-11-06: 1,128 requests all failed with 406)
 outer: for (const key of keys) {
   if (quotaStop || Date.now() - START > MAX_MS) break;
   if (out.routes[key] && out.routes[key].status === 'ok') continue;
   const p = prod[key], A = states[p.from], B = states[p.to];
   const r = await dir(A, B); if (r.quota) break outer;
-  if (!r.ok) { out.routes[key] = { status: 'failed', error: r.error, unresolved: true }; save(); continue; }
+  if (!r.ok) { out.routes[key] = { status: 'failed', error: r.error, unresolved: true }; save(); consecFail++; if (consecFail >= 5) { console.error('Stopping: 5 consecutive failures. Last error: ' + String(r.error).slice(0, 300)); break outer; } continue; }
+  consecFail = 0;
   const can = crossings(IX.CAN, r.coords), mex = crossings(IX.MEX, r.coords);
   const rec = { status: 'ok', tier: tierOf(p), from: p.from, to: p.to, stored_miles: p.roadMiles, rerun_miles: +r.miles.toFixed(1), rerun_diff_pct: +(Math.abs(r.miles - p.roadMiles) / p.roadMiles * 100).toFixed(2), route_points: r.coords.length, ors_country_ids: r.ids,
     A_canada: r.ids.includes(ID_CAN), A_mexico: r.ids.includes(ID_MEX), B_canada_segments: can, B_canada_km: +can.reduce((s, x) => s + x.km, 0).toFixed(1), B_mexico_segments: mex, B_mexico_km: +mex.reduce((s, x) => s + x.km, 0).toFixed(1) };
