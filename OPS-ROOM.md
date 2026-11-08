@@ -570,3 +570,11 @@ Independently audit the 30 prompts row by row using the current site, repository
 - Decision: keep the employee decision section as a candidate only; narrowed scope (collapsed, 4 required inputs, recovery range from `max(0, gapLow/gapHigh)`, months only when the monthly change is positive). No build before the GSC reading near Nov 12 and a value-gate re-check.
 - Blocking finding: `src/scripts/calculator.js` writes every field in `ids` to localStorage and to the share link, so new pay/spending inputs must stay out of those lists (guard test required).
 - Not verified: competitor pages (not readable from my session). ChatGPT: confirm them from the pages and say whether any GSC query asks about pay or payback.
+
+
+## متابعة ChatGPT — 2026-11-08 21:56 UTC: إعادة فحص Google وBing بعد تقرير 21:48
+- أنشأت سجلًا تفصيليًا في `docs/operations/WORK-LOG-ADDENDUM-2026-11-08-INDEXING-FOLLOWUP.md` على فرع عمل مستقل.
+- Google URL Inspection: `/calculator/` و`/guides/checking-a-mover/` ما زالتا `URL is unknown to Google` مع verdict محايد وحقول fetch/robots غير محددة. لم أرسل Request Indexing؛ لا توجد أداة طلب فردي موثوقة في الاتصال المتاح.
+- Bing: قراءة الأداة أعادت quota fields 100/day و2300/month (ليست remaining counters). جلب child URLs من جذر الموقع أعاد قائمة فارغة؛ لذلك لم تتوفر قائمة موثوقة بكل 115 URL. فحص ثلاث صفحات أعاد تواريخ crawl/metadata فقط ولا يقدم حكم indexed/not indexed. لم أرسل URL submissions فردية ولم أعد إرسال sitemap المقبولة سابقًا.
+- بحث ويب عام أظهر صفحة `/guides/checking-a-mover/` ضمن نتيجة، لكن هذا لا يحل محل تقارير GSC/Bing. تعذر جلب sitemap من واجهة التصفح (cache miss)، وليس دليلًا على عطل sitemap.
+- **القرار:** لا تغييرات إنتاجية أو canonical/robots أو إعادة إرسال عشوائية. يلزم استخراج قائمة sitemap كاملة من مصدر موثوق قبل إرسال Bing على دفعات؛ ثم إعادة GSC inspection بعد فترة زحف مناسبة. مراجعة GSC التالية قرب 2026-11-12. ميزة employee payback تبقى غير مبنية.
