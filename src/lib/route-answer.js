@@ -7,7 +7,7 @@ const money = value => new Intl.NumberFormat("en-US", {
 }).format(value);
 
 // Closing sentence of every route answer. Exported so the post-deploy check can require the same words.
-export const ROUTE_ANSWER_NOTE = "These are planning estimates based on approximate straight-line distance between state centers, not quotes.";
+export const ROUTE_ANSWER_NOTE = "These are planning estimates based on approximate driving distance between state centers, not quotes.";
 
 export function routeAnswer({ from, to, homeSize, scenarios }) {
   if (typeof from !== "string" || !from.trim() || typeof to !== "string" || !to.trim()) {

@@ -51,14 +51,14 @@ test("each cost the answer lists has its own field in the calculator, entered by
 });
 
 test("each limit the answer states is stated by the calculator or an existing note", () => {
-  assert.ok(calculator.includes("approximate straight line between the centers of the two states"));
+  assert.ok(calculator.includes("approximate driving distance between a central point in each of the two states"));
   assert.ok(calculator.includes("type them in below to replace it") || calculator.includes("actual driving miles"));
   assert.match(SEASON_NOTE, /does not use your move date/);
   assert.ok(home.includes("The calculator does not calculate taxes."));
   assert.match(HOME_ANSWER_LIMITS, /not a quote/);
   assert.match(HOME_ANSWER_LIMITS, /does not use your move date/);
   assert.match(HOME_ANSWER_LIMITS, /does not calculate taxes/);
-  assert.match(HOME_ANSWER_LIMITS, /straight-line distance between the centers of two states/);
+  assert.match(HOME_ANSWER_LIMITS, /driving distance between a central point in each of two states/);
 });
 
 test("the home page renders every constant and the employer link has its anchor", () => {

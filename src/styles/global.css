@@ -109,6 +109,7 @@ body { margin: 0; background: var(--page); color: var(--t900); -webkit-text-size
 .text-slate-500 { color: var(--t500); }
 .hover\:text-slate-950:hover, .hover\:text-slate-900:hover { color: var(--t-hover); }
 .text-sky-700 { color: var(--accent); }
+.text-sky-800 { color: var(--accent); }
 .text-red-700 { color: var(--danger); }
 input, select, textarea { background-color: var(--surface); color: var(--t900); }
 input.border-slate-300, select.border-slate-300, textarea.border-slate-300 { border-color: var(--field-border); }

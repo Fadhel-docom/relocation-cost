@@ -2,6 +2,8 @@
 import PartnerOffers from "../../components/PartnerOffers.astro";
 import Layout from "../../layouts/Layout.astro";
 import stateData from "../../../data/state-distances.json";
+import roadTable from "../../../data/road-distances.json";
+import { distanceFor } from "../../lib/distances.js";
 import routePages from "../../../data/route-pages.json";
 import cityData from "../../../data/cities.json";
 import cityRoutes from "../../../data/city-routes.json";
@@ -28,16 +30,8 @@ export function getStaticPaths() {
   // getStaticPaths in an isolated scope, so it cannot see variables declared
   // elsewhere in the frontmatter (only imports).
   const toRadians = degrees => degrees * Math.PI / 180;
-  const distanceBetween = (fromCode, toCode) => {
-    const from = stateData.states[fromCode];
-    const to = stateData.states[toCode];
-    const lat1 = toRadians(from.lat);
-    const lat2 = toRadians(to.lat);
-    const dLat = toRadians(to.lat - from.lat);
-    const dLon = toRadians(to.lon - from.lon);
-    const a = Math.sin(dLat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
-    return Math.round(3958.7613 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
-  };
+  const distanceBetween = (fromCode, toCode) =>
+    distanceFor(roadTable, "state", fromCode, toCode, stateData.states[fromCode], stateData.states[toCode]).miles;
   const describeRoute = item => ({
     slug: item.slug,
     label: `${stateData.states[item.from].name} → ${stateData.states[item.to].name}`
@@ -168,7 +162,7 @@ const money2 = value => new Intl.NumberFormat("en-US", { style: "currency", curr
 const faqs = [
   {
     q: `How far is it from ${from.name} to ${to.name}?`,
-    a: `This page uses a planning distance of about ${distance.toLocaleString("en-US")} miles, measured in a straight line between the geographic centers of the two states. Road mileage between your actual addresses will differ.`
+    a: `This page uses a planning distance of about ${distance.toLocaleString("en-US")} miles, the approximate driving distance between a central point in each of the two states. Road mileage between your actual addresses will differ.`
   },
   {
     q: `What does a one-way truck rental cost on average for this distance?`,
@@ -223,7 +217,7 @@ const breadcrumbJsonLd = {
     <p class="mt-6 text-sm font-semibold uppercase tracking-widest text-sky-700">Route planning guide</p>
     <h1 class="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">Moving cost from {from.name} to {to.name}</h1>
     <p class="mt-5 max-w-3xl text-lg leading-8 text-slate-600">
-      Use this route page as a starting point for a relocation budget. The distance below is a state-centroid planning distance, not road mileage, and the dollar figures are illustrative planning outputs rather than quotes.
+      Use this route page as a starting point for a relocation budget. The distance below is an approximate driving distance between state center points, not between your addresses, and the dollar figures are illustrative planning outputs rather than quotes.
     </p>
 
     <section class="mt-6 rounded-2xl border border-sky-100 bg-sky-50 p-5 sm:p-6" aria-labelledby="quick-answer-heading">
@@ -236,7 +230,7 @@ const breadcrumbJsonLd = {
       <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         <p class="text-sm text-slate-500">Planning distance</p>
         <p class="mt-2 text-3xl font-bold">{distance.toLocaleString("en-US")} mi</p>
-        <p class="mt-2 text-xs leading-5 text-slate-500">Great-circle distance between state centroids.</p>
+        <p class="mt-2 text-xs leading-5 text-slate-500">Approximate driving distance between state center points. © openrouteservice by HeiGIT | Data from OpenStreetMap.</p>
       </div>
       <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         <p class="text-sm text-slate-500">Published truck-rental average</p>
@@ -338,7 +332,7 @@ const breadcrumbJsonLd = {
     <section class="mt-12 rounded-2xl border border-slate-200 bg-slate-50 p-6 sm:p-8">
       <h2 class="text-2xl font-bold">What can change the real price?</h2>
       <ul class="mt-4 list-disc space-y-3 pl-6 leading-7 text-slate-700">
-        <li>Actual pickup and delivery addresses can differ substantially from state-centroid distance.</li>
+        <li>Actual pickup and delivery addresses can differ substantially from the state-center driving distance used here.</li>
         <li>Truck size, inventory, reservation date, season, and route availability affect rental pricing.</li>
         <li>Professional moving quotes depend on shipment volume, labor scope, access conditions, packing, and special items.</li>
         <li>Travel, temporary housing, deposits, setup costs, and packing supplies can materially change the full relocation budget.</li>
