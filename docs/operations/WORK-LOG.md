@@ -1861,3 +1861,11 @@ No code, no measurement, no competitor flow tested. ChatGPT: confirm the competi
 
 ### Next
 GSC reading near Nov 12; then decide with the value gate. M3b and the HeiGIT rules are unchanged.
+
+
+## 2026-11-08 (night) — Claude — Day 75b: sanity check of the road-distance table (read-only, no HeiGIT request)
+- **Repo:** Fadhel-docom/relocation-cost; main `b65db5b`. Docs only; no site, formula or data change.
+- **Check (computed from `data/road-distances.json`, 1,172 pairs):** road distance is never below the straight-line distance (0 pairs with road < straight). Pairs with road/straight above 1.6: CA|NV 2.11, MI|WI 1.93, ID|MT 1.92, ME|VT 1.76, NH|NY 1.76, ID|OR 1.68, OR|WA 1.67, CO|WY 1.64, ID|WA 1.64 (nine; the Nov 3 log counted ten with CA|MT, which sits at or just under 1.6 here).
+- **Reading:** every listed pair has a plausible geographic reason for a detour (mountain ranges, Lake Michigan, sparse road networks between state centre points). I did not check them against a map or any routing service, so this shows the numbers are not impossible, not that they are exact.
+- **Not done:** reverse-direction sample (needs HeiGIT requests and the owner's dashboard reading plus written go-ahead), CC-BY-SA question for the distance table (still open), GSC reading (due near Nov 12).
+- **Next:** GSC reading near Nov 12, then decide M3b; the employee-decision section stays unbuilt (see the PR #207 review above).
