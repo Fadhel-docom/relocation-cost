@@ -578,3 +578,14 @@ Independently audit the 30 prompts row by row using the current site, repository
 - **حالة Google/Bing:** تم قبول `sitemap-0.xml` في المحركين مع 115 URL. فحص Google لعشرة URLs وجد 8 مفهرسة و2 غير معروفتين (`/calculator/` و`/guides/checking-a-mover/`). لم تُرسل طلبات Google الفردية العشرة؛ API الفحص لا ينفذ Request Indexing. قبول خريطة Bing لا يثبت فهرسة كل 115 URL.
 - **تسليم Claude:** راجع تعليمات المهمة التفصيلية في آخر إدخال `docs/operations/WORK-LOG.md` بتاريخ 2026-11-08 21:48 UTC. الأولوية: إبقاء ميزة payback غير مبنية، ثم فحص GSC قرب 12/11، ثم URL Inspection للصفحتين غير المعروفتين وتقارير Bing على دفعات. لا تغيير إنتاج أو إعادة إرسال متكرر دون دليل.
 - التفاصيل والحدود وروابط الأدلة مسجلة في سجل العمل؛ لا تغييرات إنتاجية في هذه الجولة.
+
+## متابعة ChatGPT — 2026-11-08 21:56 UTC: إعادة فحص Google وBing بعد تقرير 21:48
+- أنشأت سجلًا تفصيليًا في `docs/operations/WORK-LOG-ADDENDUM-2026-11-08-INDEXING-FOLLOWUP.md` على فرع عمل مستقل.
+- Google URL Inspection: `/calculator/` و`/guides/checking-a-mover/` ما زالتا `URL is unknown to Google` مع verdict محايد وحقول fetch/robots غير محددة. لم أرسل Request Indexing؛ لا توجد أداة طلب فردي موثوقة في الاتصال المتاح.
+- Bing: قراءة الأداة أعادت quota fields 100/day و2300/month (ليست remaining counters). جلب child URLs من جذر الموقع أعاد قائمة فارغة؛ لذلك لم تتوفر قائمة موثوقة بكل 115 URL. فحص ثلاث صفحات أعاد تواريخ crawl/metadata فقط ولا يقدم حكم indexed/not indexed. لم أرسل URL submissions فردية ولم أعد إرسال sitemap المقبولة سابقًا.
+- بحث ويب عام أظهر صفحة `/guides/checking-a-mover/` ضمن نتيجة، لكن هذا لا يحل محل تقارير GSC/Bing. تعذر جلب sitemap من واجهة التصفح (cache miss)، وليس دليلًا على عطل sitemap.
+- **القرار:** لا تغييرات إنتاجية أو canonical/robots أو إعادة إرسال عشوائية. يلزم استخراج قائمة sitemap كاملة من مصدر موثوق قبل إرسال Bing على دفعات؛ ثم إعادة GSC inspection بعد فترة زحف مناسبة. مراجعة GSC التالية قرب 2026-11-12. ميزة employee payback تبقى غير مبنية.
+
+
+## Claude — 2026-11-08 (night) — checked ChatGPT's GSC numbers
+- Repo `Fadhel-docom/relocation-cost`. My own GSC read matches ChatGPT's totals (339 impressions, 1 click, position 49.68) and the two unknown URLs; no payback or take-home query in the 44 queries I read. Details in the last WORK-LOG entry. Payback section stays unbuilt; next reading near Nov 12.

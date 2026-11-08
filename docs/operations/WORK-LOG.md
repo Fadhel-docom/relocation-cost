@@ -1883,3 +1883,19 @@ GSC reading near Nov 12; then decide with the value gate. M3b and the HeiGIT rul
   5. راجع Bing URL/indexing report للـ115 عنوانًا على دفعات، وميّز discovered/crawled/indexed. لا تعتبر نجاح sitemap نجاح فهرسة، ولا تتجاوز حد 100 URL submission/day إن استخدمت الإرسال الفردي.
   6. أبقِ M3b مؤجلًا حتى نقطة القياس المقررة، واختبار AI-answer المباشر OPEN / NOT TESTED، وقواعد HeiGIT كما هي: لا تشغيل حي جديد دون قراءة رصيد حديث وإذن محدد.
 - **الخطوة التالية من ChatGPT:** مراجعة هذا التوثيق بعد PR/الدمج، ثم متابعة قياس GSC في موعده. لا تغييرات إنتاجية في هذه الجولة.
+
+## 2026-11-08 (night) — Claude — Day 75b: sanity check of the road-distance table (read-only, no HeiGIT request)
+- **Repo:** Fadhel-docom/relocation-cost; main `b65db5b`. Docs only; no site, formula or data change.
+- **Check (computed from `data/road-distances.json`, 1,172 pairs):** road distance is never below the straight-line distance (0 pairs with road < straight). Pairs with road/straight above 1.6: CA|NV 2.11, MI|WI 1.93, ID|MT 1.92, ME|VT 1.76, NH|NY 1.76, ID|OR 1.68, OR|WA 1.67, CO|WY 1.64, ID|WA 1.64 (nine; the Nov 3 log counted ten with CA|MT, which sits at or just under 1.6 here).
+- **Reading:** every listed pair has a plausible geographic reason for a detour (mountain ranges, Lake Michigan, sparse road networks between state centre points). I did not check them against a map or any routing service, so this shows the numbers are not impossible, not that they are exact.
+- **Not done:** reverse-direction sample (needs HeiGIT requests and the owner's dashboard reading plus written go-ahead), CC-BY-SA question for the distance table (still open), GSC reading (due near Nov 12).
+- **Next:** GSC reading near Nov 12, then decide M3b; the employee-decision section stays unbuilt (see the PR #207 review above).
+
+
+## 2026-11-08 (night) — Claude — Day 75c: independent check of ChatGPT's GSC claims (#210/#212), read-only
+- **Repo:** Fadhel-docom/relocation-cost; main `cdeaad4` after #212. Docs only; no site, formula, data or sitemap change; no indexing request sent.
+- **Re-read by me through the GSC connection (property `https://relocation-cost-psi.vercel.app/`, 2026-10-09 to 2026-11-05, web):** 339 impressions, 1 click, average position 49.68. This matches ChatGPT's figures exactly.
+- **Query evidence for the employee-payback section:** I read the top 44 queries returned for that window (row limit 60, so not a full list). None mentions take-home pay, monthly savings or payback. The employer-side cluster is real but small: "relocation package calculator" 46 impressions (position 35.3), "relocation expenses calculator" 23 (34.9), "relocation pay calculator" 14, "relocation compensation calculator" 14, "relocation allowance calculator" 8, all with 0 clicks. This supports the no-build decision; it does not show there is no market demand.
+- **URL Inspection (re-run by me):** `/calculator/` and `/guides/checking-a-mover/` both return "URL is unknown to Google" (verdict NEUTRAL, fetch and robots states unspecified), same as ChatGPT. The Nov 2 diagnosis (no repo defect found) still stands; I did not request indexing (the connector cannot).
+- **Not verified by me:** the "8 of 10 inspected URLs indexed" claim (I re-ran only the 2 unknown ones), Bing figures, the SalaryEquate page (not readable from my session).
+- **Next:** GSC reading near Nov 12 (query list in full, pages, then re-inspect the two unknown URLs); the payback section stays unbuilt unless a query shows demand.
