@@ -10,7 +10,7 @@ export const HOME_ANSWER_MOVE = "Here the move cost comes from your distance, ho
 
 export const HOME_ANSWER_AROUND = "The costs around the move, such as travel, temporary housing, deposits and setup, packing, insurance and storage, are amounts you enter yourself, and the calculator adds a contingency on top.";
 
-export const HOME_ANSWER_LIMITS = "It is a planning range, not a quote: it uses a straight-line distance between the centers of two states unless you enter your driving miles, it does not use your move date, and it does not calculate taxes. Replace it with written quotes based on your addresses and inventory.";
+export const HOME_ANSWER_LIMITS = "It is a planning range, not a quote: it uses an approximate driving distance between a central point in each of two states unless you enter your driving miles, it does not use your move date, and it does not calculate taxes. Replace it with written quotes based on your addresses and inventory.";
 
 export const HOME_ANSWER_LINKS = Object.freeze({
   calculator: { href: "/calculator/", label: "Calculate my moving cost →" },

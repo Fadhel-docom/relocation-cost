@@ -22,7 +22,7 @@ test("route answer uses the exact route and scenario totals supplied by the page
   assert.ok(answer.includes("$3,200 for full-service movers"));
   assert.match(answer, /planning estimates/);
   assert.match(answer, /not quotes/);
-  assert.match(answer, /straight-line distance between state centers/);
+  assert.match(answer, /driving distance between state centers/);
   assert.ok(answer.endsWith(ROUTE_ANSWER_NOTE));
 });
 

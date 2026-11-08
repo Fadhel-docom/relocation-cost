@@ -68,3 +68,13 @@ test("same place or missing fallback points give null, bad kind throws", () => {
   assert.equal(distanceFor(table, "state", "AK", "WA"), null);
   assert.throws(() => distanceFor(table, "zip", "a", "b"));
 });
+
+test("pages that show a road distance name the data source, and no page still calls it a state-center straight line", () => {
+  const read = p => fs.readFileSync(new URL(p, import.meta.url), "utf8");
+  for (const page of ["../pages/calculator.astro", "../pages/methodology.astro", "../pages/moving-cost/[route].astro", "../pages/moving-cost/cities/[route].astro", "../scripts/calculator.js"]) {
+    assert.ok(read(page).includes(table.attribution), `${page} lacks the attribution`);
+  }
+  for (const page of ["../pages/calculator.astro", "../pages/moving-cost/[route].astro", "../pages/moving-cost/cities/[route].astro", "../lib/route-answer.js", "../lib/home-answer.js"]) {
+    assert.ok(!/great-circle|state-centroid|between state centers\./i.test(read(page)), `${page} still uses the old straight-line wording`);
+  }
+});

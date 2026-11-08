@@ -4,6 +4,8 @@ import Layout from "../../../layouts/Layout.astro";
 import stateData from "../../../../data/state-distances.json";
 import cityData from "../../../../data/cities.json";
 import cityRoutes from "../../../../data/city-routes.json";
+import roadTable from "../../../../data/road-distances.json";
+import { distanceFor } from "../../../lib/distances.js";
 import statePages from "../../../../data/route-pages.json";
 import benchmarkData from "../../../../data/coefficients.json";
 import { calculateBudget, getUhaulBenchmark } from "../../../lib/calculator.js";
@@ -27,14 +29,8 @@ export function getStaticPaths() {
   // Astro runs getStaticPaths in an isolated scope: everything used here is
   // defined inside this function (only imports are visible).
   const toRadians = degrees => degrees * Math.PI / 180;
-  const distanceBetween = (a, b) => {
-    const lat1 = toRadians(a.lat);
-    const lat2 = toRadians(b.lat);
-    const dLat = toRadians(b.lat - a.lat);
-    const dLon = toRadians(b.lon - a.lon);
-    const h = Math.sin(dLat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
-    return Math.round(3958.7613 * 2 * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h)));
-  };
+  const distanceBetween = (fromKey, toKey) =>
+    distanceFor(roadTable, "city", fromKey, toKey, cityData.cities[fromKey], cityData.cities[toKey]).miles;
   const bearingBetween = (a, b) => {
     const lat1 = toRadians(a.lat);
     const lat2 = toRadians(b.lat);
@@ -53,7 +49,7 @@ export function getStaticPaths() {
     slug: item.slug,
     label: `${cities[item.from].name} → ${cities[item.to].name}`
   });
-  const allDistances = routes.map(item => distanceBetween(cities[item.from], cities[item.to]));
+  const allDistances = routes.map(item => distanceBetween(item.from, item.to));
   const sortedTotals = allDistances.map(referenceTotal).sort((a, b) => a - b);
   const mid = Math.floor(sortedTotals.length / 2);
   const medianTotal = sortedTotals.length % 2 ? sortedTotals[mid] : (sortedTotals[mid - 1] + sortedTotals[mid]) / 2;
@@ -61,7 +57,7 @@ export function getStaticPaths() {
   return routes.map(route => {
     const from = cities[route.from];
     const to = cities[route.to];
-    const distance = distanceBetween(from, to);
+    const distance = distanceBetween(route.from, route.to);
     const touching = routes.filter(item =>
       item.slug !== route.slug &&
       (item.from === route.from || item.to === route.from || item.from === route.to || item.to === route.to)
@@ -127,7 +123,7 @@ const title = `Moving from ${from.name} to ${to.name}: Cost Planning Guide`;
 const faqs = [
   {
     q: `How far is it from ${from.name} to ${to.name}?`,
-    a: `This page uses a planning distance of about ${miles} miles, measured in a straight line between the two city centers. Road mileage between your actual addresses will be longer.`
+    a: `This page uses a planning distance of about ${miles} miles, the approximate driving distance between the two city centers. Road mileage between your actual addresses will differ.`
   },
   {
     q: `How much could a ${refRow.label} move from ${from.name} to ${to.name} cost?`,
@@ -180,14 +176,14 @@ const breadcrumbJsonLd = {
     <p class="mt-6 text-sm font-semibold uppercase tracking-widest text-sky-700">City route planning guide</p>
     <h1 class="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">Moving from {from.name} to {to.name}</h1>
     <p class="mt-5 max-w-3xl text-lg leading-8 text-slate-600">
-      A planning starting point for a move from {from.name}, {from.state} to {to.name}, {to.state}. The distance is a city-center straight line, not road mileage, and the dollar figures are illustrative planning outputs rather than quotes. The same numbers apply if you are moving the other way.
+      A planning starting point for a move from {from.name}, {from.state} to {to.name}, {to.state}. The distance is an approximate driving distance between city centers, not between your addresses, and the dollar figures are illustrative planning outputs rather than quotes. The same numbers apply if you are moving the other way.
     </p>
 
     <div class="mt-10 grid gap-5 sm:grid-cols-3">
       <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         <p class="text-sm text-slate-500">Planning distance</p>
         <p class="mt-2 text-3xl font-bold">{miles} mi</p>
-        <p class="mt-2 text-xs leading-5 text-slate-500">Great-circle distance between city centers.</p>
+        <p class="mt-2 text-xs leading-5 text-slate-500">Approximate driving distance between city centers. © openrouteservice by HeiGIT | Data from OpenStreetMap.</p>
       </div>
       <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         <p class="text-sm text-slate-500">Published truck-rental average</p>

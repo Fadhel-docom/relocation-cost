@@ -3,18 +3,13 @@ import Layout from "../../layouts/Layout.astro";
 import GuideSchema from "../../components/GuideSchema.astro";
 import GuideNext from "../../components/GuideNext.astro";
 import stateData from "../../../data/state-distances.json";
+import roadTable from "../../../data/road-distances.json";
+import { distanceFor } from "../../lib/distances.js";
 import { calculateBudget } from "../../lib/calculator.js";
 
 const money = value => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
-const toRadians = degrees => degrees * Math.PI / 180;
-const miles = (fromCode, toCode) => {
-  const from = stateData.states[fromCode];
-  const to = stateData.states[toCode];
-  const dLat = toRadians(to.lat - from.lat);
-  const dLon = toRadians(to.lon - from.lon);
-  const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRadians(from.lat)) * Math.cos(toRadians(to.lat)) * Math.sin(dLon / 2) ** 2;
-  return Math.round(3958.7613 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
-};
+const miles = (fromCode, toCode) =>
+  distanceFor(roadTable, "state", fromCode, toCode, stateData.states[fromCode], stateData.states[toCode]).miles;
 // Worked example: the other-cost amounts below are made-up illustrations chosen for the example, not benchmarks.
 const example = { from: "IL", to: "TX", distance: miles("IL", "TX"), size: 1.35, type: 1, travel: 400, housing: 900, setup: 1800, extras: 250 };
 const withoutExtras = calculateBudget({ distance: example.distance, size: example.size, type: example.type });
@@ -58,7 +53,7 @@ const path = "/guides/relocation-budget/";
     <p class="mt-4 leading-7 text-slate-700">Update each line when you receive a real price. Keep the date of every quote and note what is included, so you can compare providers fairly and spot what is missing. The goal is a decision-ready budget, not false precision.</p>
 
     <h2 class="mt-10 text-2xl font-bold">A worked example</h2>
-    <p class="mt-4 leading-7 text-slate-700">Here is how the four buckets look for a move from {stateData.states[example.from].name} to {stateData.states[example.to].name} (about {example.distance.toLocaleString("en-US")} miles by the calculator's state-centroid distance) with a 2–3 room home and a rental truck plus hired labor. The move line comes from the calculator. The four other amounts are invented for this illustration only, so replace them with your own figures.</p>
+    <p class="mt-4 leading-7 text-slate-700">Here is how the four buckets look for a move from {stateData.states[example.from].name} to {stateData.states[example.to].name} (about {example.distance.toLocaleString("en-US")} miles by the calculator's approximate driving distance between state center points) with a 2–3 room home and a rental truck plus hired labor. The move line comes from the calculator. The four other amounts are invented for this illustration only, so replace them with your own figures.</p>
     <div tabindex="0" role="region" aria-label="Scrollable table" class="mt-4 overflow-x-auto rounded-2xl border border-slate-200">
       <table class="w-full min-w-[20rem] text-left text-sm">
         <caption class="sr-only">Worked example relocation budget</caption>

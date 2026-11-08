@@ -151,8 +151,8 @@ for (const [rel, canonical] of canonicalByPage) {
 }
 
 const clarityChecks = [
-  ["calculator/index.html", ["How to read your estimate", "not road mileage", "left out of the total"]],
-  ["methodology/index.html", ["not road mileage", "left out of the total", "statistically validated confidence interval"]]
+  ["calculator/index.html", ["How to read your estimate", "not between your addresses", "left out of the total"]],
+  ["methodology/index.html", ["not the distance between your addresses", "left out of the total", "statistically validated confidence interval"]]
 ];
 for (const [file, phrases] of clarityChecks) {
   const full = path.join(dist, file);

@@ -1,5 +1,7 @@
 import { track } from "@vercel/analytics";
 import stateData from "../../data/state-distances.json";
+import roadTable from "../../data/road-distances.json";
+import { distanceFor } from "../lib/distances.js";
 import { calculateBudget, costBreakdown, costLines, employerGap, HOME_SIZES, MOVE_TYPES, pickAllowed, RESERVE_WEEKS, savingsTips } from "../lib/calculator.js";
 import { createFunnel } from "../lib/calculator-analytics.js";
 import { buildEstimateEmail } from "../lib/estimate-email.js";
@@ -84,30 +86,22 @@ fields.fromState.value = defaults.fromState;
 fields.toState.value = defaults.toState;
 ids.forEach(id => { if (id !== "distance") fields[id].value = defaults[id]; });
 
-const toRadians = degrees => degrees * Math.PI / 180;
-
-const stateMiles = (fromCode, toCode) => {
+const stateDistance = (fromCode, toCode) => {
   const from = stateData.states[fromCode];
   const to = stateData.states[toCode];
   if (!from || !to || fromCode === toCode) return null;
-
-  const lat1 = toRadians(from.lat);
-  const lat2 = toRadians(to.lat);
-  const dLat = toRadians(to.lat - from.lat);
-  const dLon = toRadians(to.lon - from.lon);
-  const a = Math.sin(dLat / 2) ** 2
-    + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
-
-  return Math.round(3958.7613 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
+  return distanceFor(roadTable, "state", fromCode, toCode, from, to);
 };
 
 const fillStateDistance = () => {
-  const miles = stateMiles(fields.fromState.value, fields.toState.value);
+  const found = stateDistance(fields.fromState.value, fields.toState.value);
 
-  if (miles !== null) {
-    fields.distance.value = miles;
-    stateDistanceNote.textContent =
-      `Auto-filled ${miles.toLocaleString("en-US")} miles: an approximate straight line between the centers of the two states, not road mileage. If you know your actual driving miles, type them in to replace it.`;
+  if (found !== null) {
+    fields.distance.value = found.miles;
+    const miles = found.miles.toLocaleString("en-US");
+    stateDistanceNote.textContent = found.basis === "road"
+      ? `Auto-filled ${miles} miles: an approximate driving distance between a central point in each of the two states, not between your addresses. If you know your actual driving miles, type them in to replace it. Road data: © openrouteservice by HeiGIT | Data from OpenStreetMap.`
+      : `Auto-filled ${miles} miles: an approximate straight line between the centers of the two states (no road route was found for this pair), not road mileage. If you know your actual driving miles, type them in to replace it.`;
   } else {
     stateDistanceNote.textContent =
       "Same-state move selected. Enter your driving distance in miles.";
@@ -458,7 +452,7 @@ if (fields.distance.value === "") {
   fillStateDistance();
 } else {
   stateDistanceNote.textContent =
-    "Distance restored from your saved or shared inputs. Change a state to refill it with the approximate straight-line distance between state centers (not road mileage).";
+    "Distance restored from your saved or shared inputs. Change a state to refill it with the approximate driving distance between state center points (not between your addresses).";
 }
 
 const funnel = createFunnel(track, () => ({ from: fields.fromState.value, to: fields.toState.value }));

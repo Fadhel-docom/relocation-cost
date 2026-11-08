@@ -60,7 +60,7 @@ const breadcrumbJsonLd = {
             <select id="toState" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" aria-describedby="stateHelp"></select>
           </label>
         </div>
-        <p id="stateHelp" class="mt-2 text-xs leading-5 text-slate-500">The distance is filled in as an approximate straight line between the centers of the two states. It is not road mileage. If you know your actual driving miles, type them in below to replace it.</p>
+        <p id="stateHelp" class="mt-2 text-xs leading-5 text-slate-500">The distance is filled in as an approximate driving distance between a central point in each of the two states, not between your addresses (a straight line is used only where no road route was found, such as Alaska and Hawaii). If you know your actual driving miles, type them in below to replace it. Road data: © openrouteservice by HeiGIT | Data from OpenStreetMap.</p>
 
         <div class="mt-5 grid gap-5 sm:grid-cols-2">
           <label class="block text-sm font-semibold">Distance <span class="font-normal text-slate-500">(miles)</span>
@@ -206,7 +206,7 @@ const breadcrumbJsonLd = {
         <div id="printReserveRow" class="flex justify-between" hidden><dt class="text-slate-700">Cash buffer</dt><dd id="printReserve" class="font-semibold"></dd></div>
         <div id="printCashRow" class="flex justify-between" hidden><dt class="font-bold">Cash to have ready</dt><dd id="printCash" class="font-bold"></dd></div>
       </dl>
-      <p class="mt-4 text-xs leading-5 text-slate-600">Planning estimate, not a quote. Distance is a straight line between state centers unless you entered your own miles. Costs left at $0 are left out of the total. Replace these assumptions with route-specific provider quotes.</p>
+      <p class="mt-4 text-xs leading-5 text-slate-600">Planning estimate, not a quote. Distance is an approximate driving distance between state center points (a straight line where no road route was found) unless you entered your own miles. Costs left at $0 are left out of the total. Replace these assumptions with route-specific provider quotes.</p>
       <p class="mt-2 text-xs leading-5 text-slate-600">Range is a fixed {margin.label} planning band. Benchmark data reviewed {reviewDate}; U-Haul figures from {uhaulPeriod}. Sources: {methodologyUrl}</p>
     </section>
 
@@ -265,7 +265,7 @@ const breadcrumbJsonLd = {
         </div>
         <div>
           <dt class="font-semibold text-slate-900">Distance</dt>
-          <dd class="text-slate-600">Filled in as a straight line between state centers, not road mileage. Replace it with your driving miles when you know them.</dd>
+          <dd class="text-slate-600">Filled in as an approximate driving distance between a central point in each state (a straight line where no road route was found), not between your addresses. Replace it with your driving miles when you know them.</dd>
         </div>
       </dl>
       <p class="mt-4 text-xs leading-5 text-slate-500">Each amount is rounded to the nearest dollar for display, so the parts can differ from the total by a dollar.</p>
@@ -360,7 +360,7 @@ const breadcrumbJsonLd = {
       <div class="mt-5 grid gap-6 md:grid-cols-3">
         <div>
           <h3 class="font-semibold">1. State distance</h3>
-          <p class="mt-2 text-sm leading-6 text-slate-600">Selecting two states fills the distance with a great-circle calculation between their centroids. This is a planning approximation rather than road mileage.</p>
+          <p class="mt-2 text-sm leading-6 text-slate-600">Selecting two states fills the distance from a table of driving distances between one central point in each state, calculated with openrouteservice (© openrouteservice by HeiGIT | Data from OpenStreetMap). Where no road route was found (Alaska, Hawaii) it falls back to a straight-line calculation. It is a planning approximation, not the distance between your addresses.</p>
         </div>
         <div>
           <h3 class="font-semibold">2. Known extra costs</h3>
