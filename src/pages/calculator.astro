@@ -3,6 +3,9 @@ import PartnerOffers from "../components/PartnerOffers.astro";
 import FeedbackWidget from "../components/FeedbackWidget.astro";
 import Layout from "../layouts/Layout.astro";
 import routePages from "../../data/route-pages.json";
+import stateData from "../../data/state-distances.json";
+import roadTable from "../../data/road-distances.json";
+import { distanceFor } from "../lib/distances.js";
 import benchmarkData from "../../data/coefficients.json";
 import sourceChecks from "../../data/source-checks.json";
 import { formatReviewDate, marginSummary, trustSources, SEASON_NOTE, FLOOR_NOTE, BAND_NOTE, EMPLOYER_TAX_NOTE, TAX_SOURCES } from "../lib/trust.js";
@@ -10,6 +13,8 @@ const taxRead = sourceChecks.sources?.["irs-p15b"]?.lastVerified;
 const taxChecked = /^\d{4}-\d{2}-\d{2}$/.test(taxRead ?? "") ? formatReviewDate(taxRead) : "";
 
 const routeSlugs = routePages.routes.map(route => route.slug);
+// Starting distance for the default CA to TX pair, from the same table the script uses.
+const defaultDistance = distanceFor(roadTable, "state", "CA", "TX", stateData.states.CA, stateData.states.TX).miles;
 const reviewDate = formatReviewDate(benchmarkData.last_reviewed);
 const uhaulCheckedRaw = sourceChecks.sources?.["uhaul-benchmarks"]?.lastVerified;
 const uhaulChecked = /^\d{4}-\d{2}-\d{2}$/.test(uhaulCheckedRaw ?? "") ? formatReviewDate(uhaulCheckedRaw) : "";
@@ -64,7 +69,7 @@ const breadcrumbJsonLd = {
 
         <div class="mt-5 grid gap-5 sm:grid-cols-2">
           <label class="block text-sm font-semibold">Distance <span class="font-normal text-slate-500">(miles)</span>
-            <input id="distance" type="number" min="1" max="30000" value="1317" inputmode="numeric" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500" />
+            <input id="distance" type="number" min="1" max="30000" value={defaultDistance} inputmode="numeric" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-sky-500" />
           </label>
           <label class="block text-sm font-semibold">Home size
             <select id="size" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3">

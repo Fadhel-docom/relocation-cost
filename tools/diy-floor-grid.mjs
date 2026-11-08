@@ -50,4 +50,4 @@ for (let d = 1; d <= 3200; d++) {
   last = move;
 }
 console.log(`DIY (smallest size) jumps over $40 between adjacent miles: ${jumps.join("; ") || "none"}`);
-console.log(`example 1317 mi: moves ${HOME_SIZES.map(size => Math.round(calculateBudget({ distance: 1317, size, type: DIY }).move)).join(", ")}; U-Haul band average ${getUhaulBenchmark(1317)}`);
+console.log(`example 1317 mi (old straight-line CA-TX): moves ${HOME_SIZES.map(size => Math.round(calculateBudget({ distance: 1317, size, type: DIY }).move)).join(", ")}; U-Haul band average ${getUhaulBenchmark(1317)}`);

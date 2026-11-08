@@ -448,7 +448,7 @@ loadQuery();
 sanitizeSelects();
 if (fields.distance.value === "") {
   fillStateDistance();
-} else if (stateMiles(fields.fromState.value, fields.toState.value) === Number(fields.distance.value)) {
+} else if (stateDistance(fields.fromState.value, fields.toState.value)?.miles === Number(fields.distance.value)) {
   fillStateDistance();
 } else {
   stateDistanceNote.textContent =

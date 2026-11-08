@@ -78,3 +78,9 @@ test("pages that show a road distance name the data source, and no page still ca
     assert.ok(!/great-circle|state-centroid|between state centers\./i.test(read(page)), `${page} still uses the old straight-line wording`);
   }
 });
+
+test("the calculator page's starting distance is computed from the table, not typed in", () => {
+  const page = fs.readFileSync(new URL("../pages/calculator.astro", import.meta.url), "utf8");
+  assert.ok(/id="distance"[^>]*value=\{defaultDistance\}/.test(page));
+  assert.ok(page.includes('distanceFor(roadTable, "state", "CA", "TX"'));
+});
