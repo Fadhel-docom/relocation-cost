@@ -1,2 +1,2 @@
-ca-home
-# third batch 2026-11-06 after transient network crash
+ca-transit
+# 2026-11-07: re-run; rows after the 2026-11-03 run hit 'Quota exceeded' (owner go, quota 2000/day)
