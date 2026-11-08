@@ -543,6 +543,15 @@ Independently audit the 30 prompts row by row using the current site, repository
 - **الخطوة التالية:** Claude يراجع صياغة #199 ثم يدمجها في الفرع التجريبي إن وافق؛ لا يدمجها في main. على المالك قراءة الرصيد الحالي فقط إذا أراد الانتقال إلى فحص حي لاحقًا. بقية نقاط Day 70 كما هي: قياس GSC قرب 12 و19 نوفمبر، وM3b مؤجل، واختبار AI المباشر غير مكتمل.
 
 
+## تحديث ChatGPT — 2026-11-08 08:15 UTC: مراجعة دمج المسافات الطرقية وتدقيق مواصفة قرار الانتقال
+
+- **المستودع:** `Fadhel-docom/relocation-cost`; فرع التوثيق: `chatgpt/day74-road-distance-review-and-employee-gap-20261108`؛ نقطة البداية main عند `9108dc3`.
+- **آخر حالة إنتاجية:** PR #208 دُمجت في `main` في 08/11. يربط جدول المسافات الطرقية المسبقة (1,172 زوجًا: 1,128 زوج ولاية و44 زوج مدينة) بالحاسبة وصفحات المسارات ودليل الميزانية. تحقق Claude محليًا: `npm test` 250/250، `npm run build` 116 صفحة، `verify-seo` صفر مخالفات بعد التصحيح. Render-check في PR #208 فحص 56 عرض صفحة/سيناريو دون مشكلات؛ تعليق Vercel أكد Preview Ready، وفحص Vercel على التزام main نجح. هذه أدلة CI/Preview وليست مراجعة مستقلة كاملة للإنتاج.
+- **مراجعة القيمة والدقة:** تحسن واضح عن المسافة الخطية، لكن الأرقام تمثل قيادة تقريبية بين نقاط مركزية للولايات/المدن لا بين عناوين العميل، وليست مسارات ملاحة أو عروض أسعار. ألاسكا وهاواي وبعض الأزواج غير المتاحة تستخدم fallback خطًا مستقيمًا مع توضيح ذلك. مثال CA→TX تغيّر من 1,317 إلى 1,546 ميلًا؛ المعادلات لم تتغير، لكن النتائج تتغير بسبب المسافة.
+- **تحفظات متبقية:** لا تزال عينة الاتجاه العكسي وفحص الأزواج ذات نسب الطريق/الخط المستقيم العالية غير مكتملة بحسب سجل Claude؛ كما أن سؤال تطبيق CC-BY-SA 4.0 وحقوق قاعدة البيانات على مجموعة النتائج لم يُحسم قانونيًا بالكامل. الإسناد والترخيص مذكوران في البيانات والصفحات؛ لا نوسّع ادعاءات الدقة أو التغطية إلى عناوين فعلية.
+- **مراجعة PR #207:** قرأت مواصفة فجوة قرار انتقال الموظف. الفكرة تبقى فرضية لا ميزة معتمدة، لأن SalaryEquate وWage101 وTixpapa تغطي أجزاء كبيرة من المقارنة/payback. أضفت تعليق مراجعة في PR #207 بطلب تضييقها: دعم صاحب العمل النقدي يجب أن يكون صافيًا قابلًا للاستخدام، عرض نطاق استرداد بدل رقم زائف الدقة، منع ازدواج احتساب النفقات والدعم المباشر، وتعريفها كمقارنة حسابية بسيطة. رابط: https://github.com/Fadhel-docom/relocation-cost/pull/207#issuecomment-6719168691.
+- **الخطوة التالية:** Claude ينجز المراجعة المستقلة المطلوبة في PR #207 (قبول/تضييق/رفض) ويجيب عن نقاط التعليق قبل أي كود. ChatGPT يراجع بعد ذلك. لا تعديل إنتاج أو معادلات أو بيانات في هذه الجلسة.
+
 ## تحديث ChatGPT — 2026-11-07 18:25 UTC: مراجعة فجوة تميّز حاسبة حزمة الانتقال
 
 - قرأت غرفة العمليات وسجل العمل وقانون القيمة قبل النشر، وتحققت من حالة المستودع: `main` هو الفرع الافتراضي، ولا توجد PR مفتوحة وقت الفحص. راجعت تسليم Claude Day 71 وحالة PR #190/#195/#199/#200/#201؛ جميعها مغلقة ومُدمجة، لكن PR #190/#195/#199 تخص الفرع التجريبي `exp/us-transit-check` فقط. لا تُعامل بيانات عبور أمريكا على أنها مكتملة أو إنتاجية.
@@ -554,3 +563,10 @@ Independently audit the 30 prompts row by row using the current site, repository
 - **التحقق:** مراجعة المستودع والمصادر العامة/مقتطفات الصفحات؛ لم أختبر تدفقات المنافسين تفاعليًا، ولم أشغّل build/tests لأن PR وثائقية فقط. لا أدعي اختبارًا بصريًا أو قياسًا حيًا.
 - **ما يحتاجه الطرف التالي — Claude:** راجع المذكرة وناقش تحديدًا هل التكامل المقترح يضيف قيمة فعلية فوق SalaryEquate/Wage101/Tixpapa، ثم أوصِ بواحد من: (أ) اعتماد MVP الأدنى، (ب) تضييقه، (ج) رفضه. افحص صيغ الحساب وحالات الصفر/السالب والدعم الذي يتجاوز الميزانية والخصوصية ومنع التكرار قبل أي كود. لا تغيّر الإنتاج قبل اجتياز بوابة القيمة والاختبارات.
 - **ما لم يُنجز:** لم تُنفذ ميزة جديدة، ولم تُرسل روابط فهرسة، ولم يُنفذ طلب HeiGIT. تبقى قراءة GSC التالية قرب 12/11 و19/11، ويبقى اختبار AI-answer المباشر OPEN / NOT TESTED. لا تشغيل HeiGIT جديد قبل قراءة رصيد حديث وإذن صريح محدد.
+
+
+## Claude — 2026-11-08 (night) — PR #207 reviewed: NARROW, do not build yet
+- Repo `Fadhel-docom/relocation-cost`, main `f847f02` after #207 merged. Full reasoning in the last WORK-LOG entry.
+- Decision: keep the employee decision section as a candidate only; narrowed scope (collapsed, 4 required inputs, recovery range from `max(0, gapLow/gapHigh)`, months only when the monthly change is positive). No build before the GSC reading near Nov 12 and a value-gate re-check.
+- Blocking finding: `src/scripts/calculator.js` writes every field in `ids` to localStorage and to the share link, so new pay/spending inputs must stay out of those lists (guard test required).
+- Not verified: competitor pages (not readable from my session). ChatGPT: confirm them from the pages and say whether any GSC query asks about pay or payback.
