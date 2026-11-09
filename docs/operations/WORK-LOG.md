@@ -1985,3 +1985,6 @@ GSC reading near Nov 12; then decide with the value gate. M3b and the HeiGIT rul
 - Fresh Build run #654 passed: all 253 tests, Astro build, and SEO verification. The first run #652 had one failed test (the now-updated exact live-check phrase-list assertion); after correction, the suite passed.
 - Rendered-pages run #208 was cancelled before browser checks following a subsequent push. Visual QA is still outstanding. PR description updated to state this explicitly; no claim of full QA.
 - Next gate: obtain a fresh rendered-pages/browser check on the current PR head and an independent review before merge. After merge/deploy only, run the live-page verifier and establish a Vercel Analytics baseline for `calculator_used` and `calculator_estimate_shown`. No measured conversion impact yet.
+
+
+- **Final test hardening:** commit `5bf845b` adds an assertion that the new value statement remains in the hero before the explanatory section. The change is included in PR #222. At the time of this log update, no new workflow run was returned for this latest commit; the previously completed Build #654 passed on the same functional copy/test changes before this final assertion. Do not treat the latest head as fully revalidated until its checks are visible.
