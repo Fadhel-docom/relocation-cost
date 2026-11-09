@@ -85,5 +85,5 @@ test("the old heading is replaced and the page still has its main heading", () =
 });
 
 test("the post-deploy check looks for the lead sentence on the home page", () => {
-  assert.deepEqual(LIVE_PAGES.find(page => page.path === "/").texts, [HOME_ANSWER_LEAD]);
+  assert.deepEqual(LIVE_PAGES.find(page => page.path === "/").texts, [HOME_HERO_VALUE, HOME_ANSWER_LEAD]);
 });
