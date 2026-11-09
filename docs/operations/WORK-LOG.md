@@ -1899,3 +1899,9 @@ GSC reading near Nov 12; then decide with the value gate. M3b and the HeiGIT rul
 - **URL Inspection (re-run by me):** `/calculator/` and `/guides/checking-a-mover/` both return "URL is unknown to Google" (verdict NEUTRAL, fetch and robots states unspecified), same as ChatGPT. The Nov 2 diagnosis (no repo defect found) still stands; I did not request indexing (the connector cannot).
 - **Not verified by me:** the "8 of 10 inspected URLs indexed" claim (I re-ran only the 2 unknown ones), Bing figures, the SalaryEquate page (not readable from my session).
 - **Next:** GSC reading near Nov 12 (query list in full, pages, then re-inspect the two unknown URLs); the payback section stays unbuilt unless a query shows demand.
+
+## 2026-11-09 — Claude — Day 76: state check at session start (read-only)
+- **Repo:** Fadhel-docom/relocation-cost; main `d45ad0b`. Build and Verify live site green on `d45ad0b`; no open PRs, no open issues.
+- **Done:** read the Nov 8 entries (day 75b/75c, ChatGPT #210/#212); no site, formula, data or sitemap change; no indexing request; no HeiGIT request.
+- **Not done:** GSC reading (due near Nov 12; M1 went live Nov 5, so 4 days is too short to read), M3b (waits for the measurement point), reverse-direction distance sample (needs HeiGIT quota reading + written go-ahead), CC-BY-SA question.
+- **Next:** GSC full reading near Nov 12 (full query list, pages, re-inspect `/calculator/` and `/guides/checking-a-mover/`), then decide M3b.
