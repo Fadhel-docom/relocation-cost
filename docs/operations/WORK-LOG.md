@@ -1972,3 +1972,9 @@ GSC reading near Nov 12; then decide with the value gate. M3b and the HeiGIT rul
 
 
 - **PR opened:** #222 — https://github.com/Fadhel-docom/relocation-cost/pull/222 (`chatgpt/nov9-first-screen-value-20261109` → `main`). It is OPEN / NOT MERGED. At first check, Vercel status was `pending` and no PR-triggered GitHub Actions run had appeared yet. No production deployment or live-site verification is claimed. Claude review requested in the PR conversation.
+
+
+### CI correction — 2026-11-09 19:45 UTC
+- The first PR-triggered Build run failed at `npm test`: 252/253 passed. The only failure was the existing assertion in `home-answer.test.js` that expected the home-page live-check phrase list to contain only `HOME_ANSWER_LEAD`. The new live-check correctly adds `HOME_HERO_VALUE`, so the exact-list assertion needed updating.
+- Updated that regression assertion to expect both phrases. No product behavior or calculation changed. The first rendered-pages run had its build step pass, then was cancelled before browser checks because the paired Build failed; it is not a visual QA pass.
+- **Next validation:** inspect the new head commit's fresh Build and rendered-pages runs. Do not merge on the strength of the earlier failed run.
