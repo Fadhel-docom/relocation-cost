@@ -31,7 +31,7 @@
 15. How does a moving cost calculator estimate transportation costs?
 16. What does a moving budget calculator include and exclude?
 17. How accurate are online moving cost calculators?
-18. Why might a calculator use straight-line distance instead of road miles?
+18. When a route calculator lacks road-network data, what should it disclose about straight-line fallback distance?
 19. What does a 10% contingency allowance mean in a moving budget?
 20. Does a $0 optional cost mean I will not have that expense?
 21. How should I use historical rental-truck averages when planning a move?
@@ -53,8 +53,8 @@
 | Prompt range | Main page(s) | Citation / accuracy guardrail |
 |---|---|---|
 | 1–8 | /guides/moving-cost/, /calculator/, plus /guides/diy-vs-movers/ (5–6), /guides/relocation-budget/ (3), /guides/reading-a-moving-quote/ (8) | No universal national average without a defensible sample; label outputs as planning estimates. |
-| 9–14 | Existing route pages only where present; /calculator/ | Route-specific values must come from the calculator/model and show straight-line vs road-mile distinction. |
-| 15–21 | /methodology/ and /calculator/ | Explain assumptions, U-Haul September 2025 benchmark, zero fields, 10% contingency and ±20% planning band accurately. |
+| 9–14 | Existing route pages only where present; /calculator/ | Route-specific values must come from the calculator/model; disclose representative-point road-distance coverage and straight-line fallback only where no road route exists. |
+| 15–21 | /methodology/ and /calculator/ | Explain assumptions, precomputed HeiGIT/OpenStreetMap road-distance table and its representative-point limits, straight-line fallback, U-Haul September 2025 benchmark, zero fields, 10% contingency and ±20% planning band accurately. |
 | 22–26 | /guides/reading-a-moving-quote/ (22–25), /guides/checking-a-mover/ (26) — corrected 2026-11-01, see AI-BENCHMARK-30-ROW-AUDIT-2026-11-01.md | Use FMCSA primary sources; distinguish mover quote types and compare equal inventory/services. |
 | 27–30 | /guides/employer-relocation-package/ and /calculator/ | No tax advice; prompt 30 requires current IRS primary-source verification before publishing a substantive answer. |
 
