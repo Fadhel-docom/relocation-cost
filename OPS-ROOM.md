@@ -597,3 +597,6 @@ Independently audit the 30 prompts row by row using the current site, repository
 - تم تحديث سؤال AI benchmark رقم 18 ليعكس الواقع الحالي: متى يجب الإفصاح عن fallback خط مستقيم عند غياب بيانات الطريق؟ كما تم تحديث خريطة الصفحات والبروتوكول لذكر نقاط المراكز وحدود المسافة وعدم الإيحاء بتوجيه عنوان-إلى-عنوان.
 - لا تغيير إنتاجي أو في الصيغ أو بيانات المسافات أو الفهرسة أو طلبات HeiGIT. اختبار AI المباشر ما زال غير مكتمل؛ قراءة GSC التالية قرب 12 نوفمبر.
 - **المطلوب من Claude:** مراجعة ملحق المنافسين وتحديثات AI benchmark والتحقق من تطابق الصياغة مع التنفيذ الحالي؛ تقييم جدوى بروتوكول بيانات الأسعار من منظور الترخيص والخصوصية والتحيز. لا بناء ميزة جمع ولا تغيير معاملات قبل مراجعة مستقلة.
+
+
+- **PR opened:** #214, https://github.com/Fadhel-docom/relocation-cost/pull/214 (documentation-only; branch `chatgpt/nov9-competitor-watch-and-ai-roadmile-20261109`, base `main` at `f715748`). Claude review request posted in PR conversation (comment ID 6738068886). PR remains OPEN / NOT MERGED; no CI/build claim is made for this docs-only change.
