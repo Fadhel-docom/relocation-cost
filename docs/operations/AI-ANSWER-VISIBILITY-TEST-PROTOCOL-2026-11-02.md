@@ -44,7 +44,7 @@ Run these first; they cover core tool intent, route intent, methodology, trust a
 | 9 | California to Texas moving cost | High-priority route intent | /moving-cost/ca-to-tx/ |
 | 10 | Florida to New Jersey moving budget | Known first-screen gap | /moving-cost/fl-to-nj/ |
 | 15 | How a calculator estimates transportation | Methodology credibility | /methodology/ |
-| 18 | Straight-line distance vs road miles | Important limitation | /methodology/; /calculator/ |
+| 18 | Straight-line fallback when road-network data is unavailable | Important limitation after road-distance rollout | /methodology/; /calculator/ |
 | 23 | Binding vs non-binding estimates | Consumer trust / primary-source accuracy | /guides/reading-a-moving-quote/ |
 | 26 | Verify an interstate mover | Practical consumer value | /guides/checking-a-mover/ |
 | 27 | Compare employer lump sum with moving budget | Strong differentiated use case | /guides/employer-relocation-package/; /calculator/ |
@@ -70,7 +70,7 @@ Relevance classifications below follow Claude's 2026-11-01 source audit. They ar
 | 10 | Directly served; competitive | /moving-cost/fl-to-nj/ | P1 | Inspect first-screen answer and clear calculator path. |
 | 11 | Directly served | /moving-cost/ny-to-pa/ | P2 | Verify page content, not only route existence. |
 | 12 | Directly served | /moving-cost/oh-to-fl/ | P2 | Verify page content, not only route existence. |
-| 13 | Relevant, underserved | /calculator/; /methodology/ | P2 | Explain state-centroid straight-line distance; no unsourced road-mile coefficient. |
+| 13 | Directly served with route-data limits | /calculator/; /methodology/ | P2 | Explain representative-point road-distance table, its stored-route limits, and straight-line fallback where no road route exists; do not imply address-level routing. |
 | 14 | Directly served | /calculator/ | P3 | Confirm state selectors support estimates without exact addresses. |
 | 15 | Directly served | /methodology/ | P2 | Match explanation to current calculation code and data. |
 | 16 | Directly served | /methodology/; /guides/diy-vs-movers/ | P2 | Distinguish included, excluded and user-entered costs. |
