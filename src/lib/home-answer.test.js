@@ -17,6 +17,7 @@ test("the first-screen value statement matches the no-contact calculator flow", 
   assert.match(HOME_HERO_VALUE, /editable moving budget/);
   assert.match(HOME_HERO_VALUE, /without an email address, an account, or a mover-quote request/);
   assert.ok(home.includes("{HOME_HERO_VALUE}"));
+  assert.ok(home.indexOf("{HOME_HERO_VALUE}") < home.indexOf("{HOME_ANSWER_HEADING}"), "the value statement stays in the hero before the explanatory section");
   assert.ok(calculator.includes("The estimate updates as you type."));
   assert.ok(calculator.includes("Email this estimate to myself"));
   assert.ok(!calculator.includes("type=\"email\""));
