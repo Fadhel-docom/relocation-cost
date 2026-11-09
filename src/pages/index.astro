@@ -4,7 +4,7 @@ import cityData from "../../data/cities.json";
 import cityRoutes from "../../data/city-routes.json";
 import stateData from "../../data/state-distances.json";
 import statePages from "../../data/route-pages.json";
-import { HOME_ANSWER_HEADING, HOME_ANSWER_LEAD, HOME_ANSWER_MOVE, HOME_ANSWER_AROUND, HOME_ANSWER_LIMITS, HOME_ANSWER_LINKS } from "../lib/home-answer.js";
+import { HOME_HERO_VALUE, HOME_ANSWER_HEADING, HOME_ANSWER_LEAD, HOME_ANSWER_MOVE, HOME_ANSWER_AROUND, HOME_ANSWER_LIMITS, HOME_ANSWER_LINKS } from "../lib/home-answer.js";
 
 const cities = cityData.cities;
 const featuredCityRoutes = cityRoutes.routes.slice(0, 8);
@@ -29,6 +29,7 @@ const websiteJsonLd = {
         <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-sky-300">Relocation Cost Suite</p>
         <h1 class="text-4xl font-bold tracking-tight sm:text-6xl">Know what your move could cost before you move.</h1>
         <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-300">Build a practical moving budget from distance, home size, move type, and the extra costs people often forget.</p>
+        <p class="mt-4 max-w-2xl text-sm leading-6 text-sky-100">{HOME_HERO_VALUE}</p>
         <div class="mt-8 flex flex-wrap gap-3">
           <a href="/calculator/" class="inline-flex rounded-xl bg-white px-6 py-3 font-semibold text-slate-950 shadow-sm hover:bg-slate-100">Calculate my moving cost →</a>
           <a href="/guides/relocation-budget/" class="inline-flex rounded-xl border border-slate-700 px-6 py-3 font-semibold text-white hover:bg-slate-900">Read the budget guide</a>

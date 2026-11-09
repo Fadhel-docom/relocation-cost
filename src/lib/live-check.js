@@ -9,7 +9,7 @@
 // A page served from a NEWER commit than expected is fine ("superseded"): a later push already replaced it.
 import { FLOOR_NOTE, BAND_NOTE, SEASON_NOTE, EMPLOYER_TAX_NOTE, TAX_SOURCES } from "./trust.js";
 import { TITLE as QUOTE_GUIDE_TITLE } from "./quote-guide.js";
-import { HOME_ANSWER_LEAD } from "./home-answer.js";
+import { HOME_HERO_VALUE, HOME_ANSWER_LEAD } from "./home-answer.js";
 import { ROUTE_ANSWER_NOTE } from "./route-answer.js";
 
 // Phrases that sit in the page source itself (not in a shared constant). A unit test reads each page file and fails
@@ -21,7 +21,7 @@ export const TRUCK_GUIDE_LEAD = "The right truck is the smallest one your belong
 
 // What every deployed page must show. Phrases come from the same constants the pages render.
 export const LIVE_PAGES = Object.freeze([
-  { path: "/", kind: "html", texts: [HOME_ANSWER_LEAD] },
+  { path: "/", kind: "html", texts: [HOME_HERO_VALUE, HOME_ANSWER_LEAD] },
   { path: "/calculator/", kind: "html", texts: [FLOOR_NOTE, BAND_NOTE, SEASON_NOTE, EMPLOYER_TAX_NOTE], links: TAX_SOURCES.map(source => source.url) },
   { path: "/methodology/", kind: "html", texts: [SEASON_NOTE] },
   { path: "/moving-cost/", kind: "html", texts: [ROUTE_INDEX_NOTE] },

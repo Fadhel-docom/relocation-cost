@@ -2,6 +2,8 @@
 // constants, the post-deploy check looks for HOME_ANSWER_LEAD, and home-answer.test.js ties each claim to what
 // the calculator really does. No number, price, period or percentage is typed here: a figure that changes in the
 // calculator must never leave this text saying something else.
+export const HOME_HERO_VALUE = "Start an editable moving budget without an email address, an account, or a mover-quote request.";
+
 export const HOME_ANSWER_HEADING = "How to calculate relocation costs";
 
 export const HOME_ANSWER_LEAD = "A relocation budget has three parts: the move itself, the costs around the move, and a planning buffer for what you miss.";
