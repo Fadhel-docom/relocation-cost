@@ -84,3 +84,14 @@ test("the calculator page's starting distance is computed from the table, not ty
   assert.ok(/id="distance"[^>]*value=\{defaultDistance\}/.test(page));
   assert.ok(page.includes('distanceFor(roadTable, "state", "CA", "TX"'));
 });
+
+test("routes that used to cross Canada are recorded and use the US-only distance", () => {
+  const adj = table.adjustments;
+  assert.ok(adj && Array.isArray(adj.pairs) && adj.pairs.length === 43, "43 adjusted pairs expected");
+  for (const { pair, was, now } of adj.pairs) {
+    assert.equal(table.pairs[pair].road, now, `${pair} must hold the US-only value`);
+    assert.ok(now >= table.pairs[pair].straight, `${pair} US-only route shorter than straight line`);
+    assert.ok(Number.isFinite(was) && was > 0, pair);
+  }
+  assert.match(table.note, /US-only/);
+});

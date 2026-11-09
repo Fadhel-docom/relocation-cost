@@ -6,7 +6,7 @@
  "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
  "attribution": "© openrouteservice by HeiGIT | Data from OpenStreetMap",
  "terms": "https://account.heigit.org/info/tos",
- "note": "Planning input only. Distance between the same state or city points the calculator uses for its straight-line distance, snapped to the nearest road. Not a quote and not a navigation route.",
+ "note": "Planning input only. Distance between the same state or city points the calculator uses for its straight-line distance, snapped to the nearest road. Not a quote and not a navigation route. Routes that crossed Canada were replaced by US-only routes (see adjustments).",
  "generated_at": "2026-11-06T20:16:04.108Z",
  "pairs": {
   "AL|AR": {
@@ -654,7 +654,7 @@
    "straight": 1203.1
   },
   "CA|NH": {
-   "road": 3074.1,
+   "road": 3143.2,
    "straight": 2568
   },
   "CA|NJ": {
@@ -718,7 +718,7 @@
    "straight": 2276.3
   },
   "CA|VT": {
-   "road": 3084,
+   "road": 3025.1,
    "straight": 2507.6
   },
   "CA|WA": {
@@ -826,7 +826,7 @@
    "straight": 398.5
   },
   "CO|NH": {
-   "road": 2076.7,
+   "road": 2145.7,
    "straight": 1766.5
   },
   "CO|NJ": {
@@ -890,7 +890,7 @@
    "straight": 1466.6
   },
   "CO|VT": {
-   "road": 2086.6,
+   "road": 2027.7,
    "straight": 1708.7
   },
   "CO|WA": {
@@ -962,7 +962,7 @@
    "straight": 273.2
   },
   "CT|MI": {
-   "road": 751.2,
+   "road": 812.1,
    "straight": 611.7
   },
   "CT|MN": {
@@ -1690,7 +1690,7 @@
    "straight": 848.1
   },
   "IA|VT": {
-   "road": 1300.5,
+   "road": 1241.6,
    "straight": 1042.1
   },
   "IA|WA": {
@@ -1774,7 +1774,7 @@
    "straight": 849.5
   },
   "ID|NH": {
-   "road": 2612,
+   "road": 2681,
    "straight": 2114.5
   },
   "ID|NJ": {
@@ -1838,7 +1838,7 @@
    "straight": 1928.5
   },
   "ID|VT": {
-   "road": 2621.9,
+   "road": 2563,
    "straight": 2048.2
   },
   "ID|WA": {
@@ -1918,7 +1918,7 @@
    "straight": 488.6
   },
   "IL|NH": {
-   "road": 1101.3,
+   "road": 1170.3,
    "straight": 919.4
   },
   "IL|NJ": {
@@ -1982,7 +1982,7 @@
    "straight": 606.6
   },
   "IL|VT": {
-   "road": 1111.1,
+   "road": 1052.2,
    "straight": 869.7
   },
   "IL|WA": {
@@ -2546,7 +2546,7 @@
    "straight": 201.4
   },
   "MA|MI": {
-   "road": 771.8,
+   "road": 890.8,
    "straight": 663.2
   },
   "MA|MN": {
@@ -2782,11 +2782,11 @@
    "straight": 1604
   },
   "ME|MI": {
-   "road": 912.3,
+   "road": 1106.4,
    "straight": 757.8
   },
   "ME|MN": {
-   "road": 1595.6,
+   "road": 1650.9,
    "straight": 1191.1
   },
   "ME|MO": {
@@ -2798,7 +2798,7 @@
    "straight": 1364.4
   },
   "ME|MT": {
-   "road": 2445.3,
+   "road": 2500.5,
    "straight": 1961.4
   },
   "ME|NC": {
@@ -2806,11 +2806,11 @@
    "straight": 832.4
   },
   "ME|ND": {
-   "road": 1939.1,
+   "road": 1994.3,
    "straight": 1459.8
   },
   "ME|NE": {
-   "road": 1703,
+   "road": 1758.8,
    "straight": 1474.5
   },
   "ME|NH": {
@@ -2826,7 +2826,7 @@
    "straight": 2052.5
   },
   "ME|NV": {
-   "road": 2911.7,
+   "road": 2975.4,
    "straight": 2469.8
   },
   "ME|NY": {
@@ -2842,7 +2842,7 @@
    "straight": 1576.2
   },
   "ME|OR": {
-   "road": 3174.3,
+   "road": 3233.8,
    "straight": 2543.9
   },
   "ME|PA": {
@@ -2858,7 +2858,7 @@
    "straight": 969.1
   },
   "ME|SD": {
-   "road": 1862.1,
+   "road": 1917.4,
    "straight": 1473.1
   },
   "ME|TN": {
@@ -2870,7 +2870,7 @@
    "straight": 1789.1
   },
   "ME|UT": {
-   "road": 2537.1,
+   "road": 2601,
    "straight": 2164.4
   },
   "ME|VA": {
@@ -2882,11 +2882,11 @@
    "straight": 170.4
   },
   "ME|WA": {
-   "road": 3135.9,
+   "road": 3191.1,
    "straight": 2458.8
   },
   "ME|WI": {
-   "road": 1351.3,
+   "road": 1406.6,
    "straight": 995.4
   },
   "ME|WV": {
@@ -2894,7 +2894,7 @@
    "straight": 734.5
   },
   "ME|WY": {
-   "road": 2291.2,
+   "road": 2354.9,
    "straight": 1881
   },
   "MI|MN": {
@@ -2926,7 +2926,7 @@
    "straight": 718
   },
   "MI|NH": {
-   "road": 795.3,
+   "road": 982.6,
    "straight": 650.7
   },
   "MI|NJ": {
@@ -2942,7 +2942,7 @@
    "straight": 1723.8
   },
   "MI|NY": {
-   "road": 610.6,
+   "road": 702.5,
    "straight": 492.8
   },
   "MI|OH": {
@@ -2962,7 +2962,7 @@
    "straight": 421
   },
   "MI|RI": {
-   "road": 800.7,
+   "road": 881.4,
    "straight": 672.4
   },
   "MI|SC": {
@@ -2990,7 +2990,7 @@
    "straight": 508.7
   },
   "MI|VT": {
-   "road": 793.6,
+   "road": 864.6,
    "straight": 592.4
   },
   "MI|WA": {
@@ -3098,7 +3098,7 @@
    "straight": 975.9
   },
   "MN|VT": {
-   "road": 1477.6,
+   "road": 1410.1,
    "straight": 1040.7
   },
   "MN|WA": {
@@ -3398,7 +3398,7 @@
    "straight": 1750.6
   },
   "MT|VT": {
-   "road": 2327.5,
+   "road": 2260.1,
    "straight": 1821.3
   },
   "MT|WA": {
@@ -3578,7 +3578,7 @@
    "straight": 1282.3
   },
   "ND|VT": {
-   "road": 1821.3,
+   "road": 1753.9,
    "straight": 1319.4
   },
   "ND|WA": {
@@ -3598,7 +3598,7 @@
    "straight": 492.5
   },
   "NE|NH": {
-   "road": 1566.9,
+   "road": 1635.9,
    "straight": 1368.4
   },
   "NE|NJ": {
@@ -3662,7 +3662,7 @@
    "straight": 1094.5
   },
   "NE|VT": {
-   "road": 1576.8,
+   "road": 1517.9,
    "straight": 1310.3
   },
   "NE|WA": {
@@ -3690,7 +3690,7 @@
    "straight": 1935.5
   },
   "NH|NV": {
-   "road": 2857.5,
+   "road": 2857.4,
    "straight": 2372.8
   },
   "NH|NY": {
@@ -3706,7 +3706,7 @@
    "straight": 1450.6
   },
   "NH|OR": {
-   "road": 3120.2,
+   "road": 3115.8,
    "straight": 2470.2
   },
   "NH|PA": {
@@ -3734,7 +3734,7 @@
    "straight": 1656.3
   },
   "NH|UT": {
-   "road": 2482.9,
+   "road": 2483,
    "straight": 2067.8
   },
   "NH|VA": {
@@ -3758,7 +3758,7 @@
    "straight": 597.3
   },
   "NH|WY": {
-   "road": 2237,
+   "road": 2236.9,
    "straight": 1789.6
   },
   "NJ|NM": {
@@ -3958,7 +3958,7 @@
    "straight": 2100.5
   },
   "NV|VT": {
-   "road": 2794.2,
+   "road": 2735.3,
    "straight": 2311.3
   },
   "NV|WA": {
@@ -4190,7 +4190,7 @@
    "straight": 2302.4
   },
   "OR|VT": {
-   "road": 3083,
+   "road": 2993.4,
    "straight": 2402.6
   },
   "OR|WA": {
@@ -4358,7 +4358,7 @@
    "straight": 1192.4
   },
   "SD|VT": {
-   "road": 1743.1,
+   "road": 1675.7,
    "straight": 1318.8
   },
   "SD|WA": {
@@ -4442,7 +4442,7 @@
    "straight": 1806.8
   },
   "UT|VT": {
-   "road": 2419.6,
+   "road": 2360.7,
    "straight": 2006
   },
   "UT|WA": {
@@ -4482,11 +4482,11 @@
    "straight": 1565.8
   },
   "VT|WA": {
-   "road": 3017.9,
+   "road": 2949.5,
    "straight": 2325.5
   },
   "VT|WI": {
-   "road": 1233.3,
+   "road": 1164.9,
    "straight": 836.7
   },
   "VT|WV": {
@@ -4494,7 +4494,7 @@
    "straight": 574.4
   },
   "VT|WY": {
-   "road": 2173.1,
+   "road": 2113.2,
    "straight": 1726
   },
   "WA|WI": {
@@ -4697,5 +4697,225 @@
    "road": 814.1,
    "straight": 679.3
   }
+ },
+ "adjustments": {
+  "reason": "Route crossed Canada; replaced by the US-only route (openrouteservice avoid_countries Canada+Mexico, same points). Source: US transit check run 2026-11-07/08.",
+  "pairs": [
+   {
+    "pair": "CT|MI",
+    "was": 751.2,
+    "now": 812.1
+   },
+   {
+    "pair": "IA|VT",
+    "was": 1300.5,
+    "now": 1241.6
+   },
+   {
+    "pair": "ID|NH",
+    "was": 2612,
+    "now": 2681
+   },
+   {
+    "pair": "ID|VT",
+    "was": 2621.9,
+    "now": 2563
+   },
+   {
+    "pair": "IL|NH",
+    "was": 1101.3,
+    "now": 1170.3
+   },
+   {
+    "pair": "IL|VT",
+    "was": 1111.1,
+    "now": 1052.2
+   },
+   {
+    "pair": "MA|MI",
+    "was": 771.8,
+    "now": 890.8
+   },
+   {
+    "pair": "ME|MI",
+    "was": 912.3,
+    "now": 1106.4
+   },
+   {
+    "pair": "ME|MN",
+    "was": 1595.6,
+    "now": 1650.9
+   },
+   {
+    "pair": "ME|MT",
+    "was": 2445.3,
+    "now": 2500.5
+   },
+   {
+    "pair": "ME|ND",
+    "was": 1939.1,
+    "now": 1994.3
+   },
+   {
+    "pair": "ME|NE",
+    "was": 1703,
+    "now": 1758.8
+   },
+   {
+    "pair": "ME|OR",
+    "was": 3174.3,
+    "now": 3233.8
+   },
+   {
+    "pair": "ME|SD",
+    "was": 1862.1,
+    "now": 1917.4
+   },
+   {
+    "pair": "ME|WA",
+    "was": 3135.9,
+    "now": 3191.1
+   },
+   {
+    "pair": "ME|WI",
+    "was": 1351.3,
+    "now": 1406.6
+   },
+   {
+    "pair": "ME|WY",
+    "was": 2291.2,
+    "now": 2354.9
+   },
+   {
+    "pair": "MI|NH",
+    "was": 795.3,
+    "now": 982.6
+   },
+   {
+    "pair": "MI|NY",
+    "was": 610.6,
+    "now": 702.5
+   },
+   {
+    "pair": "MI|RI",
+    "was": 800.7,
+    "now": 881.4
+   },
+   {
+    "pair": "MI|VT",
+    "was": 793.6,
+    "now": 864.6
+   },
+   {
+    "pair": "MN|VT",
+    "was": 1477.6,
+    "now": 1410.1
+   },
+   {
+    "pair": "MT|VT",
+    "was": 2327.5,
+    "now": 2260.1
+   },
+   {
+    "pair": "ND|VT",
+    "was": 1821.3,
+    "now": 1753.9
+   },
+   {
+    "pair": "NE|NH",
+    "was": 1566.9,
+    "now": 1635.9
+   },
+   {
+    "pair": "NE|VT",
+    "was": 1576.8,
+    "now": 1517.9
+   },
+   {
+    "pair": "NH|OR",
+    "was": 3120.2,
+    "now": 3115.8
+   },
+   {
+    "pair": "NH|WY",
+    "was": 2237,
+    "now": 2236.9
+   },
+   {
+    "pair": "OR|VT",
+    "was": 3083,
+    "now": 2993.4
+   },
+   {
+    "pair": "SD|VT",
+    "was": 1743.1,
+    "now": 1675.7
+   },
+   {
+    "pair": "VT|WA",
+    "was": 3017.9,
+    "now": 2949.5
+   },
+   {
+    "pair": "VT|WI",
+    "was": 1233.3,
+    "now": 1164.9
+   },
+   {
+    "pair": "VT|WY",
+    "was": 2173.1,
+    "now": 2113.2
+   },
+   {
+    "pair": "CA|NH",
+    "was": 3074.1,
+    "now": 3143.2
+   },
+   {
+    "pair": "CA|VT",
+    "was": 3084,
+    "now": 3025.1
+   },
+   {
+    "pair": "CO|NH",
+    "was": 2076.7,
+    "now": 2145.7
+   },
+   {
+    "pair": "CO|VT",
+    "was": 2086.6,
+    "now": 2027.7
+   },
+   {
+    "pair": "ME|NV",
+    "was": 2911.7,
+    "now": 2975.4
+   },
+   {
+    "pair": "ME|UT",
+    "was": 2537.1,
+    "now": 2601
+   },
+   {
+    "pair": "NH|NV",
+    "was": 2857.5,
+    "now": 2857.4
+   },
+   {
+    "pair": "NH|UT",
+    "was": 2482.9,
+    "now": 2483
+   },
+   {
+    "pair": "NV|VT",
+    "was": 2794.2,
+    "now": 2735.3
+   },
+   {
+    "pair": "UT|VT",
+    "was": 2419.6,
+    "now": 2360.7
+   }
+  ]
  }
 }
