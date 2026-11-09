@@ -1978,3 +1978,10 @@ GSC reading near Nov 12; then decide with the value gate. M3b and the HeiGIT rul
 - The first PR-triggered Build run failed at `npm test`: 252/253 passed. The only failure was the existing assertion in `home-answer.test.js` that expected the home-page live-check phrase list to contain only `HOME_ANSWER_LEAD`. The new live-check correctly adds `HOME_HERO_VALUE`, so the exact-list assertion needed updating.
 - Updated that regression assertion to expect both phrases. No product behavior or calculation changed. The first rendered-pages run had its build step pass, then was cancelled before browser checks because the paired Build failed; it is not a visual QA pass.
 - **Next validation:** inspect the new head commit's fresh Build and rendered-pages runs. Do not merge on the strength of the earlier failed run.
+
+
+### PR #222 status — 2026-11-09 19:46 UTC
+- Opened PR #222: https://github.com/Fadhel-docom/relocation-cost/pull/222 (base `main`, branch `chatgpt/nov9-first-screen-value-20261109`). PR remains OPEN / NOT MERGED; no production deployment has occurred.
+- Fresh Build run #654 passed: all 253 tests, Astro build, and SEO verification. The first run #652 had one failed test (the now-updated exact live-check phrase-list assertion); after correction, the suite passed.
+- Rendered-pages run #208 was cancelled before browser checks following a subsequent push. Visual QA is still outstanding. PR description updated to state this explicitly; no claim of full QA.
+- Next gate: obtain a fresh rendered-pages/browser check on the current PR head and an independent review before merge. After merge/deploy only, run the live-page verifier and establish a Vercel Analytics baseline for `calculator_used` and `calculator_estimate_shown`. No measured conversion impact yet.
