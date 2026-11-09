@@ -167,3 +167,36 @@
 3. Treat road-distance coverage as a useful product improvement, not a unique selling proposition. Explain that the stored route is between representative central points, not the visitor's addresses.
 4. Next research task: define a minimum viable, legally and ethically sound evidence protocol for collecting comparable, dated moving-cost observations (route, home-size band, service type, included services, quote/paid status, source date, sample count, privacy and consent). Do not collect personal data or publish averages until provenance, permissions, sample thresholds and bias limitations are reviewed.
 5. Next product task remains measurement-led: no new price model until the validation sample can test it; maintain current transparent assumptions and limitations.
+
+
+## Addendum — distribution and product-flow checks (2026-11-09)
+
+> This is a focused public-page check, not a full interactive audit. Sources were retrieved 2026-11-09; page snippets/search extracts are distinguished from independently verified underlying datasets.
+
+### Haulest — embeddable distribution channel
+- **New evidence:** the Haulest Moving Cost WordPress plugin listing documents shortcodes for embedding U.S. and Canadian moving-cost tables, a data feed fetched from `haulest.com/data/moving-costs-2026.json` every 12 hours with a cached fallback, and a “Data by Haulest” attribution link. The listing says the table renders on the publisher's server and sends no reader data to Haulest; outbound links carry UTM tags.
+- **Why it matters:** this is a concrete distribution model: third-party publishers can embed a useful cost-data component rather than only linking to a calculator. It directly relates to our roadmap item on citeable/embeddable tools and practical distribution.
+- **Limit:** the WordPress listing is the vendor's own description; we have not installed or independently audited the plugin, its code, privacy behavior or data accuracy.
+- **Decision:** record as a distribution pattern to study, not a build request. No widget/plugin, API endpoint or data feed should be built until we have evidence of publisher demand, a defensible price dataset, licensing review, attribution terms, update process and abuse/security controls.
+
+### Moving.com — quote-funnel product flow
+- **Page reviewed:** [Moving.com Moving Cost Calculator](https://www.moving.com/movers/moving-cost-calculator.asp).
+- **Observed flow:** origin, destination, move size, packing level and move date are requested; the page then offers to connect the visitor with up to four licensed/insured movers. The page also publishes recent estimates and general price ranges, and lists factors such as travel, inventory size, packing, add-ons, storage and move date.
+- **Potential contrast for us:** the current Relocation Cost calculator page states that no email address or account is needed to see the estimate; its “Email this estimate to myself” button opens a draft in the visitor's own email app and does not send it. The tool also lets visitors add travel, temporary housing, setup, packing/extras and itemized costs, plus employer cash/direct support.
+- **Decision:** this supports a clearer, evidence-based product distinction: an independent, editable planning budget before contacting movers, rather than a quote-matching funnel. It is not yet proof of superior estimate accuracy or market preference. Make the distinction understandable in the first screen and measure calculator completion and quote-intent behavior before claiming it is a differentiator.
+
+### RelocateMath — broader methodology and relocation coverage
+- **New evidence:** its methodology page describes moving-price ranges fitted to 198 published price ranges across 22 interstate routes, checked against 47 other published prices; a 1.17 median road/straight-line factor is used on state population-center distances. The page also documents detailed cost-of-living inputs (e.g. Census housing, EIA electricity, AAA fuel, insurance and health-cost references) and a personal budget comparison.
+- **Implication:** the competitive bar is not just a moving-cost estimate. It includes transparent sourcing across the broader relocation decision. This strengthens the case for keeping our own cost categories, assumptions and dates explicit, while not expanding into a full tax/living-cost model without reliable data and demand evidence.
+- **Limit:** these are statements on the competitor's own methodology page; we did not reproduce its model, validate every source snapshot or independently audit the sample.
+
+### Priority decision after the focused review
+1. **P1 — clarify the product distinction, not a new feature:** test whether the first screen clearly communicates “see an editable planning budget without giving contact details or requesting mover quotes.” Check this against the current page and analytics; do not change production copy in this research-only task.
+2. **P2 — distribution research:** document a minimum viable publisher-embed concept and prerequisites only after a source-backed dataset and publisher demand exist. Haulest's plugin is evidence that the channel exists, not evidence that our own widget would be adopted.
+3. **No-build:** no generic payback widget, no new pricing model, no copied competitor data, no new API/data feed, and no route-page expansion from this review.
+
+### Sources
+- Haulest WordPress plugin listing: https://wordpress.org/plugins/haulest-moving-cost/ (retrieved 2026-11-09).
+- Moving.com calculator: https://www.moving.com/movers/moving-cost-calculator.asp (retrieved 2026-11-09).
+- RelocateMath methodology: https://relocatemath.com/methodology/ (retrieved 2026-11-09).
+- RelocateMath about/methodology summary: https://relocatemath.com/about/ (retrieved 2026-11-09).
