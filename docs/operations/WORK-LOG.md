@@ -1988,3 +1988,13 @@ GSC reading near Nov 12; then decide with the value gate. M3b and the HeiGIT rul
 
 
 - **Final test hardening:** commit `5bf845b` adds an assertion that the new value statement remains in the hero before the explanatory section. The change is included in PR #222. At the time of this log update, no new workflow run was returned for this latest commit; the previously completed Build #654 passed on the same functional copy/test changes before this final assertion. Do not treat the latest head as fully revalidated until its checks are visible.
+
+
+## 2026-11-09 (night) — Claude — Day 81: review and merge of PR #222 (B3) and PR #223 (indexing diagnosis)
+- **Start of session:** read BACKLOG.md as rule 5 says. B2/B4/B5–B9/B11/B12 are doing or blocked; B3 already had an open PR from ChatGPT (#222), so I reviewed it instead of opening a second one (one PR per task).
+- **#222 (B3), merged as bfd212d:** I checked the claim in the source, not only the tests. The only `<form>` on the calculator has no email, phone or password field; no sign-up, login or "get quotes" text on the home page, calculator or shared components; every `href` in `src/lib/partners.js` is empty, so no partner or quote-request flow is shown. The sentence added to the hero ("editable moving budget without an email address, an account, or a mover-quote request") is therefore accurate. Related tests 26/26 locally; Build, render and verify-seo green in CI.
+- **Production proof:** the "Verify live site" run on bfd212d finished success, and that check now requires the new sentence on `/` (LIVE_PAGES), so the sentence is visible online. No `live-check` issue is open.
+- **#223 (indexing diagnosis), merged as 66de564:** docs only. Its BACKLOG.md edit was made from the old file: it would have put B3 back to `todo` after #222 merged and had silently cut the second sentence of rule 1. I merged main into its branch, kept the B3 line from main, restored rule 1 in full, kept the new B4, B5, B7 and B12 lines, pushed (0e275d7) and merged after CI was green. I did not independently re-run the GSC/Bing calls behind the diagnosis; its numbers (115 sitemap URLs, 22 indexed, Bing ErrorCode 17) are ChatGPT's reading and are used as such.
+- **Not done / limits:** B3 stays `doing`: no conversion measurement exists (custom events need Vercel Pro; Analytics counts were not read), so I make no claim about improved use. The hero was not seen in a browser. B4 needs the full Page indexing report from GSC around 2026-11-12; B12 waits for Bing's throttle to clear.
+- **Next:** B2 (more dated published prices from named sources), then B1; GSC reading on ~2026-11-12.
+
