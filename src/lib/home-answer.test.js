@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import {
-  HOME_ANSWER_HEADING, HOME_ANSWER_LEAD, HOME_ANSWER_MOVE, HOME_ANSWER_AROUND, HOME_ANSWER_LIMITS, HOME_ANSWER_LINKS,
+  HOME_HERO_VALUE, HOME_ANSWER_HEADING, HOME_ANSWER_LEAD, HOME_ANSWER_MOVE, HOME_ANSWER_AROUND, HOME_ANSWER_LIMITS, HOME_ANSWER_LINKS,
 } from "./home-answer.js";
 import { calculateBudget, getUhaulBenchmark, HOME_SIZES, MOVE_TYPES, DEFAULT_CONTINGENCY_RATE } from "./calculator.js";
 import { SEASON_NOTE } from "./trust.js";
@@ -12,6 +12,16 @@ const read = file => readFileSync(new URL(file, import.meta.url), "utf8");
 const home = read("../pages/index.astro");
 const calculator = read("../pages/calculator.astro");
 const ALL = [HOME_ANSWER_HEADING, HOME_ANSWER_LEAD, HOME_ANSWER_MOVE, HOME_ANSWER_AROUND, HOME_ANSWER_LIMITS, HOME_ANSWER_LINKS.calculator.label, HOME_ANSWER_LINKS.employer.label];
+
+test("the first-screen value statement matches the no-contact calculator flow", () => {
+  assert.match(HOME_HERO_VALUE, /editable moving budget/);
+  assert.match(HOME_HERO_VALUE, /without an email address, an account, or a mover-quote request/);
+  assert.ok(home.includes("{HOME_HERO_VALUE}"));
+  assert.ok(home.indexOf("{HOME_HERO_VALUE}") < home.indexOf("{HOME_ANSWER_HEADING}"), "the value statement stays in the hero before the explanatory section");
+  assert.ok(calculator.includes("The estimate updates as you type."));
+  assert.ok(calculator.includes("Email this estimate to myself"));
+  assert.ok(!calculator.includes("type=\"email\""));
+});
 
 test("the home answer types no number, price, percentage or period", () => {
   for (const text of ALL) assert.doesNotMatch(text, /[$%]|\d/, text);
@@ -62,7 +72,7 @@ test("each limit the answer states is stated by the calculator or an existing no
 });
 
 test("the home page renders every constant and the employer link has its anchor", () => {
-  for (const name of ["HOME_ANSWER_HEADING", "HOME_ANSWER_LEAD", "HOME_ANSWER_MOVE", "HOME_ANSWER_AROUND", "HOME_ANSWER_LIMITS", "HOME_ANSWER_LINKS"]) {
+  for (const name of ["HOME_HERO_VALUE", "HOME_ANSWER_HEADING", "HOME_ANSWER_LEAD", "HOME_ANSWER_MOVE", "HOME_ANSWER_AROUND", "HOME_ANSWER_LIMITS", "HOME_ANSWER_LINKS"]) {
     assert.ok(home.includes(`{${name}`), name);
   }
   assert.equal(HOME_ANSWER_LINKS.calculator.href, "/calculator/");
@@ -76,5 +86,5 @@ test("the old heading is replaced and the page still has its main heading", () =
 });
 
 test("the post-deploy check looks for the lead sentence on the home page", () => {
-  assert.deepEqual(LIVE_PAGES.find(page => page.path === "/").texts, [HOME_ANSWER_LEAD]);
+  assert.deepEqual(LIVE_PAGES.find(page => page.path === "/").texts, [HOME_HERO_VALUE, HOME_ANSWER_LEAD]);
 });
