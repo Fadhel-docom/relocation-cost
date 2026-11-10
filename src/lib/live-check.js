@@ -11,6 +11,7 @@ import { FLOOR_NOTE, BAND_NOTE, SEASON_NOTE, EMPLOYER_TAX_NOTE, TAX_SOURCES } fr
 import { TITLE as QUOTE_GUIDE_TITLE } from "./quote-guide.js";
 import { HOME_HERO_VALUE, HOME_ANSWER_LEAD } from "./home-answer.js";
 import { ROUTE_ANSWER_NOTE } from "./route-answer.js";
+import { PUBLISHED_PRICE_CHECK_LEAD } from "./published-price-comparison.js";
 
 // Phrases that sit in the page source itself (not in a shared constant). A unit test reads each page file and fails
 // if the phrase is no longer there, so this list cannot drift away from what the pages render.
@@ -23,7 +24,7 @@ export const TRUCK_GUIDE_LEAD = "The right truck is the smallest one your belong
 export const LIVE_PAGES = Object.freeze([
   { path: "/", kind: "html", texts: [HOME_HERO_VALUE, HOME_ANSWER_LEAD] },
   { path: "/calculator/", kind: "html", texts: [FLOOR_NOTE, BAND_NOTE, SEASON_NOTE, EMPLOYER_TAX_NOTE], links: TAX_SOURCES.map(source => source.url) },
-  { path: "/methodology/", kind: "html", texts: [SEASON_NOTE] },
+  { path: "/methodology/", kind: "html", texts: [SEASON_NOTE, PUBLISHED_PRICE_CHECK_LEAD] },
   { path: "/moving-cost/", kind: "html", texts: [ROUTE_INDEX_NOTE] },
   { path: "/moving-cost/ca-to-tx/", kind: "html", texts: [ROUTE_ANSWER_NOTE] },
   { path: "/guides/reading-a-moving-quote/", kind: "html", texts: [QUOTE_GUIDE_TITLE] },
