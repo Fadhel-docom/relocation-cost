@@ -10,6 +10,7 @@ import {
   DEFAULT_RANGE_HIGH,
 } from "../lib/calculator.js";
 import { SEASON_NOTE } from "../lib/trust.js";
+import { PUBLISHED_PRICE_CHECK_LEAD, PUBLISHED_PRICE_CHECKS } from "../lib/published-price-comparison.js";
 
 const money = value => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
 const bands = benchmarkData.benchmarks.uhaul_one_way_average_by_distance;
@@ -61,6 +62,40 @@ const percent = value => `${Math.round(value * 100)}%`;
         </tbody>
       </table>
     </div>
+
+
+    <h2 class="mt-10 text-2xl font-bold">A check against published full-service ranges</h2>
+    <p class="mt-4 leading-7 text-slate-700">{PUBLISHED_PRICE_CHECK_LEAD}</p>
+    <p class="mt-3 leading-7 text-slate-700">We checked these examples against the current model on November 10, 2026. The comparison uses the largest tested home-size multiplier that could fit each published bedroom category, which is the more favourable mapping for our estimate. Our home-size choices are rooms, not bedrooms, so this is not an exact like-for-like match.</p>
+    <div tabindex="0" role="region" aria-label="Scrollable published moving-price comparison" class="mt-4 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+      <table class="w-full min-w-[42rem] text-left text-sm leading-6">
+        <thead class="border-b border-slate-200 bg-slate-50"><tr><th class="p-3 font-semibold">Published example</th><th class="p-3 font-semibold">Published full-service range</th><th class="p-3 font-semibold">Our point estimate</th><th class="p-3 font-semibold">Our planning band</th></tr></thead>
+        <tbody class="text-slate-700">
+          {PUBLISHED_PRICE_CHECKS.map((check) => {
+            const result = calculateBudget({ distance: check.distance, size: check.size, type: 1.65 });
+            return (
+              <tr class="border-b border-slate-100 last:border-0">
+                <td class="p-3"><span class="font-semibold">{check.label}</span><br /><a class="text-sky-700 underline" href={check.sourceUrl} rel="noopener">{check.source}</a></td>
+                <td class="p-3 whitespace-nowrap">{money(check.publishedLow)}–{money(check.publishedHigh)}</td>
+                <td class="p-3 whitespace-nowrap">{money(result.total)}</td>
+                <td class="p-3 whitespace-nowrap">{money(result.rangeLow)}–{money(result.rangeHigh)}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-4 leading-7 text-slate-700">In these selected examples, our estimate and its planning band are below the published range for the 20-mile local move and the 500-, 1,000- and 1,280-mile examples. At 2,000 miles, the point estimate is inside the published range. This suggests a gap worth investigating; it does not establish a universal distance threshold or prove which source is closer to an actual quote.</p>
+
+    <h3 class="mt-7 text-xl font-bold">How to read this comparison</h3>
+    <ul class="mt-3 list-disc space-y-3 pl-6 leading-7 text-slate-700">
+      <li>HireAHelper's 20-mile, 2-bedroom example reports $1,038–$1,441 for full service and notes that local movers often have a two-mover, two-hour minimum. Its New York City–Miami example reports $5,359–$8,226 for a 2–3-bedroom move over 1,280 miles.</li>
+      <li>Opendoor's article, updated April 20, 2026, reproduces distance bands attributed to North American Van Lines. We treat these as one secondary compilation, not independent observations. The underlying provider table was not independently verified in this review.</li>
+      <li>The sources differ in their included services and methods. Opendoor says packing, specialty items and insurance add to its long-distance ranges. Our total includes the model's 10% contingency, but costs left blank by a visitor remain excluded.</li>
+      <li>HireAHelper's page gives inconsistent years for its sample in two sections (the introduction refers to 2025 moves; its methodology paragraph refers to 2024). We therefore do not repeat its sample count as a verified denominator.</li>
+      <li>Our 80%–120% band is a fixed planning range, not a statistical confidence interval. The source ranges are not a representative national sample, and the bedroom-to-room mapping remains an assumption.</li>
+    </ul>
+    <p class="mt-3 leading-7 text-slate-700">We have not changed the base amount, per-mile rate, home-size multipliers or service multipliers based on this comparison. Calibration requires several independent, dated observations for the same route, home size and service scope, with a model tested on observations not used to fit it.</p>
 
     <h2 class="mt-10 text-2xl font-bold">Sources</h2>
     <ul class="mt-4 list-disc space-y-3 pl-6 leading-7 text-slate-700">
