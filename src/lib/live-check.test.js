@@ -6,6 +6,8 @@ import { ADDRESS_GUIDE_LEAD, EMPLOYER_GUIDE_LEAD, LIVE_PAGES, ROUTE_INDEX_NOTE, 
 import { LEAD } from "./employer-package.js";
 import { FLOOR_NOTE, BAND_NOTE, SEASON_NOTE, EMPLOYER_TAX_NOTE, TAX_SOURCES } from "./trust.js";
 import { TITLE as QUOTE_GUIDE_TITLE } from "./quote-guide.js";
+import { PUBLISHED_PRICE_CHECK_LEAD, PUBLISHED_PRICE_CHECKS } from "./published-price-comparison.js";
+import { calculateBudget } from "./calculator.js";
 
 const SHA = "a".repeat(40);
 const OLD = "b".repeat(40);
@@ -30,7 +32,7 @@ test("every live page has a path, a kind and a list of phrases", () => {
 test("the required phrases are the ones the pages render", () => {
   assert.deepEqual(calculator.texts, [FLOOR_NOTE, BAND_NOTE, SEASON_NOTE, EMPLOYER_TAX_NOTE]);
   assert.deepEqual(calculator.links, TAX_SOURCES.map(source => source.url));
-  assert.deepEqual(methodology.texts, [SEASON_NOTE]);
+  assert.deepEqual(methodology.texts, [SEASON_NOTE, PUBLISHED_PRICE_CHECK_LEAD]);
   const calculatorSource = readFileSync(new URL("../pages/calculator.astro", import.meta.url), "utf8");
   const methodologySource = readFileSync(new URL("../pages/methodology.astro", import.meta.url), "utf8");
   assert.match(calculatorSource, /\{FLOOR_NOTE\}/);
@@ -39,6 +41,26 @@ test("the required phrases are the ones the pages render", () => {
   assert.match(calculatorSource, /\{EMPLOYER_TAX_NOTE\}/);
   assert.match(calculatorSource, /TAX_SOURCES\.map/, "the page renders its IRS links from TAX_SOURCES");
   assert.match(methodologySource, /\{SEASON_NOTE\}/);
+});
+
+test("the published-price comparison uses exact source cases and current calculator outputs", () => {
+  assert.equal(PUBLISHED_PRICE_CHECKS.length, 5);
+  const expected = [
+    [20, 1.8, 1038, 1441, 422, 337, 506],
+    [500, 1.35, 1500, 2800, 1071, 857, 1285],
+    [1000, 1.8, 3200, 5500, 2215, 1772, 2657],
+    [1280, 2.4, 5359, 8226, 3715, 2972, 4458],
+    [2000, 1.8, 4000, 7000, 4627, 3701, 5552],
+  ];
+  for (const [i, row] of expected.entries()) {
+    const item = PUBLISHED_PRICE_CHECKS[i];
+    assert.deepEqual([item.distance, item.size, item.publishedLow, item.publishedHigh], row.slice(0, 4));
+    const estimate = calculateBudget({ distance: item.distance, size: item.size, type: 1.65 });
+    assert.deepEqual([Math.round(estimate.total), Math.round(estimate.rangeLow), Math.round(estimate.rangeHigh)], row.slice(4));
+  }
+  const source = readFileSync(new URL("../pages/methodology.astro", import.meta.url), "utf8");
+  assert.match(source, /PUBLISHED_PRICE_CHECKS\.map/);
+  assert.match(source, /\{PUBLISHED_PRICE_CHECK_LEAD\}/);
 });
 
 test("extractBuildCommits finds the markers in either attribute order", () => {
