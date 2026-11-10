@@ -35,3 +35,61 @@ Examples (published range vs our total at the best-case size): 2-3 BR New York t
 
 ## Decision left open (B13)
 No coefficient is changed: backlog rule X7 asks for 3-5 dated figures for the same route and size from named sources, and these are ranges from partly overlapping sources. B13 records what a change would need (a distance-slope model tested on cells not used to fit it, and the owner informed).
+
+
+## Full-page source re-read — 2026-11-10 (ChatGPT; exact tables)
+
+The two pages named in Claude's Day 82 handoff were opened and read in full on 2026-11-10. This replaces the earlier limitation that their tables had only been read through WebFetch summaries.
+
+### HireAHelper — updated July 13, 2026
+Source: https://www.hireahelper.com/advice/moving-costs/ (page lines 69–101, 143–205, 179–190).
+
+- The page states $100–$150/hour for a two-person full-service team and says local movers commonly impose a two-mover, two-hour minimum (lines 102–125).
+- Exact 20-mile, 2-bedroom local full-service total: **$1,038–$1,441** (lines 143–155).
+- Exact New York City–Miami example: 1,280 miles, 2–3 bedrooms, full-service **$5,359–$8,226** (lines 179–190).
+- Its generic 2–3-bedroom long-distance full-service table is **$2,910–$4,569**, but no distance is supplied, so it is not a route-distance comparison (lines 160–178).
+- Long-distance table by home-size band (distance is not supplied): studio/1BR **$2,339–$3,249**; 1,500 sq ft **$3,034–$4,214**; 2,000 sq ft **$3,367–$4,676**; 3,000 sq ft **$3,949–$5,484**; 4BR+/4,000 sq ft **$4,478–$6,219** (lines 193–205). These figures are not used in the route-distance table.
+- **Source-period inconsistency:** the introduction says over 50,000 local moves in 2025 (line 74), while the methodology paragraph says over 50,000 moves analyzed in 2024 (lines 100–101). We do not publish a sample denominator from this page.
+- HireAHelper describes these as proprietary marketplace data, not an independently audited or random national sample. The source itself notes that scope and minimums matter.
+
+### Opendoor — updated April 20, 2026
+Source: https://www.opendoor.com/articles/how-much-it-costs-to-move-everything-you-need-to-consider (page lines 8–9, 43–52, 79–92, 93–104).
+
+**Quick summary table (full-service; local under 50 miles / long-distance at 1,000 miles):**
+
+| Home size | Local | 1,000 miles |
+|---|---:|---:|
+| Studio / 1 bedroom | $400–$1,200 | $1,500–$3,500 |
+| 2 bedrooms | $800–$2,200 | $2,500–$5,500 |
+| 3 bedrooms | $1,200–$3,200 | $3,500–$7,500 |
+| 4 bedrooms | $1,800–$4,500 | $5,000–$10,000 |
+| 5+ bedrooms | $2,500–$6,000+ | $7,000–$14,000+ |
+
+The page says packing, specialty items and insurance add to these ranges (line 52); it attributes this summary to Forbes Home and HomeAdvisor.
+
+**Long-distance table explicitly attributed by Opendoor to North American Van Lines:**
+
+| Home size | 500 miles | 1,000 miles | 2,000+ miles |
+|---|---:|---:|---:|
+| 1 bedroom (2,000–3,000 lbs) | $1,500–$2,800 | $2,000–$3,500 | $2,500–$4,500 |
+| 2 bedrooms (5,000–6,000 lbs) | $2,500–$4,200 | $3,200–$5,500 | $4,000–$7,000 |
+| 3 bedrooms (8,000–10,000 lbs) | $3,500–$5,800 | $4,500–$7,500 | $5,500–$9,500 |
+| 4 bedrooms (12,000–15,000 lbs) | $5,000–$8,000 | $6,500–$10,000 | $8,000–$14,000 |
+
+- Opendoor says long-distance prices are based on shipment weight and distance, and notes fuel surcharges, shuttle fees and long-carry fees can apply (lines 79–92).
+- The direct North American Van Lines URL linked by Opendoor was not independently retrieved in this review (cache miss). Therefore the table is described on the public page as **Opendoor's table attributed to NAVL**, not as a directly verified NAVL rate sheet.
+- The Opendoor page is one secondary source. Its tables and other summary figures should not be counted as independent datasets or independent observations.
+
+### Calculation reproduction for the five examples shown on /methodology/
+
+The table is calculated from the live calculateBudget() function, with type: 1.65 (full-service), no user-entered add-ons, and the largest tested room multiplier chosen for each bedroom category. The model's fixed 80%–120% band is shown as a planning band, not a confidence interval.
+
+| Case | Multiplier | Published range | Model point | Model band |
+|---|---:|---:|---:|---:|
+| HireAHelper, local 20 mi, 2BR | 1.8 | $1,038–$1,441 | $422 | $337–$506 |
+| Opendoor/NAVL-attributed, 500 mi, 1BR | 1.35 | $1,500–$2,800 | $1,071 | $857–$1,285 |
+| Opendoor/NAVL-attributed, 1,000 mi, 2BR | 1.8 | $3,200–$5,500 | $2,215 | $1,772–$2,657 |
+| HireAHelper, NYC–Miami 1,280 mi, 2–3BR | 2.4 | $5,359–$8,226 | $3,715 | $2,972–$4,458 |
+| Opendoor/NAVL-attributed, 2,000+ mi, 2BR (evaluated at 2,000) | 1.8 | $4,000–$7,000 | $4,627 | $3,701–$5,552 |
+
+This confirms the source tables and the exact values used by the site section. It does not resolve the calibration gap. B13 remains blocked under rule X7 until we have 3–5 independent dated observations matched by route, home size and service scope, plus a holdout test for any candidate model. No coefficients or formulas changed.
