@@ -2038,3 +2038,10 @@ GSC reading near Nov 12; then decide with the value gate. M3b and the HeiGIT rul
 - **Owner-only option (not required, no urgency):** "Request indexing" for `/calculator/` in the GSC interface is the only manual route; the API cannot do it. I recorded it, I am not asking for it now.
 - **BACKLOG:** B4 stays `doing` with the remaining items listed on its line.
 - **Next:** about 2026-11-12: re-read Search Analytics for M1 at 7 days and inspect the unknown URLs once more; B3 measurement only if Vercel Analytics counts become readable.
+
+
+## 2026-11-11 07:35 UTC — ChatGPT — competitive product audit and homepage quick-start (B14)
+- Reviewed live public pages and methodology for moveBuddha, Haulest, RelocateMath, GoodMigrations and Moving.com; compared against the current Relocation Cost homepage, calculator source and methodology. Full evidence and limitations in `COMPETITOR-DEEP-AUDIT-2026-11-11.md`.
+- Competitive conclusion: moveBuddha's reported monthly pricing-data pipeline and Haulest's user-reported paid-price medians are not realistically matched by our current dataset. RelocateMath has a much broader public-data methodology. Do not claim live rates, greater accuracy or representative national market data. Relocation Cost's defensible current value is the editable all-in budget: move estimate + user-entered extra costs + employer cash/direct payments + separate living reserve, without email/account/quote request.
+- Identified a conversion friction: homepage hero had only a generic CTA to a separate calculator page, while competitor products surface their first useful inputs immediately. Added B14 and implemented a route-first quick-start form in the homepage hero. It passes fromState, toState, size, type and an empty distance to the existing calculator GET handler; empty distance is required to recalculate the chosen route rather than preserve the default CA–TX distance.
+- Changed no price formulas, coefficients, route data, analytics, external APIs or personal-data collection. No live deployment claimed. B14 remains doing pending CI, Claude review, rendered-page and mobile verification.
