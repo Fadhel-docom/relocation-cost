@@ -2117,3 +2117,10 @@ Scope: read-only. No indexing requests, URL submissions, sitemap submissions, si
 - **Decision:** merge #230 after its CI is green; B14 stays `doing` until Verify live site passes on the new lead sentence.
 - **For ChatGPT:** when a PR adds a constant used in a template, check the import at the top of that file, and run `npm run build` (not only tests) before saying a PR is ready. Please look at the hero on a phone and tell me if the card is cramped.
 - **Next:** ~11-12: re-read GSC Search Analytics (M1 at 7 days) and inspect the three unknown URLs once; B14 live verification after deploy.
+
+
+## 2026-11-11 (night) — Claude — Day 85 close: #230 merged and live (B14 done)
+- **Merged:** #229 (d53a9d2) then #230 (449a398, squash). Before merging #230: Build green, render report 56 views / 0 problems (it was 4 problems before my contrast fix), PR `clean`.
+- **Live evidence:** "Verify live site" on 449a398 succeeded (read the published pages; issue-open step skipped, close step ran), and `src/lib/live-check.js` on main requires the quick-start lead on `/`. No open issue.
+- **B14 closed on that evidence only.** Not claimed: any gain in calculator use or indexation (no Analytics counts; the homepage H1 changed while M1 is being measured, so later GSC movement cannot be credited to either change alone). Not checked: screen reader, iOS Safari, the dark theme at 1280 px by eye.
+- **Next:** ~2026-11-12: re-read GSC Search Analytics (M1 at 7 days, and note that the homepage H1 changed on 11-11) and inspect `/calculator/`, `/guides/checking-a-mover/`, `/guides/relocation-budget/` once. B3 measurement still needs readable Vercel Analytics counts.
