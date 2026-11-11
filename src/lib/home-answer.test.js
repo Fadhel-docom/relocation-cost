@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import {
-  HOME_HERO_VALUE, HOME_ANSWER_HEADING, HOME_ANSWER_LEAD, HOME_ANSWER_MOVE, HOME_ANSWER_AROUND, HOME_ANSWER_LIMITS, HOME_ANSWER_LINKS,
+  HOME_HERO_VALUE, HOME_ANSWER_HEADING, HOME_ANSWER_LEAD, HOME_ANSWER_MOVE, HOME_ANSWER_AROUND, HOME_ANSWER_LIMITS, HOME_ANSWER_LINKS, HOME_QUICK_START_LEAD,
 } from "./home-answer.js";
 import { calculateBudget, getUhaulBenchmark, HOME_SIZES, MOVE_TYPES, DEFAULT_CONTINGENCY_RATE } from "./calculator.js";
 import { SEASON_NOTE } from "./trust.js";
@@ -86,14 +86,18 @@ test("the old heading is replaced and the page still has its main heading", () =
 });
 
 test("the post-deploy check looks for the lead sentence on the home page", () => {
-  assert.deepEqual(LIVE_PAGES.find(page => page.path === "/").texts, [HOME_HERO_VALUE, HOME_ANSWER_LEAD]);
+  assert.deepEqual(LIVE_PAGES.find(page => page.path === "/").texts, [HOME_HERO_VALUE, HOME_ANSWER_LEAD, HOME_QUICK_START_LEAD]);
 });
 
 test("the homepage quick-start carries valid selections into the existing calculator", () => {
+  // loadQuery() copies a URL parameter into every field listed in the script's `ids` array.
+  const idsLine = read("../scripts/calculator.js").match(/^const ids = \[([^\]]*)\];/m);
+  assert.ok(idsLine, "calculator script declares its field ids");
+  const calculatorIds = idsLine[1].split(",").map(id => id.trim().replace(/"/g, ""));
   assert.ok(home.includes('action="/calculator/" method="get"'));
   for (const name of ["fromState", "toState", "distance", "size", "type"]) {
     assert.ok(home.includes(`name="${name}"`), `homepage submits ${name}`);
-    assert.ok(read("../scripts/calculator.js").includes(`#${name}`), `calculator script accepts ${name}`);
+    assert.ok(calculatorIds.includes(name), `calculator script accepts ${name}`);
   }
   assert.match(home, /stateData\.states/);
   assert.match(home, /required class=/);
@@ -101,5 +105,8 @@ test("the homepage quick-start carries valid selections into the existing calcul
   assert.match(read("../scripts/calculator.js"), /ids\.forEach\(id => \{/);
   assert.match(read("../scripts/calculator.js"), /params\.has\(id\)/);
   assert.ok(home.includes("{HOME_QUICK_START_LEAD}"));
+  // A constant used in the template but missing from the frontmatter import only fails at `astro build`.
+  const importLine = home.match(/import \{[^}]*\} from "..\/lib\/home-answer.js";/);
+  assert.ok(importLine && importLine[0].includes("HOME_QUICK_START_LEAD"), "index.astro imports HOME_QUICK_START_LEAD");
   assert.ok(home.includes('name="distance" value=""'), "empty distance tells the calculator to refill route mileage for the selected states");
 });
