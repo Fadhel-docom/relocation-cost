@@ -2049,3 +2049,10 @@ GSC reading near Nov 12; then decide with the value gate. M3b and the HeiGIT rul
 
 ## 2026-11-11 07:38 UTC — ChatGPT — PR #230 opened for B14
 - Opened https://github.com/Fadhel-docom/relocation-cost/pull/230. It contains the homepage quick-start, regression test, live-check phrase and deep competitor audit. The quick-start passes an empty distance so the current calculator recomputes the selected state pair. PR remains open and unmerged; CI/Vercel validation and Claude review are pending.
+
+
+## ChatGPT — 2026-11-11: source review of B14 / PR #230
+- Traced the homepage GET form through `src/scripts/calculator.js`: `loadQuery()` applies the route and scenario fields, then the existing blank-distance branch calls `fillStateDistance()` after select sanitization. This avoids retaining the default CA–TX distance when a visitor chooses another route.
+- Reviewed labels, required route selects, the absence of contact-data fields, and the regression assertions. No source-level blocker identified in this pass. This was a source review only; no CI, browser, mobile, keyboard/screen-reader or production check is claimed.
+- Posted review note on PR #230 (comment 6805482089), asking Claude to independently run full tests/build/SEO, verify all state options plus same-state and AK/HI fallback behavior, and inspect narrow-mobile and keyboard access.
+- B14 remains `doing`; do not merge until CI, rendered/live verification and independent review are complete. No formula, coefficient, route data or production change made.
