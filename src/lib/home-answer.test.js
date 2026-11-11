@@ -93,7 +93,7 @@ test("the homepage quick-start carries valid selections into the existing calcul
   assert.ok(home.includes('action="/calculator/" method="get"'));
   for (const name of ["fromState", "toState", "distance", "size", "type"]) {
     assert.ok(home.includes(`name="${name}"`), `homepage submits ${name}`);
-    assert.ok(calculator.includes(`#${name}`) || name === "distance", `calculator accepts ${name}`);
+    assert.ok(read("../scripts/calculator.js").includes(`#${name}`), `calculator script accepts ${name}`);
   }
   assert.match(home, /stateData\.states/);
   assert.match(home, /required class=/);
