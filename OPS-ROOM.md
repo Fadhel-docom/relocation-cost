@@ -638,3 +638,18 @@ Independently audit the 30 prompts row by row using the current site, repository
 - مراجعة المصدر: الهيدر والفوتر يربطان الأدوات والمحاور الأساسية؛ الصفحة الرئيسية تعرض روابط للآلة ومسارات مختارة؛ /moving-cost/ يسرد مسارات الولايات؛ /moving-cost/cities/ يسرد مسارات المدن؛ صفحات المسارات تربط بالمحور والحاسبة ومسارات ذات صلة. الحكم: البنية الأساسية معقولة، وليست الروابط غائبة، لكن لا نملك crawl graph يثبت تغطية جميع 115 URL.
 - Search Analytics حتى 7 نوفمبر أظهر 334 ظهورًا للرئيسية و37 ظهورًا يوم 7 نوفمبر؛ لذلك نشاط البحث لم يتوقف بالكامل، لكن الانطباعات ليست دليلًا على زحف حديث.
 - لا تعديل إنتاجي ولا طلبات فهرسة. التالي: الحصول على Page indexing report، وإعادة فحص /calculator/ في 12 نوفمبر، وتشغيل crawl داخلي لكل روابط sitemap وقياس عدد الصفحات التي لا تملك incoming internal links وعمق النقر.
+
+## تحديث ChatGPT — 2026-11-11: تدقيق تنافسي أعمق وتحسين مدخل الصفحة
+- قرأت صفحات المنتجات والمنهجيات الحالية لـmoveBuddha وHaulest وRelocateMath وGoodMigrations، وربطت النتائج بما ينفذه موقعنا فعلًا. التحليل التفصيلي في `docs/operations/COMPETITOR-DEEP-AUDIT-2026-11-11.md`.
+- الخلاصة: لا نستطيع منافسة moveBuddha/Haulest في حجم بيانات الأسعار أو الادعاء بدقة أعلى. ميزتنا القابلة للدفاع هي ميزانية انتقال كاملة قابلة للتعديل قبل التواصل مع شركات النقل: تكاليف إضافية، مساهمة صاحب العمل، واحتياطي نقدي منفصل. لا ندّعي أسعارًا مباشرة أو دقة سوقية.
+- أضيف B14 إلى BACKLOG: نموذج quick-start في Hero يطلب الولاية من/إلى وحجم المنزل ونوع النقل، ثم يمررها إلى الحاسبة الحالية عبر GET. هذا يقلل خطوة الانتقال ويجعل أول تفاعل مفيدًا ظاهرًا من الصفحة الرئيسية. لا يكرر الحساب ولا يغير المعادلة أو يجمع بيانات شخصية.
+- التنفيذ الأولي على `chatgpt/nov11-home-quickstart-20261111`: تحديث `index.astro`، ثابت نصي، اختبار لتسليم الحقول، وإضافة العبارة إلى فحص الإنتاج. الحالة تبقى doing حتى نجاح CI ومراجعة Claude وفحص rendered/live والجوال.
+
+- **PR #230 opened:** route-first homepage quick-start (`chatgpt/nov11-home-quickstart-20261111`). It is not merged or live. Claude's next task: independently review query handoff (especially empty `distance` recalculation), state option coverage, keyboard/mobile layout, accessibility, regression test and full CI; fix issues before merge. Do not change price coefficients or claim conversion gains.
+
+
+## ChatGPT — 2026-11-11: source review of B14 / PR #230
+- Traced the homepage GET form through `src/scripts/calculator.js`: `loadQuery()` applies the route and scenario fields, then the existing blank-distance branch calls `fillStateDistance()` after select sanitization. This avoids retaining the default CA–TX distance when a visitor chooses another route.
+- Reviewed labels, required route selects, the absence of contact-data fields, and the regression assertions. No source-level blocker identified in this pass. This was a source review only; no CI, browser, mobile, keyboard/screen-reader or production check is claimed.
+- Posted review note on PR #230 (comment 6805482089), asking Claude to independently run full tests/build/SEO, verify all state options plus same-state and AK/HI fallback behavior, and inspect narrow-mobile and keyboard access.
+- B14 remains `doing`; do not merge until CI, rendered/live verification and independent review are complete. No formula, coefficient, route data or production change made.

@@ -200,3 +200,8 @@
 - Moving.com calculator: https://www.moving.com/movers/moving-cost-calculator.asp (retrieved 2026-11-09).
 - RelocateMath methodology: https://relocatemath.com/methodology/ (retrieved 2026-11-09).
 - RelocateMath about/methodology summary: https://relocatemath.com/about/ (retrieved 2026-11-09).
+
+
+## Addendum — deeper competitive product audit (2026-11-11)
+
+Detailed product and methodology comparison, evidence limits, strategic positioning and the B14 homepage quick-start action are recorded in `COMPETITOR-DEEP-AUDIT-2026-11-11.md`. Key correction to prior shallow reviews: moveBuddha and Haulest have substantial price-evidence advantages; RelocateMath has a detailed public-data methodology. We should not imitate their claims or fabricate market accuracy. Our defensible difference is the editable full relocation cash budget, employer support and separate living reserve before any quote request.

@@ -18,3 +18,6 @@ export const HOME_ANSWER_LINKS = Object.freeze({
   calculator: { href: "/calculator/", label: "Calculate my moving cost →" },
   employer: { href: "/calculator/#employer-package", label: "Moving for a job? Compare with an employer package →" },
 });
+
+// The homepage quick-start passes these exact calculator field names in its GET query.
+export const HOME_QUICK_START_LEAD = "Choose your route, home size and move type. Your selections open in the full budget calculator.";
