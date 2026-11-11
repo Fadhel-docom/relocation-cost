@@ -88,3 +88,18 @@ test("the old heading is replaced and the page still has its main heading", () =
 test("the post-deploy check looks for the lead sentence on the home page", () => {
   assert.deepEqual(LIVE_PAGES.find(page => page.path === "/").texts, [HOME_HERO_VALUE, HOME_ANSWER_LEAD]);
 });
+
+test("the homepage quick-start carries valid selections into the existing calculator", () => {
+  assert.ok(home.includes('action="/calculator/" method="get"'));
+  for (const name of ["fromState", "toState", "distance", "size", "type"]) {
+    assert.ok(home.includes(`name="${name}"`), `homepage submits ${name}`);
+    assert.ok(calculator.includes(`#${name}`) || name === "distance", `calculator accepts ${name}`);
+  }
+  assert.match(home, /stateData\.states/);
+  assert.match(home, /required class=/);
+  assert.match(read("../scripts/calculator.js"), /const loadQuery = \(\) =>/);
+  assert.match(read("../scripts/calculator.js"), /ids\.forEach\(id => \{/);
+  assert.match(read("../scripts/calculator.js"), /params\.has\(id\)/);
+  assert.ok(home.includes("{HOME_QUICK_START_LEAD}"));
+  assert.ok(home.includes('name="distance" value=""'), "empty distance tells the calculator to refill route mileage for the selected states");
+});
