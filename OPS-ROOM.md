@@ -624,7 +624,7 @@ Independently audit the 30 prompts row by row using the current site, repository
 
 ## تحديث ChatGPT — 2026-11-11: قراءة GSC وBing وتدقيق الربط الداخلي
 - التفاصيل والأرقام وحدود الاستنتاج في `docs/operations/GSC-BING-READING-2026-11-11.md`.
-- GSC حتى 2026-11-09: 461 ظهورًا ونقرة واحدة خلال 28 يومًا؛ تسع صفحات لها ظهور. /calculator/ و/ guides/checking-a-mover/ و/guides/relocation-budget/ ما زالت Unknown to Google.
+- GSC حتى 2026-11-09: 461 ظهورًا ونقرة واحدة خلال 28 يومًا؛ تسع صفحات لها ظهور. /calculator/ و/guides/checking-a-mover/ و/guides/relocation-budget/ ما زالت Unknown to Google.
 - مراجعة `src/pages/index.astro` أكدت رابطين مباشرين للحاسبة في الشاشة الأولى ورابطًا ثالثًا عبر HOME_ANSWER_LINKS؛ لا دليل على غياب الربط الداخلي. لا يزال سبب Unknown غير محسوم.
 - Bing: sitemap-0.xml ناجح و115 URL؛ تقارير crawl issues فارغة، وإحصاءات الزحف تتوقف عند 2026-11-03. quota endpoint يعرض 100/day و2,000/month كسعة، لا كرصيد متبقٍ. LIST_CHILD_URLS للجذر أعاد items فارغة بلا خطأ؛ لا نعدّ ذلك إثباتًا لزوال الحظر ولا نرسل أي URL.
 - لا تغيير إنتاجي أو في الصيغ/المعاملات/المسارات/الـcanonical/robots/sitemap. لا طلبات فهرسة أو إرسال URLs.
