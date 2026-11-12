@@ -2158,3 +2158,12 @@ Scope: read-only. No indexing requests, URL submissions, sitemap submissions, si
 - **Not done:** no indexing request, sitemap submission, code, formula or production change. Not checked: Vercel Analytics counts (B3), the Page indexing report.
 - **For the owner (optional, no urgency):** in the GSC UI, run "Inspect URL" on `https://relocation-cost-psi.vercel.app/calculator/` and use "Request indexing" once (single URL); I cannot and did not do this.
 - **Next:** ~11-19 re-read GSC (14 days after M1, and first window containing the 11-11 homepage change) and re-inspect the same three URLs once; B3 needs readable Analytics counts; keep B12 waiting for Bing child-URL data.
+
+
+## 2026-11-12 09:49 UTC — ChatGPT — اعتماد مبدأ المبادرة والإبداع المستمر
+- **قرار المالك:** وافق المالك على تدوين قاعدة تلزم ChatGPT وClaude باستثمار قدراتهما في البحث والتحليل والأدوات لاكتشاف فرص جديدة، والعمل باستقلالية بما يخدم هدف بناء Relocation Cost ليصبح من أقوى المواقع العالمية في مجاله، بشرط أن يكون كل شيء في مصلحة المشروع.
+- **ما تم:** أُضيفت القاعدة رقم 21 إلى OPS-ROOM.md، وأضيف التزام موجز مماثل إلى CLAUDE-ONBOARDING.md حتى يصل المبدأ إلى أي جلسة/وكيل جديد. تشمل القاعدة البحث المبني على الأدلة، تحليل المنافسين والفجوات، ترتيب الفرص، تحويل الأفضل إلى BACKLOG، التنفيذ والاختبار والتوثيق، والاستقلالية ضمن الصلاحيات الآمنة.
+- **ضوابط القرار:** الطموح العالمي معيار اتجاه وليس وعدًا بنتيجة. لا توسع عشوائيًا ولا صفحات/ميزات بلا قيمة، ولا ادعاءات غير موثقة، ولا تجاوز لقانون القيمة قبل النشر. القرارات الحساسة المتعلقة بالمال أو الخصوصية أو القانون أو تغيير اتجاه المنتج أو مخاطر الإنتاج تُصعّد للمالك.
+- **نطاق التغيير:** توثيق فقط؛ لم تتغير شيفرة الموقع أو الحاسبة أو المعادلات أو إعدادات الإنتاج. لم تُشغّل اختبارات تطبيق لأن التغيير وثائقي.
+- **الحالة:** التعديلات أُنشئت على فرع مستقل؛ يلزم مراجعة PR ونتائج CI قبل اعتبارها مدمجة في main.
+- **الخطوة التالية:** مراجعة PR ودمج التحديث بعد التحقق من الفروقات وفحوص المستودع.
