@@ -2136,3 +2136,10 @@ Scope: read-only. No indexing requests, URL submissions, sitemap submissions, si
 - **Diagnosis:** no evidence that internal linking is absent or the sole cause. Main sitemap is healthy in both engines; Google has recent impressions; the unresolved gap is per-URL discovery/index coverage and Google Page indexing reasons. GSC connector does not expose the full Page indexing report in this workflow. Need a rendered crawl graph and the Search Console Page indexing report from its UI/another supported source; do not resubmit all 115 URLs.
 - **Not done:** no code or production change; no Google indexing request; no Bing URL submission; no removal of legacy Bing feeds. No indexing guarantee or causal claim.
 - **Next:** (1) obtain Page indexing reason groups and examples, (2) extract all sitemap URLs and run a rendered internal-link crawl to measure inlinks/orphans/status/canonical/robots, (3) only after per-URL classification submit eligible URLs within verified Bing quota. Keep B4 and B12 open.
+
+
+## 2026-11-12 — ChatGPT — B13 calibration research extension (read-only)
+
+- Reviewed This Old House's 2026 moving-cost article, updated 2026-06-12, based on its stated 2025 survey of 1,000 moving customers. Captured the published average costs by distance and bedroom band, plus the source's overall distance averages and methodology limits. Exact tables and model reference outputs are in `docs/operations/PRICE-CALIBRATION-EVIDENCE-2026-11-12.md`.
+- This adds a customer-survey cross-check but does not meet B13/X7: the public page does not provide route-level rows, per-cell sample sizes, sampling method, or a clean service-type split; the calculator's current room bands are not equivalent to bedroom/weight bands. No coefficients or formulas changed.
+- **Product implication:** retain B13 as blocked. Record a future candidate to test a weight/inventory-based size input against current room bands, but do not implement until a defensible mapping and data are available. No live site changes.
