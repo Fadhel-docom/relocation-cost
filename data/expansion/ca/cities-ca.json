@@ -1,0 +1,345 @@
+{
+ "source": "Natural Earth populated places 10m (public domain), https://github.com/nvkelso/natural-earth-vector",
+ "groups": {
+  "CA": [
+   {
+    "id": "toronto-on",
+    "name": "Toronto",
+    "region": "ON",
+    "lon": -79.3895,
+    "lat": 43.6646,
+    "pop_max": 5213000,
+    "ferry_or_island": false
+   },
+   {
+    "id": "montreal-qc",
+    "name": "Montréal",
+    "region": "QC",
+    "lon": -73.5852,
+    "lat": 45.5019,
+    "pop_max": 3678000,
+    "ferry_or_island": false
+   },
+   {
+    "id": "vancouver-bc",
+    "name": "Vancouver",
+    "region": "BC",
+    "lon": -123.1236,
+    "lat": 49.2754,
+    "pop_max": 2313328,
+    "ferry_or_island": false
+   },
+   {
+    "id": "calgary-ab",
+    "name": "Calgary",
+    "region": "AB",
+    "lon": -114.0819,
+    "lat": 51.0849,
+    "pop_max": 1110000,
+    "ferry_or_island": false
+   },
+   {
+    "id": "edmonton-ab",
+    "name": "Edmonton",
+    "region": "AB",
+    "lon": -113.5019,
+    "lat": 53.552,
+    "pop_max": 1058000,
+    "ferry_or_island": false
+   },
+   {
+    "id": "ottawa-on",
+    "name": "Ottawa",
+    "region": "ON",
+    "lon": -75.702,
+    "lat": 45.4186,
+    "pop_max": 1145000,
+    "ferry_or_island": false
+   },
+   {
+    "id": "winnipeg-mb",
+    "name": "Winnipeg",
+    "region": "MB",
+    "lon": -97.166,
+    "lat": 49.883,
+    "pop_max": 632063,
+    "ferry_or_island": false
+   },
+   {
+    "id": "quebec-qc",
+    "name": "Québec",
+    "region": "QC",
+    "lon": -71.2456,
+    "lat": 46.84,
+    "pop_max": 624177,
+    "ferry_or_island": false
+   },
+   {
+    "id": "hamilton-on",
+    "name": "Hamilton",
+    "region": "ON",
+    "lon": -79.83,
+    "lat": 43.25,
+    "pop_max": 721053,
+    "ferry_or_island": false
+   },
+   {
+    "id": "kitchener-on",
+    "name": "Kitchener",
+    "region": "ON",
+    "lon": -80.5,
+    "lat": 43.45,
+    "pop_max": 417001,
+    "ferry_or_island": false
+   },
+   {
+    "id": "london-on",
+    "name": "London",
+    "region": "ON",
+    "lon": -81.25,
+    "lat": 42.97,
+    "pop_max": 346765,
+    "ferry_or_island": false
+   },
+   {
+    "id": "halifax-ns",
+    "name": "Halifax",
+    "region": "NS",
+    "lon": -63.6,
+    "lat": 44.65,
+    "pop_max": 359111,
+    "ferry_or_island": false
+   },
+   {
+    "id": "victoria-bc",
+    "name": "Victoria",
+    "region": "BC",
+    "lon": -123.35,
+    "lat": 48.4333,
+    "pop_max": 289625,
+    "ferry_or_island": true
+   },
+   {
+    "id": "saskatoon-sk",
+    "name": "Saskatoon",
+    "region": "SK",
+    "lon": -106.67,
+    "lat": 52.17,
+    "pop_max": 198958,
+    "ferry_or_island": false
+   },
+   {
+    "id": "regina-sk",
+    "name": "Regina",
+    "region": "SK",
+    "lon": -104.617,
+    "lat": 50.45,
+    "pop_max": 176183,
+    "ferry_or_island": false
+   },
+   {
+    "id": "st-john-s-nl",
+    "name": "St. John's",
+    "region": "NL",
+    "lon": -52.681,
+    "lat": 47.585,
+    "pop_max": 131469,
+    "ferry_or_island": true
+   },
+   {
+    "id": "fredericton-nb",
+    "name": "Fredericton",
+    "region": "NB",
+    "lon": -66.6333,
+    "lat": 45.95,
+    "pop_max": 52337,
+    "ferry_or_island": false
+   },
+   {
+    "id": "charlottetown-pe",
+    "name": "Charlottetown",
+    "region": "PE",
+    "lon": -63.1313,
+    "lat": 46.2493,
+    "pop_max": 42402,
+    "ferry_or_island": true
+   },
+   {
+    "id": "moncton-nb",
+    "name": "Moncton",
+    "region": "NB",
+    "lon": -64.7667,
+    "lat": 46.0833,
+    "pop_max": 90635,
+    "ferry_or_island": false
+   },
+   {
+    "id": "sudbury-on",
+    "name": "Sudbury",
+    "region": "ON",
+    "lon": -80.9666,
+    "lat": 46.5,
+    "pop_max": 157857,
+    "ferry_or_island": false
+   },
+   {
+    "id": "thunder-bay-on",
+    "name": "Thunder Bay",
+    "region": "ON",
+    "lon": -89.275,
+    "lat": 48.4462,
+    "pop_max": 99334,
+    "ferry_or_island": false
+   },
+   {
+    "id": "kelowna-bc",
+    "name": "Kelowna",
+    "region": "BC",
+    "lon": -119.4833,
+    "lat": 49.9,
+    "pop_max": 125109,
+    "ferry_or_island": false
+   },
+   {
+    "id": "windsor-on",
+    "name": "Windsor",
+    "region": "ON",
+    "lon": -83.0369,
+    "lat": 42.3155,
+    "pop_max": 319246,
+    "ferry_or_island": false
+   },
+   {
+    "id": "kingston-on",
+    "name": "Kingston",
+    "region": "ON",
+    "lon": -76.4833,
+    "lat": 44.2337,
+    "pop_max": 114195,
+    "ferry_or_island": false
+   },
+   {
+    "id": "sherbrooke-qc",
+    "name": "Sherbrooke",
+    "region": "QC",
+    "lon": -71.9,
+    "lat": 45.4,
+    "pop_max": 139652,
+    "ferry_or_island": false
+   },
+   {
+    "id": "trois-rivieres-qc",
+    "name": "Trois-Rivières",
+    "region": "QC",
+    "lon": -72.5499,
+    "lat": 46.35,
+    "pop_max": 119693,
+    "ferry_or_island": false
+   },
+   {
+    "id": "saint-john-nb",
+    "name": "Saint John",
+    "region": "NB",
+    "lon": -66.0767,
+    "lat": 45.267,
+    "pop_max": 87857,
+    "ferry_or_island": false
+   },
+   {
+    "id": "lethbridge-ab",
+    "name": "Lethbridge",
+    "region": "AB",
+    "lon": -112.8333,
+    "lat": 49.7005,
+    "pop_max": 70617,
+    "ferry_or_island": false
+   },
+   {
+    "id": "red-deer-ab",
+    "name": "Red Deer",
+    "region": "AB",
+    "lon": -113.8,
+    "lat": 52.2666,
+    "pop_max": 74857,
+    "ferry_or_island": false
+   },
+   {
+    "id": "prince-george-bc",
+    "name": "Prince George",
+    "region": "BC",
+    "lon": -122.7667,
+    "lat": 53.9167,
+    "pop_max": 65558,
+    "ferry_or_island": false
+   },
+   {
+    "id": "kamloops-bc",
+    "name": "Kamloops",
+    "region": "BC",
+    "lon": -120.3333,
+    "lat": 50.6667,
+    "pop_max": 68714,
+    "ferry_or_island": false
+   },
+   {
+    "id": "medicine-hat-ab",
+    "name": "Medicine Hat",
+    "region": "AB",
+    "lon": -110.6833,
+    "lat": 50.0333,
+    "pop_max": 63138,
+    "ferry_or_island": false
+   },
+   {
+    "id": "brandon-mb",
+    "name": "Brandon",
+    "region": "MB",
+    "lon": -99.95,
+    "lat": 49.8333,
+    "pop_max": 28418,
+    "ferry_or_island": false
+   },
+   {
+    "id": "rimouski-qc",
+    "name": "Rimouski",
+    "region": "QC",
+    "lon": -68.5167,
+    "lat": 48.4337,
+    "pop_max": 35584,
+    "ferry_or_island": false
+   },
+   {
+    "id": "timmins-on",
+    "name": "Timmins",
+    "region": "ON",
+    "lon": -81.3333,
+    "lat": 48.4666,
+    "pop_max": 34974,
+    "ferry_or_island": false
+   },
+   {
+    "id": "north-bay-on",
+    "name": "North Bay",
+    "region": "ON",
+    "lon": -79.45,
+    "lat": 46.3,
+    "pop_max": 50170,
+    "ferry_or_island": false
+   },
+   {
+    "id": "peterborough-on",
+    "name": "Peterborough",
+    "region": "ON",
+    "lon": -78.3333,
+    "lat": 44.3,
+    "pop_max": 83627,
+    "ferry_or_island": false
+   }
+  ]
+ },
+ "variant": "home-only",
+ "avoid_countries": [
+  214
+ ],
+ "home_country_id": 35
+}
