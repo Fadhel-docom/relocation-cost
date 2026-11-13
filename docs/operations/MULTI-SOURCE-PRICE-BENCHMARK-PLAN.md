@@ -1,81 +1,73 @@
 # Multi-source price benchmark and calibration plan
 
-**Owner decision:** 2026-11-13. Replace the stalled exact-route sample requirement with a practical benchmark built from 3–4 credible public sources. The goal is to put real, sourced market prices behind the calculator without presenting incomparable prices as identical.
+**Owner decision:** 2026-11-13. Use a practical three- or four-source benchmark and the simple arithmetic mean of comparable published central prices. Do not wait for exact route-level samples, but do not manufacture comparability either.
 
-## 1. Selected source set for interstate full-service
+## 1. Interstate full-service source set
 
-| Source | Public evidence reviewed | How it enters the benchmark | Limitations |
-|---|---|---|---|
-| [This Old House — Moving Costs](https://www.thisoldhouse.com/moving/moving-costs) | Updated 2026-06-12; 2025 survey of 1,000 moving customers; publishes average costs by distance and bedroom/weight bands | Source central price (reported average) when service and cell align | Cell sample sizes are not published; its weight bands (1BR 2,000–4,000 lb; 2BR 4,000–7,000 lb; 3BR 7,000–10,000 lb; 4BR 10,000+ lb) are not equivalent to our current room-count input. |
-| [Long Distance Moving — 2026 report](https://longdistancemoving.com/national-moving/moving-cost-report-2026) | 543 booked interstate full-service moves, June 1–Nov 5 2026; published median by shipment weight and driving-distance band | Source central price (reported median) for matching interstate cells | One national network; booked estimate, not final invoice; winter moves underrepresented. |
-| [Consumer Moving Reviews — 2026 Cost Report](https://www.consumermovingreviews.com/cheapest-long-distance-moving-companies/) | Research team reports 2,046 booked long-distance moves; cost tables show 25th-percentile/median by distance and home size | Source central price (reported median) for matching cells | Network-booked moves; verify cell sample count and exact scope; check possible dataset overlap with other network reports before treating as independent. |
-| [A Plus Moving & Storage — Moving Cost Index](https://aplusmovingandstorage.co/resources/moving-cost-index/) | 669 completed paid interstate jobs; 20th–80th percentile ranges by distance and home size | Range cross-check; if a source midpoint is used as a central price, label it explicitly as a range midpoint | Single-carrier dataset; cell-level counts not shown; great-circle distance bands rather than driving miles. |
+| Source | Published figure used | Evidence | Limitation |
+|---|---:|---|---|
+| [Consumer Moving Reviews (CMR)](https://www.consumermovingreviews.com/cheapest-long-distance-moving-companies/) | $3,400 | Median for about 2 bedrooms, 1,000–1,499 miles. The page says 2,046 moves were booked through its network overall; the size/distance table is based on 1,136 moves, and the individual cell count is not shown. | Network-booked prices; not a national census. CMR discloses related-company relationships, so check affiliations before combining it with carrier-owned datasets. |
+| [Long Distance Moving](https://longdistancemoving.com/national-moving/moving-cost-report-2026) | $6,630 | Median booked estimate for 4,000–9,000 lb (approximately 2–3 bedrooms) and 600–1,700 driving miles; 155 moves in the weight band overall. | One national network; booked estimate, not final invoice; its distance × size cell count is not shown. |
+| [moveBuddha](https://www.movebuddha.com/blog/cost-move-out-state/) | $3,200 | Midpoint of its published $1,900–$4,500 full-service range for 2–3 bedrooms at 1,000 miles. | Rough estimated range based on quotes and Better Moves Project participants; midpoint is a proxy, not a published average or median. |
 
-**Secondary cross-checks, not automatic mean inputs:** Haulest publishes reviewer-reported interstate medians by home size but not a matched distance × size cell in the summary; moveBuddha publishes selected quotes and claims a large monthly dataset, but public quote rows must contain the required route/size/scope details; HireAHelper's cited cost methodology covers local full-service (under about 50 miles) and labor-only, so it is not a valid interstate full-service source. HireAHelper can be considered later for a separate local/labor model.
+**Simple mean of the three central values:** ($3,400 + $6,630 + $3,200) / 3 = **$4,410**.
 
-Do not count two publications that reuse the same underlying network or survey as independent sources. The source audit must record known or suspected overlap.
+**Observed source spread:** **$3,200–$6,630**. This is the spread between the selected source central values, not a confidence interval or a guaranteed customer-price range.
 
-## 2. Standard comparison grid
+This is a **provisional cross-source planning average** for a broad 2–3 bedroom / roughly 1,000–1,700-mile interstate full-service scenario. The source bands overlap but are not identical, and the source statistics differ (median, median, range midpoint). It is useful for detecting a potential model gap; it is not yet suitable as a precise route-level output.
 
-Start with **interstate full-service only**. Use the distance bands and shipment-size definitions each source actually publishes, then create common scenario cells only where the bands overlap sufficiently. Prioritize 1BR / 2BR / 3BR and 4+BR shipment groups, and record weight where available. Do not pretend that a room-count multiplier equals a bedroom or weight band.
+## 2. Source audit: what is not counted in this mean
 
-Each captured observation records source, exact URL, publication/capture date, statistic type, total sample and cell sample if available, route/distance band, shipment size/weight definition, service type, inclusions/exclusions, price, currency, and limitations.
+- [A Plus Moving & Storage](https://aplusmovingandstorage.co/resources/moving-cost-index/) publishes 20th–80th percentile ranges from 669 completed paid interstate moves, including $4,200–$5,500 for a 2-bedroom / 1,000–1,500-mile cell (midpoint $4,850). This is valuable as a cross-check, but CMR identifies A Plus as a related company to CMR's owner. Do not count both as independent sources in the same mean until the dataset overlap and governance relationship are clarified.
+- [This Old House](https://www.thisoldhouse.com/moving/moving-costs) publishes a 2025 survey table with a $2,668 2-bedroom average at 1,101–1,400 miles, but that table does not establish that every observation is full-service. Its separate 2026 survey reports $6,164 average for full-service at 1,101–1,400 miles but does not break that figure down by bedroom. Keep these as context, not a matched full-service cell.
+- [Haulest](https://haulest.com/calculators/cost?market=us) reports a $4,100 interstate median for 2-bedroom reviewer-submitted prices (1,181 reviews), but its public summary does not split by distance. Use as a national sanity check, not a distance-matched input.
+- [HireAHelper](https://www.hireahelper.com/advice/cost-methodology/) is not a primary input for interstate full-service in the reviewed methodology; its data is useful for local full-service and moving labor, which must be a separate model.
+- Do not count two sites as independent simply because their branding differs. Record shared ownership, network overlap, survey reuse, and source provenance before computing a mean.
 
-## 3. Average calculation — owner-approved simple mean
+## 3. First comparison with our current calculator
 
-For each scenario:
-1. Collect 3–4 central price figures from the selected sources. All must describe interstate full-service moving and broadly comparable distance and shipment-size scenarios.
-2. Use each source's published central figure: its average, median, or (only where no central figure exists) the midpoint of its published typical range. Record which statistic each source supplied; never disguise a midpoint as an average or median.
-3. Calculate the simple arithmetic mean of the eligible source central figures: sum divided by the number of sources. Label the result **cross-source planning average**, not a national market mean or a quote.
-4. Show the source values and the observed low–high spread beside the average. This spread is not a confidence interval.
-5. If only two sources are eligible, keep the cell provisional and do not change the production formula until a third eligible source is found. Do not fill missing cells by guessing.
-6. Investigate material outliers and source overlap. Do not silently remove a source simply because its price is inconvenient.
+The current formula in src/lib/calculator.js uses a U-Haul distance-band average as a DIY floor, then adds a fixed per-mile service premium for full-service. Its service premium is an MVP assumption, not a market-derived full-service price.
 
-## 4. From benchmark to calculator
+For a **1,250-mile, full-service, size multiplier 1.8** test case (the current UI calls this “4–5 rooms”; it is only a rough proxy, not a verified 2-bedroom mapping):
+- Current model move cost: **$2,917**
+- Current total including its 10% contingency: **$3,209**
+- Current displayed planning band: **$2,567–$3,850**
+- Provisional three-source central-price mean: **$4,410**
+- Current point estimate is about **27.2% below** that cross-source mean; the current upper planning bound is about **12.7% below** it.
 
-- Build a raw source matrix and central-price table for representative distance/size scenarios.
-- Compare each cross-source planning average with the current calculator output under equivalent assumptions.
-- Identify whether any gap is systematic by distance or shipment size; do not apply one blanket multiplier if the pattern differs by band.
-- Validate the proposed adjustment on held-out cells/routes not used to derive it.
-- Implement the smallest justified adjustment with regression tests, build evidence and a reviewed PR.
-- Display estimate type, sources, dates, service scope, inclusions/exclusions and observed spread in the methodology/results UI.
+This is a meaningful warning signal, not proof that the calculator underprices every 2-bedroom move. The size input is not equivalent, the source bands/statistics differ, and the current 80%–120% band is not statistically calibrated. **Do not change the formula from this one comparison.**
 
-## 5. Separate service models
+## 4. The product issue discovered: size input does not match the market
 
-Never average full-service, containers, rental trucks and labor-only together. Complete the interstate full-service benchmark first. Local full-service and labor-only can use HireAHelper data in a separate later workstream.
+The calculator currently asks for room-count groups (“Studio / 1 room”, “2–3 rooms”, “4–5 rooms”, “6+ rooms”). The sources and moving carriers generally use bedrooms, shipment weight, or cubic volume. These are not interchangeable.
 
-## 6. Completion gates
+Create B16 to resolve this before production calibration:
+- Replace ambiguous room-count labels with bedroom-based categories (studio, 1, 2, 3, 4+ bedrooms), or test a more informative but still easy input.
+- Add a lightweight inventory-density refinement (for example, lightly furnished / typical / heavily furnished) only if a credible weight/volume crosswalk can be sourced and validated.
+- Explain that bedroom count is a proxy and that actual inventory/weight changes price.
+- Keep the form short; do not force visitors to estimate pounds or cubic feet unless research shows that users can do so reliably.
+- Add tests for every mapping and compare it against source weight/volume bands before changing production coefficients.
 
-- [ ] Three or four genuinely eligible source values for each calibrated scenario.
-- [ ] Raw observations and central-price calculations committed.
-- [ ] Distance, size and service comparability documented; overlapping datasets checked.
-- [ ] Current calculator outputs compared with benchmark values.
-- [ ] Holdout validation and error measurements documented.
-- [ ] Code changes tested and reviewed; production estimate and disclosure verified.
+## 5. Owner-approved mean rule
 
-## 7. Evidence snapshot (reviewed 2026-11-13)
+For each scenario cell:
+1. Collect 3–4 eligible source central values for the same service type and broadly overlapping distance and shipment-size bands.
+2. Use the source's reported average or median. If only a range is available, use its midpoint and label it as a midpoint proxy.
+3. Compute the simple arithmetic mean: sum of eligible central values divided by source count.
+4. Display the individual source values and their low–high spread. Never call that spread a confidence interval.
+5. If fewer than three sources qualify, label the cell provisional and do not silently fill missing values.
+6. Keep raw observations, source dates, URLs, sample counts, statistic type, inclusions/exclusions, and affiliation/overlap notes.
+7. Do not average full-service, containers, rental trucks, and labor-only together.
 
-- This Old House: 2025 survey of 1,000 movers; average table by distance and bedroom/weight band.
-- Long Distance Moving: 543 booked interstate full-service moves; median by weight and distance; booked estimates rather than final invoices.
-- Consumer Moving Reviews: research team reports 2,046 booked long-distance moves and publishes median/range tables by size and distance.
-- A Plus: 669 completed paid interstate jobs; 20th–80th percentile ranges by distance and size.
-- Haulest: useful secondary reviewer-reported check; its interstate median is not distance-segmented in the public summary.
-- HireAHelper: not used for interstate full-service because the cited methodology is local full-service and labor-only; separate service models only.
+## 6. Implementation sequence and completion gates
 
-**No production price or formula is changed by this plan.** The next B15 work unit is to extract the overlapping cells from the four selected sources, calculate the source-central-price mean, and compare it with current calculator outputs.
+- [ ] Build a dated raw source matrix for representative cells, beginning with interstate full-service.
+- [ ] Verify source overlap and whether quoted/paid values include packing, fuel, valuation, accessorials and taxes.
+- [ ] Resolve B16's bedroom/weight/volume input crosswalk.
+- [ ] Compare the benchmark against calculator outputs only for equivalent scenarios.
+- [ ] Review adjacent size/distance cells and holdout cases; quantify error before proposing a formula change.
+- [ ] Implement the smallest justified calibration with regression tests and a reviewed PR.
+- [ ] Update the methodology/results UI with source links, dates, scope, estimate type, and limits.
+- [ ] Verify the deployed result and disclosure.
 
-## 8. First pilot benchmark — 2-bedroom, approximately 1,000–1,500 miles
-
-This is the first usable cross-source comparison found on 2026-11-13. The source bands overlap but are not identical, so treat it as a **provisional planning benchmark**, not a route-specific market price.
-
-| Source | Published scenario | Central value used | Statistic / caveat |
-|---|---|---:|---|
-| [This Old House](https://www.thisoldhouse.com/moving/moving-costs) | 2 bedrooms, 1,101–1,400 miles | $2,668 | Published survey average; 2025 survey of 1,000 customers overall; cell N not disclosed. Its 2BR band is 4,000–7,000 lb. |
-| [Consumer Moving Reviews](https://www.consumermovingreviews.com/cheapest-long-distance-moving-companies/) | About 2 bedrooms, 1,000–1,499 miles | $3,400 | Published median; CMR reports 2,046 booked long-distance moves overall; cell N not shown in this table. |
-| [A Plus Moving & Storage](https://aplusmovingandstorage.co/resources/moving-cost-index/) | 2 bedrooms, 1,000–1,500 miles | $4,200–$5,500; midpoint $4,850 | 20th–80th percentile range from 669 completed paid jobs overall; cell N not disclosed. Midpoint is used only as a central-price proxy, not relabelled as an average. |
-
-**Arithmetic mean:** ($2,668 + $3,400 + $4,850) / 3 = **$3,639** (rounded to nearest dollar).
-
-**Observed source spread:** $2,668–$4,850. This is not a confidence interval.
-
-**Interpretation:** This gives the calculator team a real initial reference point for a roughly 2-bedroom interstate full-service move in the 1,000–1,500-mile range. The source bands and statistical measures differ, and the independence of the underlying datasets has not yet been fully confirmed. Before changing production pricing, compare this benchmark to the calculator output for a genuinely equivalent inventory/service scenario, verify source overlap, and test adjacent distance/size cells. The current site size selector is room-based, so do not assume it is a 2-bedroom shipment until the mapping is verified.
+**No production price, coefficient, formula, or UI is changed by this plan.** B15 remains active until the source matrix, B16 mapping, and validation gates are complete.
