@@ -1,0 +1,58 @@
+name: Expansion routes
+# Manual only. Asks openrouteservice (HeiGIT) for home-country road distances between a country's main
+# cities (data/expansion/<set>/cities.json) and stores them on the branch "data/expansion-<set>".
+# Data only: nothing on main changes and the website never reads these files.
+# Needs the repository secret ORS_API_KEY. Resumable: rerun to continue after a stop.
+on:
+  workflow_dispatch:
+    inputs:
+      set:
+        description: "Country set (folder under data/expansion): uk or de"
+        type: choice
+        options: [uk, de]
+        default: uk
+      max_requests:
+        description: "Maximum Directions requests in this run (daily quota is 2000)"
+        type: string
+        default: "700"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: expansion-routes
+  cancel-in-progress: false
+
+jobs:
+  routes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Continue from the data branch if it exists
+        run: |
+          git fetch origin "data/expansion-${{ inputs.set }}" || true
+          if git rev-parse --verify "origin/data/expansion-${{ inputs.set }}" >/dev/null 2>&1; then
+            git show "origin/data/expansion-${{ inputs.set }}:data/expansion/${{ inputs.set }}/routes.json" > "data/expansion/${{ inputs.set }}/routes.json" || rm -f "data/expansion/${{ inputs.set }}/routes.json"
+          fi
+
+      - name: Ask for the routes
+        id: routes
+        env:
+          ORS_API_KEY: ${{ secrets.ORS_API_KEY }}
+        run: node tools/expansion/home-routes.mjs --set="${{ inputs.set }}" --max-requests="${{ inputs.max_requests }}"
+
+      - name: Publish the routes to their own branch
+        if: always() && hashFiles(format('data/expansion/{0}/routes.json', inputs.set)) != ''
+        run: |
+          git config user.name "expansion-routes[bot]"
+          git config user.email "expansion-routes@users.noreply.github.com"
+          git checkout -B "data/expansion-${{ inputs.set }}"
+          git add "data/expansion/${{ inputs.set }}/routes.json"
+          if git diff --cached --quiet; then echo "Nothing new to publish."; exit 0; fi
+          git commit -m "data: expansion routes ${{ inputs.set }} (${{ steps.routes.outputs.status }})"
+          git push --force origin "data/expansion-${{ inputs.set }}"

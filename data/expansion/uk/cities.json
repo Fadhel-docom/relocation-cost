@@ -1,0 +1,286 @@
+{
+ "set": "uk",
+ "source": "Natural Earth populated places 10m simple (public domain), https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_10m_populated_places_simple.geojson; hand-picked main relocation cities, coordinates as published (not snapped)",
+ "note": "Belfast (Northern Ireland) needs a ferry to reach Great Britain; routes to it may include a ferry leg.",
+ "cities": [
+  {
+   "id": "london",
+   "name": "London",
+   "region": "ENG",
+   "lon": -0.1187,
+   "lat": 51.5019,
+   "pop_max": 8567000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "birmingham",
+   "name": "Birmingham",
+   "region": "ENG",
+   "lon": -1.9219,
+   "lat": 52.4769,
+   "pop_max": 2285000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "manchester",
+   "name": "Manchester",
+   "region": "ENG",
+   "lon": -2.2499,
+   "lat": 53.5024,
+   "pop_max": 2230000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "leeds",
+   "name": "Leeds",
+   "region": "ENG",
+   "lon": -1.582,
+   "lat": 53.832,
+   "pop_max": 1529000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "sheffield",
+   "name": "Sheffield",
+   "region": "ENG",
+   "lon": -1.5,
+   "lat": 53.3667,
+   "pop_max": 1292900,
+   "ferry_or_island": false
+  },
+  {
+   "id": "glasgow",
+   "name": "Glasgow",
+   "region": "SCT",
+   "lon": -4.2527,
+   "lat": 55.8764,
+   "pop_max": 1160000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "newcastle",
+   "name": "Newcastle",
+   "region": "ENG",
+   "lon": -1.6019,
+   "lat": 55.0023,
+   "pop_max": 882000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "cardiff",
+   "name": "Cardiff",
+   "region": "WLS",
+   "lon": -3.225,
+   "lat": 51.5,
+   "pop_max": 861400,
+   "ferry_or_island": false
+  },
+  {
+   "id": "nottingham",
+   "name": "Nottingham",
+   "region": "ENG",
+   "lon": -1.17,
+   "lat": 52.9703,
+   "pop_max": 825600,
+   "ferry_or_island": false
+  },
+  {
+   "id": "liverpool",
+   "name": "Liverpool",
+   "region": "ENG",
+   "lon": -2.9199,
+   "lat": 53.4179,
+   "pop_max": 811000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "bristol",
+   "name": "Bristol",
+   "region": "ENG",
+   "lon": -2.5833,
+   "lat": 51.45,
+   "pop_max": 553528,
+   "ferry_or_island": false
+  },
+  {
+   "id": "edinburgh",
+   "name": "Edinburgh",
+   "region": "SCT",
+   "lon": -3.2191,
+   "lat": 55.9483,
+   "pop_max": 504966,
+   "ferry_or_island": false
+  },
+  {
+   "id": "brighton",
+   "name": "Brighton",
+   "region": "ENG",
+   "lon": -0.17,
+   "lat": 50.8303,
+   "pop_max": 503008,
+   "ferry_or_island": false
+  },
+  {
+   "id": "leicester",
+   "name": "Leicester",
+   "region": "ENG",
+   "lon": -1.1332,
+   "lat": 52.63,
+   "pop_max": 457983,
+   "ferry_or_island": false
+  },
+  {
+   "id": "belfast",
+   "name": "Belfast",
+   "region": "NIR",
+   "lon": -5.96,
+   "lat": 54.6,
+   "pop_max": 450406,
+   "ferry_or_island": true
+  },
+  {
+   "id": "portsmouth",
+   "name": "Portsmouth",
+   "region": "ENG",
+   "lon": -1.08,
+   "lat": 50.8003,
+   "pop_max": 442252,
+   "ferry_or_island": false
+  },
+  {
+   "id": "southampton",
+   "name": "Southampton",
+   "region": "ENG",
+   "lon": -1.4,
+   "lat": 50.9,
+   "pop_max": 384417,
+   "ferry_or_island": false
+  },
+  {
+   "id": "coventry",
+   "name": "Coventry",
+   "region": "ENG",
+   "lon": -1.5,
+   "lat": 52.4204,
+   "pop_max": 388271,
+   "ferry_or_island": false
+  },
+  {
+   "id": "bradford",
+   "name": "Bradford",
+   "region": "ENG",
+   "lon": -1.75,
+   "lat": 53.8,
+   "pop_max": 501700,
+   "ferry_or_island": false
+  },
+  {
+   "id": "kingston-upon-hull",
+   "name": "Kingston upon Hull",
+   "region": "ENG",
+   "lon": -0.33,
+   "lat": 53.7504,
+   "pop_max": 302296,
+   "ferry_or_island": false
+  },
+  {
+   "id": "swansea",
+   "name": "Swansea",
+   "region": "WLS",
+   "lon": -3.95,
+   "lat": 51.63,
+   "pop_max": 294339,
+   "ferry_or_island": false
+  },
+  {
+   "id": "plymouth",
+   "name": "Plymouth",
+   "region": "ENG",
+   "lon": -4.16,
+   "lat": 50.3854,
+   "pop_max": 247297,
+   "ferry_or_island": false
+  },
+  {
+   "id": "norwich",
+   "name": "Norwich",
+   "region": "ENG",
+   "lon": 1.3,
+   "lat": 52.6304,
+   "pop_max": 190756,
+   "ferry_or_island": false
+  },
+  {
+   "id": "aberdeen",
+   "name": "Aberdeen",
+   "region": "SCT",
+   "lon": -2.08,
+   "lat": 57.1704,
+   "pop_max": 189364,
+   "ferry_or_island": false
+  },
+  {
+   "id": "york",
+   "name": "York",
+   "region": "ENG",
+   "lon": -1.08,
+   "lat": 53.9704,
+   "pop_max": 158947,
+   "ferry_or_island": false
+  },
+  {
+   "id": "cambridge",
+   "name": "Cambridge",
+   "region": "ENG",
+   "lon": 0.1166,
+   "lat": 52.2004,
+   "pop_max": 128488,
+   "ferry_or_island": false
+  },
+  {
+   "id": "oxford",
+   "name": "Oxford",
+   "region": "ENG",
+   "lon": -1.25,
+   "lat": 51.7704,
+   "pop_max": 192796,
+   "ferry_or_island": false
+  },
+  {
+   "id": "exeter",
+   "name": "Exeter",
+   "region": "ENG",
+   "lon": -3.5299,
+   "lat": 50.7004,
+   "pop_max": 113118,
+   "ferry_or_island": false
+  },
+  {
+   "id": "bournemouth",
+   "name": "Bournemouth",
+   "region": "ENG",
+   "lon": -1.9001,
+   "lat": 50.73,
+   "pop_max": 426945,
+   "ferry_or_island": false
+  },
+  {
+   "id": "reading",
+   "name": "Reading",
+   "region": "ENG",
+   "lon": -0.98,
+   "lat": 51.47,
+   "pop_max": 369804,
+   "ferry_or_island": false
+  },
+  {
+   "id": "dundee",
+   "name": "Dundee",
+   "region": "SCT",
+   "lon": -3.0,
+   "lat": 56.4704,
+   "pop_max": 151592,
+   "ferry_or_island": false
+  }
+ ]
+}
