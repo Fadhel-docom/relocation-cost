@@ -24,19 +24,33 @@ This is a **provisional cross-source planning average** for a broad 2–3 bedroo
 - [HireAHelper](https://www.hireahelper.com/advice/cost-methodology/) is not a primary input for interstate full-service in the reviewed methodology; its data is useful for local full-service and moving labor, which must be a separate model.
 - Do not count two sites as independent simply because their branding differs. Record shared ownership, network overlap, survey reuse, and source provenance before computing a mean.
 
-## 3. First comparison with our current calculator
+## 3. First comparison across three shipment-size groups
 
 The current formula in src/lib/calculator.js uses a U-Haul distance-band average as a DIY floor, then adds a fixed per-mile service premium for full-service. Its service premium is an MVP assumption, not a market-derived full-service price.
 
-For a **1,250-mile, full-service, size multiplier 1.8** test case (the current UI calls this “4–5 rooms”; it is only a rough proxy, not a verified 2-bedroom mapping):
-- Current model move cost: **$2,917**
-- Current total including its 10% contingency: **$3,209**
-- Current displayed planning band: **$2,567–$3,850**
-- Provisional three-source central-price mean: **$4,410**
-- Current point estimate is about **27.2% below** that cross-source mean; the current upper planning bound is about **12.7% below** it.
+For a common 1,250-mile test distance, the three sources provide these central values:
 
-This is a meaningful warning signal, not proof that the calculator underprices every 2-bedroom move. The size input is not equivalent, the source bands/statistics differ, and the current 80%–120% band is not statistically calibrated. **Do not change the formula from this one comparison.**
+| Shipment group | CMR median | Long Distance Moving median | moveBuddha range midpoint | Three-source mean | Source central-value spread |
+|---|---:|---:|---:|---:|---:|
+| Studio / 1 bedroom | $2,120 | $3,420 | $1,900 | **$2,480** | $1,900–$3,420 |
+| About 2–3 bedrooms | $3,400 | $6,630 | $3,200 | **$4,410** | $3,200–$6,630 |
+| 4+ bedrooms | $9,000 | $16,790 | $5,950 | **$10,580** | $5,950–$16,790 |
 
+Source matching details:
+- CMR uses its 1,000–1,499-mile band and reports medians by bedroom category.
+- Long Distance Moving uses its 600–1,700-mile band and reports medians by shipment-weight category: under 4,000 lb; 4,000–9,000 lb; over 9,000 lb.
+- moveBuddha uses its 1,000-mile full-service range for 1BR, 2–3BR and 4–5BR; the midpoint is only a central-price proxy.
+- These are overlapping planning bands, not identical route/size cells. The averages are provisional comparison anchors, not national market means.
+
+The current model outputs at 1,250 miles are:
+
+| Current UI size proxy | Current move cost | Total incl. 10% contingency | Current 80%–120% band | Corresponding provisional mean | Point estimate vs mean |
+|---|---:|---:|---:|---:|---:|
+| 1.0 (“Studio / 1 room”) | $2,357 | $2,593 | $2,074–$3,111 | $2,480 | 4.5% above |
+| 1.8 (“4–5 rooms”) | $2,917 | $3,209 | $2,567–$3,850 | $4,410 | 27.2% below |
+| 2.4 (“6+ rooms”) | $3,337 | $3,671 | $2,937–$4,405 | $10,580 | 65.3% below |
+
+**Interpretation:** The gap widens sharply for larger shipment groups. This is a strong warning that the current size multipliers do not represent the market's bedroom/weight pricing curve. It is not proof of the exact underpricing percentage because room-count options do not map reliably to bedroom/weight groups and the three source datasets use different bands/statistics. The current planning range is also not a statistically calibrated confidence interval. **Do not change the formula until B16 aligns the size input and the source matrix is validated.**
 ## 4. The product issue discovered: size input does not match the market
 
 The calculator currently asks for room-count groups (“Studio / 1 room”, “2–3 rooms”, “4–5 rooms”, “6+ rooms”). The sources and moving carriers generally use bedrooms, shipment weight, or cubic volume. These are not interchangeable.
