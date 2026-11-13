@@ -1,0 +1,574 @@
+{
+  "generated_at": "2026-11-13T19:16:30.909Z",
+  "summary": {
+    "status": "complete",
+    "lastRateLimitRemaining": 1936,
+    "cities": {
+      "asked": 44,
+      "errors": 0,
+      "notOnlyUs": [],
+      "differFromStoredByMoreThan1Mile": [
+        "atlanta|boston",
+        "atlanta|chicago",
+        "atlanta|new-york",
+        "boston|miami",
+        "boston|new-york",
+        "charlotte|new-york",
+        "chicago|denver",
+        "chicago|new-york",
+        "denver|phoenix",
+        "los-angeles|new-york",
+        "los-angeles|seattle",
+        "miami|new-york",
+        "new-york|san-francisco",
+        "san-francisco|seattle"
+      ]
+    },
+    "reverse": {
+      "asked": 20,
+      "errors": 0,
+      "flagPercent": 3,
+      "flagged": [],
+      "medianAbsPercent": 0.4,
+      "maxAbsPercent": 2.1
+    }
+  },
+  "results": {
+    "cities": [
+      {
+        "pair": "atlanta|boston",
+        "storedMiles": 1123.2,
+        "askedMiles": 1073.6,
+        "sameAsStored": false,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "atlanta|charlotte",
+        "storedMiles": 244.4,
+        "askedMiles": 244.8,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "atlanta|chicago",
+        "storedMiles": 717,
+        "askedMiles": 719.5,
+        "sameAsStored": false,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "atlanta|dallas",
+        "storedMiles": 781.4,
+        "askedMiles": 781.4,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "atlanta|houston",
+        "storedMiles": 792.9,
+        "askedMiles": 792.9,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "atlanta|miami",
+        "storedMiles": 662.5,
+        "askedMiles": 662.5,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "atlanta|nashville",
+        "storedMiles": 248.3,
+        "askedMiles": 248.8,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "atlanta|new-york",
+        "storedMiles": 879.8,
+        "askedMiles": 862.8,
+        "sameAsStored": false,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "austin|dallas",
+        "storedMiles": 195.5,
+        "askedMiles": 195.9,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "austin|denver",
+        "storedMiles": 918.7,
+        "askedMiles": 918.4,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "austin|houston",
+        "storedMiles": 165.5,
+        "askedMiles": 165.5,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "austin|los-angeles",
+        "storedMiles": 1377.6,
+        "askedMiles": 1377.6,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "boston|miami",
+        "storedMiles": 1504.4,
+        "askedMiles": 1493.4,
+        "sameAsStored": false,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "boston|new-york",
+        "storedMiles": 216.2,
+        "askedMiles": 214,
+        "sameAsStored": false,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "charlotte|miami",
+        "storedMiles": 728.3,
+        "askedMiles": 728.3,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "charlotte|nashville",
+        "storedMiles": 411.2,
+        "askedMiles": 411.9,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "charlotte|new-york",
+        "storedMiles": 643,
+        "askedMiles": 623.2,
+        "sameAsStored": false,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "chicago|dallas",
+        "storedMiles": 968.2,
+        "askedMiles": 968.2,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "chicago|denver",
+        "storedMiles": 1002.4,
+        "askedMiles": 1003.6,
+        "sameAsStored": false,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "chicago|houston",
+        "storedMiles": 1082.8,
+        "askedMiles": 1082.8,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "chicago|nashville",
+        "storedMiles": 475.4,
+        "askedMiles": 475.2,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "chicago|new-york",
+        "storedMiles": 792.2,
+        "askedMiles": 790.8,
+        "sameAsStored": false,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "dallas|denver",
+        "storedMiles": 795.2,
+        "askedMiles": 794.9,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "dallas|houston",
+        "storedMiles": 238.8,
+        "askedMiles": 238.8,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "dallas|phoenix",
+        "storedMiles": 1064.1,
+        "askedMiles": 1064.1,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "denver|las-vegas",
+        "storedMiles": 748.8,
+        "askedMiles": 748.1,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "denver|phoenix",
+        "storedMiles": 909.1,
+        "askedMiles": 910.4,
+        "sameAsStored": false,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "denver|seattle",
+        "storedMiles": 1316.7,
+        "askedMiles": 1317.7,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "houston|phoenix",
+        "storedMiles": 1174.3,
+        "askedMiles": 1174.3,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "las-vegas|los-angeles",
+        "storedMiles": 270.7,
+        "askedMiles": 270.7,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "las-vegas|phoenix",
+        "storedMiles": 301.1,
+        "askedMiles": 301,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "las-vegas|san-francisco",
+        "storedMiles": 568.2,
+        "askedMiles": 568.2,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "los-angeles|new-york",
+        "storedMiles": 2790.9,
+        "askedMiles": 2789.4,
+        "sameAsStored": false,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "los-angeles|phoenix",
+        "storedMiles": 372.3,
+        "askedMiles": 372.3,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "los-angeles|portland",
+        "storedMiles": 963.4,
+        "askedMiles": 962.5,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "los-angeles|san-diego",
+        "storedMiles": 120.3,
+        "askedMiles": 120.5,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "los-angeles|san-francisco",
+        "storedMiles": 382.9,
+        "askedMiles": 381.9,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "los-angeles|seattle",
+        "storedMiles": 1143.1,
+        "askedMiles": 1144.4,
+        "sameAsStored": false,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "miami|new-york",
+        "storedMiles": 1290.1,
+        "askedMiles": 1281.1,
+        "sameAsStored": false,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "new-york|san-francisco",
+        "storedMiles": 2909.9,
+        "askedMiles": 2905.8,
+        "sameAsStored": false,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "phoenix|san-diego",
+        "storedMiles": 354.6,
+        "askedMiles": 354.6,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "portland|san-francisco",
+        "storedMiles": 634.4,
+        "askedMiles": 634.4,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "portland|seattle",
+        "storedMiles": 180.7,
+        "askedMiles": 180.7,
+        "sameAsStored": true,
+        "onlyUs": true,
+        "other": []
+      },
+      {
+        "pair": "san-francisco|seattle",
+        "storedMiles": 814.1,
+        "askedMiles": 816.4,
+        "sameAsStored": false,
+        "onlyUs": true,
+        "other": []
+      }
+    ],
+    "reverse": [
+      {
+        "pair": "AL|AR",
+        "storedMiles": 453.9,
+        "reverseMiles": 453.5,
+        "straightMiles": 353.3,
+        "diffMiles": -0.4,
+        "diffPercent": -0.1,
+        "flagged": false
+      },
+      {
+        "pair": "AR|IA",
+        "storedMiles": 650.4,
+        "reverseMiles": 649.6,
+        "straightMiles": 488.6,
+        "diffMiles": -0.8,
+        "diffPercent": -0.1,
+        "flagged": false
+      },
+      {
+        "pair": "AZ|ME",
+        "storedMiles": 2811.5,
+        "reverseMiles": 2791.1,
+        "straightMiles": 2345.5,
+        "diffMiles": -20.4,
+        "diffPercent": -0.7,
+        "flagged": false
+      },
+      {
+        "pair": "CA|NM",
+        "storedMiles": 917.7,
+        "reverseMiles": 917.8,
+        "straightMiles": 760.3,
+        "diffMiles": 0.1,
+        "diffPercent": 0,
+        "flagged": false
+      },
+      {
+        "pair": "CO|WA",
+        "storedMiles": 1389,
+        "reverseMiles": 1379.8,
+        "straightMiles": 994.6,
+        "diffMiles": -9.2,
+        "diffPercent": -0.7,
+        "flagged": false
+      },
+      {
+        "pair": "DE|MA",
+        "storedMiles": 351.7,
+        "reverseMiles": 350.2,
+        "straightMiles": 289.4,
+        "diffMiles": -1.5,
+        "diffPercent": -0.4,
+        "flagged": false
+      },
+      {
+        "pair": "FL|NV",
+        "storedMiles": 2579.7,
+        "reverseMiles": 2592.8,
+        "straightMiles": 2158.7,
+        "diffMiles": 13.1,
+        "diffPercent": 0.5,
+        "flagged": false
+      },
+      {
+        "pair": "GA|WI",
+        "storedMiles": 1040.6,
+        "reverseMiles": 1031.4,
+        "straightMiles": 839.5,
+        "diffMiles": -9.2,
+        "diffPercent": -0.9,
+        "flagged": false
+      },
+      {
+        "pair": "ID|NE",
+        "storedMiles": 1064.1,
+        "reverseMiles": 1066.9,
+        "straightMiles": 849.5,
+        "diffMiles": 2.8,
+        "diffPercent": 0.3,
+        "flagged": false
+      },
+      {
+        "pair": "IN|KS",
+        "storedMiles": 628.5,
+        "reverseMiles": 628.5,
+        "straightMiles": 567.7,
+        "diffMiles": 0,
+        "diffPercent": 0,
+        "flagged": false
+      },
+      {
+        "pair": "KS|OK",
+        "storedMiles": 262.5,
+        "reverseMiles": 261.8,
+        "straightMiles": 204.9,
+        "diffMiles": -0.7,
+        "diffPercent": -0.3,
+        "flagged": false
+      },
+      {
+        "pair": "LA|MS",
+        "storedMiles": 268.9,
+        "reverseMiles": 268.8,
+        "straightMiles": 168.1,
+        "diffMiles": -0.1,
+        "diffPercent": 0,
+        "flagged": false
+      },
+      {
+        "pair": "MA|WY",
+        "storedMiles": 2139.4,
+        "reverseMiles": 2140.4,
+        "straightMiles": 1809.1,
+        "diffMiles": 1,
+        "diffPercent": 0,
+        "flagged": false
+      },
+      {
+        "pair": "MI|NE",
+        "storedMiles": 856.4,
+        "reverseMiles": 849.8,
+        "straightMiles": 718,
+        "diffMiles": -6.6,
+        "diffPercent": -0.8,
+        "flagged": false
+      },
+      {
+        "pair": "MO|OH",
+        "storedMiles": 592.7,
+        "reverseMiles": 588.1,
+        "straightMiles": 525.3,
+        "diffMiles": -4.6,
+        "diffPercent": -0.8,
+        "flagged": false
+      },
+      {
+        "pair": "MT|SC",
+        "storedMiles": 2153.2,
+        "reverseMiles": 2146.4,
+        "straightMiles": 1780.6,
+        "diffMiles": -6.8,
+        "diffPercent": -0.3,
+        "flagged": false
+      },
+      {
+        "pair": "NE|NM",
+        "storedMiles": 863,
+        "reverseMiles": 866.2,
+        "straightMiles": 613.8,
+        "diffMiles": 3.2,
+        "diffPercent": 0.4,
+        "flagged": false
+      },
+      {
+        "pair": "NM|NY",
+        "storedMiles": 2009,
+        "reverseMiles": 2002.6,
+        "straightMiles": 1755.3,
+        "diffMiles": -6.4,
+        "diffPercent": -0.3,
+        "flagged": false
+      },
+      {
+        "pair": "OH|SD",
+        "storedMiles": 1074.2,
+        "reverseMiles": 1096.5,
+        "straightMiles": 891.5,
+        "diffMiles": 22.3,
+        "diffPercent": 2.1,
+        "flagged": false
+      },
+      {
+        "pair": "RI|VT",
+        "storedMiles": 212.3,
+        "reverseMiles": 210.6,
+        "straightMiles": 174.3,
+        "diffMiles": -1.7,
+        "diffPercent": -0.8,
+        "flagged": false
+      }
+    ]
+  }
+}
