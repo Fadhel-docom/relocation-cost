@@ -2219,3 +2219,13 @@ Scope: read-only. No indexing requests, URL submissions, sitemap submissions, si
 - **New operations rule #21:** initiative and continuous improvement: every session must both execute the highest-priority backlog item and actively seek one evidence-based alternative/improvement, record it as a numbered backlog item, and implement it when safe and justified. Not an excuse for speculative feature sprawl.
 - **Not done:** no raw full matrix, no exact cell sample counts, no source-overlap resolution, no B16 UI/code, no production calibration, no holdout test. Next: extract adjacent cells for CMR/LDM/moveBuddha, verify comparable scopes, then decide the smallest safe B16 change.
 - **Sources:** https://www.consumermovingreviews.com/cheapest-long-distance-moving-companies/ ; https://longdistancemoving.com/national-moving/moving-cost-report-2026 ; https://www.movebuddha.com/blog/cost-move-out-state/ ; https://aplusmovingandstorage.co/resources/moving-cost-index/ ; https://haulest.com/calculators/cost?market=us ; https://www.thisoldhouse.com/moving/best-interstate-moving-companies
+
+## 2026-11-13 — ChatGPT — B15 first three-size triangulation
+
+- Extended the 1,250-mile interstate full-service comparison from one pilot to three shipment-size groups using the same three sources and the same statistic rule (published median, published median, range midpoint).
+- **Studio / 1BR:** CMR $2,120 (1,000–1,499mi); Long Distance Moving $3,420 (under 4,000lb / 600–1,700mi); moveBuddha $1,900 midpoint (1BR / 1,000mi). Mean **$2,480**, source central-value spread $1,900–$3,420.
+- **About 2–3BR:** $3,400 / $6,630 / $3,200. Mean **$4,410**, spread $3,200–$6,630.
+- **4+BR:** CMR $9,000 (1,000–1,499mi); Long Distance Moving $16,790 (over 9,000lb / 600–1,700mi); moveBuddha $5,950 midpoint (4–5BR / 1,000mi). Mean **$10,580**, spread $5,950–$16,790.
+- Current calculator at 1,250mi and size proxies 1.0 / 1.8 / 2.4 returns totals **$2,593 / $3,209 / $3,671** including contingency. Against the corresponding source means, the point estimates are +4.5% / −27.2% / −65.3%.
+- **Main product insight:** the current room-based size multipliers flatten the price curve for large homes compared with published bedroom/weight groupings. This supports B16 as a prerequisite to calibration. The comparisons remain provisional because the size mappings, distance bands and statistic types are not identical. No coefficient or production price changed.
+- Source table and calculations added to MULTI-SOURCE-PRICE-BENCHMARK-PLAN.md; B15 updated. Next: validate cell sizes and inclusions, then design B16's shortest useful input model.
