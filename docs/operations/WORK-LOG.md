@@ -2194,3 +2194,15 @@ Scope: read-only. No indexing requests, URL submissions, sitemap submissions, si
 - **Mean definition:** use each source's central price for a matched scenario (published average, median, or explicitly labelled midpoint of a published typical range), then compute the simple arithmetic mean of 3–4 eligible source central values. Label it “cross-source planning average”, show each input and min–max spread, and never describe it as a national market mean. Check overlapping data networks before counting sources as independent.
 - **Evidence:** HireAHelper methodology explicitly describes local full-service under ~50 miles and labor-only (https://www.hireahelper.com/advice/cost-methodology/); Long Distance Moving reports 543 booked interstate full-service moves and separates booked estimate from final invoice (https://longdistancemoving.com/national-moving/moving-cost-report-2026); CMR reports 2,046 booked moves and sample-size disclosure rules (https://www.consumermovingreviews.com/team/research/); Haulest reports reviewer-submitted prices and cautions about self-report bias.
 - **Not done:** no arithmetic mean calculated yet, no formula/production changes. Source tables use different bands/size definitions; the next step is to build only overlapping scenario cells and record any mismatch rather than force a comparison.
+
+
+
+## 2026-11-13 — ChatGPT — B15 first three-source price calculation
+
+- **Pilot cell:** interstate full-service, approximately 2-bedroom, approximately 1,000–1,500 miles.
+- **This Old House:** $2,668 published 2-bedroom average for 1,101–1,400 miles (2025 survey, n=1,000 overall; cell n not published).
+- **Consumer Moving Reviews:** $3,400 published median for about 2 bedrooms, 1,000–1,499 miles (2,046 booked long-distance moves overall; cell n not shown in table).
+- **A Plus:** $4,200–$5,500 published 20th–80th percentile range for 2 bedrooms, 1,000–1,500 miles (669 completed paid jobs overall; cell n not disclosed); midpoint $4,850 used as an explicitly labelled central-price proxy.
+- **Calculated simple mean:** ($2,668 + $3,400 + $4,850) / 3 = **$3,639**; observed source spread **$2,668–$4,850**. This is a provisional cross-source planning average, not a national market mean or confidence interval.
+- **Caveats:** distance bands overlap but are not identical; source statistics differ; cell sample sizes and source-network overlap require further verification; site size control is room-based, not proven equivalent to a 2-bedroom shipment. Do not change production formula until the existing model output is compared under equivalent assumptions and adjacent cells/holdout checks are completed.
+- **Source references:** https://www.thisoldhouse.com/moving/moving-costs ; https://www.consumermovingreviews.com/cheapest-long-distance-moving-companies/ ; https://aplusmovingandstorage.co/resources/moving-cost-index/
