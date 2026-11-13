@@ -42,15 +42,17 @@ Source matching details:
 - moveBuddha uses its 1,000-mile full-service range for 1BR, 2–3BR and 4–5BR; the midpoint is only a central-price proxy.
 - These are overlapping planning bands, not identical route/size cells. The averages are provisional comparison anchors, not national market means.
 
-The current model outputs at 1,250 miles are:
+The current model outputs at 1,250 miles are. Compare the **move component** with source moving prices; do not compare the all-in total or its contingency band with a mover's price:
 
-| Current UI size proxy | Current move cost | Total incl. 10% contingency | Current 80%–120% band | Corresponding provisional mean | Point estimate vs mean |
+| Current UI size proxy | Move component (comparable to mover price) | Total incl. 10% contingency | Current 80%–120% total band | Source central-price mean | Move component vs mean |
 |---|---:|---:|---:|---:|---:|
-| 1.0 (“Studio / 1 room”) | $2,357 | $2,593 | $2,074–$3,111 | $2,480 | 4.5% above |
-| 1.8 (“4–5 rooms”) | $2,917 | $3,209 | $2,567–$3,850 | $4,410 | 27.2% below |
-| 2.4 (“6+ rooms”) | $3,337 | $3,671 | $2,937–$4,405 | $10,580 | 65.3% below |
+| 1.0 (“Studio / 1 room”) | $2,357 | $2,593 | $2,074–$3,111 | $2,480 | **5.0% below** |
+| 1.8 (“4–5 rooms”) | $2,917 | $3,209 | $2,567–$3,850 | $4,410 | **33.9% below** |
+| 2.4 (“6+ rooms”) | $3,337 | $3,671 | $2,937–$4,405 | $10,580 | **68.5% below** |
 
-**Interpretation:** The gap widens sharply for larger shipment groups. This is a strong warning that the current size multipliers do not represent the market's bedroom/weight pricing curve. It is not proof of the exact underpricing percentage because room-count options do not map reliably to bedroom/weight groups and the three source datasets use different bands/statistics. The current planning range is also not a statistically calibrated confidence interval. **Do not change the formula until B16 aligns the size input and the source matrix is validated.**
+**Accounting correction:** The provider benchmarks describe the mover's price, so the fair comparison is against the calculator's move component ($2,357 / $2,917 / $3,337), not the total after the 10% contingency ($2,593 / $3,209 / $3,671). The 80%–120% band also applies to the all-in total and is not directly comparable to provider prices.
+
+**Interpretation:** On this provisional comparison, the move component is about 5.0% below the 1BR mean, 33.9% below the 2–3BR mean, and 68.5% below the 4+BR mean. The gap widens sharply for larger shipment groups. This is a strong warning that the current size multipliers may not represent the market's bedroom/weight pricing curve. It is not proof of the exact underpricing percentage because room-count options do not map reliably to bedroom/weight groups and the three source datasets use different bands/statistics. **Do not change the formula until B16 aligns the size input and the source matrix is validated.**
 ## 4. The product issue discovered: size input does not match the market
 
 The calculator currently asks for room-count groups (“Studio / 1 room”, “2–3 rooms”, “4–5 rooms”, “6+ rooms”). The sources and moving carriers generally use bedrooms, shipment weight, or cubic volume. These are not interchangeable.
