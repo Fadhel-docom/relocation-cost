@@ -2226,6 +2226,12 @@ Scope: read-only. No indexing requests, URL submissions, sitemap submissions, si
 - **Studio / 1BR:** CMR $2,120 (1,000–1,499mi); Long Distance Moving $3,420 (under 4,000lb / 600–1,700mi); moveBuddha $1,900 midpoint (1BR / 1,000mi). Mean **$2,480**, source central-value spread $1,900–$3,420.
 - **About 2–3BR:** $3,400 / $6,630 / $3,200. Mean **$4,410**, spread $3,200–$6,630.
 - **4+BR:** CMR $9,000 (1,000–1,499mi); Long Distance Moving $16,790 (over 9,000lb / 600–1,700mi); moveBuddha $5,950 midpoint (4–5BR / 1,000mi). Mean **$10,580**, spread $5,950–$16,790.
-- Current calculator at 1,250mi and size proxies 1.0 / 1.8 / 2.4 returns totals **$2,593 / $3,209 / $3,671** including contingency. Against the corresponding source means, the point estimates are +4.5% / −27.2% / −65.3%.
+- Current calculator at 1,250mi and size proxies 1.0 / 1.8 / 2.4 returns move components **$2,357 / $2,917 / $3,337** and all-in totals **$2,593 / $3,209 / $3,671** including contingency. The valid comparison to mover prices is the move component only: it is 5.0% / 33.9% / 68.5% below the corresponding provisional source means. The total and 80%–120% band are not compared to provider moving prices because they include contingency.
 - **Main product insight:** the current room-based size multipliers flatten the price curve for large homes compared with published bedroom/weight groupings. This supports B16 as a prerequisite to calibration. The comparisons remain provisional because the size mappings, distance bands and statistic types are not identical. No coefficient or production price changed.
 - Source table and calculations added to MULTI-SOURCE-PRICE-BENCHMARK-PLAN.md; B15 updated. Next: validate cell sizes and inclusions, then design B16's shortest useful input model.
+
+## 2026-11-13 — ChatGPT — accounting correction to B15 model comparison
+
+- Found and corrected a comparison error before merge: published provider prices represent the moving-service price, while the calculator's all-in total adds a 10% contingency. Comparing all-in total with provider price understated the apparent gap.
+- Correct basis is the calculator's move component only. At 1,250 miles and size proxies 1.0 / 1.8 / 2.4, move components are $2,357 / $2,917 / $3,337 versus source means $2,480 / $4,410 / $10,580: **5.0% / 33.9% / 68.5% below**. All-in totals remain $2,593 / $3,209 / $3,671 but are not used for this comparison; the contingency is a separate planning buffer.
+- Updated the benchmark plan, B15 backlog row, and PR #239 description. No production values or formulas changed.
