@@ -1,81 +1,65 @@
 # Multi-source price benchmark and calibration plan
 
-**Owner decision:** 2026-11-13. Replace the stalled exact-route sample requirement with a transparent 3–4-source benchmark. The goal is to put real, sourced market prices behind the calculator without pretending that unrelated prices are comparable.
+**Owner decision:** 2026-11-13. Replace the stalled exact-route sample requirement with a practical benchmark built from 3–4 credible public sources. The goal is to put real, sourced market prices behind the calculator without presenting incomparable prices as identical.
 
-## 1. Source shortlist
+## 1. Selected source set for interstate full-service
 
-These are candidate sources, not four automatically interchangeable observations. A source is included in a calculation cell only when its published data matches the scenario and service scope.
-
-| Candidate | Public evidence reviewed | Intended role | Limitation / admission rule |
+| Source | Public evidence reviewed | How it enters the benchmark | Limitations |
 |---|---|---|---|
-| [This Old House — Moving Costs](https://www.thisoldhouse.com/moving/moving-costs) | Updated 2026-06-12; reports a 2025 survey of 1,000 moving customers and publishes average prices by distance and bedroom/weight band | Primary public average benchmark | Check service scope and cell sample availability. Its bedroom bands map to weight bands (1BR 2,000–4,000 lb; 2BR 4,000–7,000 lb; 3BR 7,000–10,000 lb; 4BR 10,000+ lb), not directly to our current room-count inputs. |
-| [HireAHelper — Moving Statistics / methodology](https://www.hireahelper.com/moving-statistics/) | Describes actual customer-paid amounts across thousands of platform moves; truck/container cost research uses 10,000 transactions across 12 brands over six years | Candidate source for service-specific average benchmarks | Public summary may not expose a matched full-service distance × shipment-size cell. Use only when the actual published cell and included costs can be verified; otherwise context-only. |
-| [moveBuddha — Pricing Methodology](https://www.movebuddha.com/blog/moving-pricing-methodology/) and [calculator](https://www.movebuddha.com/moving-cost-calculator/) | Methodology updated 2026-11-04; claims 10,000+ monthly pricing points across full-service, containers, truck rentals and labor; calculator publishes selected participant quotes | Candidate for same-input quote snapshots and market cross-checks | Public quote examples often omit shipment size/service detail. Do not use a quote unless route distance, shipment size, service type, date and inclusions are captured. Its methodology claims are self-reported. |
-| [A Plus Moving & Storage — Moving Cost Index](https://aplusmovingandstorage.co/resources/moving-cost-index/) | 669 completed paid jobs; 20th–80th percentile ranges by distance band and home size; quarterly refresh | Independent range validation / fourth source | Single-carrier dataset, not a market-wide average. Preserve the published range; do not silently treat its midpoint as an arithmetic mean. |
+| [This Old House — Moving Costs](https://www.thisoldhouse.com/moving/moving-costs) | Updated 2026-06-12; 2025 survey of 1,000 moving customers; publishes average costs by distance and bedroom/weight bands | Source central price (reported average) when service and cell align | Cell sample sizes are not published; its weight bands (1BR 2,000–4,000 lb; 2BR 4,000–7,000 lb; 3BR 7,000–10,000 lb; 4BR 10,000+ lb) are not equivalent to our current room-count input. |
+| [Long Distance Moving — 2026 report](https://longdistancemoving.com/national-moving/moving-cost-report-2026) | 543 booked interstate full-service moves, June 1–Nov 5 2026; published median by shipment weight and driving-distance band | Source central price (reported median) for matching interstate cells | One national network; booked estimate, not final invoice; winter moves underrepresented. |
+| [Consumer Moving Reviews — 2026 Cost Report](https://www.consumermovingreviews.com/cheapest-long-distance-moving-companies/) | Research team reports 2,046 booked long-distance moves; cost tables show 25th-percentile/median by distance and home size | Source central price (reported median) for matching cells | Network-booked moves; verify cell sample count and exact scope; check possible dataset overlap with other network reports before treating as independent. |
+| [A Plus Moving & Storage — Moving Cost Index](https://aplusmovingandstorage.co/resources/moving-cost-index/) | 669 completed paid interstate jobs; 20th–80th percentile ranges by distance and home size | Range cross-check; if a source midpoint is used as a central price, label it explicitly as a range midpoint | Single-carrier dataset; cell-level counts not shown; great-circle distance bands rather than driving miles. |
 
-**Source selection rule:** Prefer sources that disclose methodology, sample size, date, price statistic and scope. A source can be credible generally yet unusable for a particular cell. Do not force four values into a cell if only two are comparable.
+**Secondary cross-checks, not automatic mean inputs:** Haulest publishes reviewer-reported interstate medians by home size but not a matched distance × size cell in the summary; moveBuddha publishes selected quotes and claims a large monthly dataset, but public quote rows must contain the required route/size/scope details; HireAHelper's cited cost methodology covers local full-service (under about 50 miles) and labor-only, so it is not a valid interstate full-service source. HireAHelper can be considered later for a separate local/labor model.
+
+Do not count two publications that reuse the same underlying network or survey as independent sources. The source audit must record known or suspected overlap.
 
 ## 2. Standard comparison grid
 
-Start with **interstate full-service moving only**. Use representative distance bands that overlap the published source tables (initially 501–800, 801–1,100, 1,101–1,400, 1,401–1,700 and 1,701+ miles). Use weight-defined shipment bands where available. Do not equate the website's current room-count multipliers to bedroom/weight bands without a documented crosswalk.
+Start with **interstate full-service only**. Use the distance bands and shipment-size definitions each source actually publishes, then create common scenario cells only where the bands overlap sufficiently. Prioritize 1BR / 2BR / 3BR and 4+BR shipment groups, and record weight where available. Do not pretend that a room-count multiplier equals a bedroom or weight band.
 
-Each captured observation must record:
-- source name and exact URL;
-- capture/publication date;
-- statistic type: arithmetic average, median, quoted price, or percentile range;
-- sample size and whether cell-level sample size is disclosed;
-- origin/destination or distance band;
-- shipment size and weight definition;
-- service type and what is included/excluded;
-- price in USD, before/after taxes and surcharges when stated;
-- whether it is a completed paid move, survey-reported payment, provider quote, or published range;
-- source limitations and reviewer note.
+Each captured observation records source, exact URL, publication/capture date, statistic type, total sample and cell sample if available, route/distance band, shipment size/weight definition, service type, inclusions/exclusions, price, currency, and limitations.
 
-Do not count two pages that reuse the same underlying survey or partner dataset as independent sources.
+## 3. Average calculation — owner-approved simple mean
 
-## 3. Arithmetic mean rule
-
-For each scenario cell:
-1. Admit only observations matching the same service type, distance band, shipment-size band and broadly equivalent inclusions.
-2. Prefer source-reported averages/medians of the same statistic type. Do not mix an average with a quote, a median, or a percentile-band midpoint in one arithmetic mean.
-3. Require at least **three eligible source values**. If only two exist, keep the cell provisional and do not change the production model.
-4. Calculate the simple arithmetic mean exactly as requested: sum of eligible source values divided by the number of eligible sources.
-5. Also publish the minimum and maximum observed source values so visitors can see market spread. Do not call this a confidence interval.
-6. Preserve each source value, its date and its methodology; never overwrite raw observations with the mean.
-7. If one source is an obvious scope mismatch or outlier caused by different inclusions, investigate and document it. Do not silently discard it just to produce a preferred result.
-
-A Plus percentile ranges are retained as a separate range cross-check unless a compatible source statistic is available. Their midpoint is not silently relabelled as an average.
+For each scenario:
+1. Collect 3–4 central price figures from the selected sources. All must describe interstate full-service moving and broadly comparable distance and shipment-size scenarios.
+2. Use each source's published central figure: its average, median, or (only where no central figure exists) the midpoint of its published typical range. Record which statistic each source supplied; never disguise a midpoint as an average or median.
+3. Calculate the simple arithmetic mean of the eligible source central figures: sum divided by the number of sources. Label the result **cross-source planning average**, not a national market mean or a quote.
+4. Show the source values and the observed low–high spread beside the average. This spread is not a confidence interval.
+5. If only two sources are eligible, keep the cell provisional and do not change the production formula until a third eligible source is found. Do not fill missing cells by guessing.
+6. Investigate material outliers and source overlap. Do not silently remove a source simply because its price is inconvenient.
 
 ## 4. From benchmark to calculator
 
-- First produce a benchmark table for the representative distance/size cells and compare it with the current calculator output under matching assumptions.
-- Quantify the difference per cell and look for systematic bias by distance and size; do not apply one blanket multiplier if the error varies by band.
-- Test any proposed adjustment on held-out cells/routes not used to derive it.
-- Implement the smallest defensible adjustment, with regression tests for representative scenarios and edge cases.
-- Keep the estimate explicitly labelled as a planning estimate, with methodology, date, source links, included services and exclusions.
-- If a cell lacks three comparable sources, retain the current estimate and disclose the gap rather than inventing a number.
+- Build a raw source matrix and central-price table for representative distance/size scenarios.
+- Compare each cross-source planning average with the current calculator output under equivalent assumptions.
+- Identify whether any gap is systematic by distance or shipment size; do not apply one blanket multiplier if the pattern differs by band.
+- Validate the proposed adjustment on held-out cells/routes not used to derive it.
+- Implement the smallest justified adjustment with regression tests, build evidence and a reviewed PR.
+- Display estimate type, sources, dates, service scope, inclusions/exclusions and observed spread in the methodology/results UI.
 
 ## 5. Separate service models
 
-Do not average these together: full-service movers; moving containers / self-service; rental truck; labor-only. Build separate benchmarks for another service model only after the full-service baseline is complete and the sources expose comparable data.
+Never average full-service, containers, rental trucks and labor-only together. Complete the interstate full-service benchmark first. Local full-service and labor-only can use HireAHelper data in a separate later workstream.
 
 ## 6. Completion gates
 
-B15 is complete only when all of the following are evidenced:
-- [ ] Four-source review completed; at least three sources provide usable observations for each calibrated cell.
-- [ ] Raw source matrix and arithmetic calculations are committed.
-- [ ] Every cell has comparable distance, size, service scope and statistic type.
-- [ ] Existing calculator outputs are compared against the benchmark.
-- [ ] Holdout validation is documented with error measurements.
-- [ ] Any code change has tests, build evidence and a reviewed PR.
-- [ ] Methodology page identifies sources, dates, scope and limitations.
-- [ ] Production verification confirms the displayed estimate and source disclosure.
+- [ ] Three or four genuinely eligible source values for each calibrated scenario.
+- [ ] Raw observations and central-price calculations committed.
+- [ ] Distance, size and service comparability documented; overlapping datasets checked.
+- [ ] Current calculator outputs compared with benchmark values.
+- [ ] Holdout validation and error measurements documented.
+- [ ] Code changes tested and reviewed; production estimate and disclosure verified.
 
-## 7. Initial evidence snapshot (reviewed 2026-11-13)
+## 7. Evidence snapshot (reviewed 2026-11-13)
 
-- This Old House's 2026 moving-cost guide states that it uses a 2025 survey of 1,000 moving customers and publishes average prices by distance and bedroom/weight band.
-- HireAHelper describes actual paid platform moves and a separate 10,000-transaction truck/container dataset; those service models must remain separate.
-- moveBuddha describes a monthly dataset spanning multiple service models and publishes selected participant quotes, but individual quote rows must be checked for matching size and scope.
-- A Plus reports 669 completed paid jobs and 20th–80th percentile ranges; it is a useful range cross-check, not a market-wide average.
+- This Old House: 2025 survey of 1,000 movers; average table by distance and bedroom/weight band.
+- Long Distance Moving: 543 booked interstate full-service moves; median by weight and distance; booked estimates rather than final invoices.
+- Consumer Moving Reviews: research team reports 2,046 booked long-distance moves and publishes median/range tables by size and distance.
+- A Plus: 669 completed paid interstate jobs; 20th–80th percentile ranges by distance and size.
+- Haulest: useful secondary reviewer-reported check; its interstate median is not distance-segmented in the public summary.
+- HireAHelper: not used for interstate full-service because the cited methodology is local full-service and labor-only; separate service models only.
 
-**No price mean or production calibration is claimed in this plan.** The next B15 work unit is to extract the matched cells from these sources, capture raw values and dates, and calculate only cells with three genuinely comparable source values.
+**No production price or formula is changed by this plan.** The next B15 work unit is to extract the overlapping cells from the four selected sources, calculate the source-central-price mean, and compare it with current calculator outputs.
