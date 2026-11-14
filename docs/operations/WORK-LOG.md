@@ -2276,3 +2276,20 @@ Scope: read-only. No indexing requests, URL submissions, sitemap submissions, si
 - B15 remains active. Existing arithmetic means are provisional warning signals only. B16 remains todo and depends on B15 validation; its specification is now merged, not implemented.
 - Preview deployment for the merged branch commit: READY. GitHub Vercel check: SUCCESS.
 - Next evidence gate: obtain CMR's price-band CSV/data dictionary or publisher clarification, confirm exact cell counts and source overlap, then complete holdout scenarios before proposing any production mapping or calibration.
+
+
+## 2026-11-14 — ChatGPT — CMR target-band cell counts resolved
+
+- Targeted search of CMR route-level pages found explicit bookings per size × distance cell for the 1,000–1,499-mile band: studio/1BR n=144 (median $2,120; middle half $1,890–$2,420), about 2BR n=121 (median $3,400; $2,720–$3,990), about 3BR n=39 (median $5,390; $4,620–$6,090), and 4+BR n=47 (median $9,000; $7,620–$11,020). The four cells total 351 bookings.
+- CMR's 1,136-booking cohort is also disclosed by size across all distances: 419 / 404 / 164 / 149. Exact target-band counts are now available through route-level disclosures; CMR CSV is useful for full matrix verification but no longer a blocker for these four cells.
+- Corrected interpretation of the 1,983 “Moves” figure on the small-move article: it is not the count of studio/1BR moves (that cohort is 419 across all distances); the extracted table does not define the row count's precise scope. Do not use it as a size-cell n. The different small-move medians ($2,170 and $3,990) are a separate cohort/definition and are not averaged with the main CMR series.
+- B15 remains active: this resolves CMR's target-band cell-count gap, but does not solve independent-source comparability. LDM lacks exact counts for all distance × weight cells; TOH and moveBuddha do not expose matched cell n. No production formula, coefficients, prices, or UI changed.
+- Sources: https://www.consumermovingreviews.com/routes/movers-from-adrian-mi-49221-to-fort-myers-fl-33900/ ; https://www.consumermovingreviews.com/cheapest-long-distance-moving-companies/ ; https://www.consumermovingreviews.com/best-movers-for-small-long-distance-moves/
+
+
+## 2026-11-14 — ChatGPT — source-cohort interpretation and distance-only cross-check
+
+- Refined Long Distance Moving sample interpretation: 284 / 155 / 104 are overall weight-group counts across all distances, not counts for the 600–1,700-mile cells. The report says the largest-shipment distance columns contain only 19–61 observations each; exact counts for the other distance × weight cells remain unpublished.
+- Added This Old House 2026 full-service distance-only cross-check: $6,164 average for 1,101–1,400 miles. Its survey covered 1,000 recent movers overall, but the distance × service subgroup n is not disclosed and the figure is not split by bedroom, so it is not included as a size-specific mean input.
+- No app code, calculator formula, coefficient, UI, or production price changed. B15 remains active until at least three eligible comparable source central values are available for the size/distance cell and holdout tests pass.
+- Sources: https://longdistancemoving.com/national-moving/moving-cost-report-2026 ; https://www.thisoldhouse.com/moving/moving-survey
