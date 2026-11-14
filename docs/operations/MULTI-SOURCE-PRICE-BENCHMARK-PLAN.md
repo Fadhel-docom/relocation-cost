@@ -177,3 +177,18 @@ This resolves one B15 evidence gap, but not the entire benchmark. Long Distance 
 ### Additional 2026 full-service distance-only check
 
 This Old House's 2026 survey page reports an average of $6,164 for respondents who used full-service movers and moved 1,101–1,400 miles. The survey covered 1,000 recent movers overall, but the number in this distance × service subgroup is not disclosed in the public extract, and the figure is not split by bedroom/weight. Use it as a distance-level directional cross-check only, not as another size-specific central value. This is useful because it is based on the 2026 survey rather than the 2025 size table, but it cannot fill the missing 2BR/3BR/4+BR source cells.
+
+
+## 10. 2026-11-14 candidate-source audit: USMPO (not eligible for B15 mean)
+
+[USMPO's long-distance benchmark page](https://usmpo.org/long-distance-moving/) publishes a 2-bedroom, 1,000–1,500-mile, self-packed/off-peak reference range of $4,200–$5,600. It says its price benchmark is built from audited carrier-network data partners' quoted and billed amounts, assigns weight by published industry tables, applies mileage bands, and publishes a 20th–80th percentile range. It explicitly states that it is not a survey and claims no sample size.
+
+**Decision: exclude from the B15 full-service arithmetic mean for now.** Reasons:
+1. The displayed scenario is self-packed, not the same service scope as our full-service benchmark. The page separately models packing as an 18–24% uplift; we must not add that uplift ourselves and relabel the result as observed full-service pricing.
+2. No sample count or cell-level observation count is disclosed, so the stability of the $4,200–$5,600 range cannot be assessed.
+3. The provenance is described as carrier data-partner quote/invoice sharing, but no underlying anonymized sample table or cell counts are published in the extracted page.
+4. Public organizational disclosures are inconsistent and need clarification before treating it as an independent nonprofit research source: the About page describes a 501(c)(3) nonprofit funded by donations, grants and a verification program; the Legal page describes a trade organization certifying carriers for membership fees and includes escrow/marketplace language; the Terms page describes a marketplace. This is a documentation inconsistency, not a conclusion about wrongdoing.
+
+**Potential use:** retain as a separately labeled self-pack tariff-derived benchmark/cross-check only. Do not combine with CMR or other full-service values, and do not count it as an independent central-price input until service scope, data provenance, sample disclosure, organizational status and licensing/usage terms are clarified.
+
+Sources: https://usmpo.org/long-distance-moving/ ; https://usmpo.org/about/ ; https://usmpo.org/legal/ ; https://usmpo.org/terms-of-service/ ; https://usmpo.org/verification-methodology/
