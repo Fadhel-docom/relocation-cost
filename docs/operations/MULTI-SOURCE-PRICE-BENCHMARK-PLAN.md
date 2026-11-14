@@ -87,3 +87,70 @@ For each scenario cell:
 - [ ] Verify the deployed result and disclosure.
 
 **No production price, coefficient, formula, or UI is changed by this plan.** B15 remains active until the source matrix, B16 mapping, and validation gates are complete.
+## 7. 2026-11-14 source refresh and B16 product specification
+
+### Fresh source checks (accessed 2026-11-14)
+
+| Source | Current public evidence relevant to the 1,250-mile comparison | Use and limitation |
+|---|---|---|
+| [Consumer Moving Reviews (CMR)](https://www.consumermovingreviews.com/cheapest-long-distance-moving-companies/) | Its 1,000–1,499-mile row currently shows medians of $2,120 (studio/1BR), $3,400 (about 2BR), $5,390 (about 3BR), and $9,000 (4+BR). | Useful adjacent size cells. The page notes that some bands have fewer than 30 moves; cell-level counts must be checked before treating any row as equally reliable. Network-booked prices, not a national census. |
+| [Long Distance Moving 2026 report](https://longdistancemoving.com/national-moving/moving-cost-report-2026) | The report now states 543 booked interstate moves (June–November 2026). Overall shipment medians: $3,420 for under 4,000 lb (284 moves), $6,890 for 4,000–9,000 lb (155), and $16,070 for over 9,000 lb (104). Its distance × weight table gives $3,420 / $6,630 / $16,790 in the 600–1,700-mile band. | Use the distance × weight table for the 1,250-mile scenario, not the overall median. This resolves the apparent $6,630 vs $6,890 discrepancy: different aggregations. Report says bedroom labels are approximate and weight determines price. One network; booked estimates, not final invoices. |
+| [moveBuddha out-of-state cost guide](https://www.movebuddha.com/blog/cost-move-out-state/) | Current 1,000-mile full-service ranges: 1BR $1,100–$2,700; 2–3BR $1,900–$4,500; 4–5BR $4,100–$7,800. | Midpoints ($1,900 / $3,200 / $5,950) are proxies, not published means/medians. Rough estimates based on quotes and Better Moves Project participants; not a 1,250-mile cell. |
+| [Haulest public index](https://haulest.com/calculators/cost?market=us) | Updated 2026-11-03: self-reported interstate medians $3,456 (studio, n=59), $2,906 (1BR, n=286), $4,100 (2BR, n=1,181), $5,483 (3BR, n=658), and $6,655 (4BR, n=287). | Strong size-granularity cross-check, but no distance segmentation in this table and user-submitted reviews are selection-biased. Do not add to distance-matched mean. |
+
+### B15 interpretation update
+
+- The 2026 Long Distance Moving report exposes both overall shipment medians and distance-band medians. Do not mix them: the 1,250-mile comparison must use its 600–1,700-mile row ($3,420 / $6,630 / $16,790), while the overall 543-move medians are $3,420 / $6,890 / $16,070.
+- CMR now exposes an additional 3-bedroom median ($5,390) in the same 1,000–1,499-mile band. This improves the size ladder: studio/1BR $2,120; about 2BR $3,400; about 3BR $5,390; 4+BR $9,000. Verify the cell-count footnote/CSV before assigning equal confidence to each cell.
+- Haulest's public size-specific interstate counts provide a useful independent national, non-distance-matched check. Keep it outside the B15 arithmetic mean; do not silently treat it as a 1,250-mile observation.
+- Existing B15 three-source means remain provisional and should not be promoted to production truth. The sources still differ in statistics, bands, service inclusions, and sample provenance.
+
+### B16 minimum viable product specification (documentation only; no production change)
+
+1. Replace ambiguous room-count language with household bedroom categories aligned to public source conventions: **Studio / 1 bedroom**, **2 bedrooms**, **3 bedrooms**, **4+ bedrooms**. Keep “studio” visible because several datasets group it with 1BR.
+2. Add a concise disclosure beside the control: “Bedroom count is a rough size guide. The amount of furniture, packed weight, and bulky items can change the price.”
+3. Do not ask visitors to estimate pounds or cubic feet. CMR's small-move evidence uses an under-400-cu-ft segment, and Long Distance Moving says bedroom labels are approximate; neither establishes a reliable visitor-facing conversion from bedrooms to weight/volume.
+4. Do not add “light / typical / heavily furnished” yet. No validated crosswalk currently maps those subjective choices to shipment weight or to the existing HOME_SIZES coefficients.
+5. Separate the semantic bedroom selection from any numeric pricing multiplier. Do not silently map new bedroom labels onto the current room multipliers (1, 1.35, 1.8, 2.4). Build an explicit mapping only after the B15 source matrix and holdout tests establish defensible size-group calibration.
+6. Before implementation: add tests for URL/share-state compatibility, default selection, all four categories, and the exact mapping contract. Preserve existing shared estimate links or provide a tested migration for old size values.
+7. Before release: compare each category against at least three eligible sources where possible; disclose when a cell has fewer than three; verify desktop/mobile accessibility and production output. No formula change merely because labels change.
+
+**Status:** research and product specification only. No source coefficient, calculator UI, formula, or live price changed.
+
+## 8. 2026-11-14 second-pass audit: cell counts, source scope, and sensitivity check
+
+### Evidence added after the first refresh
+
+| Source | Relevant published cell(s) | What is actually disclosed | Decision |
+|---|---|---|---|
+| [This Old House 2025 moving-cost survey](https://www.thisoldhouse.com/moving/moving-costs) | 1,101–1,400 miles: 1BR $2,485; 2BR $2,668; 3BR $3,913; 4BR $6,207 (averages). | The article says the figures come from a 2025 survey of 1,000 moving customers; the 2026 survey page says the 2025 research focused on full-service movers. Per-cell sample counts and full inclusion details are not published in the surfaced table. | Add as a fourth directional cross-check, not as proof of a well-powered cell. It is the closest distance band to 1,250 miles and separates 2BR from 3BR. Keep its 2025 timing and unknown cell n visible. |
+| [CMR main 2026 cost table](https://www.consumermovingreviews.com/cheapest-long-distance-moving-companies/) | 1,000–1,499 miles: studio/1BR $2,120; about 2BR $3,400; about 3BR $5,390; 4+BR $9,000 (medians). | CMR describes 2,046 booked moves overall and says the size/distance table uses 1,136 moves; individual distance × size cell n is not shown in the surfaced table. A footnote marks some cells under 30. | Retain with a cell-count limitation. CMR says it is owned by Preferred Movers Network Inc.; A Plus Moving & Storage and Jacob and Sons are related companies sharing an office address, and Wilson Bros lists the same address. Do not treat CMR and A Plus as independent without further overlap evidence. |
+| [CMR small-move report](https://www.consumermovingreviews.com/best-movers-for-small-long-distance-moves/) | For 1,000–1,499 miles: studio/1BR median $2,170 and about 2BR median $3,990. | It says 419 studio/1BR moves under 400 cu ft were booked Jan 2025–Sep 2026, but the distance table's “Moves” column lists 1,983 for the 1,000–1,499-mile row—more than the stated 419 small-move cohort. The column's population/definition is therefore ambiguous in the published extract. | This is a second CMR publication/cohort, not an independent provider. Its 1BR and 2BR figures differ from the main cost table ($2,170 vs $2,120; $3,990 vs $3,400). Do not average the two CMR pages together or treat the “Moves” value as a verified cell n. Ask CMR to reconcile the CSV/data dictionary before relying on these cells. |
+| [Long Distance Moving 2026 report](https://longdistancemoving.com/national-moving/moving-cost-report-2026) | 600–1,700 miles: under 4,000 lb $3,420; 4,000–9,000 lb $6,630; over 9,000 lb $16,790 (medians). | 543 booked moves overall; weight-group counts 284 / 155 / 104. The report says the over-9,000-lb distance cells contain only 19–61 moves per column. It does not publish exact n for every distance × weight cell in the surfaced table. | Use distance row, not overall weight medians. Mark 4+BR/over-9,000-lb estimate low precision because each distance cell is small. Booked estimates, not final invoices. |
+| [moveBuddha 2026 guide](https://www.movebuddha.com/blog/cost-move-out-state/) and [pricing methodology](https://www.movebuddha.com/blog/moving-pricing-methodology/) | 1,000-mile full-service ranges: 1BR $1,100–$2,700; 2–3BR $1,900–$4,500; 4–5BR $4,100–$7,800. | Guide says rough estimates from quotes and Better Moves participants; the midpoint is not a published mean/median. Methodology describes mixed monthly inputs (feeds/APIs, Better Moves, live quotes, user submissions, anonymized calculator transactions) and 1,000+ new cost points/month, but not cell-level n or the composition of this specific guide table. | Keep the midpoint as a proxy only. Do not assume it is independent of every other online quote-based source. |
+
+### Sensitivity check (not a replacement benchmark)
+
+Adding the This Old House 2025 distance/home-size averages to the existing three-source central values produces illustrative four-source arithmetic means:
+
+| Approximate size | Existing three-source mean | Added This Old House cell | Four-source illustrative mean |
+|---|---:|---:|---:|
+| Studio / 1BR | $2,480 | $2,485 | $2,481 |
+| 2BR | $4,410 (the prior combined 2–3BR cell) | $2,668 | $3,975* |
+| 3BR | $4,410 (the prior combined 2–3BR cell) | $3,913 | $4,783* |
+| 4+BR | $10,580 | $6,207 (4BR) | $9,487 |
+
+*For 2BR and 3BR, the displayed four-source figures are **not** four-source exact-size means: the existing three-source anchor is still a combined 2–3BR cell. These numbers are a sensitivity illustration only and must not be used as exact bedroom-level targets. The 4+BR comparison also pairs a 4BR survey cell with a 4+BR category, so it is not exact. The 1BR result is the only row whose size labels are broadly aligned, though distance bands and statistics still differ.
+
+### B15 quality decision
+
+1. The previous 1,250-mile three-source means remain **provisional warning signals**, not validated market means or production targets.
+2. The source evidence is not yet sufficient to declare a statistically defensible size-specific benchmark matrix: cell-level sample counts are missing for CMR, Long Distance Moving (except the disclosed small range for its largest-size row), This Old House, and moveBuddha's cited guide table.
+3. Do not count multiple CMR pages as independent sources. CMR explicitly identifies Preferred Movers Network Inc. as its owner and A Plus Moving & Storage and Jacob and Sons as related companies sharing an office address; Wilson Bros lists the same address. This strengthens the case against counting CMR and A Plus as independent without dataset-overlap evidence. Do not infer source independence merely from different domains; record shared ownership, survey reuse, quote feeds, and partner/network overlap where verifiable.
+4. Do not replace the owner-approved arithmetic-mean rule. Instead, show a **comparability grade** next to each source cell: distance fit, size/weight fit, service fit, statistic type, data vintage, cell n, and provenance known/unknown. If a critical field is unknown, keep the cell provisional and state why.
+5. The best next evidence action is to obtain CMR's downloadable price-band CSV or written clarification of the discrepancy, and request exact cross-tab cell counts from CMR, Long Distance Moving, and This Old House. Do not publish invented counts or reverse-engineer them from aggregate totals.
+6. Until those checks and B16 mapping are complete, do not change HOME_SIZES, MOVE_PER_MILE, the service premium, or any production estimate.
+
+### Additional product-quality improvement
+
+When the benchmark is eventually surfaced to visitors, show the source range and the date checked beside the point estimate, and explain that a source spread is not a confidence interval. For weak or mismatched cells, use a broader planning range or withhold a point estimate rather than displaying false precision. This is a B15 release criterion, not a separate feature request.
