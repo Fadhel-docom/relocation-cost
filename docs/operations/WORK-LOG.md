@@ -2302,3 +2302,11 @@ Scope: read-only. No indexing requests, URL submissions, sitemap submissions, si
 - Competitive initiative: reviewed CMR's current calculator input pattern. It offers bedroom presets with editable approximate weight/cubic feet and optional service/accessorial inputs. A public U.S. DoD household-goods estimator demonstrates item-quantity-based weight estimation. Added B17 as a P2 research hypothesis for a low-friction optional inventory refinement; no copied CMR values and no implementation authorized until evidence and usability validation exist.
 - No production code, calculator formula, coefficient, price, or UI changed. PR #242 was documentation-only; Vercel preview READY and GitHub Vercel status SUCCESS. Application tests were not run because no application code changed.
 - Sources: https://www.consumermovingreviews.com/moving-cost-calculator/ ; https://www.navsup.navy.mil/Portals/65/HHG/Documents/DPS/Creating_a_Basic_HHG_Shipment_Joint_09Nov2017.pdf
+
+
+## 2026-11-14 — ChatGPT — PR #243 merged; USMPO candidate audited
+
+- PR #243 merged to main as 34d43a1f0ec0ff96c9f589c04e0bb52ded60ff99 after its Vercel preview deployment reached READY and the GitHub Vercel check returned SUCCESS. It records B17, a P2 research-only hypothesis for optional inventory-based size refinement; no product implementation was approved.
+- Audited USMPO as a possible additional price reference. It publishes $4,200–$5,600 for a 2-bedroom, 1,000–1,500-mile self-packed/off-peak move, based on its own carrier data-partner benchmark; it provides no sample count. It is not comparable to full-service because packing is excluded, and its About / Legal / Terms pages give inconsistent descriptions of its organizational/funding/marketplace status. Excluded from B15's arithmetic mean pending clarification; retained as a separately labeled self-pack cross-check only.
+- B15 remains active. CMR target-band counts are now exact; the remaining gap is comparable independent full-service central values, transparent sample/provenance for each, and holdout validation. No production code, formulas, coefficients, prices, or UI changed.
+- Sources: https://usmpo.org/long-distance-moving/ ; https://usmpo.org/about/ ; https://usmpo.org/legal/ ; https://usmpo.org/terms-of-service/
