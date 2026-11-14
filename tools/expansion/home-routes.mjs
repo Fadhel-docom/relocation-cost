@@ -139,24 +139,27 @@ if (args.probe && !stop) {
 }
 
 // Recheck (--recheck=true): routes whose answer lists a foreign country are asked again with that country avoided.
-// Both numbers are kept; the domestic one becomes `km` (same rule as Canada). A route that cannot be asked again keeps the fastest value.
+// Both numbers are kept; the domestic one becomes `km` (same rule as Canada; "fastest" is by time, so the domestic distance can be shorter). A route that cannot be asked again keeps the fastest value. A route still touching a foreign country after a pass is asked once more, avoiding both.
 if (args.recheck === "true" && !stop) {
   for (const pair of pairs) {
     const entry = out.routes[pair.key];
-    if (!entry || entry.status !== "ok" || entry.rechecked) continue;
-    const foreign = (entry.country_ids ?? []).filter(id => id !== homeId && id > 0);
-    if (!foreign.length) continue;
-    const again = await ask(cities[pair.i], cities[pair.j], foreign);
+    if (!entry || entry.status !== "ok") continue;
+    const stillForeign = (entry.country_ids ?? []).filter(id => id !== homeId && id > 0);
+    if (!stillForeign.length) continue; // nothing foreign on the stored route (also skips routes already cleaned by an earlier pass)
+    const avoid = [...new Set([...(entry.first_foreign_ids ?? []), ...stillForeign])]; // a second pass also avoids what the first pass added
+    const again = await ask(cities[pair.i], cities[pair.j], avoid);
     if (again.quota) break;
-    const base = { rechecked: true, fastest_km: entry.km, fastest_country_ids: entry.country_ids, first_foreign_ids: foreign };
+    const fastestKm = entry.fastest_km ?? entry.km;
+    const base = { rechecked: true, fastest_km: fastestKm, fastest_country_ids: entry.fastest_country_ids ?? entry.country_ids, first_foreign_ids: avoid };
     if (!again.ok) { out.routes[pair.key] = { ...entry, ...base, avoid_error: again.error }; continue; }
     const km = again.km;
     out.routes[pair.key] = {
       ...entry, ...base, method: "avoid-foreign", km, seconds: again.seconds,
       ratio: Math.round((km / entry.straight_km) * 1000) / 1000, flag: ratioFlag(km, entry.straight_km),
       country_ids: again.countries.ids, foreign_ids: again.countries.available ? foreignIds(again.countries, homeId) : null,
-      detour_pct: Math.round(((km - entry.km) / entry.km) * 1000) / 10
+      detour_pct: Math.round(((km - fastestKm) / fastestKm) * 1000) / 10
     };
+    delete out.routes[pair.key].avoid_error;
   }
 }
 
