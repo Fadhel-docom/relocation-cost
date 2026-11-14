@@ -116,3 +116,41 @@ For each scenario cell:
 7. Before release: compare each category against at least three eligible sources where possible; disclose when a cell has fewer than three; verify desktop/mobile accessibility and production output. No formula change merely because labels change.
 
 **Status:** research and product specification only. No source coefficient, calculator UI, formula, or live price changed.
+
+## 8. 2026-11-14 second-pass audit: cell counts, source scope, and sensitivity check
+
+### Evidence added after the first refresh
+
+| Source | Relevant published cell(s) | What is actually disclosed | Decision |
+|---|---|---|---|
+| [This Old House 2025 moving-cost survey](https://www.thisoldhouse.com/moving/moving-costs) | 1,101–1,400 miles: 1BR $2,485; 2BR $2,668; 3BR $3,913; 4BR $6,207 (averages). | The article says the figures come from a 2025 survey of 1,000 moving customers; the 2026 survey page says the 2025 research focused on full-service movers. Per-cell sample counts and full inclusion details are not published in the surfaced table. | Add as a fourth directional cross-check, not as proof of a well-powered cell. It is the closest distance band to 1,250 miles and separates 2BR from 3BR. Keep its 2025 timing and unknown cell n visible. |
+| [CMR main 2026 cost table](https://www.consumermovingreviews.com/cheapest-long-distance-moving-companies/) | 1,000–1,499 miles: studio/1BR $2,120; about 2BR $3,400; about 3BR $5,390; 4+BR $9,000 (medians). | CMR describes 2,046 booked long-distance moves overall and says the size/distance table uses 1,136 moves; cell-level n is not consistently exposed in the surfaced extract. A footnote marks some cells under 30. | Retain with an explicit cell-count limitation. Do not assume the 1,136 observations are present in every size/distance cell. |
+| [CMR small-move report](https://www.consumermovingreviews.com/best-movers-for-small-long-distance-moves/) | For 1,000–1,499 miles: studio/1BR median $2,170 and about 2BR median $3,990. | A separate report describes 419 studio/1BR moves under 400 cu ft from Jan 2025–Sep 2026; the same distance table also reports an about-2BR figure. | This is a second CMR publication/cohort, not an independent provider. Its 1BR and 2BR figures differ from the main cost table ($2,170 vs $2,120; $3,990 vs $3,400). Do not average the two CMR pages together. Record the discrepancy and retain the main table as the existing B15 series until the downloadable CSV or CMR confirms the canonical cohort/cell. |
+| [Long Distance Moving 2026 report](https://longdistancemoving.com/national-moving/moving-cost-report-2026) | 600–1,700 miles: under 4,000 lb $3,420; 4,000–9,000 lb $6,630; over 9,000 lb $16,790 (medians). | 543 booked moves overall; weight-group counts 284 / 155 / 104. The report says the over-9,000-lb distance cells contain only 19–61 moves per column. It does not publish exact n for every distance × weight cell in the surfaced table. | Use distance row, not overall weight medians. Mark 4+BR/over-9,000-lb estimate low precision because each distance cell is small. Booked estimates, not final invoices. |
+| [moveBuddha 2026 guide](https://www.movebuddha.com/blog/cost-move-out-state/) and [pricing methodology](https://www.movebuddha.com/blog/moving-pricing-methodology/) | 1,000-mile full-service ranges: 1BR $1,100–$2,700; 2–3BR $1,900–$4,500; 4–5BR $4,100–$7,800. | Guide says rough estimates from quotes and Better Moves participants; the midpoint is not a published mean/median. Methodology describes mixed monthly inputs (feeds/APIs, Better Moves, live quotes, user submissions, anonymized calculator transactions) and 1,000+ new cost points/month, but not cell-level n or the composition of this specific guide table. | Keep the midpoint as a proxy only. Do not assume it is independent of every other online quote-based source. |
+
+### Sensitivity check (not a replacement benchmark)
+
+Adding the This Old House 2025 distance/home-size averages to the existing three-source central values produces illustrative four-source arithmetic means:
+
+| Approximate size | Existing three-source mean | Added This Old House cell | Four-source illustrative mean |
+|---|---:|---:|---:|
+| Studio / 1BR | $2,480 | $2,485 | $2,481 |
+| 2BR | $4,410 (the prior combined 2–3BR cell) | $2,668 | $3,975* |
+| 3BR | $4,410 (the prior combined 2–3BR cell) | $3,913 | $4,783* |
+| 4+BR | $10,580 | $6,207 (4BR) | $9,487 |
+
+*For 2BR and 3BR, the displayed four-source figures are **not** four-source exact-size means: the existing three-source anchor is still a combined 2–3BR cell. These numbers are a sensitivity illustration only and must not be used as exact bedroom-level targets. The 4+BR comparison also pairs a 4BR survey cell with a 4+BR category, so it is not exact. The 1BR result is the only row whose size labels are broadly aligned, though distance bands and statistics still differ.
+
+### B15 quality decision
+
+1. The previous 1,250-mile three-source means remain **provisional warning signals**, not validated market means or production targets.
+2. The source evidence is not yet sufficient to declare a statistically defensible size-specific benchmark matrix: cell-level sample counts are missing for CMR, Long Distance Moving (except the disclosed small range for its largest-size row), This Old House, and moveBuddha's cited guide table.
+3. Do not count multiple CMR pages as independent sources. Do not infer source independence merely from different domains; record shared ownership, survey reuse, quote feeds, and partner/network overlap where verifiable.
+4. Do not replace the owner-approved arithmetic-mean rule. Instead, show a **comparability grade** next to each source cell: distance fit, size/weight fit, service fit, statistic type, data vintage, cell n, and provenance known/unknown. If a critical field is unknown, keep the cell provisional and state why.
+5. The best next evidence action is to obtain CMR's downloadable price-band CSV or written clarification of the discrepancy, and request exact cross-tab cell counts from CMR, Long Distance Moving, and This Old House. Do not publish invented counts or reverse-engineer them from aggregate totals.
+6. Until those checks and B16 mapping are complete, do not change HOME_SIZES, MOVE_PER_MILE, the service premium, or any production estimate.
+
+### Additional product-quality improvement
+
+When the benchmark is eventually surfaced to visitors, show the source range and the date checked beside the point estimate, and explain that a source spread is not a confidence interval. For weak or mismatched cells, use a broader planning range or withhold a point estimate rather than displaying false precision. This is a B15 release criterion, not a separate feature request.
