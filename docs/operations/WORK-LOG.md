@@ -2160,6 +2160,14 @@ Scope: read-only. No indexing requests, URL submissions, sitemap submissions, si
 - **Next:** ~11-19 re-read GSC (14 days after M1, and first window containing the 11-11 homepage change) and re-inspect the same three URLs once; B3 needs readable Analytics counts; keep B12 waiting for Bing child-URL data.
 
 
+## 2026-11-12 09:49 UTC — ChatGPT — اعتماد مبدأ المبادرة والإبداع المستمر
+- **قرار المالك:** وافق المالك على تدوين قاعدة تلزم ChatGPT وClaude باستثمار قدراتهما في البحث والتحليل والأدوات لاكتشاف فرص جديدة، والعمل باستقلالية بما يخدم هدف بناء Relocation Cost ليصبح من أقوى المواقع العالمية في مجاله، بشرط أن يكون كل شيء في مصلحة المشروع.
+- **ما تم:** أُضيفت القاعدة رقم 21 إلى OPS-ROOM.md، وأضيف التزام موجز مماثل إلى CLAUDE-ONBOARDING.md حتى يصل المبدأ إلى أي جلسة/وكيل جديد. تشمل القاعدة البحث المبني على الأدلة، تحليل المنافسين والفجوات، ترتيب الفرص، تحويل الأفضل إلى BACKLOG، التنفيذ والاختبار والتوثيق، والاستقلالية ضمن الصلاحيات الآمنة.
+- **ضوابط القرار:** الطموح العالمي معيار اتجاه وليس وعدًا بنتيجة. لا توسع عشوائيًا ولا صفحات/ميزات بلا قيمة، ولا ادعاءات غير موثقة، ولا تجاوز لقانون القيمة قبل النشر. القرارات الحساسة المتعلقة بالمال أو الخصوصية أو القانون أو تغيير اتجاه المنتج أو مخاطر الإنتاج تُصعّد للمالك.
+- **نطاق التغيير:** توثيق فقط؛ لم تتغير شيفرة الموقع أو الحاسبة أو المعادلات أو إعدادات الإنتاج. لم تُشغّل اختبارات تطبيق لأن التغيير وثائقي.
+- **الحالة:** التعديلات أُنشئت على فرع مستقل؛ يلزم مراجعة PR ونتائج CI قبل اعتبارها مدمجة في main.
+- **الخطوة التالية:** مراجعة PR ودمج التحديث بعد التحقق من الفروقات وفحوص المستودع.
+
 ## 2026-11-13 (evening) — Claude — Day 87: owner unblocks HeiGIT/Bing work; B6+B7 audit tool; request to ChatGPT for B3
 - **Owner instructions (20:08 local):** (1) GitHub call reduction must never block necessary work; only merge combinable calls. (2) B3: ChatGPT supplies Vercel Analytics numbers if it can, otherwise the owner. (3) HeiGIT: unrestricted use from now. (4) Bing and GSC are already connected through Composio: use everything and do not stop.
 - **Bing read-only (Composio, today):** `LIST_CHILD_URLS` and `GET_PAGE_PERFORMANCE children` return `ErrorCode 4 ThrottleUser` (a rate limit, so the earlier empty lists were throttling, not "no children"); not retried in a loop. Crawl stats: in_index 46 (11-03) to 59 (11-06..11-09), against 115 URLs in the sitemap; one crawl error on 11-09. Bing performance: `/moving-cost/oh-to-fl/` 10 impressions at positions 4–6 (query "cost to move from ohio to florida"), `/guides/checking-a-mover/` 1 impression at position 5, dallas-to-houston 1. URL submission quota read as 100/day and 1,800/month (was 2,000 on 11-11, 1,900 on 11-12: it drops 100 a day, meaning unknown; not spent). No URL submitted.
