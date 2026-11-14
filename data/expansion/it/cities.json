@@ -1,0 +1,241 @@
+{
+ "set": "it",
+ "source": "Natural Earth populated places 10m simple (public domain), https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_10m_populated_places_simple.geojson; hand-picked main relocation cities, coordinates as published (not snapped)",
+ "note": "Mainland cities only (no Sicily or Sardinia).",
+ "cities": [
+  {
+   "id": "rome",
+   "name": "Rome",
+   "region": "IT",
+   "lon": 12.4813,
+   "lat": 41.8979,
+   "pop_max": 3339000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "milan",
+   "name": "Milan",
+   "region": "IT",
+   "lon": 9.2031,
+   "lat": 45.4719,
+   "pop_max": 2945000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "naples",
+   "name": "Naples",
+   "region": "IT",
+   "lon": 14.2431,
+   "lat": 40.842,
+   "pop_max": 2250000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "turin",
+   "name": "Turin",
+   "region": "IT",
+   "lon": 7.668,
+   "lat": 45.0723,
+   "pop_max": 1652000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "bologna",
+   "name": "Bologna",
+   "region": "IT",
+   "lon": 11.34,
+   "lat": 44.5004,
+   "pop_max": 488172,
+   "ferry_or_island": false
+  },
+  {
+   "id": "florence",
+   "name": "Florence",
+   "region": "IT",
+   "lon": 11.25,
+   "lat": 43.78,
+   "pop_max": 1500000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "genoa",
+   "name": "Genoa",
+   "region": "IT",
+   "lon": 8.93,
+   "lat": 44.41,
+   "pop_max": 647497,
+   "ferry_or_island": false
+  },
+  {
+   "id": "verona",
+   "name": "Verona",
+   "region": "IT",
+   "lon": 10.99,
+   "lat": 45.4404,
+   "pop_max": 347459,
+   "ferry_or_island": false
+  },
+  {
+   "id": "venice",
+   "name": "Venice",
+   "region": "IT",
+   "lon": 12.335,
+   "lat": 45.4387,
+   "pop_max": 270816,
+   "ferry_or_island": false
+  },
+  {
+   "id": "bari",
+   "name": "Bari",
+   "region": "IT",
+   "lon": 16.8728,
+   "lat": 41.1142,
+   "pop_max": 500577,
+   "ferry_or_island": false
+  },
+  {
+   "id": "trieste",
+   "name": "Trieste",
+   "region": "IT",
+   "lon": 13.8,
+   "lat": 45.6504,
+   "pop_max": 216035,
+   "ferry_or_island": false
+  },
+  {
+   "id": "parma",
+   "name": "Parma",
+   "region": "IT",
+   "lon": 10.32,
+   "lat": 44.8104,
+   "pop_max": 166011,
+   "ferry_or_island": false
+  },
+  {
+   "id": "modena",
+   "name": "Modena",
+   "region": "IT",
+   "lon": 10.92,
+   "lat": 44.65,
+   "pop_max": 175502,
+   "ferry_or_island": false
+  },
+  {
+   "id": "perugia",
+   "name": "Perugia",
+   "region": "IT",
+   "lon": 12.39,
+   "lat": 43.1104,
+   "pop_max": 149125,
+   "ferry_or_island": false
+  },
+  {
+   "id": "ancona",
+   "name": "Ancona",
+   "region": "IT",
+   "lon": 13.4999,
+   "lat": 43.6004,
+   "pop_max": 100507,
+   "ferry_or_island": false
+  },
+  {
+   "id": "pescara",
+   "name": "Pescara",
+   "region": "IT",
+   "lon": 14.2187,
+   "lat": 42.4554,
+   "pop_max": 314789,
+   "ferry_or_island": false
+  },
+  {
+   "id": "bergamo",
+   "name": "Bergamo",
+   "region": "IT",
+   "lon": 9.67,
+   "lat": 45.7004,
+   "pop_max": 200000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "trento",
+   "name": "Trento",
+   "region": "IT",
+   "lon": 11.12,
+   "lat": 46.0804,
+   "pop_max": 107808,
+   "ferry_or_island": false
+  },
+  {
+   "id": "bolzano",
+   "name": "Bolzano",
+   "region": "IT",
+   "lon": 11.36,
+   "lat": 46.5004,
+   "pop_max": 95895,
+   "ferry_or_island": false
+  },
+  {
+   "id": "taranto",
+   "name": "Taranto",
+   "region": "IT",
+   "lon": 17.23,
+   "lat": 40.5084,
+   "pop_max": 202033,
+   "ferry_or_island": false
+  },
+  {
+   "id": "reggio-di-calabria",
+   "name": "Reggio di Calabria",
+   "region": "IT",
+   "lon": 15.6414,
+   "lat": 38.115,
+   "pop_max": 180353,
+   "ferry_or_island": false
+  },
+  {
+   "id": "livorno",
+   "name": "Livorno",
+   "region": "IT",
+   "lon": 10.3023,
+   "lat": 43.5511,
+   "pop_max": 156274,
+   "ferry_or_island": false
+  },
+  {
+   "id": "ravenna",
+   "name": "Ravenna",
+   "region": "IT",
+   "lon": 12.22,
+   "lat": 44.4204,
+   "pop_max": 134631,
+   "ferry_or_island": false
+  },
+  {
+   "id": "lecce",
+   "name": "Lecce",
+   "region": "IT",
+   "lon": 18.15,
+   "lat": 40.3604,
+   "pop_max": 162582,
+   "ferry_or_island": false
+  },
+  {
+   "id": "salerno",
+   "name": "Salerno",
+   "region": "IT",
+   "lon": 14.7699,
+   "lat": 40.6804,
+   "pop_max": 954265,
+   "ferry_or_island": false
+  },
+  {
+   "id": "udine",
+   "name": "Udine",
+   "region": "IT",
+   "lon": 13.24,
+   "lat": 46.07,
+   "pop_max": 119009,
+   "ferry_or_island": false
+  }
+ ]
+}

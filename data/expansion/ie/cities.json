@@ -1,0 +1,97 @@
+{
+ "set": "ie",
+ "source": "Natural Earth populated places 10m simple (public domain), https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_10m_populated_places_simple.geojson; hand-picked main relocation cities, coordinates as published (not snapped)",
+ "note": "Routes between Irish cities may pass through Northern Ireland; the tool then asks again avoiding the United Kingdom.",
+ "cities": [
+  {
+   "id": "dublin",
+   "name": "Dublin",
+   "region": "IE",
+   "lon": -6.2509,
+   "lat": 53.335,
+   "pop_max": 1059000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "cork",
+   "name": "Cork",
+   "region": "IE",
+   "lon": -8.4958,
+   "lat": 51.8986,
+   "pop_max": 188907,
+   "ferry_or_island": false
+  },
+  {
+   "id": "limerick",
+   "name": "Limerick",
+   "region": "IE",
+   "lon": -8.623,
+   "lat": 52.6647,
+   "pop_max": 90054,
+   "ferry_or_island": false
+  },
+  {
+   "id": "galway",
+   "name": "Galway",
+   "region": "IE",
+   "lon": -9.0488,
+   "lat": 53.2724,
+   "pop_max": 75594,
+   "ferry_or_island": false
+  },
+  {
+   "id": "waterford",
+   "name": "Waterford",
+   "region": "IE",
+   "lon": -7.1119,
+   "lat": 52.2583,
+   "pop_max": 49275,
+   "ferry_or_island": false
+  },
+  {
+   "id": "dundalk",
+   "name": "Dundalk",
+   "region": "IE",
+   "lon": -6.4167,
+   "lat": 54.0004,
+   "pop_max": 38884,
+   "ferry_or_island": false
+  },
+  {
+   "id": "drogheda",
+   "name": "Drogheda",
+   "region": "IE",
+   "lon": -6.3478,
+   "lat": 53.7193,
+   "pop_max": 36533,
+   "ferry_or_island": false
+  },
+  {
+   "id": "tralee",
+   "name": "Tralee",
+   "region": "IE",
+   "lon": -9.7167,
+   "lat": 52.2667,
+   "pop_max": 26384,
+   "ferry_or_island": false
+  },
+  {
+   "id": "kilkenny",
+   "name": "Kilkenny",
+   "region": "IE",
+   "lon": -7.2523,
+   "lat": 52.6546,
+   "pop_max": 21589,
+   "ferry_or_island": false
+  },
+  {
+   "id": "sligo",
+   "name": "Sligo",
+   "region": "IE",
+   "lon": -8.4833,
+   "lat": 54.2671,
+   "pop_max": 20228,
+   "ferry_or_island": false
+  }
+ ]
+}

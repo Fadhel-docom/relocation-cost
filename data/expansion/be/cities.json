@@ -1,0 +1,88 @@
+{
+ "set": "be",
+ "source": "Natural Earth populated places 10m simple (public domain), https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_10m_populated_places_simple.geojson; hand-picked main relocation cities, coordinates as published (not snapped)",
+ "note": "",
+ "cities": [
+  {
+   "id": "brussels",
+   "name": "Brussels",
+   "region": "BE",
+   "lon": 4.3314,
+   "lat": 50.8353,
+   "pop_max": 1743000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "antwerpen",
+   "name": "Antwerpen",
+   "region": "BE",
+   "lon": 4.4131,
+   "lat": 51.2223,
+   "pop_max": 920000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "liege",
+   "name": "Liège",
+   "region": "BE",
+   "lon": 5.58,
+   "lat": 50.63,
+   "pop_max": 749110,
+   "ferry_or_island": false
+  },
+  {
+   "id": "gent",
+   "name": "Gent",
+   "region": "BE",
+   "lon": 3.7,
+   "lat": 51.03,
+   "pop_max": 444336,
+   "ferry_or_island": false
+  },
+  {
+   "id": "charleroi",
+   "name": "Charleroi",
+   "region": "BE",
+   "lon": 4.45,
+   "lat": 50.4204,
+   "pop_max": 345367,
+   "ferry_or_island": false
+  },
+  {
+   "id": "brugge",
+   "name": "Brugge",
+   "region": "BE",
+   "lon": 3.23,
+   "lat": 51.2204,
+   "pop_max": 146469,
+   "ferry_or_island": false
+  },
+  {
+   "id": "namur",
+   "name": "Namur",
+   "region": "BE",
+   "lon": 4.87,
+   "lat": 50.4704,
+   "pop_max": 106284,
+   "ferry_or_island": false
+  },
+  {
+   "id": "mons",
+   "name": "Mons",
+   "region": "BE",
+   "lon": 3.939,
+   "lat": 50.446,
+   "pop_max": 91277,
+   "ferry_or_island": false
+  },
+  {
+   "id": "hasselt",
+   "name": "Hasselt",
+   "region": "BE",
+   "lon": 5.484,
+   "lat": 50.964,
+   "pop_max": 69222,
+   "ferry_or_island": false
+  }
+ ]
+}

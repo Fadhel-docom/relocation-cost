@@ -1,0 +1,79 @@
+{
+ "set": "at",
+ "source": "Natural Earth populated places 10m simple (public domain), https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_10m_populated_places_simple.geojson; hand-picked main relocation cities, coordinates as published (not snapped)",
+ "note": "Innsbruck–Salzburg and similar routes may be faster through Germany; the tool then asks again avoiding it.",
+ "cities": [
+  {
+   "id": "vienna",
+   "name": "Vienna",
+   "region": "AT",
+   "lon": 16.3647,
+   "lat": 48.202,
+   "pop_max": 2400000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "linz",
+   "name": "Linz",
+   "region": "AT",
+   "lon": 14.2888,
+   "lat": 48.3192,
+   "pop_max": 349161,
+   "ferry_or_island": false
+  },
+  {
+   "id": "graz",
+   "name": "Graz",
+   "region": "AT",
+   "lon": 15.41,
+   "lat": 47.0778,
+   "pop_max": 263234,
+   "ferry_or_island": false
+  },
+  {
+   "id": "salzburg",
+   "name": "Salzburg",
+   "region": "AT",
+   "lon": 13.04,
+   "lat": 47.8105,
+   "pop_max": 206279,
+   "ferry_or_island": false
+  },
+  {
+   "id": "innsbruck",
+   "name": "Innsbruck",
+   "region": "AT",
+   "lon": 11.41,
+   "lat": 47.2804,
+   "pop_max": 155214,
+   "ferry_or_island": false
+  },
+  {
+   "id": "klagenfurt",
+   "name": "Klagenfurt",
+   "region": "AT",
+   "lon": 14.31,
+   "lat": 46.6203,
+   "pop_max": 90610,
+   "ferry_or_island": false
+  },
+  {
+   "id": "wiener-neustadt",
+   "name": "Wiener Neustadt",
+   "region": "AT",
+   "lon": 16.25,
+   "lat": 47.816,
+   "pop_max": 82762,
+   "ferry_or_island": false
+  },
+  {
+   "id": "bregenz",
+   "name": "Bregenz",
+   "region": "AT",
+   "lon": 9.7667,
+   "lat": 47.5167,
+   "pop_max": 26928,
+   "ferry_or_island": false
+  }
+ ]
+}

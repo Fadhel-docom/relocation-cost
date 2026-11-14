@@ -1,18 +1,18 @@
 name: Expansion routes
 # Manual only. Asks openrouteservice (HeiGIT) for home-country road distances between a country's main
-# cities (data/expansion/<set>/cities.json) and stores them on the branch "data/expansion-<set>".
+# cities (data/expansion/<set>/cities.json) and stores each set on the branch "data/expansion-<set>".
 # Data only: nothing on main changes and the website never reads these files.
 # Needs the repository secret ORS_API_KEY. Resumable: rerun to continue after a stop.
+# Several sets can be given at once (comma separated); they run one after the other.
 on:
   workflow_dispatch:
     inputs:
-      set:
-        description: "Country set (folder under data/expansion): uk, de or fr"
-        type: choice
-        options: [uk, de, fr]
-        default: uk
+      sets:
+        description: "Country sets (folders under data/expansion), comma separated, two letters each. Example: nl,at,be"
+        type: string
+        default: "uk"
       max_requests:
-        description: "Maximum Directions requests in this run (daily quota is 2000)"
+        description: "Maximum Directions requests per set (daily quota is 2000, shared by all sets of the day)"
         type: string
         default: "700"
 
@@ -26,33 +26,40 @@ concurrency:
 jobs:
   routes:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 180
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Continue from the data branch if it exists
-        run: |
-          git fetch origin "data/expansion-${{ inputs.set }}" || true
-          if git rev-parse --verify "origin/data/expansion-${{ inputs.set }}" >/dev/null 2>&1; then
-            git show "origin/data/expansion-${{ inputs.set }}:data/expansion/${{ inputs.set }}/routes.json" > "data/expansion/${{ inputs.set }}/routes.json" || rm -f "data/expansion/${{ inputs.set }}/routes.json"
-          fi
-
-      - name: Ask for the routes
-        id: routes
+      - name: Ask for the routes and publish each set to its own branch
         env:
           ORS_API_KEY: ${{ secrets.ORS_API_KEY }}
-        run: node tools/expansion/home-routes.mjs --set="${{ inputs.set }}" --max-requests="${{ inputs.max_requests }}"
-
-      - name: Publish the routes to their own branch
-        if: always() && hashFiles(format('data/expansion/{0}/routes.json', inputs.set)) != ''
+          SETS: ${{ inputs.sets }}
+          MAX_REQUESTS: ${{ inputs.max_requests }}
         run: |
+          set -u
           git config user.name "expansion-routes[bot]"
           git config user.email "expansion-routes@users.noreply.github.com"
-          git checkout -B "data/expansion-${{ inputs.set }}"
-          git add "data/expansion/${{ inputs.set }}/routes.json"
-          if git diff --cached --quiet; then echo "Nothing new to publish."; exit 0; fi
-          git commit -m "data: expansion routes ${{ inputs.set }} (${{ steps.routes.outputs.status }})"
-          git push --force origin "data/expansion-${{ inputs.set }}"
+          BASE=$(git rev-parse HEAD)
+          STATUS=0
+          for s in $(echo "$SETS" | tr ',' ' '); do
+            if ! echo "$s" | grep -Eq '^[a-z]{2}$'; then echo "Skipping invalid set '$s'"; STATUS=1; continue; fi
+            if [ ! -f "data/expansion/$s/cities.json" ]; then echo "No cities file for '$s'"; STATUS=1; continue; fi
+            git fetch origin "data/expansion-$s" 2>/dev/null || true
+            if git rev-parse --verify "origin/data/expansion-$s" >/dev/null 2>&1; then
+              git show "origin/data/expansion-$s:data/expansion/$s/routes.json" > "data/expansion/$s/routes.json" 2>/dev/null || rm -f "data/expansion/$s/routes.json"
+            fi
+            node tools/expansion/home-routes.mjs --set="$s" --max-requests="$MAX_REQUESTS" || STATUS=1
+            if [ -f "data/expansion/$s/routes.json" ]; then
+              git switch -q -C "data/expansion-$s"
+              git add "data/expansion/$s/routes.json"
+              if git diff --cached --quiet; then echo "Nothing new to publish for $s."; else
+                git commit -q -m "data: expansion routes $s"
+                git push --force origin "data/expansion-$s"
+              fi
+              git switch -q --detach "$BASE"
+            fi
+          done
+          exit $STATUS
