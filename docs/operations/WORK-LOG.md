@@ -2258,3 +2258,13 @@ Scope: read-only. No indexing requests, URL submissions, sitemap submissions, si
 - **Decision:** B15 remains doing; existing means are provisional warning signals only. No production formula, coefficient, UI, or price changed. Added a release criterion to disclose comparability grade, source date, source spread and unknown cell n; never label source spread as a confidence interval.
 - **Next:** request/inspect the CMR CSV and exact source-cell counts; keep B16 dependent on a defensible size mapping. No app tests run because this work is documentation/research only.
 - Sources: https://www.thisoldhouse.com/moving/moving-costs ; https://www.thisoldhouse.com/moving/moving-survey ; https://www.consumermovingreviews.com/cheapest-long-distance-moving-companies/ ; https://www.consumermovingreviews.com/best-movers-for-small-long-distance-moves/ ; https://longdistancemoving.com/national-moving/moving-cost-report-2026 ; https://www.movebuddha.com/blog/cost-move-out-state/ ; https://www.movebuddha.com/blog/moving-pricing-methodology/
+
+
+## 2026-11-14 — ChatGPT — PR #240 merged; source audit and B16 specification recorded
+
+- PR #240 was squash-merged to main as commit 2344e3106926536262e6917d901cca67bcfa8211 after the Vercel preview deployment for the exact head commit reached READY and the GitHub Vercel status turned SUCCESS.
+- Scope remained documentation/research only: B15 source-cell/provenance audit, CMR cohort discrepancy and related-company disclosure, Long Distance Moving small-cell limitation, This Old House directional cross-check, and B16 input specification.
+- No application source, live calculator UI, coefficients, formulas, or production prices were changed. No application tests were run because no application code changed.
+- B15 remains active. Existing arithmetic means are provisional warning signals only. B16 remains todo and depends on B15 validation; its specification is now merged, not implemented.
+- Preview deployment for the merged branch commit: READY. GitHub Vercel check: SUCCESS.
+- Next evidence gate: obtain CMR's price-band CSV/data dictionary or publisher clarification, confirm exact cell counts and source overlap, then complete holdout scenarios before proposing any production mapping or calibration.
