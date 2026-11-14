@@ -11,6 +11,14 @@ on:
         description: "Country sets (folders under data/expansion), comma separated, two letters each. Example: nl,at,be"
         type: string
         default: "uk"
+      recheck:
+        description: "true = ask again, avoiding the foreign country, every stored route that touches one"
+        type: string
+        default: "false"
+      probe:
+        description: "Optional 'set:pair' (for example at:salzburg|innsbruck): write the raw countryinfo answer to probe.json"
+        type: string
+        default: ""
       max_requests:
         description: "Maximum Directions requests per set (daily quota is 2000, shared by all sets of the day)"
         type: string
@@ -38,6 +46,8 @@ jobs:
           ORS_API_KEY: ${{ secrets.ORS_API_KEY }}
           SETS: ${{ inputs.sets }}
           MAX_REQUESTS: ${{ inputs.max_requests }}
+          RECHECK: ${{ inputs.recheck }}
+          PROBE: ${{ inputs.probe }}
         run: |
           set -u
           git config user.name "expansion-routes[bot]"
@@ -51,10 +61,14 @@ jobs:
             if git rev-parse --verify "origin/data/expansion-$s" >/dev/null 2>&1; then
               git show "origin/data/expansion-$s:data/expansion/$s/routes.json" > "data/expansion/$s/routes.json" 2>/dev/null || rm -f "data/expansion/$s/routes.json"
             fi
-            node tools/expansion/home-routes.mjs --set="$s" --max-requests="$MAX_REQUESTS" || STATUS=1
+            EXTRA=""
+            [ "$RECHECK" = "true" ] && EXTRA="--recheck=true"
+            case "$PROBE" in "$s":*) EXTRA="$EXTRA --probe=${PROBE#*:}";; esac
+            node tools/expansion/home-routes.mjs --set="$s" --max-requests="$MAX_REQUESTS" $EXTRA || STATUS=1
             if [ -f "data/expansion/$s/routes.json" ]; then
               git switch -q -C "data/expansion-$s"
               git add "data/expansion/$s/routes.json"
+              [ -f "data/expansion/$s/probe.json" ] && git add "data/expansion/$s/probe.json"
               if git diff --cached --quiet; then echo "Nothing new to publish for $s."; else
                 git commit -q -m "data: expansion routes $s"
                 git push --force origin "data/expansion-$s"

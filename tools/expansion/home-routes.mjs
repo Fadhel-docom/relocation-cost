@@ -86,7 +86,7 @@ async function ask(from, to, avoid = []) {
       if (typeof summary?.distance !== "number") return { ok: false, error: "no_route_in_response" };
       const remaining = Number(lastRate.remaining);
       if (Number.isFinite(remaining) && remaining < MIN_REMAINING) stop = "quota_low";
-      return { ok: true, km: Math.round(summary.distance * 100) / 100, seconds: Math.round(summary.duration), countries: readCountries(json) };
+      return { ok: true, km: Math.round(summary.distance * 100) / 100, seconds: Math.round(summary.duration), countries: readCountries(json), raw: json };
     }
     if (response.status === 401 || response.status === 403) { stop = /quota/i.test(text) ? "quota_exceeded" : "auth_error"; return { quota: true }; }
     if ((response.status === 429 || response.status >= 500) && attempt < 2) { await sleep(Math.min(Number(response.headers.get("retry-after")) || 30, 120) * 1000); continue; }
@@ -123,6 +123,41 @@ for (const pair of todo) {
   if (!result) break;
   out.routes[pair.key] = result;
   if (++sinceSave >= 25) { save(); sinceSave = 0; console.log(`progress ${Object.values(out.routes).filter(v => v.status === "ok").length}/${pairs.length} requests=${requests}`); }
+}
+
+// Probe (documentation of the countryinfo shape): --probe=<pair key> writes the raw answer to probe.json.
+if (args.probe && !stop) {
+  const entry = pairs.find(pair => pair.key === args.probe);
+  if (entry) {
+    const answer = await ask(cities[entry.i], cities[entry.j]);
+    if (answer.ok) {
+      const info = answer.raw.routes[0];
+      fs.writeFileSync(path.join(dir, "probe.json"), `${JSON.stringify({ pair: args.probe, units_requested: "km", route_summary: info.summary, countryinfo: { summary: info.extras?.countryinfo?.summary, values_count: info.extras?.countryinfo?.values?.length, values_first: info.extras?.countryinfo?.values?.slice(0, 6) } }, null, 2)}\n`);
+      console.log(`probe written for ${args.probe}`);
+    }
+  }
+}
+
+// Recheck (--recheck=true): routes whose answer lists a foreign country are asked again with that country avoided.
+// Both numbers are kept; the domestic one becomes `km` (same rule as Canada). A route that cannot be asked again keeps the fastest value.
+if (args.recheck === "true" && !stop) {
+  for (const pair of pairs) {
+    const entry = out.routes[pair.key];
+    if (!entry || entry.status !== "ok" || entry.rechecked) continue;
+    const foreign = (entry.country_ids ?? []).filter(id => id !== homeId && id > 0);
+    if (!foreign.length) continue;
+    const again = await ask(cities[pair.i], cities[pair.j], foreign);
+    if (again.quota) break;
+    const base = { rechecked: true, fastest_km: entry.km, fastest_country_ids: entry.country_ids, first_foreign_ids: foreign };
+    if (!again.ok) { out.routes[pair.key] = { ...entry, ...base, avoid_error: again.error }; continue; }
+    const km = again.km;
+    out.routes[pair.key] = {
+      ...entry, ...base, method: "avoid-foreign", km, seconds: again.seconds,
+      ratio: Math.round((km / entry.straight_km) * 1000) / 1000, flag: ratioFlag(km, entry.straight_km),
+      country_ids: again.countries.ids, foreign_ids: again.countries.available ? foreignIds(again.countries, homeId) : null,
+      detour_pct: Math.round(((km - entry.km) / entry.km) * 1000) / 10
+    };
+  }
 }
 
 // reverse-direction sample: every 16th direct route, asked to to from
