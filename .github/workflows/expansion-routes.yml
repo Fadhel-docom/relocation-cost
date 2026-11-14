@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
     inputs:
       set:
-        description: "Country set (folder under data/expansion): uk or de"
+        description: "Country set (folder under data/expansion): uk, de or fr"
         type: choice
-        options: [uk, de]
+        options: [uk, de, fr]
         default: uk
       max_requests:
         description: "Maximum Directions requests in this run (daily quota is 2000)"

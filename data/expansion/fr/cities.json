@@ -1,0 +1,277 @@
+{
+ "set": "fr",
+ "source": "Natural Earth populated places 10m simple (public domain), https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_10m_populated_places_simple.geojson; hand-picked main relocation cities, coordinates as published (not snapped); metropolitan France only (no Corsica or overseas)",
+ "note": "",
+ "cities": [
+  {
+   "id": "paris",
+   "name": "Paris",
+   "region": "FR",
+   "lon": 2.3314,
+   "lat": 48.8686,
+   "pop_max": 9904000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "marseille",
+   "name": "Marseille",
+   "region": "FR",
+   "lon": 5.3731,
+   "lat": 43.2919,
+   "pop_max": 1400000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "lyon",
+   "name": "Lyon",
+   "region": "FR",
+   "lon": 4.8281,
+   "lat": 45.772,
+   "pop_max": 1423000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "toulouse",
+   "name": "Toulouse",
+   "region": "FR",
+   "lon": 1.448,
+   "lat": 43.6219,
+   "pop_max": 847000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "nice",
+   "name": "Nice",
+   "region": "FR",
+   "lon": 7.2631,
+   "lat": 43.717,
+   "pop_max": 927000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "nantes",
+   "name": "Nantes",
+   "region": "FR",
+   "lon": -1.59,
+   "lat": 47.2104,
+   "pop_max": 438537,
+   "ferry_or_island": false
+  },
+  {
+   "id": "strasbourg",
+   "name": "Strasbourg",
+   "region": "FR",
+   "lon": 7.75,
+   "lat": 48.58,
+   "pop_max": 439972,
+   "ferry_or_island": false
+  },
+  {
+   "id": "montpellier",
+   "name": "Montpellier",
+   "region": "FR",
+   "lon": 3.87,
+   "lat": 43.6104,
+   "pop_max": 327254,
+   "ferry_or_island": false
+  },
+  {
+   "id": "bordeaux",
+   "name": "Bordeaux",
+   "region": "FR",
+   "lon": -0.597,
+   "lat": 44.852,
+   "pop_max": 803000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "lille",
+   "name": "Lille",
+   "region": "FR",
+   "lon": 3.0781,
+   "lat": 50.6519,
+   "pop_max": 1044000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "rennes",
+   "name": "Rennes",
+   "region": "FR",
+   "lon": -1.67,
+   "lat": 48.1,
+   "pop_max": 209375,
+   "ferry_or_island": false
+  },
+  {
+   "id": "reims",
+   "name": "Reims",
+   "region": "FR",
+   "lon": 4.03,
+   "lat": 49.2504,
+   "pop_max": 196565,
+   "ferry_or_island": false
+  },
+  {
+   "id": "le-havre",
+   "name": "Le Havre",
+   "region": "FR",
+   "lon": 0.105,
+   "lat": 49.505,
+   "pop_max": 242124,
+   "ferry_or_island": false
+  },
+  {
+   "id": "saint-etienne",
+   "name": "Saint-Étienne",
+   "region": "FR",
+   "lon": 4.38,
+   "lat": 45.4304,
+   "pop_max": 265684,
+   "ferry_or_island": false
+  },
+  {
+   "id": "toulon",
+   "name": "Toulon",
+   "region": "FR",
+   "lon": 5.9188,
+   "lat": 43.1342,
+   "pop_max": 357693,
+   "ferry_or_island": false
+  },
+  {
+   "id": "grenoble",
+   "name": "Grenoble",
+   "region": "FR",
+   "lon": 5.72,
+   "lat": 45.1804,
+   "pop_max": 388574,
+   "ferry_or_island": false
+  },
+  {
+   "id": "dijon",
+   "name": "Dijon",
+   "region": "FR",
+   "lon": 5.03,
+   "lat": 47.3304,
+   "pop_max": 169946,
+   "ferry_or_island": false
+  },
+  {
+   "id": "angers",
+   "name": "Angers",
+   "region": "FR",
+   "lon": -0.53,
+   "lat": 47.48,
+   "pop_max": 188380,
+   "ferry_or_island": false
+  },
+  {
+   "id": "nimes",
+   "name": "Nîmes",
+   "region": "FR",
+   "lon": 4.35,
+   "lat": 43.8304,
+   "pop_max": 169547,
+   "ferry_or_island": false
+  },
+  {
+   "id": "clermont-ferrand",
+   "name": "Clermont-Ferrand",
+   "region": "FR",
+   "lon": 3.08,
+   "lat": 45.78,
+   "pop_max": 233050,
+   "ferry_or_island": false
+  },
+  {
+   "id": "le-mans",
+   "name": "Le Mans",
+   "region": "FR",
+   "lon": 0.1,
+   "lat": 48.0004,
+   "pop_max": 144515,
+   "ferry_or_island": false
+  },
+  {
+   "id": "brest",
+   "name": "Brest",
+   "region": "FR",
+   "lon": -4.495,
+   "lat": 48.3904,
+   "pop_max": 144899,
+   "ferry_or_island": false
+  },
+  {
+   "id": "tours",
+   "name": "Tours",
+   "region": "FR",
+   "lon": 0.6999,
+   "lat": 47.3804,
+   "pop_max": 236096,
+   "ferry_or_island": false
+  },
+  {
+   "id": "amiens",
+   "name": "Amiens",
+   "region": "FR",
+   "lon": 2.3,
+   "lat": 49.9004,
+   "pop_max": 143086,
+   "ferry_or_island": false
+  },
+  {
+   "id": "limoges",
+   "name": "Limoges",
+   "region": "FR",
+   "lon": 1.25,
+   "lat": 45.83,
+   "pop_max": 152199,
+   "ferry_or_island": false
+  },
+  {
+   "id": "perpignan",
+   "name": "Perpignan",
+   "region": "FR",
+   "lon": 2.9,
+   "lat": 42.7,
+   "pop_max": 146620,
+   "ferry_or_island": false
+  },
+  {
+   "id": "metz",
+   "name": "Metz",
+   "region": "FR",
+   "lon": 6.18,
+   "lat": 49.1203,
+   "pop_max": 409186,
+   "ferry_or_island": false
+  },
+  {
+   "id": "besancon",
+   "name": "Besançon",
+   "region": "FR",
+   "lon": 6.03,
+   "lat": 47.23,
+   "pop_max": 128426,
+   "ferry_or_island": false
+  },
+  {
+   "id": "orleans",
+   "name": "Orléans",
+   "region": "FR",
+   "lon": 1.9,
+   "lat": 47.9004,
+   "pop_max": 217301,
+   "ferry_or_island": false
+  },
+  {
+   "id": "rouen",
+   "name": "Rouen",
+   "region": "FR",
+   "lon": 1.08,
+   "lat": 49.4304,
+   "pop_max": 532559,
+   "ferry_or_island": false
+  }
+ ]
+}
