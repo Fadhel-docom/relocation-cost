@@ -14,3 +14,14 @@ Branch: `docs/b15-unified-matrix-holdout-20261114`
 - Next: obtain stronger independent full-service cell/route observations and provenance; then implement B16 with backward-compatible share-link handling and tests, without altering pricing coefficients.
 
 This addendum is a dated companion to the cumulative `docs/operations/WORK-LOG.md`; it does not claim that the oversized cumulative file itself was rewritten.
+
+
+## Independent-source follow-up — 2026-11-14
+
+- Searched for a second publisher's route-level price observations and checked ownership before counting sources.
+- Found that GoodMigrations was acquired by moveBuddha in May 2023. Its 1,500+ monthly live-quote statement therefore does not make it an independent publisher from moveBuddha; excluded as a second independent source unless separate data lineage is proven.
+- Extra Space Storage publishes Boston→Miami estimates by bedroom, but no route-cell n or sufficiently transparent pricing method was found. Candidate-only.
+- MoveAdvisor publishes Boston→Miami historical-review ranges and says it derived them from route moving reviews. It lists 107 movers for the route, but that is a directory count, not a price sample count. No price-cell n is disclosed. Candidate-only.
+- Move.org offers a 2,500-response 2025 survey and 2024 quote-derived 3BR distance-band medians; neither gives the exact matched full-service route/size cell counts needed for this gate. Use only as broad directional evidence pending clarification.
+- MyFastMovers discloses 27,854 model-priced routes and 224 measured corridors, but prices are model estimates rather than observed customer prices; not an empirical holdout.
+- Updated the PR #246 discussion with these findings. B15 remains open; no production changes or calibration.
