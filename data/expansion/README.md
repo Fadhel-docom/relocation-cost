@@ -6,8 +6,9 @@ Rule X7/R4 still applies: no price or coefficient exists for these countries; on
 | Set | Cities | Pairs | Status | Where |
 |---|---|---|---|---|
 | `ca` Canada | 37 (Natural Earth) | 666 | **complete**: 666/666 routes inside Canada (`avoid_countries=[214]`, countryinfo checked, 0 touch another country), 42 reverse-direction checks, largest gap 2.83 % | `ca/` (archived from the experimental branch `exp/expansion-matrix-run`; `ca-road-matrix.json` is the earlier "fastest route" matrix that crosses the United States and is NOT the file to use) |
-| `uk` United Kingdom | 31 | 465 | see `uk/routes.json` once the workflow "Expansion routes" has run | branch `data/expansion-uk`, copied here by PR |
-| `de` Germany | 30 | 435 | same, `de/routes.json` | branch `data/expansion-de` |
+| `uk` United Kingdom | 31 | 465 | **complete** (2026-11-13): 465/465 direct routes, 0 touch another country, 1 flag (Swansea–Exeter ratio 2.26, around the Bristol Channel), 30 reverse checks, largest gap 3.93 % | `uk/routes.json` (Belfast routes may include a ferry) |
+| `de` Germany | 30 | 435 | **complete** (2026-11-13): 435/435 direct routes, 0 touch another country, 0 flags, 28 reverse checks, largest gap 4.65 % | `de/routes.json` |
+| `fr` France | 30 (metropolitan) | 435 | cities ready, routes not run yet | `fr/cities.json`; run workflow "Expansion routes" with `set=fr` |
 
 - **Method:** openrouteservice Directions, `driving-car` (a car, not a moving truck), km. For `uk` and `de` the default fastest route is asked first; a route touching another country for 1 km or more is asked again with that country avoided. The home country is learned from the first route.
 - **Licence and attribution:** results are CC-BY-SA 4.0 and need the exact line `© openrouteservice by HeiGIT | Data from OpenStreetMap` wherever the numbers are shown (https://account.heigit.org/info/tos). Commercial use of the Standard plan was confirmed in writing by HeiGIT (2026-11-09 log). Whether storing results and the share-alike scope are fine is still open (BACKLOG B8).
