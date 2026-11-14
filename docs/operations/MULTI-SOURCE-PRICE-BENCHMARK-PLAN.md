@@ -87,3 +87,32 @@ For each scenario cell:
 - [ ] Verify the deployed result and disclosure.
 
 **No production price, coefficient, formula, or UI is changed by this plan.** B15 remains active until the source matrix, B16 mapping, and validation gates are complete.
+## 7. 2026-11-14 source refresh and B16 product specification
+
+### Fresh source checks (accessed 2026-11-14)
+
+| Source | Current public evidence relevant to the 1,250-mile comparison | Use and limitation |
+|---|---|---|
+| [Consumer Moving Reviews (CMR)](https://www.consumermovingreviews.com/cheapest-long-distance-moving-companies/) | Its 1,000–1,499-mile row currently shows medians of $2,120 (studio/1BR), $3,400 (about 2BR), $5,390 (about 3BR), and $9,000 (4+BR). | Useful adjacent size cells. The page notes that some bands have fewer than 30 moves; cell-level counts must be checked before treating any row as equally reliable. Network-booked prices, not a national census. |
+| [Long Distance Moving 2026 report](https://longdistancemoving.com/national-moving/moving-cost-report-2026) | The report now states 543 booked interstate moves (June–November 2026). Overall shipment medians: $3,420 for under 4,000 lb (284 moves), $6,890 for 4,000–9,000 lb (155), and $16,070 for over 9,000 lb (104). Its distance × weight table gives $3,420 / $6,630 / $16,790 in the 600–1,700-mile band. | Use the distance × weight table for the 1,250-mile scenario, not the overall median. This resolves the apparent $6,630 vs $6,890 discrepancy: different aggregations. Report says bedroom labels are approximate and weight determines price. One network; booked estimates, not final invoices. |
+| [moveBuddha out-of-state cost guide](https://www.movebuddha.com/blog/cost-move-out-state/) | Current 1,000-mile full-service ranges: 1BR $1,100–$2,700; 2–3BR $1,900–$4,500; 4–5BR $4,100–$7,800. | Midpoints ($1,900 / $3,200 / $5,950) are proxies, not published means/medians. Rough estimates based on quotes and Better Moves Project participants; not a 1,250-mile cell. |
+| [Haulest public index](https://haulest.com/calculators/cost?market=us) | Updated 2026-11-03: self-reported interstate medians $3,456 (studio, n=59), $2,906 (1BR, n=286), $4,100 (2BR, n=1,181), $5,483 (3BR, n=658), and $6,655 (4BR, n=287). | Strong size-granularity cross-check, but no distance segmentation in this table and user-submitted reviews are selection-biased. Do not add to distance-matched mean. |
+
+### B15 interpretation update
+
+- The 2026 Long Distance Moving report exposes both overall shipment medians and distance-band medians. Do not mix them: the 1,250-mile comparison must use its 600–1,700-mile row ($3,420 / $6,630 / $16,790), while the overall 543-move medians are $3,420 / $6,890 / $16,070.
+- CMR now exposes an additional 3-bedroom median ($5,390) in the same 1,000–1,499-mile band. This improves the size ladder: studio/1BR $2,120; about 2BR $3,400; about 3BR $5,390; 4+BR $9,000. Verify the cell-count footnote/CSV before assigning equal confidence to each cell.
+- Haulest's public size-specific interstate counts provide a useful independent national, non-distance-matched check. Keep it outside the B15 arithmetic mean; do not silently treat it as a 1,250-mile observation.
+- Existing B15 three-source means remain provisional and should not be promoted to production truth. The sources still differ in statistics, bands, service inclusions, and sample provenance.
+
+### B16 minimum viable product specification (documentation only; no production change)
+
+1. Replace ambiguous room-count language with household bedroom categories aligned to public source conventions: **Studio / 1 bedroom**, **2 bedrooms**, **3 bedrooms**, **4+ bedrooms**. Keep “studio” visible because several datasets group it with 1BR.
+2. Add a concise disclosure beside the control: “Bedroom count is a rough size guide. The amount of furniture, packed weight, and bulky items can change the price.”
+3. Do not ask visitors to estimate pounds or cubic feet. CMR's small-move evidence uses an under-400-cu-ft segment, and Long Distance Moving says bedroom labels are approximate; neither establishes a reliable visitor-facing conversion from bedrooms to weight/volume.
+4. Do not add “light / typical / heavily furnished” yet. No validated crosswalk currently maps those subjective choices to shipment weight or to the existing HOME_SIZES coefficients.
+5. Separate the semantic bedroom selection from any numeric pricing multiplier. Do not silently map new bedroom labels onto the current room multipliers (1, 1.35, 1.8, 2.4). Build an explicit mapping only after the B15 source matrix and holdout tests establish defensible size-group calibration.
+6. Before implementation: add tests for URL/share-state compatibility, default selection, all four categories, and the exact mapping contract. Preserve existing shared estimate links or provide a tested migration for old size values.
+7. Before release: compare each category against at least three eligible sources where possible; disclose when a cell has fewer than three; verify desktop/mobile accessibility and production output. No formula change merely because labels change.
+
+**Status:** research and product specification only. No source coefficient, calculator UI, formula, or live price changed.
