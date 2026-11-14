@@ -2285,3 +2285,11 @@ Scope: read-only. No indexing requests, URL submissions, sitemap submissions, si
 - Corrected interpretation of the 1,983 “Moves” figure on the small-move article: it is not the count of studio/1BR moves (that cohort is 419 across all distances); the extracted table does not define the row count's precise scope. Do not use it as a size-cell n. The different small-move medians ($2,170 and $3,990) are a separate cohort/definition and are not averaged with the main CMR series.
 - B15 remains active: this resolves CMR's target-band cell-count gap, but does not solve independent-source comparability. LDM lacks exact counts for all distance × weight cells; TOH and moveBuddha do not expose matched cell n. No production formula, coefficients, prices, or UI changed.
 - Sources: https://www.consumermovingreviews.com/routes/movers-from-adrian-mi-49221-to-fort-myers-fl-33900/ ; https://www.consumermovingreviews.com/cheapest-long-distance-moving-companies/ ; https://www.consumermovingreviews.com/best-movers-for-small-long-distance-moves/
+
+
+## 2026-11-14 — ChatGPT — source-cohort interpretation and distance-only cross-check
+
+- Refined Long Distance Moving sample interpretation: 284 / 155 / 104 are overall weight-group counts across all distances, not counts for the 600–1,700-mile cells. The report says the largest-shipment distance columns contain only 19–61 observations each; exact counts for the other distance × weight cells remain unpublished.
+- Added This Old House 2026 full-service distance-only cross-check: $6,164 average for 1,101–1,400 miles. Its survey covered 1,000 recent movers overall, but the distance × service subgroup n is not disclosed and the figure is not split by bedroom, so it is not included as a size-specific mean input.
+- No app code, calculator formula, coefficient, UI, or production price changed. B15 remains active until at least three eligible comparable source central values are available for the size/distance cell and holdout tests pass.
+- Sources: https://longdistancemoving.com/national-moving/moving-cost-report-2026 ; https://www.thisoldhouse.com/moving/moving-survey
