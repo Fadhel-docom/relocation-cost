@@ -83,3 +83,34 @@ Route source disclosures:
 - This Old House 2025 moving-cost table: https://www.thisoldhouse.com/moving/moving-costs
 - Boston → Miami route page: https://www.movebuddha.com/popular-routes/ma/fl/boston-to-miami/
 - Nashville → Burlington route page: https://www.movebuddha.com/popular-routes/tn/vt/nashville-to-burlington/
+
+
+## 5. Second-publisher and ownership audit — 2026-11-14
+
+A targeted search for independent route-level evidence found several candidates, but none currently clears the full B15 calibration/validation gate.
+
+| Candidate | Evidence found | Independence / comparability decision |
+|---|---|---|
+| GoodMigrations | Boston→Miami and Nashville→Burlington route ranges, each described as based on 1,500+ monthly live quotes. | **Not independent of moveBuddha.** moveBuddha announced its acquisition of GoodMigrations in May 2023. Treat the two brands as one ownership group unless separate underlying data lineage is demonstrated. Do not count GoodMigrations as the second publisher. |
+| Extra Space Storage | Boston→Miami estimates by bedroom: 3BR $5,316–$9,193; 4BR $5,816–$10,193. The page says its estimates are calculated using its own moving-cost calculator and is dated Dec 11, 2025. | Useful exact-route directional cross-check candidate. No route-cell sample count or transparent estimate-generation details were disclosed in the inspected page; not eligible for arithmetic calibration or a validated holdout yet. |
+| MoveAdvisor | Boston→Miami ranges: Studio/1BR $2,162–$3,314; 2–3BR $4,169–$6,948; 4+BR $5,764–$9,469. The page says it calculated historical averages from moving reviews on the route. It lists 107 movers serving the route. | Independent-looking route review source, but 107 is the number of mover listings, not the number of price observations. No price-cell n, observation dates, or service inclusion details. Candidate-only; do not infer sample size from listings. |
+| Move.org | Its 2025 State of Moving survey reports 2,500 completed responses; its 2024 quote-derived page gives 3BR distance-band medians and says hundreds of quotes were gathered. | Independent broad external check, but the 2,500-person survey includes mixed move methods and the distance/size cells do not expose n. The quote-derived 2024 3BR series is potentially useful as a distance-band check, not an exact route holdout or an eligible size matrix input without further source clarification. |
+| MyFastMovers | Publishes 27,854 model-priced city routes and 224 measured corridors. | Explicitly a published model estimate, not observed customer prices. Useful competitor/UX benchmark, not an independent price observation. |
+
+### Consequence for B15
+
+- The independent second-publisher route holdout remains **not yet satisfied**.
+- Do not treat moveBuddha + GoodMigrations as two independent sources.
+- Do not treat the number of listed movers, survey-wide n, or an overall quote count as a size × route cell count.
+- The strongest next request is a transparent cell-level disclosure from Extra Space Storage or MoveAdvisor (sample size, date window, what the estimate includes, and whether values are quote-derived or model-generated), or a separate publisher's actual booked/paid route observations.
+- Existing four-source means remain provisional planning benchmarks only. No formula or coefficient changes are authorized.
+
+### Source record
+
+- moveBuddha acquisition announcement (May 5, 2023): https://www.accessnewswire.com/newsroom/en/business-and-professional-services/movebuddha-acquires-los-angeles-based-goodmigrations-753067
+- GoodMigrations Boston→Miami route/methodology: https://goodmigrations.com/popular-routes/massachusetts/florida/boston-ma-to-miami-fl/
+- Extra Space Storage Boston cost guide (updated Dec 11, 2025): https://www.extraspace.com/moving/tools/moving-cost-calculator/movers-boston-ma/
+- MoveAdvisor Boston→Miami route and historical-review method: https://moveadvisor.com/usa/routes/boston-to-miami-movers
+- Move.org 2025 State of Moving survey: https://www.move.org/the-state-of-moving/
+- Move.org 2024 quote-derived distance medians: https://www.move.org/moving-costs/
+- MyFastMovers modelled route network: https://www.myfastmovers.com/popular-routes/
