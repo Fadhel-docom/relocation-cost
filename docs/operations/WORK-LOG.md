@@ -2235,3 +2235,15 @@ Scope: read-only. No indexing requests, URL submissions, sitemap submissions, si
 - Found and corrected a comparison error before merge: published provider prices represent the moving-service price, while the calculator's all-in total adds a 10% contingency. Comparing all-in total with provider price understated the apparent gap.
 - Correct basis is the calculator's move component only. At 1,250 miles and size proxies 1.0 / 1.8 / 2.4, move components are $2,357 / $2,917 / $3,337 versus source means $2,480 / $4,410 / $10,580: **5.0% / 33.9% / 68.5% below**. All-in totals remain $2,593 / $3,209 / $3,671 but are not used for this comparison; the contingency is a separate planning buffer.
 - Updated the benchmark plan, B15 backlog row, and PR #239 description. No production values or formulas changed.
+
+## 2026-11-14 — ChatGPT — B15 live-source refresh and B16 product specification
+
+- Re-read the latest backlog and B15 plan before selecting work. B15 remains the highest-priority pricing work; B16 is its dependent product prerequisite.
+- Refreshed the three B15 sources. Key clarification: Long Distance Moving's current overall 543-move medians ($3,420 / $6,890 / $16,070) differ from its 600–1,700-mile distance-band medians ($3,420 / $6,630 / $16,790). For a 1,250-mile test, use the latter only. This is a different aggregation, not an inconsistency.
+- CMR's current 1,000–1,499-mile table adds a 3-bedroom median of $5,390 alongside studio/1BR $2,120, about 2BR $3,400, and 4+BR $9,000. Cell counts remain an open quality check; the page footnote flags some cells under 30.
+- Added Haulest as a size-specific independent sanity check only: interstate self-reported medians and sample counts by bedroom are available, but not distance-matched. Explicitly excluded it from the B15 arithmetic mean.
+- Competitive product insight: moveBuddha's calculator asks property type, bedrooms (1–5+), and moving date. For B16, adopted the smaller safe change: studio/1BR, 2BR, 3BR, 4+BR; do not add weight/cubic-feet or subjective inventory density without a validated crosswalk.
+- Critical safeguard: keep bedroom category separate from numeric coefficients. Do not map the new semantic categories onto current HOME_SIZES multipliers without B15/holdout evidence; preserve share-link compatibility and test migration.
+- Updated B16 backlog note and B15 plan specification. Documentation only; no production code, UI, formula, or price changed. No app tests run because no application code changed.
+- Sources reviewed: https://www.consumermovingreviews.com/cheapest-long-distance-moving-companies/ ; https://longdistancemoving.com/national-moving/moving-cost-report-2026 ; https://www.movebuddha.com/blog/cost-move-out-state/ ; https://haulest.com/calculators/cost?market=us
+- Next: finish B15 raw matrix and cell-count/provenance audit; then implement B16 semantic input only with an explicit tested mapping, or leave the current calculator unchanged if the mapping remains unsupported.
