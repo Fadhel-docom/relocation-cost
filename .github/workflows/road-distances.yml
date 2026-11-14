@@ -19,6 +19,11 @@ on:
         description: "Ask again for pairs that failed before"
         type: boolean
         default: false
+      mode:
+        description: "build = fill the distance table; check = read-only audits (city transit + reverse direction, about 64 requests) written to the branch data/road-distance-checks"
+        type: choice
+        options: [build, check]
+        default: build
 
 permissions:
   contents: write
@@ -37,6 +42,7 @@ jobs:
           node-version: 22
 
       - name: Continue from the data branch if it exists
+        if: inputs.mode != 'check'
         run: |
           git fetch origin data/road-distances || true
           if git rev-parse --verify origin/data/road-distances >/dev/null 2>&1; then
@@ -45,12 +51,30 @@ jobs:
 
       - name: Ask for the distances
         id: build
+        if: inputs.mode != 'check'
         env:
           ORS_API_KEY: ${{ secrets.ORS_API_KEY }}
         run: node tools/road-distances-build.mjs --kind="${{ inputs.kind }}" --limit="${{ inputs.limit }}" --retry-failed="${{ inputs.retry_failed }}"
 
+      - name: Read-only audits (city transit, reverse direction)
+        id: check
+        if: inputs.mode == 'check'
+        env:
+          ORS_API_KEY: ${{ secrets.ORS_API_KEY }}
+        run: node tools/road-distances-check.mjs --mode=both --reverse-count=20
+
+      - name: Publish the audit results to their own branch
+        if: always() && inputs.mode == 'check' && hashFiles('data/road-distances-checks.json') != ''
+        run: |
+          git config user.name "road-distances[bot]"
+          git config user.email "road-distances@users.noreply.github.com"
+          git checkout -B data/road-distance-checks
+          git add data/road-distances-checks.json
+          git commit -m "data: road distance audits (${{ steps.check.outputs.status }})"
+          git push --force origin data/road-distance-checks
+
       - name: Publish the data to its own branch
-        if: always() && hashFiles('data/road-distances.json') != ''
+        if: always() && inputs.mode != 'check' && hashFiles('data/road-distances.json') != ''
         run: |
           git config user.name "road-distances[bot]"
           git config user.email "road-distances@users.noreply.github.com"

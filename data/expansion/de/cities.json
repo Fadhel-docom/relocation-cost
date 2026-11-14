@@ -1,0 +1,277 @@
+{
+ "set": "de",
+ "source": "Natural Earth populated places 10m simple (public domain), https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_10m_populated_places_simple.geojson; hand-picked main relocation cities, coordinates as published (not snapped)",
+ "note": "",
+ "cities": [
+  {
+   "id": "berlin",
+   "name": "Berlin",
+   "region": "BE",
+   "lon": 13.3996,
+   "lat": 52.5238,
+   "pop_max": 3406000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "hamburg",
+   "name": "Hamburg",
+   "region": "HH",
+   "lon": 9.9981,
+   "lat": 53.552,
+   "pop_max": 1757000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "munich",
+   "name": "Munich",
+   "region": "BY",
+   "lon": 11.573,
+   "lat": 48.1319,
+   "pop_max": 1275000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "cologne",
+   "name": "Cologne",
+   "region": "NW",
+   "lon": 6.9481,
+   "lat": 50.932,
+   "pop_max": 1004000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "frankfurt",
+   "name": "Frankfurt",
+   "region": "HE",
+   "lon": 8.675,
+   "lat": 50.1,
+   "pop_max": 2895000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "stuttgart",
+   "name": "Stuttgart",
+   "region": "BW",
+   "lon": 9.2,
+   "lat": 48.78,
+   "pop_max": 2944700,
+   "ferry_or_island": false
+  },
+  {
+   "id": "dusseldorf",
+   "name": "Düsseldorf",
+   "region": "NW",
+   "lon": 6.78,
+   "lat": 51.2204,
+   "pop_max": 1220000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "dortmund",
+   "name": "Dortmund",
+   "region": "NW",
+   "lon": 7.45,
+   "lat": 51.53,
+   "pop_max": 588462,
+   "ferry_or_island": false
+  },
+  {
+   "id": "essen",
+   "name": "Essen",
+   "region": "NW",
+   "lon": 7.0166,
+   "lat": 51.45,
+   "pop_max": 1742135,
+   "ferry_or_island": false
+  },
+  {
+   "id": "leipzig",
+   "name": "Leipzig",
+   "region": "SN",
+   "lon": 12.41,
+   "lat": 51.3354,
+   "pop_max": 542529,
+   "ferry_or_island": false
+  },
+  {
+   "id": "bremen",
+   "name": "Bremen",
+   "region": "HB",
+   "lon": 8.8,
+   "lat": 53.08,
+   "pop_max": 724909,
+   "ferry_or_island": false
+  },
+  {
+   "id": "dresden",
+   "name": "Dresden",
+   "region": "SN",
+   "lon": 13.75,
+   "lat": 51.05,
+   "pop_max": 617515,
+   "ferry_or_island": false
+  },
+  {
+   "id": "hannover",
+   "name": "Hanover",
+   "region": "NI",
+   "lon": 9.7167,
+   "lat": 52.367,
+   "pop_max": 722490,
+   "ferry_or_island": false
+  },
+  {
+   "id": "nurnberg",
+   "name": "Nürnberg",
+   "region": "BY",
+   "lon": 11.08,
+   "lat": 49.45,
+   "pop_max": 737304,
+   "ferry_or_island": false
+  },
+  {
+   "id": "duisburg",
+   "name": "Duisburg",
+   "region": "NW",
+   "lon": 6.75,
+   "lat": 51.43,
+   "pop_max": 1276757,
+   "ferry_or_island": false
+  },
+  {
+   "id": "bonn",
+   "name": "Bonn",
+   "region": "NW",
+   "lon": 7.08,
+   "lat": 50.7205,
+   "pop_max": 680543,
+   "ferry_or_island": false
+  },
+  {
+   "id": "mannheim",
+   "name": "Mannheim",
+   "region": "BW",
+   "lon": 8.47,
+   "lat": 49.5004,
+   "pop_max": 2362000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "karlsruhe",
+   "name": "Karlsruhe",
+   "region": "BW",
+   "lon": 8.4,
+   "lat": 49.0,
+   "pop_max": 377487,
+   "ferry_or_island": false
+  },
+  {
+   "id": "wiesbaden",
+   "name": "Wiesbaden",
+   "region": "HE",
+   "lon": 8.25,
+   "lat": 50.0804,
+   "pop_max": 617126,
+   "ferry_or_island": false
+  },
+  {
+   "id": "munster",
+   "name": "Münster",
+   "region": "NW",
+   "lon": 7.62,
+   "lat": 51.9704,
+   "pop_max": 270184,
+   "ferry_or_island": false
+  },
+  {
+   "id": "augsburg",
+   "name": "Augsburg",
+   "region": "BY",
+   "lon": 10.9,
+   "lat": 48.35,
+   "pop_max": 358989,
+   "ferry_or_island": false
+  },
+  {
+   "id": "kiel",
+   "name": "Kiel",
+   "region": "SH",
+   "lon": 10.13,
+   "lat": 54.3304,
+   "pop_max": 269427,
+   "ferry_or_island": false
+  },
+  {
+   "id": "rostock",
+   "name": "Rostock",
+   "region": "MV",
+   "lon": 12.15,
+   "lat": 54.0704,
+   "pop_max": 203080,
+   "ferry_or_island": false
+  },
+  {
+   "id": "freiburg",
+   "name": "Freiburg",
+   "region": "BW",
+   "lon": 7.8699,
+   "lat": 48.0004,
+   "pop_max": 254889,
+   "ferry_or_island": false
+  },
+  {
+   "id": "kassel",
+   "name": "Kassel",
+   "region": "HE",
+   "lon": 9.5,
+   "lat": 51.3,
+   "pop_max": 289924,
+   "ferry_or_island": false
+  },
+  {
+   "id": "magdeburg",
+   "name": "Magdeburg",
+   "region": "ST",
+   "lon": 11.62,
+   "lat": 52.1304,
+   "pop_max": 229826,
+   "ferry_or_island": false
+  },
+  {
+   "id": "erfurt",
+   "name": "Erfurt",
+   "region": "TH",
+   "lon": 11.03,
+   "lat": 50.9701,
+   "pop_max": 203254,
+   "ferry_or_island": false
+  },
+  {
+   "id": "saarbrucken",
+   "name": "Saarbrücken",
+   "region": "SL",
+   "lon": 6.97,
+   "lat": 49.2504,
+   "pop_max": 770001,
+   "ferry_or_island": false
+  },
+  {
+   "id": "mainz",
+   "name": "Mainz",
+   "region": "RP",
+   "lon": 8.2732,
+   "lat": 49.9825,
+   "pop_max": 184997,
+   "ferry_or_island": false
+  },
+  {
+   "id": "lubeck",
+   "name": "Lübeck",
+   "region": "SH",
+   "lon": 10.67,
+   "lat": 53.8704,
+   "pop_max": 235390,
+   "ferry_or_island": false
+  }
+ ]
+}
