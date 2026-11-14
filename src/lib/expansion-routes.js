@@ -1,7 +1,9 @@
 // Pure helpers for tools/expansion/home-routes.mjs (country-by-country road distances, kept OFF the site).
 // No network here: the tool asks openrouteservice, these functions build pairs and read countryinfo answers.
 
-export const FOREIGN_MIN_KM = 1; // a shorter touch of another country is a border artefact, recorded but not "foreign"
+// Any positive distance in another country counts. A 1 km threshold was tried on 2026-11-14 and wrongly hid routes
+// through Germany, Switzerland, Italy and Belgium (the summary distances are not plain kilometres, see probe.json).
+export const FOREIGN_MIN_KM = 0;
 
 export function buildPairs(cities) {
   const pairs = [];
@@ -25,9 +27,9 @@ export function readCountries(json) {
   };
 }
 
-// Foreign = a known country (id above 0) other than home with at least FOREIGN_MIN_KM on the route.
+// Foreign = a known country (id above 0) other than home that appears on the route (distance above FOREIGN_MIN_KM).
 export function foreignIds(countries, homeId) {
-  return countries.touches.filter(row => row.id !== homeId && row.id > 0 && row.km >= FOREIGN_MIN_KM).map(row => row.id);
+  return countries.touches.filter(row => row.id !== homeId && row.id > 0 && row.km > FOREIGN_MIN_KM).map(row => row.id);
 }
 
 export function ratioFlag(km, straightKm) {

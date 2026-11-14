@@ -19,9 +19,9 @@ test("readCountries picks the longest country and keeps every touch", () => {
   assert.equal(readCountries({ routes: [{}] }).available, false);
 });
 
-test("foreignIds ignores home, unknown (0) and sub-kilometre touches", () => {
-  const countries = { touches: [{ id: 35, km: 900 }, { id: 214, km: 0.6 }, { id: 0, km: 12 }, { id: 82, km: 40 }] };
-  assert.deepEqual(foreignIds(countries, 35), [82]);
+test("foreignIds keeps every known foreign country with any distance, not home and not unknown (0)", () => {
+  const countries = { touches: [{ id: 35, km: 900 }, { id: 214, km: 0.6 }, { id: 0, km: 12 }, { id: 82, km: 40 }, { id: 17, km: 0 }] };
+  assert.deepEqual(foreignIds(countries, 35), [214, 82]);
   assert.deepEqual(foreignIds({ touches: [{ id: 35, km: 10 }] }, 35), []);
 });
 
