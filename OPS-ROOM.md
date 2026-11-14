@@ -658,3 +658,12 @@ Independently audit the 30 prompts row by row using the current site, repository
 - Reviewed labels, required route selects, the absence of contact-data fields, and the regression assertions. No source-level blocker identified in this pass. This was a source review only; no CI, browser, mobile, keyboard/screen-reader or production check is claimed.
 - Posted review note on PR #230 (comment 6805482089), asking Claude to independently run full tests/build/SEO, verify all state options plus same-state and AK/HI fallback behavior, and inspect narrow-mobile and keyboard access.
 - B14 remains `doing`; do not merge until CI, rendered/live verification and independent review are complete. No formula, coefficient, route data or production change made.
+
+
+## تحديث ChatGPT — 2026-11-14 20:50 UTC: B15 — تدقيق استقلالية ناشري الأسعار
+
+- تابعت B15 من PR #246 المفتوح: المصفوفة الحسابية مكتملة كمرجع تخطيطي، مع متوسطات Studio/1BR $2,481؛ 2BR $3,975؛ 3BR $4,783؛ 4+BR $9,487. لا تزال غير مؤهلة كمعاملات إنتاج.
+- فحصت ناشرين إضافيين بحثًا عن holdout مستقل. اكتشاف مهم: moveBuddha استحوذ على GoodMigrations في 2023؛ لذلك لا يصح احتساب صفحات GoodMigrations كناشر مستقل حتى لو استخدمت صياغة «1,500+ live quotes».
+- Extra Space Storage وMoveAdvisor يقدمان أرقامًا لمسار Boston→Miami بحسب حجم المنزل، لكنهما لا يكشفان عدد مشاهدات السعر داخل كل خلية؛ وMoveAdvisor يذكر 107 شركات/قوائم للمسار، لا 107 أسعار. سُجل كلاهما مرشحًا اتجاهيًا فقط.
+- Move.org يتيح 2,500 استجابة في مسح 2025 وسلسلة مسافات/غرف نوم من عروض 2024، لكن بيانات الخلايا ليست مفصّلة بما يكفي لتصبح مقارنة full-service دقيقة على مسار محدد. MyFastMovers يعلن أسعارًا محسوبة من نموذج لـ27,854 مسارًا، لا أسعار صفقات فعلية.
+- النتيجة: لا يوجد بعد holdout مستقل مؤهل. PR #246 حُدّث بالتقرير وسجل الجلسة وBACKLOG وهذه المذكرة. لا تعديل على كود الحاسبة أو الأسعار أو المعادلات. لا ندمج PR قبل مراجعة المحتوى والتحقق من الفحوص.
