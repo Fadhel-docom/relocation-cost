@@ -87,3 +87,21 @@ No user-price collection, upload flow or model recalibration is authorized by th
 - Relocation Cost live homepage: https://relocation-cost-psi.vercel.app/
 - Relocation Cost live calculator: https://relocation-cost-psi.vercel.app/calculator/
 - Relocation Cost live methodology: https://relocation-cost-psi.vercel.app/methodology/
+
+
+## Addendum — shipment-size input opportunity (2026-11-14)
+
+### CMR calculator input pattern
+- Page: https://www.consumermovingreviews.com/moving-cost-calculator/ (search extract retrieved 2026-11-14).
+- Observed inputs: route and editable road miles; bedroom-based home-size presets; default approximate pounds/cubic feet by size; an editable shipment weight or cubic-foot field; optional packing, stairs/no elevator, long carry/shuttle, storage and specialty items.
+- The page claims its estimates use 8,200+ pricing data points and 2,046 booked long-distance moves. These are the provider's own claims; we did not independently audit the model or its data.
+- Product lesson: bedroom count can be the easy default, while an optional inventory/volume refinement can capture households that are unusually lightly or heavily furnished. Do not copy CMR's default values or its model. The visitor should not be forced to know pounds or cubic feet.
+
+### Independent estimator pattern
+- The U.S. Department of Defense's public Personal Property/Defense Personal Property System guidance includes an itemized household-goods weight estimator where users enter quantities of items by room. This demonstrates an established item-count workflow, but it is designed for military household-goods planning and does not validate consumer moving-company price conversions.
+- Source: https://www.navsup.navy.mil/Portals/65/HHG/Documents/DPS/Creating_a_Basic_HHG_Shipment_Joint_09Nov2017.pdf
+
+### B17 decision
+- Record a P2 research hypothesis: a short, optional inventory refinement could improve shipment-size estimation beyond bedroom count alone while preserving the fast default flow.
+- Potential differentiator is not the idea of weight/volume entry (competitors already have it), but making it easy for ordinary users: a few high-impact item groups / boxes, a visible estimated volume range, no email or quote funnel, and integration into the complete relocation cash budget.
+- This is not ready to build. Required evidence: independent item-volume references, transparent conversion and uncertainty, no personal-data collection, accessibility/mobile prototype, and a small usability test comparing task completion and estimate comprehension against bedroom-only input. Keep the idea behind B17 until B15/B16 are complete.
