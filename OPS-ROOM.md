@@ -673,3 +673,15 @@ Independently audit the 30 prompts row by row using the current site, repository
 - المالك فوّض ChatGPT بالعمل المستقل على النمو والانتشار والتحسين ضمن الصلاحيات المتاحة، مع الالتزام بقانون القيمة قبل النشر وبوابات الدقة والأمان وعدم تغيير معايرة B15/B16 دون تحقق.
 - قراءة GSC/Bing الحالية وتقديم أربع روابط أولوية إلى Bing موثقة في `docs/operations/WORK-LOG.md` بتاريخ 2026-11-15، وتحديث B4 وB12 وإضافة B18 في `docs/operations/BACKLOG.md`.
 - لم يحدث تغيير كود أو أسعار أو نشر إنتاجي في هذه المرحلة. العمل التالي: تشخيص سبب عدم تعرف Google على `/calculator/` رغم وجود sitemap وروابط داخلية، ثم إصلاح السبب إن ثبت.
+
+
+## 2026-11-15 — B15/B16 range-based calculator work (ChatGPT)
+- Owner reiterated full execution authority and specifically directed that B15/B16 use published price ranges rather than a blended/shaded average before merge.
+- Added CMR middle-half booked full-service ranges for five road-distance bands and four shipment-volume groups, with median and per-cell sample counts. The calculator now computes a separate source-backed total range by adding entered costs and 10% contingency to both bounds. The existing model point estimate and fixed ±20% model band remain separate; no coefficients were changed.
+- Updated size labels to Studio/1BR, 2BR, 3BR, 4+BR with the CMR volume definitions. Numeric URL values 1, 1.35, 1.8 and 2.4 are preserved.
+- Added CMR range output to the calculator, comparison cards, print summary and email draft; updated methodology and source disclosures. Added regression tests for distance boundaries, source bounds, sample counts, no-extrapolation below 100 miles, and email output.
+- Data limitation: CMR's dataset is one mover network; some cells have n=21–24. Long Distance Moving's 543-booking report has a materially higher 4+BR band than CMR, so the publishers are not blended. B15 remains open pending a comparable independent holdout and resolution of the 4+BR discrepancy. No claim of national calibration.
+- Draft PR: https://github.com/Fadhel-docom/relocation-cost/pull/254. Vercel Astro preview for commit 661c0fa reached READY; the subsequent commit adding a pinned GitHub Actions workflow is awaiting validation. No production merge or live deployment claimed.
+- Added CI workflow .github/workflows/validate.yml to run npm test and npm run build on PRs. Verify its run before merge.
+- Researched current AI discovery: Google Search generative AI control/report are global; report shows impressions/pages/countries/devices/dates but no queries/clicks. Bing AI Performance provides citations, grounding queries and page-level citation activity; Topics Portfolio beta added Oct 13, 2026. Current Composio integrations expose standard search/indexing APIs, not the AI-specific reports; those need a Webmaster UI/browser check. No automated social posting or external outreach was performed.
+- AI distribution playbook added at docs/operations/AI-DISTRIBUTION-PLAYBOOK-2026-11-15.md; range evidence at docs/operations/B15-RANGE-BENCHMARK-2026-11-15.md.
