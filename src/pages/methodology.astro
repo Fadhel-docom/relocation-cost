@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import benchmarkData from "../../data/coefficients.json";
+import cmrRangeData from "../../data/cmr-full-service-ranges.json";
 import {
   calculateBudget,
   MOVE_BASE_COST,
@@ -35,7 +36,7 @@ const percent = value => `${Math.round(value * 100)}%`;
     <h2 class="mt-10 text-2xl font-bold">Inputs</h2>
     <ul class="mt-4 list-disc space-y-3 pl-6 leading-7 text-slate-700">
       <li><strong>Distance:</strong> filled from a table of approximate driving distances between one central point in each of the two states you pick (calculated with openrouteservice by HeiGIT from OpenStreetMap data; results licensed CC-BY-SA 4.0; © openrouteservice by HeiGIT | Data from OpenStreetMap), or typed by you. Where no road route was found (Alaska, Hawaii) a straight-line calculation is used instead. It is not the distance between your addresses, and the table was calculated once, so it can differ from a route calculated today. Replace it with your actual driving miles when you know them.</li>
-      <li><strong>Home size:</strong> studio or 1 room (×1), 2–3 rooms (×1.35), 4–5 rooms (×1.8), 6+ rooms (×2.4).</li>
+      <li><strong>Home size:</strong> Studio / 1 bedroom (under 400 cu ft), about 2 bedrooms (400–800 cu ft), about 3 bedrooms (800–1,200 cu ft), or 4+ bedrooms (1,200+ cu ft). The existing numeric values in shared links are preserved; bedroom labels are approximations of shipment volume.</li>
       <li><strong>Move type:</strong> DIY (×{DIY_TYPE_MULTIPLIER}), rental truck with labor (×1), full-service movers (×1.65).</li>
       <li><strong>Other costs:</strong> travel, temporary housing, deposits and setup, packing and extras, plus optional itemized amounts (fuel, insurance, packing materials, equipment rental, utility connection, storage, crew tips, specialty items, access fees), added exactly as you enter them. The site never guesses these amounts.</li>
     </ul>
@@ -47,12 +48,13 @@ const percent = value => `${Math.round(value * 100)}%`;
       <p>premium = distance × ${MOVE_PER_MILE} × home size × (move type − {DIY_TYPE_MULTIPLIER}), never below zero</p>
       <p>move = diy base + premium</p>
       <p>total = (move + other costs) × {(1 + DEFAULT_CONTINGENCY_RATE).toFixed(2)}</p>
-      <p>range = total × {DEFAULT_RANGE_LOW.toFixed(2)} to total × {DEFAULT_RANGE_HIGH.toFixed(2)}</p>
+      <p>model planning band = total × {DEFAULT_RANGE_LOW.toFixed(2)} to total × {DEFAULT_RANGE_HIGH.toFixed(2)}</p>
+      <p>full-service reference total range = (CMR 25th–75th percentile + entered other costs) × 1.10</p>
     </div>
     <p class="mt-4 leading-7 text-slate-700">The {money(MOVE_BASE_COST)} base, the ${MOVE_PER_MILE} per mile rate, the home-size and move-type multipliers, the {percent(DEFAULT_CONTINGENCY_RATE)} buffer and the {percent(DEFAULT_RANGE_LOW)}–{percent(DEFAULT_RANGE_HIGH)} range are explicit planning assumptions. They are not published market prices.</p>
 
     <h2 class="mt-10 text-2xl font-bold">What comes from a published source</h2>
-    <p class="mt-4 leading-7 text-slate-700">The only market figure used in the result is the U-Haul average for one-way truck rentals by distance band. It sets a minimum for the DIY base, so no estimate falls below what a one-way truck rental costs on average for that distance.</p>
+    <p class="mt-4 leading-7 text-slate-700">U-Haul’s one-way rental average by distance band sets a minimum for the DIY base. Separately, full-service moves show CMR’s published middle-half (25th–75th percentile) booked-price range for the matching distance and shipment-size group. The calculator does not average unlike publishers or replace the current model point estimate with a blended mean. It adds the visitor’s entered costs and the 10% contingency to both published range bounds. This is a source-specific reference from one mover network, not a national-market range or a quote.</p>
     <div tabindex="0" role="region" aria-label="Scrollable table" class="mt-4 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
       <table class="w-full text-left text-sm leading-6">
         <thead class="border-b border-slate-200 bg-slate-50"><tr><th class="p-3 font-semibold">Distance band</th><th class="p-3 font-semibold">U-Haul one-way average</th></tr></thead>
@@ -64,10 +66,43 @@ const percent = value => `${Math.round(value * 100)}%`;
       </table>
     </div>
 
+    <h2 class="mt-10 text-2xl font-bold">Published full-service booked-price ranges</h2>
+    <p class="mt-4 leading-7 text-slate-700">The table below reproduces CMR’s published middle-half booked-price ranges (25th–75th percentile) by road-distance band and approximate shipment-size group. The sample count is shown for each cell. These are bookings through one mover network, not a census of the US market and not final invoices. The 4+ bedroom cell in the 1,500–1,999 mile band uses the longer period stated below.</p>
+    <div tabindex="0" role="region" aria-label="Scrollable CMR full-service price ranges" class="mt-4 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+      <table class="w-full min-w-[48rem] text-left text-sm leading-6">
+        <thead class="border-b border-slate-200 bg-slate-50">
+          <tr>
+            <th class="p-3 font-semibold">Road-distance band</th>
+            <th class="p-3 font-semibold">Studio / 1BR</th>
+            <th class="p-3 font-semibold">About 2BR</th>
+            <th class="p-3 font-semibold">About 3BR</th>
+            <th class="p-3 font-semibold">4+BR</th>
+          </tr>
+        </thead>
+        <tbody class="text-slate-700">
+          {cmrRangeData.distance_bands.map((band) => (
+            <tr class="border-b border-slate-100 last:border-0">
+              <td class="p-3 font-semibold">{band.label}</td>
+              {["1", "1.35", "1.8", "2.4"].map((size) => (
+                <td class="p-3 whitespace-nowrap">
+                  {money(band.sizes[size].low)}–{money(band.sizes[size].high)}
+                  <br /><span class="text-xs text-slate-500">Median {money(band.sizes[size].median)} · n={band.sizes[size].n}</span>
+                  {band.sizes[size].sample_note && <br />}
+                  {band.sizes[size].sample_note && <span class="text-xs text-slate-500">{band.sizes[size].sample_note}</span>}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-3 text-xs leading-5 text-slate-500">Source: <a class="font-semibold text-sky-700 underline" href={cmrRangeData.source.url} rel="noopener">{cmrRangeData.source.name}</a>. {cmrRangeData.source.data_period}. Method: {cmrRangeData.source.method} {cmrRangeData.source.limitation}</p>
+    <p class="mt-3 leading-7 text-slate-700">For a matching full-service input, the calculator adds the visitor’s entered other costs and 10% contingency to the low and high values. It keeps the current model point estimate separate so visitors can see where the model and the booked-price reference differ. DIY and rental-truck-with-labor continue to use the existing planning model because this CMR table covers full-service bookings only.</p>
+
 
     <h2 class="mt-10 text-2xl font-bold">A check against published full-service ranges</h2>
     <p class="mt-4 leading-7 text-slate-700">{PUBLISHED_PRICE_CHECK_LEAD}</p>
-    <p class="mt-3 leading-7 text-slate-700">We checked these examples against the current model on November 10, 2026. The comparison uses the largest tested home-size multiplier that could fit each published bedroom category, which is the more favourable mapping for our estimate. Our home-size choices are rooms, not bedrooms, so this is not an exact like-for-like match.</p>
+    <p class="mt-3 leading-7 text-slate-700">We checked these examples against the current model on November 10, 2026. The comparison uses the new bedroom/shipment-volume labels. The underlying model multipliers remain provisional and are not calibrated by this comparison.</p>
     <div tabindex="0" role="region" aria-label="Scrollable published moving-price comparison" class="mt-4 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
       <table class="w-full min-w-[42rem] text-left text-sm leading-6">
         <thead class="border-b border-slate-200 bg-slate-50"><tr><th class="p-3 font-semibold">Published example</th><th class="p-3 font-semibold">Published full-service range</th><th class="p-3 font-semibold">Our point estimate</th><th class="p-3 font-semibold">Our planning band</th></tr></thead>
