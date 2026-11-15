@@ -2415,3 +2415,14 @@ Scope: read-only. No indexing requests, URL submissions, sitemap submissions, si
 - Calculator HTML contains the new bedroom-based options, separate published full-service range panel, print-range row and comparison placeholders. Compiled calculator client bundle contains the publishedRange rendering and print/email hooks.
 - Methodology HTML contains the CMR range table and per-cell sample counts (including n=144 and n=47 for the 1,000–1,499 mile band).
 - This verifies built HTML/client assets; it does not substitute for a live interactive browser run. Calculation and email behavior are covered by the npm test suite, which ran in Vercel prebuild with no failing test output; Astro build reached READY.
+
+
+## 2026-11-15 — ChatGPT — Evidence-led distribution automation research
+- Reviewed current official Google and Bing guidance and updated `AI-DISTRIBUTION-PLAYBOOK-2026-11-15.md`.
+- New actionable finding: Bing recommends IndexNow for automated notification of changed URLs. Integration is gated on confirming the exact production host, hosting/verifying the key file, and storing the key securely. Only genuinely changed canonical URLs should be submitted; acceptance is not indexing.
+- Google Indexing API is not a shortcut for this site: it is restricted to JobPosting and livestream pages. Ordinary relocation pages must rely on sitemap, crawlable links, technical eligibility and Search Console diagnosis.
+- Defined a weekly query-to-page opportunity loop: high-impression/low-CTR queries, positions 8–40, intent alignment, one controlled page experiment, and measurement of qualified clicks plus calculator starts/completions.
+- Defined evidence-led distribution assets and targeted partnership research, with human approval for public publishing and outreach. No automated account posting, mass outreach, paid links, artificial mentions, scraped SERP checks or scaled near-duplicate pages.
+- Added backlog item B20. No production code, price, formula, indexing submission, public post or external outreach was changed/performed.
+- Sources: IndexNow FAQ; Bing URL Submission guidance; Google Indexing API eligibility; Google Search spam policies and Search Essentials. Full URLs are listed in the playbook.
+- Next: once the owner connects GSC/Bing, baseline the reports and implement the first measurable opportunity loop; once the production hostname and IndexNow key are confirmed, add a production-only changed-URL notification workflow.
