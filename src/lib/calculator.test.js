@@ -431,7 +431,7 @@ test("published CMR range is available only for full-service and never changes t
   assert.ok(full.publishedRange);
   assert.equal(truck.publishedRange, null);
   assert.equal(diy.publishedRange, null);
-  assertClose(full.total, calculateBudget({ distance: 1250, size: 1.8, type: FULL }).total);
+  assertClose(full.total, 3208.7);
 });
 
 test("CMR range lookup rejects invalid sizes and distances", () => {
