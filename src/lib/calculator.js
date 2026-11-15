@@ -1,4 +1,5 @@
 import benchmarkData from "../../data/coefficients.json" with { type: "json" };
+import cmrRangeData from "../../data/cmr-full-service-ranges.json" with { type: "json" };
 
 const coefficients = {
   uhaulOneWayByDistance: benchmarkData.benchmarks.uhaul_one_way_average_by_distance.map(({ max_miles, average_usd }) => ({
@@ -65,6 +66,25 @@ export function getUhaulBenchmark(distance) {
   return coefficients.uhaulOneWayByDistance.find(({ maxMiles }) => distance <= maxMiles).averageUsd;
 }
 
+// CMR publishes the middle half (25th–75th percentile) of booked full-service
+// estimates by road-distance band and shipment-size group. This is a source
+// reference range from one mover network, not a national-market guarantee.
+export function getFullServiceRange(distance, size) {
+  validateNumber("distance", distance, INPUT_LIMITS.distance);
+  if (!HOME_SIZES.includes(size)) throw new RangeError(`size must be one of ${HOME_SIZES.join(", ")}.`);
+  const band = cmrRangeData.distance_bands.find(({ min_miles, max_miles }) =>
+    distance >= min_miles && (max_miles === null || distance <= max_miles)
+  );
+  const cell = band?.sizes?.[String(size)];
+  if (!cell) return null;
+  return {
+    ...cell,
+    distanceBand: band.label,
+    sizeGroup: cmrRangeData.size_groups[String(size)],
+    source: cmrRangeData.source,
+  };
+}
+
 export function calculateBudget(
   {
     distance, size, type, travel = 0, housing = 0, setup = 0, extras = 0,
@@ -115,6 +135,16 @@ export function calculateBudget(
   const other = travel + housing + setup + extras + fuel + insurance + packing + equipment + utilities + storage + tips + specialty + access;
   const contingency = (move + other) * DEFAULT_CONTINGENCY_RATE;
   const total = move + other + contingency;
+  // Keep the existing model estimate separate from the source-backed booked
+  // range. For full-service moves, add known user costs and the same contingency
+  // to both published percentile bounds; never replace the bounds with an average.
+  const fullServiceRange = type === 1.65 ? getFullServiceRange(distance, size) : null;
+  const publishedRange = fullServiceRange ? {
+    ...fullServiceRange,
+    totalLow: (fullServiceRange.low + other) * (1 + DEFAULT_CONTINGENCY_RATE),
+    totalMedian: (fullServiceRange.median + other) * (1 + DEFAULT_CONTINGENCY_RATE),
+    totalHigh: (fullServiceRange.high + other) * (1 + DEFAULT_CONTINGENCY_RATE),
+  } : null;
   // The cash buffer is money the user plans to hold until the first income, not
   // an estimated expense: it is outside the contingency and the indicative range.
   const reserve = reserveWeeks * weeklyLiving;
@@ -129,6 +159,7 @@ export function calculateBudget(
     total,
     rangeLow: total * DEFAULT_RANGE_LOW,
     rangeHigh: total * DEFAULT_RANGE_HIGH,
+    publishedRange,
     marketBenchmark,
   };
 }
