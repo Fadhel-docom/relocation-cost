@@ -700,3 +700,12 @@ Independently audit the 30 prompts row by row using the current site, repository
 - Calculator HTML contains the new bedroom-based options, separate published full-service range panel, print-range row and comparison placeholders. Compiled calculator client bundle contains the publishedRange rendering and print/email hooks.
 - Methodology HTML contains the CMR range table and per-cell sample counts (including n=144 and n=47 for the 1,000–1,499 mile band).
 - This verifies built HTML/client assets; it does not substitute for a live interactive browser run. Calculation and email behavior are covered by the npm test suite, which ran in Vercel prebuild with no failing test output; Astro build reached READY.
+
+
+## ChatGPT — 2026-11-15: خطة توزيع مؤتمتة قائمة على الدليل
+- أُحدّث دليل الانتشار في `docs/operations/AI-DISTRIBUTION-PLAYBOOK-2026-11-15.md` بعد مراجعة إرشادات Google وBing الرسمية.
+- أفضل مسار آلي قابل للتنفيذ: IndexNow لإشعار محركات البحث بالروابط التي تغيّرت فعلًا، بعد تثبيت النطاق الإنتاجي والتحقق من ملف المفتاح. الإشعار المقبول لا يعني أن الصفحة فُهرست.
+- لا نستخدم Google Indexing API لصفحات الحاسبة أو الأدلة؛ الأهلية محصورة في JobPosting وبث الفيديو المباشر. نعتمد sitemap والروابط القابلة للزحف وتقارير Search Console.
+- أُضيف B20 لدورة أسبوعية: فرص CTR والمواضع 8–40، مطابقة نية البحث بالصفحة، تجربة واحدة قابلة للقياس، ثم قياس النقرات المؤهلة وإكمال الحاسبة.
+- أصول التوزيع المقترحة: رسوم/جداول موثقة ومذكرة بحث قصيرة وشراكات موارد انتقال/HR ذات صلة. لا نشر آلي أو رسائل جماعية أو روابط مصطنعة، ولا إخراج بيانات المسافات قبل حسم B8 أو تقديم CMR كمتوسط وطني.
+- لم تُرسل روابط فهرسة ولم يحدث نشر خارجي أو تغيير إنتاجي. التنفيذ التقني لـIndexNow ينتظر تأكيد النطاق ومفتاح التحقق؛ تحليل GSC/Bing ينتظر ربط المالك.
