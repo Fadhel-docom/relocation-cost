@@ -46,3 +46,43 @@ Safe to automate once the relevant account integrations are available:
 - Rechecking published URLs, sitemap status and preview builds.
 
 Do not automatically publish unreviewed AI-generated pages, post from personal accounts, send outreach, buy links, create mass directory entries or make unsupported claims. Public distribution should be tied to a useful, verifiable asset and the destination platform's account permissions. A successful AI citation or search impression is not guaranteed by any tactic.
+
+
+## 2026-11-15 update — distribution automation that can earn real clicks
+
+### 1. Event-driven discovery, not repeated manual submissions
+- Prefer IndexNow for eligible URL additions, material updates and deletions. Bing now explicitly recommends IndexNow as its preferred automated notification path; one submission is shared with participating search engines.
+- Integrate only after the production hostname is confirmed, the site ownership/key file is verified, and the key is stored safely. Trigger on the actual production deployment or a reviewed publish event, not every preview build.
+- Submit only canonical URLs that genuinely changed. Log URL, deployment commit, timestamp, response code and later crawl/index status. A successful submission means notification accepted, not indexed.
+- Do not bulk-resubmit the existing sitemap or repeatedly submit unchanged pages.
+
+### 2. Google indexing: avoid the wrong API
+- Google's Indexing API is restricted to pages with JobPosting or BroadcastEvent in VideoObject. Relocation Cost's calculator and guides do not qualify; do not attempt to use it.
+- For ordinary pages, maintain a clean XML sitemap, crawlable internal links, correct canonical/robots/status, and use Search Console URL inspection/reporting for diagnosis. Do not automate Google SERP scraping or automated query traffic.
+
+### 3. Automated opportunity-to-click loop
+Run a weekly analysis from Search Console and Bing:
+1. Find queries/pages with meaningful impressions but weak CTR, and pages ranking roughly positions 8–40 where the landing page satisfies the intent.
+2. Map each query cluster to one best existing destination. Flag mismatches such as generic calculator intent landing on the homepage while /calculator/ is not indexed; diagnose index eligibility before changing destinations.
+3. Prioritize one page-level experiment at a time: title/snippet clarity, first-screen answer, internal link anchor/context, or calculator entry friction. Never use clickbait or promise a result the page does not deliver.
+4. Record baseline, exact change, date, comparison window and result. Keep changes that improve qualified clicks and calculator completion without harming accuracy or user experience.
+
+### 4. Turn verified product evidence into distribution assets
+- Repackage only already verified, licensable project data into a source-labelled chart/table, a short explainer, and a publisher-ready research note. Each asset must include methodology, date, sample size, definitions and limitations.
+- Do not release route-distance extracts or third-party datasets until the open licensing question B8 is resolved. Do not promote the CMR range as a national market average; B15's 4+BR discrepancy remains open.
+- Research relevant relocation, HR, employer mobility and housing resource pages. Prepare individual, evidence-led partnership pitches only where the asset solves a reader problem. Keep outreach drafts for human review; no bulk unsolicited sending or automated account posting.
+
+### 5. Measurement and automation architecture
+- Use a first-party event funnel only if the analytics integration supports it and privacy requirements are met: landing page → calculator start → estimate shown → optional comparison/print/share action. Do not collect names, emails, addresses or move details unless genuinely necessary and explicitly consented.
+- Track qualified organic clicks, referral sessions, calculator starts/completions, and partner referrals. Treat impressions, AI citations and social reach as discovery signals, not business outcomes.
+- Automate data extraction, anomaly flags, weekly opportunity lists, draft assets, PR creation and URL rechecks. Require human approval for public publishing, external outreach, account posting, licensing decisions and any price/model change.
+
+### 6. Explicit no-go tactics
+No scaled near-duplicate city/route pages, mass AI articles, automated link creation, paid links for ranking, mass directory submissions, scraped SERP rank checks, fake community participation, or llms.txt/Indexing-API shortcuts. Google's spam policies explicitly prohibit scaled low-value content, automated link schemes and machine-generated search queries.
+
+## Official automation references
+- IndexNow FAQ and submission protocol: https://www.indexnow.org/faq.html
+- Bing URL submission guidance (IndexNow recommended): https://www.bing.com/webmasters/help/?topicid=62f2860b
+- Google Indexing API eligibility: https://developers.google.com/search/apis/indexing-api/v3/quickstart
+- Google spam policies (scaled content, link spam, machine-generated traffic): https://developers.google.com/search/docs/essentials/spam-policies
+- Google Search Essentials (helpful content, crawlable links, tell people about your site): https://developers.google.com/search/docs/essentials
