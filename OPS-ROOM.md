@@ -693,3 +693,10 @@ Independently audit the 30 prompts row by row using the current site, repository
 - Added package.json prebuild="npm test" so the regression suite gates future Vercel builds, in addition to the pinned GitHub Actions workflow for future PR CI.
 - Preview URL: https://relocation-cost-6elq2bgy7-relocation-cost.vercel.app/calculator/ . The web preview fetcher could not render this Vercel host; build success is verified, but a visual browser inspection remains outstanding.
 - PR remains draft and unmerged. Do not promote to production until the preview UI/share-link checks are completed. B15 remains open for independent range validation; no price coefficients changed.
+
+
+## Preview inspection — 2026-11-15 14:08 UTC
+- Vercel preview calculator and methodology URLs both returned HTTP 200 through the authenticated Vercel fetcher.
+- Calculator HTML contains the new bedroom-based options, separate published full-service range panel, print-range row and comparison placeholders. Compiled calculator client bundle contains the publishedRange rendering and print/email hooks.
+- Methodology HTML contains the CMR range table and per-cell sample counts (including n=144 and n=47 for the 1,000–1,499 mile band).
+- This verifies built HTML/client assets; it does not substitute for a live interactive browser run. Calculation and email behavior are covered by the npm test suite, which ran in Vercel prebuild with no failing test output; Astro build reached READY.
