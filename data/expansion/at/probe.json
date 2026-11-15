@@ -1,0 +1,14 @@
+{
+  "pair": "salzburg|innsbruck",
+  "units_requested": "km",
+  "route_summary": { "distance": 182.437, "duration": 7300.1 },
+  "countryinfo": {
+    "summary": [
+      { "value": 74, "distance": 0.094, "amount": 51.78 },
+      { "value": 11, "distance": 0.088, "amount": 48.22 }
+    ],
+    "values_count": 3,
+    "values_first": [[0, 181, 11], [181, 960, 74], [960, 1749, 11]]
+  },
+  "reading": "Captured 2026-11-14 from the workflow probe (transcribed here because the later Austria run rewrote the data branch). The countryinfo summary distances are in thousands of km (0.094 + 0.088 = 0.182 for a 182.437 km route) and amount is the percentage; this is why a '>= 1' threshold hid every route. Ids: 11 Austria, 74 Germany."
+}

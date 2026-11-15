@@ -1,0 +1,115 @@
+{
+ "set": "nl",
+ "source": "Natural Earth populated places 10m simple (public domain), https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_10m_populated_places_simple.geojson; hand-picked main relocation cities, coordinates as published (not snapped)",
+ "note": "",
+ "cities": [
+  {
+   "id": "the-hague",
+   "name": "The Hague",
+   "region": "NL",
+   "lon": 4.27,
+   "lat": 52.08,
+   "pop_max": 1406000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "amsterdam",
+   "name": "Amsterdam",
+   "region": "NL",
+   "lon": 4.9147,
+   "lat": 52.3519,
+   "pop_max": 1031000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "rotterdam",
+   "name": "Rotterdam",
+   "region": "NL",
+   "lon": 4.478,
+   "lat": 51.9219,
+   "pop_max": 1005000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "utrecht",
+   "name": "Utrecht",
+   "region": "NL",
+   "lon": 5.12,
+   "lat": 52.1003,
+   "pop_max": 640000,
+   "ferry_or_island": false
+  },
+  {
+   "id": "eindhoven",
+   "name": "Eindhoven",
+   "region": "NL",
+   "lon": 5.5,
+   "lat": 51.43,
+   "pop_max": 398053,
+   "ferry_or_island": false
+  },
+  {
+   "id": "haarlem",
+   "name": "Haarlem",
+   "region": "NL",
+   "lon": 4.63,
+   "lat": 52.3804,
+   "pop_max": 349957,
+   "ferry_or_island": false
+  },
+  {
+   "id": "groningen",
+   "name": "Groningen",
+   "region": "NL",
+   "lon": 6.58,
+   "lat": 53.2204,
+   "pop_max": 216688,
+   "ferry_or_island": false
+  },
+  {
+   "id": "arnhem",
+   "name": "Arnhem",
+   "region": "NL",
+   "lon": 5.923,
+   "lat": 51.988,
+   "pop_max": 141674,
+   "ferry_or_island": false
+  },
+  {
+   "id": "s-hertogenbosch",
+   "name": "'s-Hertogenbosch",
+   "region": "NL",
+   "lon": 5.3167,
+   "lat": 51.6833,
+   "pop_max": 134520,
+   "ferry_or_island": false
+  },
+  {
+   "id": "maastricht",
+   "name": "Maastricht",
+   "region": "NL",
+   "lon": 5.677,
+   "lat": 50.853,
+   "pop_max": 122378,
+   "ferry_or_island": false
+  },
+  {
+   "id": "zwolle",
+   "name": "Zwolle",
+   "region": "NL",
+   "lon": 6.097,
+   "lat": 52.524,
+   "pop_max": 111805,
+   "ferry_or_island": false
+  },
+  {
+   "id": "leeuwarden",
+   "name": "Leeuwarden",
+   "region": "NL",
+   "lon": 5.7834,
+   "lat": 53.2504,
+   "pop_max": 125778,
+   "ferry_or_island": false
+  }
+ ]
+}
