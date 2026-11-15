@@ -44,7 +44,7 @@ The previous route holdouts (moveBuddha and My Good Movers) also show a persiste
 - CMR 2026 booked-price report (updated 2026-10-23): https://www.consumermovingreviews.com/cheapest-long-distance-moving-companies/
 - CMR 100–499 mile route example and per-cell counts: https://www.consumermovingreviews.com/routes/movers-from-san-jose-ca-95125-to-north-las-vegas-nv-89085/
 - CMR 500–999 mile route example: https://www.consumermovingreviews.com/routes/movers-from-bridgeport-ct-06606-to-salisbury-nc-28146/
-- CMR 1,000–1,499 mile route example: https://www.consumermovingreviews.com/routes/movers-from-aurora-co-80012-to-memphis-tn-38127/
+- CMR 1,000–1,499 mile route example: https://www.consumermovingreviews.com/routes/movers-from-austin-tx-78753-to-salt-lake-city-ut-84116/
 - CMR 1,500–1,999 mile route example: https://www.consumermovingreviews.com/routes/movers-from-fort-ashby-wv-26719-to-aransas-pass-tx-78335/
 - CMR 2,000+ mile route example: https://www.consumermovingreviews.com/routes/movers-from-austin-tx-78729-to-portland-or-97220/
 - Long Distance Moving 2026 report (543 booked interstate moves): https://longdistancemoving.com/national-moving/moving-cost-report-2026
