@@ -86,3 +86,35 @@ No scaled near-duplicate city/route pages, mass AI articles, automated link crea
 - Google Indexing API eligibility: https://developers.google.com/search/apis/indexing-api/v3/quickstart
 - Google spam policies (scaled content, link spam, machine-generated traffic): https://developers.google.com/search/docs/essentials/spam-policies
 - Google Search Essentials (helpful content, crawlable links, tell people about your site): https://developers.google.com/search/docs/essentials
+
+
+## 2026-11-15 implementation — crawler eligibility and citation-readiness
+
+### Verified project facts
+- Vercel lists `relocation-cost-psi.vercel.app` as the project's only attached production domain (verified). The Astro `site` setting and sitemap host use the same domain. Do not test or configure `relocation-cost.com`; it is not the project's domain.
+- Before this change, `public/robots.txt` used `User-agent: * / Allow: /`, which already permitted OAI-SearchBot by inheritance. It did not explicitly name it.
+- Updated `public/robots.txt` to add a dedicated `OAI-SearchBot` allow group. The wildcard rule remains for other crawlers.
+- GPTBot remains allowed under the existing wildcard rule. This change does not opt the site in or out of training differently from before; any GPTBot policy change requires a separate owner decision.
+- Vercel reports no custom firewall configuration for this project; the default firewall applies. This is not proof that all OpenAI crawler IPs can fetch the site. No live external fetch was possible from the current execution environment, so production delivery remains unverified until deployment and a real HTTP/log check.
+
+### OpenAI crawler controls — do not conflate
+- `OAI-SearchBot`: controls automatic discovery for ChatGPT Search. Keep allowed if the goal is eligibility for ChatGPT search answers.
+- `GPTBot`: used to crawl content that may be used to train OpenAI foundation models. Its robots policy is independent of OAI-SearchBot. Current wildcard behavior allows it; do not silently change that policy.
+- `ChatGPT-User`: used for certain user-initiated fetches; it is not the automatic Search crawler and does not determine Search inclusion.
+- OpenAI also recommends allowing OAI-SearchBot's published IP ranges through host/CDN controls. Verify this separately; robots.txt alone is insufficient.
+- OpenAI says its Search systems may take about 24 hours to reflect a robots.txt change. This is not a promise of a crawl, citation or ranking.
+
+Official source: https://developers.openai.com/api/docs/bots
+Publisher FAQ: https://help.openai.com/en/articles/12627856-publishers-and-developers-faq
+
+### Required citation-readiness audit for important landing pages
+Score each existing page against evidence, not a generic word-count recipe:
+1. **Intent match:** identify the real query/task and make the page answer it directly near the top.
+2. **Quote-worthiness:** include a concise, self-contained answer that remains accurate when quoted without surrounding marketing copy.
+3. **Evidence adjacent to claims:** show source, date, metric definition, units, sample size and service scope beside numbers; disclose limitations and avoid national-market claims from one provider.
+4. **Distinctive utility:** provide an original calculation, comparison, route/methodology detail or practical decision aid that competitors' generic summaries do not provide.
+5. **Structure:** use descriptive question-led headings when they match actual user questions; add FAQs only when they answer real unresolved questions. There is no verified universal 40–60-word answer-length rule.
+6. **Crawl and trust:** confirm indexability, canonical, status, internal links, visible text and source links; ensure structured data matches visible content.
+7. **Outcome:** define the baseline and measure qualified organic/referral visits and calculator use; impressions and AI citations are intermediate signals.
+
+Do not rewrite every page at once. Audit the highest-value existing destinations first, record page-level evidence and one change at a time, then measure.
