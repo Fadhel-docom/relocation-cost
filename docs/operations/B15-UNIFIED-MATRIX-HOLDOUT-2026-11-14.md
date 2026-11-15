@@ -114,3 +114,45 @@ A targeted search for independent route-level evidence found several candidates,
 - Move.org 2025 State of Moving survey: https://www.move.org/the-state-of-moving/
 - Move.org 2024 quote-derived distance medians: https://www.move.org/moving-costs/
 - MyFastMovers modelled route network: https://www.myfastmovers.com/popular-routes/
+
+
+## 6. Second-publisher route holdout — My Good Movers (2026-11-15)
+
+A new route-specific comparison was found for **Nashville, TN → Burlington, VT**, approximately 1,071 miles, from My Good Movers (MGM), a publisher distinct from moveBuddha. Its route table separates moving-company/full-service estimates from container and rental-truck estimates:
+
+| Size | MGM full-service route range | Midpoint | Current calculator move component | Difference vs midpoint |
+|---|---:|---:|---:|---:|
+| Studio / 1BR | $1,957–$4,581 | $3,269 | $2,267 | −30.7% |
+| 2–3BR | $2,437–$5,711 | $4,074 | $2,755 | −32.4% |
+| 4+BR | $3,964–$7,534 | $5,749 | $3,121 | −45.7% |
+
+The model values are the same current move-component outputs already documented for the 1,089-mile Nashville–Burlington route. This is a near-distance route check (18 miles difference in the publisher's stated distance), not an invoice-level comparison. Midpoints are range proxies, not observed means or medians.
+
+### Source methodology and limitations
+
+MGM's methodology page says its cost figures combine:
+- rates and ranges shared by listed movers;
+- move details and estimates from quote requests;
+- anonymous move details and estimates entered into its calculator;
+- prices paid when reviewers choose to disclose them.
+
+It says figures are refreshed monthly, separated by service type, move size, distance and location, and use medians as well as averages. However, it does **not** disclose for this route/size cell:
+- the number of observations (n);
+- the share contributed by each data source;
+- the exact date window of the underlying route observations;
+- whether the quoted/paid observations overlap with any other publisher's datasets;
+- a clear ownership/data-lineage comparison with the other publishers in B15.
+
+Therefore, MGM is a **second-publisher directional holdout**, and a stronger candidate than a model-only route estimate, but it is not yet an independent-sample validation or a calibration-ready matrix input. The 500+ verified movers displayed on the route page is a mover-directory count, not a price sample count; do not use it as n.
+
+### Interpretation
+
+The current model component is below MGM's published range midpoint in all three size groups, with the gap widening for larger shipments. This direction agrees with the existing moveBuddha route checks, but the two publishers' underlying source data may overlap and the definitions are not identical. This reinforces the need to investigate the size-input mapping; it does not justify tuning coefficients to the midpoint.
+
+**Decision:** B15 stays `doing`; B16 remains gated. No production formula, coefficient, price, UI, route data, or indexing request changed.
+
+### Sources (reviewed 2026-11-15)
+
+- My Good Movers, Nashville → Burlington route ranges: https://mygoodmovers.com/popular-routes/tn/nashville-to-burlington
+- My Good Movers, Moving Pricing Methodology (updated 2026-10-18): https://mygoodmovers.com/help/article/moving-pricing-methodology
+- Existing model route values and moveBuddha comparison: `B15-UNIFIED-MATRIX-HOLDOUT-2026-11-14.md` (section 2)
