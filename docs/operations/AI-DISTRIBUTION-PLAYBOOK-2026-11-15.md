@@ -15,6 +15,7 @@ Do not spend time on unsupported GEO hacks: Google says it does not use llms.txt
 Official sources:
 - https://developers.google.com/search/docs/fundamentals/ai-optimization-guide
 - https://support.google.com/webmasters/answer/16908024?hl=en (Search generative AI control; global rollout announced Aug 31, 2026)
+- https://support.google.com/webmasters/answer/16984139?hl=en-CM (Generative AI performance report; impressions, pages, countries, devices and dates; it does not provide query or click data)
 - https://developers.google.com/search/updates
 
 ### Bing / Microsoft Copilot
@@ -27,13 +28,13 @@ Official sources:
 
 ## Relocation Cost execution plan
 
-1. Confirm Search Console's Search generative AI control is set to include the site's links/content. Do not change it without checking the property's current setting.
-2. Check whether AI Performance and Topics Portfolio are available for the verified Bing property. If available, save a baseline of citations, cited URLs, grounding queries and topic opportunities.
+1. Confirm Search Console's Search generative AI control is set to include the site's links/content. The default is Include, but verify the actual property setting before relying on it. The Google AI report only appears when there is enough AI-feature impression data and does not expose queries or clicks.
+2. Check whether AI Performance and Topics Portfolio are available for the verified Bing property. If available, save a baseline of citations, cited URLs, grounding queries and topic opportunities. The current connected Composio Bing and Google Search Console APIs expose ordinary search-performance/indexing endpoints only; they do not currently expose these AI-specific reports, so the initial AI report check must be made in the relevant webmaster UI or through a supported browser workflow.
 3. Use the site's real strengths as citation assets: route-distance methodology, dated full-service range tables with cell sample counts, transparent limits, employer-package comparison, and route calculators.
 4. Make every source-backed data page self-contained: define the metric, date window, sample size, unit, service scope, method, limitations and source link near the numbers.
 5. Build a weekly query-to-page map from GSC and Bing grounding queries. Improve the best existing page for each intent; do not create near-duplicate pages for keyword variants.
 6. Turn verified data into distribution assets: a concise methodology page, a downloadable table where licensing permits, charts with source notes, and short editorial summaries for relevant relocation/job-resource publishers. Do not invent research, testimonials, expert credentials or customer counts.
-7. Measure referrals and qualified calculator use, not just social impressions or backlink counts. Keep a source/placement log with URL, publication date, audience fit, referral clicks and any resulting citations.
+7. Measure referrals and qualified calculator use, not just social impressions or backlink counts. Google’s AI report has impressions but no query or click dimensions; Bing AI Performance provides citation/grounding-query data. Keep a source/placement log with URL, publication date, audience fit, referral clicks and any resulting citations.
 
 ## Automation boundary
 
