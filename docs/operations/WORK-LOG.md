@@ -1,3 +1,14 @@
+## 2026-11-15 (14:32–14:45 UTC) — ChatGPT — تنفيذ إعداد أهلية ChatGPT Search وتوثيق تدقيق الاقتباس
+- **سبب العمل:** ملاحظة المالك أن التوصيات تُشرح ولا تُطبّق؛ تحويل نصائح OAI-SearchBot وAEO إلى تغيير فعلي وقاعدة تشغيلية.
+- **فحص النطاق:** إعدادات Vercel لمشروع `relocation-cost` تعرض نطاقًا إنتاجيًا واحدًا موثقًا وverified: `relocation-cost-psi.vercel.app`. `astro.config.mjs` وsitemap يشيران إلى النطاق نفسه. لم أستخدم `.com`.
+- **تغيير فعلي:** `public/robots.txt` على فرع `feat/b15-source-ranges-b16-bedroom-input` أصبح يصرّح صراحةً بـ`OAI-SearchBot` عبر `Allow: /`، مع إبقاء `User-agent: * Allow: /` كما هو. هذا توضيح صريح لا تغيير في السماح الفعلي الحالي؛ فالقاعدة العامة كانت تسمح به أصلًا.
+- **سياسة التدريب:** `GPTBot` بقي مسموحًا كما كان عبر wildcard. لم أضفه إلى قائمة منفصلة ولم أحظره؛ لا توجد موافقة من المالك على تغيير سياسة التدريب. `ChatGPT-User` ليس روبوت البحث الآلي.
+- **فحص Vercel:** `list_project_domains` أظهر النطاق أعلاه verified؛ `get_firewall_config(active)` أظهر `configured: false` وأن الافتراضي مطبق. لا يمكن استنتاج أن IPs الخاصة بـOpenAI مسموح بها من ذلك.
+- **ما لم يتحقق:** محاولة فتح robots.txt وsitemap عبر web لم تنجح، وبيئة التنفيذ لم تتمكن من حل DNS للموقع؛ لذلك لم أتحقق من HTTP production أو من وصول OAI-SearchBot الفعلي أو سجلاته. التغيير على فرع PR #254 ولم يُنشر للإنتاج بعد.
+- **توثيق:** أضيف rubric قابلية الاقتباس إلى `AI-DISTRIBUTION-PLAYBOOK-2026-11-15.md`، وأضيف B21 (التحقق الفعلي من الزحف) وB22 (تدقيق الصفحات الأساسية) إلى BACKLOG، وقاعدة دائمة إلى OPS-ROOM.
+- **الخطوة التالية:** بعد نشر PR #254، تحقق من `https://relocation-cost-psi.vercel.app/robots.txt` ثم اختبر وصول OAI-SearchBot/IP ranges من سجلات/أدوات موثوقة. بعدها نفّذ B22 صفحةً صفحةً، بدءًا من `/calculator/` و`/methodology/`، مع إعطاء أولوية لمشكلة اكتشاف الحاسبة في B4/B18.
+- **المصدر الرسمي:** https://developers.openai.com/api/docs/bots — يوضح استقلال OAI-SearchBot عن GPTBot وأن الأول مخصص لبحث ChatGPT، ويوصي بالسماح بعناوين IP المنشورة أيضًا.
+
 # سجل العمل المشترك — Relocation Cost
 
 ## 2026-11-09 (midday) — Claude — Day 77b: owner stands down Claude II and gives Claude full HeiGIT authority; 43 Canada-crossing routes fixed (PR #217 merged)
