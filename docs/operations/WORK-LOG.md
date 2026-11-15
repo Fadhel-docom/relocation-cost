@@ -2400,3 +2400,11 @@ Scope: read-only. No indexing requests, URL submissions, sitemap submissions, si
 - Added CI workflow .github/workflows/validate.yml to run npm test and npm run build on PRs. Verify its run before merge.
 - Researched current AI discovery: Google Search generative AI control/report are global; report shows impressions/pages/countries/devices/dates but no queries/clicks. Bing AI Performance provides citations, grounding queries and page-level citation activity; Topics Portfolio beta added Oct 13, 2026. Current Composio integrations expose standard search/indexing APIs, not the AI-specific reports; those need a Webmaster UI/browser check. No automated social posting or external outreach was performed.
 - AI distribution playbook added at docs/operations/AI-DISTRIBUTION-PLAYBOOK-2026-11-15.md; range evidence at docs/operations/B15-RANGE-BENCHMARK-2026-11-15.md.
+
+
+## Validation update — 2026-11-15 14:04 UTC
+- PR #254 head commit 665253f5907d2a8e7c369cb81587e5209a0e4c74.
+- Vercel preview deployment dpl_FiyssUaPuHsxWfURZeeTj1njcRA3 reached READY; build log shows the prebuild lifecycle ran the complete configured node:test suite, no failing test output was found, and Astro static build completed successfully (Build Completed in 11s).
+- Added package.json prebuild="npm test" so the regression suite gates future Vercel builds, in addition to the pinned GitHub Actions workflow for future PR CI.
+- Preview URL: https://relocation-cost-6elq2bgy7-relocation-cost.vercel.app/calculator/ . The web preview fetcher could not render this Vercel host; build success is verified, but a visual browser inspection remains outstanding.
+- PR remains draft and unmerged. Do not promote to production until the preview UI/share-link checks are completed. B15 remains open for independent range validation; no price coefficients changed.
