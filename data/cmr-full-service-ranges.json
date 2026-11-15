@@ -5,7 +5,7 @@
   "source": {
     "name": "Consumer Moving Reviews (CMR), 2026 booked-move cost report",
     "url": "https://www.consumermovingreviews.com/cheapest-long-distance-moving-companies/",
-    "route_example_url": "https://www.consumermovingreviews.com/routes/movers-from-aurora-co-80012-to-memphis-tn-38127/",
+    "route_example_url": "https://www.consumermovingreviews.com/routes/movers-from-austin-tx-78753-to-salt-lake-city-ut-84116/",
     "data_period": "January 2025–September 2026, except the 4+ bedroom 1,500–1,999 mile cell (December 2022–September 2026)",
     "method": "Middle half of booked full-service estimates (25th–75th percentiles), with the published median and cell booking count.",
     "limitation": "One mover network, not the whole US market; booked estimates, not final invoices or a quote for a specific route. Bedroom labels are approximations of shipment-volume groups. 4+ bedroom cells may use a longer observation window."
