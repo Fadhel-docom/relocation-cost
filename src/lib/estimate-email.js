@@ -25,6 +25,10 @@ export function buildEstimateEmail({ route, miles, sizeLabel, typeLabel, result,
   requireNumbers(result, ["move", "other", "contingency", "total", "rangeLow", "rangeHigh", "reserve", "cashNeeded"], "result");
 
   const range = `${money(result.rangeLow)}–${money(result.rangeHigh)}`;
+  if (result.publishedRange) requireNumbers(result.publishedRange, ["totalLow", "totalHigh", "n"], "result.publishedRange");
+  const publishedRangeLine = result.publishedRange
+    ? [`CMR booked-price range (${result.publishedRange.distanceBand}; n=${result.publishedRange.n}): ${money(result.publishedRange.totalLow)}–${money(result.publishedRange.totalHigh)}. One mover network, not the whole market.`]
+    : [];
   const subject = `Moving budget: ${route}, ${money(result.total)} (range ${range})`;
   const margin = marginSummary().label;
 
@@ -36,14 +40,15 @@ export function buildEstimateEmail({ route, miles, sizeLabel, typeLabel, result,
       `Move type: ${typeLabel}`,
       "",
       `Estimated budget: ${money(result.total)}`,
-      `Indicative range: ${range}`,
+      `Model planning band: ${range}`,
+      ...publishedRangeLine,
       ...(result.reserve > 0 ? [`Cash buffer: ${money(result.reserve)}`, `Cash to have ready: ${money(result.cashNeeded)}`] : []),
     ],
     breakdown: [`Move ${money(result.move)} + other costs ${money(result.other)} + contingency ${money(result.contingency)}`],
     employer: employer ? [`Covered by your employer: ${money(employer.covered)}`, `Employer gap: ${gapWording(employer.gap)}`] : [],
     lines: lines.length ? ["Costs you entered:", ...lines.map(line => `- ${line.label}: ${money(line.amount)}`)] : [],
     link: shareUrl ? ["Reopen or change this estimate:", shareUrl] : [],
-    caveat: [`This is a planning estimate, not a quote. Real quotes can differ (typical margin ${margin}). Keep written quotes from movers.`],
+    caveat: [`This is a planning estimate, not a quote. The model band is fixed at ${margin}; the CMR booked-price range, when shown, is one mover network middle half, not the whole market. Keep written quotes from movers.`],
   };
 
   const compose = include => {
