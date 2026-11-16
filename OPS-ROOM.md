@@ -725,3 +725,12 @@ Independently audit the 30 prompts row by row using the current site, repository
 - دُمج PR #254 في `main` بالالتزام `96cb718868340e8323565e9e84fd4126c50a41b4`، وأصبح نشر Vercel للإنتاج `READY` على alias `relocation-cost-psi.vercel.app`. لم يُعتبر فحص التفاعل المباشر مكتملًا.
 - اكتُشف أن تحليل تدرج الحجم السابق وسكربته أغفلا القيمة `1.35` (About 2 bedrooms) واستخدما `1.8` كفئة 2–3BR؛ لذلك اختبار القبول السابق غير صالح بعد B16. إعادة الحساب بجميع الأحجام تُظهر فجوة واضحة لـ3BR و4+BR أمام نطاق CMR، ولا تبرر وحدها تعديل المعاملات.
 - تقرير التدقيق والتفاصيل والأرقام ومصادر التحديث: `docs/operations/B15-POST-MERGE-AUDIT-2026-11-16.md`. بقي B15 مفتوحًا؛ B16 ينتظر تحقق الإنتاج. لا تغيير في المعادلات أو المعاملات.
+
+
+## 2026-11-16 — Weekly search review and independent pricing-model discovery
+- Read the current value-before-publishing law, competitor deep audit, latest Claude Day 94 handoff, current B15/B16 notes, backlog and work log before acting.
+- GSC (2026-10-17..11-13): 546 impressions, 1 click, 0.18% CTR, avg position 47.53; homepage 465 impressions, 0 clicks. The calculator is still “URL unknown to Google”, but live HTTP 200, self-canonical, homepage internal link, sitemap inclusion and permissive robots were verified. No technical block was found; no rewrite or mass resubmission was justified.
+- Bing (2026-10-07..11-14): 16 impressions, 0 clicks; `/moving-cost/oh-to-fl/` had 11 impressions at positions 4–6. Sitemap-0 Success with 109 URLs (last crawled Nov 8); `in_index` reached 63 by Nov 13. Crawl errors on Nov 9–11 returned to zero Nov 12–13. Child-URL listing was throttled; no retry.
+- Key pricing discovery: BTS/Census 2021 VIUS contains box-truck body type, GVWR class, fuel economy, annual miles, maintenance/repair cost bands, loaded mileage and empty return/reposition shares. This enables an independent bottom-up operating-cost model, using EIA regional fuel and BLS local driver/handling wages. It does not yet provide a finished consumer rate: weighted PUF extraction and missing insurance/capital/overhead components must be resolved first.
+- Research and weekly data reports: `docs/operations/INDEPENDENT-TRUCK-COST-MODEL-RESEARCH-2026-11-16.md` and `docs/operations/SEARCH-VISIBILITY-REVIEW-2026-11-16.md`.
+- No production code, SEO metadata, price formula or coefficient changed. Growth Agent remains parked by owner direction. Next: extract weighted VIUS box-truck distributions by GVWR and fuel type; do not assign per-mile or per-pound-mile rates until the calculations and uncertainty are verified.
