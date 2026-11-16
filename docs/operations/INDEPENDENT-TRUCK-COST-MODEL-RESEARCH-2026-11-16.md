@@ -1,0 +1,112 @@
+# Independent truck operating-cost model — research note (2026-11-16)
+
+## Objective
+
+Replace repeated browsing of mover quote pages with a transparent, bottom-up model that estimates:
+1. operating cost per mile for small, medium and large box-truck classes;
+2. the implied transport cost per shipment and per pound-mile (with kg-km conversion);
+3. handling and full-service components separately.
+
+The model must use public operational, fuel and wage data as inputs. Mover-published prices may be retained only as clearly labelled external validation/holdout evidence, never blended into the model coefficients. No production price or coefficient is changed by this research note.
+
+## Strongest independent source found: 2021 Vehicle Inventory and Use Survey (VIUS)
+
+BTS describes VIUS as the principal national source on physical and operational characteristics of U.S. trucks. The 2021 survey covered a sample of 150,000 owners of Class 1–8 trucks; Census conducted it with BTS, FHWA and DOE support. It collected fuel economy, annual miles, maintenance and repair costs, vehicle/body type, weight, commercial use, load use and other operating characteristics.
+
+Crucially, the public-use data dictionary includes fields that map directly to the proposed model:
+
+| Field | Meaning / intended use |
+|---|---|
+| `BTYPE` | Body type; code `07` is Box truck |
+| `GVWR_CLASS` | Vehicle weight class; codes 3–8 cover 10,001 lb and above |
+| `BUSRELATED` | Whether the vehicle is used at least partly for business |
+| `FUELTYPE` | Diesel, gasoline and other fuel types |
+| `MPG` | Miles per gallon |
+| `MILESANNL` | Annual miles driven |
+| `GM_COST`, `ER_COST` | General maintenance and extensive-repair cost bands |
+| `LOADEDPCT` | Share of annual mileage while loaded |
+| `DEADHEADPCT`, `REPOSITIONPCT` | Empty return and empty repositioning mileage shares |
+| `TRUCKLOADPCT`, `LTRUCKLOADPCT` | Truckload and less-than-truckload mileage shares |
+| `TABWEIGHT` | Survey tabulation weight |
+
+This is a much better foundation than guessing a universal cents-per-mile rate from bedroom count or copying a mover's quote table. The PUF also applies disclosure protections (including noise, topcoding, swapping and coarsening); its cost bands are not exact invoices. The extraction must therefore use the survey weights, report sample counts and distributions, and avoid publishing sparse or unstable cells.
+
+**Extraction is not yet complete.** The public VIUS tabulation tool and PUF are identified, but this run did not retrieve and calculate the full weighted microdata. No MPG, maintenance or empty-mile coefficient is asserted here.
+
+## Other independent inputs
+
+- **Fuel:** EIA publishes weekly on-highway diesel and gasoline prices for the U.S., PADD regions and selected states. For each route, use the latest available regional price weighted by the route's mileage in each region; do not hard-code one national fuel price.
+- **Driver wages:** BLS May 2025 median annual wages are $58,640 for heavy/tractor-trailer drivers and $44,860 for light-truck drivers. Use local/state/metro wage data where available; these are occupational wage proxies, not mover rates.
+- **Loading/unloading labor:** BLS reports $38,220 May 2025 median annual pay for the broader hand-laborer/material-mover group. Treat this as a proxy and use local wages where available; it is not a direct residential-mover wage.
+- **Heavy-truck cross-check only:** ATRI's 2026 report says the 2025 average Class 8 trucking operating cost was $2.336/mile, $1.854 excluding fuel. This is a useful sanity check for heavy for-hire trucking cost structure, not a coefficient for a 16–26 ft moving box truck.
+- **Government fleet comparison:** GSA's FY2026 bulletin lists a cargo-van mileage rate, but does not provide a directly comparable box-truck class rate in the reviewed table. Do not substitute the cargo-van rate for a box truck.
+
+## Proposed model structure
+
+Keep the calculation decomposed so each component has its own source, unit, update date and uncertainty:
+
+```text
+fuel_cost_per_total_mile
+  = route_weighted_fuel_price_per_gallon / weighted_VIUS_MPG
+
+maintenance_repair_per_mile
+  = weighted_annual_maintenance_and_repair_cost / weighted_annual_miles
+
+vehicle_cost_per_total_mile
+  = fuel + maintenance/repairs + tires + insurance + capital/depreciation + permits
+
+loaded_vehicle_cost_per_mile
+  = vehicle_cost_per_total_mile / loaded_mileage_share
+
+driver_cost
+  = route_driving_hours × local_driver_compensation
+
+handling_cost
+  = crew_count × (load_hours + unload_hours) × local_material_mover_compensation
+
+transport_cost
+  = loaded_vehicle_cost_per_mile × route_miles × shipment_allocation
+
+full_service_operating_cost
+  = transport + driver/handling + packing/materials + tolls/access/storage
+```
+
+Important implementation details:
+
+1. **Truck class first.** Derive small/medium/large bands from observed box-truck records (`BTYPE=07`) and GVWR classes, not from arbitrary truck-length labels. Verify the actual mapping against vehicle specifications before showing consumer-facing labels.
+2. **Weight and volume both matter.** A household shipment can fill the box before reaching the legal payload, or reach payload before filling the box. Select/allocate the truck using the binding constraint: `max(weight share, volume share)`. Bedroom count remains only a quick default; an optional inventory/volume refinement can improve it.
+3. **Dedicated vs shared load.** A dedicated truck generally incurs the full trip cost even when partly empty. A shared-load estimate can allocate cost by the larger of weight share and volume share, subject to a minimum dispatch floor. Never assume price scales linearly with pounds alone.
+4. **Empty miles.** Use VIUS loaded, deadhead and reposition mileage shares. Avoid adding a second return-mile factor if the loaded-share adjustment already includes it.
+5. **Per-pound-mile is derived, not universal.** For a full/known effective payload:
+   `USD per lb-mile = loaded truck cost per mile / effective payload in lb`.
+   Convert to `USD per kg-km` by multiplying the lb-mile rate by `2.20462 × 0.621371`. For partial loads, the shipment's volume share and minimum trip cost can dominate; the unit rate must change with utilization.
+6. **Separate operating cost from selling price.** Fuel, maintenance, wages and handling can form a source-backed operating-cost estimate. Insurance, capital/depreciation, dispatch overhead, profit and service-specific accessorials need separate evidence or an explicit sensitivity range. Do not silently add an invented mover margin or call the result a quote.
+
+## Validation and release gates
+
+Before any production coefficient changes:
+
+- Extract VIUS weighted distributions for box trucks by GVWR class and fuel type; include weighted sample counts, missingness and effective sample size.
+- Calculate weighted MPG, annual mileage, maintenance/repair per mile, loaded share, deadhead and reposition distributions. For categorical cost bands, publish low/base/high sensitivity using the documented band bounds; do not pretend the midpoint is an observed exact cost.
+- Update 2021 cost components with appropriate official price indexes; refresh fuel with current EIA regional data and labor with current BLS area wages.
+- Find independent sources for the still-missing box-truck tire, insurance and capital/depreciation components, or keep them as a separately labelled uncertainty band.
+- Test all four shipment sizes and at least three truck classes across short, medium and long routes. Hold out routes/classes not used during development.
+- Compare the bottom-up result with public mover ranges only after the model is frozen; use those as a diagnostic, not a fitting target. Preserve each source's definition and sample.
+- Keep DIY rental costs, truck + labor and full-service scope distinct. Do not apply a box-truck commercial operating rate to DIY rental prices.
+- Do not publish until the estimate materially improves decision usefulness, the assumptions are understandable, and the mobile calculator can explain why weight, volume and truck size change the result.
+
+## Immediate next step
+
+Build a reproducible VIUS extraction script/report for `BTYPE=07`, `BUSRELATED=Yes`, by `GVWR_CLASS` and `FUELTYPE`, using `TABWEIGHT`. Return a table with sample counts, weighted MPG, maintenance/repair bands per mile, loaded/empty mileage shares and uncertainty. This is the first concrete calculation needed before assigning any per-mile or per-pound-mile rate.
+
+## Sources checked 2026-11-16
+
+- BTS, Vehicle Inventory and Use Survey: https://www.bts.gov/vius
+- Census API, VIUS 2021 PUF variable dictionary: https://api.census.gov/data/2021/viuspuf/variables.html
+- VIUS PUF user guide: https://www2.census.gov/programs-surveys/vius/datasets/2021/vius_2021_puf_user_guide.pdf
+- EIA, Gasoline and Diesel Fuel Update: https://www.eia.gov/petroleum/gasdiesel/
+- BLS, heavy and tractor-trailer truck drivers: https://www.bls.gov/OOH/transportation-and-material-moving/heavy-and-tractor-trailer-truck-drivers.htm
+- BLS, delivery/light-truck drivers: https://www.bls.gov/OOH/transportation-and-material-moving/delivery-truck-drivers-and-driver-sales-workers.htm
+- BLS, hand laborers and material movers: https://www.bls.gov/OOH/transportation-and-material-moving/hand-laborers-and-material-movers.htm
+- ATRI, 2026 Analysis of the Operational Costs of Trucking: https://truckingresearch.org/2026/07/new-atri-report-details-accelerating-costs-and-low-profitability-despite-cuts/
+- GSA, 2026 CONUS Fleet Rate Bulletin: https://www.gsa.gov/buy-through-us/products-and-services/transportation-and-logistics-services/fleet-management/vehicle-leasing/vehicle-rates/2026-conus-fleet-rate-bulletin
