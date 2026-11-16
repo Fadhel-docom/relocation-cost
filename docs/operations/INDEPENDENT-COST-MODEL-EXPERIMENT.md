@@ -137,3 +137,106 @@ A stronger route than rental-fleet MPG has been identified: the U.S. Census Bure
 - DOE's 2024 summary reports 2021 on-road fuel economy by truck body type and points to the VIUS source data; it is a useful cross-check, not a replacement for the microdata analysis: https://www.energy.gov/cmei/vehicles/articles/fotw-1342-may-13-2024-average-road-fuel-economy-mediumheavy-trucks-ranged-40.
 - BLS ECEC's June 2026 chart reports $24.99 wages plus benefit components for the broad “production, transportation, and material moving” group. This is a current broad labor-cost reference, not a mover-specific hourly rate or a substitute for local occupation matching: https://www.bls.gov/charts/employer-costs-for-employee-compensation/costs-by-occupational-group.htm.
 - ATRI's $2.336/mile 2025 average remains a combination-truck benchmark only; it is not suitable as the non-fuel cost of a moving box truck.
+
+
+## 11. Research and build plan — controlled sequence (owner request, 2026-11-16)
+
+**Operating rule:** one phase at a time. Each phase must produce a reviewable artifact and pass its exit criteria before the next phase starts. Plausible findings do not become model inputs automatically. Keep production code and coefficients untouched throughout this experiment.
+
+### Phase 0 — Freeze the model boundary and definitions
+1. Define the target service precisely: interstate household full-service move using a moving box/straight truck, not rental-only, self-move, parcel freight, or tractor-trailer freight.
+2. Define the quote boundary: included services (pickup, loaded linehaul, delivery, crew, equipment) and optional/excluded services (packing, storage, stairs/long carry, shuttle, valuation coverage, special items).
+3. Define shipment inputs in physical units: cubic feet and pounds. Bedroom category may initialize a range, but is not measured volume or weight.
+4. Define vehicle classes by completed vehicle/body configuration, usable box volume, legal payload after body/equipment, and relevant GVWR. Never combine capacity values from unrelated vehicles.
+5. Define trip accounting: loaded miles, empty/deadhead miles, return/repositioning, number of loads, trip days, overnight stops and crew hours. State who pays each leg.
+
+**Deliverable:** model specification and data dictionary. **Exit gate:** every formula term has one operational definition, unit, and inclusion/exclusion rule.
+
+### Phase 1 — Build the evidence register before calculating
+Create a source register with publisher, title/URL, publication date, data period, retrieval date, geography, vehicle/service class, unit, definition, sample size, method, limitations, supported parameter, and confidence/status.
+
+Research in this order:
+1. **Vehicle and capacity:** Census VIUS plus OEM completed-vehicle/body-builder specifications; distinguish GVWR, curb weight, payload, box volume and usable payload.
+2. **Fuel economy:** inspect 2021 VIUS dictionary/PUF; reproduce an official published VIUS estimate first; only then test straight-truck body × GVWR groups. Report raw n, weighted estimate, missingness and prescribed variance/effective-sample diagnostics. Do not call 2021 data a 2026 fleet average.
+3. **Fuel price:** EIA dated diesel/gasoline series matched to fuel type, route geography and trip date. Fuel price is only the fuel component.
+4. **Driver and crew labor:** BLS occupational wages matched to truck drivers/movers and geography; add employer benefits/payroll burden only from a compatible primary source. Separate driving, loading, unloading, waiting and overnight time.
+5. **Non-fuel vehicle ownership/operation:** seek class-matched evidence for depreciation/financing, maintenance, tires, insurance, registration, permits and taxes. ATRI tractor-trailer results are contextual only unless a defensible class bridge is demonstrated; never copy its per-mile average into a box-truck model.
+6. **Dispatch and overhead:** research allocation bases such as annual utilization/miles, operating days, jobs or truck-hours. Do not divide annual fixed cost by arbitrary mileage.
+7. **Job-specific extras:** tolls, parking, lodging, packing materials, storage, shuttle, accessorial labor and equipment; use dated route/job-specific evidence where relevant.
+8. **Commercial price layer:** research independently published full-service move prices/quotes and public company financial disclosures where available. Keep observed market prices separate from estimated operating costs.
+
+**Deliverable:** evidence matrix with accepted / contextual-only / rejected / unresolved status. **Exit gate:** each numeric input has a source whose definition, vehicle class, geography, period and unit match. Otherwise it remains unresolved.
+
+### Phase 2 — Estimate components, not a black-box price-per-mile
+For every component, classify it as directly observed, calculated from sourced inputs, allocated from a period cost using a sourced utilization denominator, or an explicit scenario assumption shown to the user.
+
+Build a cost ledger by job and trip:
+- vehicle fixed/ownership allocation;
+- fuel for each driven leg;
+- maintenance/tires and other variable vehicle operation;
+- driver/crew labor including employer burden and paid non-driving time;
+- insurance, registration, permits and taxes with a documented allocation basis;
+- dispatch/administrative overhead with a documented allocation basis;
+- separately itemized job-specific extras.
+
+**Anti-double-counting audit:** inspect every source's included-cost definition. If a published operating rate already includes fuel, maintenance, insurance or labor, do not add those components again. Distinguish vehicle cost from company overhead and broker/subcontractor charges.
+
+**Deliverable:** transparent component ledger and equations with a source/assumption pointer for every term. **Exit gate:** arithmetic reconciles and no cost is counted twice.
+
+### Phase 3 — Model commercial price separately from operating cost
+Do not claim to know a moving company's actual profit on a particular shipment from public operating data.
+
+Maintain three distinct outputs internally:
+1. **Estimated operating cost:** sourced/derived cost of performing the defined job.
+2. **Commercial adjustment:** an explicitly labeled scenario/range for margin, brokerage, capacity constraints, seasonality or other market effects, only where evidence supports it.
+3. **Observed market price range:** independent comparable customer-facing prices, with source, date, service scope, shipment size/weight and sample count.
+
+Keep terminology mathematically correct:
+- Markup on cost: price = cost × (1 + markup rate).
+- Gross margin as a share of selling price: price = cost ÷ (1 − gross margin rate).
+These are not interchangeable. Do not choose a default margin without suitable evidence. Company-level financial margins are not automatically the margin on one move or one business segment. Market quotes may validate the final price range but cannot be relabeled as observed operating cost.
+
+**Deliverable:** price-layer policy that can return a range or “insufficient evidence” rather than a false precise quote. **Exit gate:** cost, commercial adjustment and observed selling prices remain separately identifiable.
+
+### Phase 4 — Assemble a defensible vehicle × shipment matrix
+Only after Phases 0–3:
+1. Define a small number of completed-truck classes supported by evidence.
+2. Calculate volume-limited and weight-limited loads independently, then select the binding constraint.
+3. Include multiple trips/vehicles where capacity requires it.
+4. Model loaded, empty and return/repositioning legs explicitly.
+5. Build rows by shipment volume/weight band and trip-distance band. Do not map bedroom count directly to a guaranteed truck or weight.
+6. Mark unsupported cells unavailable; do not interpolate across incompatible vehicle classes or service types.
+
+**Deliverable:** versioned experimental matrix with provenance and uncertainty for each cell. **Exit gate:** every used test cell has complete provenance and physically valid capacity constraints.
+
+### Phase 5 — Implement an isolated calculator and test it
+Create a pure experimental module and separate data file; no production imports. Test volume/weight-limited loads, boundary and multiple-load cases, empty/return/deadhead mileage, fuel unit conversions, crew size and paid hours, fixed-cost allocation/utilization, extras/exclusions, missing-source behavior, invalid inputs and no-double-counting invariants.
+
+Add sensitivity analysis for fuel economy, fuel price, utilization, crew hours, payload, deadhead ratio and any commercial adjustment. Identify dominant assumptions.
+
+**Deliverable:** reproducible module, tests and calculation trace. **Exit gate:** tests pass; every output traces to inputs and sources; missing evidence fails visibly rather than silently defaulting.
+
+### Phase 6 — Freeze, then validate on untouched holdout routes
+1. Pre-register route/size/distance test cells and acceptance metrics before examining holdout results.
+2. Keep calibration routes and holdout routes separate.
+3. Compare against independent customer-facing quotes/ranges with matching service scope and shipment definitions.
+4. Report sample count, absolute and percentage error, median error, bias direction and share within comparator ranges by size/distance cell.
+5. Never tune on holdout rows and then report them as validation. A revised model needs a new version and new holdout set.
+
+**Deliverable:** validation report with failures as well as successes. **Exit gate:** thresholds set before testing are met across sufficiently sampled cells; otherwise revise or stop.
+
+### Phase 7 — Product decision, not automatic production release
+Evaluate whether the model gives visitors a genuinely better planning estimate than the current product. If it passes, prepare a separate integration proposal/PR, expose methodology/source dates/ranges/limitations, run shadow comparisons and regression tests, and require explicit review before changing production estimates.
+
+If it fails or sources remain inadequate, retain the research as a documented benchmark and do not ship the model.
+
+**Final deliverable:** go / revise / stop decision with evidence. A technical build alone is never sufficient for publication.
+
+### Work order and immediate next action
+The next and only active research unit is **Phase 0 + the VIUS validation subtask in Phase 1**:
+- read the VIUS PUF dictionary and user guide fields;
+- obtain the PUF only if its format and terms permit analysis;
+- reproduce one official published VIUS total before subgroup work;
+- document whether straight-truck × body × GVWR estimates have adequate sample/variance support.
+
+Do not start cost-per-mile calculations, margin assumptions, code, UI, or production changes until that evidence check is complete. In parallel, collect source candidates for labor and non-fuel costs only; do not combine them into a price matrix yet.
