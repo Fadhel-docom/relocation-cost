@@ -10,10 +10,10 @@ const types = MOVE_OPTIONS;
 const outsideMoveCost = notInMoveCost();
 const bufferPercent = Math.round(DEFAULT_CONTINGENCY_RATE * 100);
 const homeSizes = [
-  { label: "Studio / 1 room", size: 1 },
-  { label: "2–3 rooms", size: 1.35 },
-  { label: "4–5 rooms", size: 1.8 },
-  { label: "6+ rooms", size: 2.4 }
+  { label: "Studio / 1 bedroom", size: 1 },
+  { label: "2 bedrooms", size: 1.35 },
+  { label: "3 bedrooms", size: 1.8 },
+  { label: "4+ bedrooms", size: 2.4 }
 ];
 const distances = [300, 1000, 2000];
 const comparisons = distances.map(distance => ({

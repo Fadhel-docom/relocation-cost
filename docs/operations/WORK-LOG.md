@@ -1,3 +1,33 @@
+## 2026-11-15 (14:50 UTC) — ChatGPT — تقييم صريح لأهلية الموقع للنقرات وفحص اكتشاف الحاسبة
+- **قاعدة المالك:** عمل واحد في كل مرة؛ أضيفت قاعدة دائمة إلى OPS-ROOM: اختيار فرصة واحدة مثبتة، تنفيذها والتحقق منها وتسجيلها قبل فتح أي عمل آخر. لا تتوسع المراجعة الأسبوعية إلى مهام متوازية.
+- **قياس Google Search Console:** الفترة 2026-10-16 إلى 2026-11-12 (آخر 28 يومًا مكتملًا): 520 ظهورًا، نقرة واحدة، CTR = 0.19%، متوسط موضع مرجّح بالظهور = 48.09.
+- **تركيز الصفحة:** الصفحة الرئيسية حصلت على 440 ظهورًا من 520 (84.6%)، صفر نقرات، ومتوسط موضع 47.03. صفحة /calculator/ لم تظهر ضمن صفحات الأداء ذات الظهور.
+- **المسارات:** صفحة /moving-cost/co-to-wa/ حصلت على النقرة الوحيدة (5 ظهورات، موضع 21.4). /moving-cost/ny-to-pa/ ظهر لها 6 مرات بمتوسط موضع 4.17 دون نقرات؛ العينة صغيرة جدًا ولا تسمح باستنتاج CTR ثابت. كثير من الاستعلامات ذات الصلة تظهر في مواضع 30–90، بما فيها relocation package calculator (71 ظهورًا، موضع 34.42) وrelocation cost calculator (17 ظهورًا، موضع 43.94).
+- **فحص URL للحاسبة:** Google URL Inspection أعاد `URL is unknown to Google` لـ`https://relocation-cost-psi.vercel.app/calculator/`، وليس حالة حظر أو noindex معروفة من هذه النتيجة.
+- **فحص Sitemap:** `sitemap-0.xml` مستلم بـ115 URL، آخر تنزيل 2026-11-13، صفر أخطاء وتحذيرات، لكن API يعرض indexed=0؛ لا نعامل هذا العداد وحده كحقيقة عن الفهرسة لأنه يتعارض مع ظهور صفحات الموقع في GSC.
+- **Bing:** التقرير أعاد 0 نقرات وظهورات قليلة جدًا (صفحات محدودة في 30 أكتوبر و6 نوفمبر)؛ مؤشر ثانوي وليس دليلًا على طلب قوي حتى الآن.
+- **الحكم الصريح:** الموقع بدأ يظهر لبعض الاستعلامات، لكنه لم يثبت بعد جاهزيته لمنافسة قوية أو جذب نقرات ذات معنى. العائق ليس مجرد غياب الانطباعات؛ المشكلة أن معظم الظهور بعيد عن الصفحة الأولى، والصفحة الرئيسية لا تحول الظهور الحالي إلى نقرات، والحاسبة الأساسية غير معروفة لدى Google بحسب URL Inspection.
+- **العمل التالي الوحيد المختار:** حل اكتشاف وفهرسة `/calculator/` أولًا؛ فهي الوجهة الأساسية لتحويل الزائر من البحث إلى استخدام المنتج. لا تُفتح تحسينات أخرى حتى نحدد سبب «URL unknown to Google» ونعالج السبب ونتحقق منه.
+- **مصدر معيار الجودة:** إرشادات Google تقول إن تلبية المتطلبات الفنية لا تضمن الزحف أو الفهرسة أو الظهور، وتؤكد على المحتوى الأصلي المفيد وتجربة تؤدي غرض الصفحة: https://developers.google.com/search/docs/essentials وhttps://developers.google.com/search/docs/fundamentals/creating-helpful-content
+
+## 2026-11-15 (14:45 UTC) — ChatGPT — أول إصلاح ناتج عن تدقيق قابلية الاقتباس والاتساق
+- **الصفحات التي قُرئت:** `src/pages/index.astro`, `src/pages/calculator.astro`, `src/pages/methodology.astro` على فرع PR #254.
+- **مشكلة فعلية:** خيارات حجم المنزل في نموذج البداية على الصفحة الرئيسية بقيت بالتسميات القديمة (1 room / 2–3 rooms / 4–5 rooms / 6+ rooms)، بينما الحاسبة أصبحت تعرض Studio/1BR و2BR و3BR و4+BR مع حدود حجم الشحنة. هذا يخلق توقعًا غير متسق قبل دخول الحاسبة.
+- **الإصلاح:** وحّدت تسميات خيارات نموذج الصفحة الرئيسية وحدود cu ft مع الحاسبة، مع إبقاء قيم الخيارات الرقمية 1 و1.35 و1.8 و2.4 كما هي؛ لا تغيير في الحسابات أو روابط المشاركة.
+- **التحقق:** التغيير محفوظ على فرع PR #254؛ CI يعاد تشغيله مع آخر commit. لم يُنشر بعد ولم يُفحص rendered page بعد هذا التعديل.
+- **التالي:** فحص عرض نموذج البداية على الجوال وبعد الانتقال إلى الحاسبة، ثم استكمال تدقيق المنهجية وصفحات المسارات. 
+
+## 2026-11-15 (14:32–14:45 UTC) — ChatGPT — تنفيذ إعداد أهلية ChatGPT Search وتوثيق تدقيق الاقتباس
+- **سبب العمل:** ملاحظة المالك أن التوصيات تُشرح ولا تُطبّق؛ تحويل نصائح OAI-SearchBot وAEO إلى تغيير فعلي وقاعدة تشغيلية.
+- **فحص النطاق:** إعدادات Vercel لمشروع `relocation-cost` تعرض نطاقًا إنتاجيًا واحدًا موثقًا وverified: `relocation-cost-psi.vercel.app`. `astro.config.mjs` وsitemap يشيران إلى النطاق نفسه. لم أستخدم `.com`.
+- **تغيير فعلي:** `public/robots.txt` على فرع `feat/b15-source-ranges-b16-bedroom-input` أصبح يصرّح صراحةً بـ`OAI-SearchBot` عبر `Allow: /`، مع إبقاء `User-agent: * Allow: /` كما هو. هذا توضيح صريح لا تغيير في السماح الفعلي الحالي؛ فالقاعدة العامة كانت تسمح به أصلًا.
+- **سياسة التدريب:** `GPTBot` بقي مسموحًا كما كان عبر wildcard. لم أضفه إلى قائمة منفصلة ولم أحظره؛ لا توجد موافقة من المالك على تغيير سياسة التدريب. `ChatGPT-User` ليس روبوت البحث الآلي.
+- **فحص Vercel:** `list_project_domains` أظهر النطاق أعلاه verified؛ `get_firewall_config(active)` أظهر `configured: false` وأن الافتراضي مطبق. لا يمكن استنتاج أن IPs الخاصة بـOpenAI مسموح بها من ذلك.
+- **ما لم يتحقق:** محاولة فتح robots.txt وsitemap عبر web لم تنجح، وبيئة التنفيذ لم تتمكن من حل DNS للموقع؛ لذلك لم أتحقق من HTTP production أو من وصول OAI-SearchBot الفعلي أو سجلاته. التغيير على فرع PR #254 ولم يُنشر للإنتاج بعد.
+- **توثيق:** أضيف rubric قابلية الاقتباس إلى `AI-DISTRIBUTION-PLAYBOOK-2026-11-15.md`، وأضيف B21 (التحقق الفعلي من الزحف) وB22 (تدقيق الصفحات الأساسية) إلى BACKLOG، وقاعدة دائمة إلى OPS-ROOM.
+- **الخطوة التالية:** بعد نشر PR #254، تحقق من `https://relocation-cost-psi.vercel.app/robots.txt` ثم اختبر وصول OAI-SearchBot/IP ranges من سجلات/أدوات موثوقة. بعدها نفّذ B22 صفحةً صفحةً، بدءًا من `/calculator/` و`/methodology/`، مع إعطاء أولوية لمشكلة اكتشاف الحاسبة في B4/B18.
+- **المصدر الرسمي:** https://developers.openai.com/api/docs/bots — يوضح استقلال OAI-SearchBot عن GPTBot وأن الأول مخصص لبحث ChatGPT، ويوصي بالسماح بعناوين IP المنشورة أيضًا.
+
 # سجل العمل المشترك — Relocation Cost
 
 ## 2026-11-09 (midday) — Claude — Day 77b: owner stands down Claude II and gives Claude full HeiGIT authority; 43 Canada-crossing routes fixed (PR #217 merged)
@@ -2388,3 +2418,65 @@ Scope: read-only. No indexing requests, URL submissions, sitemap submissions, si
 - **Bing:** main `sitemap-0.xml` feed is Success with 109 URLs and last crawled 2026-11-08; sitemap index was also successfully submitted. Earlier feed records for individual pages (including /calculator/) are stale empty-feed submissions, not valid page-level sitemap records. Quota endpoint reports 100 daily and 1,600 monthly URL submissions. Bing's child-URL listing/performance requests previously returned ThrottleUser, so no full URL-level inventory is claimed.
 - **Action actually completed:** submitted exactly four priority URLs to Bing successfully (submission accepted, not indexing guaranteed): `/calculator/`, `/guides/checking-a-mover/`, `/guides/relocation-budget/`, and `/moving-cost/ca-to-tx/`. This used 4 of the reported 100 daily URL submissions. Do not resubmit these immediately; re-check crawl/index status after processing.
 - **Interpretation / next:** strongest immediate opportunity is not bulk indexing or mass link creation. Diagnose why /calculator/ is unknown despite sitemap coverage and live internal links; verify canonical/robots/rendered HTML and internal-link discovery; then improve the landing-page match for generic calculator intent without creating duplicate pages. Recheck Bing after throttle cools. No code, price, or formula changed in this session; no live deployment claimed.
+
+
+## 2026-11-15 — B15/B16 range-based calculator work (ChatGPT)
+- Owner reiterated full execution authority and specifically directed that B15/B16 use published price ranges rather than a blended/shaded average before merge.
+- Added CMR middle-half booked full-service ranges for five road-distance bands and four shipment-volume groups, with median and per-cell sample counts. The calculator now computes a separate source-backed total range by adding entered costs and 10% contingency to both bounds. The existing model point estimate and fixed ±20% model band remain separate; no coefficients were changed.
+- Updated size labels to Studio/1BR, 2BR, 3BR, 4+BR with the CMR volume definitions. Numeric URL values 1, 1.35, 1.8 and 2.4 are preserved.
+- Added CMR range output to the calculator, comparison cards, print summary and email draft; updated methodology and source disclosures. Added regression tests for distance boundaries, source bounds, sample counts, no-extrapolation below 100 miles, and email output.
+- Data limitation: CMR's dataset is one mover network; some cells have n=21–24. Long Distance Moving's 543-booking report has a materially higher 4+BR band than CMR, so the publishers are not blended. B15 remains open pending a comparable independent holdout and resolution of the 4+BR discrepancy. No claim of national calibration.
+- Draft PR: https://github.com/Fadhel-docom/relocation-cost/pull/254. Vercel Astro preview for commit 661c0fa reached READY; the subsequent commit adding a pinned GitHub Actions workflow is awaiting validation. No production merge or live deployment claimed.
+- Added CI workflow .github/workflows/validate.yml to run npm test and npm run build on PRs. Verify its run before merge.
+- Researched current AI discovery: Google Search generative AI control/report are global; report shows impressions/pages/countries/devices/dates but no queries/clicks. Bing AI Performance provides citations, grounding queries and page-level citation activity; Topics Portfolio beta added Oct 13, 2026. Current Composio integrations expose standard search/indexing APIs, not the AI-specific reports; those need a Webmaster UI/browser check. No automated social posting or external outreach was performed.
+- AI distribution playbook added at docs/operations/AI-DISTRIBUTION-PLAYBOOK-2026-11-15.md; range evidence at docs/operations/B15-RANGE-BENCHMARK-2026-11-15.md.
+
+
+## Validation update — 2026-11-15 14:04 UTC
+- PR #254 head commit 665253f5907d2a8e7c369cb81587e5209a0e4c74.
+- Vercel preview deployment dpl_FiyssUaPuHsxWfURZeeTj1njcRA3 reached READY; build log shows the prebuild lifecycle ran the complete configured node:test suite, no failing test output was found, and Astro static build completed successfully (Build Completed in 11s).
+- Added package.json prebuild="npm test" so the regression suite gates future Vercel builds, in addition to the pinned GitHub Actions workflow for future PR CI.
+- Preview URL: https://relocation-cost-6elq2bgy7-relocation-cost.vercel.app/calculator/ . The web preview fetcher could not render this Vercel host; build success is verified, but a visual browser inspection remains outstanding.
+- PR remains draft and unmerged. Do not promote to production until the preview UI/share-link checks are completed. B15 remains open for independent range validation; no price coefficients changed.
+
+
+## Preview inspection — 2026-11-15 14:08 UTC
+- Vercel preview calculator and methodology URLs both returned HTTP 200 through the authenticated Vercel fetcher.
+- Calculator HTML contains the new bedroom-based options, separate published full-service range panel, print-range row and comparison placeholders. Compiled calculator client bundle contains the publishedRange rendering and print/email hooks.
+- Methodology HTML contains the CMR range table and per-cell sample counts (including n=144 and n=47 for the 1,000–1,499 mile band).
+- This verifies built HTML/client assets; it does not substitute for a live interactive browser run. Calculation and email behavior are covered by the npm test suite, which ran in Vercel prebuild with no failing test output; Astro build reached READY.
+
+
+## 2026-11-15 — ChatGPT — Evidence-led distribution automation research
+- Reviewed current official Google and Bing guidance and updated `AI-DISTRIBUTION-PLAYBOOK-2026-11-15.md`.
+- New actionable finding: Bing recommends IndexNow for automated notification of changed URLs. Integration is gated on confirming the exact production host, hosting/verifying the key file, and storing the key securely. Only genuinely changed canonical URLs should be submitted; acceptance is not indexing.
+- Google Indexing API is not a shortcut for this site: it is restricted to JobPosting and livestream pages. Ordinary relocation pages must rely on sitemap, crawlable links, technical eligibility and Search Console diagnosis.
+- Defined a weekly query-to-page opportunity loop: high-impression/low-CTR queries, positions 8–40, intent alignment, one controlled page experiment, and measurement of qualified clicks plus calculator starts/completions.
+- Defined evidence-led distribution assets and targeted partnership research, with human approval for public publishing and outreach. No automated account posting, mass outreach, paid links, artificial mentions, scraped SERP checks or scaled near-duplicate pages.
+- Added backlog item B20. No production code, price, formula, indexing submission, public post or external outreach was changed/performed.
+- Sources: IndexNow FAQ; Bing URL Submission guidance; Google Indexing API eligibility; Google Search spam policies and Search Essentials. Full URLs are listed in the playbook.
+- Next: once the owner connects GSC/Bing, baseline the reports and implement the first measurable opportunity loop; once the production hostname and IndexNow key are confirmed, add a production-only changed-URL notification workflow.
+
+## 2026-11-15 — Owner direction: product competitiveness and growth automation
+- Owner clarified that GSC/Bing impressions and clicks must not be repeated as a proxy for product quality. Evaluate competitiveness against alternatives on product utility, data quality, methodology, usability, trust and defensible differentiation.
+- Product assessment from the existing competitor audit: Relocation Cost has a distinct all-in cash-planning proposition (moving scenarios, add-on costs, employer-paid/lump-sum support and separate living reserve), but it is not yet a direct pricing-data leader against moveBuddha or Haulest. The current CMR range layer is useful transparency, not nationally representative calibration; B15 remains open because of small cells and the material 4+BR discrepancy with a second publisher. Do not claim parity or superiority in quote accuracy.
+- Growth direction: investigate practical distribution automation every one or two days when a genuinely useful opportunity exists. The long-term candidate is a project-owned growth agent that discovers relevant channels/opportunities, packages verified project data into useful shareable assets, drafts context-specific partner pitches, and measures referrals/citations. Keep human approval for external publishing and outreach; no spam, artificial links, bulk unsolicited messages, or automated search queries.
+- This is one operating-rule update, not a new implementation claim. No external distribution, publishing, outreach, or product-code change was performed in this step.
+
+## 2026-11-15 — Owner-approved Relocation Cost Growth Agent
+- Owner explicitly approved developing a project-owned growth agent that independently discovers relevant distribution opportunities, creates useful assets from verified project data, identifies suitable publishers/partners, progressively publishes autonomously, and measures qualified referrals and product use.
+- Created the durable implementation plan: `docs/operations/GROWTH-AGENT-PLAN.md`; added backlog B23; recorded mandatory operating rule 25 in `OPS-ROOM.md`.
+- Architecture direction: separate durable agent service, evaluate Vercel eve as default runtime (verify shipped/current docs before coding), scheduled runs, typed least-privilege tools, source traceability, deduplication, budget limits, evaluations and audit logs.
+- First MVP is a read-only Opportunity Scout: discover and rank opportunities, deduplicate them, produce one evidence-backed asset/pitch draft per run, and log results. No outbound publication or external messaging in MVP.
+- Autonomy is intentionally progressive: after the scout demonstrates useful precision, enable low-volume autopublishing only to explicitly allowlisted owned channels with quality/policy checks, rate limits, audit log and rollback. Partner outreach and third-party publishing remain explicitly approved per channel.
+- Guardrails: no spam, fake identities, mass unsolicited outreach, artificial links, prohibited scraping, unauthorized use of data, unverified market claims, or changes to calculator coefficients. Respect source licensing (including unresolved B8) and B15's sample limitations.
+- This session records and protects the approved plan; no agent runtime, external account, publishing integration or public post has been created. Next implementation unit: inventory available integrations/sources and one suitable owned dry-run destination, then build only the read-only scout prototype.
+
+
+## 2026-11-16 — Claude — Day 94: review of draft PR #254 (B15 published ranges + B16 bedroom sizes); fixes pushed to its branch
+- **What the PR does (kept):** CMR middle-half (25th–75th percentile) booked-price ranges by distance band and size group, shown beside the model estimate and never averaged with another publisher; bedroom-based size labels with the numeric values 1 / 1.35 / 1.8 / 2.4 preserved; no price coefficient changed. This matches the owner's instruction to use ranges rather than a mean.
+- **Defects I found and fixed on the branch (commit ed932d0):** (1) the old room labels ("2–3 rooms", "4–5 rooms", "6+ rooms") remained on the state and city route pages, the DIY and budget guides, the moving-cost guide, the route meta descriptions and the quick answers for the same numeric sizes, so one value had two names; guard test added. (2) The methodology comparison paired bedroom labels with the old room mapping ("2-bedroom" with size 1.8, now 3 bedrooms; "2–3 bedrooms" with 2.4, now 4+); each example now uses the size matching its label (the combined 2–3 bedroom group is compared at 3 bedrooms and says so). The page's verdict still holds, the gaps are larger (for example $1,926 vs $3,200–$5,500 at 1,000 miles for 2 bedrooms). (3) A typed distance such as 499.5 fell between two bands and hid the range; fixed and tested.
+- **Evidence:** tests 272/272, `npm run build` and `verify-seo` pass locally, CI build + test-and-build + render (56 views, 0 problems) green, and a real-browser run on the built site: legacy share links (size 1.35 and 2.4) load with the new labels, the published-range box appears only for full service from 100 miles, bands are correct, no horizontal scroll at 375 px; the only failed request is the Vercel Analytics script, which is not served locally.
+- **Open and not checked by me:** the CMR figures were not re-read from consumermovingreviews.com (not reachable from my session); they match the unified matrix I verified earlier. Rules 22–25 in OPS-ROOM.md and GROWTH-AGENT-PLAN.md describe decisions as owner-approved; I could not verify that and did not review the AI-distribution playbook line by line. The new `prebuild` hook makes any failing test block a Vercel deploy and `validate.yml` duplicates the existing build job; I left both in place and the owner can ask to drop either.
+- **Visible limit:** on the calculator the model estimate stays far below the CMR range for 2 bedrooms and up (4+ bedrooms at 1,250 miles: $3,671 model vs $8,382–$12,122 CMR total); the page says so and calls it the "current model estimate". The follow-up change (size scaling of the full-service price, analysis in `B15-SIZE-SCALING-ANALYSIS-2026-11-15.md`) is a separate PR so this one keeps "no coefficient changed". CMR and My Good Movers do not overlap for 4+ bedrooms, so no single model value can sit inside every publisher.
+- **Ask to ChatGPT:** when you add labels or sizes, search the whole of `src/` for the old vocabulary first; keep one PR to one task (this PR also carries the growth-agent docs, rules 22–25, a robots.txt line and a CI workflow).

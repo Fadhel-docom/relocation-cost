@@ -15,6 +15,9 @@ const moveResult = document.querySelector("#moveResult");
 const otherResult = document.querySelector("#otherResult");
 const contingencyResult = document.querySelector("#contingencyResult");
 const range = document.querySelector("#range");
+const publishedRangeBox = document.querySelector("#publishedRangeBox");
+const publishedRange = document.querySelector("#publishedRange");
+const publishedRangeNote = document.querySelector("#publishedRangeNote");
 const mobileTotal = document.querySelector("#mobileTotal");
 const mobileRange = document.querySelector("#mobileRange");
 const breakdownBar = document.querySelector("#breakdownBar");
@@ -261,6 +264,9 @@ const renderPrint = (inputData, resultData) => {
   text("printContingency", money(resultData.contingency));
   text("printTotal", money(resultData.total));
   text("printRange", money(resultData.rangeLow) + "–" + money(resultData.rangeHigh));
+  const publishedRow = printEl("printPublishedRangeRow");
+  if (publishedRow) publishedRow.hidden = !resultData.publishedRange;
+  if (resultData.publishedRange) text("printPublishedRange", money(resultData.publishedRange.totalLow) + "–" + money(resultData.publishedRange.totalHigh));
 
   printCosts.replaceChildren();
   const lines = costLines(inputData);
@@ -317,9 +323,10 @@ const renderEmployer = (inputData, resultData) => {
 // estimate on screen next to the error message.
 const clearResults = () => {
   const dash = "—";
-  [result, moveResult, otherResult, contingencyResult, range, mobileTotal, mobileRange, marketBenchmark, reserveResult, cashNeededResult]
+  [result, moveResult, otherResult, contingencyResult, range, publishedRange, mobileTotal, mobileRange, marketBenchmark, reserveResult, cashNeededResult]
     .forEach(el => { if (el) el.textContent = dash; });
   if (floorNote) floorNote.hidden = true;
+  if (publishedRangeBox) publishedRangeBox.hidden = true;
   if (cashBox) cashBox.hidden = true;
   if (employerBox) employerBox.hidden = true;
   if (breakdownBar) {
@@ -359,6 +366,16 @@ const calculate = () => {
   if (mobileTotal) mobileTotal.textContent = money(resultData.total);
   if (mobileRange) mobileRange.textContent = money(resultData.rangeLow) + "–" + money(resultData.rangeHigh);
   marketBenchmark.textContent = money(resultData.marketBenchmark);
+  if (publishedRangeBox) {
+    publishedRangeBox.hidden = !resultData.publishedRange;
+    if (resultData.publishedRange) {
+      const sourceRange = resultData.publishedRange;
+      publishedRange.textContent = money(sourceRange.totalLow) + "–" + money(sourceRange.totalHigh);
+      const sample = sourceRange.sample_note ? ` ${sourceRange.sample_note}` : "";
+      const period = sourceRange.sample_period ? ` Cell period: ${sourceRange.sample_period}.` : "";
+      publishedRangeNote.textContent = `CMR middle half (25th–75th percentile) of booked full-service estimates for ${sourceRange.distanceBand}; ${sourceRange.n} bookings in this size/distance cell.${sample}${period} One mover network, not the whole market. Includes the costs you entered and the 10% contingency.`;
+    }
+  }
   if (floorNote) floorNote.hidden = !resultData.moveFloored;
   if (cashBox) {
     cashBox.hidden = resultData.reserve <= 0;
@@ -375,7 +392,12 @@ const calculate = () => {
     const alt = calculateBudget(inputs({ type: typeValue }));
     card.querySelector("[data-compare-total]").textContent = money(alt.total);
     card.querySelector("[data-compare-range]").textContent =
-      "Range " + money(alt.rangeLow) + "–" + money(alt.rangeHigh);
+      "Model band " + money(alt.rangeLow) + "–" + money(alt.rangeHigh);
+    const typePublished = card.querySelector("[data-compare-published-range]");
+    if (typePublished) {
+      typePublished.hidden = !alt.publishedRange;
+      typePublished.textContent = alt.publishedRange ? `CMR booked range: ${money(alt.publishedRange.totalLow)}–${money(alt.publishedRange.totalHigh)}` : "";
+    }
     card.dataset.selected = String(typeValue === num("type"));
   });
 
@@ -384,7 +406,12 @@ const calculate = () => {
     const alt = calculateBudget(inputs({ size: sizeValue }));
     card.querySelector("[data-compare-total]").textContent = money(alt.total);
     card.querySelector("[data-compare-range]").textContent =
-      "Range " + money(alt.rangeLow) + "–" + money(alt.rangeHigh);
+      "Model band " + money(alt.rangeLow) + "–" + money(alt.rangeHigh);
+    const sizePublished = card.querySelector("[data-compare-published-range]");
+    if (sizePublished) {
+      sizePublished.hidden = !alt.publishedRange;
+      sizePublished.textContent = alt.publishedRange ? `CMR booked range: ${money(alt.publishedRange.totalLow)}–${money(alt.publishedRange.totalHigh)}` : "";
+    }
     card.dataset.selected = String(sizeValue === num("size"));
   });
 

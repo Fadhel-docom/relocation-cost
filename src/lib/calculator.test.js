@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { calculateBudget, costBreakdown, costLines, employerGap, getUhaulBenchmark, HOME_SIZES, ITEMIZED_KEYS, MOVE_TYPES, pickAllowed, RESERVE_WEEKS, savingsTips } from "./calculator.js";
+import { calculateBudget, costBreakdown, costLines, employerGap, getUhaulBenchmark, getFullServiceRange, HOME_SIZES, ITEMIZED_KEYS, MOVE_TYPES, pickAllowed, RESERVE_WEEKS, savingsTips } from "./calculator.js";
 
 const assertClose = (actual, expected) => {
   assert.ok(Math.abs(actual - expected) < 1e-9, `expected ${expected}, got ${actual}`);
@@ -384,4 +384,57 @@ test("totals are consistent across the whole grid: never fall as size or service
       }
     }
   }
+});
+
+
+test("CMR full-service ranges preserve the published quartile bounds, median and cell sample", () => {
+  const studio = getFullServiceRange(1250, 1);
+  assert.deepEqual(
+    { low: studio.low, median: studio.median, high: studio.high, n: studio.n, band: studio.distanceBand },
+    { low: 1890, median: 2120, high: 2420, n: 144, band: "1,000–1,499 miles" },
+  );
+  const fourBedroom = getFullServiceRange(1250, 2.4);
+  assert.deepEqual(
+    { low: fourBedroom.low, median: fourBedroom.median, high: fourBedroom.high, n: fourBedroom.n },
+    { low: 7620, median: 9000, high: 11020, n: 47 },
+  );
+});
+
+test("CMR range lookup uses the exact distance-band boundaries and returns no range below coverage", () => {
+  assert.equal(getFullServiceRange(99, 1), null);
+  assert.equal(getFullServiceRange(100, 1).distanceBand, "100–499 miles");
+  assert.equal(getFullServiceRange(499, 1).distanceBand, "100–499 miles");
+  assert.equal(getFullServiceRange(500, 1).distanceBand, "500–999 miles");
+  assert.equal(getFullServiceRange(999, 1).distanceBand, "500–999 miles");
+  assert.equal(getFullServiceRange(1000, 1).distanceBand, "1,000–1,499 miles");
+  assert.equal(getFullServiceRange(1499, 1).distanceBand, "1,000–1,499 miles");
+  assert.equal(getFullServiceRange(1500, 1).distanceBand, "1,500–1,999 miles");
+  assert.equal(getFullServiceRange(1999, 1).distanceBand, "1,500–1,999 miles");
+  assert.equal(getFullServiceRange(2000, 1).distanceBand, "2,000+ miles");
+});
+
+test("published full-service range adds entered costs and contingency to both bounds without averaging them", () => {
+  const result = calculateBudget({ distance: 1250, size: 2.4, type: FULL, travel: 200, housing: 300 });
+  assert.equal(result.publishedRange.low, 7620);
+  assert.equal(result.publishedRange.high, 11020);
+  assertClose(result.publishedRange.totalLow, (7620 + 500) * 1.1);
+  assertClose(result.publishedRange.totalMedian, (9000 + 500) * 1.1);
+  assertClose(result.publishedRange.totalHigh, (11020 + 500) * 1.1);
+  assert.ok(result.publishedRange.totalLow < result.publishedRange.totalMedian);
+  assert.ok(result.publishedRange.totalMedian < result.publishedRange.totalHigh);
+});
+
+test("published CMR range is available only for full-service and never changes the existing model estimate", () => {
+  const full = calculateBudget({ distance: 1250, size: 1.8, type: FULL });
+  const truck = calculateBudget({ distance: 1250, size: 1.8, type: TRUCK });
+  const diy = calculateBudget({ distance: 1250, size: 1.8, type: DIY });
+  assert.ok(full.publishedRange);
+  assert.equal(truck.publishedRange, null);
+  assert.equal(diy.publishedRange, null);
+  assertClose(full.total, 3208.7);
+});
+
+test("CMR range lookup rejects invalid sizes and distances", () => {
+  assert.throws(() => getFullServiceRange(1000, 1.5), RangeError);
+  assert.throws(() => getFullServiceRange(0, 1), RangeError);
 });

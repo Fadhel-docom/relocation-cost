@@ -6,7 +6,7 @@ export const MAX_DESCRIPTION_LENGTH = 160;
 
 const money = value => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
 
-// totals: planning totals for the reference home (2–3 rooms), in the order DIY, rental truck +
+// totals: planning totals for the reference home (2 bedrooms), in the order DIY, rental truck +
 // labor, full-service movers. benchmark: the published U-Haul one-way average for the distance band.
 export function routeDescription({ from, to, miles, totals, benchmark }) {
   if (!Array.isArray(totals) || totals.length !== 3 || !totals.every(Number.isFinite)) {
@@ -15,7 +15,7 @@ export function routeDescription({ from, to, miles, totals, benchmark }) {
   if (!Number.isFinite(benchmark)) throw new TypeError("benchmark must be a finite number.");
   const [diy, truck, full] = totals.map(money);
   const lead = `Moving ${from} to ${to}: about ${miles} miles.`;
-  const totalsText = `Planning totals (2–3 rooms): ${diy} DIY, ${truck} truck + labor, ${full} full service.`;
+  const totalsText = `Planning totals (2 bedrooms): ${diy} DIY, ${truck} truck + labor, ${full} full service.`;
   const candidates = [
     `${lead} ${totalsText} U-Haul one-way avg ${money(benchmark)}.`,
     `${lead} ${totalsText} U-Haul avg ${money(benchmark)}.`,

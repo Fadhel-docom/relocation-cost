@@ -32,6 +32,9 @@
 
 21. **المبادرة والإبداع المستمر لخدمة الهدف الكبير (قرار المالك، 2026-11-12):** لا يقتصر دور ChatGPT وClaude على تنفيذ قائمة مهام أو انتظار توجيه تفصيلي؛ على كل طرف أن يفكر باستمرار وباستقلالية في فرص تحسين المنتج والبحث والتقنية والنمو، وأن يقترح وينفذ ضمن صلاحياته التحسينات ذات القيمة الأعلى. الهدف الطموح هو بناء Relocation Cost ليصبح من أقوى المواقع العالمية في مجاله، ويُترجم هذا الطموح إلى جودة وفائدة وثقة وتميّز قابل للإثبات، لا إلى شعارات أو توسع عشوائي. يجب استخدام قدرات البحث والتحليل ومقارنة المنافسين والبيانات والأدوات المتاحة لاكتشاف احتياجات غير مخدومة، وفجوات في تجربة المستخدم والحاسبة والدقة والبيانات والتغطية والأداء وSEO وظهور إجابات الذكاء الاصطناعي والتوزيع وتحقيق الدخل. لكل فرصة: تحقق من الأدلة وحداثتها، وحدد المشكلة التي تحلها والقيمة المتوقعة والفرق عن البدائل والتكلفة والمخاطر وطريقة القياس؛ صنّفها إلى فرضية أو فرصة مدعومة أو قرار قابل للتنفيذ. لا تنتظر إذنًا للأعمال الروتينية الآمنة الواقعة ضمن التفويض، ونفّذ الأعلى أثرًا بعد فحص عدم التكرار والتعارض؛ أما ما يمس المال أو الخصوصية أو الالتزامات القانونية أو تغيير اتجاه المنتج أو الإنتاج عالي المخاطر فيُصعّد للمالك. لا تكتفِ بتسجيل أفكار: حوّل الأفضل إلى مهام مرقمة في BACKLOG، ونفّذ ما يمكن، واختبره، وسجّل ما تحقق وما لم يتحقق. لا تجعل الإبداع ذريعة لزيادة الصفحات أو الميزات أو الإنفاق أو استهلاك الحصص؛ كل مبادرة يجب أن تكون في مصلحة المشروع والزائر، ومتوافقة مع قانون القيمة قبل النشر، والدقة، والأمان، والاستدامة. قِس النجاح بنتائج حقيقية طويلة الأمد، ولا تعد بتصدر عالمي أو زيارات أو دخل مضمون.
 
+
+22. **أهلية الظهور في إجابات الذكاء الاصطناعي والتحقق الفعلي (قرار تنفيذي، 2026-11-15):** لا نكتفي بذكر «تحسين AEO». افحص النطاق الإنتاجي الصحيح من إعدادات المشروع ولا تفترض نطاقًا غير مملوك؛ افصل بين OAI-SearchBot للبحث في ChatGPT وGPTBot للتدريب وChatGPT-User للطلبات التي يبدأها المستخدم. لا تغيّر سياسة GPTBot ضمنيًا. تحقق من robots.txt ومن وصول عناوين IP المنشورة عبر CDN/Firewall، ولا تعتبر السماح في robots.txt دليلًا على نجاح الجلب. راجع الصفحات المهمة وفق قابلية الإجابة والاقتباس: جواب مباشر صحيح، مصدر وتاريخ وتعريف ووحدة وعينة وحدود بجوار الادعاء، قيمة أصلية، وبنية عناوين تخدم أسئلة فعلية. لا تفرض أطوالًا سحرية أو FAQ شكلية. سجّل ما نُفذ وما بقي غير متحقق في BACKLOG وWORK-LOG.
+
 ## 2) طريقة البدء — الكلمة المتفق عليها
 عندما يقول المالك **«أبدأ الآن»**:
 0. المالك يفتح كل جلسة جديدة بعبارة «أبدأ الآن»، وعلى الطرف أن يعود إلى غرفة العمليات ويقرأ ما فيها ويكمل من آخر نقطة موثقة، لا من محادثة سابقة.
@@ -673,3 +676,46 @@ Independently audit the 30 prompts row by row using the current site, repository
 - المالك فوّض ChatGPT بالعمل المستقل على النمو والانتشار والتحسين ضمن الصلاحيات المتاحة، مع الالتزام بقانون القيمة قبل النشر وبوابات الدقة والأمان وعدم تغيير معايرة B15/B16 دون تحقق.
 - قراءة GSC/Bing الحالية وتقديم أربع روابط أولوية إلى Bing موثقة في `docs/operations/WORK-LOG.md` بتاريخ 2026-11-15، وتحديث B4 وB12 وإضافة B18 في `docs/operations/BACKLOG.md`.
 - لم يحدث تغيير كود أو أسعار أو نشر إنتاجي في هذه المرحلة. العمل التالي: تشخيص سبب عدم تعرف Google على `/calculator/` رغم وجود sitemap وروابط داخلية، ثم إصلاح السبب إن ثبت.
+
+
+## 2026-11-15 — B15/B16 range-based calculator work (ChatGPT)
+- Owner reiterated full execution authority and specifically directed that B15/B16 use published price ranges rather than a blended/shaded average before merge.
+- Added CMR middle-half booked full-service ranges for five road-distance bands and four shipment-volume groups, with median and per-cell sample counts. The calculator now computes a separate source-backed total range by adding entered costs and 10% contingency to both bounds. The existing model point estimate and fixed ±20% model band remain separate; no coefficients were changed.
+- Updated size labels to Studio/1BR, 2BR, 3BR, 4+BR with the CMR volume definitions. Numeric URL values 1, 1.35, 1.8 and 2.4 are preserved.
+- Added CMR range output to the calculator, comparison cards, print summary and email draft; updated methodology and source disclosures. Added regression tests for distance boundaries, source bounds, sample counts, no-extrapolation below 100 miles, and email output.
+- Data limitation: CMR's dataset is one mover network; some cells have n=21–24. Long Distance Moving's 543-booking report has a materially higher 4+BR band than CMR, so the publishers are not blended. B15 remains open pending a comparable independent holdout and resolution of the 4+BR discrepancy. No claim of national calibration.
+- Draft PR: https://github.com/Fadhel-docom/relocation-cost/pull/254. Vercel Astro preview for commit 661c0fa reached READY; the subsequent commit adding a pinned GitHub Actions workflow is awaiting validation. No production merge or live deployment claimed.
+- Added CI workflow .github/workflows/validate.yml to run npm test and npm run build on PRs. Verify its run before merge.
+- Researched current AI discovery: Google Search generative AI control/report are global; report shows impressions/pages/countries/devices/dates but no queries/clicks. Bing AI Performance provides citations, grounding queries and page-level citation activity; Topics Portfolio beta added Oct 13, 2026. Current Composio integrations expose standard search/indexing APIs, not the AI-specific reports; those need a Webmaster UI/browser check. No automated social posting or external outreach was performed.
+- AI distribution playbook added at docs/operations/AI-DISTRIBUTION-PLAYBOOK-2026-11-15.md; range evidence at docs/operations/B15-RANGE-BENCHMARK-2026-11-15.md.
+
+
+## Validation update — 2026-11-15 14:04 UTC
+- PR #254 head commit 665253f5907d2a8e7c369cb81587e5209a0e4c74.
+- Vercel preview deployment dpl_FiyssUaPuHsxWfURZeeTj1njcRA3 reached READY; build log shows the prebuild lifecycle ran the complete configured node:test suite, no failing test output was found, and Astro static build completed successfully (Build Completed in 11s).
+- Added package.json prebuild="npm test" so the regression suite gates future Vercel builds, in addition to the pinned GitHub Actions workflow for future PR CI.
+- Preview URL: https://relocation-cost-6elq2bgy7-relocation-cost.vercel.app/calculator/ . The web preview fetcher could not render this Vercel host; build success is verified, but a visual browser inspection remains outstanding.
+- PR remains draft and unmerged. Do not promote to production until the preview UI/share-link checks are completed. B15 remains open for independent range validation; no price coefficients changed.
+
+
+## Preview inspection — 2026-11-15 14:08 UTC
+- Vercel preview calculator and methodology URLs both returned HTTP 200 through the authenticated Vercel fetcher.
+- Calculator HTML contains the new bedroom-based options, separate published full-service range panel, print-range row and comparison placeholders. Compiled calculator client bundle contains the publishedRange rendering and print/email hooks.
+- Methodology HTML contains the CMR range table and per-cell sample counts (including n=144 and n=47 for the 1,000–1,499 mile band).
+- This verifies built HTML/client assets; it does not substitute for a live interactive browser run. Calculation and email behavior are covered by the npm test suite, which ran in Vercel prebuild with no failing test output; Astro build reached READY.
+
+
+## ChatGPT — 2026-11-15: خطة توزيع مؤتمتة قائمة على الدليل
+- أُحدّث دليل الانتشار في `docs/operations/AI-DISTRIBUTION-PLAYBOOK-2026-11-15.md` بعد مراجعة إرشادات Google وBing الرسمية.
+- أفضل مسار آلي قابل للتنفيذ: IndexNow لإشعار محركات البحث بالروابط التي تغيّرت فعلًا، بعد تثبيت النطاق الإنتاجي والتحقق من ملف المفتاح. الإشعار المقبول لا يعني أن الصفحة فُهرست.
+- لا نستخدم Google Indexing API لصفحات الحاسبة أو الأدلة؛ الأهلية محصورة في JobPosting وبث الفيديو المباشر. نعتمد sitemap والروابط القابلة للزحف وتقارير Search Console.
+- أُضيف B20 لدورة أسبوعية: فرص CTR والمواضع 8–40، مطابقة نية البحث بالصفحة، تجربة واحدة قابلة للقياس، ثم قياس النقرات المؤهلة وإكمال الحاسبة.
+- أصول التوزيع المقترحة: رسوم/جداول موثقة ومذكرة بحث قصيرة وشراكات موارد انتقال/HR ذات صلة. لا نشر آلي أو رسائل جماعية أو روابط مصطنعة، ولا إخراج بيانات المسافات قبل حسم B8 أو تقديم CMR كمتوسط وطني.
+- لم تُرسل روابط فهرسة ولم يحدث نشر خارجي أو تغيير إنتاجي. التنفيذ التقني لـIndexNow ينتظر تأكيد النطاق ومفتاح التحقق؛ تحليل GSC/Bing ينتظر ربط المالك.
+
+
+23. **قاعدة التنفيذ المتتابع (قرار المالك، 2026-11-15):** دورة العمل الواحدة = فرصة واحدة ذات أثر واضح، تشخيصها ثم تنفيذها والتحقق منها وتسجيلها قبل الانتقال إلى غيرها. لا تفتح مهامًا متوازية أو قوائم تحسينات لمجرد اكتشافها. في المراجعة الأسبوعية اختر أفضل فرصة واحدة بالأدلة ونفذها مباشرة دون طلب موافقة جديدة ضمن صلاحيات المشروع. لا تخلط بين «ظهور في النتائج» و«جاهزية المنتج»: قِس الطلب والنقرات والفائدة الفعلية بصدق، ولا تدّعِ أن الموقع يستحق نموًا لم تثبته المؤشرات.
+
+24. **فصل جودة المنتج عن التوزيع (قرار المالك، 2026-11-15):** لا تستخدم أرقام الظهور والنقرات أو حالة الفهرسة كبديل عن تقييم تنافسية المنتج. قيّم المنتج مقابل المنافسين من حيث الوظيفة، جودة البيانات، المنهجية، سهولة الاستخدام، الثقة، والميزة التي تحل مشكلة حقيقية. لا تكرر تقارير GSC/Bing في كل جلسة ما لم تكن مطلوبة لاتخاذ قرار توزيع محدد. بالتوازي، ابحث في كل دورة عمل (كل يوم أو يومين عند توفر فرصة ذات قيمة) عن قناة توزيع أو أتمتة مبتكرة قابلة للتطبيق؛ استلهم من أنظمة الاكتشاف والتوزيع الآلية، لكن لا تنفذ نشرًا مزعجًا أو روابط مصطنعة أو رسائل جماعية. الأولوية لبوت نمو خاص بالمشروع يكتشف الفرص، ويحوّل البيانات الموثقة إلى أصول قابلة للمشاركة، ويحدد الجهات المناسبة، ويقيس الإحالات؛ مع موافقة بشرية قبل النشر أو التواصل الخارجي. نفّذ فرصة واحدة فقط في كل دورة، ولا تدّعِ أن التوزيع الآلي يضمن الزيارات.
+
+25. **مشروع Growth Agent الخاص بالموقع (تفويض المالك، 2026-11-15):** نبني وكيل نمو خاصًا بـRelocation Cost يكتشف فرص الوصول للجمهور، ينتج أصولًا قابلة للمشاركة من بيانات موثقة، يطابقها مع الناشرين والشركاء، وينشر تدريجيًا باستقلالية ويقيس الإحالات والاستخدام. الخطة المرجعية الوحيدة: `docs/operations/GROWTH-AGENT-PLAN.md`، والبند B23. ابدأ بـOpportunity Scout للقراءة فقط: فرص مرتبة ومزالة التكرار + أصل/مسودة واحدة موثقة في كل تشغيل. لا تنفذ نشرًا عامًا أو مراسلات خارجية في MVP. بعد إثبات جودة الاكتشاف، زد الاستقلالية تدريجيًا إلى نشر آلي محدود في قنوات مملوكة ومصرح بها، مع فحوص الجودة، حدود المعدل، سجل تدقيق، وآلية تراجع. الشراكات والنشر خارج القنوات المملوكة تبقى بموافقة صريحة لكل قناة. احترم شروط المنصات والخصوصية وحقوق البيانات؛ لا spam ولا حسابات زائفة ولا روابط مصطنعة ولا scraping مخالف. لا تستخدم بيانات غير مرخصة أو ادعاءات وطنية غير مثبتة. لا تضف مهامًا متوازية: نفّذ خطوة واحدة، اختبرها، وسجل النتيجة قبل التالية.

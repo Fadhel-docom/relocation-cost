@@ -24,6 +24,7 @@ export function marginSummary() {
 // Sources that actually feed a result, plus the ones shown for context only.
 export function trustSources(sources) {
   return [
+    { key: "cmr", name: "Consumer Moving Reviews, 2026 booked full-service price ranges", url: "https://www.consumermovingreviews.com/cheapest-long-distance-moving-companies/", role: "Provides a separate full-service middle-half booked-price range by distance and shipment size; one mover network, not the whole market" },
     { key: "uhaul", role: "Sets the minimum DIY move cost", ...sources.uhaul },
     { key: "bls", role: "Context only, does not change any result", ...sources.bls },
     { key: "census", role: "Context only, does not change any result", ...sources.census },

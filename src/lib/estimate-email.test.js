@@ -12,7 +12,7 @@ function scenario(extra = {}) {
   return {
     route: "California to Texas",
     miles: input.distance,
-    sizeLabel: "2–3 rooms",
+    sizeLabel: "2 bedrooms",
     typeLabel: "Rental truck + labor",
     result,
     lines: costLines(input),
@@ -40,7 +40,7 @@ test("a simple estimate becomes a mailto link with the real figures", () => {
     assert.ok(body.includes(fmt(value)), `missing ${fmt(value)}`);
   }
   assert.ok(body.includes("Route: California to Texas (about 1,317 miles)"));
-  assert.ok(body.includes("Home size: 2–3 rooms") && body.includes("Move type: Rental truck + labor"));
+  assert.ok(body.includes("Home size: 2 bedrooms") && body.includes("Move type: Rental truck + labor"));
   assert.ok(body.includes(input.shareUrl));
   assert.match(body, /planning estimate, not a quote/);
   assert.equal(email.trimmed, false);
@@ -117,4 +117,15 @@ test("special characters in the message survive the link", () => {
   assert.match(subject, /Texas & Oklahoma/);
   assert.ok(body.includes("https://example.com/?a=1&b=2"));
   assert.ok(!email.href.slice("mailto:?".length).replace("&body=", "").includes(" "));
+});
+
+
+test("full-service estimate email includes the source-backed CMR range and sample count", () => {
+  const input = scenario({ distance: 1250, size: 1.8, type: 1.65, travel: 250 });
+  const email = buildEstimateEmail(input);
+  const body = parse(email.href).body;
+  assert.ok(input.result.publishedRange);
+  assert.ok(body.includes("CMR booked-price range (1,000–1,499 miles; n=39): " + fmt(input.result.publishedRange.totalLow) + "–" + fmt(input.result.publishedRange.totalHigh) + "."));
+  assert.match(body, /One mover network, not the whole market/);
+  assert.match(body, /Model planning band:/);
 });

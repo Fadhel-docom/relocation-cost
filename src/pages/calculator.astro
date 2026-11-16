@@ -73,7 +73,7 @@ const breadcrumbJsonLd = {
           </label>
           <label class="block text-sm font-semibold">Home size
             <select id="size" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3">
-              <option value="1">Studio / 1 room</option><option value="1.35">2–3 rooms</option><option value="1.8">4–5 rooms</option><option value="2.4">6+ rooms</option>
+              <option value="1">Studio / 1 bedroom (under 400 cu ft)</option><option value="1.35">2 bedrooms (400–800 cu ft)</option><option value="1.8">3 bedrooms (800–1,200 cu ft)</option><option value="2.4">4+ bedrooms (1,200+ cu ft)</option>
             </select>
           </label>
         </div>
@@ -137,7 +137,7 @@ const breadcrumbJsonLd = {
       </form>
 
       <aside class="h-fit rounded-2xl bg-slate-950 p-7 text-white sm:p-8 lg:sticky lg:top-6">
-        <p class="text-sm text-slate-400">Estimated relocation budget</p>
+        <p class="text-sm text-slate-400">Current model estimate</p>
         <div id="result" class="mt-3 text-4xl font-bold">$0</div>
         <p class="mt-3 text-sm leading-6 text-slate-300">Planning estimate, not a quote. Replace assumptions with provider quotes as you get them.</p>
         <div class="mt-7 space-y-3 border-t border-slate-800 pt-5 text-sm">
@@ -145,8 +145,14 @@ const breadcrumbJsonLd = {
           <div class="flex justify-between"><span class="text-slate-400">Other costs</span><strong id="otherResult">$0</strong></div>
           <div class="flex justify-between"><span class="text-slate-400">Contingency (10%)</span><strong id="contingencyResult">$0</strong></div>
         </div>
-        <div class="mt-6 border-t border-slate-800 pt-5 text-sm text-slate-400">Indicative range <strong id="range" class="text-white">$0–$0</strong></div>
-        <p class="mt-3 text-xs leading-5 text-slate-500">Margin of error: a fixed {margin.label} planning band, not a statistical interval. Benchmark data reviewed {reviewDate}. <a class="font-semibold text-sky-300 underline" href="#trust-heading">Sources</a></p>
+        <div class="mt-6 border-t border-slate-800 pt-5 text-sm text-slate-400">Model planning band <strong id="range" class="text-white">$0–$0</strong></div>
+        <p class="mt-2 text-xs leading-5 text-slate-500">A fixed {margin.label} band around the current planning model, not a market percentile or statistical confidence interval.</p>
+        <div id="publishedRangeBox" class="mt-5 rounded-xl border border-sky-900 bg-slate-900 p-4 text-sm" hidden>
+          <p class="font-semibold text-slate-200">Published full-service booked-price range</p>
+          <p id="publishedRange" class="mt-2 text-2xl font-bold text-white">$0–$0</p>
+          <p id="publishedRangeNote" class="mt-2 text-xs leading-5 text-slate-400"></p>
+        </div>
+        <p class="mt-3 text-xs leading-5 text-slate-500">Model planning band: fixed at {margin.label}, not a market percentile or statistical interval. Full-service moves also show a separate CMR booked-price range where available. Benchmark data reviewed {reviewDate}. <a class="font-semibold text-sky-300 underline" href="#trust-heading">Sources</a></p>
         <div id="cashBox" class="mt-5 space-y-2 rounded-xl border border-slate-800 bg-slate-900 p-4 text-sm" hidden>
           <div class="flex justify-between"><span class="text-slate-400">Cash buffer</span><strong id="reserveResult">$0</strong></div>
           <div class="flex justify-between border-t border-slate-800 pt-2"><span class="text-slate-300">Cash to have ready</span><strong id="cashNeededResult">$0</strong></div>
@@ -204,15 +210,16 @@ const breadcrumbJsonLd = {
         <div class="flex justify-between"><dt class="text-slate-700">Move</dt><dd id="printMove" class="font-semibold"></dd></div>
         <div class="flex justify-between"><dt class="text-slate-700">Other costs</dt><dd id="printOther" class="font-semibold"></dd></div>
         <div class="flex justify-between"><dt class="text-slate-700">Contingency (10%)</dt><dd id="printContingency" class="font-semibold"></dd></div>
-        <div class="flex justify-between border-t border-slate-300 pt-1 text-base"><dt class="font-bold">Estimated budget</dt><dd id="printTotal" class="font-bold"></dd></div>
-        <div class="flex justify-between"><dt class="text-slate-700">Indicative range</dt><dd id="printRange" class="font-semibold"></dd></div>
+        <div class="flex justify-between border-t border-slate-300 pt-1 text-base"><dt class="font-bold">Current model estimate</dt><dd id="printTotal" class="font-bold"></dd></div>
+        <div class="flex justify-between"><dt class="text-slate-700">Model planning band</dt><dd id="printRange" class="font-semibold"></dd></div>
+        <div id="printPublishedRangeRow" class="flex justify-between" hidden><dt class="text-slate-700">Published full-service range</dt><dd id="printPublishedRange" class="font-semibold"></dd></div>
         <div id="printEmployerRow" class="flex justify-between" hidden><dt class="text-slate-700">Covered by your employer</dt><dd id="printEmployer" class="font-semibold"></dd></div>
         <div id="printEmployerGapRow" class="flex justify-between" hidden><dt class="font-bold">Employer gap</dt><dd id="printEmployerGap" class="font-bold"></dd></div>
         <div id="printReserveRow" class="flex justify-between" hidden><dt class="text-slate-700">Cash buffer</dt><dd id="printReserve" class="font-semibold"></dd></div>
         <div id="printCashRow" class="flex justify-between" hidden><dt class="font-bold">Cash to have ready</dt><dd id="printCash" class="font-bold"></dd></div>
       </dl>
       <p class="mt-4 text-xs leading-5 text-slate-600">Planning estimate, not a quote. Distance is an approximate driving distance between state center points (a straight line where no road route was found) unless you entered your own miles. Costs left at $0 are left out of the total. Replace these assumptions with route-specific provider quotes.</p>
-      <p class="mt-2 text-xs leading-5 text-slate-600">Range is a fixed {margin.label} planning band. Benchmark data reviewed {reviewDate}; U-Haul figures from {uhaulPeriod}. Sources: {methodologyUrl}</p>
+      <p class="mt-2 text-xs leading-5 text-slate-600">The model band is fixed at {margin.label}. A separate CMR booked-price middle-half range is shown for full-service moves where a matching distance and size cell exists. Benchmark data reviewed {reviewDate}; U-Haul figures from {uhaulPeriod}. Sources: {methodologyUrl}</p>
     </section>
 
     <section class="mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="breakdown-heading">
@@ -261,8 +268,8 @@ const breadcrumbJsonLd = {
           <dd class="text-slate-600">A 10% planning buffer added on top of the move and your other costs.</dd>
         </div>
         <div>
-          <dt class="font-semibold text-slate-900">Indicative range</dt>
-          <dd class="text-slate-600">The total minus 20% to the total plus 20%. It is a planning range, not a quote and not a statistically validated confidence interval.</dd>
+          <dt class="font-semibold text-slate-900">Model planning band</dt>
+          <dd class="text-slate-600">A fixed ±20% band around the current planning model. It is not a market range or a statistically validated confidence interval. For full-service moves, the calculator separately displays CMR’s published middle-half booked-price range where a matching cell exists.</dd>
         </div>
         <div>
           <dt class="font-semibold text-slate-900">Published truck-rental average</dt>
@@ -284,8 +291,8 @@ const breadcrumbJsonLd = {
           <dd class="text-slate-600">Benchmark data reviewed on {reviewDate}. The U-Haul figures describe {uhaulPeriod}.{uhaulChecked && ` They are compared with U-Haul's published page every week; last matched on ${uhaulChecked}.`}</dd>
         </div>
         <div>
-          <dt class="font-semibold text-slate-900">Margin of error</dt>
-          <dd class="text-slate-600">The indicative range is the total {margin.label}. It is a fixed planning band. It has not been checked against real quotes, so your actual price can fall outside it.</dd>
+          <dt class="font-semibold text-slate-900">Model planning band</dt>
+          <dd class="text-slate-600">The model band is a fixed {margin.label} planning band, not a statistical margin of error. Full-service moves also show a separate CMR middle-half booked-price range by distance and shipment-size group; that is one mover network, not the whole market.</dd>
         </div>
         <div>
           <dt class="font-semibold text-slate-900">What is assumed</dt>
@@ -321,6 +328,7 @@ const breadcrumbJsonLd = {
           <p class="text-sm font-semibold text-slate-500">Full-service movers</p>
           <p data-compare-total class="mt-2 text-3xl font-bold">$0</p>
           <p data-compare-range class="mt-1 text-xs text-slate-500">$0–$0</p>
+          <p data-compare-published-range class="mt-1 text-xs text-sky-700" hidden></p>
         </div>
       </div>
     </section>
@@ -330,33 +338,37 @@ const breadcrumbJsonLd = {
       <p class="mt-2 max-w-3xl text-sm leading-6 text-slate-600">Same distance, move type and other costs as above, with each home size. Planning estimates, not quotes.</p>
       <div class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div data-compare-size="1" data-selected="false" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm data-[selected=true]:border-sky-500 data-[selected=true]:ring-2 data-[selected=true]:ring-sky-200">
-          <p class="text-sm font-semibold text-slate-500">Studio / 1 room</p>
+          <p class="text-sm font-semibold text-slate-500">Studio / 1 bedroom</p>
           <p data-compare-total class="mt-2 text-3xl font-bold">$0</p>
           <p data-compare-range class="mt-1 text-xs text-slate-500">$0–$0</p>
+          <p data-compare-published-range class="mt-1 text-xs text-sky-700" hidden></p>
         </div>
         <div data-compare-size="1.35" data-selected="false" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm data-[selected=true]:border-sky-500 data-[selected=true]:ring-2 data-[selected=true]:ring-sky-200">
-          <p class="text-sm font-semibold text-slate-500">2–3 rooms</p>
+          <p class="text-sm font-semibold text-slate-500">2 bedrooms</p>
           <p data-compare-total class="mt-2 text-3xl font-bold">$0</p>
           <p data-compare-range class="mt-1 text-xs text-slate-500">$0–$0</p>
+          <p data-compare-published-range class="mt-1 text-xs text-sky-700" hidden></p>
         </div>
         <div data-compare-size="1.8" data-selected="false" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm data-[selected=true]:border-sky-500 data-[selected=true]:ring-2 data-[selected=true]:ring-sky-200">
-          <p class="text-sm font-semibold text-slate-500">4–5 rooms</p>
+          <p class="text-sm font-semibold text-slate-500">3 bedrooms</p>
           <p data-compare-total class="mt-2 text-3xl font-bold">$0</p>
           <p data-compare-range class="mt-1 text-xs text-slate-500">$0–$0</p>
+          <p data-compare-published-range class="mt-1 text-xs text-sky-700" hidden></p>
         </div>
         <div data-compare-size="2.4" data-selected="false" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm data-[selected=true]:border-sky-500 data-[selected=true]:ring-2 data-[selected=true]:ring-sky-200">
-          <p class="text-sm font-semibold text-slate-500">6+ rooms</p>
+          <p class="text-sm font-semibold text-slate-500">4+ bedrooms</p>
           <p data-compare-total class="mt-2 text-3xl font-bold">$0</p>
           <p data-compare-range class="mt-1 text-xs text-slate-500">$0–$0</p>
+          <p data-compare-published-range class="mt-1 text-xs text-sky-700" hidden></p>
         </div>
       </div>
-      <p class="mt-3 max-w-3xl text-xs leading-5 text-slate-500">With DIY, the published U-Haul average for the distance band often sets the minimum move cost, so several home sizes can show the same total. That is a rule of this model. It does not mean a larger home costs the same, because the model has no separate truck-size price. Rental truck + labor and full-service add a home-size premium, so those totals differ by size. See the <a class="font-semibold text-sky-700 underline" href="/methodology/">methodology</a>.</p>
+      <p class="mt-3 max-w-3xl text-xs leading-5 text-slate-500">The size labels now use bedroom and shipment-volume groups that match the CMR benchmark definitions. Existing share-link numeric values are preserved. DIY and rental-truck calculations still use the current planning model; the CMR published range applies only to full-service moves. See the <a class="font-semibold text-sky-700 underline" href="/methodology/">methodology</a>.</p>
     </section>
 
     <div class="print:hidden"><PartnerOffers heading="Next: get real quotes" /></div>
 
     <div class="mt-10 rounded-2xl border border-amber-200 bg-amber-50 p-6 text-sm leading-7 text-amber-950">
-      <strong>About this estimate:</strong> this MVP uses a transparent planning model, not live mover quotes or a market-validated price database. Treat the result as a budgeting starting point and replace assumptions with real quotes.
+      <strong>About this estimate:</strong> the main point estimate still comes from a transparent planning model, not a live mover quote. For full-service moves, a separate CMR middle-half booked-price range is shown where a matching distance and shipment-size cell exists. CMR represents one mover network, not the whole market. Replace assumptions with written quotes for your exact inventory.
     </div>
 
     <section class="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-6 sm:p-8 print:hidden" aria-labelledby="methodology-heading">
@@ -386,10 +398,10 @@ const breadcrumbJsonLd = {
   <div class="fixed inset-x-0 bottom-0 z-20 border-t border-slate-800 bg-slate-950 px-5 py-3 text-white lg:hidden print:hidden" role="status" aria-live="polite">
     <div class="mx-auto flex max-w-6xl items-center justify-between gap-4">
       <div>
-        <p class="text-xs text-slate-400">Estimated budget</p>
+        <p class="text-xs text-slate-400">Model estimate</p>
         <p id="mobileTotal" class="text-xl font-bold leading-6">$0</p>
       </div>
-      <p class="text-right text-xs leading-5 text-slate-400">Range<br /><span id="mobileRange" class="text-sm font-semibold text-white">$0–$0</span></p>
+      <p class="text-right text-xs leading-5 text-slate-400">Model band<br /><span id="mobileRange" class="text-sm font-semibold text-white">$0–$0</span></p>
     </div>
   </div>
   <style is:global>

@@ -1,0 +1,181 @@
+{
+  "schema_version": "1.0",
+  "currency": "USD",
+  "last_reviewed": "2026-11-15",
+  "source": {
+    "name": "Consumer Moving Reviews (CMR), 2026 booked-move cost report",
+    "url": "https://www.consumermovingreviews.com/cheapest-long-distance-moving-companies/",
+    "route_example_url": "https://www.consumermovingreviews.com/routes/movers-from-austin-tx-78753-to-salt-lake-city-ut-84116/",
+    "data_period": "January 2025–September 2026, except the 4+ bedroom 1,500–1,999 mile cell (December 2022–September 2026)",
+    "method": "Middle half of booked full-service estimates (25th–75th percentiles), with the published median and cell booking count.",
+    "limitation": "One mover network, not the whole US market; booked estimates, not final invoices or a quote for a specific route. Bedroom labels are approximations of shipment-volume groups. 4+ bedroom cells may use a longer observation window."
+  },
+  "size_groups": {
+    "1": "Studio / 1 bedroom (under 400 cu ft)",
+    "1.35": "About 2 bedrooms (400–800 cu ft)",
+    "1.8": "About 3 bedrooms (800–1,200 cu ft)",
+    "2.4": "4+ bedrooms (1,200+ cu ft)"
+  },
+  "distance_bands": [
+    {
+      "min_miles": 100,
+      "max_miles": 499,
+      "label": "100–499 miles",
+      "sizes": {
+        "1": {
+          "low": 1780,
+          "median": 1980,
+          "high": 2150,
+          "n": 46
+        },
+        "1.35": {
+          "low": 2460,
+          "median": 2990,
+          "high": 3420,
+          "n": 90
+        },
+        "1.8": {
+          "low": 4330,
+          "median": 4920,
+          "high": 5540,
+          "n": 33
+        },
+        "2.4": {
+          "low": 6390,
+          "median": 7220,
+          "high": 8580,
+          "n": 24,
+          "sample_note": "Limited sample (fewer than 30 bookings)."
+        }
+      }
+    },
+    {
+      "min_miles": 500,
+      "max_miles": 999,
+      "label": "500–999 miles",
+      "sizes": {
+        "1": {
+          "low": 1920,
+          "median": 2130,
+          "high": 2320,
+          "n": 110
+        },
+        "1.35": {
+          "low": 2660,
+          "median": 3130,
+          "high": 3590,
+          "n": 106
+        },
+        "1.8": {
+          "low": 4570,
+          "median": 5160,
+          "high": 5920,
+          "n": 50
+        },
+        "2.4": {
+          "low": 6770,
+          "median": 7590,
+          "high": 10000,
+          "n": 40
+        }
+      }
+    },
+    {
+      "min_miles": 1000,
+      "max_miles": 1499,
+      "label": "1,000–1,499 miles",
+      "sizes": {
+        "1": {
+          "low": 1890,
+          "median": 2120,
+          "high": 2420,
+          "n": 144
+        },
+        "1.35": {
+          "low": 2720,
+          "median": 3400,
+          "high": 3990,
+          "n": 121
+        },
+        "1.8": {
+          "low": 4620,
+          "median": 5390,
+          "high": 6090,
+          "n": 39
+        },
+        "2.4": {
+          "low": 7620,
+          "median": 9000,
+          "high": 11020,
+          "n": 47
+        }
+      }
+    },
+    {
+      "min_miles": 1500,
+      "max_miles": 1999,
+      "label": "1,500–1,999 miles",
+      "sizes": {
+        "1": {
+          "low": 2170,
+          "median": 2540,
+          "high": 2990,
+          "n": 55
+        },
+        "1.35": {
+          "low": 3160,
+          "median": 3640,
+          "high": 4130,
+          "n": 37
+        },
+        "1.8": {
+          "low": 5430,
+          "median": 5970,
+          "high": 6700,
+          "n": 21,
+          "sample_note": "Limited sample."
+        },
+        "2.4": {
+          "low": 8010,
+          "median": 9470,
+          "high": 11560,
+          "n": 35,
+          "sample_period": "December 2022–September 2026"
+        }
+      }
+    },
+    {
+      "min_miles": 2000,
+      "max_miles": null,
+      "label": "2,000+ miles",
+      "sizes": {
+        "1": {
+          "low": 2240,
+          "median": 2590,
+          "high": 3000,
+          "n": 64
+        },
+        "1.35": {
+          "low": 3210,
+          "median": 4010,
+          "high": 4840,
+          "n": 50
+        },
+        "1.8": {
+          "low": 5350,
+          "median": 5850,
+          "high": 7350,
+          "n": 21,
+          "sample_note": "Limited sample."
+        },
+        "2.4": {
+          "low": 9320,
+          "median": 10000,
+          "high": 11180,
+          "n": 21,
+          "sample_note": "Limited sample."
+        }
+      }
+    }
+  ]
+}

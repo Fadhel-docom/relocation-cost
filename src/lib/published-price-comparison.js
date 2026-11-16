@@ -1,6 +1,8 @@
 // A small, dated cross-check of the current full-service planning model against published ranges.
-// Bedroom-to-room mapping is intentionally chosen at the largest tested calculator size for each case,
-// which is favourable to our model. These are examples, not a representative market sample or validation.
+// Each example uses the calculator size whose bedroom label matches the published home (1 = studio/1-bedroom,
+// 1.35 = 2 bedrooms, 1.8 = 3 bedrooms). For a published combined "2-3 bedrooms" group the 3-bedroom size is
+// used, which is the more favourable end for our model. These are examples, not a representative market sample
+// or validation.
 export const PUBLISHED_PRICE_CHECK_LEAD =
   "These examples compare our current full-service planning estimate with selected published ranges. They do not validate accuracy or represent every move.";
 
@@ -9,7 +11,7 @@ export const PUBLISHED_PRICE_CHECKS = Object.freeze([
     id: "hireahelper-local-2br",
     label: "20-mile local move · 2-bedroom",
     distance: 20,
-    size: 1.8,
+    size: 1.35,
     publishedLow: 1038,
     publishedHigh: 1441,
     source: "HireAHelper",
@@ -21,7 +23,7 @@ export const PUBLISHED_PRICE_CHECKS = Object.freeze([
     id: "opendoor-navl-500-1br",
     label: "500 miles · 1-bedroom",
     distance: 500,
-    size: 1.35,
+    size: 1,
     publishedLow: 1500,
     publishedHigh: 2800,
     source: "Opendoor / NAVL-attributed table",
@@ -33,7 +35,7 @@ export const PUBLISHED_PRICE_CHECKS = Object.freeze([
     id: "opendoor-navl-1000-2br",
     label: "1,000 miles · 2-bedroom",
     distance: 1000,
-    size: 1.8,
+    size: 1.35,
     publishedLow: 3200,
     publishedHigh: 5500,
     source: "Opendoor / NAVL-attributed table",
@@ -43,9 +45,9 @@ export const PUBLISHED_PRICE_CHECKS = Object.freeze([
   },
   {
     id: "hireahelper-nyc-miami",
-    label: "New York City → Miami · 1,280 miles · 2–3 bedrooms",
+    label: "New York City → Miami · 1,280 miles · 2–3 bedrooms (compared at 3 bedrooms)",
     distance: 1280,
-    size: 2.4,
+    size: 1.8,
     publishedLow: 5359,
     publishedHigh: 8226,
     source: "HireAHelper",
@@ -57,7 +59,7 @@ export const PUBLISHED_PRICE_CHECKS = Object.freeze([
     id: "opendoor-navl-2000-2br",
     label: "2,000+ miles · 2-bedroom (compared at 2,000 miles)",
     distance: 2000,
-    size: 1.8,
+    size: 1.35,
     publishedLow: 4000,
     publishedHigh: 7000,
     source: "Opendoor / NAVL-attributed table",
