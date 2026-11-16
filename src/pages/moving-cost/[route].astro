@@ -14,10 +14,10 @@ import { routeAnswer } from "../../lib/route-answer.js";
 
 const money = value => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
 const sizeOptions = [
-  { label: "Studio / 1 room", size: 1 },
-  { label: "2–3 rooms", size: 1.35 },
-  { label: "4–5 rooms", size: 1.8 },
-  { label: "6+ rooms", size: 2.4 }
+  { label: "Studio / 1 bedroom", adjective: "studio or 1-bedroom", size: 1 },
+  { label: "2 bedrooms", adjective: "2-bedroom", size: 1.35 },
+  { label: "3 bedrooms", adjective: "3-bedroom", size: 1.8 },
+  { label: "4+ bedrooms", adjective: "4+ bedroom", size: 2.4 }
 ];
 const typeOptions = [
   { label: "DIY", type: 0.65 },
@@ -49,7 +49,7 @@ export function getStaticPaths() {
   };
   const compassName = degrees =>
     ["north", "north-east", "east", "south-east", "south", "south-west", "west", "north-west"][Math.round(degrees / 45) % 8];
-  // Reference scenario used to place each route against the others: 2-3 rooms, rental truck + labor.
+  // Reference scenario used to place each route against the others: 2 bedrooms, rental truck + labor.
   const referenceTotal = distance => calculateBudget({ distance, size: 1.35, type: 1 }).total;
   const allDistances = routes.map(item => distanceBetween(item.from, item.to));
   const sortedTotals = allDistances.map(referenceTotal).sort((a, b) => a - b);
@@ -134,7 +134,7 @@ const grid = sizeOptions.map(size => ({
   })
 }));
 const calculatorUrl = `/calculator/?fromState=${route.from}&toState=${route.to}&distance=${distance}`;
-const quickAnswer = routeAnswer({ from: from.name, to: to.name, homeSize: scenarioSize.label, scenarios });
+const quickAnswer = routeAnswer({ from: from.name, to: to.name, homeSize: scenarioSize.adjective, scenarios });
 const listNames = names => names.length <= 1 ? names.join("") : `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`;
 const cityCoverage = [
   fromCities.length > 0 ? `${from.name}: ${listNames(fromCities)}` : null,
@@ -169,7 +169,7 @@ const faqs = [
     a: `U-Haul's published one-way average for the ${bandText} band is ${money(benchmark)} (${benchmarkData.sources.uhaul.data_period} data). It is a band average, not a quote for this route, because U-Haul states that prices depend on origin, destination, truck size, move date and inventory.`
   },
   {
-    q: `How much could a ${scenarioSize.label} move from ${from.name} to ${to.name} cost?`,
+    q: `How much could a ${scenarioSize.adjective} move from ${from.name} to ${to.name} cost?`,
     a: `In this calculator, a ${scenarioSize.label} move comes out at about ${scenarios.map(s => `${money(s.total)} for ${s.label.toLowerCase()}`).join(", ")}, before any travel, housing or setup costs. These are planning estimates, not quotes.`
   },
   {

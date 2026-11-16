@@ -46,11 +46,11 @@ test("the required phrases are the ones the pages render", () => {
 test("the published-price comparison uses exact source cases and current calculator outputs", () => {
   assert.equal(PUBLISHED_PRICE_CHECKS.length, 5);
   const expected = [
-    [20, 1.8, 1038, 1441, 422, 337, 506],
-    [500, 1.35, 1500, 2800, 1071, 857, 1285],
-    [1000, 1.8, 3200, 5500, 2215, 1772, 2657],
-    [1280, 2.4, 5359, 8226, 3715, 2972, 4458],
-    [2000, 1.8, 4000, 7000, 4627, 3701, 5552],
+    [20, 1.35, 1038, 1441, 412, 330, 495],
+    [500, 1, 1500, 2800, 893, 715, 1072],
+    [1000, 1.35, 3200, 5500, 1926, 1541, 2311],
+    [1280, 1.8, 5359, 8226, 3242, 2594, 3890],
+    [2000, 1.35, 4000, 7000, 4072, 3258, 4887],
   ];
   for (const [i, row] of expected.entries()) {
     const item = PUBLISHED_PRICE_CHECKS[i];

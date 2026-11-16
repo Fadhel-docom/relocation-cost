@@ -73,7 +73,7 @@ export function getFullServiceRange(distance, size) {
   validateNumber("distance", distance, INPUT_LIMITS.distance);
   if (!HOME_SIZES.includes(size)) throw new RangeError(`size must be one of ${HOME_SIZES.join(", ")}.`);
   const band = cmrRangeData.distance_bands.find(({ min_miles, max_miles }) =>
-    distance >= min_miles && (max_miles === null || distance <= max_miles)
+    distance >= min_miles && (max_miles === null || distance < max_miles + 1)
   );
   const cell = band?.sizes?.[String(size)];
   if (!cell) return null;

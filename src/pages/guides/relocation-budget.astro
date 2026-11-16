@@ -15,7 +15,7 @@ const example = { from: "IL", to: "TX", distance: miles("IL", "TX"), size: 1.35,
 const withoutExtras = calculateBudget({ distance: example.distance, size: example.size, type: example.type });
 const full = calculateBudget(example);
 const lines = [
-  { label: "Move (rental truck + labor, 2–3 rooms)", amount: full.move },
+  { label: "Move (rental truck + labor, 2 bedrooms)", amount: full.move },
   { label: "Travel", amount: example.travel },
   { label: "Temporary housing", amount: example.housing },
   { label: "Deposits / setup", amount: example.setup },
@@ -53,7 +53,7 @@ const path = "/guides/relocation-budget/";
     <p class="mt-4 leading-7 text-slate-700">Update each line when you receive a real price. Keep the date of every quote and note what is included, so you can compare providers fairly and spot what is missing. The goal is a decision-ready budget, not false precision.</p>
 
     <h2 class="mt-10 text-2xl font-bold">A worked example</h2>
-    <p class="mt-4 leading-7 text-slate-700">Here is how the four buckets look for a move from {stateData.states[example.from].name} to {stateData.states[example.to].name} (about {example.distance.toLocaleString("en-US")} miles by the calculator's approximate driving distance between state center points) with a 2–3 room home and a rental truck plus hired labor. The move line comes from the calculator. The four other amounts are invented for this illustration only, so replace them with your own figures.</p>
+    <p class="mt-4 leading-7 text-slate-700">Here is how the four buckets look for a move from {stateData.states[example.from].name} to {stateData.states[example.to].name} (about {example.distance.toLocaleString("en-US")} miles by the calculator's approximate driving distance between state center points) with a 2-bedroom home and a rental truck plus hired labor. The move line comes from the calculator. The four other amounts are invented for this illustration only, so replace them with your own figures.</p>
     <div tabindex="0" role="region" aria-label="Scrollable table" class="mt-4 overflow-x-auto rounded-2xl border border-slate-200">
       <table class="w-full min-w-[20rem] text-left text-sm">
         <caption class="sr-only">Worked example relocation budget</caption>
