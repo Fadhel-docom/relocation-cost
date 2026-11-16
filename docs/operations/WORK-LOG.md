@@ -2480,3 +2480,29 @@ Scope: read-only. No indexing requests, URL submissions, sitemap submissions, si
 - **Open and not checked by me:** the CMR figures were not re-read from consumermovingreviews.com (not reachable from my session); they match the unified matrix I verified earlier. Rules 22–25 in OPS-ROOM.md and GROWTH-AGENT-PLAN.md describe decisions as owner-approved; I could not verify that and did not review the AI-distribution playbook line by line. The new `prebuild` hook makes any failing test block a Vercel deploy and `validate.yml` duplicates the existing build job; I left both in place and the owner can ask to drop either.
 - **Visible limit:** on the calculator the model estimate stays far below the CMR range for 2 bedrooms and up (4+ bedrooms at 1,250 miles: $3,671 model vs $8,382–$12,122 CMR total); the page says so and calls it the "current model estimate". The follow-up change (size scaling of the full-service price, analysis in `B15-SIZE-SCALING-ANALYSIS-2026-11-15.md`) is a separate PR so this one keeps "no coefficient changed". CMR and My Good Movers do not overlap for 4+ bedrooms, so no single model value can sit inside every publisher.
 - **Ask to ChatGPT:** when you add labels or sizes, search the whole of `src/` for the old vocabulary first; keep one PR to one task (this PR also carries the growth-agent docs, rules 22–25, a robots.txt line and a CI workflow).
+
+
+## 2026-11-16 10:00 UTC — ChatGPT — بدء تجربة نموذج تكلفة مستقل (B24)
+- **توجيه المالك:** وافق على بناء نموذج تجريبي مستقل يشرح الحساب بالتفصيل، مع عدم تغيير معاملات الإنتاج قبل إثبات النموذج.
+- **ما نُفذ:** أُنشئ `docs/operations/INDEPENDENT-COST-MODEL-EXPERIMENT.md` على فرع `experiment/independent-cost-model-20261116`. يحدد النموذج bottom-up من حجم/وزن الحمولة، وسعة الشاحنة، والوقود، والتشغيل غير الوقودي، والعمالة، والتكاليف الإضافية المنفصلة.
+- **المنهج:** لا سعر عام لكل كغ/ميل؛ تُحسب الحمولة من قيدي الحجم والوزن معًا. المعادلات في الملف هي هيكل تجريبي لا معاملات معايرة. لا تُملأ المدخلات المفقودة بأرقام مفترضة، ويجب توثيق المصدر والوحدة والفترة والفئة لكل قيمة.
+- **حدود المصادر:** ATRI للجرارات والمقطورات الثقيلة ليس تعرفة شاحنة نقل منزلية؛ EIA يدعم أسعار الوقود فقط؛ BLS يدعم الأجور وليس تكلفة العمالة الكاملة دون مكون موثق. لم تُقبل بعد مصفوفة تشغيل للشاحنات الصغيرة/المتوسطة/الكبيرة.
+- **الحماية:** لا تعديل في `src/lib/calculator.js` أو `data/coefficients.json` أو أي معامل إنتاج، ولا واجهة مستخدم أو نشر. أضيف B24 إلى BACKLOG بحالة doing.
+- **ما لم يُنجز:** لا توجد بعد وحدة حساب برمجية أو بيانات معاملات معتمدة أو اختبارات أو تحقق holdout؛ هذه هي المرحلة التالية بعد جمع مواصفات الشاحنات ومكونات التكلفة القابلة للمقارنة.
+- **الخطوة التالية:** جمع مصادر أولية قابلة للمقارنة لفئات الشاحنات (سعة الحجم والحمولة والاقتصاد بالوقود والتكاليف غير الوقودية)، ثم إنشاء وحدة تجريبية نقية وtests في ملفات منفصلة. لا دمج ولا تغيير إنتاج قبل اجتياز بوابات القبول.
+
+
+## 2026-11-16 10:20 UTC — ChatGPT — أول مسح لمصادر مواصفات الشاحنات وتكاليف التشغيل (B24)
+- راجعت مصادر مواصفات Enterprise وU-Haul، ومواصفات هيكل Isuzu Class 3–5، وبيانات ATRI وBLS ECEC.
+- **النتيجة المهمة:** مواصفات الحمولة والحجم متاحة جزئيًا، لكن بيانات MPG الفعلية المحملة وتكلفة التشغيل غير الوقودية لفئات الشاحنات المتوسطة ما زالت فجوة. Enterprise يحذر أن مواصفاته تقريبية وتتغير حسب الطراز والسنة؛ U-Haul ينشر MPG «حتى» في ظروف مثالية فقط؛ Isuzu يعطي مواصفات chassis لا حجم صندوق نهائي أو MPG. ATRI 2.336$/mile لعام 2025 للجرارات والمقطورات وليس شاحنات النقل المنزلية، فلا يُنقل معاملًا. BLS ECEC يمكن أن يدعم تكلفة عمالة شاملة بعد مطابقة المهنة والمنطقة، وليس تكلفة فريق نقل جاهزة.
+- أضيفت نتائج هذا المسح وحدود الاستخدام إلى القسم 9 من `INDEPENDENT-COST-MODEL-EXPERIMENT.md`. لم تُقبل أي قيمة كمعامل مالي، ولم تُنشأ مصفوفة أسعار.
+- **التالي:** البحث عن مجموعة بيانات عامة لفئات straight/medium-duty truck تربط الفئة باستهلاك الوقود أو تكاليف التشغيل الفعلية. إذا لم توجد بيانات متجانسة، سنبقي هذا الحقل غير محسوم بدل اختلاقه، ثم ننفذ الحساب التجريبي فقط بالمدخلات التي يمكن إثباتها.
+
+
+## 2026-11-16 10:55 UTC — ChatGPT — اكتشاف مصدر مستقل أقوى لاستهلاك وقود الشاحنات (B24)
+- **المصدر المحوري:** 2021 VIUS Public Use File من Census بالشراكة مع BTS/FHWA/DOE. راجعت صفحة Census الرسمية ودليل PUF وصفحة BTS. الدليل يذكر 67,952 سجلًا و168 متغيرًا، وبيانات فئات GVWR والهيكل وMPG والمسافة السنوية، إضافة إلى LOADEDPCT. المسح شمل straight trucks وtruck tractors؛ لا توجد مركبات مسجلة في New Hampshire في PUF.
+- **الأهمية:** هذا يتيح اختبار استخراج اقتصاد الوقود حسب فئة الوزن ونوع هيكل الشاحنة من بيانات أسطول أمريكي عام، بدل الاعتماد على «up to MPG» لشركة تأجير أو نقل متوسط ATRI للجرارات والمقطورات.
+- **التحفظ الإحصائي الإلزامي:** الدليل يوضح أن PUF خضع لضوضاء على MILESANNL وTABWEIGHT، وتقريب الأوزان، ودمج بعض الفئات، وتبديل بعض القيم الفئوية لحماية السرية. لذلك لم أحسب أي MPG أو متوسطات فرعية ولم أقبل معاملًا. يجب اتباع دليل التقدير والتباين، والتحقق من أحجام المجموعات، وفصل straight trucks عن tractor-trailers. بيانات المسح لعام 2021 وليست قياسًا حديثًا لعام 2026.
+- **مصادر:** https://www.census.gov/data/datasets/2021/econ/vius/2021-vius-puf.html ؛ https://www2.census.gov/programs-surveys/vius/datasets/2021/vius_2021_puf_user_guide.pdf ؛ https://www.bts.gov/vius ؛ DOE cross-check: https://www.energy.gov/cmei/vehicles/articles/fotw-1342-may-13-2024-average-road-fuel-economy-mediumheavy-trucks-ranged-40 ؛ BLS ECEC June 2026: https://www.bls.gov/charts/employer-costs-for-employee-compensation/costs-by-occupational-group.htm.
+- **ما تغير:** أضيف القسم 10 إلى وثيقة التجربة على فرع PR #256. لا تغييرات في التطبيق أو الأسعار أو معاملات الإنتاج. لم يُحمّل ملف PUF أو تُحسب نتائج فرعية بعد.
+- **التالي:** فحص data dictionary وPUF، تحديد الحقول وتعريفاتها، وإعادة إنتاج جدول رسمي منشور قبل أي تحليل فرعي؛ ثم اختبار ما إذا كانت عينات straight-truck/body/GVWR كافية إحصائيًا. بالتوازي، تبقى تكلفة التشغيل غير الوقودية لفئات الشاحنات المتوسطة فجوة مستقلة.
