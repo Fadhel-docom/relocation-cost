@@ -92,3 +92,25 @@ Build a pure experimental calculation module with an explicit parameter object a
 - BLS wage tables can support wage benchmarks, but not a complete loaded labor rate without a sourced employer-cost factor.
 - No accepted small/medium/large moving-truck cost matrix has been assembled yet.
 - Therefore this document defines the experiment; it does not claim a working or validated estimator.
+
+## 9. Initial source scan — 2026-11-16
+
+The first source pass confirms that **capacity data is easier to obtain than independent operating-cost data**. This distinction matters: do not mistake published rental-fleet specifications for a cost-per-mile dataset.
+
+| Source | What it provides | Permitted use in this experiment | What it does not establish |
+|---|---|---|---|
+| [Enterprise Truck Rental — Truck Comparison Guide](https://www.enterprisetrucks.com/truckrental/en_US/vehicles/commercial-truck-comparison-guide.html) | Approximate 16-ft, 24-ft and 26-ft box truck cargo volumes (960/1,500/1,800 ft³), payload ceilings (7,500/10,000/10,000 lb) and GVWR; warns specs vary by make/model/year. | Cross-check ranges for vehicle/body capacity only. | A universal payload or volume for every vehicle; fuel economy; purchase, maintenance, insurance or per-mile operating cost. It is a rental fleet source, not an independent national fleet census. |
+| [U-Haul — Moving Truck Sizes](https://www.uhaul.com/Truck-Rentals/Moving-Truck-Sizes/) | Published cargo volumes, max load and “up to” MPG for its truck classes; expressly says MPG is estimated for ideal conditions and varies with load, grade, weather and speed. | Secondary cross-check only; never combine its best-case MPG with another fleet's payload/volume as if they describe one vehicle. | Real-world loaded MPG or neutral vehicle-class averages. U-Haul is a rental provider, so these values are not the primary independent source for the model. |
+| [Isuzu — N-Series Gas specifications](https://www.isuzucv.com/en/nseries/nseries_gas_specifications) and [Diesel specifications](https://isuzucv.com/en/nseries/nseries_diesel_specifications) | OEM chassis class, GVWR and body-payload ranges for Class 3–5 configurations. | Establish a chassis-level payload envelope and verify class boundaries. | Completed box-body cargo volume, actual completed-vehicle payload after liftgate/body fit-out, or real-world MPG. The body builder configuration changes usable payload. |
+| [ATRI — 2026 operational-cost report release](https://truckingresearch.org/2026/07/new-atri-report-details-accelerating-costs-and-low-profitability-despite-cuts/) | 2025 for-hire trucking average $2.336/mile; $1.854/mile excluding fuel. | Context/sanity check for large commercial trucking only; keep it separate from straight-truck estimates. | A Class 3–6 box-truck cost curve or a household-move tariff. Do not assign this average to a moving truck. |
+| [BLS — Employer Costs for Employee Compensation](https://www.bls.gov/charts/employer-costs-for-employee-compensation/costs-by-occupational-group.htm) | Employer wages and benefit components by broad occupational group; latest chart includes production, transportation and material-moving workers. | Cross-check a fully-loaded labor assumption after matching the correct occupation and geography. | A mover crew's exact loaded hourly cost, productivity, crew size or paid hours per move. |
+
+### Findings and unresolved gaps
+
+1. A three-class vehicle model cannot safely be populated by “small/medium/large” labels alone. Each experimental vehicle record needs a specific chassis/body configuration, usable volume, completed-vehicle payload and source/version.
+2. Manufacturer chassis payload is not the same as cargo payload after a box body, liftgate, fuel and equipment are installed. Prefer completed-vehicle payload or subtract documented body/equipment weights; otherwise mark it unknown.
+3. The reviewed OEM/rental specification pages do not provide a neutral, comparable real-world loaded MPG series for the required box-truck classes. “Up to” rental MPG is not acceptable as a calibrated input.
+4. ATRI's tractor-trailer average must not be used as the non-fuel per-mile cost of a Class 4/5 box truck. The vehicle class and operating context differ.
+5. BLS ECEC is a stronger route to a wage-plus-benefits benchmark than applying an arbitrary burden multiplier to an occupational wage, but the occupational group and geography still need to match the modeled crew.
+
+**Decision:** accept none of these as final numerical operating-cost coefficients. Accept only the source roles above. The next research unit is to find a public, class-specific medium-duty/straight-truck operating-cost or fuel-consumption dataset; if unavailable, preserve an explicit missing-input state rather than fabricate a per-mile rate.
