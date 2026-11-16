@@ -114,3 +114,26 @@ The first source pass confirms that **capacity data is easier to obtain than ind
 5. BLS ECEC is a stronger route to a wage-plus-benefits benchmark than applying an arbitrary burden multiplier to an occupational wage, but the occupational group and geography still need to match the modeled crew.
 
 **Decision:** accept none of these as final numerical operating-cost coefficients. Accept only the source roles above. The next research unit is to find a public, class-specific medium-duty/straight-truck operating-cost or fuel-consumption dataset; if unavailable, preserve an explicit missing-input state rather than fabricate a per-mile rate.
+
+
+## 10. High-value public dataset found — 2021 VIUS PUF (2026-11-16)
+
+A stronger route than rental-fleet MPG has been identified: the U.S. Census Bureau's 2021 Vehicle Inventory and Use Survey (VIUS) Public Use File, produced with BTS/FHWA/DOE. Official landing page: https://www.census.gov/data/datasets/2021/econ/vius/2021-vius-puf.html. BTS overview: https://www.bts.gov/vius. PUF user guide: https://www2.census.gov/programs-surveys/vius/datasets/2021/vius_2021_puf_user_guide.pdf.
+
+**What is verified from the official documentation:**
+
+- The PUF contains 67,952 in-scope vehicle records and 168 variables. It includes vehicle records for the 2021 VIUS; the survey was conducted February–October 2022. The survey population covers private and commercial trucks in the 50 states and DC, but New Hampshire registration addresses are absent from this PUF.
+- VIUS includes straight trucks and truck tractors, and collects vehicle weight/class, body type, fuel economy, vehicle miles, and other operating characteristics. The PUF guide specifically documents integer MPG values, annual miles (MILESANNL), gross vehicle weight rating class (GVWR_CLASS), and the PUF-only loaded-mile percentage (LOADEDPCT).
+- The PUF is not raw unweighted ground truth: Census applied disclosure protections. The guide says noise was applied to MILESANNL and TABWEIGHT, weights were rounded, some categories were coarsened, and records with low weights may have categorical values swapped. The guide explains how to create estimates and sampling-variability measures. Read the methodology and user guide before computing any class/body estimates.
+
+**Permitted next use:** investigate whether the PUF can produce defensible weighted fuel-economy distributions for straight-truck body types crossed with GVWR classes relevant to moving trucks. Report unweighted record count, weighted population estimate, effective sample size/variance where the prescribed method supports it, missingness, and category definitions. Separate straight trucks from tractor-trailers; exclude unsuitable body types; check whether MPG represents the vehicle's reported use rather than a moving-truck loaded long-haul duty cycle. LOADEDPCT may help characterize use but does not by itself provide loaded-only MPG.
+
+**Limits:** 2021 is the latest VIUS survey release identified here; it is not a 2026 current fleet measurement. The PUF's noise, rounding, coarsening, sample design, and 2021 conditions limit precision. Do not present a small class/body subgroup as nationally representative without checking variance and disclosure rules. Do not turn an average MPG into a full operating-cost-per-mile figure: maintenance, insurance, depreciation/financing, tires, permits, and driver/crew costs remain separate inputs.
+
+**Research decision:** VIUS is now the priority candidate for fuel-economy evidence, not yet an accepted coefficient. The next task is to inspect the downloadable dictionary and PUF fields, reproduce the official published totals as a validation check, then calculate only sufficiently supported straight-truck class/body subsets. If precision or subgroup sample size is inadequate, use it as contextual evidence only and keep the parameter unresolved.
+
+### Related current source roles
+
+- DOE's 2024 summary reports 2021 on-road fuel economy by truck body type and points to the VIUS source data; it is a useful cross-check, not a replacement for the microdata analysis: https://www.energy.gov/cmei/vehicles/articles/fotw-1342-may-13-2024-average-road-fuel-economy-mediumheavy-trucks-ranged-40.
+- BLS ECEC's June 2026 chart reports $24.99 wages plus benefit components for the broad “production, transportation, and material moving” group. This is a current broad labor-cost reference, not a mover-specific hourly rate or a substitute for local occupation matching: https://www.bls.gov/charts/employer-costs-for-employee-compensation/costs-by-occupational-group.htm.
+- ATRI's $2.336/mile 2025 average remains a combination-truck benchmark only; it is not suitable as the non-fuel cost of a moving box truck.
