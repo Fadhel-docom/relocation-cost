@@ -261,3 +261,11 @@ The VIUS raw extraction has now passed Claude's independent numerical audit; it 
 - EIA weekly state/PADD price data remain usable as dated retail benchmarks, but route weighting requires route miles by price geography and compatible vehicle fuel economy. Do not apply one state price to an entire interstate route.
 
 **Immediate next action:** extract OEWS hourly median/mean and supporting employment/footnote data for the 18 BLS area codes × four SOC candidates; compare with CES 48421 only as a broad national check, then test QCEW 484210 local industry data. No model coefficients, cost-per-mile calculations, experimental calculator code, UI, or production changes until source compatibility is demonstrated.
+
+## 13. EIA-888 weekly diesel price evidence and route allocation — 2026-11-17
+
+EIA-888 is accepted as a dated retail on-highway diesel price benchmark, not as an operator's actual fuel price. EIA collects Monday 8:00 a.m. local cash self-serve prices including taxes, using a sample of truck stops and service stations. The current design uses approximately 590 outlets and volume-weighted estimation. The eight non-overlapping primary publication cells are PADD 1A, 1B, 1C, PADD 2, 3, 4, West Coast excluding California, and California. PADD 1 and PADD 5 aggregates are secondary cells; do not double count them. Alaska and Hawaii are excluded from the diesel survey target population.
+
+A candidate route retail-price proxy is a distance-weighted average across the eight primary cells, but only if the actual route geometry can be allocated to those cells. The existing origin/destination state-pair distance totals do not provide route miles by subregion. A polyline/route geometry or separately validated segment allocation is required. Preserve EIA standard errors/CVs and flag estimates with CV >5% as the source does.
+
+Even after route price allocation, fuel dollars cannot be calculated until gallons consumed are supported by compatible fuel economy for the actual vehicle class, load and duty cycle. No fuel-cost coefficient is accepted. Full method and source links: `B24-OPERATIONAL-INPUT-SOURCE-AUDIT-2026-11-17.md` §8.
