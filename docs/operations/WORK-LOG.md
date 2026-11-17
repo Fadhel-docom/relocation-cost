@@ -2514,3 +2514,14 @@ Scope: read-only. No indexing requests, URL submissions, sitemap submissions, si
 - **ضوابط حاسمة:** لا افتراض لهامش ربح موحد؛ التمييز بين markup على التكلفة وgross margin من سعر البيع؛ لا استخدام أسعار عروض العملاء كأنها تكاليف تشغيل؛ منع double counting؛ إظهار الخلايا غير المدعومة بدل ملئها بالتخمين؛ لا دمج أو تعديل لمعاملات الإنتاج قبل قرار منفصل.
 - **الخطوة النشطة الوحيدة:** Phase 0 مع فحص VIUS في Phase 1: قراءة القاموس والدليل، وإعادة إنتاج جدول رسمي منشور قبل أي تحليل فرعي لـstraight-truck × body × GVWR. جمع مرشحات مصادر العمالة والتكاليف غير الوقودية ممكن بالتوازي على مستوى البحث فقط، دون بناء مصفوفة سعر.
 - **حالة التنفيذ:** توثيق فقط على فرع experiment/independent-cost-model-20261116 ضمن PR #256؛ لم يُحمّل PUF، ولم تُحسب معاملات، ولم يُكتب كود أو تتغير الحاسبة الحية.
+
+
+## 2026-11-17 — ChatGPT — سد فجوات VIUS وتدقيق أجور NAICS 48421 (B24)
+- راجعت دليل Census VIUS PUF (Dec 2023)، ومنهجية VIUS، وCensus API variable metadata.
+- حددت حقولاً ذات قيمة عملية: BTYPE=07 (Box truck)، GVWR_CLASS، MPG، LOADEDPCT، DEADHEADPCT، REPOSITIONPCT، TRUCKLOADPCT، LTRUCKLOADPCT، WEIGHOUTPCT، GM_COST وER_COST. تعريفاتها وحدودها واستخدامها المسموح موثقة في `docs/operations/B24-VIUS-FIELD-AUDIT-2026-11-17.md`.
+- النتيجة: يمكن اختبار توزيعات أسطول box-truck حسب GVWR، بما فيها أنماط الأميال المحملة والفارغة وإعادة التموضع ونمط truckload/LTL. لكنها بيانات سنوية للأسطول وليست معامل رحلة منزلية؛ وMPG لا يقدم loaded-only MPG، كما أن طريقة احتسابه غير متاحة في دليل PUF. لا معامل مقبول حتى الآن.
+- خطة التحليل: BTYPE=07 مع commercial-use domain وGVWR، التحقق من MPG flags/missingness، raw n والوزن TABWEIGHT، ثم random-group replicates الثمانية وCV وفق الدليل. يجب إعادة إنتاج مثال wood-chipper والجداول الوطنية أولاً. لم يكتمل تنزيل CSV أو القاموس في هذه الدورة.
+- تدقيق العمالة: BLS CES B-3b سبتمبر 2026 غير المعدل موسمياً يعرض $31.04/hour لـNAICS 48421 كمتوسط أرباح جميع موظفي الصناعة؛ يصلح كسياق فقط لا كأجر مهنة أو loaded labor rate. مؤشر BLS/FRED 2025 = 127.238 هو index 2017=100 وليس مبلغاً بالدولار. تم توثيق ذلك وتصحيح أي تفسير سابق للمؤشر.
+- لم تتغير الأسعار أو معاملات الإنتاج أو واجهة الحاسبة. لم تُستخدم CMR للمعايرة. لم يتم دمج PR #256 أو rebase/force.
+- Commit توثيق التدقيق: `355396928e10fb1e33c1712e9ab62633456efbcd`; commit تحديث OPS-ROOM: `85fe65bb41255dfb1dd30b5ccbfcdca18143c5cf`.
+- الحالة: بحث وتوثيق فقط؛ PUF raw analysis لم يبدأ بعد. الخطوة التالية المحددة هي إتاحة PUF CSV + dictionary، إعادة إنتاج دليل Census، ثم تقييم صلاحية خلايا box-truck × commercial × GVWR.
