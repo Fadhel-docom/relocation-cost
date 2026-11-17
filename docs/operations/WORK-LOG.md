@@ -2548,3 +2548,10 @@ Scope: read-only. No indexing requests, URL submissions, sitemap submissions, si
 - Full report: `docs/operations/VIUS-2021-WEIGHTED-BOX-TRUCK-ANALYSIS-2026-11-17.md`.
 - Updated `INDEPENDENT-COST-MODEL-EXPERIMENT.md` and the experiment OPS room. Requested one bounded independent Claude audit in PR #256 (comment 6949931957).
 - Decision: descriptive VIUS evidence is useful; source sufficiency for cost-per-mile is not met. No model coefficient accepted; no production formula, code, UI, published content or deployment changed.
+
+
+## 2026-11-17 — ChatGPT — applied Claude's completed VIUS audit fixes (B24)
+- Read Claude's completed raw-PUF audit in `docs/operations/B24-CLAUDE-VIUS-AUDIT-2026-11-17.md` (commit 6958731). Claude independently recomputed the supplied CSV and found no numerical errors in the full-file totals, Census wood-chipper example, domain filters, weighted shares, CVs, coverage, and reported means/distributions.
+- Applied the three requested presentation corrections to `VIUS-2021-WEIGHTED-BOX-TRUCK-ANALYSIS-2026-11-17.md`: unique sequential section numbering; explicit record-vs-weighted coverage columns (including raw record coverage); and an explanation that domain mean miles use exact weighted ratios, not rounded displayed billion-mile totals.
+- Preserved Claude's caveat that the GM_COST extra excluded code label was inferred from counts because its dictionary extract was truncated; no new cost coefficient or model claim was introduced.
+- Decision: VIUS analysis is independently audited and numerically cleared for descriptive use only. Fuel economy, box-truck non-fuel cost, truck-day ownership, crew productivity, speed, household-mover deadhead and consolidated utilization remain unresolved. No production code, coefficients, prices, UI, or deployment changed. PR #256 remains separate and must not be rebased/merged without a deliberate branch-coordination pass.
