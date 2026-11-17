@@ -232,11 +232,19 @@ If it fails or sources remain inadequate, retain the research as a documented be
 
 **Final deliverable:** go / revise / stop decision with evidence. A technical build alone is never sufficient for publication.
 
-### Work order and immediate next action
-The next and only active research unit is **Phase 0 + the VIUS validation subtask in Phase 1**:
-- read the VIUS PUF dictionary and user guide fields;
-- obtain the PUF only if its format and terms permit analysis;
-- reproduce one official published VIUS total before subgroup work;
-- document whether straight-truck × body × GVWR estimates have adequate sample/variance support.
+## 10. Weighted VIUS extraction — 2026-11-17
 
-Do not start cost-per-mile calculations, margin assumptions, code, UI, or production changes until that evidence check is complete. In parallel, collect source candidates for labor and non-fuel costs only; do not combine them into a price matrix yet.
+A reproducible weighted extraction is recorded in [VIUS-2021-WEIGHTED-BOX-TRUCK-ANALYSIS-2026-11-17.md](VIUS-2021-WEIGHTED-BOX-TRUCK-ANALYSIS-2026-11-17.md).
+
+- The full 67,952-record PUF reproduces the Census guide's published totals: 179,817,852 weighted vehicles; 1,896,992,660,361 weighted annual miles; and 10,550 average annual miles per vehicle (rounded).
+- The Box-truck domain is BTYPE=07: 6,039 PUF records and 1,317,003 weighted vehicles. GVWR classes 3–8 account for 86.9% of that weighted estimate; this is a sensitivity definition, not a household-mover classification.
+- PRIMCOMMACT 11/12/13 yields 3,132 Box-truck records; PRIMPROD=23 yields 303 records only. Neither identifies household-goods movers.
+- The Census random-groups CV method was applied to vehicle counts, annual vehicle miles, and average annual miles. All eight groups were non-empty. PUF CVs may be below published design-based CVs.
+- VIUS provides fuel type, annual miles, loaded/deadhead/repositioning percentages, and categorical 2021 maintenance/repair cost bands. It does not provide fuel spend, gallons consumed, a documented MPG calculation method, driver/crew hours, speed, idle time, or a direct household-moving fleet indicator.
+- DEADHEADPCT and REPOSITIONPCT carry explicit high-nonsampling-error warnings. Their coverage is restricted; do not add the two averages or turn them into a universal empty-mile factor.
+- GM_COST and ER_COST are historical annual cost bands, not continuous per-mile operating costs. No 2026 cost coefficient is accepted.
+
+**Decision:** VIUS passes the file-parsing/full-file published-total reproduction check and supplies descriptive fleet context. It does not pass source sufficiency for a moving-truck cost-per-mile model. No coefficient is accepted and no production code, data, formula or price changed. The first extraction's CV calculation was corrected to use the Census replicate-total rescaling (8 × each random-group weighted sum); the report contains only the corrected CV values.
+
+### Work order and immediate next action
+The immediate next action is one bounded independent review of the weighted extraction and its interpretation (see the linked report), especially the Census random-groups calculations, subset definitions, applicability/missingness, and the limits placed on MPG and cost-band use. After that review, continue with source discovery for vehicle-class-matched fuel consumption and non-fuel operating costs. Do not start cost-per-mile calculations, margin assumptions, experimental code, UI, or production changes until compatible source coverage is established.
