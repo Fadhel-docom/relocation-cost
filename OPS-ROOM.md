@@ -748,3 +748,14 @@ Independently audit the 30 prompts row by row using the current site, repository
 - **تحسين المعمارية:** فصل وقت إشغال الشاحنة عن ساعات عمل كل عامل؛ فصل التحميل والتفريغ والانتظار؛ تفكيك المسافة إلى loaded linehaul وempty return وempty repositioning مع تحديد من يتحمل كل مرحلة؛ ومنع احتساب وقت التوقف مرتين.
 - **حدود ما تم:** لم نحصل بعد على VIUS CSV محليًا؛ محاولة تنزيل ZIP الرسمي فشلت في هذه الجلسة، رغم أن دليل Census يعرضه. لا تحليل PUF خام، ولا تكلفة شاحنة/ميل أو تكلفة يوم شاحنة أو إنتاجية طاقم مثبتة. لا كود أو معاملات أو إنتاج.
 - **الخطوة التالية:** الحصول على VIUS CSV والقاموس فعليًا، إعادة إنتاج مثال Census والجداول المنشورة، ثم تقدير مجموعة box truck بعد اختبار الأوزان والتباين. تبقى أسعار الوقود فقط قابلة للإدخال بعد تحديد الرحلة وتاريخها، بينما بقية البنود تبقى سياقًا أو غير محسومة.
+
+
+## VIUS weighted extraction — 2026-11-17 (ChatGPT)
+
+- Completed a raw weighted extraction from the supplied 2021 VIUS CSV and dictionary; report: `docs/operations/VIUS-2021-WEIGHTED-BOX-TRUCK-ANALYSIS-2026-11-17.md`.
+- Reproduced the Census User Guide full-PUF totals from all 67,952 records: 179,817,852 weighted vehicles; 1,896,992,660,361 weighted annual miles; 10,550 average annual miles/vehicle (rounded).
+- Box trucks (`BTYPE=07`): 6,039 records / 1,317,003 weighted vehicles. GVWR 3–8 = 86.9% of this weighted domain; goods activity `PRIMCOMMACT=11/12/13` = 3,132 records; furniture primary product `PRIMPROD=23` = 303 records. None is a direct household-mover fleet classification.
+- Corrected random-groups CV calculation to the Census formula using eight times each group's weighted sum. CVs are reported only for vehicle totals, annual vehicle miles and average annual miles. PUF CVs may be below published design-based CVs.
+- VIUS provides fuel-type mix and 2021 maintenance/repair cost bands, but no fuel spend or documented MPG calculation method. Loaded/deadhead/reposition fields have restricted coverage; deadhead and reposition have high-nonsampling-error warnings. No per-mile or per-day operating coefficient is accepted.
+- Claude review requested in PR #256, comment ID 6949931957, limited to independently checking calculations, filters, applicability/missingness and interpretation.
+- No production code, coefficient, formula, UI, SEO or deployment changed. PR #256 remains unmerged; do not rebase/merge as part of this review.
