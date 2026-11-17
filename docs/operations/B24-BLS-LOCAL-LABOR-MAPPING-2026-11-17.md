@@ -108,3 +108,28 @@ Therefore:
 **Unresolved:** local metro wage observations; mover-specific occupational wages; employer-loaded labor cost; crew productivity/task hours; route-weighted fuel price; real-world loaded MPG; truck non-fuel operating cost and truck-day ownership cost.
 
 **Next bounded task:** obtain and parse the May 2025 OEWS metro data for the 18 area codes × SOC 53-3033/53-3032/53-7062/53-7064, then compare with the national CES 48421 benchmark and investigate QCEW 484210 local wage data. No coefficient or model total is to be accepted until units, geography, period, occupation/industry scope and coverage are reconciled.
+
+## 10. Extraction route re-check — 2026-11-17
+
+A second pass established a workable extraction path without relying on the ZIP download:
+
+- The BLS May 2025 metro estimates landing page lists each metro and links to its occupational estimate view. It confirms the release geography and points users to the one-screen query for hourly/annual percentiles. The query is JavaScript-based, so a static text fetch of the linked app does not expose the result table in this environment.
+- BLS describes the one-screen query as supporting selections of multiple areas and occupations, with a maximum of 1,000 data series per query. The required matrix is only 18 areas × 4 SOCs = 72 area/occupation combinations (before choosing measures), so it fits the query's documented limit. Select the 18 mapped area codes and four SOC codes in a single controlled query; export the result table/XLSX, retain the raw export, and capture hourly mean, median, employment, and any displayed reliability/footnote fields. Do not infer suppressed values.
+- The static area landing page and the interactive query are distinct: following metro links in the browser opens the JS query shell, not a static occupation table. The May 2025 metro ZIP still returns an unsupported ZIP content type in the web retrieval layer, and the runtime download attempt also failed. Thus no local OEWS observations are yet extracted; the 72-cell matrix remains pending rather than estimated.
+
+## 11. QCEW 484210 local industry cross-check — access and interpretation
+
+BLS documents a CSV-slice route for annual-average data. The industry-slice URL pattern is https://data.bls.gov/cew/data/api/{year}/a/industry/{industry_code}.csv; therefore the 2025 annual-average industry slice for NAICS 484210 is https://data.bls.gov/cew/data/api/2025/a/industry/484210.csv. The documented annual-average fields include area_fips, own_code, industry_code, disclosure_code, annual_avg_estabs, annual_avg_emplvl, total_annual_wages, annual_avg_wkly_wage, and avg_annual_pay.
+
+Use this as an industry-level cross-check only:
+
+- QCEW is establishment/industry data, not occupation data. It cannot identify driver, loader, packer, or crew wages.
+- The annual average weekly/annual pay reflects the mix of full-time/part-time workers, job tenure and employee mix. It is not an hourly wage; do not divide by an assumed 40-hour week to manufacture an hourly rate.
+- County-level NAICS detail is available subject to disclosure. To construct a metro comparison, use the 2025 county-to-CBSA membership crosswalk and sum only a complete, compatible county set. If any material county rows are suppressed or the metro boundary vintage differs, mark the metro total incomplete; do not silently sum disclosed counties as if complete.
+- BLS notes that from Q2 2025 its published MSA QCEW data presentation changed to totals only. For a detailed 484210 metro build, county rows plus an explicit county-to-CBSA crosswalk are therefore the safer route than assuming a detailed MSA industry row exists.
+
+The QCEW slice endpoint was identified and its schema verified from BLS documentation, but the CSV itself was not retrieved in this environment. No 2025 county/metro wage values are claimed. Next extraction should retrieve the industry slice, filter NAICS 484210 and private ownership as appropriate, preserve disclosure codes, and aggregate only after checking county coverage and boundary vintage.
+
+## 12. Immediate execution handoff
+
+The remaining OEWS data pull is a bounded mechanical export, not further source discovery: select 18 metro areas × four SOCs in the May 2025 one-screen query, export the 72 combinations, then audit the returned rows. If the query cannot be operated/exported in the connected environment, assign Claude one task to produce and commit the raw 72-combination export plus a reproducible extraction note; Claude must not fill missing cells with state/national estimates. In parallel, retrieve the 2025 QCEW 484210 annual-average industry slice and produce a county-coverage/suppression audit, not an hourly wage estimate.
