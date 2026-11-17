@@ -80,3 +80,29 @@ The official Census directory lists the 2021 VIUS CSV ZIP (3.4 MB), SAS ZIP and 
 5. Leave every unsupported input unresolved; no code until the source register and formula specification are complete.
 
 **Decision:** this pass improves the evidence map and corrects the HOS applicability design. It does not close the core box-truck operating-cost gap and does not justify a numeric total or production change.
+
+## 8. EIA-888 diesel price methodology and route-allocation gate — 2026-11-17
+
+A fresh review of EIA's official weekly on-highway diesel methodology establishes the following:
+
+- EIA-888 collects retail on-highway ULSD prices every Monday, representing the cash self-serve pump price at 8:00 a.m. local time, including taxes. The sample includes truck stops and service stations.
+- The current sample is approximately 590 outlets. Prices are estimated as volume-weighted averages using outlet annual sales volumes; the eight primary non-overlapping publication cells are New England (PADD 1A), Central Atlantic (1B), Lower Atlantic (1C), Midwest (2), Gulf Coast (3), Rocky Mountain (4), West Coast excluding California, and California. PADD 1 and PADD 5 aggregates are secondary cells and must not be double-counted with their subregions.
+- Alaska and Hawaii are outside the diesel survey target population. The EIA diesel geography is not a 50-state diesel-price table; California is the only separately published state-level diesel price.
+- EIA publishes standard errors with the weekly estimates and flags estimates with coefficient of variation above 5%. The source register should retain the relevant standard error/CV where available, not just the price.
+- The price is a retail benchmark, not a mover's negotiated fleet price. It is appropriate as a dated external price reference, not a direct record of what a specific operator paid.
+
+### Candidate route-weighted retail benchmark (not yet accepted as fuel spend)
+
+If a route polyline can be intersected with the eight primary EIA price geographies, define distance share for region r as d_r / Σd_r and compute P_route = Σ[(d_r / Σd_r) × P_r,w], where P_r,w is the EIA price for region r and the relevant survey week. Use only non-overlapping primary cells; never combine a PADD aggregate with its subregions. Record the route-week alignment and price CV.
+
+This is a mileage-weighted retail-price proxy, not a measured fuel-purchase basket. A more realistic purchase-weighted estimate would require refueling locations/quantities or a validated refueling model. Also, the project's current state-pair distance totals do not encode the actual route polyline or miles by PADD subregion; the route allocation cannot be reconstructed from origin/destination states alone. A route geometry or separately sourced segment allocation is a prerequisite.
+
+Fuel spend remains: gallons consumed × dated route price. Gallons still require vehicle-class- and load/duty-cycle-compatible fuel economy, which is unresolved. Therefore this methodology does not yet produce a valid fuel-cost coefficient or total.
+
+Official sources:
+- EIA weekly diesel price methodology: https://www.eia.gov/petroleum/gasdiesel/diesel_proc-methods.php
+- EIA weekly diesel series: https://www.eia.gov/dnav/pet/PET_PRI_GND_A_EPD2D_PTE_DPGAL_W.htm
+- EIA gasoline/diesel update and release dates: https://www.eia.gov/petroleum/data.php?tid=petroleum-and-other-liquids-products-prices-and-supply-data
+- EIA detailed price/standard-error report linked from the weekly series.
+
+**Decision:** EIA is a qualified dated retail-price source once route geography and trip week are known. It does not close the fuel-economy gap, does not support a universal fuel-price constant, and does not justify fuel dollars before route mileage allocation and compatible MPG are established.
