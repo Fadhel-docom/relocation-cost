@@ -2492,3 +2492,12 @@ Scope: read-only. No indexing requests, URL submissions, sitemap submissions, si
 - Important limitation: VIUS PUF cost fields include categorical maintenance/repair bands and disclosure protections; this run did not extract weighted statistics. Insurance, capital/depreciation and business overhead still need independent evidence. Therefore no per-mile or per-pound-mile coefficient was set, and no calculator formula or price was changed.
 - Weekly GSC/Bing review: `docs/operations/SEARCH-VISIBILITY-REVIEW-2026-11-16.md`. No external posts, outreach, account actions or public publishing.
 - Next single priority: build a reproducible weighted VIUS extraction for box trucks by GVWR class and fuel type; report counts, MPG, maintenance/repair bands, loaded share and empty-mile shares before proposing any rate. Growth Agent remains parked per owner instruction.
+
+
+## 2026-11-17 — Claude — Day 95: B15 distance-shape diagnosis (read-only); size-exponent idea withdrawn
+- **Why:** after #254 merged, I ran the check I should have run before proposing a size exponent: the model against all 20 CMR cells instead of three routes. Details, tables and caveats: `B15-DISTANCE-SHAPE-ANALYSIS-2026-11-16.md`; reproduce with `node tools/b15-cmr-band-check.mjs`.
+- **Findings:** 45 below / 8 inside / 7 above of 60 probes; CMR prices rise only about ×1.2–1.4 from 100–499 to 2,000+ miles, the model ×6; CMR medians sit inside 15 of 15 secondary published ranges (model 3 of 15, those ranges are not independent of each other); the exponent k = 2.25 improves 1,000–2,000 miles but overshoots at 2,000+ (×1.27–1.36 of the median) and leaves 100–999 miles 40–75% low, so I withdraw it.
+- **Corrections to my earlier notes:** the day 93 "inside for studio and 2–3BR" holds only for the 1,071–1,501-mile route ranges and used one value for the combined 2–3BR group; the post-merge audit's correction is right.
+- **Decision for the owner:** none. This respects the 2026-11-16 B24 decision (no reliance on moving-company price pages): the numbers are validation targets for the bottom-up model, not calibration inputs. No price, coefficient, formula or UI changed.
+- **Not checked:** CMR figures not re-read by me; the 15 secondary ranges copied from the 2026-11-10 reading; probe distances are a choice; DIY and truck-plus-labor not compared; under 100 miles not covered.
+- **Open PRs seen, not touched:** #256 (independent cost model experiment, docs, conflicts with main on shared files) and #257 (weekly competitor review, docs), both drafts from ChatGPT.
