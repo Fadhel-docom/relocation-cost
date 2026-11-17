@@ -759,3 +759,11 @@ Independently audit the 30 prompts row by row using the current site, repository
 - VIUS provides fuel-type mix and 2021 maintenance/repair cost bands, but no fuel spend or documented MPG calculation method. Loaded/deadhead/reposition fields have restricted coverage; deadhead and reposition have high-nonsampling-error warnings. No per-mile or per-day operating coefficient is accepted.
 - Claude review requested in PR #256, comment ID 6949931957, limited to independently checking calculations, filters, applicability/missingness and interpretation.
 - No production code, coefficient, formula, UI, SEO or deployment changed. PR #256 remains unmerged; do not rebase/merge as part of this review.
+
+
+## 2026-11-17 — B24: BLS local labor mapping (ChatGPT)
+- VIUS raw PUF audit by Claude is complete with no numerical errors found; VIUS remains descriptive only.
+- Mapped the project's 18 U.S. city markets to May 2025 OEWS metro area labels and official seven-digit BLS area codes. Candidate occupations and role limitations are documented in `docs/operations/B24-BLS-LOCAL-LABOR-MAPPING-2026-11-17.md`.
+- Found a more directly industry-matched national wage context in BLS CES NAICS 48421 (Used household and office goods moving): inspected May 2026 Table B-3a shows April 2026 preliminary average hourly earnings $31.03 and weekly earnings $1,045.71; May 2026 row is unavailable. This is an all-employee industry average, not a local or occupation-specific mover rate and not loaded compensation. Context only.
+- The May 2025 OEWS metro ZIP could not be downloaded/parsed in this session; no local wage values are claimed. Next: extract 18 areas × four SOC candidates, preserve suppressions/footnotes, then examine QCEW 484210 local weekly wage context without converting it to hourly without hours data.
+- No coefficient, formula, UI, price, experimental code, or production deployment changed. B24 remains Phase 1 research only.
