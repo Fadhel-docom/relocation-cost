@@ -22,6 +22,18 @@ VIUS does **not** provide a reliable box-truck fuel-consumption coefficient for 
 - PUF confidentiality treatments matter: the guide notes noise for MILESANNL, MILESLIFE, and TABWEIGHT, mileage topcoding, category swapping, and rounded weights. PUF CVs can be lower than published design-based CVs.
 - No CV is reported here for MPG, fuel categories, cost bands, or the loaded/empty-mile percentages. The guide's explicit examples/formulas cover vehicle counts, annual vehicle miles, and average annual miles; we do not extend that methodology to other variables without a documented method.
 
+## 2. Baseline reproduction against the Census guide
+
+Before accepting subgroup analysis, the full PUF was used to reproduce the national total shown in the Data User Guide's appendix table:
+
+| Measure | Recalculated from all 67,952 PUF records | Census guide published value |
+|---|---:|---:|
+| Weighted vehicles | 179,817,852.1 | 179,817,852 |
+| Weighted annual vehicle miles | 1,896,992,660,361.1 | 1,896,992,660,361 |
+| Average annual miles per vehicle | 10,549.52 | 10,550 |
+
+The weighted count and total annual miles reproduce the published values to rounding; the average rounds to 10,550. This confirms that the CSV was parsed correctly, TABWEIGHT and MILESANNL were applied as specified, and the full-file baseline is consistent with the official guide. It does not independently validate every subgroup classification or overcome PUF disclosure limitations.
+
 ## 2. Domain definitions and weighted scale
 
 | Domain | PUF records | Weighted vehicle estimate | Share of all Box-truck records | Share of all Box-truck weighted estimate |
