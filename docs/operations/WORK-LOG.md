@@ -2572,3 +2572,8 @@ Scope: read-only. No indexing requests, URL submissions, sitemap submissions, si
 - Added extraction and interpretation rules to B24-BLS-LOCAL-LABOR-MAPPING-2026-11-17.md. Sources: BLS OEWS May 2025 tables/one-screen query/help; BLS QCEW CSV data slices and 2025 annual-average methodology.
 - Still pending: export the 72 OEWS area/SOC combinations and retrieve/filter the QCEW 484210 slice. The tool/runtime could not retrieve the ZIP or CSV payload, so no fabricated wage figures were entered. Next action is a single bounded export task if the interactive query remains inaccessible, plus QCEW county coverage audit.
 - No coefficients, cost calculations, experimental code, production formulas, UI, prices, or deployments changed.
+## 2026-11-17 — ChatGPT — B24: EIA-888 diesel survey methodology and route-price gate
+- Reviewed EIA's official EIA-888 methodology: weekly Monday 8 a.m. local cash self-serve on-highway ULSD retail prices including taxes; approximately 590 outlets; volume-weighted estimates; eight non-overlapping primary price cells (PADD 1A/1B/1C, 2, 3, 4, West Coast excluding CA, California); AK/HI excluded. EIA publishes standard errors and flags CV >5%.
+- Defined a candidate distance-weighted retail benchmark across primary cells only. It requires route geometry/miles by EIA cell; existing state-pair distance totals cannot provide this. The benchmark is not an actual fleet price or fuel spend.
+- Fuel gallons remain unresolved pending vehicle-class/load/duty-cycle-compatible fuel economy. No fuel dollars or coefficients accepted. Updated source audit §8 and experiment plan §13.
+- Sources: EIA EIA-888 methodology and weekly series. No production, formula, UI, pricing or deployment changes.
