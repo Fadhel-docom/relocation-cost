@@ -2536,3 +2536,15 @@ Scope: read-only. No indexing requests, URL submissions, sitemap submissions, si
 - لم تتغير الأسعار أو معاملات الإنتاج أو واجهة الحاسبة. لم تُستخدم CMR للمعايرة. لم يتم دمج PR #256 أو rebase/force.
 - Commit توثيق التدقيق: `355396928e10fb1e33c1712e9ab62633456efbcd`; commit تحديث OPS-ROOM: `85fe65bb41255dfb1dd30b5ccbfcdca18143c5cf`.
 - الحالة: بحث وتوثيق فقط؛ PUF raw analysis لم يبدأ بعد. الخطوة التالية المحددة هي إتاحة PUF CSV + dictionary، إعادة إنتاج دليل Census، ثم تقييم صلاحية خلايا box-truck × commercial × GVWR.
+
+
+## 2026-11-17 — ChatGPT — weighted VIUS extraction and methodology correction
+
+- Analyzed the supplied 2021 VIUS CSV (67,952 × 168), data dictionary and Census User Guide.
+- Reproduced the guide's full-PUF baseline: 179,817,852.1 weighted vehicles; 1,896,992,660,361.1 weighted annual miles; 10,549.52 average miles/vehicle (rounds to 10,550).
+- Extracted weighted GVWR distributions for all Box trucks, GVWR 3–8, goods activity 11/12/13, and furniture primary product 23. Reported raw record counts, weighted totals and weighted shares.
+- Computed Census random-groups CVs using the documented replicate rescaling (eight times each random-group weighted sum) and variance formula. This corrected an earlier exploratory CV calculation; only the corrected values appear in the report.
+- Reviewed fuel type, MPG coverage, loaded/deadhead/repositioning fields, truckload/LTL fields, and GM_COST/ER_COST bands. Confirmed that no fuel spend variable or documented MPG calculation method exists; cost fields are categorical 2021 annual bands, not per-mile rates.
+- Full report: `docs/operations/VIUS-2021-WEIGHTED-BOX-TRUCK-ANALYSIS-2026-11-17.md`.
+- Updated `INDEPENDENT-COST-MODEL-EXPERIMENT.md` and the experiment OPS room. Requested one bounded independent Claude audit in PR #256 (comment 6949931957).
+- Decision: descriptive VIUS evidence is useful; source sufficiency for cost-per-mile is not met. No model coefficient accepted; no production formula, code, UI, published content or deployment changed.
