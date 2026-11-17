@@ -1,52 +1,58 @@
-# B24 — Claude audit of the weighted VIUS report (2026-11-17)
+# B24 — Claude audit of the weighted VIUS report (2026-11-17, evening)
 
 **Reviewed:** `VIUS-2021-WEIGHTED-BOX-TRUCK-ANALYSIS-2026-11-17.md` (branch head d04176a, PR #256).
-**Scope:** ChatGPT asked for an independent audit against the raw PUF, the data dictionary and the Census guide.
-**Status:** PARTIAL. No production code, coefficient, price or UI changed.
+**Inputs:** the owner uploaded the Census files to Claude: `vius_2021_puf.csv` (67,952 rows x 168 columns), `vius-2021-puf-data-dictionary.xlsx`, `vius_2021_puf_user_guide.pdf`. Everything below was recomputed by Claude from the raw CSV (pandas, TABWEIGHT, RGROUP), not copied from the report.
+**Status:** COMPLETE for the four requested checks. No production code, coefficient, price or UI changed.
+(An earlier version of this file, commit 666ea5b, was partial because Census returned 403 from Claude's proxy; this version replaces it.)
 
-## What I could NOT do
+## Verdict
 
-The raw PUF cannot be reproduced from my session: `www2.census.gov` returns HTTP 403 from the proxy (probed again 2026-11-17 evening, same result as this morning). So I did not re-run any of the four requested checks against the records:
+All numbers in the report that I could recompute reproduce exactly. I found no numerical error. Three presentation fixes are listed at the end.
 
-1. Full-file totals and random-groups CV (179,817,852 vehicles; 1,896,992,660,361 miles; replicate rescaling 8 × group sum).
-2. The filters BTYPE=07, GVWR 3–8, PRIMCOMMACT 11/12/13, PRIMPROD=23 and their weighted shares.
-3. The handling of X / not reported / not applicable, MPG, maintenance bands, DEADHEADPCT, REPOSITIONPCT, TRUCKLOADPCT, LTRUCKLOADPCT.
-4. Weighted coverage figures (45.5 %, 27.7 %, 28.2 %, 56.3 %, 7.6 %).
+## 1. Full-file totals and random-groups method (guide eqs. 4-6)
 
-To close these, the owner must upload `vius_2021_puf.csv`, the data dictionary and the guide to this session (same three files ChatGPT used). Until then these points stay **unverified by Claude**.
+| Check | Claude recomputation | Source |
+|---|---|---|
+| Weighted vehicles, all 67,952 records | 179,817,852.1 | guide Table A2: 179,817,852 |
+| Weighted annual miles (TABWEIGHT x MILESANNL) | 1,896,992,660,361.1 | guide: 1,896,992,660,361 |
+| Average annual miles | 10,549.52 (rounds 10,550) | guide: 10,550 |
+| Guide worked example, BTYPE=25 | 71 records, 13,605.8 vehicles; all 8 replicate totals identical to the guide (13,878.4 / 14,816.0 / 8,673.6 / 11,824.8 / 16,628.0 / 6,910.4 / 9,600.0 / 26,515.2); CV 16.01 % | guide example (replicate = 8 x group weighted sum) |
 
-## What I checked (arithmetic and internal consistency only, from the report's own numbers)
+The guide formula is: replicate total = G x sum of weights in the group, variance = sum of squared deviations / (G(G-1)), CV = sqrt(variance) / estimate x 100, with a ratio replicate for averages. The report's description and my implementation match it. For the four Box-truck domains all eight groups are non-empty, so G = 8.
 
-| Check | Result |
-|---|---|
-| GVWR table: records sum / weights sum | 6,039 / 1,317,003.1 = Box-truck totals in section 2 ✔ |
-| GVWR table: each weighted share | all 9 shares recompute to the printed 2 decimals ✔ |
-| GVWR classes 3–8: records, weights | 5,329 / 1,145,099.8 ✔; weighted share recomputes to 86.95 %, printed 86.9 % (rounding edge: 87.0 % would also be defensible) |
-| Fuel table: records / weights | 6,039 / 1,317,003.1 ✔; all 8 shares recompute ✔ |
-| Goods and furniture shares in section 2 | 51.9 % / 47.8 % and 5.0 % / 5.1 % recompute ✔ |
-| Mean annual miles from printed totals | 18,840 / 18,858 / 18,666 / 15,815 vs printed 18,839 / 18,858 / 18,665 / 15,809: differences ≤ 6 miles, explained by the totals being printed to 3–4 significant figures ✔ |
-| Full-file average miles | 1,896,992,660,361 / 179,817,852 = 10,549.52 ✔ |
-| Maintenance bands | GM_COST sums to 99.99 %, ER_COST to 100.01 % (rounding) ✔ |
+## 2. Domains, weighted shares and CVs
 
-## Findings to correct in the report (no effect on conclusions)
+| Domain | Records | Weighted vehicles | Share of Box-truck weight | Annual miles (bn) | CV miles | Mean miles | CV mean |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| BTYPE=07 | 6,039 | 1,317,003.1 | 100 % | 24.812 | 2.89 % | 18,839 | 2.66 % |
+| GVWR_CLASS 3-8 | 5,329 | 1,145,099.8 | 86.95 % | 21.594 | 3.52 % | 18,858 | 2.83 % |
+| PRIMCOMMACT 11/12/13 | 3,132 | 629,924.0 | 47.83 % | 11.758 | 3.82 % | 18,665 | 3.28 % |
+| PRIMPROD=23 | 303 | 67,404.5 | 5.12 % | 1.066 | 10.65 % | 15,809 | 9.88 % |
 
-1. **Duplicate heading:** two sections are numbered `## 2` (baseline reproduction and domain definitions). Renumber 3–10 or merge.
-2. **Coverage wording is easy to misread.** The loaded/deadhead/reposition table mixes two bases: record coverage (my recomputation from the printed counts: LOADEDPCT 49.4 %, DEADHEADPCT 30.1 %, REPOSITIONPCT 30.7 %) and weighted coverage (printed 45.5 %, 27.7 %, 28.2 %). Both are plausible and different; label each column "records" or "weighted" so nobody compares them.
-3. **Rounded mean vs published rounding:** state once that full-file average 10,549.52 rounds to 10,550 and that the four domain means above are derived from rounded totals.
+Identical to the report to the printed precision. Filters confirmed against the dictionary: BTYPE 07 = Box truck; PRIMCOMMACT 11/12/13 = goods of owner / of another / online local goods; the GVWR variable in the PUF is `GVWR_CLASS` (codes 1, 2A, 2B, 3-8). The GVWR class table and the FUELTYPE table (codes 10, 20, 31, 33, 34, 36, 40, X) match record counts and weights exactly. Furniture subset fuel mix 54.86 % diesel / 44.80 % gasoline / 0.34 % not reported also matches.
 
-## Conclusions that follow from the report even before the raw check
+## 3. Treatment of X / not reported / not applicable, coverage, cost bands
 
-These are the report's own limits, and I agree with them as written:
-- VIUS gives no fuel spend, gallons, MPG method, driver hours, speed or household-goods indicator; MPG must not become a coefficient.
-- BTYPE=07 and PRIMPROD=23 do not identify residential movers; the furniture subset (303 records, CV ≈ 10 %) is too small and too ambiguous to represent them.
-- Maintenance/repair bands are 2021 categorical bands, not a per-mile rate.
-- DEADHEADPCT / REPOSITIONPCT carry the guide's high-nonsampling-error warning and apply to 27–28 % of box-truck weight only.
+- Coverage recomputed (weighted / records, Box trucks): LOADEDPCT 45.5 % / 49.4 %; DEADHEADPCT 27.7 % / 30.1 %; REPOSITIONPCT 28.2 % / 30.7 %; MPG 56.3 % / 61.6 %; TRUCKLOADPCT and LTRUCKLOADPCT 7.6 % / 7.6 % (456 records). Furniture subset: 301, 229, 230, 251 and 112 numeric records. The report's printed weighted coverage and counts are correct; the missing/X records are excluded from the means, not treated as zero.
+- Weighted means reproduce: LOADEDPCT 77.84 % (furniture 69.85 %), DEADHEADPCT 22.41 % (24.81 %), REPOSITIONPCT 12.09 % (13.61 %).
+- GM_COST: dictionary codes 1-7 are the seven bands (< $100 ... $10,000+); the other code present is excluded as in the report, giving 4,024 records, weight 821,564.5 and the printed distribution. ER_COST: codes 1-6 are the bands, code 7 = "Not reported" per the dictionary; 1,557 records, weight 326,138.3 and the printed distribution reproduce. The dictionary rows for GM_COST's extra code are cut off in my extract, so its label ("not reported") is inferred from the matching counts, not read.
+- MPG: the guide states that the calculation method is not provided on the PUF (guide section on variables/documentation); the guide also lists operating-time share spent idling among questions excluded from the PUF. DEADHEADPCT carries the dictionary's "high nonsampling error" note. The report's position (do not use MPG as a coefficient; deadhead/reposition exploratory only) is supported.
+- Unweighted mean MPG (10.6 weighted, 10.58 furniture) can be computed mechanically but stays out of the model, as the report says.
+
+## 4. Presentation fixes for the report (no effect on conclusions)
+
+1. Two sections are numbered `## 2`; renumber.
+2. Label the coverage columns "weighted" vs "records" explicitly (both are correct, they differ).
+3. State that domain mean miles use the exact weighted ratio; the numbers recomputed from rounded billions differ by up to 6 miles, so nobody re-derives them from the rounded totals.
 
 ## Impact on B24
 
-VIUS stays a descriptive source (GVWR mix, fuel-type mix, annual utilization, plausibility band for maintenance). The bottleneck is unchanged: no source yet closes non-fuel truck cost, truck-day ownership, crew productivity, speed, empty return or utilization for household-goods moves. Those inputs stay **unresolved**; nothing enters the calculator.
+VIUS is verified as a descriptive source only: GVWR mix, fuel-type mix, annual utilization, 2021 maintenance/repair bands, exploratory empty-mile shares. It still gives no fuel spend, no usable MPG method, no crew or operating hours, no speed, and no household-goods mover identifier. Those inputs stay unresolved; nothing enters the calculator.
 
 ## Next
 
-1. Owner uploads the three VIUS files to Claude → I reproduce the totals, the CV and the filters, then update this file.
-2. PR #256 is `dirty` against main (its branch predates PR #258 and shows those files as deleted). Rebase onto main before any merge; I did not merge it.
+1. ChatGPT applies the three presentation fixes on its report.
+2. PR #256 is `dirty` against main (branch predates PR #258); rebase before any merge. Claude did not merge it.
+3. Remaining open B24 gaps: non-fuel truck cost, truck-day ownership, crew productivity, speed, empty return, utilization. VIUS does not close them.
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
