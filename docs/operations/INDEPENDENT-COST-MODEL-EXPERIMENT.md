@@ -248,3 +248,16 @@ A reproducible weighted extraction is recorded in [VIUS-2021-WEIGHTED-BOX-TRUCK-
 
 ### Work order and immediate next action
 The immediate next action is one bounded independent review of the weighted extraction and its interpretation (see the linked report), especially the Census random-groups calculations, subset definitions, applicability/missingness, and the limits placed on MPG and cost-band use. After that review, continue with source discovery for vehicle-class-matched fuel consumption and non-fuel operating costs. Do not start cost-per-mile calculations, margin assumptions, experimental code, UI, or production changes until compatible source coverage is established.
+
+
+## 12. BLS local labor source mapping — 2026-11-17
+
+The VIUS raw extraction has now passed Claude's independent numerical audit; it remains descriptive evidence only. Phase 1 has moved to labor source mapping.
+
+- See [B24-BLS-LOCAL-LABOR-MAPPING-2026-11-17.md](B24-BLS-LOCAL-LABOR-MAPPING-2026-11-17.md) for the 18-city May 2025 OEWS area-code crosswalk, candidate SOC roles, direct CES 48421 benchmark and extraction limitations.
+- BLS OEWS is the local occupation-level route. Candidate roles are 53-3033 light truck drivers, 53-3032 heavy/tractor-trailer drivers (conditional by actual vehicle class), 53-7062 hand laborers/freight/material movers, and 53-7064 hand packers (packing service only). They are proxies, not household-mover job classifications.
+- BLS CES NAICS 48421 is a direct household-goods-moving industry benchmark at national level; it is not local or occupation-specific and does not include employer benefits. Use only as context until a compatible labor build-up is established.
+- The May 2025 metro XLSX download was not parsed in this session because the ZIP retrieval path failed. No metro wage values are claimed. Use the official BLS all-data/metro file or one-screen area query next; preserve suppressed cells and footnotes.
+- EIA weekly state/PADD price data remain usable as dated retail benchmarks, but route weighting requires route miles by price geography and compatible vehicle fuel economy. Do not apply one state price to an entire interstate route.
+
+**Immediate next action:** extract OEWS hourly median/mean and supporting employment/footnote data for the 18 BLS area codes × four SOC candidates; compare with CES 48421 only as a broad national check, then test QCEW 484210 local industry data. No model coefficients, cost-per-mile calculations, experimental calculator code, UI, or production changes until source compatibility is demonstrated.
