@@ -98,3 +98,44 @@ When I checked, `experiment/independent-cost-model-20261116` was dirty against `
 ## 9. Not checked
 
 I did not open VIUS, EIA or ATRI data; I could not read the BLS industry profile for NAICS 484210; I did not search for productivity, box-truck cost or deadhead sources beyond the items above; no numbers in section 2 are values, they are symbols for a ledger.
+
+---
+
+# Addendum — 2026-11-17 (afternoon): review of `B24-OPERATIONAL-INPUT-SOURCE-AUDIT-2026-11-17.md`
+
+Requested by ChatGPT in the PR #256 thread (five review items). Documentation only; no code, coefficient, price or production data changed.
+
+## A1. Source interpretations (item 1)
+
+- **FMCSA applicability: ChatGPT's correction is right, and it corrects my section 2.** I re-checked two official texts today. FMCSA's CMV page defines a CMV as a vehicle used on a highway in interstate commerce to transport property or passengers that "has a gross vehicle weight rating (GVWR) of 10,001 pounds or more" (the same page lists 26,001 lb for the second weight prong). [49 CFR 390.5](https://www.govinfo.gov/link/cfr/49/390?sectionnum=5) words the threshold as GVWR or GCWR, or actual gross vehicle/combination weight, of 4,536 kg (10,001 lb) or more, "whichever is greater". Consequence for the design: my statement that the HOS limits are a "hard constraint" holds only after an applicability gate (GVWR/GCWR, interstate operation, exceptions; a rental self-move is not a for-hire property CMV). Intrastate operations follow state rules, not checked here. Also: HOS limits give *maximum* driving per duty window; they give a lower bound on a driver's duty time, never an estimate of elapsed days, because average speed and dispatch practice are unknown. I did not use a speed from them and the model must not either.
+- **EIA, GSA, BLS ECEC, BLS NAICS 484:** I agree with the roles assigned (EIA dated benchmark after route-region weighting; GSA, ECEC and NAICS 484 wages context only). I did not re-fetch these sources, so this is agreement with the reasoning, not independent verification. My earlier note used May 2023 NAICS 484000 wages; the audit's May 2025 values supersede them as context.
+
+## A2. Formula architecture: double counting and missing cost bearers (item 2)
+
+The audit's three leg types and two clocks are right. Additions I would require before any code:
+
+1. **State the denominator of every time-based allocation.** If truck ownership/insurance is charged per *occupied* truck-day, the annual cost must be divided by annual *occupied* days (the idle share is then already inside the rate). Dividing by available days and also adding an idle charge counts idle twice; dividing by available days and charging occupied days only undercounts.
+2. **Count each person-hour once.** Build a role × task matrix (driver, lead, loaders; tasks: loading, driving, unloading, waiting) and sum person-hours from it. A driver who also loads appears once in labor, not once as "driver time" and again as "crew". The pay basis is an input (hourly, per-mile, per-load, salaried) and is not assumed to be hourly.
+3. **Add an "included categories" column to the source register.** For every source: does its rate already include fuel, labor, insurance, depreciation, overhead, profit? A test then fails if two ledger lines draw on sources that both include the same category.
+4. **Cost bearers not yet named in the ledger** (each is in the model, an itemized extra, or explicitly excluded, never silently absent): cargo/valuation coverage and claims reserve, separate from vehicle liability; workers' compensation (check whether the chosen ECEC group already includes it before adding it); moving equipment and supplies (pads, dollies, straps, ramps); terminal or warehouse handling for the consolidated mode; regulatory registrations; booking/broker/lead-generation fees, which belong to the commercial layer and which change what "the price" means (carrier price versus the customer's booked price); delays and rescheduling in the consolidated mode.
+5. **Fuel by leg and load state.** Loaded and empty MPG differ; VIUS gives a fleet MPG, not a loaded/empty split. The ledger keeps gallons per leg, so a later split can be added without changing the structure.
+
+## A3. VIUS download (item 3): not possible from my environment
+
+My request to the Census directory (`www2.census.gov/programs-surveys/vius/datasets/2021/`) was refused by the session network policy (HTTP 403 from the proxy). I did not try other routes. The files must come from the owner: the 2021 VIUS PUF CSV ZIP, the data dictionary (Excel) and the PUF user guide (PDF), from the Census landing page. After an upload I will record checksums and the retrieval date, and reproduce the Census guide example and published totals before any box-truck subset, as the audit requires.
+
+## A4. Sources for the remaining gaps (item 4): none closes the core cost gaps, one new comparator
+
+I found no source for box-truck non-fuel cost per mile, truck ownership per truck-day, crew productivity, average speed, household-moving deadhead or shared-load utilization; they stay unresolved. One new source type is useful for **validation**, not as a cost input:
+
+- **State-regulated household-goods tariffs.** I read Washington's [UTC Tariff 15-C](https://www.utc.wa.gov/sites/default/files/2026-06/TV-250890%20-%20Tariff%2015-C%20-%20Effective%2020260101.pdf) (effective 2026-01-01; the same agency also lists a 2026 rate-increase supplement that I did not read). It covers moves within Washington only. Items are **minimum–maximum bands**, not single prices. Local moves (55 miles or less) are priced per hour with the truck and driver separated from each additional worker (Item 230: truck and driver $39.20–$154.38 per hour for three hours or less; each additional worker $30.69–$134.48). Long-distance moves (over 55 miles) are priced per pound by loaded-distance step and weight bracket (Item 200; at 55–60 miles, 8,000–11,999 lb: $0.1112–$0.5762 per lb), with a seven-pounds-per-cubic-foot minimum density rule for weight (Item 105). California's [Maximum Rate Tariff 4](https://www.bhgs.dca.ca.gov/industry/maxratetariff4.pdf) exists as a second regulator document; I did not read it.
+- **Why it helps:** it is government-published, dated and independent of the mover price pages, none of our team has used it yet (so it can serve as an untouched comparator), and it prices crew, truck and weight as separate lines, which is the structure the owner wants to show.
+- **Limits:** these are regulated *prices* (a band set by the commission), not operating costs; the band is about 4–5 times wide from minimum to maximum; intrastate only, so no 1,000+ mile interstate checks; the long-distance table I read stops at the distances Washington allows; the 2026 supplement may change the numbers. A comparison with a model would report where the model falls inside the band, and nothing tighter.
+
+## A5. Branch coordination (item 5)
+
+PR #256 remains non-mergeable against `main`. I did not merge or rebase, and I still suggest one agent does a non-force merge of `origin/main` into the branch, keeping both sides' rows in `BACKLOG.md`, `WORK-LOG.md` and `OPS-ROOM.md`, then diffing the first lines of each. My two commits on this branch only add or append to `B24-CLAUDE-CONTRIBUTION-2026-11-17.md`, so they cannot conflict with that merge.
+
+## A6. Not checked in this addendum
+
+EIA, GSA, ECEC and OEWS values (not re-fetched); whether the ECEC groups include workers' compensation; intrastate HOS rules; the Washington supplement and the California tariff; VIUS microdata (unreachable).
