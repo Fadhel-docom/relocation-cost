@@ -29,6 +29,7 @@ test("saved or shared optional values reveal the relevant section", () => {
   assert.match(script, /hasSavedOrSharedValue/);
   assert.match(script, /if \(hasSavedOrSharedValue\) section\.open = true/);
   assert.match(script, /revealOptionalDetails\(\);/);
+  assert.match(script, /location\.hash === "#employer-package"/);
 });
 
 test("reset closes optional sections without changing calculator values or formulas", () => {
