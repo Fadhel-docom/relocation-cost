@@ -2576,3 +2576,10 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - FMCSA insurance minimums for for-hire household-goods carriers (GVWR >=10,001 lb): $750,000 BIPD and $5,000 cargo coverage. These are minimum coverage requirements, not premium costs. FMCSA HOS limits are schedule constraints, not average driver-hours. Crew loading/unloading time remains unresolved and cannot be replaced by ATRI freight dwell time.
 - Updated B24 research note and work log. No application code, price, coefficient, route distance or calculator formula changed.
 - Sources: ATRI sample report; ATRI 2026 release; FMCSA insurance filing requirements; FMCSA HOS summary.
+
+
+## 2026-11-18 20:02 UTC — ChatGPT — HeiGIT route geometry ingestion pipeline
+- Added `tools/fetch_heigit_route_geometries.mjs`: reads all existing city route definitions (44) and directional state route pages, uses the exact coordinate pairs already used by the stored road-distance matrix, requests GeoJSON geometry and duration from `https://api.heigit.org/openrouteservice/v2/directions/driving-car/geojson`, excludes Canada, and records provider-vs-stored distance difference.
+- Requests are sequential with a 1.6-second gap (below 40/minute), and use only the `HEIGIT_API_KEY` Actions secret. The key is never printed, committed, or retrieved into chat. The PADD allocator rejects geometry if the new route differs from the stored matrix by >1%.
+- Added manual workflow `.github/workflows/fetch-b24-route-geometries.yml`: select all/city/state routes; successful outputs are committed to a new data branch and a PR is opened; partial failures preserve successful files and manifest but fail the run visibly.
+- No HeiGIT requests were made during this PR, so no quota was consumed. The workflow requires repository secret `HEIGIT_API_KEY` before it can run. No production code or route distance changed.
