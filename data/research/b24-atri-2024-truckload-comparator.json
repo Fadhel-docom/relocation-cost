@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0",
+  "status": "research_only_external_comparator",
+  "reference_year": 2024,
+  "source_document": "ATRI Sample Carrier Operational Costs Report, 2025",
+  "peer_group": "Truckload carriers with 81 to 200 trucks",
+  "unit": "USD per truck-mile",
+  "benchmarks": {
+    "fuel": {
+      "peer_median": 0.469,
+      "p25": 0.426,
+      "p75": 0.521
+    },
+    "truck_trailer_equipment_lease_or_purchase": {
+      "peer_median": 0.391,
+      "p25": 0.323,
+      "p75": 0.464
+    },
+    "repair_and_maintenance_excluding_tires": {
+      "peer_median": 0.161,
+      "p25": 0.122,
+      "p75": 0.186
+    },
+    "tires": {
+      "peer_median": 0.032,
+      "p25": 0.03,
+      "p75": 0.035
+    },
+    "auto_liability_insurance_premiums": {
+      "peer_median": 0.093,
+      "p25": 0.074,
+      "p75": 0.114
+    },
+    "company_driver_wages": {
+      "peer_median": 0.62,
+      "p25": 0.495,
+      "p75": 0.647
+    },
+    "company_driver_benefits": {
+      "peer_median": 0.157,
+      "p25": 0.089,
+      "p75": 0.21
+    }
+  },
+  "peer_operating_context": {
+    "average_fuel_economy_mpg": 6.96,
+    "average_deadhead_share": 0.1518,
+    "average_dwell_hours_per_stop": 1.61,
+    "average_truck_age_years": 4.1,
+    "average_annual_miles_per_truck": 77342
+  },
+  "separate_2025_industry_reference": {
+    "all_in_truck_operating_cost_per_mile": 2.336,
+    "cost_per_mile_excluding_fuel": 1.854,
+    "source": "ATRI 2026 Analysis of the Operational Costs of Trucking release, published July 15, 2026",
+    "caution": "Different year and wider industry average; not additive to the 2024 peer-group component medians above."
+  },
+  "caveats": [
+    "Freight truckload peer group, not household-goods movers.",
+    "Peer group is limited to truckload carriers with 81–200 trucks; do not treat it as a national all-carrier estimate.",
+    "The 2024 component medians are separate marginal medians and must not be summed to reconstruct a representative truck's total cost.",
+    "Equipment payment is lease or purchase cost, not pure depreciation; compare with maintenance as ATRI advises.",
+    "Auto liability insurance excludes other coverage categories and incident costs; compare premium and incident costs together.",
+    "Box-truck class, tire count, annual mileage, cargo, operating radius, and utilization differ from tractor-trailer freight operations.",
+    "Use only as an external plausibility/sensitivity comparator. Never use directly as a production coefficient."
+  ],
+  "sources": [
+    "https://truckingresearch.org/wp-content/uploads/2026/02/sample_customized_yoy_report.pdf",
+    "https://truckingresearch.org/2026/07/new-atri-report-details-accelerating-costs-and-low-profitability-despite-cuts/"
+  ],
+  "additional_industrywide_insurance_reference": {
+    "source": "ATRI, New Research Analyzes Motor Carrier Responses to Rising Insurance Costs",
+    "published": "2026-05-19",
+    "reference_period": "2021-2024",
+    "commercial_auto_liability_premium_usd_per_mile_2024": 0.102,
+    "change_since_2021_pct": 18.6,
+    "notes": "Separate broader motor-carrier study from the 81–200-truck sample peer group above. It is freight trucking, not household-goods mover insurance, and should not be added to the sample peer-group median or used as a mover-specific production coefficient.",
+    "source_url": "https://truckingresearch.org/2026/05/new-atri-research-analyzes-motor-carrier-responses-to-rising-insurance-costs/"
+  }
+}
