@@ -14,6 +14,10 @@ export const HOME_ANSWER_AROUND = "The costs around the move, such as travel, te
 
 export const HOME_ANSWER_LIMITS = "It is a planning range, not a quote: it uses an approximate driving distance between a central point in each of two states unless you enter your driving miles, it does not use your move date, and it does not calculate taxes. Replace it with written quotes based on your addresses and inventory.";
 
+// Competitor-informed clarification: compare usable cash separately from employer-paid services;
+// never imply that this calculator computes a tax rate or gross-up.
+export const HOME_ANSWER_EMPLOYER = "For a job-related move, compare the lump sum you expect to keep after any withholding with costs your employer pays directly. Ask whether the stated benefit is before or after tax and whether the employer adds a tax gross-up; this calculator shows the budget gap but does not calculate taxes.";
+
 export const HOME_ANSWER_LINKS = Object.freeze({
   calculator: { href: "/calculator/", label: "Calculate my moving cost →" },
   employer: { href: "/calculator/#employer-package", label: "Moving for a job? Compare with an employer package →" },

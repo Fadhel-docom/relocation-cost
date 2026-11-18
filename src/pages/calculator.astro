@@ -106,10 +106,10 @@ const breadcrumbJsonLd = {
         </div>
 
         <h3 id="employer-package" class="mt-8 scroll-mt-24 text-base font-bold">Employer relocation package <span class="font-normal text-slate-500">(optional)</span></h3>
-        <p class="mt-2 text-sm text-slate-500">If your employer offers help, enter it to see how much of your estimate it covers. Enter amounts as you will receive or use them. Lump sums can be taxed, so ask your employer whether the amount is before or after tax. This calculator does not work out taxes.</p>
+        <p class="mt-2 text-sm text-slate-500">If your employer offers help, compare the cash you expect to keep with expenses the employer pays directly. For the lump sum, enter the amount available to you after any withholding. If you only know the gross amount, check the expected net with your employer first. Ask whether the benefit is grossed up; this calculator does not estimate withholding or taxes.</p>
         <p id="employerTaxNote" class="mt-2 text-sm text-slate-500">{EMPLOYER_TAX_NOTE} Sources: {TAX_SOURCES.map((source, index) => (<><a class="font-semibold text-sky-700 underline" href={source.url} rel="noopener noreferrer">{source.label}</a>{index < TAX_SOURCES.length - 1 ? ", " : ""}</>))}{taxChecked ? `, read by a person on ${taxChecked}` : ""}. <a class="font-semibold text-sky-700 underline" href="/guides/employer-relocation-package/">What to ask your employer</a>.</p>
         <div class="mt-5 grid gap-5 sm:grid-cols-2">
-          <label class="block text-sm font-semibold">Lump sum paid to you <span class="font-normal text-slate-500">(USD)</span><input id="employerCash" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+          <label class="block text-sm font-semibold">Lump sum available after withholding <span class="font-normal text-slate-500">(USD)</span><input id="employerCash" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
           <label class="block text-sm font-semibold">Costs the employer pays directly <span class="font-normal text-slate-500">(movers, housing, USD)</span><input id="employerDirect" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
         </div>
 

@@ -4,7 +4,7 @@ import cityData from "../../data/cities.json";
 import cityRoutes from "../../data/city-routes.json";
 import stateData from "../../data/state-distances.json";
 import statePages from "../../data/route-pages.json";
-import { HOME_HERO_VALUE, HOME_ANSWER_HEADING, HOME_ANSWER_LEAD, HOME_ANSWER_MOVE, HOME_ANSWER_AROUND, HOME_ANSWER_LIMITS, HOME_ANSWER_LINKS, HOME_QUICK_START_LEAD } from "../lib/home-answer.js";
+import { HOME_HERO_VALUE, HOME_ANSWER_HEADING, HOME_ANSWER_LEAD, HOME_ANSWER_MOVE, HOME_ANSWER_AROUND, HOME_ANSWER_LIMITS, HOME_ANSWER_EMPLOYER, HOME_ANSWER_LINKS, HOME_QUICK_START_LEAD } from "../lib/home-answer.js";
 
 const cities = cityData.cities;
 const featuredCityRoutes = cityRoutes.routes.slice(0, 8);
@@ -20,8 +20,8 @@ const websiteJsonLd = {
 ---
 <script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
 <Layout
-  title="US Moving Cost Calculator & Employer Budget — Relocation Cost"
-  description="Estimate US moving costs by distance, home size and move type, or compare costs with an employer relocation package. Transparent methods and sourced benchmarks."
+  title="US Moving Cost & Relocation Package Calculator — Relocation Cost"
+  description="Estimate US moving costs, then compare an employer lump sum and directly paid expenses with your budget. See the uncovered gap; taxes are not calculated."
 >
   <section class="bg-slate-950 text-white">
     <div class="mx-auto max-w-6xl px-5 py-20 sm:py-28">
@@ -76,6 +76,7 @@ const websiteJsonLd = {
       <h2 class="mt-2 text-3xl font-bold">{HOME_ANSWER_HEADING}</h2>
       <p class="mt-4 leading-7 text-slate-600">{HOME_ANSWER_LEAD} {HOME_ANSWER_MOVE} {HOME_ANSWER_AROUND}</p>
       <p class="mt-3 leading-7 text-slate-600">{HOME_ANSWER_LIMITS}</p>
+      <p class="mt-3 leading-7 text-slate-600">{HOME_ANSWER_EMPLOYER}</p>
       <p class="mt-4 leading-7 text-slate-600"><a class="font-semibold text-sky-700 underline" href={HOME_ANSWER_LINKS.calculator.href}>{HOME_ANSWER_LINKS.calculator.label}</a> · <a class="font-semibold text-sky-700 underline" href={HOME_ANSWER_LINKS.employer.href}>{HOME_ANSWER_LINKS.employer.label}</a></p>
     </div>
     <div class="mt-10 grid gap-5 md:grid-cols-3">
