@@ -110,3 +110,24 @@ A first fuel-only benchmark is now calculated from the extracted VIUS MPG/loaded
 - BLS, hand laborers and material movers: https://www.bls.gov/OOH/transportation-and-material-moving/hand-laborers-and-material-movers.htm
 - ATRI, 2026 Analysis of the Operational Costs of Trucking: https://truckingresearch.org/2026/07/new-atri-report-details-accelerating-costs-and-low-profitability-despite-cuts/
 - GSA, 2026 CONUS Fleet Rate Bulletin: https://www.gsa.gov/buy-through-us/products-and-services/transportation-and-logistics-services/fleet-management/vehicle-leasing/vehicle-rates/2026-conus-fleet-rate-bulletin
+
+ 
+## 2026-11-18 — BLS May 2025 OEWS occupation crosswalk (research only)
+
+BLS May 2025 OEWS includes national, state, and metropolitan/nonmetropolitan occupation estimates. For the VIUS diesel box-truck GVWR 6–7 sample, the following SOC mapping is a defensible *starting proxy* based on the published weight thresholds:
+
+| VIUS GVWR class | GVWR band | Candidate BLS SOC | BLS occupation | Interpretation |
+|---|---:|---|---|---|
+| 6 | 19,501–26,000 lb | 53-3033 | Light Truck Drivers | BLS definition covers vehicles below 26,001 lb |
+| 7 | 26,001–33,000 lb | 53-3032 | Heavy and Tractor-Trailer Truck Drivers | BLS definition covers trucks at least 26,001 lb and tractor-trailer drivers |
+| Crew handling | not a truck class | 53-7062 | Laborers and Freight, Stock, and Material Movers, Hand | Broad manual-material-handling proxy for load/unload labor |
+
+**Do not treat these SOCs as exact moving-company job samples.** SOC 53-3032 includes tractor-trailer drivers; SOC 53-3033 includes delivery/light-truck work. SOC 53-7062 includes broad hand-labor and material-moving jobs. The wage estimates are cross-industry wage-and-salary estimates, not household mover rates or contractor invoices. BLS OEWS excludes employer costs for supplementary benefits from its wage measure, so an employer-loaded labor cost needs a separately sourced benefit component. Also distinguish the driver's route time from crew loading/unloading hours; do not multiply every crew member's wage by the full road-driving time.
+
+BLS May 2025 dataset availability and methodology:
+- Tables / May 2025 state, metro and all-data downloads: https://www.bls.gov/oes/tables.htm
+- May 2025 state estimates: https://www.bls.gov/oes/2025/may/oessrcst.htm
+- OEWS technical documentation: https://www.bls.gov/oes/oes_doc.htm
+- May 2025 OEWS technical note (sample, model-based estimates, definitions and wage exclusions): https://www.bls.gov/news.release/pdf/ocwage.pdf
+
+**Next extraction task:** parse the official May 2025 state and metro files for SOC 53-3032, 53-3033 and 53-7062, preserving mean, median, 10th/90th percentile wages, employment counts, relative standard errors, area code, and missing/suppressed values. Do not select one wage statistic as a final point estimate yet. Use percentile bands for sensitivity. Resolve how to assign driver wages and loading/unloading wages geographically on an interstate route; origin/destination averaging is not justified without a stated staffing/dispatch assumption. Add employer benefits only from a separate official source. No wage value or coefficient is adopted in the production calculator.
