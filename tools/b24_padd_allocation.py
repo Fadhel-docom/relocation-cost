@@ -123,6 +123,12 @@ def allocate_route(route: dict[str, Any],
 
     properties = route.get("properties", {}) if route.get("type") == "Feature" else {}
     expected = properties.get("expected_distance_miles")
+    if properties.get("stored_distance_match") is False:
+        difference = properties.get("stored_distance_difference_pct")
+        raise AllocationError(
+            f"Stored road-distance matrix differs from the newly fetched ORS route "
+            f"by {difference}%; inspect/reconcile before PADD allocation."
+        )
     state_miles: dict[str, float] = defaultdict(float)
     unmatched_miles = 0.0
     geometry_miles = 0.0
