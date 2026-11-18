@@ -57,6 +57,7 @@ const breadcrumbJsonLd = {
     <div class="mt-10 grid gap-8 lg:grid-cols-[1.15fr_.85fr] print:hidden">
       <form id="calculator" class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" novalidate>
         <h2 class="text-xl font-bold">Move details</h2>
+        <p class="mt-2 text-sm leading-6 text-slate-500">Start with these four choices. The other sections are optional—open only the ones that apply to your move.</p>
         <div class="mt-6 grid gap-5 sm:grid-cols-2">
           <label class="block text-sm font-semibold">From State
             <select id="fromState" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" aria-describedby="stateHelp"></select>
@@ -83,47 +84,57 @@ const breadcrumbJsonLd = {
           </select>
         </label>
 
-        <h2 class="mt-10 text-xl font-bold">Other relocation costs</h2>
-        <p class="mt-2 text-sm text-slate-500">Enter amounts you already know. Anything left at $0 is left out of the total. It does not mean that cost is free, so add it once you know it.</p>
-        <div class="mt-5 grid gap-5 sm:grid-cols-2">
-          <label class="block text-sm font-semibold">Travel <span class="font-normal text-slate-500">(USD)</span><input id="travel" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
-          <label class="block text-sm font-semibold">Temporary housing <span class="font-normal text-slate-500">(USD)</span><input id="housing" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
-          <label class="block text-sm font-semibold">Deposits / setup <span class="font-normal text-slate-500">(USD)</span><input id="setup" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
-          <label class="block text-sm font-semibold">Packing / extras <span class="font-normal text-slate-500">(USD)</span><input id="extras" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
-        </div>
+                <h2 class="mt-10 text-xl font-bold">Other relocation costs</h2>
+        <details id="other-costs-details" class="mt-3 rounded-xl border border-slate-200 bg-slate-50 p-4">
+          <summary class="cursor-pointer font-semibold text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-600">Add known extra costs (optional)</summary>
+          <p class="mt-3 text-sm leading-6 text-slate-600">Enter amounts you already know. Anything left at $0 is left out of the total; it does not mean that cost is free.</p>
+          <div class="mt-4 grid gap-5 sm:grid-cols-2">
+            <label class="block text-sm font-semibold">Travel <span class="font-normal text-slate-500">(USD)</span><input id="travel" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+            <label class="block text-sm font-semibold">Temporary housing <span class="font-normal text-slate-500">(USD)</span><input id="housing" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+            <label class="block text-sm font-semibold">Deposits / setup <span class="font-normal text-slate-500">(USD)</span><input id="setup" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+            <label class="block text-sm font-semibold">Packing / extras <span class="font-normal text-slate-500">(USD)</span><input id="extras" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+          </div>
+        </details>
         <h3 class="mt-8 text-base font-bold">Itemize your costs <span class="font-normal text-slate-500">(optional)</span></h3>
-        <p class="mt-2 text-sm text-slate-500">Add known amounts one by one. They are added on top of the fields above, so do not enter the same cost twice. Left at $0, an item is left out of the total. It does not mean that cost is free.</p>
-        <div class="mt-5 grid gap-5 sm:grid-cols-2">
-          <label class="block text-sm font-semibold">Fuel <span class="font-normal text-slate-500">(USD)</span><input id="fuel" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
-          <label class="block text-sm font-semibold">Moving insurance <span class="font-normal text-slate-500">(USD)</span><input id="insurance" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
-          <label class="block text-sm font-semibold">Packing materials <span class="font-normal text-slate-500">(USD)</span><input id="packing" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
-          <label class="block text-sm font-semibold">Equipment rental <span class="font-normal text-slate-500">(dolly, ramp, USD)</span><input id="equipment" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
-          <label class="block text-sm font-semibold">Utility connection fees <span class="font-normal text-slate-500">(USD)</span><input id="utilities" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
-          <label class="block text-sm font-semibold">Storage <span class="font-normal text-slate-500">(USD)</span><input id="storage" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
-          <label class="block text-sm font-semibold">Crew tips <span class="font-normal text-slate-500">(USD)</span><input id="tips" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
-          <label class="block text-sm font-semibold">Specialty items <span class="font-normal text-slate-500">(piano, safe, hot tub, USD)</span><input id="specialty" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
-          <label class="block text-sm font-semibold sm:col-span-2">Access fees <span class="font-normal text-slate-500">(stairs, long carry, elevator, USD)</span><input id="access" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
-        </div>
-
+        <details id="itemized-costs-details" class="mt-3 rounded-xl border border-slate-200 bg-slate-50 p-4">
+          <summary class="cursor-pointer font-semibold text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-600">Show individual cost fields</summary>
+          <p class="mt-3 text-sm leading-6 text-slate-600">These amounts are added on top of the categories above. Do not enter the same expense twice. Items left at $0 are left out of the total.</p>
+          <div class="mt-4 grid gap-5 sm:grid-cols-2">
+            <label class="block text-sm font-semibold">Fuel <span class="font-normal text-slate-500">(USD)</span><input id="fuel" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+            <label class="block text-sm font-semibold">Moving insurance <span class="font-normal text-slate-500">(USD)</span><input id="insurance" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+            <label class="block text-sm font-semibold">Packing materials <span class="font-normal text-slate-500">(USD)</span><input id="packing" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+            <label class="block text-sm font-semibold">Equipment rental <span class="font-normal text-slate-500">(dolly, ramp, USD)</span><input id="equipment" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+            <label class="block text-sm font-semibold">Utility connection fees <span class="font-normal text-slate-500">(USD)</span><input id="utilities" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+            <label class="block text-sm font-semibold">Storage <span class="font-normal text-slate-500">(USD)</span><input id="storage" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+            <label class="block text-sm font-semibold">Crew tips <span class="font-normal text-slate-500">(USD)</span><input id="tips" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+            <label class="block text-sm font-semibold">Specialty items <span class="font-normal text-slate-500">(piano, safe, hot tub, USD)</span><input id="specialty" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+            <label class="block text-sm font-semibold sm:col-span-2">Access fees <span class="font-normal text-slate-500">(stairs, long carry, elevator, USD)</span><input id="access" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+          </div>
+        </details>
         <h3 id="employer-package" class="mt-8 scroll-mt-24 text-base font-bold">Employer relocation package <span class="font-normal text-slate-500">(optional)</span></h3>
-        <p class="mt-2 text-sm text-slate-500">If your employer offers help, compare the cash you expect to keep with expenses the employer pays directly. For the lump sum, enter the amount available to you after any withholding. If you only know the gross amount, check the expected net with your employer first. Ask whether the benefit is grossed up; this calculator does not estimate withholding or taxes.</p>
-        <p id="employerTaxNote" class="mt-2 text-sm text-slate-500">{EMPLOYER_TAX_NOTE} Sources: {TAX_SOURCES.map((source, index) => (<><a class="font-semibold text-sky-700 underline" href={source.url} rel="noopener noreferrer">{source.label}</a>{index < TAX_SOURCES.length - 1 ? ", " : ""}</>))}{taxChecked ? `, read by a person on ${taxChecked}` : ""}. <a class="font-semibold text-sky-700 underline" href="/guides/employer-relocation-package/">What to ask your employer</a>.</p>
-        <div class="mt-5 grid gap-5 sm:grid-cols-2">
-          <label class="block text-sm font-semibold">Lump sum available after withholding <span class="font-normal text-slate-500">(USD)</span><input id="employerCash" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
-          <label class="block text-sm font-semibold">Costs the employer pays directly <span class="font-normal text-slate-500">(movers, housing, USD)</span><input id="employerDirect" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
-        </div>
-
+        <details id="employer-package-details" class="mt-3 rounded-xl border border-slate-200 bg-slate-50 p-4">
+          <summary class="cursor-pointer font-semibold text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-600">Compare an employer offer</summary>
+          <p class="mt-3 text-sm leading-6 text-slate-600">If your employer offers help, compare the cash you expect to keep with expenses the employer pays directly. For the lump sum, enter the amount available to you after any withholding. If you only know the gross amount, check the expected net with your employer first. Ask whether the benefit is grossed up; this calculator does not estimate withholding or taxes.</p>
+          <p id="employerTaxNote" class="mt-2 text-sm text-slate-500">{EMPLOYER_TAX_NOTE} Sources: {TAX_SOURCES.map((source, index) => (<><a class="font-semibold text-sky-700 underline" href={source.url} rel="noopener noreferrer">{source.label}</a>{index < TAX_SOURCES.length - 1 ? ", " : ""}</>))}{taxChecked ? `, read by a person on ${taxChecked}` : ""}. <a class="font-semibold text-sky-700 underline" href="/guides/employer-relocation-package/">What to ask your employer</a>.</p>
+          <div class="mt-4 grid gap-5 sm:grid-cols-2">
+            <label class="block text-sm font-semibold">Lump sum available after withholding <span class="font-normal text-slate-500">(USD)</span><input id="employerCash" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+            <label class="block text-sm font-semibold">Costs the employer pays directly <span class="font-normal text-slate-500">(movers, housing, USD)</span><input id="employerDirect" type="number" min="0" max="1000000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+          </div>
+        </details>
         <h3 class="mt-8 text-base font-bold">Cash buffer until your first income <span class="font-normal text-slate-500">(optional)</span></h3>
-        <p class="mt-2 text-sm text-slate-500">Money to keep available for living costs until you are paid at the new place. It is shown separately, because it is cash you hold rather than an estimated moving expense.</p>
-        <div class="mt-5 grid gap-5 sm:grid-cols-2">
-          <label class="block text-sm font-semibold">Weeks to cover
-            <select id="reserveWeeks" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3">
-              <option value="0">None</option><option value="2">2 weeks</option><option value="4">4 weeks</option><option value="6">6 weeks</option><option value="8">8 weeks</option><option value="12">12 weeks</option>
-            </select>
-          </label>
-          <label class="block text-sm font-semibold">Living costs per week <span class="font-normal text-slate-500">(USD)</span><input id="weeklyLiving" type="number" min="0" max="100000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
-        </div>
-        <p id="inputError" class="mt-4 min-h-5 text-sm font-medium text-red-700" role="alert" aria-live="polite"></p>
+        <details id="cash-buffer-details" class="mt-3 rounded-xl border border-slate-200 bg-slate-50 p-4">
+          <summary class="cursor-pointer font-semibold text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-600">Plan a separate cash buffer</summary>
+          <p class="mt-3 text-sm leading-6 text-slate-600">Money to keep available for living costs until you are paid at the new place. It is shown separately because it is cash you hold, not an estimated moving expense.</p>
+          <div class="mt-4 grid gap-5 sm:grid-cols-2">
+            <label class="block text-sm font-semibold">Weeks to cover
+              <select id="reserveWeeks" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3">
+                <option value="0">None</option><option value="2">2 weeks</option><option value="4">4 weeks</option><option value="6">6 weeks</option><option value="8">8 weeks</option><option value="12">12 weeks</option>
+              </select>
+            </label>
+            <label class="block text-sm font-semibold">Living costs per week <span class="font-normal text-slate-500">(USD)</span><input id="weeklyLiving" type="number" min="0" max="100000" value="0" aria-describedby="inputError" class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3" /></label>
+          </div>
+        </details>
+<p id="inputError" class="mt-4 min-h-5 text-sm font-medium text-red-700" role="alert" aria-live="polite"></p>
         <p class="mt-8 text-sm text-slate-500">The estimate updates as you type.</p>
         <div class="mt-3 grid gap-3 sm:grid-cols-2">
           <button id="share" class="rounded-xl bg-slate-950 px-5 py-3 font-semibold text-white hover:bg-slate-800" type="button">Share this estimate</button>
