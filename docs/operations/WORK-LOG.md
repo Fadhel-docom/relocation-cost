@@ -2557,3 +2557,29 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - Treat these as a provisional sensitivity bracket only: the occupational group and industry group are separate aggregates, not a cross-tab; neither is residential-moving-specific or SOC 53-7062-specific. ECEC includes multiple benefit categories and excludes self-employed workers. Do not hard-code or apply as a production constant.
 - Updated B24 research note, BLS evidence snapshot, backlog, operations room and work log on PR #267. No calculator formula, coefficient, price, route data or application code changed.
 - Source: https://www.bls.gov/news.release/ecec.htm (June 2026 Table 4, released September 9, 2026).
+
+
+## 2026-11-18 19:44 UTC — ChatGPT — B24 geographic wage proxy coverage and PADD allocator
+- Re-read OPS-ROOM, WORK-LOG, BACKLOG and B24 research note from the current branch.
+- Added `data/research/b24-oews-may-2025-proxies.json`: 19 state endpoints with May 2025 median annual/hourly wages and employment for SOC 53-3032, 53-3033 and 53-7062; 17 of 18 city nodes have SOC 53-7062 metro rows. Chicago is explicitly missing. Source is a secondary WageDex transcription of BLS OEWS May 2025 files, not a direct BLS file extraction; RSEs are null/unknown and the file is research-only. No production coefficients.
+- Added `tools/b24_padd_allocation.py` and `tools/test_b24_padd_allocation.py`. The utility samples a supplied route GeoJSON against state polygons, maps states to EIA PADDs, weights fuel cost by PADD mileage, and fails closed on >0.5% unmatched route miles, >1% expected-distance mismatch, or missing PADD prices. Added isolated workflow `.github/workflows/b24-padd-tests.yml` and method note `docs/operations/B24-PADD-ALLOCATION-METHOD-2026-11-18.md`.
+- Important discovery: current scalar road-distance data has no route geometry; city pages are great-circle city-center data. Thus no PADD mileage shares can be honestly calculated yet. The utility awaits actual ORS route GeoJSON and Census/TIGER state boundaries; no endpoint-average fuel proxy was invented.
+- Test command: `python -m unittest tools.test_b24_padd_allocation -v` (dedicated Actions workflow added; PR check pending).
+- No application code, calculator formula, production coefficient, price, or route distance changed.
+- Sources: BLS OEWS tables/indexes, WageDex open data (CC BY 4.0 intermediary), EIA PADD glossary, Census TIGER/Line geography.
+
+
+## 2026-11-18 19:53 UTC — ChatGPT — ATRI cost comparator, FMCSA boundaries, city wage coverage
+- Completed the missing Chicago metro SOC 53-7062 row. Wage proxy file now covers 18/18 city nodes for the handling occupation; driver SOCs remain state-level only. Still a WageDex secondary transcription of BLS OEWS, with RSE null/unknown and research-only status.
+- Added `data/research/b24-atri-2024-truckload-comparator.json` with 2024 peer-group median and middle-50% ranges for fuel, equipment lease/purchase, maintenance excluding tires, tires, auto-liability premium, driver wages and benefits. Peer group: truckload carriers with 81–200 trucks. Also recorded operating context (MPG, deadhead, dwell, age, annual mileage).
+- Explicitly prohibited summing separate component medians or transferring freight tractor-trailer values directly to household-goods box trucks. 2025 ATRI all-in $2.336/mile is a separate broader-year comparator, not additive to 2024 component medians.
+- FMCSA insurance minimums for for-hire household-goods carriers (GVWR >=10,001 lb): $750,000 BIPD and $5,000 cargo coverage. These are minimum coverage requirements, not premium costs. FMCSA HOS limits are schedule constraints, not average driver-hours. Crew loading/unloading time remains unresolved and cannot be replaced by ATRI freight dwell time.
+- Updated B24 research note and work log. No application code, price, coefficient, route distance or calculator formula changed.
+- Sources: ATRI sample report; ATRI 2026 release; FMCSA insurance filing requirements; FMCSA HOS summary.
+
+
+## 2026-11-18 20:02 UTC — ChatGPT — HeiGIT route geometry ingestion pipeline
+- Added `tools/fetch_heigit_route_geometries.mjs`: reads all existing city route definitions (44) and directional state route pages, uses the exact coordinate pairs already used by the stored road-distance matrix, requests GeoJSON geometry and duration from `https://api.heigit.org/openrouteservice/v2/directions/driving-car/geojson`, excludes Canada, and records provider-vs-stored distance difference.
+- Requests are sequential with a 1.6-second gap (below 40/minute), and use only the `HEIGIT_API_KEY` Actions secret. The key is never printed, committed, or retrieved into chat. The PADD allocator rejects geometry if the new route differs from the stored matrix by >1%.
+- Added manual workflow `.github/workflows/fetch-b24-route-geometries.yml`: select all/city/state routes; successful outputs are committed to a new data branch and a PR is opened; partial failures preserve successful files and manifest but fail the run visibly.
+- No HeiGIT requests were made during this PR, so no quota was consumed. The workflow requires repository secret `HEIGIT_API_KEY` before it can run. No production code or route distance changed.
