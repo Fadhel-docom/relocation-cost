@@ -67,14 +67,5 @@
   "sources": [
     "https://truckingresearch.org/wp-content/uploads/2026/02/sample_customized_yoy_report.pdf",
     "https://truckingresearch.org/2026/07/new-atri-report-details-accelerating-costs-and-low-profitability-despite-cuts/"
-  ],
-  "additional_industrywide_insurance_reference": {
-    "source": "ATRI, New Research Analyzes Motor Carrier Responses to Rising Insurance Costs",
-    "published": "2026-05-19",
-    "reference_period": "2021-2024",
-    "commercial_auto_liability_premium_usd_per_mile_2024": 0.102,
-    "change_since_2021_pct": 18.6,
-    "notes": "Separate broader motor-carrier study from the 81–200-truck sample peer group above. It is freight trucking, not household-goods mover insurance, and should not be added to the sample peer-group median or used as a mover-specific production coefficient.",
-    "source_url": "https://truckingresearch.org/2026/05/new-atri-research-analyzes-motor-carrier-responses-to-rising-insurance-costs/"
-  }
+  ]
 }
