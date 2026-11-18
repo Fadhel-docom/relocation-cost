@@ -528,16 +528,6 @@
           "p25": 37050,
           "p75": 45830,
           "p90": 50260
-        },
-        "Chicago": {
-          "area": "Chicago-Naperville-Elgin, IL-IN",
-          "median_annual": 40550,
-          "median_hourly": 19.5,
-          "employment": 157920,
-          "p10": 31860,
-          "p25": 35920,
-          "p75": 47640,
-          "p90": 56440
         }
       }
     }
@@ -570,7 +560,7 @@
     "scope": "OEWS covers wage-and-salary jobs across all industries, not only household-goods movers. SOC 53-3032 includes tractor-trailer drivers; SOC 53-3033 includes light/delivery truck drivers; SOC 53-7062 is broad manual freight/material movement.",
     "use": "Research cross-check and geographic sensitivity only. Do not add to production coefficients or claim residential-mover-specific wages.",
     "state_coverage": "19 states represented in the current route-page endpoint set; this is not a complete national state file.",
-    "metro_coverage": "18 of 18 city nodes currently in data/cities.json have a published SOC 53-7062 metro row captured here. These are metro wage areas, not central-city-only estimates; some cross state lines.",
+    "metro_coverage": "17 of the 18 city nodes currently in data/cities.json have a published SOC 53-7062 metro value captured here; Chicago is intentionally absent pending a verifiable occupation-specific metro row.",
     "annual_hourly_note": "Annual and hourly medians are transcribed independently from the published table; do not derive one from the other.",
     "attribution": "WageDex CC BY 4.0 compilation; underlying wage estimates are U.S. government BLS OEWS data."
   },
