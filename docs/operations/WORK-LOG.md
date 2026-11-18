@@ -2579,3 +2579,11 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 ## 2026-11-18 20:19 UTC — ChatGPT — BLS metro coverage correction
 - Recounted the wage proxy JSON against the 18 city nodes: only 17/18 SOC 53-7062 metro rows are present. Chicago is missing.
 - The previously discussed $40,550 / $19.50 value is Illinois statewide, not Chicago-Naperville-Elgin metro. It is not relabelled or substituted. Chicago remains null until a metro row is directly verified.
+
+
+## 2026-11-18 20:22 UTC — ChatGPT — Tire lifecycle and capital benchmark boundaries
+- Added ATRI 2024 peer tire cost $0.032/truck-mile (middle 50% $0.030–$0.035), freight truckload cohort only.
+- Added Michelin lifecycle tire-cost methodology and examples. Formula must account for position, purchase, retreads/repairs, casing residual, achieved miles, labor, road calls and disposal. Published examples are long-haul tires, not moving-box-truck assumptions.
+- Added ICCT Class 6–7 straight-truck diesel price forecast: $112k for 2024/2025 and $113k for 2026, all 2022 USD; modelled benchmark, not actual current complete box-truck price or resale value.
+- NADA/Wards 2025 Class 6/7 sales volumes recorded, but no Class 6/7 average selling price in the cited profile; Class 8 price must not be reused.
+- Decision: tire cost and depreciation remain unresolved pending matched mover fleet tire invoices/lifecycle and actual truck acquisition/resale/lifetime-mile data. No production changes.
