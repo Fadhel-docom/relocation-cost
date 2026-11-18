@@ -1,0 +1,71 @@
+name: Fetch B24 route geometries
+
+on:
+  workflow_dispatch:
+    inputs:
+      base_branch:
+        description: Branch to use as the source of route definitions
+        required: true
+        default: main
+        type: string
+      route_set:
+        description: Which existing route definitions to fetch
+        required: true
+        default: all
+        type: choice
+        options:
+          - all
+          - cities
+          - states
+      force:
+        description: Re-fetch geometries even when files already exist
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out route definitions
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.base_branch }}
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Fetch route geometries from HeiGIT
+        env:
+          HEIGIT_API_KEY: ${{ secrets.HEIGIT_API_KEY }}
+        run: |
+          if [ -z "$HEIGIT_API_KEY" ]; then
+            echo "::error::Repository secret HEIGIT_API_KEY is not configured. Add it in Settings > Secrets and variables > Actions. Do not paste the key into source code or chat."
+            exit 1
+          fi
+          args=()
+          case "${{ inputs.route_set }}" in
+            cities) args+=(--city-only) ;;
+            states) args+=(--state-only) ;;
+          esac
+          if [ "${{ inputs.force }}" = "true" ]; then
+            args+=(--force)
+          fi
+          node tools/fetch_heigit_route_geometries.mjs "${args[@]}"
+      - name: Commit generated geometry on a new branch
+        run: |
+          branch="data/b24-route-geometries-${GITHUB_RUN_NUMBER}"
+          git switch -c "$branch"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/route-geometries
+          if git diff --cached --quiet; then
+            echo "No geometry files changed; nothing to commit."
+            exit 0
+          fi
+          git commit -m "data: add HeiGIT route geometries for B24"
+          git push origin "$branch"
+          echo "Generated branch: $branch" >> "$GITHUB_STEP_SUMMARY"
