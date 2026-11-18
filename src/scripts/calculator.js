@@ -27,6 +27,11 @@ const revealOptionalDetails = () => {
     });
     if (hasSavedOrSharedValue) section.open = true;
   });
+  // The homepage links directly to this section; open it for that deep link.
+  if (location.hash === "#employer-package") {
+    const employerSection = document.querySelector("#employer-package-details");
+    if (employerSection) employerSection.open = true;
+  }
 };
 
 const closeOptionalDetails = () => {
