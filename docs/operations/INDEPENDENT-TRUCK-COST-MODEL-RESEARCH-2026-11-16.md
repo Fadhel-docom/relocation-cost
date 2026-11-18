@@ -97,7 +97,7 @@ Before any production coefficient changes:
 
 ## Immediate next step (updated 2026-11-18)
 
-Combine the extracted GVWR/fuel MPG profiles with current EIA regional fuel prices and route mileage across fuel-price regions. In parallel, build an interval/sensitivity treatment for the maintenance and repair bands, then add local BLS wages. Insurance, tires, depreciation/capital and overhead remain separate missing components. Keep B24 research-only; no per-mile or per-pound-mile rate and no production formula change until these components and holdout tests are complete.
+A first fuel-only benchmark is now calculated from the extracted VIUS MPG/loaded-share estimates and EIA diesel prices for 2026-11-16 by PADD. It yields about $0.653 per total truck-mile and $0.875 per loaded truck-mile at the U.S. EIA average, before every non-fuel component. Route mileage weighting through PADDs is still missing; do not approximate it by averaging only route endpoints. Next: extract May 2025 BLS state/metro wage estimates for driver and handling occupations, build interval/sensitivity treatment for maintenance/repair, and research tires, insurance, depreciation/capital and overhead. Keep B24 research-only; no per-mile or per-pound-mile rate and no production formula change until components and holdout tests are complete.
 
 ## Sources checked 2026-11-16
 
