@@ -2574,3 +2574,8 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - Added Bellhop historical operational cohort observations for total man-hours per move: Raleigh 1-bedroom full-service means 5 (n=80) and 6 (n=128), P80 7/8; Atlanta 3-bedroom full-service means 5 (n=27) and 15 (n=61), P80 9/25 across two seasonal windows. This demonstrates major market/time variance; company-specific, historical, not national.
 - Added FMCSA/US DOT DOT-MC-01-107 household-goods driver task-time ranges. The report calls them conceptual, with overlap; they cannot be mechanically summed. Use only to define task categories and broad checks.
 - Model rule: separate drive duration, driver on-duty non-driving tasks, and total crew man-hours. No universal bedroom-to-hours coefficient. No production formula, coefficient, price or route distance changed.
+
+
+## 2026-11-18 20:19 UTC — ChatGPT — BLS metro coverage correction
+- Recounted the wage proxy JSON against the 18 city nodes: only 17/18 SOC 53-7062 metro rows are present. Chicago is missing.
+- The previously discussed $40,550 / $19.50 value is Illinois statewide, not Chicago-Naperville-Elgin metro. It is not relabelled or substituted. Chicago remains null until a metro row is directly verified.
