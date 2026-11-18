@@ -151,3 +151,20 @@ Search results also surfaced secondary sites reproducing May 2025 BLS values and
 - BLS OEWS documentation: https://www.bls.gov/oes/oes_doc.htm
 
 This is an access/extraction limitation, not evidence that BLS has no data. No application code, pricing, formulas, route data, or production settings changed.
+
+
+## 2026-11-18 — Official national BLS May 2025 wage cross-check
+
+The official BLS May 2025 OEWS national table reports for SOC 53-7062 (Laborers and Freight, Stock, and Material Movers, Hand): mean hourly wage **$20.32**, mean annual wage **$42,260**, and median hourly wage **$19.35**. The BLS Occupational Outlook Handbook's May 2025 detailed-occupation table reports a median annual wage of **$40,240** for this same detailed occupation. This reconciles the existing `data/coefficients.json` mean benchmark with a separately sourced median; mean and median are not interchangeable.
+
+The BLS OOH also reports May 2025 national median annual wages of **$58,640** for heavy and tractor-trailer truck drivers (SOC 53-3032) and **$44,860** for light truck drivers (SOC 53-3033). These are broad national occupational proxies. SOC 53-3032 includes tractor-trailer drivers; SOC 53-3033 includes delivery/light truck work; SOC 53-7062 covers manual freight/material movement across industries. None is a residential-moving-only wage sample.
+
+**Important distinction:** the broader OOH group “Hand Laborers and Material Movers” has a median of $38,220, but the detailed SOC 53-7062 median is $40,240. For the project's SOC 53-7062 handling proxy, use the detailed occupation value and label the scope accurately. Do not substitute the broader group median.
+
+These national figures improve the research baseline but do not resolve the pending state/metro extraction, driver/handling geographic allocation, or employer benefit loading. They remain context benchmarks only; no production coefficient or formula is changed.
+
+Official sources:
+- BLS May 2025 OEWS national table: https://www.bls.gov/news.release/ocwage.t01.htm
+- BLS May 2025 OOH, heavy and tractor-trailer truck drivers: https://www.bls.gov/ooh/transportation-and-material-moving/heavy-and-tractor-trailer-truck-drivers.htm
+- BLS May 2025 OOH, delivery truck drivers and driver/sales workers: https://www.bls.gov/ooh/transportation-and-material-moving/delivery-truck-drivers-and-driver-sales-workers.htm
+- BLS May 2025 OOH, hand laborers and material movers: https://www.bls.gov/ooh/transportation-and-material-moving/hand-laborers-and-material-movers.htm
