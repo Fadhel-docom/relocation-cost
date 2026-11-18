@@ -29,7 +29,8 @@ test("each tax source is https, hand-checked, and listed in the weekly reminder 
   }
 });
 
-test("the calculator renders the note from the constant and still says it does not work out taxes", () => {
+test("the calculator renders the tax note and clearly explains the net lump-sum input", () => {
   assert.match(page, /\{EMPLOYER_TAX_NOTE\}/);
-  assert.match(page, /This calculator does not work out taxes\./);
+  assert.match(page, /does not estimate withholding or taxes/);
+  assert.match(page, /Lump sum available after withholding/);
 });
