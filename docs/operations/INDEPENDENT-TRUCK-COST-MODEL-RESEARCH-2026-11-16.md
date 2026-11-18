@@ -271,3 +271,17 @@ Official API references:
 - HeiGIT endpoint migration: https://ask.openrouteservice.org/t/deprecating-api-openrouteservice-org-in-favour-of-api-heigit-org/7912
 
 **Credential requirement:** repository secret `HEIGIT_API_KEY` must be configured before the manual workflow can run. Never put the key in source code, issue comments, or chat. Existing Vercel environment variables are not read or decrypted by this workflow.
+
+
+## 2026-11-18 — EIA diesel snapshot and subdistrict-aware PADD pricing
+
+Added `data/research/eia-diesel-padd-prices-2026-11-16.json` using EIA's November 16, 2026 weekly on-highway diesel series (released November 17; taxes included):
+- East Coast PADD 1: $5.782/gal; New England 1A: $6.225; Central Atlantic 1B: $6.309; Lower Atlantic 1C: $5.541.
+- Midwest PADD 2: $5.967; Gulf Coast PADD 3: $5.547; Rocky Mountain PADD 4: $6.011.
+- West Coast PADD 5: $6.948; California series: $7.733; West Coast less California: $6.269.
+
+The allocator now maps PADD 1 states to 1A/1B/1C and PADD 5 states to California (5CA) vs West Coast less California (5X), where EIA publishes distinct prices. If subdistrict/subarea prices are absent, it falls back to aggregate PADD 1 or PADD 5. Added tests for both subdistrict weighting and aggregate fallback. These are EIA price-series areas; 5CA/5X are not formal additional PADD districts.
+
+No route fuel cost is calculated yet because no route GeoJSON or TIGER polygons are in the repository. This is a dated price input snapshot, not a current evergreen price; future estimates must use the EIA week closest to the move date and preserve the price week.
+
+Official source: https://www.eia.gov/dnav/pet/PET_PRI_GND_A_EPD2D_PTE_DPGAL_W.htm (EIA weekly retail gasoline and diesel prices, dollars per gallon including taxes).
