@@ -770,3 +770,9 @@ Independently audit the 30 prompts row by row using the current site, repository
 
 ### Production verification — 2026-11-18
 Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44d` reached READY. The live homepage `/` and calculator `/calculator/` both returned HTTP 200 and expose the expected homepage package title / calculator disclosure sections. The calculator change is live; this is not a claim that Google has indexed it.
+
+
+## آخر تحديث — 2026-11-18 19:32 UTC
+- تم التحقق من أن جداول BLS May 2025 الرسمية للولايات والمناطق الحضرية متاحة، لكن تنزيل ملف الولايات الرسمي `oesm25st.zip` فشل عبر مسار الاسترجاع الحالي، كما لم تكتمل عملية One Screen التفاعلية.
+- لم تُعتمد أي أرقام من مواقع ثانوية أو من جداول May 2023. بيانات أجور الولايات/المترو في B24 ما زالت معلّقة حتى استخراج رسمي قابل للتدقيق.
+- لا تغيير في الحاسبة أو الأسعار أو المعاملات أو المسارات. التفاصيل وحدود الوصول في `docs/operations/INDEPENDENT-TRUCK-COST-MODEL-RESEARCH-2026-11-16.md` وسجل العمل.

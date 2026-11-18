@@ -2525,3 +2525,12 @@ Scope: read-only. No indexing requests, URL submissions, sitemap submissions, si
 
 ### Production verification — 2026-11-18
 Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44d` reached READY. The live homepage `/` and calculator `/calculator/` both returned HTTP 200 and expose the expected homepage package title / calculator disclosure sections. The calculator change is live; this is not a claim that Google has indexed it.
+
+
+## 2026-11-18 19:32 UTC — ChatGPT — B24 official BLS source verification
+- Re-read OPS-ROOM, WORK-LOG, BACKLOG, the B24 research note, and the weighted VIUS extraction report from `main`. Confirmed PR #265 is in the mainline docs snapshot; open PRs #256 and #257 remain stacked drafts and were not modified.
+- Verified the official BLS May 2025 tables page and state index. BLS explicitly provides state and metro estimates and percentile wages through XLSX / One Screen Data Search. The state XLSX endpoint is `/oes/special-requests/oesm25st.zip`.
+- Attempted the official ZIP retrieval through the web retrieval path and container download; both failed (unsupported ZIP content type / download failure). The One Screen system opened only its general query shell; no state/occupation/year result export was completed.
+- Search results surfaced secondary reproductions and a May 2023 state table. Neither was used as project data. This avoids mixing reference years or silently treating scraped figures as official extraction.
+- Updated the B24 research note, BACKLOG, OPS-ROOM, and this log to keep the state/metro wage input explicitly pending. No wage values, formula, coefficient, route data, application code, or production settings changed.
+- Next useful step: obtain the official May 2025 state/metro XLSX or complete a One Screen query for SOC 53-3032, 53-3033, and 53-7062; capture employment RSE, means, medians, percentiles, and suppression flags. Then separately resolve route labor geography, benefit loading, PADD mileage allocation, and missing vehicle-cost components before holdout validation.
