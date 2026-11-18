@@ -2557,3 +2557,13 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - Treat these as a provisional sensitivity bracket only: the occupational group and industry group are separate aggregates, not a cross-tab; neither is residential-moving-specific or SOC 53-7062-specific. ECEC includes multiple benefit categories and excludes self-employed workers. Do not hard-code or apply as a production constant.
 - Updated B24 research note, BLS evidence snapshot, backlog, operations room and work log on PR #267. No calculator formula, coefficient, price, route data or application code changed.
 - Source: https://www.bls.gov/news.release/ecec.htm (June 2026 Table 4, released September 9, 2026).
+
+
+## 2026-11-18 19:44 UTC — ChatGPT — B24 geographic wage proxy coverage and PADD allocator
+- Re-read OPS-ROOM, WORK-LOG, BACKLOG and B24 research note from the current branch.
+- Added `data/research/b24-oews-may-2025-proxies.json`: 19 state endpoints with May 2025 median annual/hourly wages and employment for SOC 53-3032, 53-3033 and 53-7062; 17 of 18 city nodes have SOC 53-7062 metro rows. Chicago is explicitly missing. Source is a secondary WageDex transcription of BLS OEWS May 2025 files, not a direct BLS file extraction; RSEs are null/unknown and the file is research-only. No production coefficients.
+- Added `tools/b24_padd_allocation.py` and `tools/test_b24_padd_allocation.py`. The utility samples a supplied route GeoJSON against state polygons, maps states to EIA PADDs, weights fuel cost by PADD mileage, and fails closed on >0.5% unmatched route miles, >1% expected-distance mismatch, or missing PADD prices. Added isolated workflow `.github/workflows/b24-padd-tests.yml` and method note `docs/operations/B24-PADD-ALLOCATION-METHOD-2026-11-18.md`.
+- Important discovery: current scalar road-distance data has no route geometry; city pages are great-circle city-center data. Thus no PADD mileage shares can be honestly calculated yet. The utility awaits actual ORS route GeoJSON and Census/TIGER state boundaries; no endpoint-average fuel proxy was invented.
+- Test command: `python -m unittest tools.test_b24_padd_allocation -v` (dedicated Actions workflow added; PR check pending).
+- No application code, calculator formula, production coefficient, price, or route distance changed.
+- Sources: BLS OEWS tables/indexes, WageDex open data (CC BY 4.0 intermediary), EIA PADD glossary, Census TIGER/Line geography.
