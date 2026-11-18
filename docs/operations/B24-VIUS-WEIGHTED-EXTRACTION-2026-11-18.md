@@ -102,6 +102,28 @@ Empty replicate groups are excluded from `G`, as instructed in the guide. The ou
 - A business-related box truck is not automatically a residential moving truck. No truck-length label is inferred from GVWR without a separate vehicle-specification mapping.
 - No `$/truck-mile`, `$/lb-mile`, `$/kg-km`, mover selling price, or production coefficient is produced by this extraction.
 
+
+## First fuel-only benchmark using current EIA prices (2026-11-16)
+
+EIA's November 17, 2026 release reports on-highway diesel retail prices for the week of November 16, including taxes. Dividing each regional price by the focus group's VIUS weighted mean of 9.0959 mpg gives an indicative fuel cost per total truck-mile. Dividing again by the weighted loaded-mile share (0.7459) allocates empty-mile fuel to loaded miles.
+
+| EIA region | Diesel price ($/gal) | Fuel-only $/total truck-mile | Fuel-only $/loaded truck-mile |
+|---|---:|---:|---:|
+| U.S. | 5.937 | 0.653 | 0.875 |
+| East Coast (PADD 1) | 5.782 | 0.636 | 0.852 |
+| Midwest (PADD 2) | 5.967 | 0.656 | 0.880 |
+| Gulf Coast (PADD 3) | 5.547 | 0.610 | 0.818 |
+| Rocky Mountain (PADD 4) | 6.011 | 0.661 | 0.886 |
+| West Coast (PADD 5) | 6.948 | 0.764 | 1.024 |
+| California (PADD 5 subregion) | 7.733 | 0.850 | 1.140 |
+| West Coast less California | 6.269 | 0.689 | 0.924 |
+
+**Interpretation guardrails:** these are fuel-only benchmarks, not a carrier's full operating cost or a consumer quote. The EIA price is a public retail on-highway benchmark (including taxes), not a fleet contract price. The MPG and loaded-share estimates are 2021 weighted marginal means with different valid-record sets; dividing them is a transparent scenario calculation, not a record-level joint estimator. It excludes maintenance, tires, labor, insurance, depreciation/capital, permits, dispatch, overhead, profit and service costs. The route-level EIA price still needs to be weighted by actual route miles through each PADD; averaging only origin and destination regions would be a weak shortcut. The sparse gasoline sample in GVWR 6–7 is not used as a parallel calibration.
+
+This benchmark demonstrates why the next model must expose fuel, utilization, labor and vehicle overhead separately. It is **not** used to change the existing $0.56/mile assumption or any production coefficient.
+
+Source: [EIA Gasoline and Diesel Fuel Update](https://www.eia.gov/petroleum/gasdiesel/), release November 17, 2026, prices for November 16, 2026. BLS publishes May 2025 state and metro occupational wage tables for the next labor step; see [state OEWS tables](https://www.bls.gov/oes/2025/may/oessrcst.htm), [all OEWS tables](https://www.bls.gov/oes/tables.htm), and the national [heavy-truck driver](https://www.bls.gov/ooh/transportation-and-material-moving/heavy-and-tractor-trailer-truck-drivers.htm) and [hand-laborer/material-mover](https://www.bls.gov/ooh/transportation-and-material-moving/hand-laborers-and-material-movers.htm) wage profiles.
+
 ## Decision
 
 **B24 extraction milestone: complete for weighted descriptive distributions; pricing model remains research-only.** The evidence supports fuel-economy and fleet-utilization inputs for the next model stage, but not a finished consumer moving price.
