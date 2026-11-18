@@ -23,16 +23,19 @@ from pathlib import Path
 from typing import Any
 
 PADD_BY_STATE = {
-    # PADD 1 — East Coast (1A/1B/1C combined for the published PADD price)
-    **{s: "1" for s in "CT ME MA NH RI VT DE DC MD NJ NY PA FL GA NC SC VA WV".split()},
+    # EIA publishes PADD 1 subdistrict prices; use them when supplied.
+    **{s: "1A" for s in "CT ME MA NH RI VT".split()},
+    **{s: "1B" for s in "DE DC MD NJ NY PA".split()},
+    **{s: "1C" for s in "FL GA NC SC VA WV".split()},
     # PADD 2 — Midwest
-    **{s: "2" for s in "IL IN IA KS KY MI MN MO NE ND OH OK SD TN WI".split()},
+    **{s: "2" for s in "IL IN IA KS MI MN MO NE ND OH OK SD TN WI".split()},
     # PADD 3 — Gulf Coast
     **{s: "3" for s in "AL AR LA MS NM TX".split()},
     # PADD 4 — Rocky Mountain
     **{s: "4" for s in "CO ID MT UT WY".split()},
-    # PADD 5 — West Coast
-    **{s: "5" for s in "AK AZ CA HI NV OR WA".split()},
+    # PADD 5 uses EIA's California and West Coast-less-California series.
+    "CA": "5CA",
+    **{s: "5X" for s in "AK AZ HI NV OR WA".split()},
 }
 
 EARTH_RADIUS_MILES = 3958.7613
@@ -201,19 +204,32 @@ def price_fuel(allocation: dict[str, Any],
         raise AllocationError("MPG must be greater than zero.")
     price_map = prices.get("usd_per_gallon", {})
     padd_miles = allocation["miles_by_padd"]
-    missing = [padd for padd in padd_miles if str(padd) not in price_map]
+
+    def price_key_for(area: str) -> str | None:
+        if area in price_map:
+            return area
+        if area in ("1A", "1B", "1C") and "1" in price_map:
+            return "1"
+        if area in ("5CA", "5X") and "5" in price_map:
+            return "5"
+        return None
+
+    resolved = {area: price_key_for(area) for area in padd_miles}
+    missing = [area for area, key in resolved.items() if key is None]
     if missing:
-        raise AllocationError(f"Missing diesel prices for PADD(s): {', '.join(missing)}")
+        raise AllocationError(f"Missing diesel prices for EIA area(s): {', '.join(missing)}")
     by_padd = {}
     total_cost = 0.0
     for padd, miles in padd_miles.items():
-        price = float(price_map[str(padd)])
+        price_key = resolved[padd]
+        price = float(price_map[price_key])
         if price <= 0:
-            raise AllocationError(f"Invalid diesel price for PADD {padd}.")
+            raise AllocationError(f"Invalid diesel price for EIA area {price_key}.")
         cost = miles / mpg * price
         total_cost += cost
         by_padd[padd] = {
             "miles": round(miles, 3),
+            "eia_price_series": price_key,
             "diesel_usd_per_gallon": price,
             "fuel_gallons": round(miles / mpg, 3),
             "fuel_cost_usd": round(cost, 2),
