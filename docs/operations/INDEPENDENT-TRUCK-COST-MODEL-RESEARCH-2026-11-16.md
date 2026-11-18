@@ -252,3 +252,22 @@ Sources:
 - FMCSA hours-of-service summary: https://www.fmcsa.dot.gov/regulations/hours-service/summary-hours-service-regulations
 
 **Decision:** ATRI is a plausibility comparator only; FMCSA minimum insurance is not a premium; HOS is not an average-time model; residential crew handling hours still require mover-specific evidence. No production formula or coefficient changes.
+
+
+## 2026-11-18 — HeiGIT route-geometry ingestion pipeline
+
+Added `tools/fetch_heigit_route_geometries.mjs` and manual workflow `.github/workflows/fetch-b24-route-geometries.yml`. The fetcher reads the existing 44 city route definitions and directional state-page routes, uses the exact city-center/state-centroid coordinates and the corresponding stored road-distance matrix key, and requests full GeoJSON geometry plus provider duration from the current endpoint:
+
+`POST https://api.heigit.org/openrouteservice/v2/directions/driving-car/geojson`
+
+It explicitly excludes Canada using the ORS `avoid_countries: ["CA"]` routing option, fetches sequentially with a 1.6-second gap to stay below the published 40 requests/minute account rate, and stores provider distance/duration, existing matrix distance, difference percentage, timestamp, licence, and attribution. A >1% difference is flagged and the PADD allocator refuses that geometry until reconciled. API key is read only from the `HEIGIT_API_KEY` GitHub Actions secret; it is never printed or committed.
+
+The manual workflow can fetch all routes, city routes only, or state routes only. It writes successful outputs to a new data branch and opens a PR. If some requests fail, it preserves successful outputs and the manifest in that PR, then marks the run failed so the missing routes are not hidden. No API call has been executed by this PR; no HeiGIT quota has been consumed by adding the pipeline.
+
+Official API references:
+- HeiGIT/ORS API playground and V2 GeoJSON Directions endpoint: https://playground.heigit.org/
+- ORS routing options, including `avoid_countries`: https://giscience.github.io/openrouteservice/api-reference/endpoints/directions/routing-options
+- ORS country list (Canada code/identifier): https://giscience.github.io/openrouteservice/technical-details/country-list
+- HeiGIT endpoint migration: https://ask.openrouteservice.org/t/deprecating-api-openrouteservice-org-in-favour-of-api-heigit-org/7912
+
+**Credential requirement:** repository secret `HEIGIT_API_KEY` must be configured before the manual workflow can run. Never put the key in source code, issue comments, or chat. Existing Vercel environment variables are not read or decrypted by this workflow.
