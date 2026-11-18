@@ -196,3 +196,48 @@ These two ratios form a plausible **sensitivity bracket**, not a specific SOC 53
 **Research use:** use 1.457–1.513 only as a provisional sensitivity range when translating OEWS wages into employer-loaded labor cost, until a more specific source is found. Keep the un-loaded wage and benefit component visible separately; do not double count overtime or paid leave if the hours/cost model already includes them. No production coefficient changed.
 
 Official source: https://www.bls.gov/news.release/ecec.htm (June 2026, Table 4; release September 9, 2026). The ECEC technical note describes benefit categories, survey coverage, and exclusion of self-employed workers.
+
+
+## 2026-11-18 — B24: regional wage proxies, non-fuel benchmarks and PADD fuel method
+
+### Geographic wage proxy data — secondary, not direct BLS extraction
+Added `data/research/b24-oews-may-2025-proxies.json`. It contains May 2025 OEWS transcription values for 19 state-route endpoints for SOC 53-3032 (heavy truck drivers), SOC 53-3033 (light truck drivers), and SOC 53-7062 (hand material movers); the latter includes metro-level rows for 18/18 city nodes. Source is WageDex's secondary transcription of BLS OEWS, not the official BLS XLSX itself. RSE values are unavailable and are explicitly null. State and metro areas are not equivalent to central-city boundaries; several metros cross state lines. This data is for exploratory geographic sensitivity only, not a production input. Direct official BLS file extraction and RSE QA remain outstanding.
+
+### Non-fuel cost comparator — ATRI 2024 truckload cohort
+Added `data/research/b24-atri-2024-truckload-comparator.json`. The source's 81–200-truck truckload peer group reports separate median per-mile components: tires $0.032, repair/maintenance excluding tires $0.161, auto-liability premium $0.093, equipment lease/purchase $0.391, company-driver wages $0.620, benefits $0.157, and fuel $0.469. These are marginal medians from a freight tractor-trailer cohort, not household-goods box trucks. Do not add the separate medians to fabricate a synthetic total; equipment lease/purchase is not pure depreciation; auto-liability does not include every mover insurance cover. Use only as a plausibility/sensitivity comparator until mover-specific evidence is obtained.
+
+FMCSA filing requirements for household-goods carriers are coverage floors, not premiums. HOS limits are regulatory schedule constraints, not measured average drive time. VIUS PUF does not include tire expenditure, insurance premiums, approximate operating hours or idling share. Residential load/unload hours remain unmeasured; freight dwell time is not a valid substitute.
+
+### PADD fuel allocation foundation
+Added a geometry-based allocator, tests and a manual HeiGIT geometry-ingestion workflow. The allocator intersects route GeoJSON samples with Census/TIGER state polygons, maps state miles to EIA PADD/subdistrict price areas, and weights fuel by miles in each price area. A dated EIA 2026-11-16 diesel snapshot includes PADD 1A/1B/1C and 5CA/5X series where available, with aggregate fallback. It is not a live price feed.
+
+**Quality gates:** geometry must match the stored route distance within 1%; more than 0.5% unmatched mileage is rejected; fuel pricing now also refuses any route with less than full state-boundary coverage, so even a tolerated small unmatched segment cannot silently lower the estimated fuel cost. The state-polygon lookup includes bounding-box prefiltering to reduce runtime. The tests include PADD boundary weighting, aggregate-price fallback, distance mismatch, and incomplete-coverage rejection.
+
+The current repo still has no actual route GeoJSON bundle or TIGER boundary file. The manual workflow requires the repository Actions secret `HEIGIT_API_KEY`; no route API requests have been made and no HeiGIT quota has been consumed by creating the workflow. Once secret and geometry are available, generated data will go through a separate PR and distance/coverage QA.
+
+No production calculator formula, coefficient, displayed price, or route distance changed. No full truck operating-cost estimate is claimed.
+
+
+## 2026-11-18 — Mover-specific insurance and observed moving labor-time evidence
+
+### Insurance policy medians for moving businesses
+Added `data/research/b24-insureon-moving-insurance-benchmarks-2026-11-18.json`. Insureon reports medians among moving businesses applying for quotes through its platform: commercial auto $876/month ($10,512 annualized), general liability $120/month ($1,440 annualized), and workers' compensation $755/month ($9,060 annualized). Its page says costs vary with truck count/value, revenue, employee count, policy limits/deductibles, and cargo type. The sample size and number of vehicles per insured business are not published on the page. Thus commercial auto cannot be converted into per-truck or per-mile cost without fleet size and mileage from the same policies; workers' compensation is payroll/exposure-linked; general liability is business overhead. Cargo/bailee and other coverages are separate considerations. These are useful mover-specific external medians, but not universal quotes or production constants.
+
+ATRI's separate 2026 insurance study reports commercial auto liability premiums at **$0.102 per mile in 2024**, up 18.6% since 2021. This is a broad motor-carrier/freight benchmark, distinct from the 81–200-truck peer sample's $0.093/mile median; do not combine the populations or apply either as a household-mover coefficient. Both sources improve the external comparison, while Insureon's business-level moving sample is more sector-specific.
+
+### Direct moving labor-time evidence
+Added `data/research/b24-moving-labor-time-evidence-2026-11-18.json` with two complementary sources:
+
+1. Bellhop Engineering's 2018 operational article says the company had completed more than 100,000 moves by summer 2017 and provides selected cohort examples in **total man-hours per move** (crew size × elapsed hours): Raleigh-Durham-Chapel Hill full-service 1-bedroom moves averaged 5 man-hours (n=80, Jan–Apr) and 6 (n=128, Apr–Jun), with 80th percentiles 7 and 8; Atlanta full-service 3-bedroom moves averaged 5 (n=27, Jan–Apr) and 15 (n=61, Apr–Jun), with 80th percentiles 9 and 25. This is valuable evidence of market/season/property variation, but it is historical, company-specific, and not a national representative sample.
+2. The FMCSA/US DOT report DOT-MC-01-107 includes household-goods driver task analysis. It reports conceptual (not precise) per-job ranges: equipment preparation 15–45 minutes; inventory/stickers 90–180 minutes; driver's actual goods-moving activity 30–90 minutes; load packing/securing 30–180 minutes. It also says loading can take 2–6 hours or longer depending on shipment size and variety. The activities can overlap, so the ranges must not be summed mechanically. The report dates to 2001 and is a historical reasonableness reference, not a modern point estimate.
+
+### Model structure decision
+Separate (a) route driving duration, (b) driver on-duty/non-driving tasks, and (c) crew total man-hours. Crew man-hours are movers × elapsed crew working hours; they are not elapsed job duration. Do not multiply driver task time by crew size. Use Bellhop's examples only as external validation anchors and the DOT report to define task categories/overlap; no universal bedroom-to-hours coefficient is approved. The next best evidence would be de-identified, timestamped move records from a household-goods carrier, stratified by market, property size, service, crew size, stairs/elevator, carry distance, packing and season.
+
+Sources:
+- Insureon moving-company insurance costs: https://www.insureon.com/trucking-business-insurance/moving-companies/cost
+- ATRI 2026 insurance research release: https://truckingresearch.org/2026/05/new-atri-research-analyzes-motor-carrier-responses-to-rising-insurance-costs/
+- Bellhop Engineering moving-time study: https://medium.com/bellhops-moving/machines-can-now-tell-you-how-long-your-move-will-take-part-1-of-4-c98ad545488d
+- FMCSA/US DOT report DOT-MC-01-107: https://rosap.ntl.bts.gov/view/dot/42139/dot_42139_DS1.pdf
+
+No production formula, coefficient, price, or route distance changed.
