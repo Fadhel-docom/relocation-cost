@@ -196,3 +196,78 @@ These two ratios form a plausible **sensitivity bracket**, not a specific SOC 53
 **Research use:** use 1.457–1.513 only as a provisional sensitivity range when translating OEWS wages into employer-loaded labor cost, until a more specific source is found. Keep the un-loaded wage and benefit component visible separately; do not double count overtime or paid leave if the hours/cost model already includes them. No production coefficient changed.
 
 Official source: https://www.bls.gov/news.release/ecec.htm (June 2026, Table 4; release September 9, 2026). The ECEC technical note describes benefit categories, survey coverage, and exclusion of self-employed workers.
+
+
+## 2026-11-18 — Geographic OEWS wage proxy extraction and PADD utility
+
+### State wage coverage (research-only, secondary transcription)
+A May 2025 OEWS state wage extract was assembled for the 19 state endpoints used by the current state-route pages: AZ, CA, CO, FL, GA, IL, MA, MI, NC, NJ, NV, NY, OH, OR, PA, TN, TX, VA, WA. It contains annual median, hourly median, and employment for:
+- SOC 53-3032 Heavy and Tractor-Trailer Truck Drivers
+- SOC 53-3033 Light Truck Drivers
+- SOC 53-7062 Laborers and Freight, Stock, and Material Movers, Hand
+
+### City/metro handling wage coverage
+A May 2025 SOC 53-7062 metro extract now covers 17 of the 18 city nodes in `data/cities.json`: New York, Los Angeles, Chicago pending, Houston, Phoenix, Dallas, Austin, San Francisco, Seattle, Denver, Miami, Atlanta, Boston, Las Vegas, Portland, San Diego, Charlotte, and Nashville. The current JSON contains 17 published metro records; Chicago is intentionally missing because the occupation-specific metro row was not recovered in this extraction. The metro observations retain employment and available percentiles; not every search result exposed every percentile.
+
+### Provenance and restrictions
+The downloadable BLS state/metro XLSX ZIPs remain inaccessible through the current retrieval path. To avoid discarding the research progress, `data/research/b24-oews-may-2025-proxies.json` records a **secondary transcription** from WageDex pages which state that their rows are computed from the BLS OEWS May 2025 state/metro files. This is not a direct BLS file extraction. The data file explicitly sets RSE to null (unknown, not zero), notes missing cells, and prohibits production use. OEWS is cross-industry wage-and-salary employment, not household-moving-only; the three SOCs are broad occupational proxies. Keep state and metro rows separate; do not average them. The city metro geography can cross state boundaries (e.g. Boston MA-NH, Portland OR-WA, Charlotte NC-SC, New York NY-NJ).
+
+Official BLS tables: https://www.bls.gov/oes/tables.htm ; state index: https://www.bls.gov/oes/current/oessrcst.htm ; metro index: https://www.bls.gov/oes/current/oessrcma.htm. Secondary transcription source and download metadata: https://wagedex.com/data. WageDex data pages: https://wagedex.com/jobs/heavy-and-tractor-trailer-truck-drivers ; https://wagedex.com/jobs/light-truck-drivers ; https://wagedex.com/jobs/laborers-and-freight-stock-and-material-movers-hand.
+
+### PADD allocation utility
+The route-distance matrix has only scalar state-pair distances; the 18 city nodes and 44 city pairs use city-center planning data. Neither provides the actual road polyline or states traversed. A geometry-based allocator has therefore been added in `tools/b24_padd_allocation.py`, with unit tests and an isolated GitHub Actions workflow. It samples a supplied ORS/TIGER GeoJSON route against state polygons, groups miles by EIA PADD, and prices fuel by route-mile share. It fails closed if over 0.5% of mileage is unassigned, the geometry differs from an expected route distance by more than 1%, or a traversed PADD price is missing. EIA PADD mapping source: https://www.eia.gov/tools/glossary/index.php?id=Petroleum+Administration+for+Defense+District.
+
+**Not yet complete:** no route GeoJSON bundle or Census/TIGER state-boundary GeoJSON has been added, so no PADD mileage shares or new route fuel costs have been calculated. The allocator is a tested method awaiting its required input data. Fuel output is fuel-only, not a full truck operating cost.
+
+No production calculator formula, coefficient, price, or route distance changed.
+
+
+## 2026-11-18 — Independent non-fuel comparator and labor-time boundaries
+
+### ATRI 2024 peer-group cost-per-mile comparator
+The public ATRI sample carrier report provides a 2024 Truckload peer group of carriers with 81–200 trucks. Published peer medians and middle-50% ranges (USD per truck-mile) are recorded in `data/research/b24-atri-2024-truckload-comparator.json`:
+- Fuel: median $0.469; middle 50% $0.426–$0.521.
+- Truck/trailer lease or purchase: $0.391; $0.323–$0.464.
+- Repair and maintenance excluding tires: $0.161; $0.122–$0.186.
+- Tires: $0.032; $0.030–$0.035.
+- Auto-liability insurance premium: $0.093; $0.074–$0.114.
+- Company driver wages: $0.620; $0.495–$0.647.
+- Company driver benefits: $0.157; $0.089–$0.210.
+
+The same report gives context for the peer group: 6.96 MPG, 15.18% deadhead, 1.61 hours average dwell per stop, 4.1-year average truck age, and 77,342 annual miles per truck. These figures are useful as an external reasonableness comparator only. They describe freight tractor-trailers, not household-goods box trucks or mover crews; they are not a representative all-carrier national estimate. Component medians are separate marginal medians and must not be summed to construct one synthetic truck. Equipment payment is lease/purchase, not pure depreciation; insurance premium and incident cost are separate related lines. ATRI's 2026 release reports a distinct 2025 all-in truck operating cost of $2.336/mile and $1.854/mile excluding fuel; that is a broader, different-year reference and must not be mixed with the 2024 peer component medians.
+
+### Insurance: legal minimum is not premium
+FMCSA's current filing chart lists for-hire household-goods carriers operating vehicles with GVWR at least 10,001 lb: $750,000 BIPD liability minimum and $5,000 cargo-insurance minimum. These are regulatory financial-responsibility floors, not market premiums and not enough to price insurance. The ATRI peer median above is an auto-liability premium for a freight-truckload cohort; it does not supply a household-goods cargo premium. No premium is inferred from GVWR or legal minimum coverage.
+
+### Driver hours: regulation is a ceiling, not an average
+For property-carrying CMV drivers, FMCSA summarizes an 11-hour driving limit after 10 consecutive hours off duty, a 14-hour duty window, and a 30-minute break after 8 cumulative hours of driving. These rules are constraints for a compliant schedule, not evidence of average route speed, paid driver hours, or number of drivers. The model should use actual route-provider duration for drive-time input when route geometry is obtained, and then model HOS/rest feasibility separately. Crew loading/unloading hours remain unresolved; ATRI's freight dwell time is not equivalent to residential moving load/unload time.
+
+### Current city wage coverage correction
+The missing Chicago SOC 53-7062 metro row has now been recovered: Chicago-Naperville-Elgin, IL-IN median annual $40,550, median hourly $19.50, employment 157,920, p10 $31,860, p25 $35,920, p75 $47,640, p90 $56,440. The research JSON now covers **18/18** city nodes for SOC 53-7062. This is still WageDex's secondary transcription of BLS OEWS May 2025, not a direct BLS file extraction; RSE remains unknown/null. Driver occupations are still represented at state level in this extract, not at all 18 metro areas.
+
+Sources:
+- ATRI sample peer report (2024 cohort): https://truckingresearch.org/wp-content/uploads/2026/02/sample_customized_yoy_report.pdf
+- ATRI 2026 release (2025 broad industry average): https://truckingresearch.org/2026/07/new-atri-report-details-accelerating-costs-and-low-profitability-despite-cuts/
+- FMCSA insurance filing requirements: https://www.fmcsa.dot.gov/registration/insurance-filing-requirements
+- FMCSA hours-of-service summary: https://www.fmcsa.dot.gov/regulations/hours-service/summary-hours-service-regulations
+
+**Decision:** ATRI is a plausibility comparator only; FMCSA minimum insurance is not a premium; HOS is not an average-time model; residential crew handling hours still require mover-specific evidence. No production formula or coefficient changes.
+
+
+## 2026-11-18 — HeiGIT route-geometry ingestion pipeline
+
+Added `tools/fetch_heigit_route_geometries.mjs` and manual workflow `.github/workflows/fetch-b24-route-geometries.yml`. The fetcher reads the existing 44 city route definitions and directional state-page routes, uses the exact city-center/state-centroid coordinates and the corresponding stored road-distance matrix key, and requests full GeoJSON geometry plus provider duration from the current endpoint:
+
+`POST https://api.heigit.org/openrouteservice/v2/directions/driving-car/geojson`
+
+It explicitly excludes Canada using the ORS `avoid_countries: ["CA"]` routing option, fetches sequentially with a 1.6-second gap to stay below the published 40 requests/minute account rate, and stores provider distance/duration, existing matrix distance, difference percentage, timestamp, licence, and attribution. A >1% difference is flagged and the PADD allocator refuses that geometry until reconciled. API key is read only from the `HEIGIT_API_KEY` GitHub Actions secret; it is never printed or committed.
+
+The manual workflow can fetch all routes, city routes only, or state routes only. It writes successful outputs to a new data branch and opens a PR. If some requests fail, it preserves successful outputs and the manifest in that PR, then marks the run failed so the missing routes are not hidden. No API call has been executed by this PR; no HeiGIT quota has been consumed by adding the pipeline.
+
+Official API references:
+- HeiGIT/ORS API playground and V2 GeoJSON Directions endpoint: https://playground.heigit.org/
+- ORS routing options, including `avoid_countries`: https://giscience.github.io/openrouteservice/api-reference/endpoints/directions/routing-options
+- ORS country list (Canada code/identifier): https://giscience.github.io/openrouteservice/technical-details/country-list
+- HeiGIT endpoint migration: https://ask.openrouteservice.org/t/deprecating-api-openrouteservice-org-in-favour-of-api-heigit-org/7912
+
+**Credential requirement:** repository secret `HEIGIT_API_KEY` must be configured before the manual workflow can run. Never put the key in source code, issue comments, or chat. Existing Vercel environment variables are not read or decrypted by this workflow.
