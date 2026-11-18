@@ -220,3 +220,35 @@ The route-distance matrix has only scalar state-pair distances; the 18 city node
 **Not yet complete:** no route GeoJSON bundle or Census/TIGER state-boundary GeoJSON has been added, so no PADD mileage shares or new route fuel costs have been calculated. The allocator is a tested method awaiting its required input data. Fuel output is fuel-only, not a full truck operating cost.
 
 No production calculator formula, coefficient, price, or route distance changed.
+
+
+## 2026-11-18 — Independent non-fuel comparator and labor-time boundaries
+
+### ATRI 2024 peer-group cost-per-mile comparator
+The public ATRI sample carrier report provides a 2024 Truckload peer group of carriers with 81–200 trucks. Published peer medians and middle-50% ranges (USD per truck-mile) are recorded in `data/research/b24-atri-2024-truckload-comparator.json`:
+- Fuel: median $0.469; middle 50% $0.426–$0.521.
+- Truck/trailer lease or purchase: $0.391; $0.323–$0.464.
+- Repair and maintenance excluding tires: $0.161; $0.122–$0.186.
+- Tires: $0.032; $0.030–$0.035.
+- Auto-liability insurance premium: $0.093; $0.074–$0.114.
+- Company driver wages: $0.620; $0.495–$0.647.
+- Company driver benefits: $0.157; $0.089–$0.210.
+
+The same report gives context for the peer group: 6.96 MPG, 15.18% deadhead, 1.61 hours average dwell per stop, 4.1-year average truck age, and 77,342 annual miles per truck. These figures are useful as an external reasonableness comparator only. They describe freight tractor-trailers, not household-goods box trucks or mover crews; they are not a representative all-carrier national estimate. Component medians are separate marginal medians and must not be summed to construct one synthetic truck. Equipment payment is lease/purchase, not pure depreciation; insurance premium and incident cost are separate related lines. ATRI's 2026 release reports a distinct 2025 all-in truck operating cost of $2.336/mile and $1.854/mile excluding fuel; that is a broader, different-year reference and must not be mixed with the 2024 peer component medians.
+
+### Insurance: legal minimum is not premium
+FMCSA's current filing chart lists for-hire household-goods carriers operating vehicles with GVWR at least 10,001 lb: $750,000 BIPD liability minimum and $5,000 cargo-insurance minimum. These are regulatory financial-responsibility floors, not market premiums and not enough to price insurance. The ATRI peer median above is an auto-liability premium for a freight-truckload cohort; it does not supply a household-goods cargo premium. No premium is inferred from GVWR or legal minimum coverage.
+
+### Driver hours: regulation is a ceiling, not an average
+For property-carrying CMV drivers, FMCSA summarizes an 11-hour driving limit after 10 consecutive hours off duty, a 14-hour duty window, and a 30-minute break after 8 cumulative hours of driving. These rules are constraints for a compliant schedule, not evidence of average route speed, paid driver hours, or number of drivers. The model should use actual route-provider duration for drive-time input when route geometry is obtained, and then model HOS/rest feasibility separately. Crew loading/unloading hours remain unresolved; ATRI's freight dwell time is not equivalent to residential moving load/unload time.
+
+### Current city wage coverage correction
+The missing Chicago SOC 53-7062 metro row has now been recovered: Chicago-Naperville-Elgin, IL-IN median annual $40,550, median hourly $19.50, employment 157,920, p10 $31,860, p25 $35,920, p75 $47,640, p90 $56,440. The research JSON now covers **18/18** city nodes for SOC 53-7062. This is still WageDex's secondary transcription of BLS OEWS May 2025, not a direct BLS file extraction; RSE remains unknown/null. Driver occupations are still represented at state level in this extract, not at all 18 metro areas.
+
+Sources:
+- ATRI sample peer report (2024 cohort): https://truckingresearch.org/wp-content/uploads/2026/02/sample_customized_yoy_report.pdf
+- ATRI 2026 release (2025 broad industry average): https://truckingresearch.org/2026/07/new-atri-report-details-accelerating-costs-and-low-profitability-despite-cuts/
+- FMCSA insurance filing requirements: https://www.fmcsa.dot.gov/registration/insurance-filing-requirements
+- FMCSA hours-of-service summary: https://www.fmcsa.dot.gov/regulations/hours-service/summary-hours-service-regulations
+
+**Decision:** ATRI is a plausibility comparator only; FMCSA minimum insurance is not a premium; HOS is not an average-time model; residential crew handling hours still require mover-specific evidence. No production formula or coefficient changes.
