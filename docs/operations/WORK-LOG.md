@@ -2583,3 +2583,11 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - Requests are sequential with a 1.6-second gap (below 40/minute), and use only the `HEIGIT_API_KEY` Actions secret. The key is never printed, committed, or retrieved into chat. The PADD allocator rejects geometry if the new route differs from the stored matrix by >1%.
 - Added manual workflow `.github/workflows/fetch-b24-route-geometries.yml`: select all/city/state routes; successful outputs are committed to a new data branch and a PR is opened; partial failures preserve successful files and manifest but fail the run visibly.
 - No HeiGIT requests were made during this PR, so no quota was consumed. The workflow requires repository secret `HEIGIT_API_KEY` before it can run. No production code or route distance changed.
+
+
+## 2026-11-18 20:06 UTC — ChatGPT — EIA PADD subdistrict price refinement
+- Added official EIA weekly on-highway diesel snapshot for week 2026-11-16 (released 2026-11-17; taxes included): PADD1 $5.782, PADD1A $6.225, PADD1B $6.309, PADD1C $5.541, PADD2 $5.967, PADD3 $5.547, PADD4 $6.011, PADD5 $6.948, California $7.733, West Coast less California $6.269 per gallon.
+- Refined `tools/b24_padd_allocation.py` to allocate PADD1 mileage by 1A/1B/1C state groups and PADD5 mileage to California vs West Coast less California. It falls back to aggregate PADD1/PADD5 prices if subarea values are absent. Added unit tests for subdistrict weighting and aggregate fallback.
+- Added `data/research/eia-diesel-padd-prices-2026-11-16.json` and updated PADD method note, research note, OPS-ROOM, BACKLOG and work log.
+- Still no route geometry/TIGER polygon inputs, so no route fuel costs calculated. No production coefficients, calculator formula, or displayed prices changed.
+- Official source: https://www.eia.gov/dnav/pet/PET_PRI_GND_A_EPD2D_PTE_DPGAL_W.htm
