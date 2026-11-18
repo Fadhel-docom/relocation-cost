@@ -63,6 +63,19 @@ class PaddAllocationTests(unittest.TestCase):
         with self.assertRaises(AllocationError):
             allocate_route(route, self.states, step_miles=0.25)
 
+    def test_refuses_route_when_stored_matrix_distance_differs(self):
+        route = {
+            "type": "Feature",
+            "properties": {
+                "expected_distance_miles": 215.0595,
+                "stored_distance_match": False,
+                "stored_distance_difference_pct": 2.3,
+            },
+            "geometry": self.route["geometry"],
+        }
+        with self.assertRaisesRegex(AllocationError, "Stored road-distance matrix"):
+            allocate_route(route, self.states, step_miles=0.25)
+
     def test_refuses_distance_mismatch_over_one_percent(self):
         route = {
             "type": "Feature",
