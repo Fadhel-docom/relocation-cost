@@ -16,7 +16,7 @@ test("optional calculator sections start collapsed and remain keyboard-discovera
   for (const id of optionalSectionIds) {
     const matches = page.match(new RegExp(`<details id="${id}"[^>]*>`, "g")) ?? [];
     assert.equal(matches.length, 1, `expected one details section for ${id}`);
-    assert.doesNotMatch(matches[0], /\\sopen(?:\\s|>|=)/, `${id} should start collapsed`);
+    assert.doesNotMatch(matches[0], /\sopen(?:\s|>|=)/, `${id} should start collapsed`);
     const start = page.indexOf(matches[0]);
     const end = page.indexOf("</details>", start);
     assert.ok(end > start, `${id} should close correctly`);
