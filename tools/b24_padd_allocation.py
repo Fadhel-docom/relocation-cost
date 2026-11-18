@@ -75,6 +75,22 @@ def point_in_polygon(point: tuple[float, float], polygon: list[list[list[float]]
     return not any(point_in_ring(point, hole) for hole in polygon[1:])
 
 
+def feature_bounds(feature: dict[str, Any]) -> tuple[float, float, float, float] | None:
+    """Return (min_lon, min_lat, max_lon, max_lat) for Polygon/MultiPolygon."""
+    geometry = feature.get("geometry") or {}
+    kind, coordinates = geometry.get("type"), geometry.get("coordinates", [])
+    polygons = [coordinates] if kind == "Polygon" else coordinates if kind == "MultiPolygon" else []
+    points = [point for polygon in polygons for ring in polygon for point in ring if len(point) >= 2]
+    if not points:
+        return None
+    return (
+        min(point[0] for point in points),
+        min(point[1] for point in points),
+        max(point[0] for point in points),
+        max(point[1] for point in points),
+    )
+
+
 def feature_contains(feature: dict[str, Any], point: tuple[float, float]) -> bool:
     geometry = feature.get("geometry") or {}
     kind, coordinates = geometry.get("type"), geometry.get("coordinates", [])
@@ -119,8 +135,9 @@ def allocate_route(route: dict[str, Any],
     features = []
     for feature in states_geojson.get("features", []):
         state = state_abbreviation(feature)
-        if state in PADD_BY_STATE:
-            features.append((state, feature))
+        bounds = feature_bounds(feature)
+        if state in PADD_BY_STATE and bounds is not None:
+            features.append((state, feature, bounds))
     if not features:
         raise AllocationError("No usable U.S. state polygons found; expected STUSPS/USPS postal codes.")
 
@@ -149,7 +166,13 @@ def allocate_route(route: dict[str, Any],
                     a[0] + (b[0] - a[0]) * fraction,
                     a[1] + (b[1] - a[1]) * fraction,
                 )
-                hits = sorted(state for state, feature in features if feature_contains(feature, point))
+                hits = sorted(
+                    state
+                    for state, feature, bounds in features
+                    if bounds[0] <= point[0] <= bounds[2]
+                    and bounds[1] <= point[1] <= bounds[3]
+                    and feature_contains(feature, point)
+                )
                 geometry_miles += piece_miles
                 if not hits:
                     unmatched_miles += piece_miles
