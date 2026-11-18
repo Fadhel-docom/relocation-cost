@@ -196,3 +196,23 @@ These two ratios form a plausible **sensitivity bracket**, not a specific SOC 53
 **Research use:** use 1.457–1.513 only as a provisional sensitivity range when translating OEWS wages into employer-loaded labor cost, until a more specific source is found. Keep the un-loaded wage and benefit component visible separately; do not double count overtime or paid leave if the hours/cost model already includes them. No production coefficient changed.
 
 Official source: https://www.bls.gov/news.release/ecec.htm (June 2026, Table 4; release September 9, 2026). The ECEC technical note describes benefit categories, survey coverage, and exclusion of self-employed workers.
+
+
+## 2026-11-18 — B24: regional wage proxies, non-fuel benchmarks and PADD fuel method
+
+### Geographic wage proxy data — secondary, not direct BLS extraction
+Added `data/research/b24-oews-may-2025-proxies.json`. It contains May 2025 OEWS transcription values for 19 state-route endpoints for SOC 53-3032 (heavy truck drivers), SOC 53-3033 (light truck drivers), and SOC 53-7062 (hand material movers); the latter includes metro-level rows for 18/18 city nodes. Source is WageDex's secondary transcription of BLS OEWS, not the official BLS XLSX itself. RSE values are unavailable and are explicitly null. State and metro areas are not equivalent to central-city boundaries; several metros cross state lines. This data is for exploratory geographic sensitivity only, not a production input. Direct official BLS file extraction and RSE QA remain outstanding.
+
+### Non-fuel cost comparator — ATRI 2024 truckload cohort
+Added `data/research/b24-atri-2024-truckload-comparator.json`. The source's 81–200-truck truckload peer group reports separate median per-mile components: tires $0.032, repair/maintenance excluding tires $0.161, auto-liability premium $0.093, equipment lease/purchase $0.391, company-driver wages $0.620, benefits $0.157, and fuel $0.469. These are marginal medians from a freight tractor-trailer cohort, not household-goods box trucks. Do not add the separate medians to fabricate a synthetic total; equipment lease/purchase is not pure depreciation; auto-liability does not include every mover insurance cover. Use only as a plausibility/sensitivity comparator until mover-specific evidence is obtained.
+
+FMCSA filing requirements for household-goods carriers are coverage floors, not premiums. HOS limits are regulatory schedule constraints, not measured average drive time. VIUS PUF does not include tire expenditure, insurance premiums, approximate operating hours or idling share. Residential load/unload hours remain unmeasured; freight dwell time is not a valid substitute.
+
+### PADD fuel allocation foundation
+Added a geometry-based allocator, tests and a manual HeiGIT geometry-ingestion workflow. The allocator intersects route GeoJSON samples with Census/TIGER state polygons, maps state miles to EIA PADD/subdistrict price areas, and weights fuel by miles in each price area. A dated EIA 2026-11-16 diesel snapshot includes PADD 1A/1B/1C and 5CA/5X series where available, with aggregate fallback. It is not a live price feed.
+
+**Quality gates:** geometry must match the stored route distance within 1%; more than 0.5% unmatched mileage is rejected; fuel pricing now also refuses any route with less than full state-boundary coverage, so even a tolerated small unmatched segment cannot silently lower the estimated fuel cost. The state-polygon lookup includes bounding-box prefiltering to reduce runtime. The tests include PADD boundary weighting, aggregate-price fallback, distance mismatch, and incomplete-coverage rejection.
+
+The current repo still has no actual route GeoJSON bundle or TIGER boundary file. The manual workflow requires the repository Actions secret `HEIGIT_API_KEY`; no route API requests have been made and no HeiGIT quota has been consumed by creating the workflow. Once secret and geometry are available, generated data will go through a separate PR and distance/coverage QA.
+
+No production calculator formula, coefficient, displayed price, or route distance changed. No full truck operating-cost estimate is claimed.
