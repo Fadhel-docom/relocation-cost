@@ -201,7 +201,7 @@ Official source: https://www.bls.gov/news.release/ecec.htm (June 2026, Table 4; 
 ## 2026-11-18 — B24: regional wage proxies, non-fuel benchmarks and PADD fuel method
 
 ### Geographic wage proxy data — secondary, not direct BLS extraction
-Added `data/research/b24-oews-may-2025-proxies.json`. It contains May 2025 OEWS transcription values for 19 state-route endpoints for SOC 53-3032 (heavy truck drivers), SOC 53-3033 (light truck drivers), and SOC 53-7062 (hand material movers); the latter includes metro-level rows for 18/18 city nodes. Source is WageDex's secondary transcription of BLS OEWS, not the official BLS XLSX itself. RSE values are unavailable and are explicitly null. State and metro areas are not equivalent to central-city boundaries; several metros cross state lines. This data is for exploratory geographic sensitivity only, not a production input. Direct official BLS file extraction and RSE QA remain outstanding.
+Added `data/research/b24-oews-may-2025-proxies.json`. It contains May 2025 OEWS transcription values for 19 state-route endpoints for SOC 53-3032 (heavy truck drivers), SOC 53-3033 (light truck drivers), and SOC 53-7062 (hand material movers); the latter includes metro-level rows for 17/18 city nodes. Source is WageDex's secondary transcription of BLS OEWS, not the official BLS XLSX itself. RSE values are unavailable and are explicitly null. State and metro areas are not equivalent to central-city boundaries; several metros cross state lines. This data is for exploratory geographic sensitivity only, not a production input. Direct official BLS file extraction and RSE QA remain outstanding.
 
 ### Non-fuel cost comparator — ATRI 2024 truckload cohort
 Added `data/research/b24-atri-2024-truckload-comparator.json`. The source's 81–200-truck truckload peer group reports separate median per-mile components: tires $0.032, repair/maintenance excluding tires $0.161, auto-liability premium $0.093, equipment lease/purchase $0.391, company-driver wages $0.620, benefits $0.157, and fuel $0.469. These are marginal medians from a freight tractor-trailer cohort, not household-goods box trucks. Do not add the separate medians to fabricate a synthetic total; equipment lease/purchase is not pure depreciation; auto-liability does not include every mover insurance cover. Use only as a plausibility/sensitivity comparator until mover-specific evidence is obtained.
@@ -241,3 +241,7 @@ Sources:
 - FMCSA/US DOT report DOT-MC-01-107: https://rosap.ntl.bts.gov/view/dot/42139/dot_42139_DS1.pdf
 
 No production formula, coefficient, price, or route distance changed.
+
+
+## 2026-11-18 — Correction: Chicago metro wage coverage
+A re-count against the 18 city nodes in `data/cities.json` confirms the May 2025 WageDex proxy contains **17/18** SOC 53-7062 metro rows. Chicago-Naperville-Elgin is missing. The $40,550 annual / $19.50 hourly median previously considered is the Illinois statewide SOC 53-7062 estimate, not the Chicago metro estimate; it must not be assigned to Chicago. Keep the Chicago metro value missing until a valid occupation-specific metro row is obtained. This is a secondary transcription dataset and does not replace direct BLS XLSX/RSE verification.
