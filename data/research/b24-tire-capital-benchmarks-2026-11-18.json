@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0",
+  "status": "research_only_external_benchmarks_not_box_truck_coefficients",
+  "captured_at": "2026-11-18",
+  "tires": {
+    "atri_2024_truckload_peer_group": {
+      "median_usd_per_truck_mile": 0.032,
+      "middle_50_pct_usd_per_mile": [
+        0.03,
+        0.035
+      ],
+      "cohort": "Truckload carriers with 81-200 trucks",
+      "source": "ATRI Sample Carrier Operational Costs Report, 2025",
+      "source_url": "https://truckingresearch.org/wp-content/uploads/2026/02/sample_customized_yoy_report.pdf",
+      "caveat": "Freight tractor-trailer cohort, not household-goods box trucks; do not use as a production coefficient."
+    },
+    "michelin_lifecycle_method": {
+      "formula": "(new tire price + retread/repair/mounting costs - casing residual value) / total achieved mileage over all casing lives",
+      "inputs_required": [
+        "tire size and wheel position",
+        "number of tires by position",
+        "new tire purchase price",
+        "retread count and cost",
+        "casing residual value",
+        "actual removal mileage",
+        "repair/mounting labor",
+        "road calls and downtime",
+        "disposal fees"
+      ],
+      "published_examples": {
+        "steer": {
+          "new_tire_price_usd": 616,
+          "casing_residual_usd": 60,
+          "total_miles": 120000,
+          "cost_usd_per_tire_mile": 0.00463
+        },
+        "drive": {
+          "new_tire_price_usd": 670,
+          "casing_residual_usd": 60,
+          "total_miles": 250000,
+          "cost_usd_per_tire_mile": 0.00508
+        }
+      },
+      "source": "Michelin Truck Tire Service Manual (2023), Cost Analysis",
+      "source_url": "https://www.michelinb2b.com/wps/b2bcontent/PDF/Michelin_Truck_Tire_Service_Manual_2023.pdf",
+      "caveat": "Illustrative long-haul tire examples, not validated Class 6-7 household-moving truck tire prices or lifetimes. Michelin's method explicitly says wheel position and casing life matter."
+    },
+    "model_decision": "Use ATRI only as an external comparator. For a defensible box-truck tire cost, recover VIUS tire-size/axle configuration where available and obtain actual replacement/retread mileage and invoices from a mover or fleet dataset. VIUS has rear-axle tire count but no tire expense."
+  },
+  "capital": {
+    "icct_class_6_7_straight_truck_purchase_price": {
+      "2024_usd_2022_basis": 112000,
+      "2025_usd_2022_basis": 112000,
+      "2026_usd_2022_basis": 113000,
+      "source": "ICCT Working Paper 2023-10, Table A2: Class 6-7 straight truck price evolution",
+      "source_url": "https://www.theicct.org.cn/wp-content/uploads/2025/03/cost-zero-emission-trucks-us-phase-3-mar23.pdf",
+      "caveat": "Forecast/modelled diesel straight-truck purchase-price benchmark in 2022 dollars, published 2023; not a current dealer transaction, not a verified household-goods box-body complete-vehicle price, and not a residual-value series."
+    },
+    "atri_truckload_peer_group": {
+      "median_lease_or_purchase_usd_per_truck_mile": 0.391,
+      "middle_50_pct_usd_per_mile": [
+        0.323,
+        0.464
+      ],
+      "source": "ATRI Sample Carrier Operational Costs Report, 2025",
+      "source_url": "https://truckingresearch.org/wp-content/uploads/2026/02/sample_customized_yoy_report.pdf",
+      "caveat": "Truck and trailer payment cost for freight truckload peer group; not pure depreciation and not moving-box-truck specific."
+    },
+    "market_context": {
+      "2025_us_class_6_new_truck_sales": 65187,
+      "2025_us_class_7_new_truck_sales": 54993,
+      "source": "NADA Annual Financial Profile / Wards Intelligence data",
+      "source_url": "https://www.nada.org/index.php/media/5008/download",
+      "caveat": "Sales volume only; this source's average selling price series is for Class 8, not Class 6-7. Do not mislabel the Class 8 price as Class 6-7."
+    },
+    "required_for_depreciation": "Economic depreciation per mile requires purchase price of the actual truck/body configuration, expected holding period or lifetime miles, residual/disposal value, financing/cost of capital, and annual utilization. None of the cited sources supplies all of these for household-goods Class 6-7 box trucks.",
+    "model_decision": "Keep depreciation unresolved. Do not turn the ICCT purchase forecast or ATRI lease/purchase cost into a depreciation coefficient. Obtain matched acquisition and resale data or mover fleet records, then calculate (purchase price + capital cost - residual value) / lifetime operating miles."
+  },
+  "guardrails": [
+    "All entries are research comparators, not production coefficients.",
+    "Do not add tire per-mile benchmarks to maintenance if the source's maintenance line already excludes or includes tire costs differently; preserve definitions.",
+    "Do not mix equipment payment, depreciation, financing interest, and cost of capital without a consistent accounting boundary.",
+    "No application formula, coefficient, displayed price or route distance changed."
+  ]
+}
