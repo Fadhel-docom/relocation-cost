@@ -67,7 +67,16 @@ class PaddAllocationTests(unittest.TestCase):
         states = {
             "type": "FeatureCollection",
             "features": [
-                box("MA", -80, -70),
+                {
+                    "type": "Feature",
+                    "properties": {"STUSPS": "MA"},
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [[
+                            [-80, 40], [-70, 40], [-70, 43], [-80, 43], [-80, 40]
+                        ]],
+                    },
+                },
                 {
                     "type": "Feature",
                     "properties": {"STUSPS": "NC"},
@@ -135,6 +144,16 @@ class PaddAllocationTests(unittest.TestCase):
         }
         with self.assertRaisesRegex(AllocationError, "Stored road-distance matrix"):
             allocate_route(route, self.states, step_miles=0.25)
+
+    def test_refuses_to_price_any_unmatched_route_mileage(self):
+        allocation = {
+            "route_miles": 100.0,
+            "coverage_pct": 99.5,
+            "miles_by_padd": {"2": 99.5},
+        }
+        prices = {"week_of": "2026-11-16", "usd_per_gallon": {"2": 4.0}}
+        with self.assertRaisesRegex(AllocationError, "not fully covered"):
+            price_fuel(allocation, prices, mpg=10.0)
 
     def test_refuses_distance_mismatch_over_one_percent(self):
         route = {
