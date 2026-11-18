@@ -168,3 +168,17 @@ Official sources:
 - BLS May 2025 OOH, heavy and tractor-trailer truck drivers: https://www.bls.gov/ooh/transportation-and-material-moving/heavy-and-tractor-trailer-truck-drivers.htm
 - BLS May 2025 OOH, delivery truck drivers and driver/sales workers: https://www.bls.gov/ooh/transportation-and-material-moving/delivery-truck-drivers-and-driver-sales-workers.htm
 - BLS May 2025 OOH, hand laborers and material movers: https://www.bls.gov/ooh/transportation-and-material-moving/hand-laborers-and-material-movers.htm
+
+
+## 2026-11-18 — VIUS PUF coverage audit: missing insurance/tire prices and operating hours
+
+A direct audit of the official Census 2021 VIUS PUF variable dictionary (173 listed variables) and the PUF User Guide clarifies which model inputs VIUS can and cannot supply:
+
+- The PUF contains `GM_COST` and `ER_COST` as categorical total-cost bands for 2021 general maintenance and extensive repairs. These are not exact invoices; the existing weighted distributions and missingness treatment remain the correct use.
+- The PUF contains `REARAXLETIRES` (number of tires on the rear axle) and tire-equipment indicators such as low-rolling-resistance tires / automatic inflation, but the dictionary has no tire-purchase or tire-expense variable and no insurance-premium variable. A text search of the complete dictionary returned no insurance or tire-cost field.
+- The User Guide explicitly lists approximate operating hours and idling share among data items excluded from the PUF. Therefore VIUS cannot directly provide actual driver-hours or an idling-cost calculation for this model.
+- The PUF does provide annual mileage, MPG, loaded/deadhead/reposition shares and vehicle characteristics, so it remains useful for the operating profile and fuel/utilization side of the model.
+
+**Model consequence:** do not infer tire expense from tire count, insurance cost from truck value or GVWR, or driver hours from annual mileage alone. Source tires, insurance, capital/depreciation, and labor-time assumptions independently; keep each as a transparent sensitivity or unresolved component until supported. This narrows the research gap and prevents pretending VIUS has cost data it does not contain.
+
+Official sources: https://api.census.gov/data/2021/viuspuf/variables.html ; https://www2.census.gov/programs-surveys/vius/datasets/2021/vius_2021_puf_user_guide.pdf
