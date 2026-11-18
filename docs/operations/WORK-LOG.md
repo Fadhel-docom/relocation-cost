@@ -2557,3 +2557,12 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - Treat these as a provisional sensitivity bracket only: the occupational group and industry group are separate aggregates, not a cross-tab; neither is residential-moving-specific or SOC 53-7062-specific. ECEC includes multiple benefit categories and excludes self-employed workers. Do not hard-code or apply as a production constant.
 - Updated B24 research note, BLS evidence snapshot, backlog, operations room and work log on PR #267. No calculator formula, coefficient, price, route data or application code changed.
 - Source: https://www.bls.gov/news.release/ecec.htm (June 2026 Table 4, released September 9, 2026).
+
+
+## 2026-11-18 20:07 UTC — ChatGPT — B24 regional wage, operating-cost and PADD research
+- Added a research-only May 2025 OEWS secondary transcription: 19 state endpoints for SOC 53-3032/53-3033/53-7062, and SOC 53-7062 metro rows for all 18 city nodes. WageDex is an intermediary, not the BLS source file; RSE unavailable/null; no production use. Direct BLS XLSX extraction remains unresolved.
+- Added ATRI 2024 truckload peer-group cost-per-mile comparator for tires, R&M, auto-liability premiums, equipment lease/purchase, driver wages/benefits and fuel. Explicitly excluded transfer to household-goods trucks and summing independent component medians.
+- Added EIA weekly PADD/subdistrict diesel snapshot (2026-11-16) and geometry-based PADD allocator. It requires actual route GeoJSON and TIGER state polygons, neither currently in the repo.
+- Improved fail-closed behavior: route distance mismatch >1% is rejected; >0.5% unmatched state mileage is rejected; fuel calculation refuses any route not fully assigned to state/PADD, preventing silent undercount. Added polygon bounding-box prefilter for performance and tests for subdistrict/fallback/coverage cases.
+- Manual HeiGIT geometry workflow needs Actions secret HEIGIT_API_KEY. No requests executed and no API quota consumed. No production formula, coefficient, displayed price or route distance changed.
+- Sources: BLS OEWS/WageDex intermediary, ATRI 2024 peer report, FMCSA insurance/HOS, EIA weekly diesel series, Census TIGER/Line, HeiGIT ORS Directions V2.
