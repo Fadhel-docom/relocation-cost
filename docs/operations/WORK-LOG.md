@@ -2566,3 +2566,11 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - Improved fail-closed behavior: route distance mismatch >1% is rejected; >0.5% unmatched state mileage is rejected; fuel calculation refuses any route not fully assigned to state/PADD, preventing silent undercount. Added polygon bounding-box prefilter for performance and tests for subdistrict/fallback/coverage cases.
 - Manual HeiGIT geometry workflow needs Actions secret HEIGIT_API_KEY. No requests executed and no API quota consumed. No production formula, coefficient, displayed price or route distance changed.
 - Sources: BLS OEWS/WageDex intermediary, ATRI 2024 peer report, FMCSA insurance/HOS, EIA weekly diesel series, Census TIGER/Line, HeiGIT ORS Directions V2.
+
+
+## 2026-11-18 20:15 UTC — ChatGPT — Mover-specific insurance and labor-time evidence
+- Added Insureon moving-business policy medians: commercial auto $876/mo, general liability $120/mo, workers' comp $755/mo. Applicant-policy medians; no sample size or truck count disclosed. No per-truck/per-mile conversion without fleet exposure. Cargo/bailee and other coverage may be separate.
+- Added separate ATRI broad motor-carrier liability premium benchmark: $0.102/mile in 2024, +18.6% since 2021. Kept separate from the 81–200-truck peer-group $0.093/mile median; neither is HHG-specific.
+- Added Bellhop historical operational cohort observations for total man-hours per move: Raleigh 1-bedroom full-service means 5 (n=80) and 6 (n=128), P80 7/8; Atlanta 3-bedroom full-service means 5 (n=27) and 15 (n=61), P80 9/25 across two seasonal windows. This demonstrates major market/time variance; company-specific, historical, not national.
+- Added FMCSA/US DOT DOT-MC-01-107 household-goods driver task-time ranges. The report calls them conceptual, with overlap; they cannot be mechanically summed. Use only to define task categories and broad checks.
+- Model rule: separate drive duration, driver on-duty non-driving tasks, and total crew man-hours. No universal bedroom-to-hours coefficient. No production formula, coefficient, price or route distance changed.
