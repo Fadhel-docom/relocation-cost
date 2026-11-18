@@ -2542,3 +2542,11 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - Correct scope distinction: $38,220 is the median for the broader “Hand Laborers and Material Movers” group; the detailed SOC 53-7062 median is $40,240. The detailed occupation value is the relevant national proxy for the project's handling crosswalk.
 - Updated the B24 research note, local BLS evidence snapshot, unified backlog and operations room. These are national context proxies only; geographic May 2025 wage extraction remains pending. No calculator formula, coefficient, route data, or production price changed.
 - Sources: https://www.bls.gov/news.release/ocwage.t01.htm ; https://www.bls.gov/ooh/transportation-and-material-moving/heavy-and-tractor-trailer-truck-drivers.htm ; https://www.bls.gov/ooh/transportation-and-material-moving/delivery-truck-drivers-and-driver-sales-workers.htm ; https://www.bls.gov/ooh/transportation-and-material-moving/hand-laborers-and-material-movers.htm
+
+
+## 2026-11-18 19:37 UTC — ChatGPT — VIUS PUF input-coverage audit
+- Audited the official Census 2021 VIUS PUF variable dictionary (173 variables) and User Guide against the remaining B24 model inputs.
+- Confirmed the PUF has categorical general-maintenance/extensive-repair cost fields, rear-axle tire count and tire-equipment indicators, but no tire-expense or insurance-premium field. The User Guide lists approximate operating hours and idling share among excluded variables.
+- Decision: VIUS supports fleet/fuel/utilization profiling, not tire, insurance, or direct driver-hour pricing. Do not infer prices from tire count/GVWR or hours from annual mileage. These components need independent evidence or remain unresolved/sensitivity-only.
+- Updated B24 research note, backlog, operations room, and work log on PR #267. No application code, coefficient, formula, price, or route data changed.
+- Sources: https://api.census.gov/data/2021/viuspuf/variables.html ; https://www2.census.gov/programs-surveys/vius/datasets/2021/vius_2021_puf_user_guide.pdf
