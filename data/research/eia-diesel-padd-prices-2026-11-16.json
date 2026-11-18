@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "reference_week": "2026-11-16",
+  "release_date": "2026-11-17",
+  "unit": "USD per gallon",
+  "taxes_included": true,
+  "product": "Retail on-highway diesel fuel",
+  "source": "U.S. Energy Information Administration, Weekly Retail Gasoline and Diesel Prices",
+  "source_url": "https://www.eia.gov/dnav/pet/PET_PRI_GND_A_EPD2D_PTE_DPGAL_W.htm",
+  "usd_per_gallon": {
+    "1": 5.782,
+    "2": 5.967,
+    "3": 5.547,
+    "4": 6.011,
+    "5": 6.948,
+    "1A": 6.225,
+    "1B": 6.309,
+    "1C": 5.541,
+    "5CA": 7.733,
+    "5X": 6.269
+  },
+  "price_series": {
+    "1": "East Coast (PADD 1)",
+    "2": "Midwest (PADD 2)",
+    "3": "Gulf Coast (PADD 3)",
+    "4": "Rocky Mountain (PADD 4)",
+    "5": "West Coast (PADD 5)",
+    "1A": "New England (PADD 1A)",
+    "1B": "Central Atlantic (PADD 1B)",
+    "1C": "Lower Atlantic (PADD 1C)",
+    "5CA": "California (state series)",
+    "5X": "West Coast less California"
+  },
+  "caveats": [
+    "The PADD 1 subdistrict and California / West Coast-less-California series are used where a route's state mileage maps cleanly to those areas.",
+    "PADD 5 subarea keys 5CA and 5X are EIA price-series groups, not additional formal PADD districts.",
+    "This is a one-week reference snapshot; update the price file for the route's intended estimate date.",
+    "Fuel-only calculation still requires actual road-route geometry and validated mileage by state."
+  ]
+}
