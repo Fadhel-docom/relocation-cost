@@ -2557,3 +2557,13 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - Treat these as a provisional sensitivity bracket only: the occupational group and industry group are separate aggregates, not a cross-tab; neither is residential-moving-specific or SOC 53-7062-specific. ECEC includes multiple benefit categories and excludes self-employed workers. Do not hard-code or apply as a production constant.
 - Updated B24 research note, BLS evidence snapshot, backlog, operations room and work log on PR #267. No calculator formula, coefficient, price, route data or application code changed.
 - Source: https://www.bls.gov/news.release/ecec.htm (June 2026 Table 4, released September 9, 2026).
+
+
+## 2026-11-18 21:25 UTC — ChatGPT — B24 route fuel and independent cost evidence audit
+- Added `docs/operations/B24-RESEARCH-UPDATE-2026-11-18.md` (PR #274, draft) to document official EIA PADD geography and the route-mile-weighted diesel-price formula. The note records the 2026-11-16 regional diesel snapshot and explicitly states that route-level allocations are not yet computed because route polylines are required.
+- Defined labour modelling boundaries: FMCSA HOS rules constrain scheduling but are not typical paid-hour assumptions; driver road time, driver ancillary duties, and origin/destination handling labour must remain separate. Geographic BLS May 2025 extraction remains pending; no secondary or May 2023 values were substituted.
+- Verified FMCSA household-goods carrier filing minimums for vehicles GVWR >=10,001 lb ($750,000 BIPD and $5,000 cargo). These are coverage limits, not premium amounts.
+- Captured a small new Isuzu truck acquisition-listing snapshot as a capital research lead only. No depreciation rate was derived because matched resale, mileage, condition and service-life observations are missing.
+- Tire $/mile remains unresolved: VIUS has no tire expense field, and a defensible estimate needs both installed comparable tire prices and supported service life. Rental rates remain excluded from owner-operated carrier cost.
+- Added a leakage-resistant holdout protocol: hold out complete OD pairs/corridors and stratify by distance, shipment size, truck class and dedicated/shared scope; do not tune on holdout data.
+- No production code, pricing formula, coefficient, route data or consumer-facing price changed. B24 remains research-only; no complete truck-mile or pound-mile cost is claimed.
