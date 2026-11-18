@@ -1,0 +1,93 @@
+name: Fetch B24 route geometries
+
+on:
+  workflow_dispatch:
+    inputs:
+      base_branch:
+        description: Branch to use as the source of route definitions
+        required: true
+        default: main
+        type: string
+      route_set:
+        description: Which existing route definitions to fetch
+        required: true
+        default: all
+        type: choice
+        options:
+          - all
+          - cities
+          - states
+      force:
+        description: Re-fetch geometries even when files already exist
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out route definitions
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.base_branch }}
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Fetch route geometries from HeiGIT
+        id: fetch
+        continue-on-error: true
+        env:
+          HEIGIT_API_KEY: ${{ secrets.HEIGIT_API_KEY }}
+        run: |
+          if [ -z "$HEIGIT_API_KEY" ]; then
+            echo "::error::Repository secret HEIGIT_API_KEY is not configured. Add it in Settings > Secrets and variables > Actions. Do not paste the key into source code or chat."
+            exit 1
+          fi
+          args=()
+          case "${{ inputs.route_set }}" in
+            cities) args+=(--city-only) ;;
+            states) args+=(--state-only) ;;
+          esac
+          if [ "${{ inputs.force }}" = "true" ]; then
+            args+=(--force)
+          fi
+          node tools/fetch_heigit_route_geometries.mjs "${args[@]}"
+      - name: Commit generated geometry on a new branch
+        id: commit
+        run: |
+          branch="data/b24-route-geometries-${GITHUB_RUN_NUMBER}"
+          git switch -c "$branch"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/route-geometries
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No geometry files changed; nothing to commit."
+            exit 0
+          fi
+          git commit -m "data: add HeiGIT route geometries for B24"
+          git push origin "$branch"
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+          echo "Generated branch: $branch" >> "$GITHUB_STEP_SUMMARY"
+      - name: Open pull request for generated geometry
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr create \
+            --base "${{ inputs.base_branch }}" \
+            --head "${{ steps.commit.outputs.branch }}" \
+            --title "data: add HeiGIT route geometries for B24" \
+            --body "Generated directional city and state route GeoJSON from HeiGIT ORS Directions V2. Each file includes provider distance/duration, stored-distance comparison, source attribution, and CC-BY-SA 4.0 metadata. Routes are requested with Canada excluded. PADD allocation remains subject to TIGER polygon coverage and route-distance QA."
+      - name: Mark partial fetch as failed after preserving successful routes
+        if: steps.fetch.outcome == 'failure'
+        run: |
+          echo "Some route requests failed. Successful route files and the manifest were preserved in the generated PR; inspect manifest.json and retry only missing routes."
+          exit 1
