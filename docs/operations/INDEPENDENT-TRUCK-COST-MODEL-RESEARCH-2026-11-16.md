@@ -216,3 +216,28 @@ Added a geometry-based allocator, tests and a manual HeiGIT geometry-ingestion w
 The current repo still has no actual route GeoJSON bundle or TIGER boundary file. The manual workflow requires the repository Actions secret `HEIGIT_API_KEY`; no route API requests have been made and no HeiGIT quota has been consumed by creating the workflow. Once secret and geometry are available, generated data will go through a separate PR and distance/coverage QA.
 
 No production calculator formula, coefficient, displayed price, or route distance changed. No full truck operating-cost estimate is claimed.
+
+
+## 2026-11-18 — Mover-specific insurance and observed moving labor-time evidence
+
+### Insurance policy medians for moving businesses
+Added `data/research/b24-insureon-moving-insurance-benchmarks-2026-11-18.json`. Insureon reports medians among moving businesses applying for quotes through its platform: commercial auto $876/month ($10,512 annualized), general liability $120/month ($1,440 annualized), and workers' compensation $755/month ($9,060 annualized). Its page says costs vary with truck count/value, revenue, employee count, policy limits/deductibles, and cargo type. The sample size and number of vehicles per insured business are not published on the page. Thus commercial auto cannot be converted into per-truck or per-mile cost without fleet size and mileage from the same policies; workers' compensation is payroll/exposure-linked; general liability is business overhead. Cargo/bailee and other coverages are separate considerations. These are useful mover-specific external medians, but not universal quotes or production constants.
+
+ATRI's separate 2026 insurance study reports commercial auto liability premiums at **$0.102 per mile in 2024**, up 18.6% since 2021. This is a broad motor-carrier/freight benchmark, distinct from the 81–200-truck peer sample's $0.093/mile median; do not combine the populations or apply either as a household-mover coefficient. Both sources improve the external comparison, while Insureon's business-level moving sample is more sector-specific.
+
+### Direct moving labor-time evidence
+Added `data/research/b24-moving-labor-time-evidence-2026-11-18.json` with two complementary sources:
+
+1. Bellhop Engineering's 2018 operational article says the company had completed more than 100,000 moves by summer 2017 and provides selected cohort examples in **total man-hours per move** (crew size × elapsed hours): Raleigh-Durham-Chapel Hill full-service 1-bedroom moves averaged 5 man-hours (n=80, Jan–Apr) and 6 (n=128, Apr–Jun), with 80th percentiles 7 and 8; Atlanta full-service 3-bedroom moves averaged 5 (n=27, Jan–Apr) and 15 (n=61, Apr–Jun), with 80th percentiles 9 and 25. This is valuable evidence of market/season/property variation, but it is historical, company-specific, and not a national representative sample.
+2. The FMCSA/US DOT report DOT-MC-01-107 includes household-goods driver task analysis. It reports conceptual (not precise) per-job ranges: equipment preparation 15–45 minutes; inventory/stickers 90–180 minutes; driver's actual goods-moving activity 30–90 minutes; load packing/securing 30–180 minutes. It also says loading can take 2–6 hours or longer depending on shipment size and variety. The activities can overlap, so the ranges must not be summed mechanically. The report dates to 2001 and is a historical reasonableness reference, not a modern point estimate.
+
+### Model structure decision
+Separate (a) route driving duration, (b) driver on-duty/non-driving tasks, and (c) crew total man-hours. Crew man-hours are movers × elapsed crew working hours; they are not elapsed job duration. Do not multiply driver task time by crew size. Use Bellhop's examples only as external validation anchors and the DOT report to define task categories/overlap; no universal bedroom-to-hours coefficient is approved. The next best evidence would be de-identified, timestamped move records from a household-goods carrier, stratified by market, property size, service, crew size, stairs/elevator, carry distance, packing and season.
+
+Sources:
+- Insureon moving-company insurance costs: https://www.insureon.com/trucking-business-insurance/moving-companies/cost
+- ATRI 2026 insurance research release: https://truckingresearch.org/2026/05/new-atri-research-analyzes-motor-carrier-responses-to-rising-insurance-costs/
+- Bellhop Engineering moving-time study: https://medium.com/bellhops-moving/machines-can-now-tell-you-how-long-your-move-will-take-part-1-of-4-c98ad545488d
+- FMCSA/US DOT report DOT-MC-01-107: https://rosap.ntl.bts.gov/view/dot/42139/dot_42139_DS1.pdf
+
+No production formula, coefficient, price, or route distance changed.
