@@ -131,3 +131,23 @@ BLS May 2025 dataset availability and methodology:
 - May 2025 OEWS technical note (sample, model-based estimates, definitions and wage exclusions): https://www.bls.gov/news.release/pdf/ocwage.pdf
 
 **Next extraction task:** parse the official May 2025 state and metro files for SOC 53-3032, 53-3033 and 53-7062, preserving mean, median, 10th/90th percentile wages, employment counts, relative standard errors, area code, and missing/suppressed values. Do not select one wage statistic as a final point estimate yet. Use percentile bands for sensitivity. Resolve how to assign driver wages and loading/unloading wages geographically on an interstate route; origin/destination averaging is not justified without a stated staffing/dispatch assumption. Add employer benefits only from a separate official source. No wage value or coefficient is adopted in the production calculator.
+
+
+## 2026-11-18 — BLS May 2025 state/metro wage extraction: source verification
+
+The official BLS May 2025 OEWS tables page confirms that national, state, and metropolitan/nonmetropolitan estimates are published, and that percentile wages are available in the downloadable XLSX and the One Screen Data Search. The state index confirms the May 2025 reference period and links to the downloadable state file and query system.
+
+**Extraction outcome in this session: not complete.** The official state XLSX download resolves to `https://www.bls.gov/oes/special-requests/oesm25st.zip`; the available web retrieval rejected the ZIP content type, and the container download attempt failed. The official One Screen query opens its general query shell, but the state/occupation/year selection and result export are interactive and were not completed by the available retrieval path. No official May 2025 state/metro row values were therefore extracted or independently checked.
+
+Search results also surfaced secondary sites reproducing May 2025 BLS values and an old May 2023 BLS state page. These are **not adopted**: no scraped/secondary value is copied into project data, and May 2023 values must not be mixed with the May 2025 dataset. The national benchmark already in `data/bls-2025.txt` remains a context benchmark only.
+
+**Decision:** keep the BLS geographic wage input pending. Do not infer state/metro wages from secondary sites, do not use May 2023 values as substitutes, and do not update any coefficient. The next extraction attempt must obtain the official May 2025 XLSX or complete the BLS One Screen query, then retain for each SOC/area: employment, employment RSE, mean and median hourly/annual wage, 10th/25th/75th/90th percentiles, and suppression/missingness status. Prefer state estimates for endpoints unless a route-city metro estimate is available and has acceptable reliability; do not average state and metro estimates together.
+
+**Official references checked:**
+- BLS May 2025 OEWS tables: https://www.bls.gov/oes/tables.htm
+- BLS May 2025 state index: https://www.bls.gov/oes/current/oessrcst.htm
+- BLS One Screen Data Search (linked from the state index): https://data.bls.gov/oes/
+- Official state download endpoint: https://www.bls.gov/oes/special-requests/oesm25st.zip
+- BLS OEWS documentation: https://www.bls.gov/oes/oes_doc.htm
+
+This is an access/extraction limitation, not evidence that BLS has no data. No application code, pricing, formulas, route data, or production settings changed.
