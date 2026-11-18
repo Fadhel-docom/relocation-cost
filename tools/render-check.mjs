@@ -31,6 +31,13 @@ const browser = await chromium.launch();
 
 // ---- Calculator scenarios: type real values and check what the result panel shows. -------------------------
 // Expected numbers come from the same calculation library the page uses, so a stale or wrong panel is caught.
+const openDetails = async (page, id) => {
+  const section = page.locator("#" + id);
+  if (!(await section.evaluate((element) => element.open))) {
+    await section.locator("summary").click();
+  }
+};
+
 const readPanel = (page) => page.evaluate(() => {
   const text = (id) => document.querySelector("#" + id)?.textContent.trim() ?? null;
   const hidden = (id) => document.querySelector("#" + id)?.hidden ?? null;
@@ -56,6 +63,8 @@ const SCENARIOS = [
       let shown = await readPanel(page);
       problems.push(...compareDisplay("500 mi, 2-3 rooms, truck + labor", shown, expectedDisplay(calculateBudget({ distance: 500, size: 1.35, type: 1 }))));
       const before = shown;
+      await openDetails(page, "other-costs-details");
+      await openDetails(page, "itemized-costs-details");
       await page.fill("#travel", "100");
       await page.fill("#fuel", "50");
       shown = await readPanel(page);
@@ -85,6 +94,7 @@ const SCENARIOS = [
       if (shown.error) problems.push(`distance back to 800: error still shown ("${shown.error}")`);
       if (shown.distanceInvalid !== null) problems.push("distance back to 800: aria-invalid was not cleared");
       problems.push(...compareDisplay("distance back to 800", shown, expectedDisplay(calculateBudget({ distance: 800, size: 1, type: 0.65 }))));
+      await openDetails(page, "other-costs-details");
       await page.fill("#travel", "-5");
       shown = await readPanel(page);
       problems.push(...judgeInvalidState("travel -5", shown));
@@ -102,6 +112,7 @@ const SCENARIOS = [
       const start = await readPanel(page);
       await page.fill("#distance", "900");
       await page.selectOption("#size", "1.8");
+      await openDetails(page, "other-costs-details");
       await page.fill("#travel", "25");
       await page.selectOption("#type", "1.65");
       let shown = await readPanel(page);
@@ -126,6 +137,7 @@ const SCENARIOS = [
       let shown = await readPanel(page);
       if (shown.cashHidden !== true) problems.push("cash buffer box is visible before any amount is entered");
       if (shown.employerHidden !== true) problems.push("employer box is visible before any amount is entered");
+      await openDetails(page, "cash-buffer-details");
       await page.selectOption("#reserveWeeks", "4");
       await page.fill("#weeklyLiving", "500");
       shown = await readPanel(page);
@@ -136,6 +148,7 @@ const SCENARIOS = [
       await page.fill("#weeklyLiving", "0");
       shown = await readPanel(page);
       if (shown.cashHidden !== true) problems.push("cash buffer box stayed visible after the amount went back to 0");
+      await openDetails(page, "employer-package-details");
       await page.fill("#employerCash", "500");
       shown = await readPanel(page);
       if (shown.employerHidden !== false) problems.push("employer box did not appear for a $500 lump sum");
