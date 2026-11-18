@@ -109,7 +109,16 @@ class PaddAllocationTests(unittest.TestCase):
         states = {
             "type": "FeatureCollection",
             "features": [
-                box("MA", -80, -70),
+                {
+                    "type": "Feature",
+                    "properties": {"STUSPS": "MA"},
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [[
+                            [-80, 40], [-70, 40], [-70, 43], [-80, 43], [-80, 40]
+                        ]],
+                    },
+                },
                 {
                     "type": "Feature",
                     "properties": {"STUSPS": "NC"},
