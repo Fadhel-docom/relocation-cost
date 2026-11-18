@@ -196,3 +196,27 @@ These two ratios form a plausible **sensitivity bracket**, not a specific SOC 53
 **Research use:** use 1.457–1.513 only as a provisional sensitivity range when translating OEWS wages into employer-loaded labor cost, until a more specific source is found. Keep the un-loaded wage and benefit component visible separately; do not double count overtime or paid leave if the hours/cost model already includes them. No production coefficient changed.
 
 Official source: https://www.bls.gov/news.release/ecec.htm (June 2026, Table 4; release September 9, 2026). The ECEC technical note describes benefit categories, survey coverage, and exclusion of self-employed workers.
+
+
+## 2026-11-18 — Geographic OEWS wage proxy extraction and PADD utility
+
+### State wage coverage (research-only, secondary transcription)
+A May 2025 OEWS state wage extract was assembled for the 19 state endpoints used by the current state-route pages: AZ, CA, CO, FL, GA, IL, MA, MI, NC, NJ, NV, NY, OH, OR, PA, TN, TX, VA, WA. It contains annual median, hourly median, and employment for:
+- SOC 53-3032 Heavy and Tractor-Trailer Truck Drivers
+- SOC 53-3033 Light Truck Drivers
+- SOC 53-7062 Laborers and Freight, Stock, and Material Movers, Hand
+
+### City/metro handling wage coverage
+A May 2025 SOC 53-7062 metro extract now covers 17 of the 18 city nodes in `data/cities.json`: New York, Los Angeles, Chicago pending, Houston, Phoenix, Dallas, Austin, San Francisco, Seattle, Denver, Miami, Atlanta, Boston, Las Vegas, Portland, San Diego, Charlotte, and Nashville. The current JSON contains 17 published metro records; Chicago is intentionally missing because the occupation-specific metro row was not recovered in this extraction. The metro observations retain employment and available percentiles; not every search result exposed every percentile.
+
+### Provenance and restrictions
+The downloadable BLS state/metro XLSX ZIPs remain inaccessible through the current retrieval path. To avoid discarding the research progress, `data/research/b24-oews-may-2025-proxies.json` records a **secondary transcription** from WageDex pages which state that their rows are computed from the BLS OEWS May 2025 state/metro files. This is not a direct BLS file extraction. The data file explicitly sets RSE to null (unknown, not zero), notes missing cells, and prohibits production use. OEWS is cross-industry wage-and-salary employment, not household-moving-only; the three SOCs are broad occupational proxies. Keep state and metro rows separate; do not average them. The city metro geography can cross state boundaries (e.g. Boston MA-NH, Portland OR-WA, Charlotte NC-SC, New York NY-NJ).
+
+Official BLS tables: https://www.bls.gov/oes/tables.htm ; state index: https://www.bls.gov/oes/current/oessrcst.htm ; metro index: https://www.bls.gov/oes/current/oessrcma.htm. Secondary transcription source and download metadata: https://wagedex.com/data. WageDex data pages: https://wagedex.com/jobs/heavy-and-tractor-trailer-truck-drivers ; https://wagedex.com/jobs/light-truck-drivers ; https://wagedex.com/jobs/laborers-and-freight-stock-and-material-movers-hand.
+
+### PADD allocation utility
+The route-distance matrix has only scalar state-pair distances; the 18 city nodes and 44 city pairs use city-center planning data. Neither provides the actual road polyline or states traversed. A geometry-based allocator has therefore been added in `tools/b24_padd_allocation.py`, with unit tests and an isolated GitHub Actions workflow. It samples a supplied ORS/TIGER GeoJSON route against state polygons, groups miles by EIA PADD, and prices fuel by route-mile share. It fails closed if over 0.5% of mileage is unassigned, the geometry differs from an expected route distance by more than 1%, or a traversed PADD price is missing. EIA PADD mapping source: https://www.eia.gov/tools/glossary/index.php?id=Petroleum+Administration+for+Defense+District.
+
+**Not yet complete:** no route GeoJSON bundle or Census/TIGER state-boundary GeoJSON has been added, so no PADD mileage shares or new route fuel costs have been calculated. The allocator is a tested method awaiting its required input data. Fuel output is fuel-only, not a full truck operating cost.
+
+No production calculator formula, coefficient, price, or route distance changed.
