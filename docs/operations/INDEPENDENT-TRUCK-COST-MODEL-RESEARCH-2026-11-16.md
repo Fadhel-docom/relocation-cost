@@ -182,3 +182,17 @@ A direct audit of the official Census 2021 VIUS PUF variable dictionary (173 lis
 **Model consequence:** do not infer tire expense from tire count, insurance cost from truck value or GVWR, or driver hours from annual mileage alone. Source tires, insurance, capital/depreciation, and labor-time assumptions independently; keep each as a transparent sensitivity or unresolved component until supported. This narrows the research gap and prevents pretending VIUS has cost data it does not contain.
 
 Official sources: https://api.census.gov/data/2021/viuspuf/variables.html ; https://www2.census.gov/programs-surveys/vius/datasets/2021/vius_2021_puf_user_guide.pdf
+
+
+## 2026-11-18 — Employer benefit loading: BLS ECEC June 2026 benchmark
+
+BLS Employer Costs for Employee Compensation (ECEC), June 2026, provides a current employer-benefit benchmark to address the fact that OEWS wage estimates exclude employer benefit costs. In the private-industry Table 4:
+
+- The broad occupational group **Transportation and material moving occupations** reports wages and salaries of **$24.97/hour**, total benefits of **$11.41/hour**, and total compensation of **$36.38/hour**. Benefits are 31.4% of total compensation, or 45.7% of wages; the implied total-compensation / wage multiplier is **1.457**.
+- The broad **Transportation and warehousing industry** reports wages and salaries of **$32.95/hour**, total benefits of **$16.90/hour**, and total compensation of **$49.86/hour**. Benefits are 33.9% of total compensation, or 51.3% of wages; implied multiplier **1.513**.
+
+These two ratios form a plausible **sensitivity bracket**, not a specific SOC 53-7062 or residential-mover benefits rate. ECEC occupational group and industry group are separate aggregates; do not combine them as if they were a cross-tab, and do not apply the factor as a production constant. It includes all employer benefits (paid leave, supplemental pay, insurance, retirement/savings, and legally required benefits), not only insurance. ECEC excludes self-employed workers and does not identify household-moving firms separately.
+
+**Research use:** use 1.457–1.513 only as a provisional sensitivity range when translating OEWS wages into employer-loaded labor cost, until a more specific source is found. Keep the un-loaded wage and benefit component visible separately; do not double count overtime or paid leave if the hours/cost model already includes them. No production coefficient changed.
+
+Official source: https://www.bls.gov/news.release/ecec.htm (June 2026, Table 4; release September 9, 2026). The ECEC technical note describes benefit categories, survey coverage, and exclusion of self-employed workers.
