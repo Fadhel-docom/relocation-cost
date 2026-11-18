@@ -31,7 +31,7 @@ Crucially, the public-use data dictionary includes fields that map directly to t
 
 This is a much better foundation than guessing a universal cents-per-mile rate from bedroom count or copying a mover's quote table. The PUF also applies disclosure protections (including noise, topcoding, swapping and coarsening); its cost bands are not exact invoices. The extraction must therefore use the survey weights, report sample counts and distributions, and avoid publishing sparse or unstable cells.
 
-**Extraction is not yet complete.** The public VIUS tabulation tool and PUF are identified, but this run did not retrieve and calculate the full weighted microdata. No MPG, maintenance or empty-mile coefficient is asserted here.
+**Weighted extraction completed 2026-11-18.** The reproducible script and results are in `tools/b24-vius-box-truck-extract.py` and `docs/operations/B24-VIUS-WEIGHTED-EXTRACTION-2026-11-18.md`. It filters `BTYPE=07` and `BUSRELATED=1`, then reports weighted MPG, annual mileage, loaded/deadhead/reposition shares, variable-level valid counts, maintenance/repair category distributions and random-group CVs by GVWR and fuel. The focus diesel sample (GVWR 6–7) contains 1,556 PUF records and represents about 317,285 vehicles; weighted MPG is 9.10 (CV 1.5%), annual mileage 25,011 (CV 3.9%), and loaded share 74.6% (CV 1.0%). Maintenance and repair remain interval-censored annual bands, not exact per-mile costs. No price or production coefficient is asserted.
 
 ## Other independent inputs
 
@@ -86,8 +86,8 @@ Important implementation details:
 
 Before any production coefficient changes:
 
-- Extract VIUS weighted distributions for box trucks by GVWR class and fuel type; include weighted sample counts, missingness and effective sample size.
-- Calculate weighted MPG, annual mileage, maintenance/repair per mile, loaded share, deadhead and reposition distributions. For categorical cost bands, publish low/base/high sensitivity using the documented band bounds; do not pretend the midpoint is an observed exact cost.
+- [x] Extract VIUS weighted distributions for business-related box trucks by GVWR class and fuel type; report PUF counts, weighted vehicle estimates, variable-specific valid counts and random-group CVs. See `B24-VIUS-WEIGHTED-EXTRACTION-2026-11-18.md`.
+- [x] Calculate weighted MPG, annual mileage, loaded share, deadhead and reposition distributions. Maintenance/repair bands are extracted as weighted category distributions, but a per-mile estimate is not yet justified: the bands are conditional, coarsened and include not-reported records. Do not assign midpoints as if observed.
 - Update 2021 cost components with appropriate official price indexes; refresh fuel with current EIA regional data and labor with current BLS area wages.
 - Find independent sources for the still-missing box-truck tire, insurance and capital/depreciation components, or keep them as a separately labelled uncertainty band.
 - Test all four shipment sizes and at least three truck classes across short, medium and long routes. Hold out routes/classes not used during development.
@@ -95,9 +95,9 @@ Before any production coefficient changes:
 - Keep DIY rental costs, truck + labor and full-service scope distinct. Do not apply a box-truck commercial operating rate to DIY rental prices.
 - Do not publish until the estimate materially improves decision usefulness, the assumptions are understandable, and the mobile calculator can explain why weight, volume and truck size change the result.
 
-## Immediate next step
+## Immediate next step (updated 2026-11-18)
 
-Build a reproducible VIUS extraction script/report for `BTYPE=07`, `BUSRELATED=Yes`, by `GVWR_CLASS` and `FUELTYPE`, using `TABWEIGHT`. Return a table with sample counts, weighted MPG, maintenance/repair bands per mile, loaded/empty mileage shares and uncertainty. This is the first concrete calculation needed before assigning any per-mile or per-pound-mile rate.
+A first fuel-only benchmark is now calculated from the extracted VIUS MPG/loaded-share estimates and EIA diesel prices for 2026-11-16 by PADD. It yields about $0.653 per total truck-mile and $0.875 per loaded truck-mile at the U.S. EIA average, before every non-fuel component. Route mileage weighting through PADDs is still missing; do not approximate it by averaging only route endpoints. Next: extract May 2025 BLS state/metro wage estimates for driver and handling occupations, build interval/sensitivity treatment for maintenance/repair, and research tires, insurance, depreciation/capital and overhead. Keep B24 research-only; no per-mile or per-pound-mile rate and no production formula change until components and holdout tests are complete.
 
 ## Sources checked 2026-11-16
 
