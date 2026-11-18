@@ -2521,3 +2521,7 @@ Scope: read-only. No indexing requests, URL submissions, sitemap submissions, si
 - B24 research: BLS May 2025 OEWS provides state and metro occupation wage estimates. Proposed research crosswalk to VIUS GVWR classes: class 6 (19,501–26,000 lb) to SOC 53-3033 Light Truck Drivers (<26,001 lb); class 7 (26,001–33,000 lb) to SOC 53-3032 Heavy and Tractor-Trailer Truck Drivers (26,001+ lb); loading/unloading crew proxy SOC 53-7062 Laborers and Freight, Stock, and Material Movers, Hand. These are broad occupation proxies, not household-moving-only wage samples. OEWS wages exclude employer supplementary benefit costs. No wage values or production coefficients are adopted in this step.
 - Sources: https://www.bls.gov/oes/tables.htm ; https://www.bls.gov/oes/2025/may/oessrcst.htm ; https://www.bls.gov/oes/oes_doc.htm ; https://www.bls.gov/news.release/pdf/ocwage.pdf
 - Next: parse the official May 2025 state/metro files for the three SOCs; decide a defensible driver-vs-handling geographic allocation for interstate routes; separately source employer benefit loading; solve route-mileage allocation to EIA PADD regions; then test sensitivity and holdout routes before any production change.
+
+
+### Production verification — 2026-11-18
+Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44d` reached READY. The live homepage `/` and calculator `/calculator/` both returned HTTP 200 and expose the expected homepage package title / calculator disclosure sections. The calculator change is live; this is not a claim that Google has indexed it.
