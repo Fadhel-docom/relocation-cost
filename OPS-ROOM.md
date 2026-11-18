@@ -766,3 +766,7 @@ Independently audit the 30 prompts row by row using the current site, repository
 - **B24 — قرار ربط الأجور:** BLS May 2025 OEWS متاح على مستوى الولاية والمترو. التوافق المبدئي مع VIUS GVWR: فئة 6 (19,501–26,000 lb) ↔ SOC 53-3033 Light Truck Drivers (<26,001 lb)، وفئة 7 (26,001–33,000 lb) ↔ SOC 53-3032 Heavy and Tractor-Trailer Truck Drivers (26,001+ lb). طاقم التحميل/التفريغ يمكن تمثيله مبدئيًا بـ SOC 53-7062 Laborers and Freight, Stock, and Material Movers, Hand. هذا crosswalk بحثي فقط: تعريف الوظائف أوسع من شاحنات نقل المنازل، وأجور OEWS لا تشمل تكلفة مزايا صاحب العمل. لا تُحوّل الأجور إلى معاملات إنتاجية قبل استخراج ملف BLS الرسمي ومراجعة المناطق والتعريفات.
 - مصادر BLS: `https://www.bls.gov/oes/tables.htm`، `https://www.bls.gov/oes/2025/may/oessrcst.htm`، `https://www.bls.gov/oes/oes_doc.htm`، `https://www.bls.gov/news.release/pdf/ocwage.pdf`.
 - الخطوة التالية ضمن B24: استخراج ملف May 2025 OEWS الرسمي للولاية والمترو للأكواد الثلاثة، ثم تحديد كيف تُسند أجور السائق والتحميل إلى المسار دون متوسط طرفين اعتباطي، وفصل الأجر النقدي عن مزايا صاحب العمل. بالتوازي، يلزم حل هندسة توزيع أميال المسار على PADD قبل تحديث وقود المسار. لا تغيير إنتاجي قبل holdout.
+
+
+### Production verification — 2026-11-18
+Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44d` reached READY. The live homepage `/` and calculator `/calculator/` both returned HTTP 200 and expose the expected homepage package title / calculator disclosure sections. The calculator change is live; this is not a claim that Google has indexed it.
