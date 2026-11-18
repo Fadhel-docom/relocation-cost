@@ -1,0 +1,607 @@
+{
+  "schema_version": "1.0",
+  "reference_period": "May 2025",
+  "status": "research_only_secondary_compilation_of_BLS_OEWS",
+  "occupations": {
+    "53-3032": {
+      "title": "Heavy and Tractor-Trailer Truck Drivers",
+      "geography": "state",
+      "source": "WageDex transcription of BLS OEWS May 2025 state file",
+      "states": {
+        "CA": {
+          "median_annual_usd": 60230,
+          "median_hourly_usd": 28.96,
+          "employment": 205090,
+          "rse": null
+        },
+        "CO": {
+          "median_annual_usd": 61500,
+          "median_hourly_usd": 29.57,
+          "employment": 25350,
+          "rse": null
+        },
+        "FL": {
+          "median_annual_usd": 50640,
+          "median_hourly_usd": 24.34,
+          "employment": 112920,
+          "rse": null
+        },
+        "GA": {
+          "median_annual_usd": 57050,
+          "median_hourly_usd": 27.43,
+          "employment": 74840,
+          "rse": null
+        },
+        "IL": {
+          "median_annual_usd": 60320,
+          "median_hourly_usd": 29,
+          "employment": 84200,
+          "rse": null
+        },
+        "MA": {
+          "median_annual_usd": 63030,
+          "median_hourly_usd": 30.3,
+          "employment": 30890,
+          "rse": null
+        },
+        "MI": {
+          "median_annual_usd": 57180,
+          "median_hourly_usd": 27.49,
+          "employment": 60800,
+          "rse": null
+        },
+        "NV": {
+          "median_annual_usd": 62290,
+          "median_hourly_usd": 29.95,
+          "employment": 15010,
+          "rse": null
+        },
+        "NJ": {
+          "median_annual_usd": 63570,
+          "median_hourly_usd": 30.56,
+          "employment": 47980,
+          "rse": null
+        },
+        "NY": {
+          "median_annual_usd": 62050,
+          "median_hourly_usd": 29.83,
+          "employment": 63700,
+          "rse": null
+        },
+        "NC": {
+          "median_annual_usd": 51530,
+          "median_hourly_usd": 24.77,
+          "employment": 62400,
+          "rse": null
+        },
+        "OH": {
+          "median_annual_usd": 59800,
+          "median_hourly_usd": 28.75,
+          "employment": 83060,
+          "rse": null
+        },
+        "OR": {
+          "median_annual_usd": 61980,
+          "median_hourly_usd": 29.8,
+          "employment": 23970,
+          "rse": null
+        },
+        "PA": {
+          "median_annual_usd": 58580,
+          "median_hourly_usd": 28.16,
+          "employment": 87550,
+          "rse": null
+        },
+        "TN": {
+          "median_annual_usd": 58620,
+          "median_hourly_usd": 28.18,
+          "employment": 64890,
+          "rse": null
+        },
+        "TX": {
+          "median_annual_usd": 56290,
+          "median_hourly_usd": 27.06,
+          "employment": 209680,
+          "rse": null
+        },
+        "VA": {
+          "median_annual_usd": 56860,
+          "median_hourly_usd": 27.34,
+          "employment": 48750,
+          "rse": null
+        },
+        "WA": {
+          "median_annual_usd": 64760,
+          "median_hourly_usd": 31.13,
+          "employment": 40530,
+          "rse": null
+        },
+        "AZ": {
+          "median_annual_usd": 58080,
+          "median_hourly_usd": 27.92,
+          "employment": 40150,
+          "rse": null
+        }
+      }
+    },
+    "53-3033": {
+      "title": "Light Truck Drivers",
+      "geography": "state",
+      "source": "WageDex transcription of BLS OEWS May 2025 state file",
+      "states": {
+        "CA": {
+          "median_annual_usd": 46790,
+          "median_hourly_usd": 22.5,
+          "employment": 111950,
+          "rse": null
+        },
+        "CO": {
+          "median_annual_usd": 48410,
+          "median_hourly_usd": 23.28,
+          "employment": 15810,
+          "rse": null
+        },
+        "FL": {
+          "median_annual_usd": 41810,
+          "median_hourly_usd": 20.1,
+          "employment": 67390,
+          "rse": null
+        },
+        "GA": {
+          "median_annual_usd": 44050,
+          "median_hourly_usd": 21.18,
+          "employment": 26050,
+          "rse": null
+        },
+        "IL": {
+          "median_annual_usd": 47380,
+          "median_hourly_usd": 22.78,
+          "employment": 47190,
+          "rse": null
+        },
+        "MA": {
+          "median_annual_usd": 48110,
+          "median_hourly_usd": 23.13,
+          "employment": 23350,
+          "rse": null
+        },
+        "MI": {
+          "median_annual_usd": 43000,
+          "median_hourly_usd": 20.67,
+          "employment": 26160,
+          "rse": null
+        },
+        "NV": {
+          "median_annual_usd": 43760,
+          "median_hourly_usd": 21.04,
+          "employment": 9520,
+          "rse": null
+        },
+        "NJ": {
+          "median_annual_usd": 46820,
+          "median_hourly_usd": 22.51,
+          "employment": 33900,
+          "rse": null
+        },
+        "NY": {
+          "median_annual_usd": 46330,
+          "median_hourly_usd": 22.27,
+          "employment": 56490,
+          "rse": null
+        },
+        "NC": {
+          "median_annual_usd": 39910,
+          "median_hourly_usd": 19.19,
+          "employment": 31810,
+          "rse": null
+        },
+        "OH": {
+          "median_annual_usd": 42600,
+          "median_hourly_usd": 20.48,
+          "employment": 35130,
+          "rse": null
+        },
+        "OR": {
+          "median_annual_usd": 47150,
+          "median_hourly_usd": 22.67,
+          "employment": 11120,
+          "rse": null
+        },
+        "PA": {
+          "median_annual_usd": 44120,
+          "median_hourly_usd": 21.21,
+          "employment": 42380,
+          "rse": null
+        },
+        "TN": {
+          "median_annual_usd": 45050,
+          "median_hourly_usd": 21.66,
+          "employment": 33710,
+          "rse": null
+        },
+        "TX": {
+          "median_annual_usd": 42500,
+          "median_hourly_usd": 20.43,
+          "employment": 78540,
+          "rse": null
+        },
+        "VA": {
+          "median_annual_usd": 42450,
+          "median_hourly_usd": 20.41,
+          "employment": 25170,
+          "rse": null
+        },
+        "WA": {
+          "median_annual_usd": 49070,
+          "median_hourly_usd": 23.59,
+          "employment": 23290,
+          "rse": null
+        },
+        "AZ": {
+          "median_annual_usd": 45140,
+          "median_hourly_usd": 21.7,
+          "employment": 18400,
+          "rse": null
+        }
+      }
+    },
+    "53-7062": {
+      "title": "Laborers and Freight, Stock, and Material Movers, Hand",
+      "geography": "state_and_metro",
+      "source": "WageDex transcription of BLS OEWS May 2025 state and metro files",
+      "states": {
+        "CA": {
+          "median_annual_usd": 44710,
+          "median_hourly_usd": 21.5,
+          "employment": 355500,
+          "rse": null
+        },
+        "CO": {
+          "median_annual_usd": 45370,
+          "median_hourly_usd": 21.81,
+          "employment": 31140,
+          "rse": null
+        },
+        "FL": {
+          "median_annual_usd": 38160,
+          "median_hourly_usd": 18.35,
+          "employment": 164400,
+          "rse": null
+        },
+        "GA": {
+          "median_annual_usd": 38480,
+          "median_hourly_usd": 18.5,
+          "employment": 137580,
+          "rse": null
+        },
+        "IL": {
+          "median_annual_usd": 40550,
+          "median_hourly_usd": 19.5,
+          "employment": 195390,
+          "rse": null
+        },
+        "MA": {
+          "median_annual_usd": 44920,
+          "median_hourly_usd": 21.6,
+          "employment": 34700,
+          "rse": null
+        },
+        "MI": {
+          "median_annual_usd": 38860,
+          "median_hourly_usd": 18.68,
+          "employment": 79410,
+          "rse": null
+        },
+        "NV": {
+          "median_annual_usd": 39350,
+          "median_hourly_usd": 18.92,
+          "employment": 40850,
+          "rse": null
+        },
+        "NJ": {
+          "median_annual_usd": 39540,
+          "median_hourly_usd": 19.01,
+          "employment": 97230,
+          "rse": null
+        },
+        "NY": {
+          "median_annual_usd": 44630,
+          "median_hourly_usd": 21.46,
+          "employment": 100950,
+          "rse": null
+        },
+        "NC": {
+          "median_annual_usd": 38230,
+          "median_hourly_usd": 18.38,
+          "employment": 116720,
+          "rse": null
+        },
+        "OH": {
+          "median_annual_usd": 39460,
+          "median_hourly_usd": 18.97,
+          "employment": 108830,
+          "rse": null
+        },
+        "OR": {
+          "median_annual_usd": 44750,
+          "median_hourly_usd": 21.52,
+          "employment": 27720,
+          "rse": null
+        },
+        "PA": {
+          "median_annual_usd": 42480,
+          "median_hourly_usd": 20.43,
+          "employment": 131050,
+          "rse": null
+        },
+        "TN": {
+          "median_annual_usd": 38160,
+          "median_hourly_usd": 18.35,
+          "employment": 105870,
+          "rse": null
+        },
+        "TX": {
+          "median_annual_usd": 37540,
+          "median_hourly_usd": 18.05,
+          "employment": 216970,
+          "rse": null
+        },
+        "VA": {
+          "median_annual_usd": 39380,
+          "median_hourly_usd": 18.94,
+          "employment": 58000,
+          "rse": null
+        },
+        "WA": {
+          "median_annual_usd": 46190,
+          "median_hourly_usd": 22.21,
+          "employment": 49450,
+          "rse": null
+        },
+        "AZ": {
+          "median_annual_usd": 44290,
+          "median_hourly_usd": 21.29,
+          "employment": 71090,
+          "rse": null
+        }
+      },
+      "metros": {
+        "New York": {
+          "area": "New York-Newark-Jersey City, NY-NJ",
+          "median_annual": 43290,
+          "median_hourly": 20.81,
+          "employment": 118290,
+          "p10": 34500,
+          "p25": 37120,
+          "p75": 49200,
+          "p90": 60020
+        },
+        "Los Angeles": {
+          "area": "Los Angeles-Long Beach-Anaheim, CA",
+          "median_annual": 42390,
+          "median_hourly": 20.38,
+          "employment": 120720,
+          "p10": 35890,
+          "p25": 37190,
+          "p75": 47010,
+          "p90": 56740
+        },
+        "Houston": {
+          "area": "Houston-Pasadena-The Woodlands, TX",
+          "median_annual": 38000,
+          "median_hourly": 18.27,
+          "employment": 52520,
+          "p10": 29660,
+          "p25": 33000,
+          "p75": 46150,
+          "p90": 52270
+        },
+        "Phoenix": {
+          "area": "Phoenix-Mesa-Chandler, AZ",
+          "median_annual": 44950,
+          "median_hourly": 21.61,
+          "employment": 56420,
+          "p10": 35220,
+          "p25": 37460,
+          "p75": 48400,
+          "p90": 57810
+        },
+        "Dallas": {
+          "area": "Dallas-Fort Worth-Arlington, TX",
+          "median_annual": 38510,
+          "median_hourly": 18.52,
+          "employment": 81940,
+          "p10": 30400,
+          "p90": 54320
+        },
+        "Austin": {
+          "area": "Austin-Round Rock-San Marcos, TX",
+          "median_annual": 38530,
+          "median_hourly": 18.53,
+          "employment": 13900,
+          "p10": 30040,
+          "p25": 34250,
+          "p75": 45630,
+          "p90": 51030
+        },
+        "San Francisco": {
+          "area": "San Francisco-Oakland-Fremont, CA",
+          "median_annual": 48400,
+          "median_hourly": 23.27,
+          "employment": 30710,
+          "p10": 40620,
+          "p25": 45000,
+          "p75": 56020,
+          "p90": 64900
+        },
+        "Seattle": {
+          "area": "Seattle-Tacoma-Bellevue, WA",
+          "median_annual": 47740,
+          "median_hourly": 22.95,
+          "employment": 29490,
+          "p10": 39240,
+          "p25": 43420,
+          "p75": 55070,
+          "p90": 62400
+        },
+        "Denver": {
+          "area": "Denver-Aurora-Centennial, CO",
+          "median_annual": 46290,
+          "median_hourly": 22.25,
+          "employment": 19340,
+          "p10": 38340,
+          "p25": 43510,
+          "p75": 49140,
+          "p90": 59550
+        },
+        "Miami": {
+          "area": "Miami-Fort Lauderdale-West Palm Beach, FL",
+          "median_annual": 38580,
+          "employment": 48860
+        },
+        "Atlanta": {
+          "area": "Atlanta-Sandy Springs-Roswell, GA",
+          "median_annual": 39020,
+          "median_hourly": 18.76,
+          "employment": 78460,
+          "p10": 31460,
+          "p25": 36070,
+          "p75": 46840,
+          "p90": 52510
+        },
+        "Boston": {
+          "area": "Boston-Cambridge-Newton, MA-NH",
+          "median_annual": 45600,
+          "median_hourly": 21.92,
+          "employment": 24030,
+          "p10": 37180,
+          "p25": 39780,
+          "p75": 49840,
+          "p90": 58820
+        },
+        "Las Vegas": {
+          "area": "Las Vegas-Henderson-North Las Vegas, NV",
+          "median_annual": 38940,
+          "median_hourly": 18.72,
+          "employment": 29590,
+          "p10": 33090,
+          "p25": 36950,
+          "p75": 44430,
+          "p90": 55700
+        },
+        "Portland": {
+          "area": "Portland-Vancouver-Hillsboro, OR-WA",
+          "median_annual": 46100,
+          "median_hourly": 22.17,
+          "employment": 18640,
+          "p10": 36870,
+          "p25": 39460,
+          "p75": 51420,
+          "p90": 61210
+        },
+        "San Diego": {
+          "area": "San Diego-Chula Vista-Carlsbad, CA",
+          "median_annual": 43320,
+          "median_hourly": 20.83,
+          "employment": 21950,
+          "p10": 36420,
+          "p25": 37740,
+          "p75": 47550,
+          "p90": 57980
+        },
+        "Charlotte": {
+          "area": "Charlotte-Concord-Gastonia, NC-SC",
+          "median_annual": 38850,
+          "median_hourly": 18.68,
+          "employment": 40540,
+          "p10": 32770,
+          "p25": 36010,
+          "p75": 44440,
+          "p90": 49020
+        },
+        "Nashville": {
+          "area": "Nashville-Davidson--Murfreesboro--Franklin, TN",
+          "median_annual": 39790,
+          "median_hourly": 19.13,
+          "employment": 33120,
+          "p10": 31960,
+          "p25": 37050,
+          "p75": 45830,
+          "p90": 50260
+        },
+        "Chicago": {
+          "area": "Chicago-Naperville-Elgin, IL-IN",
+          "median_annual": 40550,
+          "median_hourly": 19.5,
+          "employment": 157920,
+          "p10": 31860,
+          "p25": 35920,
+          "p75": 47640,
+          "p90": 56440
+        }
+      }
+    }
+  },
+  "state_names": {
+    "CA": "California",
+    "CO": "Colorado",
+    "FL": "Florida",
+    "GA": "Georgia",
+    "IL": "Illinois",
+    "MA": "Massachusetts",
+    "MI": "Michigan",
+    "NV": "Nevada",
+    "NJ": "New Jersey",
+    "NY": "New York",
+    "NC": "North Carolina",
+    "OH": "Ohio",
+    "OR": "Oregon",
+    "PA": "Pennsylvania",
+    "TN": "Tennessee",
+    "TX": "Texas",
+    "VA": "Virginia",
+    "WA": "Washington",
+    "AZ": "Arizona"
+  },
+  "methodology": {
+    "source_of_original_estimates": "U.S. Bureau of Labor Statistics Occupational Employment and Wage Statistics (OEWS), May 2025 state and metropolitan/nonmetropolitan files.",
+    "intermediary": "WageDex open-data pages and occupation/area pages; values are transcribed from its published tables that identify BLS OEWS May 2025 as the source.",
+    "limitation": "This is not a direct BLS file extraction. Relative standard errors (RSEs) are not included in this intermediary dataset; rse is null and must not be treated as zero. BLS suppression/missingness is not inferred where a metro row is absent.",
+    "scope": "OEWS covers wage-and-salary jobs across all industries, not only household-goods movers. SOC 53-3032 includes tractor-trailer drivers; SOC 53-3033 includes light/delivery truck drivers; SOC 53-7062 is broad manual freight/material movement.",
+    "use": "Research cross-check and geographic sensitivity only. Do not add to production coefficients or claim residential-mover-specific wages.",
+    "state_coverage": "19 states represented in the current route-page endpoint set; this is not a complete national state file.",
+    "metro_coverage": "18 of 18 city nodes currently in data/cities.json have a published SOC 53-7062 metro row captured here. These are metro wage areas, not central-city-only estimates; some cross state lines.",
+    "annual_hourly_note": "Annual and hourly medians are transcribed independently from the published table; do not derive one from the other.",
+    "attribution": "WageDex CC BY 4.0 compilation; underlying wage estimates are U.S. government BLS OEWS data."
+  },
+  "sources": [
+    {
+      "name": "BLS May 2025 OEWS tables",
+      "url": "https://www.bls.gov/oes/tables.htm"
+    },
+    {
+      "name": "BLS May 2025 state estimates index",
+      "url": "https://www.bls.gov/oes/current/oessrcst.htm"
+    },
+    {
+      "name": "BLS May 2025 metro estimates index",
+      "url": "https://www.bls.gov/oes/current/oessrcma.htm"
+    },
+    {
+      "name": "WageDex open-data documentation and downloads",
+      "url": "https://wagedex.com/data"
+    },
+    {
+      "name": "WageDex SOC 53-3032 state and metro table",
+      "url": "https://wagedex.com/jobs/heavy-and-tractor-trailer-truck-drivers"
+    },
+    {
+      "name": "WageDex SOC 53-3033 state and metro table",
+      "url": "https://wagedex.com/jobs/light-truck-drivers"
+    },
+    {
+      "name": "WageDex SOC 53-7062 state and metro table",
+      "url": "https://wagedex.com/jobs/laborers-and-freight-stock-and-material-movers-hand"
+    }
+  ]
+}
