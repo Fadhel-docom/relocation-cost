@@ -2501,3 +2501,14 @@ Scope: read-only. No indexing requests, URL submissions, sitemap submissions, si
 - **Decision for the owner:** none. This respects the 2026-11-16 B24 decision (no reliance on moving-company price pages): the numbers are validation targets for the bottom-up model, not calibration inputs. No price, coefficient, formula or UI changed.
 - **Not checked:** CMR figures not re-read by me; the 15 secondary ranges copied from the 2026-11-10 reading; probe distances are a choice; DIY and truck-plus-labor not compared; under 100 miles not covered.
 - **Open PRs seen, not touched:** #256 (independent cost model experiment, docs, conflicts with main on shared files) and #257 (weekly competitor review, docs), both drafts from ChatGPT.
+
+
+## 2026-11-18 — ChatGPT — GSC/Bing recheck and discovery diagnosis
+- Read OPS-ROOM.md, BACKLOG.md, and the 2026-11-16 search review. Queried the active GSC property and Bing Webmaster connection for the verified production host only.
+- GSC 2026-10-20..11-16: 536 impressions / 1 click / 0.19% CTR / avg position 47.5. Homepage: 521 impressions / 0 clicks / avg position 46.41. The one click is the Colorado→Washington route page (6 impressions; avg position 18.5). Top query examples: “relocation package calculator” 76 impressions (avg 34.47), “relocation expenses calculator” 43 (33), “calculate relocation costs” 34 (46.18), “how to calculate relocation costs” 30 (52.5), and “relocation cost calculator” 20 (44.05).
+- URL inspection: homepage and /moving-cost/co-to-wa/ are indexed and successfully fetched; /calculator/ and /methodology/ return “URL is unknown to Google”. Calculator remains HTTP 200, self-canonical, linked from homepage and included in the 115-URL sitemap. No noindex/robots/canonical block was reported. Root cause remains unresolved.
+- GSC sitemap: sitemap-0.xml 115 submitted, 0 errors/warnings, last downloaded Nov 18 15:06 UTC. Sitemap API indexed count is deprecated/unreliable.
+- Bing crawl stats: in_index=64 on Nov 15–16; valid sitemap-0.xml Success, 115 URLs, last crawled Nov 8. No current crawl-issue rows; crawl errors 0 Nov 12–16. Old standalone “feed” entries for /calculator/, /guides/moving-cost/, /moving-cost/ and / are labeled “The feed was empty”; valid XML sitemap remains successful. Two URL inspections were throttled with ErrorCode 17 / ThrottleIP; no retry or resubmission.
+- No AI citation/grounding metrics were exposed by the connected endpoints. No claims of GEO/AEO success made. No production changes or indexing submissions made.
+- Opened backlog B25 for the next focused discovery/CTR task. The next step is to investigate Google discovery paths and stale Bing feed records, then apply one controlled change only if a concrete cause is found.
+- Docs-only audit PR records this work; no code or production deployment changed.
