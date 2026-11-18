@@ -202,6 +202,12 @@ def price_fuel(allocation: dict[str, Any],
                mpg: float) -> dict[str, Any]:
     if mpg <= 0:
         raise AllocationError("MPG must be greater than zero.")
+    coverage = float(allocation.get("coverage_pct", 0.0))
+    if coverage < 99.999:
+        raise AllocationError(
+            f"Route state-boundary coverage is {coverage:.4f}%; not fully covered. "
+            "Fuel cost is not calculated until all route mileage is assigned to a state/PADD."
+        )
     price_map = prices.get("usd_per_gallon", {})
     padd_miles = allocation["miles_by_padd"]
 
