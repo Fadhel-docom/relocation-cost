@@ -12,3 +12,12 @@ Use constraint: labor-cost benchmark only; not a mover quote and not a universal
 
 Important methodology constraint:
 BLS occupational wages do not establish a universal moving-company base price, distance price, home-size multiplier, or move-type multiplier. Candidate calculator coefficients must remain null unless supported by appropriate documented market-price evidence.
+
+
+Additional May 2025 national wage checks (official BLS):
+- SOC 53-7062 mean hourly: $20.32; mean annual: $42,260; median hourly: $19.35. Source: https://www.bls.gov/news.release/ocwage.t01.htm
+- SOC 53-7062 median annual: $40,240. This is the detailed occupation, not the broader “Hand Laborers and Material Movers” group median of $38,220. Source: https://www.bls.gov/ooh/transportation-and-material-moving/hand-laborers-and-material-movers.htm
+- SOC 53-3032 heavy and tractor-trailer truck drivers median annual: $58,640. Source: https://www.bls.gov/ooh/transportation-and-material-moving/heavy-and-tractor-trailer-truck-drivers.htm
+- SOC 53-3033 light truck drivers median annual: $44,860. Source: https://www.bls.gov/ooh/transportation-and-material-moving/delivery-truck-drivers-and-driver-sales-workers.htm
+
+Use constraint: national occupational context only; not residential mover wages, not state/metro values, not employer-loaded compensation, and not a production price coefficient.
