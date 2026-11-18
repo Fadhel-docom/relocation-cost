@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "status": "research_only_mover_specific_business_policy_benchmark",
+  "captured_at": "2026-11-18",
+  "source": "Insureon moving company insurance cost page",
+  "sample_definition": "Median cost of policies purchased by moving businesses that apply for quotes through Insureon; sample size and number of trucks per insured business are not published on the cited page.",
+  "premiums_usd": {
+    "commercial_auto": {
+      "monthly_median": 876,
+      "annualized_median": 10512,
+      "unit": "per moving business policy",
+      "notes": "Not per truck; depends on number and value of trucks, annual revenue, use frequency, local/long-distance operations, driver records, coverage and deductibles."
+    },
+    "general_liability": {
+      "monthly_median": 120,
+      "annualized_median": 1440,
+      "unit": "per moving business policy",
+      "policy_limits": "USD 1m per occurrence / USD 2m aggregate",
+      "deductible_usd": 625,
+      "notes": "Business-level liability, not vehicle-specific; bailee/care-custody-control coverage may be needed for customer property."
+    },
+    "workers_compensation": {
+      "monthly_median": 755,
+      "annualized_median": 9060,
+      "unit": "per moving business policy",
+      "notes": "Payroll- and workforce-dependent; do not classify as truck-only insurance or divide per truck without payroll/exposure data."
+    }
+  },
+  "not_included_or_separate": [
+    "Cargo / bailee coverage and customer-goods liability require separate attention; the source page notes additional coverage beyond commercial auto.",
+    "Physical damage, umbrella/excess, hired/non-owned auto and on-hook/towing policies may be separate.",
+    "These are policy medians among Insureon applicants, not a representative census, guaranteed quotes, or universal market averages."
+  ],
+  "model_use": "External moving-industry insurance sanity check only. Commercial auto is the most directly relevant policy, but cannot be converted to per-mile/per-truck cost without fleet size and annual mileage for the same insured businesses. General liability and workers compensation belong in company overhead / labor cost allocation, not direct truck fuel cost.",
+  "source_url": "https://www.insureon.com/trucking-business-insurance/moving-companies/cost"
+}
