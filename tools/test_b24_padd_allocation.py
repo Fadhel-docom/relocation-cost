@@ -63,6 +63,66 @@ class PaddAllocationTests(unittest.TestCase):
         with self.assertRaises(AllocationError):
             allocate_route(route, self.states, step_miles=0.25)
 
+    def test_uses_eia_padd1_subdistrict_prices(self):
+        states = {
+            "type": "FeatureCollection",
+            "features": [
+                box("MA", -80, -70),
+                {
+                    "type": "Feature",
+                    "properties": {"STUSPS": "NC"},
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [[
+                            [-80, 34], [-70, 34], [-70, 40], [-80, 40], [-80, 34]
+                        ]],
+                    },
+                },
+            ],
+        }
+        route = {
+            "type": "LineString",
+            "coordinates": [[-75, 42.5], [-75, 34.5]],
+        }
+        allocation = allocate_route(route, states, step_miles=0.25)
+        self.assertIn("1A", allocation["miles_by_padd"])
+        self.assertIn("1C", allocation["miles_by_padd"])
+        prices = {"week_of": "2026-11-16", "usd_per_gallon": {"1A": 6.225, "1C": 5.541}}
+        fuel = price_fuel(allocation, prices, mpg=10.0)
+        expected = (
+            allocation["miles_by_padd"]["1A"] * 6.225
+            + allocation["miles_by_padd"]["1C"] * 5.541
+        ) / 10.0
+        self.assertAlmostEqual(fuel["fuel_only_cost_usd"], expected, delta=0.02)
+        self.assertEqual(fuel["by_padd"]["1A"]["eia_price_series"], "1A")
+
+    def test_falls_back_to_aggregate_padd1_price_when_subdistrict_missing(self):
+        states = {
+            "type": "FeatureCollection",
+            "features": [
+                box("MA", -80, -70),
+                {
+                    "type": "Feature",
+                    "properties": {"STUSPS": "NC"},
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [[
+                            [-80, 34], [-70, 34], [-70, 40], [-80, 40], [-80, 34]
+                        ]],
+                    },
+                },
+            ],
+        }
+        route = {"type": "LineString", "coordinates": [[-75, 42.5], [-75, 34.5]]}
+        allocation = allocate_route(route, states, step_miles=0.25)
+        fuel = price_fuel(
+            allocation,
+            {"week_of": "2026-11-16", "usd_per_gallon": {"1": 5.782}},
+            mpg=10.0,
+        )
+        self.assertEqual(fuel["by_padd"]["1A"]["eia_price_series"], "1")
+        self.assertEqual(fuel["by_padd"]["1C"]["eia_price_series"], "1")
+
     def test_refuses_route_when_stored_matrix_distance_differs(self):
         route = {
             "type": "Feature",
