@@ -2567,3 +2567,12 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - Test command: `python -m unittest tools.test_b24_padd_allocation -v` (dedicated Actions workflow added; PR check pending).
 - No application code, calculator formula, production coefficient, price, or route distance changed.
 - Sources: BLS OEWS tables/indexes, WageDex open data (CC BY 4.0 intermediary), EIA PADD glossary, Census TIGER/Line geography.
+
+
+## 2026-11-18 19:53 UTC — ChatGPT — ATRI cost comparator, FMCSA boundaries, city wage coverage
+- Completed the missing Chicago metro SOC 53-7062 row. Wage proxy file now covers 18/18 city nodes for the handling occupation; driver SOCs remain state-level only. Still a WageDex secondary transcription of BLS OEWS, with RSE null/unknown and research-only status.
+- Added `data/research/b24-atri-2024-truckload-comparator.json` with 2024 peer-group median and middle-50% ranges for fuel, equipment lease/purchase, maintenance excluding tires, tires, auto-liability premium, driver wages and benefits. Peer group: truckload carriers with 81–200 trucks. Also recorded operating context (MPG, deadhead, dwell, age, annual mileage).
+- Explicitly prohibited summing separate component medians or transferring freight tractor-trailer values directly to household-goods box trucks. 2025 ATRI all-in $2.336/mile is a separate broader-year comparator, not additive to 2024 component medians.
+- FMCSA insurance minimums for for-hire household-goods carriers (GVWR >=10,001 lb): $750,000 BIPD and $5,000 cargo coverage. These are minimum coverage requirements, not premium costs. FMCSA HOS limits are schedule constraints, not average driver-hours. Crew loading/unloading time remains unresolved and cannot be replaced by ATRI freight dwell time.
+- Updated B24 research note and work log. No application code, price, coefficient, route distance or calculator formula changed.
+- Sources: ATRI sample report; ATRI 2026 release; FMCSA insurance filing requirements; FMCSA HOS summary.
