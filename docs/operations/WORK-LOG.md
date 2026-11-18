@@ -2534,3 +2534,26 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - Search results surfaced secondary reproductions and a May 2023 state table. Neither was used as project data. This avoids mixing reference years or silently treating scraped figures as official extraction.
 - Updated the B24 research note, BACKLOG, OPS-ROOM, and this log to keep the state/metro wage input explicitly pending. No wage values, formula, coefficient, route data, application code, or production settings changed.
 - Next useful step: obtain the official May 2025 state/metro XLSX or complete a One Screen query for SOC 53-3032, 53-3033, and 53-7062; capture employment RSE, means, medians, percentiles, and suppression flags. Then separately resolve route labor geography, benefit loading, PADD mileage allocation, and missing vehicle-cost components before holdout validation.
+
+
+## 2026-11-18 19:35 UTC — ChatGPT — B24 national BLS wage benchmarks and PR #266 merge
+- PR #266 merged successfully as `14ae0ae6427235168ecec964a6b75b839f1503f7`; its Vercel check was successful and its diff contained only four documentation files.
+- Follow-up official BLS May 2025 cross-check: OEWS national table confirms SOC 53-7062 mean hourly $20.32, mean annual $42,260, median hourly $19.35. BLS OOH detailed occupation reports its median annual wage $40,240. OOH reports median annual wages of $58,640 for SOC 53-3032 and $44,860 for SOC 53-3033.
+- Correct scope distinction: $38,220 is the median for the broader “Hand Laborers and Material Movers” group; the detailed SOC 53-7062 median is $40,240. The detailed occupation value is the relevant national proxy for the project's handling crosswalk.
+- Updated the B24 research note, local BLS evidence snapshot, unified backlog and operations room. These are national context proxies only; geographic May 2025 wage extraction remains pending. No calculator formula, coefficient, route data, or production price changed.
+- Sources: https://www.bls.gov/news.release/ocwage.t01.htm ; https://www.bls.gov/ooh/transportation-and-material-moving/heavy-and-tractor-trailer-truck-drivers.htm ; https://www.bls.gov/ooh/transportation-and-material-moving/delivery-truck-drivers-and-driver-sales-workers.htm ; https://www.bls.gov/ooh/transportation-and-material-moving/hand-laborers-and-material-movers.htm
+
+
+## 2026-11-18 19:37 UTC — ChatGPT — VIUS PUF input-coverage audit
+- Audited the official Census 2021 VIUS PUF variable dictionary (173 variables) and User Guide against the remaining B24 model inputs.
+- Confirmed the PUF has categorical general-maintenance/extensive-repair cost fields, rear-axle tire count and tire-equipment indicators, but no tire-expense or insurance-premium field. The User Guide lists approximate operating hours and idling share among excluded variables.
+- Decision: VIUS supports fleet/fuel/utilization profiling, not tire, insurance, or direct driver-hour pricing. Do not infer prices from tire count/GVWR or hours from annual mileage. These components need independent evidence or remain unresolved/sensitivity-only.
+- Updated B24 research note, backlog, operations room, and work log on PR #267. No application code, coefficient, formula, price, or route data changed.
+- Sources: https://api.census.gov/data/2021/viuspuf/variables.html ; https://www2.census.gov/programs-surveys/vius/datasets/2021/vius_2021_puf_user_guide.pdf
+
+
+## 2026-11-18 19:39 UTC — ChatGPT — BLS ECEC employer-benefit sensitivity
+- Verified the official BLS June 2026 ECEC Table 4 for private industry. The broad Transportation and material moving occupations group reports $24.97 wages + $11.41 benefits = $36.38 total compensation/hour (benefits/wages 45.7%; loaded multiplier 1.457). The Transportation and warehousing industry reports $32.95 wages + $16.90 benefits = $49.86 total compensation/hour (benefits/wages 51.3%; multiplier 1.513).
+- Treat these as a provisional sensitivity bracket only: the occupational group and industry group are separate aggregates, not a cross-tab; neither is residential-moving-specific or SOC 53-7062-specific. ECEC includes multiple benefit categories and excludes self-employed workers. Do not hard-code or apply as a production constant.
+- Updated B24 research note, BLS evidence snapshot, backlog, operations room and work log on PR #267. No calculator formula, coefficient, price, route data or application code changed.
+- Source: https://www.bls.gov/news.release/ecec.htm (June 2026 Table 4, released September 9, 2026).

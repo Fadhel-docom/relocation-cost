@@ -151,3 +151,48 @@ Search results also surfaced secondary sites reproducing May 2025 BLS values and
 - BLS OEWS documentation: https://www.bls.gov/oes/oes_doc.htm
 
 This is an access/extraction limitation, not evidence that BLS has no data. No application code, pricing, formulas, route data, or production settings changed.
+
+
+## 2026-11-18 — Official national BLS May 2025 wage cross-check
+
+The official BLS May 2025 OEWS national table reports for SOC 53-7062 (Laborers and Freight, Stock, and Material Movers, Hand): mean hourly wage **$20.32**, mean annual wage **$42,260**, and median hourly wage **$19.35**. The BLS Occupational Outlook Handbook's May 2025 detailed-occupation table reports a median annual wage of **$40,240** for this same detailed occupation. This reconciles the existing `data/coefficients.json` mean benchmark with a separately sourced median; mean and median are not interchangeable.
+
+The BLS OOH also reports May 2025 national median annual wages of **$58,640** for heavy and tractor-trailer truck drivers (SOC 53-3032) and **$44,860** for light truck drivers (SOC 53-3033). These are broad national occupational proxies. SOC 53-3032 includes tractor-trailer drivers; SOC 53-3033 includes delivery/light truck work; SOC 53-7062 covers manual freight/material movement across industries. None is a residential-moving-only wage sample.
+
+**Important distinction:** the broader OOH group “Hand Laborers and Material Movers” has a median of $38,220, but the detailed SOC 53-7062 median is $40,240. For the project's SOC 53-7062 handling proxy, use the detailed occupation value and label the scope accurately. Do not substitute the broader group median.
+
+These national figures improve the research baseline but do not resolve the pending state/metro extraction, driver/handling geographic allocation, or employer benefit loading. They remain context benchmarks only; no production coefficient or formula is changed.
+
+Official sources:
+- BLS May 2025 OEWS national table: https://www.bls.gov/news.release/ocwage.t01.htm
+- BLS May 2025 OOH, heavy and tractor-trailer truck drivers: https://www.bls.gov/ooh/transportation-and-material-moving/heavy-and-tractor-trailer-truck-drivers.htm
+- BLS May 2025 OOH, delivery truck drivers and driver/sales workers: https://www.bls.gov/ooh/transportation-and-material-moving/delivery-truck-drivers-and-driver-sales-workers.htm
+- BLS May 2025 OOH, hand laborers and material movers: https://www.bls.gov/ooh/transportation-and-material-moving/hand-laborers-and-material-movers.htm
+
+
+## 2026-11-18 — VIUS PUF coverage audit: missing insurance/tire prices and operating hours
+
+A direct audit of the official Census 2021 VIUS PUF variable dictionary (173 listed variables) and the PUF User Guide clarifies which model inputs VIUS can and cannot supply:
+
+- The PUF contains `GM_COST` and `ER_COST` as categorical total-cost bands for 2021 general maintenance and extensive repairs. These are not exact invoices; the existing weighted distributions and missingness treatment remain the correct use.
+- The PUF contains `REARAXLETIRES` (number of tires on the rear axle) and tire-equipment indicators such as low-rolling-resistance tires / automatic inflation, but the dictionary has no tire-purchase or tire-expense variable and no insurance-premium variable. A text search of the complete dictionary returned no insurance or tire-cost field.
+- The User Guide explicitly lists approximate operating hours and idling share among data items excluded from the PUF. Therefore VIUS cannot directly provide actual driver-hours or an idling-cost calculation for this model.
+- The PUF does provide annual mileage, MPG, loaded/deadhead/reposition shares and vehicle characteristics, so it remains useful for the operating profile and fuel/utilization side of the model.
+
+**Model consequence:** do not infer tire expense from tire count, insurance cost from truck value or GVWR, or driver hours from annual mileage alone. Source tires, insurance, capital/depreciation, and labor-time assumptions independently; keep each as a transparent sensitivity or unresolved component until supported. This narrows the research gap and prevents pretending VIUS has cost data it does not contain.
+
+Official sources: https://api.census.gov/data/2021/viuspuf/variables.html ; https://www2.census.gov/programs-surveys/vius/datasets/2021/vius_2021_puf_user_guide.pdf
+
+
+## 2026-11-18 — Employer benefit loading: BLS ECEC June 2026 benchmark
+
+BLS Employer Costs for Employee Compensation (ECEC), June 2026, provides a current employer-benefit benchmark to address the fact that OEWS wage estimates exclude employer benefit costs. In the private-industry Table 4:
+
+- The broad occupational group **Transportation and material moving occupations** reports wages and salaries of **$24.97/hour**, total benefits of **$11.41/hour**, and total compensation of **$36.38/hour**. Benefits are 31.4% of total compensation, or 45.7% of wages; the implied total-compensation / wage multiplier is **1.457**.
+- The broad **Transportation and warehousing industry** reports wages and salaries of **$32.95/hour**, total benefits of **$16.90/hour**, and total compensation of **$49.86/hour**. Benefits are 33.9% of total compensation, or 51.3% of wages; implied multiplier **1.513**.
+
+These two ratios form a plausible **sensitivity bracket**, not a specific SOC 53-7062 or residential-mover benefits rate. ECEC occupational group and industry group are separate aggregates; do not combine them as if they were a cross-tab, and do not apply the factor as a production constant. It includes all employer benefits (paid leave, supplemental pay, insurance, retirement/savings, and legally required benefits), not only insurance. ECEC excludes self-employed workers and does not identify household-moving firms separately.
+
+**Research use:** use 1.457–1.513 only as a provisional sensitivity range when translating OEWS wages into employer-loaded labor cost, until a more specific source is found. Keep the un-loaded wage and benefit component visible separately; do not double count overtime or paid leave if the hours/cost model already includes them. No production coefficient changed.
+
+Official source: https://www.bls.gov/news.release/ecec.htm (June 2026, Table 4; release September 9, 2026). The ECEC technical note describes benefit categories, survey coverage, and exclusion of self-employed workers.
