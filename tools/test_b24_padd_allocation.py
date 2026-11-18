@@ -7,21 +7,17 @@ from tools.b24_padd_allocation import (
 )
 
 
-def region(state, west, east, south, north):
+def box(state, west, east):
     return {
         "type": "Feature",
         "properties": {"STUSPS": state},
         "geometry": {
             "type": "Polygon",
             "coordinates": [[
-                [west, south], [east, south], [east, north], [west, north], [west, south]
+                [west, 34], [east, 34], [east, 36], [west, 36], [west, 34]
             ]],
         },
     }
-
-
-def box(state, west, east):
-    return region(state, west, east, 34, 36)
 
 
 class PaddAllocationTests(unittest.TestCase):
@@ -71,8 +67,26 @@ class PaddAllocationTests(unittest.TestCase):
         states = {
             "type": "FeatureCollection",
             "features": [
-                region("MA", -80, -70, 40, 43),
-                region("NC", -80, -70, 34, 40),
+                {
+                    "type": "Feature",
+                    "properties": {"STUSPS": "MA"},
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [[
+                            [-80, 40], [-70, 40], [-70, 43], [-80, 43], [-80, 40]
+                        ]],
+                    },
+                },
+                {
+                    "type": "Feature",
+                    "properties": {"STUSPS": "NC"},
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [[
+                            [-80, 34], [-70, 34], [-70, 40], [-80, 40], [-80, 34]
+                        ]],
+                    },
+                },
             ],
         }
         route = {
@@ -95,8 +109,26 @@ class PaddAllocationTests(unittest.TestCase):
         states = {
             "type": "FeatureCollection",
             "features": [
-                region("MA", -80, -70, 40, 43),
-                region("NC", -80, -70, 34, 40),
+                {
+                    "type": "Feature",
+                    "properties": {"STUSPS": "MA"},
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [[
+                            [-80, 40], [-70, 40], [-70, 43], [-80, 43], [-80, 40]
+                        ]],
+                    },
+                },
+                {
+                    "type": "Feature",
+                    "properties": {"STUSPS": "NC"},
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [[
+                            [-80, 34], [-70, 34], [-70, 40], [-80, 40], [-80, 34]
+                        ]],
+                    },
+                },
             ],
         }
         route = {"type": "LineString", "coordinates": [[-75, 42.5], [-75, 34.5]]}
@@ -121,6 +153,16 @@ class PaddAllocationTests(unittest.TestCase):
         }
         with self.assertRaisesRegex(AllocationError, "Stored road-distance matrix"):
             allocate_route(route, self.states, step_miles=0.25)
+
+    def test_refuses_to_price_any_unmatched_route_mileage(self):
+        allocation = {
+            "route_miles": 100.0,
+            "coverage_pct": 99.5,
+            "miles_by_padd": {"2": 99.5},
+        }
+        prices = {"week_of": "2026-11-16", "usd_per_gallon": {"2": 4.0}}
+        with self.assertRaisesRegex(AllocationError, "not fully covered"):
+            price_fuel(allocation, prices, mpg=10.0)
 
     def test_refuses_distance_mismatch_over_one_percent(self):
         route = {
