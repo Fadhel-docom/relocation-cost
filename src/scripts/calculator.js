@@ -10,6 +10,31 @@ const form = document.querySelector("#calculator");
 const ids = ["fromState","toState","distance","size","type","travel","housing","setup","extras","fuel","insurance","packing","equipment","utilities","storage","tips","specialty","access","employerCash","employerDirect","reserveWeeks","weeklyLiving"];
 const defaults = { fromState: "CA", toState: "TX", distance: "", size: "1", type: "0.65", travel: "0", housing: "0", setup: "0", extras: "0", fuel: "0", insurance: "0", packing: "0", equipment: "0", utilities: "0", storage: "0", tips: "0", specialty: "0", access: "0", employerCash: "0", employerDirect: "0", reserveWeeks: "0", weeklyLiving: "0" };
 const fields = Object.fromEntries(ids.map(id => [id, document.querySelector("#" + id)]));
+const optionalDetails = [
+  { id: "other-costs-details", inputIds: ["travel", "housing", "setup", "extras"] },
+  { id: "itemized-costs-details", inputIds: ["fuel", "insurance", "packing", "equipment", "utilities", "storage", "tips", "specialty", "access"] },
+  { id: "employer-package-details", inputIds: ["employerCash", "employerDirect"] },
+  { id: "cash-buffer-details", inputIds: ["reserveWeeks", "weeklyLiving"] }
+];
+
+const revealOptionalDetails = () => {
+  optionalDetails.forEach(({ id, inputIds }) => {
+    const section = document.querySelector("#" + id);
+    if (!section) return;
+    const hasSavedOrSharedValue = inputIds.some(inputId => {
+      const value = String(fields[inputId]?.value ?? "");
+      return value !== "" && value !== "0";
+    });
+    if (hasSavedOrSharedValue) section.open = true;
+  });
+};
+
+const closeOptionalDetails = () => {
+  optionalDetails.forEach(({ id }) => {
+    const section = document.querySelector("#" + id);
+    if (section) section.open = false;
+  });
+};
 const result = document.querySelector("#result");
 const moveResult = document.querySelector("#moveResult");
 const otherResult = document.querySelector("#otherResult");
@@ -461,6 +486,7 @@ const resetCalculator = () => {
   });
 
   try { localStorage.removeItem("relocation-cost-inputs"); } catch {}
+  closeOptionalDetails();
   shareStatus.textContent = "";
   // Reset the funnel before rendering defaults, so the default estimate is not
   // misattributed to the previous user attempt.
@@ -473,6 +499,7 @@ const resetCalculator = () => {
 loadSaved();
 loadQuery();
 sanitizeSelects();
+revealOptionalDetails();
 if (fields.distance.value === "") {
   fillStateDistance();
 } else if (stateDistance(fields.fromState.value, fields.toState.value)?.miles === Number(fields.distance.value)) {
