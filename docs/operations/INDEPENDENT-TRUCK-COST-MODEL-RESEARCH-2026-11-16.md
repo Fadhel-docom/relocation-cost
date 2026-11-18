@@ -245,3 +245,26 @@ No production formula, coefficient, price, or route distance changed.
 
 ## 2026-11-18 — Correction: Chicago metro wage coverage
 A re-count against the 18 city nodes in `data/cities.json` confirms the May 2025 WageDex proxy contains **17/18** SOC 53-7062 metro rows. Chicago-Naperville-Elgin is missing. The $40,550 annual / $19.50 hourly median previously considered is the Illinois statewide SOC 53-7062 estimate, not the Chicago metro estimate; it must not be assigned to Chicago. Keep the Chicago metro value missing until a valid occupation-specific metro row is obtained. This is a secondary transcription dataset and does not replace direct BLS XLSX/RSE verification.
+
+
+## 2026-11-18 — Tire lifecycle and Class 6–7 capital-price evidence
+
+Added `data/research/b24-tire-capital-benchmarks-2026-11-18.json` to separate available benchmarks from missing mover-specific inputs.
+
+### Tires
+- ATRI's 2024 truckload peer group (81–200 trucks) reports $0.032 per truck-mile median, middle 50% $0.030–$0.035. This is a freight tractor-trailer comparison, not a household-goods box-truck coefficient.
+- Michelin's 2023 Truck Tire Service Manual provides the correct lifecycle-cost structure: purchase plus retreads/repairs/mounting less casing residual, divided by total achieved mileage, while tracking wheel position, tire size, casing life, labor, road calls and disposal. Its examples ($616 steer tire less $60 casing value over 120,000 miles; $670 drive tire less $60 over 250,000 miles) are long-haul tire illustrations and must not be transferred to Class 6–7 moving trucks.
+- VIUS's rear-axle tire count is not enough to price tires. The model still needs tire size/position counts and real replacement/retread mileage plus invoices or a matched fleet dataset.
+
+### Capital / depreciation
+- ICCT Working Paper 2023-10, Table A2, estimates diesel Class 6–7 straight-truck purchase prices at $112,000 in 2024 and 2025, and $113,000 in 2026, all in 2022 dollars. This is a modelled straight-truck benchmark, not a current dealer transaction or confirmed complete household-moving box-body price; it does not provide residual value or service-life miles.
+- ATRI's 81–200-truck freight peer group reports $0.391/mile median truck/trailer lease-or-purchase cost (middle 50% $0.323–$0.464). It is not pure depreciation and includes a different truck/trailer configuration.
+- NADA/Wards reports 2025 new sales volume of 65,187 Class 6 and 54,993 Class 7 trucks, but the cited NADA profile's average selling-price series is Class 8 only. Do not reuse the Class 8 average as a Class 6–7 price.
+
+**Decision:** depreciation remains unresolved. A defensible per-mile depreciation calculation needs actual complete-vehicle acquisition cost, holding period/lifetime mileage, residual/disposal value, financing/cost-of-capital treatment and annual utilization. Do not derive a production coefficient from the ICCT forecast or ATRI lease/purchase line. No production price or formula changed.
+
+Sources:
+- Michelin Truck Tire Service Manual (2023): https://www.michelinb2b.com/wps/b2bcontent/PDF/Michelin_Truck_Tire_Service_Manual_2023.pdf
+- ICCT Working Paper 2023-10: https://www.theicct.org.cn/wp-content/uploads/2025/03/cost-zero-emission-trucks-us-phase-3-mar23.pdf
+- NADA Annual Financial Profile: https://www.nada.org/index.php/media/5008/download
+- ATRI sample peer report: https://truckingresearch.org/wp-content/uploads/2026/02/sample_customized_yoy_report.pdf
