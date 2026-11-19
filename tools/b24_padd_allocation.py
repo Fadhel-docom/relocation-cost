@@ -24,13 +24,15 @@ PADD5 = {"AK", "AZ", "CA", "HI", "NV", "OR", "WA"}
 
 
 def padd_for_state(state):
+    if state == "CA":
+        return "CA"
     if state in PADD1A:
         return "1A"
     if state in PADD1B:
         return "1B"
     if state in PADD1C:
         return "1C"
-    for code, states in (("2", PADD2), ("3", PADD3), ("4", PADD4), ("5", PADD5)):
+    for code, states in (("2", PADD2), ("3", PADD3), ("4", PADD4), ("5X", PADD5 - {"CA"})):
         if state in states:
             return code
     raise AllocationError(f"State {state!r} has no configured EIA PADD mapping")
@@ -189,9 +191,16 @@ def price_fuel(allocation, prices, mpg=None, gallons_per_mile=None):
         price_key = padd
         if price_key not in price_map and padd in {"1A", "1B", "1C"} and "1" in price_map:
             price_key = "1"
-        if padd == "5" and "CA" in price_map:
-            # California is a separately published EIA subregion.
-            raise AllocationError("PADD 5 mileage must be split into California and non-California geometry before pricing")
+        if padd == "5X":
+            for candidate in ("5X", "5EXCA", "West Coast less California"):
+                if candidate in price_map:
+                    price_key = candidate
+                    break
+        if padd == "CA":
+            for candidate in ("CA", "California"):
+                if candidate in price_map:
+                    price_key = candidate
+                    break
         if price_key not in price_map:
             raise AllocationError(f"Missing EIA diesel price for PADD {padd}")
         price = float(price_map[price_key])
