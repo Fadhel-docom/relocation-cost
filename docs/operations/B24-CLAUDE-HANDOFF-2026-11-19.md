@@ -28,6 +28,8 @@ Please perform one focused final review of PR #276 and this handoff note. Review
 
 ## Run checks
 
+The PR now adds a pinned Python 3.12 setup and runs the unit test file in `.github/workflows/validate.yml` on every pull request. GitHub Actions should therefore execute the focused test automatically. Claude should still run the full PUF extraction locally when the raw ZIP is available.
+
 From the repository root:
 
 ```bash
