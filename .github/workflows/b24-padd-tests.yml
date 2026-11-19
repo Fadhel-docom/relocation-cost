@@ -14,7 +14,10 @@ on:
     paths:
       - "tools/b24_padd_allocation.py"
       - "tools/test_b24_padd_allocation.py"
+      - "tools/fetch_tiger_state_boundaries.py"
+      - "tools/test_fetch_tiger_state_boundaries.py"
       - ".github/workflows/b24-padd-tests.yml"
+      - ".github/workflows/fetch-b24-tiger-boundaries.yml"
 
 jobs:
   unit-tests:

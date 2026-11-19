@@ -2592,3 +2592,12 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - صححت أداة PADD: أضيفت KY إلى PADD 2؛ استُبدل إدخال MPG الافتراضي بوسيط إلزامي `--gallons-per-mile` (القيمة البحثية المدققة 0.122605)؛ ووُحّدت عتبة التغطية إلى 99.999% في allocation وfuel pricing. أُضيفت اختبارات KY ورفض التغطية الأقل من العتبة، وصُحح حساب الاختبار إلى miles × gallons-per-mile × price.
 - لا توجد هندسة مسارات GeoJSON أو حدود TIGER في المستودع حتى الآن؛ لذلك لم يُحسب أي سعر وقود لمسار. لم يُستهلك مفتاح/رصيد HeiGIT، ولم يتغير أي كود إنتاجي أو معامل.
 - المطلوب الآن: تشغيل GitHub Actions على رأس PR #273 بعد التصحيحات، معالجة تعارضه مع main، ثم مراجعة Claude النهائية. بعدها تشغيل workflow الهندسة يدويًا فقط بعد التأكد من وجود secret `HEIGIT_API_KEY`، ثم توزيع الأميال على الولايات/PADD والتحقق من جميع المسارات. أجور BLS الجغرافية الرسمية والإطارات والتأمين الفعلي والإهلاك وساعات العمل لا تزال فجوات مستقلة.
+
+
+## 2026-11-19 00:31 UTC — ChatGPT — PADD corrections and official TIGER boundary ingestion
+- Synced PR #273 with current main in merge commit `58825ef465cd6fd06567f985fd7bfef1eb6d0220`; GitHub REST now reports mergeable=true. PR remains open for Claude's final review.
+- Corrected PADD state mapping (KY→PADD 2), removed the default arithmetic MPG input in favor of required `--gallons-per-mile`, and aligned allocation/pricing coverage at 99.999%. Fuel-only equation now uses route miles × weighted gallons per mile × diesel price.
+- Added Census TIGER/Line 2026 download/conversion script and manual workflow, with NAD83, 51-state/DC coverage, coordinate bounds, source SHA-256, timestamp and attribution validation. Official source: `https://www2.census.gov/geo/tiger/TIGER2026/STATE/tl_2026_us_state.zip`; boundary vintage as of 2026-01-01.
+- Added four synthetic-shapefile converter tests. CI on commit `6e8b9e039bffb364f0c2e82b4f0f9f79cafa64da`: 16/16 tests passed. Build (npm test, build, verify-seo) and Validate calculator/site passed on the same head. Rendered-page report still running at last check.
+- HeiGIT route workflow now opens a PR after successful fetch; manual only, requires HEIGIT_API_KEY. Neither route geometry nor TIGER workflow was run here; no route geometry or boundary GeoJSON is yet present, and no HeiGIT quota was consumed.
+- No production formula, coefficient, route distance or displayed price changed. Next: Claude re-review PR #273, run TIGER workflow, and run HeiGIT workflow only if the secret is configured; inspect all generated PRs and route coverage before calculating PADD fuel.

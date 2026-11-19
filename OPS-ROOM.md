@@ -839,3 +839,13 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - عُدّلت أداة PADD على فرع PR #273: إضافة KY، واشتراط `--gallons-per-mile`، وتوحيد حد التغطية إلى 99.999% في مرحلتي التوزيع والتسعير، وتحديث الاختبارات والوثائق. تم تصحيح اختبار تسعير PADD 1 بوحدة gallons-per-mile.
 - لم تُحسب أي PADD split فعلية بعد: route GeoJSON وملف حدود TIGER ما زالا مطلوبين. لم تُرسل طلبات HeiGIT ولم تُستهلك الحصة. لا تغيير إنتاجي أو في معاملات الحاسبة.
 - الخطوة التالية: تحقق CI على PR #273، ثم حل تعارض الفرع مع main ومراجعة Claude النهائية؛ بعد ذلك جلب route geometries للـ44 city routes وطرق صفحات الولايات، وإحضار TIGER boundaries، وفحص التغطية/المسافة قبل حساب الوقود. بقية مكونات التكلفة تظل بحثية وغير محسومة.
+
+
+## 2026-11-19 — ChatGPT — B24 PADD + Census TIGER 2026 pipeline
+- أُصلحت ملاحظات Claude على PADD: KY ضمن PADD 2، مدخل إلزامي `--gallons-per-mile` بدل MPG افتراضي 9.10، ومعيار تغطية واحد 99.999% في التوزيع والتسعير. أُصلح حساب الوقود إلى route miles × gal/mile × PADD diesel price.
+- PR #273 تمت مزامنته مع main عبر merge commit `58825ef465cd6fd06567f985fd7bfef1eb6d0220`. فحص GitHub REST يؤكد `mergeable=true`; حالة Vercel وحدها غير مستقرة بسبب حد النشر اليومي.
+- أضيفت أداة تنزيل/تحويل Census TIGER/Line 2026 إلى `tools/fetch_tiger_state_boundaries.py`، تتحقق من NAD83، 50 ولاية + DC، حدود الإحداثيات، وتوثق SHA-256 وتاريخ التنزيل. أضيف workflow يدوي ينشئ PR لمراجعة GeoJSON؛ المصدر الرسمي `tl_2026_us_state.zip`، الحدود اعتبارًا من 2026-01-01.
+- أضيفت 4 اختبارات تحويل TIGER إلى 12 اختبار PADD؛ أحدث تشغيل على commit `6e8b9e039bffb364f0c2e82b4f0f9f79cafa64da` نجح **16/16** بعد تصحيح اتجاه حلقات المضلع في fixture.
+- Build: `npm test` و`npm run build` و`verify-seo` نجحت. Validate calculator/site: اختبارات regression وbuild نجحت. Rendered-pages check ما زال قيد التنفيذ عند آخر فحص. Vercel preview محدود بسبب `api-deployments-free-per-day`؛ لا يُعامل كفشل كود.
+- حدّثت workflow جلب HeiGIT ليُنشئ PR تلقائيًا بعد نجاح الجلب. لم نشغّل أي workflow لجلب هندسة المسارات أو TIGER في هذه الجلسة؛ لذلك لا توجد GeoJSON فعلية بعد، ولم تُستهلك حصة HeiGIT. لا يزال `HEIGIT_API_KEY` مطلوبًا لتشغيل route workflow.
+- لم يتغير أي كود إنتاجي أو معامل أو سعر أو مسافة. BLS الجغرافي المباشر، الإطارات، التأمين الفعلي، الإهلاك، وساعات العمل تبقى فجوات بحثية. التالي: Claude يراجع PR #273، يشغّل workflow TIGER (لا يحتاج سرًا)، ثم route workflow فقط إذا كان السر موجودًا، ويفحص PRs الناتجة قبل أي دمج.

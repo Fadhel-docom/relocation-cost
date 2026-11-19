@@ -7,7 +7,7 @@ Read OPS-ROOM.md, docs/operations/WORK-LOG.md, and B24 row in docs/operations/BA
 - PR: https://github.com/Fadhel-docom/relocation-cost/pull/273
 - Branch: research/b24-padd-clean-2026-11-18
 - PR #276 merged to main at 5fc27d009b6229e1d2f85345c5b77f4a5837506b.
-- GitHub currently reports PR #273 branch was reconciled with current main using merge commit 58825ef465cd6fd06567f985fd7bfef1eb6d0220; raw GitHub API reports mergeable=true (mergeable_state unstable due Vercel rate-limit status). Current branch head has since advanced with TIGER pipeline work.
+- GitHub currently reports PR #273 branch was reconciled with current main using merge commit 58825ef465cd6fd06567f985fd7bfef1eb6d0220; raw GitHub API reports mergeable=true. Current head 6e8b9e039bffb364f0c2e82b4f0f9f79cafa64da has 16/16 B24 tests, Build and Validate green; rendered-page report pending. Vercel preview is rate-limited, not a code failure.
 
 ## Claude's prior findings
 1. KY missing from PADD_BY_STATE.
@@ -25,7 +25,7 @@ Files: tools/b24_padd_allocation.py and tools/test_b24_padd_allocation.py.
 ## New Census boundary pipeline added by ChatGPT
 - `tools/fetch_tiger_state_boundaries.py` downloads official Census 2026 TIGER/Line `tl_2026_us_state.zip`, validates NAD83 geographic coordinates, exact 50 states + DC coverage, and coordinate bounds; records source ZIP SHA-256 and download timestamp.
 - `.github/workflows/fetch-b24-tiger-boundaries.yml` manually runs the converter and opens a data PR. It has not been executed yet; no GeoJSON file is in the repository.
-- `tools/test_fetch_tiger_state_boundaries.py` adds synthetic-shapefile tests. The B24 test workflow installs pinned pyshp 2.3.1 and runs both allocator and converter suites; the first run passed 16/16, and the synthetic shapefile fixture ring orientation was corrected afterward so a clean rerun is still required.
+- `tools/test_fetch_tiger_state_boundaries.py` adds synthetic-shapefile tests. The B24 test workflow installs pinned pyshp 2.3.1 and runs both allocator and converter suites. Latest run on commit 6e8b9e039bffb364f0c2e82b4f0f9f79cafa64da passed 16/16 after correcting the synthetic exterior-ring orientation.
 - The HeiGIT route workflow now opens a review PR after a successful fetch. It remains manual and requires Actions secret HEIGIT_API_KEY; verify secret availability through a workflow run, never expose it.
 
 ## Requested review
