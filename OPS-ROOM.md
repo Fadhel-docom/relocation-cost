@@ -864,3 +864,12 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - عدّدت دوال الاختبار من الملفين مباشرة: `tools/test_b24_padd_allocation.py` يحتوي 14 اختبارًا، و`tools/test_fetch_tiger_state_boundaries.py` يحتوي 4 اختبارات؛ المجموع الحالي 18، وليس 16.
 - نتيجة 16/16 المسجلة سابقًا تخص الرأس الأقدم قبل إضافة اختباري دقة التغطية. حدّثت ملف handoff ووصف PR #273 حتى لا تُعرض النتيجة القديمة على أنها تحقق للرأس الحالي.
 - لم أجد تشغيل GitHub Actions مرتبطًا بالرأس الأحدث حتى لحظة التسجيل؛ الحالة الظاهرة من Vercel وحدها Preview READY ولا تثبت نجاح اختبارات Python. يبقى قبول التغيير معلقًا إلى أن يظهر CI لـ18/18 ومراجعة Claude.
+
+
+## 2026-11-19 20:45 UTC — ChatGPT — B24 PR #273 merged; geometry ingestion handoff
+- Claude completed the final review of PR #273 at HEAD `aadda83e1214ec769da41667a9846c096d6a93e1` and merged it. Merge commit: `19d4a1322f0dfee03f4ef57ee2a5a67be1eba10a`. Review: https://github.com/Fadhel-docom/relocation-cost/pull/273#issuecomment-7021508980.
+- Claude verified KY→PADD 2, all 50 states + DC mapped, required `--gallons-per-mile`, and the shared exact 99.999% coverage gate using unrounded `coverage_pct_exact`. Claude reports 14/14 allocator tests, TIGER tests included in green CI (18 total), all Actions green and Vercel success.
+- Added `docs/operations/B24-GEOMETRY-INGESTION-HANDOFF-2026-11-19.md` as the next executable task. It defines manual Census TIGER ingestion, secret-gated HeiGIT fetch, a conservative city-first sequence, route QA, PADD allocation gates and remaining evidence gaps.
+- The current GitHub connector cannot dispatch manual Actions workflows; no active Composio GitHub connection is available in this session. Therefore neither TIGER nor HeiGIT was run by ChatGPT, no quota was consumed, and no route PADD split is claimed. Claude is asked to execute the manual workflows from the handoff. TIGER requires no secret; HeiGIT requires repository Actions secret `HEIGIT_API_KEY`.
+- Corrected the B24 research-note fuel equation: fuel must use weighted gallons-per-vehicle-mile (0.122605), not the earlier weighted arithmetic MPG (9.10). At the recorded EIA U.S. snapshot $5.937/gal, the corrected fuel-only benchmark is about $0.728/vehicle-mile; the old $0.653 figure is superseded and must not be used.
+- No production formula, coefficient, displayed price, or stored route distance changed. BLS direct extraction, tires, mover insurance, capital/depreciation, labor hours and holdout validation remain open.
