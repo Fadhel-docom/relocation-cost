@@ -28,8 +28,8 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Run B24 VIUS estimator unit tests
-        run: python -m unittest tools/test_b24_vius_fuel_transform.py -v
+      - name: Run B24 research unit tests
+        run: python -m unittest tools/test_b24_vius_fuel_transform.py tools/test_b24_padd_allocation.py -v
 
       - name: Install dependencies
         run: npm ci
