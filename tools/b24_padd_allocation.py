@@ -87,7 +87,7 @@ def _geometry_contains(geometry, point):
     raise AllocationError(f"Unsupported state geometry type: {kind!r}")
 
 
-def _features_for_point(point, states):
+def _features_for_point(point, states, fallback_padd=None):
     matches = []
     for feature in states.get("features", []):
         props = feature.get("properties") or {}
@@ -98,6 +98,8 @@ def _features_for_point(point, states):
         raise AllocationError(f"Route sample {point!r} is outside supplied state polygons")
     padds = {padd for _, padd in matches}
     if len(padds) > 1:
+        if fallback_padd is not None:
+            return fallback_padd
         raise AllocationError(f"Ambiguous PADD assignment at state boundary: {matches!r}")
     return next(iter(padds))
 
@@ -132,6 +134,7 @@ def allocate_route(route, states, step_miles=0.25, distance_tolerance_pct=1.0):
     route_miles = 0.0
     sampled_miles = 0.0
     for line in _route_lines(route):
+        last_padd = None
         if len(line) < 2:
             raise AllocationError("Route line has fewer than two coordinates")
         for start, end in zip(line, line[1:]):
@@ -146,7 +149,8 @@ def allocate_route(route, states, step_miles=0.25, distance_tolerance_pct=1.0):
                     start[0] + (end[0] - start[0]) * fraction,
                     start[1] + (end[1] - start[1]) * fraction,
                 )
-                padd = _features_for_point(point, states)
+                padd = _features_for_point(point, states, fallback_padd=last_padd)
+                last_padd = padd
                 miles_by_padd[padd] = miles_by_padd.get(padd, 0.0) + portion
                 sampled_miles += portion
             route_miles += segment_miles
