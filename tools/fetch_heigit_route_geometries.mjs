@@ -12,6 +12,7 @@ const routeSet = args["city-only"] === "true" ? "cities"
   : args["state-only"] === "true" ? "states"
     : (args["route-set"] ?? "all");
 const force = args.force === "true";
+const dryRun = args["dry-run"] === "true";
 const delayMs = Number(args["delay-ms"] ?? 1800);
 const host = (args.host ?? "https://api.heigit.org/openrouteservice").replace(/\/+$/, "");
 const outputDir = path.resolve("data/route-geometries");
@@ -51,6 +52,10 @@ const lineMiles = (coords) => {
 };
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const key = process.env.HEIGIT_API_KEY;
+if (dryRun) {
+  console.log(JSON.stringify({ dryRun: true, routeSet, plannedPairs: pairs.length, storedDistancePairs: Object.keys(storedPairs).length }));
+  process.exit(0);
+}
 if (!key) throw new Error("HEIGIT_API_KEY is not set; configure it as a repository Actions secret.");
 
 fs.mkdirSync(outputDir, { recursive: true });
