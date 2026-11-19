@@ -4,6 +4,7 @@ from tools.b24_padd_allocation import (
     AllocationError,
     allocate_route,
     price_fuel,
+    PADD_BY_STATE,
 )
 
 
@@ -61,9 +62,9 @@ class PaddAllocationTests(unittest.TestCase):
         prices = {"week_of": "2026-11-16", "usd_per_gallon": {"2": 4.0, "3": 3.0}}
         fuel = price_fuel(result, prices, gallons_per_mile=0.1)
         expected = (
-            result["miles_by_padd"]["2"] * 4.0
-            + result["miles_by_padd"]["3"] * 3.0
-        ) / 10.0
+            result["miles_by_padd"]["2"] * 4.0 * 0.1
+            + result["miles_by_padd"]["3"] * 3.0 * 0.1
+        )
         self.assertAlmostEqual(fuel["fuel_only_cost_usd"], expected, delta=0.02)
 
     def test_refuses_uncovered_route(self):
@@ -147,7 +148,7 @@ class PaddAllocationTests(unittest.TestCase):
         fuel = price_fuel(
             allocation,
             {"week_of": "2026-11-16", "usd_per_gallon": {"1": 5.782}},
-            mpg=10.0,
+            gallons_per_mile=0.1,
         )
         self.assertEqual(fuel["by_padd"]["1A"]["eia_price_series"], "1")
         self.assertEqual(fuel["by_padd"]["1C"]["eia_price_series"], "1")
@@ -183,7 +184,7 @@ class PaddAllocationTests(unittest.TestCase):
             "miles_by_padd": {"2": 99.5},
         }
         prices = {"week_of": "2026-11-16", "usd_per_gallon": {"2": 4.0}}
-        with self.assertRaisesRegex(AllocationError, "not fully covered"):
+        with self.assertRaisesRegex(AllocationError, "minimum required"):
             price_fuel(allocation, prices, gallons_per_mile=0.1)
 
     def test_refuses_distance_mismatch_over_one_percent(self):
@@ -194,6 +195,16 @@ class PaddAllocationTests(unittest.TestCase):
         }
         with self.assertRaises(AllocationError):
             allocate_route(route, self.states, step_miles=0.25)
+
+
+    def test_kentucky_is_mapped_to_padd2(self):
+        self.assertEqual(PADD_BY_STATE["KY"], "2")
+
+    def test_rejects_coverage_below_shared_threshold(self):
+        allocation = {"route_miles": 100.0, "coverage_pct": 99.9, "miles_by_padd": {"2": 99.9}}
+        prices = {"week_of": "2026-11-16", "usd_per_gallon": {"2": 4.0}}
+        with self.assertRaisesRegex(AllocationError, "minimum required"):
+            price_fuel(allocation, prices, gallons_per_mile=0.1)
 
 
 if __name__ == "__main__":
