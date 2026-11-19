@@ -165,6 +165,17 @@ class PaddAllocationTests(unittest.TestCase):
         with self.assertRaisesRegex(AllocationError, "Stored road-distance matrix"):
             allocate_route(route, self.states, step_miles=0.25)
 
+    def test_prices_at_the_shared_99_5_percent_coverage_threshold_without_renormalizing(self):
+        allocation = {
+            "route_miles": 100.0,
+            "coverage_pct": 99.5,
+            "miles_by_padd": {"2": 99.5},
+        }
+        prices = {"week_of": "2026-11-16", "usd_per_gallon": {"2": 4.0}}
+        fuel = price_fuel(allocation, prices, gallons_per_mile=0.1)
+        self.assertAlmostEqual(fuel["fuel_only_cost_usd"], 39.8, places=2)
+        self.assertAlmostEqual(fuel["fuel_only_cost_per_truck_mile_usd"], 0.398, places=3)
+
     def test_refuses_to_price_any_unmatched_route_mileage(self):
         allocation = {
             "route_miles": 100.0,
