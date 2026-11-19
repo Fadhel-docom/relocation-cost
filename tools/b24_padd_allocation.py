@@ -215,6 +215,9 @@ def allocate_route(route: dict[str, Any],
         "route_miles": round(route_miles, 3),
         "geometry_miles_before_optional_scale": round(geometry_miles, 3),
         "unmatched_miles": round(unmatched_miles, 3),
+        # Keep the unrounded value for downstream acceptance gates. The rounded
+        # display value must never turn a failing route into a passing route.
+        "coverage_pct_exact": 100 * (1 - unmatched_miles / route_miles),
         "coverage_pct": round(100 * (1 - unmatched_miles / route_miles), 6),
         "miles_by_state": {key: round(value, 3) for key, value in sorted(state_miles.items())},
         "miles_by_padd": {key: round(value, 3) for key, value in sorted(padd_miles.items())},
@@ -227,7 +230,9 @@ def price_fuel(allocation: dict[str, Any],
                gallons_per_mile: float) -> dict[str, Any]:
     if not math.isfinite(gallons_per_mile) or gallons_per_mile <= 0:
         raise AllocationError("Gallons per mile must be a finite value greater than zero.")
-    coverage = float(allocation.get("coverage_pct", 0.0))
+    # Prefer the unrounded allocation ratio. The display field is rounded and
+    # is not safe for enforcing a strict threshold near the boundary.
+    coverage = float(allocation.get("coverage_pct_exact", allocation.get("coverage_pct", 0.0)))
     if coverage < MIN_ROUTE_COVERAGE_PCT:
         raise AllocationError(
             f"Route state-boundary coverage is {coverage:.6f}%; "
