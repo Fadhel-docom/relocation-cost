@@ -2576,3 +2576,12 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - Important execution limitation: the raw PUF was not rerun in this ChatGPT session, so the exact output and replicate CV for the new metric remain pending a run on the owner's source ZIP. Do not present Claude's audit scenarios as a fresh script run.
 - Claude cannot access the official BLS/EIA hosts from its sandbox; those source values remain unverified by Claude pending owner-provided source files/exports. No BLS/EIA figures are being silently certified by the audit.
 - Next: Claude final-review this one focused PR and merge if correct; then obtain route polylines and calculate actual mileage through PADD regions. BLS geographic wages, tire costs, insurance premiums and depreciation remain unresolved. No production changes.
+
+
+## 2026-11-19 00:13 UTC — ChatGPT — قاعدة غرفة العمليات وحزمة تسليم Claude
+- أكد المالك قانونًا صارمًا: كل شيء يجب أن يكون في غرفة العمليات، وليس في المحادثة وحدها. أُضيفت القاعدة 23 إلى OPS-ROOM.md لتجعل الغرفة وسجل العمل المصدر الوحيد الملزم، مع اشتراط توثيق handoff قبل طلب مراجعة Claude وتسجيل رده قبل المرحلة التالية.
+- اكتملت إضافة docs/operations/B24-CLAUDE-HANDOFF-2026-11-19.md، واختبارات tools/test_b24_vius_fuel_transform.py، وتشغيلها ضمن .github/workflows/validate.yml عبر Python 3.12. تم تحديث وصف PR #276 ليشير إلى ملف handoff ويحدد مهام Claude بدقة.
+- آخر رأس للفرع: 0f2d59d46a4a02b1339eba4b562fae0b75525aeb. PR #276 لا يزال Draft ومفتوحًا، ولا توجد مراجعة Claude أو عملية دمج.
+- حالة الفحوصات عند آخر قراءة: workflow Build اجتاز npm test، وكان build قيد التنفيذ؛ validation لم يصل بعد إلى اختبار Python؛ rendered-pages قيد التنفيذ؛ Vercel check أظهر success لعدم وجود feedback غير محلول فقط. لا ندّعي اكتمال CI.
+- تعذر تشغيل الاستخراج الكامل لعدم توفر PUF ZIP الخام في ملفات المحادثة/المكتبة؛ القيمة الدقيقة وRGROUP CV لا تزالان pending. طلب handoff من Claude إعادة التشغيل إن كان الملف متاحًا لديه.
+- لا تغييرات إنتاجية أو معاملات أو أسعار. الخطوة التالية: Claude يقرأ ملف handoff من المستودع، يراجع الكود والمنهج والاختبارات، يعيد استخراج PUF إن توفر، ويصلح ما يلزم ثم يدمج فقط بعد نجاح الفحوصات والمراجعة.
