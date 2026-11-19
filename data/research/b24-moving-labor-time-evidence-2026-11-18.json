@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0",
+  "status": "research_only_operational_time_evidence",
+  "sources": [
+    {
+      "source": "Bellhop Engineering, Machines Can Now Tell You How Long Your Move Will Take (Part 1 of 3)",
+      "published": "2018-11-30",
+      "source_url": "https://medium.com/bellhops-moving/machines-can-now-tell-you-how-long-your-move-will-take-part-1-of-4-c98ad545488d",
+      "sample_context": "Bellhop states it had completed more than 100,000 moves by summer 2017. The post reports selected market/property/service cohorts; it is company operational data, not a national representative sample.",
+      "unit": "total man-hours per move (crew size multiplied by elapsed hours)",
+      "examples": [
+        {
+          "market": "Raleigh-Durham-Chapel Hill",
+          "period": "2018 Jan-Apr",
+          "service": "full-service, 1-bedroom apartment/condo",
+          "jobs": 80,
+          "mean_man_hours": 5,
+          "p80_man_hours": 7
+        },
+        {
+          "market": "Raleigh-Durham-Chapel Hill",
+          "period": "2018 Apr-Jun",
+          "service": "full-service, 1-bedroom apartment/condo",
+          "jobs": 128,
+          "mean_man_hours": 6,
+          "p80_man_hours": 8
+        },
+        {
+          "market": "Atlanta",
+          "period": "2018 Jan-Apr",
+          "service": "full-service, 3-bedroom home",
+          "jobs": 27,
+          "mean_man_hours": 5,
+          "p80_man_hours": 9
+        },
+        {
+          "market": "Atlanta",
+          "period": "2018 Apr-Jun",
+          "service": "full-service, 3-bedroom home",
+          "jobs": 61,
+          "mean_man_hours": 15,
+          "p80_man_hours": 25
+        }
+      ],
+      "model_use": "Strong evidence that actual labor hours vary by market, season/time window, property type and service. Use as a historical external benchmark and validation target only; do not treat as current national default. Drive time should be modeled separately from total move man-hours."
+    },
+    {
+      "source": "FMCSA, Effects of Loading and Unloading Cargo on Commercial Truck Driver Alertness and Performance, DOT-MC-01-107",
+      "published": "2001-05",
+      "source_url": "https://rosap.ntl.bts.gov/view/dot/42139/dot_42139_DS1.pdf",
+      "sample_context": "Phase I included a questionnaire of over 300 commercial drivers, 16 focus groups, and behavioral task analysis including household-goods moving van drivers. The household-goods task time estimates are described by the report as conceptual rather than precise.",
+      "units": "elapsed task time per job; not interchangeable with crew man-hours",
+      "household_goods_driver_task_ranges_minutes": {
+        "prepare_equipment": {
+          "min": 15,
+          "max": 45
+        },
+        "inventory_and_item_stickers": {
+          "min": 90,
+          "max": 180
+        },
+        "actual_goods_movement_driver_activity": {
+          "min": 30,
+          "max": 90
+        },
+        "load_packing_and_securing": {
+          "min": 30,
+          "max": 180
+        }
+      },
+      "other_context": "The report describes loading as often 2–6 hours or longer depending on shipment size and variety. Task components can overlap (for example inventory while helpers load), so the listed ranges must not be added mechanically.",
+      "model_use": "Use to separate driver administrative/supervisory time from crew handling time and to create broad historical reasonableness checks. Age (2001) and conceptual methodology prohibit use as current point estimates or production constants."
+    }
+  ],
+  "model_rules": [
+    "Maintain separate variables for elapsed route driving duration, driver on-duty/non-driving tasks, and total crew man-hours.",
+    "Crew man-hours = number of movers × elapsed crew working hours; do not multiply driver task time by crew size.",
+    "Do not treat total man-hours as elapsed move duration.",
+    "Do not add overlapping inventory, supervision and loading tasks as if sequential.",
+    "Local delivery/move data should be stratified by market, property size, service type, stairs/elevator, carry distance, packing, stops and season before fitting a model."
+  ]
+}

@@ -2585,3 +2585,34 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - حالة الفحوصات عند آخر قراءة: workflow Build اجتاز npm test، وكان build قيد التنفيذ؛ validation لم يصل بعد إلى اختبار Python؛ rendered-pages قيد التنفيذ؛ Vercel check أظهر success لعدم وجود feedback غير محلول فقط. لا ندّعي اكتمال CI.
 - تعذر تشغيل الاستخراج الكامل لعدم توفر PUF ZIP الخام في ملفات المحادثة/المكتبة؛ القيمة الدقيقة وRGROUP CV لا تزالان pending. طلب handoff من Claude إعادة التشغيل إن كان الملف متاحًا لديه.
 - لا تغييرات إنتاجية أو معاملات أو أسعار. الخطوة التالية: Claude يقرأ ملف handoff من المستودع، يراجع الكود والمنهج والاختبارات، يعيد استخراج PUF إن توفر، ويصلح ما يلزم ثم يدمج فقط بعد نجاح الفحوصات والمراجعة.
+
+
+## 2026-11-19 — ChatGPT — B24 PADD review corrections
+- راجعت تعليق Claude على PR #273 بعد دمج PR #276. PR #276 مدموج في main عند `5fc27d009b6229e1d2f85345c5b77f4a5837506b`; VIUS estimator المعتمد 0.122605 gal/mile، CV 1.6%، 1,080 سجلًا صالحًا، وزن 207,128، و8 مجموعات RGROUP غير فارغة.
+- صححت أداة PADD: أضيفت KY إلى PADD 2؛ استُبدل إدخال MPG الافتراضي بوسيط إلزامي `--gallons-per-mile` (القيمة البحثية المدققة 0.122605)؛ ووُحّدت عتبة التغطية إلى 99.999% في allocation وfuel pricing. أُضيفت اختبارات KY ورفض التغطية الأقل من العتبة، وصُحح حساب الاختبار إلى miles × gallons-per-mile × price.
+- لا توجد هندسة مسارات GeoJSON أو حدود TIGER في المستودع حتى الآن؛ لذلك لم يُحسب أي سعر وقود لمسار. لم يُستهلك مفتاح/رصيد HeiGIT، ولم يتغير أي كود إنتاجي أو معامل.
+- المطلوب الآن: تشغيل GitHub Actions على رأس PR #273 بعد التصحيحات، معالجة تعارضه مع main، ثم مراجعة Claude النهائية. بعدها تشغيل workflow الهندسة يدويًا فقط بعد التأكد من وجود secret `HEIGIT_API_KEY`، ثم توزيع الأميال على الولايات/PADD والتحقق من جميع المسارات. أجور BLS الجغرافية الرسمية والإطارات والتأمين الفعلي والإهلاك وساعات العمل لا تزال فجوات مستقلة.
+
+
+## 2026-11-19 00:31 UTC — ChatGPT — PADD corrections and official TIGER boundary ingestion
+- Synced PR #273 with current main in merge commit `58825ef465cd6fd06567f985fd7bfef1eb6d0220`; GitHub REST now reports mergeable=true. PR remains open for Claude's final review.
+- Corrected PADD state mapping (KY→PADD 2), removed the default arithmetic MPG input in favor of required `--gallons-per-mile`, and aligned allocation/pricing coverage at 99.999%. Fuel-only equation now uses route miles × weighted gallons per mile × diesel price.
+- Added Census TIGER/Line 2026 download/conversion script and manual workflow, with NAD83, 51-state/DC coverage, coordinate bounds, source SHA-256, timestamp and attribution validation. Official source: `https://www2.census.gov/geo/tiger/TIGER2026/STATE/tl_2026_us_state.zip`; boundary vintage as of 2026-01-01.
+- Added four synthetic-shapefile converter tests. CI on commit `6e8b9e039bffb364f0c2e82b4f0f9f79cafa64da`: 16/16 tests passed. Build (npm test, build, verify-seo) and Validate calculator/site passed on the same head. Rendered-page report still running at last check.
+- HeiGIT route workflow now opens a PR after successful fetch; manual only, requires HEIGIT_API_KEY. Neither route geometry nor TIGER workflow was run here; no route geometry or boundary GeoJSON is yet present, and no HeiGIT quota was consumed.
+- No production formula, coefficient, route distance or displayed price changed. Next: Claude re-review PR #273, run TIGER workflow, and run HeiGIT workflow only if the secret is configured; inspect all generated PRs and route coverage before calculating PADD fuel.
+
+
+## 2026-11-19 — ChatGPT second-pass B24 audit: raw coverage gate
+- أثناء إعادة تدقيق PR #273، اكتشفت فجوة دقيقة في شرط التغطية: `allocate_route` كان يعيد `coverage_pct` بعد التقريب إلى 6 منازل، ثم `price_fuel` يقارن القيمة المقربة بعتبة 99.999%. قيمة خام 99.9989996% يمكن أن تظهر 99.999000% بعد التقريب وتُقبل خطأً.
+- أصلحت ذلك على فرع PR #273: أضيف `coverage_pct_exact` غير المقرب، وأصبح التسعير يعتمد عليه؛ تبقى `coverage_pct` للعرض فقط. أضيف اختباران: رفض القيمة الخام 99.9989996% رغم التقريب، وقبول 99.999% بالضبط.
+- الالتزامات: `ed78cfd` للكود، `7dfd27b` للاختبارات، `473497b` لتحديث handoff. لم أشغّل CI بعد هذه الالتزامات؛ لا أدعي نجاح الاختبارات على الرأس الجديد. يلزم Claude مراجعة هذا التصحيح تحديدًا.
+- فحص BLS: صفحة OEWS الرسمية تؤكد وجود ملفات May 2025 State وMetro/Nonmetro XLSX، وروابط ZIP الرسمية `oesm25st.zip` و`oesm25ma.zip`. تعذر استخراج ZIP عبر مسار الأدوات الحالي؛ لم تُستخرج أي صفوف ولم تُعتمد WageDex. تبقى الأجور الجغرافية معلقة حتى تنزيل الملف الرسمي واستخراج SOC 53-3032/53-3033/53-7062 مع employment وRSE والوسيط والمتوسط وأعلام suppression.
+- لم تُشغّل workflows TIGER أو HeiGIT؛ ملف workflow اليدوي موجود في PR #273 ولم يُدمج بعد، ولا يوجد GeoJSON حدود/مسارات في المستودع. لا يمكن حساب PADD route split قبل توفر البيانات. تشغيل HeiGIT مشروط بوجود Actions secret `HEIGIT_API_KEY`، ولا نطلب المفتاح في المحادثة.
+- لا تغيير في الإنتاج أو الحاسبة أو الأسعار أو معاملات الوقود. المطلوب من Claude: مراجعة الكود والاختبارين الجديدين على أحدث HEAD، وتشغيل CI، ثم مراجعة خطة TIGER/HeiGIT بعد الدمج.
+
+
+## 2026-11-19 — ChatGPT B24 test-count reconciliation
+- عدّدت دوال الاختبار من الملفين مباشرة: `tools/test_b24_padd_allocation.py` يحتوي 14 اختبارًا، و`tools/test_fetch_tiger_state_boundaries.py` يحتوي 4 اختبارات؛ المجموع الحالي 18، وليس 16.
+- نتيجة 16/16 المسجلة سابقًا تخص الرأس الأقدم قبل إضافة اختباري دقة التغطية. حدّثت ملف handoff ووصف PR #273 حتى لا تُعرض النتيجة القديمة على أنها تحقق للرأس الحالي.
+- لم أجد تشغيل GitHub Actions مرتبطًا بالرأس الأحدث حتى لحظة التسجيل؛ الحالة الظاهرة من Vercel وحدها Preview READY ولا تثبت نجاح اختبارات Python. يبقى قبول التغيير معلقًا إلى أن يظهر CI لـ18/18 ومراجعة Claude.

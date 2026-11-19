@@ -40,8 +40,6 @@ jobs:
         with:
           node-version: "22"
       - name: Fetch route geometries from HeiGIT
-        id: fetch
-        continue-on-error: true
         env:
           HEIGIT_API_KEY: ${{ secrets.HEIGIT_API_KEY }}
         run: |
@@ -73,8 +71,8 @@ jobs:
           fi
           git commit -m "data: add HeiGIT route geometries for B24"
           git push origin "$branch"
-          echo "changed=true" >> "$GITHUB_OUTPUT"
           echo "branch=$branch" >> "$GITHUB_OUTPUT"
+          echo "changed=true" >> "$GITHUB_OUTPUT"
           echo "Generated branch: $branch" >> "$GITHUB_STEP_SUMMARY"
       - name: Open pull request for generated geometry
         if: steps.commit.outputs.changed == 'true'
@@ -85,9 +83,4 @@ jobs:
             --base "${{ inputs.base_branch }}" \
             --head "${{ steps.commit.outputs.branch }}" \
             --title "data: add HeiGIT route geometries for B24" \
-            --body "Generated directional city and state route GeoJSON from HeiGIT ORS Directions V2. Each file includes provider distance/duration, stored-distance comparison, source attribution, and CC-BY-SA 4.0 metadata. Routes are requested with Canada excluded. PADD allocation remains subject to TIGER polygon coverage and route-distance QA."
-      - name: Mark partial fetch as failed after preserving successful routes
-        if: steps.fetch.outcome == 'failure'
-        run: |
-          echo "Some route requests failed. Successful route files and the manifest were preserved in the generated PR; inspect manifest.json and retry only missing routes."
-          exit 1
+            --body "Adds directional route GeoJSON from HeiGIT ORS Directions V2, with provider distance/duration, stored-distance comparison, source attribution, and CC-BY-SA metadata. Routes exclude Canada. PADD allocation remains subject to TIGER polygon coverage and route-distance QA."
