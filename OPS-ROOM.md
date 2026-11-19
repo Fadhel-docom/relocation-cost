@@ -848,3 +848,12 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - Read the existing manual workflow `.github/workflows/fetch-b24-route-geometries.yml` and its referenced paths. The workflow invokes `tools/fetch_heigit_route_geometries.mjs`, but that file does not exist on `main`; `data/route-geometries/manifest.json` is also absent. Therefore do not dispatch this workflow yet.
 - Found a second blocker: `tools/test_b24_padd_allocation.py` imports `tools.b24_padd_allocation`, but the imported implementation file does not exist. The current `.github/workflows/validate.yml` runs only the VIUS transform test file, so this dangling PADD test is not currently executed by CI.
 - This means the planned PADD-mileage calculation is not yet runnable end-to-end. The existing test cases are useful specifications, not evidence that allocation works. Next coding task: implement the missing allocator and geometry fetcher, wire both test suites into CI, and add a controlled dry-run/manifest validation before any HeiGIT requests. No API call or quota was consumed in this session.
+
+
+## 2026-11-19 — ChatGPT — إصلاح أولي لأدوات PADD وهندسة المسارات (PR #278)
+- أُنشئ PR #278 على الفرع `fix/b24-route-padd-tools-2026-11-19`: https://github.com/Fadhel-docom/relocation-cost/pull/278.
+- أضيف `tools/b24_padd_allocation.py` لتنفيذ توزيع هندسة LineString/MultiLineString على حدود الولايات، مع حساب المسافة الجيوديسية بالعينة، رفض المسارات غير المغطاة أو المختلفة عن مصفوفة المسافات بأكثر من 1%، وفحص حفظ مجموع الأميال. أضيف فصل California عن West Coast excluding California، مع fallback موثق لأسعار PADD 1 الفرعية إلى PADD 1 عند غياب سعر فرعي.
+- أضيف `tools/fetch_heigit_route_geometries.mjs` لجلب GeoJSON من HeiGIT باستخدام مصفوفة المسافات الحالية، وكتابة ملف لكل مسار وmanifest، والتحقق من فرق المسافة قبل حفظ الملف، مع dry-run لا يستهلك API.
+- أضيف اختبار California/non-California، وربط اختبارات VIUS وPADD معًا في CI، وتشغيل Node syntax + city-only dry-run في CI.
+- **الحالة عند التسجيل:** PR #278 Draft ومفتوح؛ GitHub Actions كان queued عند آخر فحص. Vercel check ظهر failure بسبب `build-rate-limit` (قيد/حد معدل بناء Vercel)، وليس نتيجة اختبار التطبيق. لم يتم تشغيل HeiGIT أو استهلاك الحصة.
+- **ما لم يكتمل:** لا يوجد ملف حدود الولايات GeoJSON داخل المستودع بعد؛ لذلك لم تُنتج أميال PADD فعلية. يجب الحصول على حدود Census TIGER موثقة، ثم مراجعة CI ومراجعة الكود قبل تشغيل workflow اليدوي. لا دمج ولا تعديل إنتاجي.
