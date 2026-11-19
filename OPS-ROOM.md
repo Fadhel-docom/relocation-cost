@@ -831,3 +831,29 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - حالة CI عند آخر فحص: Build job نجح فيه npm test، وكان npm run build قيد التنفيذ؛ workflow validation كان في مرحلة إعداد Node، ولم يصل بعد إلى اختبار Python؛ rendered-pages job كان قيد التنفيذ. Vercel check على الرأس الأخير أظهر success لرسالة عدم وجود feedback غير محلول، وليس دليلاً على اكتمال جميع workflows.
 - ملف PUF الخام لم يُعثر عليه في ملفات المحادثة/المكتبة المتاحة، لذلك لم يُنفذ استخراج كامل جديد ولم تُسجل قيمة دقيقة أو CV. لا تزال هذه نقطة مطلوبة من Claude إن توفر الملف لديه.
 - لم يتغير كود الإنتاج أو معاملات الحاسبة أو الأسعار. رابط PR: https://github.com/Fadhel-docom/relocation-cost/pull/276 .
+
+
+## 2026-11-19 — Claude final review, exact VIUS extraction, and PR #276 merge
+- Claude's final commit on the B24 correction branch: `f64bb38db84cd35d978940f50c5d1bd60e538a01`; PR #276 was merged into `main` at `5fc27d009b6229e1d2f85345c5b77f4a5837506b` at 00:19:50 UTC. The PR is closed and merged, not pending.
+- Claude ran the full extractor against the owner-provided `vius_2021_puf_csv.zip`: focus cell BTYPE 07 / BUSRELATED 1 / GVWR 6–7 / diesel. Exact `weighted_gallons_per_mile = 0.122605), equivalent harmonic MPG 8.157; 1,080 valid records; valid TABWEIGHT total 207,128; eight non-empty RGROUPs; RGROUP CV 1.6%. All 30 records with reported MPG 1–4 remain included in the primary estimate; no trimming.
+- Four focused Python unit tests passed in Claude's run. GitHub PR-triggered workflows for the final PR head completed successfully: Validate calculator and site, Build, and Rendered pages (report only). These checks belong to the PR head; no new claim is made about a later deployment.
+- At the national EIA snapshot already documented (week of 2026-11-16, $5.937/gal), fuel-only cost is $0.728 per total truck-mile. The $0.976 per loaded-mile figure is a scenario division by a separately estimated loaded share (0.7459), not a joint record-level estimator. This is a vehicle-weighted operating-profile estimate, not a fleet-mile-weighted average, carrier quote, or complete moving cost.
+- The old arithmetic-mean-MPG shortcut and its national $0.653/$0.875 interpretation remain withdrawn. No production calculator code, coefficients, route distances, or customer-facing prices were changed.
+- **Next B24 work:** execute the existing manual workflow `.github/workflows/fetch-b24-route-geometries.yml` for `route_set=cities` first, inspect the resulting manifest and route-distance QA, then intersect the returned polylines with authoritative PADD boundaries and verify mileage conservation. Do not assume geometry exists merely because the workflow is present. In parallel research, extract official BLS May 2025 state/metro wage rows (SOC 53-3032, 53-3033, 53-7062) with employment RSE and suppression flags; do not substitute the existing secondary WageDex transcription as official source data.
+- Outstanding independently evidenced components: installed tire price plus supported service life; actual comparable insurance premiums; matched acquisition/resale and service-life capital data; paid driver/handling hours. VIUS does not supply these direct cost fields. Holdout route validation remains mandatory before any production discussion.
+- Source record: `docs/operations/B24-VIUS-WEIGHTED-EXTRACTION-2026-11-18.md`; Claude's extraction audit: `docs/operations/B24-CLAUDE-VIUS-MAIN-EXTRACTION-AUDIT-2026-11-19.md`; PR #276: https://github.com/Fadhel-docom/relocation-cost/pull/276.
+
+
+## 2026-11-19 — ChatGPT — B24 route/PADD tooling gap discovered
+- Read the existing manual workflow `.github/workflows/fetch-b24-route-geometries.yml` and its referenced paths. The workflow invokes `tools/fetch_heigit_route_geometries.mjs`, but that file does not exist on `main`; `data/route-geometries/manifest.json` is also absent. Therefore do not dispatch this workflow yet.
+- Found a second blocker: `tools/test_b24_padd_allocation.py` imports `tools.b24_padd_allocation`, but the imported implementation file does not exist. The current `.github/workflows/validate.yml` runs only the VIUS transform test file, so this dangling PADD test is not currently executed by CI.
+- This means the planned PADD-mileage calculation is not yet runnable end-to-end. The existing test cases are useful specifications, not evidence that allocation works. Next coding task: implement the missing allocator and geometry fetcher, wire both test suites into CI, and add a controlled dry-run/manifest validation before any HeiGIT requests. No API call or quota was consumed in this session.
+
+
+## 2026-11-19 — ChatGPT — إصلاح أولي لأدوات PADD وهندسة المسارات (PR #278)
+- أُنشئ PR #278 على الفرع `fix/b24-route-padd-tools-2026-11-19`: https://github.com/Fadhel-docom/relocation-cost/pull/278.
+- أضيف `tools/b24_padd_allocation.py` لتنفيذ توزيع هندسة LineString/MultiLineString على حدود الولايات، مع حساب المسافة الجيوديسية بالعينة، رفض المسارات غير المغطاة أو المختلفة عن مصفوفة المسافات بأكثر من 1%، وفحص حفظ مجموع الأميال. أضيف فصل California عن West Coast excluding California، مع fallback موثق لأسعار PADD 1 الفرعية إلى PADD 1 عند غياب سعر فرعي.
+- أضيف `tools/fetch_heigit_route_geometries.mjs` لجلب GeoJSON من HeiGIT باستخدام مصفوفة المسافات الحالية، وكتابة ملف لكل مسار وmanifest، والتحقق من فرق المسافة قبل حفظ الملف، مع dry-run لا يستهلك API.
+- أضيف اختبار California/non-California، وربط اختبارات VIUS وPADD معًا في CI، وتشغيل Node syntax + city-only dry-run في CI.
+- **الحالة عند التسجيل:** PR #278 Draft ومفتوح؛ GitHub Actions كان queued عند آخر فحص. Vercel check ظهر failure بسبب `build-rate-limit` (قيد/حد معدل بناء Vercel)، وليس نتيجة اختبار التطبيق. لم يتم تشغيل HeiGIT أو استهلاك الحصة.
+- **ما لم يكتمل:** لا يوجد ملف حدود الولايات GeoJSON داخل المستودع بعد؛ لذلك لم تُنتج أميال PADD فعلية. يجب الحصول على حدود Census TIGER موثقة، ثم مراجعة CI ومراجعة الكود قبل تشغيل workflow اليدوي. لا دمج ولا تعديل إنتاجي.

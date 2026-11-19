@@ -2585,3 +2585,28 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - حالة الفحوصات عند آخر قراءة: workflow Build اجتاز npm test، وكان build قيد التنفيذ؛ validation لم يصل بعد إلى اختبار Python؛ rendered-pages قيد التنفيذ؛ Vercel check أظهر success لعدم وجود feedback غير محلول فقط. لا ندّعي اكتمال CI.
 - تعذر تشغيل الاستخراج الكامل لعدم توفر PUF ZIP الخام في ملفات المحادثة/المكتبة؛ القيمة الدقيقة وRGROUP CV لا تزالان pending. طلب handoff من Claude إعادة التشغيل إن كان الملف متاحًا لديه.
 - لا تغييرات إنتاجية أو معاملات أو أسعار. الخطوة التالية: Claude يقرأ ملف handoff من المستودع، يراجع الكود والمنهج والاختبارات، يعيد استخراج PUF إن توفر، ويصلح ما يلزم ثم يدمج فقط بعد نجاح الفحوصات والمراجعة.
+
+
+## 2026-11-19 00:22 UTC — ChatGPT — استلام نتيجة Claude وإغلاق مرحلة تصحيح VIUS
+- قرأت OPS-ROOM وWORK-LOG وBACKLOG وملف handoff وتقرير VIUS بعد دمج PR #276. تحققت من GitHub أن PR #276 مغلق ومُدمج في main عند commit `5fc27d009b6229e1d2f85345c5b77f4a5837506b`؛ commit Claude النهائي `f64bb38db84cd35d978940f50c5d1bd60e538a01`.
+- نتيجة تشغيل Claude للملف الخام: `weighted_gallons_per_mile=0.122605` غالون/ميل؛ ما يعادل harmonic MPG = 8.157؛ عدد سجلات MPG الصالحة 1,080؛ مجموع TABWEIGHT الصالح 207,128؛ ثماني مجموعات RGROUP غير فارغة؛ CV = 1.6%. بقيت السجلات الثلاثون ذات MPG بين 1 و4 في التقدير الأساسي دون قص.
+- وثّق تقرير VIUS أن الاختبارات المركزة الأربعة نجحت. تحققت من أن workflows المرتبطة برأس PR انتهت جميعها بنجاح: Validate calculator and site، Build، Rendered pages (report only). لم أعتبر ذلك إثباتًا لنشر إنتاجي جديد.
+- عند سعر EIA الوطني المسجل $5.937/gal لأسبوع 2026-11-16، ينتج $0.728 وقودًا لكل ميل شاحنة إجمالي. قيمة $0.976 لكل ميل محمّل هي قسمة سيناريو على نسبة تحميل هامشية 0.7459 وليست تقديرًا مشتركًا على مستوى السجل. لا يمثل الرقم تكلفة تشغيل كاملة أو عرض سعر.
+- تم سحب الاختصار القديم price / arithmetic-mean MPG، ولا تغيير في الإنتاج أو المعاملات أو أسعار العملاء.
+- الخطوة التالية المحددة: استخدام workflow الموجود `.github/workflows/fetch-b24-route-geometries.yml` على `cities` أولًا، ثم تدقيق manifest والمسافات ومطابقة المسارات مع حدود PADD وحفظ توازن الأميال. بعدها استكمال استخراج أجور BLS الجغرافية الرسمية May 2025 لرموز SOC 53-3032 و53-3033 و53-7062 مع employment RSE وحالات suppression. لم يتم تشغيل workflow في هذه الجلسة ولا ندّعي وجود ملفات هندسة جديدة.
+- ما زال التأمين الفعلي والإطارات/عمر الخدمة والإهلاك وساعات العمل المدفوعة بحاجة إلى أدلة مستقلة؛ وتظل اختبارات holdout لمسارات كاملة شرطًا قبل التفكير في أي تعديل إنتاجي.
+
+
+## 2026-11-19 00:25 UTC — ChatGPT — B24 PADD workflow preflight found missing implementations
+- Inspected `.github/workflows/fetch-b24-route-geometries.yml`, `tools/road-distances-build.mjs`, `src/lib/road-distance.js`, the existing PADD tests, and the current validation workflow.
+- Verified by exact repository-path lookups that `tools/fetch_heigit_route_geometries.mjs` is absent, `tools/b24_padd_allocation.py` is absent, and `data/route-geometries/manifest.json` is absent. The workflow references the missing geometry-fetch script; the PADD test imports the missing allocator. `.github/workflows/validate.yml` currently runs only `test_b24_vius_fuel_transform.py`, not `test_b24_padd_allocation.py`.
+- Consequence: route geometry retrieval and PADD mileage allocation are not executable end-to-end despite the workflow and test stub existing. No workflow was dispatched and no HeiGIT quota/API request was used.
+- Next: implement the two missing tools against the current city route definitions and stored distance matrix; wire the PADD tests into CI; add input/manifest coverage checks; only then run the city-only geometry workflow. Preserve 1% route-distance QA, explicit route coverage failures, PADD1 subdistrict pricing, California's separate EIA series, and exact mileage conservation. Do not use endpoint/origin-only price assignment.
+
+
+## 2026-11-19 00:27 UTC — ChatGPT — تنفيذ إصلاح أدوات B24 المفقودة
+- أنشأت PR #278 (Draft) لإصلاح العائق الذي اكتُشف في preflight. أضيفت وحدة Python `tools/b24_padd_allocation.py`، وسكربت HeiGIT `tools/fetch_heigit_route_geometries.mjs`، واختبار يفصل California عن West Coast ex-California، وتوسيع validate.yml ليشغل اختبارات VIUS/PADD ويفحص syntax وdry-run لسكربت المسارات دون API.
+- ضوابط allocator: لا يقبل route خارج تغطية GeoJSON؛ لا يقبل فرقًا عن مصفوفة road-distance فوق 1%؛ يجمع الأميال حسب PADD مع conservation check؛ يميز 1A/1B/1C؛ ويفصل CA عن بقية PADD5. عينات الحدود المشتركة تُسند إلى PADD السابق لتجنب فشل عينة تقع تمامًا على الحد؛ يلزم مراجعة CI للتأكد من سلامة هذا السلوك.
+- ضوابط fetcher: يستخدم مسارات المدن/الولايات الحالية ومصفوفة المسافات، يطلب GeoJSON من HeiGIT، يحفظ manifest وبيانات الترخيص والإسناد، ويرفض فروق المسافة فوق 1%. أضيف `--dry-run` لتدقيق قائمة المسارات بلا مفتاح أو طلبات.
+- عند آخر فحص كانت GitHub Actions queued، وVercel check فاشلًا برسالة `build-rate-limit`; لم أفسر ذلك كفشل في كود التطبيق أو نجاح اختبارات. لم تُستهلك أي HeiGIT quota.
+- حدود الولايات GeoJSON لم تُضف بعد، لذلك PADD mileage الفعلي ما زال غير محسوب. الخطوة التالية: مراجعة CI، توفير/إضافة Census TIGER state polygons، اختبار dry-run count، ثم تشغيل city-only geometry fetch فقط بعد تحقق CI ومراجعة المصدر والترخيص.
