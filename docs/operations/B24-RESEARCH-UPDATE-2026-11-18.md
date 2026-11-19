@@ -39,9 +39,13 @@ For a route polyline intersected with PADD boundaries, calculate the distance tr
 
 `route\_diesel\_price = sum(region\_miles × region\_diesel\_price) / sum(region\_miles)`
 
-Then:
+Then, for each valid VIUS record calculate gallons per mile first, and then take the TABWEIGHT-weighted mean (with RGROUP replicate CV):
 
-`fuel\_cost\_per\_truck\_mile = route\_diesel\_price / VIUS\_weighted\_MPG`
+`weighted_gallons_per_mile = weighted_mean(1 / record_MPG)`
+
+`fuel\_cost\_per\_truck\_mile = route\_diesel\_price × weighted\_gallons\_per\_mile`
+
+Do **not** divide price by the arithmetic mean of MPG. Claude's independent audit found that shortcut understated the focus-cohort benchmark: $0.653/mile becomes approximately $0.699–$0.728/mile under the audited sensitivity aggregations (the exact TABWEIGHT per-record 1/MPG estimate and CV are emitted by the updated extraction script).
 
 The loaded-mile allocation remains a separate utilization calculation. Do not average origin and destination prices, do not assign a whole route to the origin PADD, and do not double-count empty miles. If California is represented separately in the EIA series, use its own price for route miles within California and use West Coast-ex-California for the remaining PADD 5 miles. Preserve the week-ending date with every result.
 
