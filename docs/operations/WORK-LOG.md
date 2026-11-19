@@ -2616,3 +2616,11 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - عدّدت دوال الاختبار من الملفين مباشرة: `tools/test_b24_padd_allocation.py` يحتوي 14 اختبارًا، و`tools/test_fetch_tiger_state_boundaries.py` يحتوي 4 اختبارات؛ المجموع الحالي 18، وليس 16.
 - نتيجة 16/16 المسجلة سابقًا تخص الرأس الأقدم قبل إضافة اختباري دقة التغطية. حدّثت ملف handoff ووصف PR #273 حتى لا تُعرض النتيجة القديمة على أنها تحقق للرأس الحالي.
 - لم أجد تشغيل GitHub Actions مرتبطًا بالرأس الأحدث حتى لحظة التسجيل؛ الحالة الظاهرة من Vercel وحدها Preview READY ولا تثبت نجاح اختبارات Python. يبقى قبول التغيير معلقًا إلى أن يظهر CI لـ18/18 ومراجعة Claude.
+
+
+## 2026-11-19 20:45 UTC — ChatGPT — B24 merged; next-stage handoff
+- Read the full PR #273 discussion and Claude's final review. PR #273 merged at `19d4a1322f0dfee03f4ef57ee2a5a67be1eba10a`; Claude confirmed the Kentucky mapping, gallons-per-mile unit correction, exact raw coverage threshold, 14/14 allocator tests and green Actions/Vercel. The total focused suite is 18 tests (14 allocator + 4 TIGER converter).
+- Added `docs/operations/B24-GEOMETRY-INGESTION-HANDOFF-2026-11-19.md` with explicit manual workflow inputs, secret handling, city-first route fetch, QA gates, fuel equation, BLS and remaining cost-component gaps.
+- No manual workflow was dispatched in this session: the available GitHub connector exposes reads/writes but no workflow_dispatch action, and Composio reports no active GitHub connection. No TIGER download, HeiGIT request, quota use, route GeoJSON or PADD route split is claimed. The handoff requests Claude to run the no-secret TIGER workflow, then check for the Actions secret before any HeiGIT request.
+- Updated the independent truck model note to supersede the old arithmetic-MPG fuel calculation. VIUS fuel factor is 0.122605 gallons per vehicle-mile; at the recorded $5.937/gal U.S. EIA snapshot, fuel-only cost is approximately $0.728 per vehicle-mile. The prior $0.653 figure is obsolete.
+- Production calculator and all prices/coefficients remain unchanged. Next evidence gates: TIGER + real route geometries; route mileage coverage; official BLS May 2025 data with RSE; tire, insurance, depreciation/capital and labor-time sources; holdout validation.
