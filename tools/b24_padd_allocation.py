@@ -269,7 +269,7 @@ def price_fuel(allocation: dict[str, Any],
         "fuel_only_cost_usd": round(total_cost, 2),
         "fuel_only_cost_per_truck_mile_usd": round(total_cost / allocation["route_miles"], 4),
         "by_padd": by_padd,
-        "scope_warning": "Fuel only. Excludes labor, maintenance, tires, insurance, depreciation, overhead, tolls, and any deadhead not included in the supplied route.",
+        "scope_warning": "Fuel only. Uses matched PADD mileage without renormalizing; any unmatched mileage (up to the 0.5% allocation tolerance) is excluded and reported in allocation. Excludes labor, maintenance, tires, insurance, depreciation, overhead, tolls, and any deadhead not included in the supplied route.",
     }
 
 
