@@ -196,5 +196,28 @@ class PaddAllocationTests(unittest.TestCase):
             price_fuel(allocation, prices, gallons_per_mile=0.1)
 
 
+    def test_rejects_raw_coverage_below_threshold_even_when_display_rounds_up(self):
+        allocation = {
+            "route_miles": 100.0,
+            "coverage_pct": 99.999,  # Rounded display would appear to meet the gate.
+            "coverage_pct_exact": 99.9989996,
+            "miles_by_padd": {"2": 99.9989996},
+        }
+        prices = {"week_of": "2026-11-16", "usd_per_gallon": {"2": 4.0}}
+        with self.assertRaisesRegex(AllocationError, "minimum required"):
+            price_fuel(allocation, prices, gallons_per_mile=0.1)
+
+    def test_accepts_exact_unrounded_coverage_threshold(self):
+        allocation = {
+            "route_miles": 100.0,
+            "coverage_pct": 99.999,
+            "coverage_pct_exact": 99.999,
+            "miles_by_padd": {"2": 99.999},
+        }
+        prices = {"week_of": "2026-11-16", "usd_per_gallon": {"2": 4.0}}
+        result = price_fuel(allocation, prices, gallons_per_mile=0.1)
+        self.assertGreater(result["fuel_only_cost_usd"], 0)
+
+
 if __name__ == "__main__":
     unittest.main()
