@@ -5,7 +5,10 @@ on:
     paths:
       - "tools/b24_padd_allocation.py"
       - "tools/test_b24_padd_allocation.py"
+      - "tools/fetch_tiger_state_boundaries.py"
+      - "tools/test_fetch_tiger_state_boundaries.py"
       - ".github/workflows/b24-padd-tests.yml"
+      - ".github/workflows/fetch-b24-tiger-boundaries.yml"
   push:
     branches: [main]
     paths:
@@ -21,5 +24,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Run PADD allocation tests
-        run: python -m unittest tools.test_b24_padd_allocation -v
+      - name: Install pinned TIGER conversion dependency
+        run: python -m pip install pyshp==2.3.1
+      - name: Run B24 PADD and TIGER boundary tests
+        run: python -m unittest tools.test_b24_padd_allocation tools.test_fetch_tiger_state_boundaries -v
