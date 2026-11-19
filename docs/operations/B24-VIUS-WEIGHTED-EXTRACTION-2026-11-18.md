@@ -105,22 +105,22 @@ Empty replicate groups are excluded from `G`, as instructed in the guide. The ou
 
 ## First fuel-only benchmark using current EIA prices (2026-11-16)
 
-EIA's November 17, 2026 release reports on-highway diesel retail prices for the week of November 16, including taxes. Dividing each regional price by the focus group's VIUS weighted mean of 9.0959 mpg gives an indicative fuel cost per total truck-mile. Dividing again by the weighted loaded-mile share (0.7459) allocates empty-mile fuel to loaded miles.
+EIA's November 17, 2026 release reports on-highway diesel retail prices for the week of November 16, including taxes. The earlier calculation divided each regional price by the arithmetic weighted mean of MPG (9.0959). Claude's independent raw-PUF audit found this is not a valid estimator of average fuel cost per truck-mile: fuel cost is proportional to gallons per mile, so transform each record to 1/MPG before averaging. In the same 1,080 valid records, the weighted harmonic MPG is 8.16, producing about $0.728 per truck-mile at the national $5.937/gal price. Sensitivity trims produce $0.699–$0.717; the mileage-weighted gallons-per-mile estimate is about $0.721. Thus use a transparent provisional sensitivity range of about $0.699–$0.728 per total truck-mile (not the old $0.653). Dividing these scenarios by the marginal loaded-mile share (0.7459) gives approximately $0.937–$0.976 per loaded truck-mile. These are alternative aggregation scenarios, not a confidence interval. The extraction script now computes the TABWEIGHT-weighted mean of per-record 1/MPG and its RGROUP replicate CV; rerun it on the owner-supplied PUF to obtain the exact reproducible estimate and CV. Do not use price / arithmetic-mean MPG.
 
 | EIA region | Diesel price ($/gal) | Fuel-only $/total truck-mile | Fuel-only $/loaded truck-mile |
 |---|---:|---:|---:|
-| U.S. | 5.937 | 0.653 | 0.875 |
-| East Coast (PADD 1) | 5.782 | 0.636 | 0.852 |
-| Midwest (PADD 2) | 5.967 | 0.656 | 0.880 |
-| Gulf Coast (PADD 3) | 5.547 | 0.610 | 0.818 |
-| Rocky Mountain (PADD 4) | 6.011 | 0.661 | 0.886 |
-| West Coast (PADD 5) | 6.948 | 0.764 | 1.024 |
-| California (PADD 5 subregion) | 7.733 | 0.850 | 1.140 |
-| West Coast less California | 6.269 | 0.689 | 0.924 |
+| U.S. | 5.937 | 0.699–0.728 (sensitivity range) | 0.937–0.976 (scenario allocation) |
+| East Coast (PADD 1) | 5.782 | 0.681–0.709 (sensitivity range) | 0.913–0.950 (scenario allocation) |
+| Midwest (PADD 2) | 5.967 | 0.702–0.732 (sensitivity range) | 0.941–0.981 (scenario allocation) |
+| Gulf Coast (PADD 3) | 5.547 | 0.653–0.681 (sensitivity range) | 0.876–0.913 (scenario allocation) |
+| Rocky Mountain (PADD 4) | 6.011 | 0.707–0.737 (sensitivity range) | 0.948–0.988 (scenario allocation) |
+| West Coast (PADD 5) | 6.948 | 0.817–0.852 (sensitivity range) | 1.095–1.142 (scenario allocation) |
+| California (PADD 5 subregion) | 7.733 | 0.909–0.948 (sensitivity range) | 1.218–1.271 (scenario allocation) |
+| West Coast less California | 6.269 | 0.737–0.768 (sensitivity range) | 0.988–1.030 (scenario allocation) |
 
-**Interpretation guardrails:** these are fuel-only benchmarks, not a carrier's full operating cost or a consumer quote. The EIA price is a public retail on-highway benchmark (including taxes), not a fleet contract price. The MPG and loaded-share estimates are 2021 weighted marginal means with different valid-record sets; dividing them is a transparent scenario calculation, not a record-level joint estimator. It excludes maintenance, tires, labor, insurance, depreciation/capital, permits, dispatch, overhead, profit and service costs. The route-level EIA price still needs to be weighted by actual route miles through each PADD; averaging only origin and destination regions would be a weak shortcut. The sparse gasoline sample in GVWR 6–7 is not used as a parallel calibration.
+**Interpretation guardrails:** these are fuel-only benchmarks, not a carrier's full operating cost or a consumer quote. The EIA price is a public retail on-highway benchmark (including taxes), not a fleet contract price. The per-record 1/MPG transformation and the loaded-share estimate are weighted marginal estimates with different valid-record sets; dividing by loaded share is a transparent scenario calculation, not a record-level joint estimator. The $0.699–$0.728 range reflects different defensible aggregation/sensitivity choices and is not a statistical confidence interval. It excludes maintenance, tires, labor, insurance, depreciation/capital, permits, dispatch, overhead, profit and service costs. The route-level EIA price still needs to be weighted by actual route miles through each PADD; averaging only origin and destination regions would be a weak shortcut. The sparse gasoline sample in GVWR 6–7 is not used as a parallel calibration.
 
-This benchmark demonstrates why the next model must expose fuel, utilization, labor and vehicle overhead separately. It is **not** used to change the existing $0.56/mile assumption or any production coefficient.
+This benchmark demonstrates why the next model must expose fuel, utilization, labor and vehicle overhead separately. It is **not** used to change the existing $0.56/mile assumption or any production coefficient. The previous $0.653/$0.875 figures are withdrawn because dividing price by arithmetic-mean MPG understates mean fuel use.
 
 Source: [EIA Gasoline and Diesel Fuel Update](https://www.eia.gov/petroleum/gasdiesel/), release November 17, 2026, prices for November 16, 2026. BLS publishes May 2025 state and metro occupational wage tables for the next labor step; see [state OEWS tables](https://www.bls.gov/oes/2025/may/oessrcst.htm), [all OEWS tables](https://www.bls.gov/oes/tables.htm), and the national [heavy-truck driver](https://www.bls.gov/ooh/transportation-and-material-moving/heavy-and-tractor-trailer-truck-drivers.htm) and [hand-laborer/material-mover](https://www.bls.gov/ooh/transportation-and-material-moving/hand-laborers-and-material-movers.htm) wage profiles.
 
