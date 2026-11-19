@@ -113,6 +113,41 @@ def weighted_estimate(rows, field):
     }
 
 
+def weighted_transform_estimate(rows, field, transform):
+    """Weighted mean/CV for a per-record transformation such as gallons per mile."""
+    valid = []
+    for row in rows:
+        raw = number(row.get(field))
+        w = number(row.get("TABWEIGHT"))
+        rg = str(row.get("RGROUP", "")).strip()
+        if raw is not None and raw > 0 and w is not None and w > 0 and rg:
+            value = transform(raw)
+            if math.isfinite(value):
+                valid.append((value, w, rg))
+    if not valid:
+        return {"mean": None, "cv_pct": None, "valid_records": 0, "weight_sum": 0.0}
+    weight_sum = sum(w for _, w, _ in valid)
+    estimate = sum(value * w for value, w, _ in valid) / weight_sum
+    groups = defaultdict(lambda: [0.0, 0.0])
+    for value, w, rg in valid:
+        groups[rg][0] += value * w
+        groups[rg][1] += w
+    replicates = [num / den for num, den in groups.values() if den > 0]
+    g_count = len(replicates)
+    if g_count > 1 and estimate != 0:
+        variance = sum((rep - estimate) ** 2 for rep in replicates) / (g_count * (g_count - 1))
+        cv = math.sqrt(variance) / abs(estimate) * 100
+    else:
+        cv = None
+    return {
+        "mean": estimate,
+        "cv_pct": cv,
+        "valid_records": len(valid),
+        "weight_sum": weight_sum,
+        "nonempty_random_groups": g_count,
+    }
+
+
 def weighted_cost_distribution(rows, field):
     # X = not applicable. Blank is missing. "Not reported" remains a visible category.
     valid = []
@@ -211,6 +246,17 @@ def main():
             "valid_weight": rounded(stats["weight_sum"], 1),
             "nonempty_random_groups": stats.get("nonempty_random_groups", 0),
         }
+    # Fuel cost is proportional to gallons per mile, not 1 / mean MPG.
+    # Transform each valid record first, then apply TABWEIGHT and RGROUP replicates.
+    gpm = weighted_transform_estimate(focus, "MPG", lambda mpg: 1.0 / mpg)
+    result["focus_cell"]["metrics"]["gallons_per_mile"] = {
+        "weighted_mean": rounded(gpm["mean"], 6),
+        "random_group_cv_pct": rounded(gpm["cv_pct"], 1),
+        "valid_records": gpm["valid_records"],
+        "valid_weight": rounded(gpm["weight_sum"], 1),
+        "nonempty_random_groups": gpm.get("nonempty_random_groups", 0),
+        "definition": "TABWEIGHT-weighted mean of per-record 1/MPG; use price_per_gallon * this value for average fuel cost per truck-mile",
+    }
     for field in ("GM_COST", "ER_COST"):
         result["focus_cell"]["maintenance_repair_bands"][field] = weighted_cost_distribution(focus, field)
 

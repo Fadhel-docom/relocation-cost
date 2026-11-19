@@ -2567,3 +2567,21 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - Tire $/mile remains unresolved: VIUS has no tire expense field, and a defensible estimate needs both installed comparable tire prices and supported service life. Rental rates remain excluded from owner-operated carrier cost.
 - Added a leakage-resistant holdout protocol: hold out complete OD pairs/corridors and stratify by distance, shipment size, truck class and dedicated/shared scope; do not tune on holdout data.
 - No production code, pricing formula, coefficient, route data or consumer-facing price changed. B24 remains research-only; no complete truck-mile or pound-mile cost is claimed.
+
+
+## 2026-11-19 — Claude audit / ChatGPT B24 fuel aggregation correction
+- Claude independently recomputed the class 6–7 diesel focus cohort from the raw 2021 VIUS PUF and reproduced the previously reported sample counts, weighted vehicle count, arithmetic mean MPG, annual miles and utilization shares.
+- Claude identified a material estimator defect: dividing price per gallon by arithmetic-mean MPG understates mean fuel cost per truck-mile. Fuel expense is proportional to gallons per mile; transform each record to 1/MPG before averaging. Claude's audit: harmonic MPG 8.16 => ~$0.728/mile; trimmed sensitivity variants ~$0.699–$0.717; mileage-weighted gallons/mile estimate ~$0.721. These are aggregation/sensitivity scenarios, not confidence intervals. The prior $0.653/$0.875 national figures are withdrawn.
+- ChatGPT implemented a research-only correction on branch `research/b24-correct-fuel-aggregation-2026-11-19`: extraction script now computes TABWEIGHT-weighted per-record gallons/mile and the RGROUP replicate CV; VIUS report replaces the invalid benchmark and labels sensitivity scenarios; route-fuel equation is now regional price × weighted gallons/mile. No production code or calculator coefficient changed.
+- Important execution limitation: the raw PUF was not rerun in this ChatGPT session, so the exact output and replicate CV for the new metric remain pending a run on the owner's source ZIP. Do not present Claude's audit scenarios as a fresh script run.
+- Claude cannot access the official BLS/EIA hosts from its sandbox; those source values remain unverified by Claude pending owner-provided source files/exports. No BLS/EIA figures are being silently certified by the audit.
+- Next: Claude final-review this one focused PR and merge if correct; then obtain route polylines and calculate actual mileage through PADD regions. BLS geographic wages, tire costs, insurance premiums and depreciation remain unresolved. No production changes.
+
+
+## 2026-11-19 00:13 UTC — ChatGPT — قاعدة غرفة العمليات وحزمة تسليم Claude
+- أكد المالك قانونًا صارمًا: كل شيء يجب أن يكون في غرفة العمليات، وليس في المحادثة وحدها. أُضيفت القاعدة 23 إلى OPS-ROOM.md لتجعل الغرفة وسجل العمل المصدر الوحيد الملزم، مع اشتراط توثيق handoff قبل طلب مراجعة Claude وتسجيل رده قبل المرحلة التالية.
+- اكتملت إضافة docs/operations/B24-CLAUDE-HANDOFF-2026-11-19.md، واختبارات tools/test_b24_vius_fuel_transform.py، وتشغيلها ضمن .github/workflows/validate.yml عبر Python 3.12. تم تحديث وصف PR #276 ليشير إلى ملف handoff ويحدد مهام Claude بدقة.
+- آخر رأس للفرع: 0f2d59d46a4a02b1339eba4b562fae0b75525aeb. PR #276 لا يزال Draft ومفتوحًا، ولا توجد مراجعة Claude أو عملية دمج.
+- حالة الفحوصات عند آخر قراءة: workflow Build اجتاز npm test، وكان build قيد التنفيذ؛ validation لم يصل بعد إلى اختبار Python؛ rendered-pages قيد التنفيذ؛ Vercel check أظهر success لعدم وجود feedback غير محلول فقط. لا ندّعي اكتمال CI.
+- تعذر تشغيل الاستخراج الكامل لعدم توفر PUF ZIP الخام في ملفات المحادثة/المكتبة؛ القيمة الدقيقة وRGROUP CV لا تزالان pending. طلب handoff من Claude إعادة التشغيل إن كان الملف متاحًا لديه.
+- لا تغييرات إنتاجية أو معاملات أو أسعار. الخطوة التالية: Claude يقرأ ملف handoff من المستودع، يراجع الكود والمنهج والاختبارات، يعيد استخراج PUF إن توفر، ويصلح ما يلزم ثم يدمج فقط بعد نجاح الفحوصات والمراجعة.

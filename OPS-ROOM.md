@@ -809,3 +809,25 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - Owner's role split (2026-11-19): Claude reviews, corrects and advises; ChatGPT implements; Claude does the final review and merges. Claude's free quota is very small: keep review requests narrow and name the exact files.
 - Audit in `docs/operations/B24-CLAUDE-VIUS-MAIN-EXTRACTION-AUDIT-2026-11-19.md`: every figure of the diesel class 6-7 cell reproduced from the raw PUF. One defect: fuel $/mile was computed as price / arithmetic-mean MPG (9.10 -> $0.653). Average gallons per mile instead (harmonic): $0.713-0.728 (+8.6 to +11.5 %), $0.699 with an MPG 5-20 trim; 30 of 1,080 records report MPG 1-4.
 - ChatGPT, do next (docs/data only, one PR): (1) in `B24-VIUS-WEIGHTED-EXTRACTION-2026-11-18.md` and `B24-RESEARCH-UPDATE-2026-11-18.md` replace the single $0.653 / $0.875 with the range and name the aggregation; (2) in `tools/b24-vius-box-truck-extract.py` add a per-record gallons-per-mile weighted mean next to the MPG mean, with the replicate-group CV; (3) PR #273 must not use `fuel = price / mean MPG` anywhere; use gallons per mile; (4) keep BLS/EIA values flagged "not verified by Claude" until the owner uploads the files (Claude's sandbox blocks both hosts). Claude will review and merge.
+
+
+## 2026-11-19 — Claude VIUS fuel aggregation audit and ChatGPT correction
+- **تقسيم الأدوار المعتمد:** Claude يراجع ويصحح ويقدم التوصيات؛ ChatGPT ينفذ؛ Claude يجري المراجعة النهائية والدمج. بسبب محدودية حصة Claude المجانية، تُرسل له مراجعة مركزة واحدة مع أسماء الملفات الدقيقة، لا مهام صغيرة متفرقة.
+- راجع Claude ملف `docs/operations/B24-CLAUDE-VIUS-MAIN-EXTRACTION-AUDIT-2026-11-19.md` وأعاد حساب خلية الديزل GVWR 6–7 من PUF الخام مستقلاً. أكد صحة أعداد العينة (1,556 سجلًا/317,285 مركبة موزونة) ومتوسط MPG (9.10) والأميال السنوية ونسب التحميل/العودة الفارغة/إعادة التموضع.
+- **تصحيح جوهري:** حساب الوقود السابق `سعر الغالون ÷ المتوسط الحسابي لـMPG` غير صحيح لتقدير متوسط استهلاك الوقود لكل ميل؛ يجب تحويل كل سجل إلى `1/MPG` ثم حساب المتوسط الموزون. أعاد Claude تقدير التكلفة إلى نحو $0.728/ميل باستخدام المتوسط التوافقي، مع حساسيات $0.699–$0.717، وتقدير موزون بالأميال نحو $0.721. هذه سيناريوهات تجميع وليست مجال ثقة. كما أن أسعار EIA الوطنية لا تزال ليست توزيعًا حسب المسار.
+- نفذ ChatGPT تصحيحًا بحثيًا في PR جديد: إضافة `gallons_per_mile` إلى سكربت الاستخراج مع متوسط TABWEIGHT وCV لمجموعات RGROUP؛ سحب $0.653/$0.875 القديمين من تفسير الوقود واستبدالهما بنطاقات معلنة؛ وتصحيح معادلة تكلفة الوقود إلى السعر × متوسط الغالونات لكل ميل. الملفات الثلاثة: سكربت الاستخراج، تقرير VIUS الموزون، ومذكرة B24.
+- **لم يُعاد تشغيل السكربت على ملف PUF في هذه الجلسة**؛ لذلك القيمة الدقيقة وCV للمقياس الجديد ينتظران تشغيله على ملف المالك. لا تُعرض قيم حساسية Claude على أنها ناتج تشغيل جديد للسكربت.
+- Claude لم يتمكن من إعادة قراءة مصادر BLS/EIA الرسمية من بيئته؛ تبقى هذه القيم موسومة بأنها غير متحقق منها بواسطة Claude إلى أن يرفع المالك الملفات/المخرجات اللازمة. لا تغيير إنتاجي أو معامل أو سعر حاسبة.
+- الحالة: PR التصحيح ينتظر مراجعة Claude النهائية ودمجه. بعده ننتقل إلى استخراج هندسة المسارات لتوزيع أميالها على PADD، مع إبقاء BLS والأجور والإطارات والتأمين والإهلاك منفصلة وغير محسومة حتى تتوفر أدلة قابلة للتدقيق.
+
+
+23. **غرفة العمليات هي المصدر الوحيد الملزم (تأكيد المالك، 2026-11-19):** لا يُسلّم أي عمل إلى Claude أو ChatGPT عبر رسالة محادثة منفصلة بوصفها المرجع الوحيد. يجب أن تكون المهمة، والسياق، والملفات الدقيقة، والقرارات، والقيود، والاختبارات، وحالة PR، وطلب الطرف التالي موثقة أولًا في OPS-ROOM.md وdocs/operations/WORK-LOG.md، مع ملف handoff متخصص عند الحاجة. يجوز للمحادثة أن تشير إلى رابط غرفة العمليات أو تلخصه فقط؛ ولا تحل محل التوثيق. قبل التسليم، تحقق من أن كل ما يحتاجه الطرف التالي موجود في المستودع، وأن السجل يذكر صراحة ما لم يُنجز ولماذا. بعد رد Claude، يُسجل الرد والقرار والنتيجة في الغرفة والسجل قبل بدء مرحلة جديدة.
+
+
+## 2026-11-19 — ChatGPT — استكمال توثيق حزمة تسليم B24
+- بناءً على تأكيد المالك، أُضيفت القاعدة 23: غرفة العمليات وسجل العمل هما المصدر الوحيد الملزم؛ لا يعتمد تسليم Claude على نص المحادثة وحده. يجب تسجيل المهمة والملفات والقيود والاختبارات والحالة وطلب الطرف التالي في المستودع أولًا.
+- استُكملت حزمة PR #276 على الفرع research/b24-correct-fuel-aggregation-2026-11-19: ملف handoff محدد، اختبارات وحدات لمتوسط الغالونات لكل ميل، وإضافة تشغيل الاختبارات إلى .github/workflows/validate.yml باستخدام Python 3.12.
+- PR body يربط ملف handoff ويحدد المطلوب من Claude. آخر commit وقت التسجيل: 0f2d59d46a4a02b1339eba4b562fae0b75525aeb. PR ما زال Draft ومفتوحًا؛ لم تصدر مراجعة Claude ولم يحدث دمج.
+- حالة CI عند آخر فحص: Build job نجح فيه npm test، وكان npm run build قيد التنفيذ؛ workflow validation كان في مرحلة إعداد Node، ولم يصل بعد إلى اختبار Python؛ rendered-pages job كان قيد التنفيذ. Vercel check على الرأس الأخير أظهر success لرسالة عدم وجود feedback غير محلول، وليس دليلاً على اكتمال جميع workflows.
+- ملف PUF الخام لم يُعثر عليه في ملفات المحادثة/المكتبة المتاحة، لذلك لم يُنفذ استخراج كامل جديد ولم تُسجل قيمة دقيقة أو CV. لا تزال هذه نقطة مطلوبة من Claude إن توفر الملف لديه.
+- لم يتغير كود الإنتاج أو معاملات الحاسبة أو الأسعار. رابط PR: https://github.com/Fadhel-docom/relocation-cost/pull/276 .
