@@ -35,6 +35,17 @@ class PaddAllocationTests(unittest.TestCase):
             },
         }
 
+    def test_every_state_and_dc_has_a_padd_assignment(self):
+        from tools.b24_padd_allocation import PADD_BY_STATE
+        self.assertEqual(set(PADD_BY_STATE), set("AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY DC".split()))
+        self.assertEqual(PADD_BY_STATE["KY"], "2")
+
+    def test_route_through_kentucky_is_allocated_to_padd2(self):
+        states = {"type": "FeatureCollection", "features": [box("KY", -85, -83)]}
+        route = {"type": "LineString", "coordinates": [[-84.9, 35], [-83.1, 35]]}
+        result = allocate_route(route, states, step_miles=0.25)
+        self.assertGreater(result["miles_by_padd"]["2"], 100)
+
     def test_crosses_padd_boundary_and_conserves_mileage(self):
         result = allocate_route(self.route, self.states, step_miles=0.25)
         self.assertGreater(result["miles_by_padd"]["2"], 100)
@@ -48,7 +59,7 @@ class PaddAllocationTests(unittest.TestCase):
     def test_fuel_cost_is_weighted_by_route_mileage(self):
         result = allocate_route(self.route, self.states, step_miles=0.25)
         prices = {"week_of": "2026-11-16", "usd_per_gallon": {"2": 4.0, "3": 3.0}}
-        fuel = price_fuel(result, prices, mpg=10.0)
+        fuel = price_fuel(result, prices, gallons_per_mile=0.1)
         expected = (
             result["miles_by_padd"]["2"] * 4.0
             + result["miles_by_padd"]["3"] * 3.0
@@ -97,7 +108,7 @@ class PaddAllocationTests(unittest.TestCase):
         self.assertIn("1A", allocation["miles_by_padd"])
         self.assertIn("1C", allocation["miles_by_padd"])
         prices = {"week_of": "2026-11-16", "usd_per_gallon": {"1A": 6.225, "1C": 5.541}}
-        fuel = price_fuel(allocation, prices, mpg=10.0)
+        fuel = price_fuel(allocation, prices, gallons_per_mile=0.1)
         expected = (
             allocation["miles_by_padd"]["1A"] * 6.225
             + allocation["miles_by_padd"]["1C"] * 5.541
@@ -157,12 +168,12 @@ class PaddAllocationTests(unittest.TestCase):
     def test_refuses_to_price_any_unmatched_route_mileage(self):
         allocation = {
             "route_miles": 100.0,
-            "coverage_pct": 99.5,
+            "coverage_pct": 99.49,
             "miles_by_padd": {"2": 99.5},
         }
         prices = {"week_of": "2026-11-16", "usd_per_gallon": {"2": 4.0}}
         with self.assertRaisesRegex(AllocationError, "not fully covered"):
-            price_fuel(allocation, prices, mpg=10.0)
+            price_fuel(allocation, prices, gallons_per_mile=0.1)
 
     def test_refuses_distance_mismatch_over_one_percent(self):
         route = {
