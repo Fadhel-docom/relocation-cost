@@ -82,3 +82,17 @@ The allocator now maps PADD 1 states to 1A/1B/1C and PADD 5 states to California
 No route fuel cost is calculated yet because no route GeoJSON or TIGER polygons are in the repository. This is a dated price input snapshot, not a current evergreen price; future estimates must use the EIA week closest to the move date and preserve the price week.
 
 Official source: https://www.eia.gov/dnav/pet/PET_PRI_GND_A_EPD2D_PTE_DPGAL_W.htm (EIA weekly retail gasoline and diesel prices, dollars per gallon including taxes).
+
+
+## 2026-11-19 — Official Census TIGER 2026 boundary ingestion
+
+The latest available Census state-boundary source for this work is the 2026 TIGER/Line state shapefile, with legal boundary names as of 2026-01-01 and release date 2026-10-14. The official ZIP is:
+
+`https://www2.census.gov/geo/tiger/TIGER2026/STATE/tl_2026_us_state.zip`
+
+The reproducible converter is `tools/fetch_tiger_state_boundaries.py`; the manual workflow is `.github/workflows/fetch-b24-tiger-boundaries.yml`. It downloads the official ZIP, records its SHA-256 and retrieval timestamp, verifies the geographic NAD83 projection, checks all expected 50 state postal codes plus DC (51 features), validates lon/lat coordinate bounds, preserves Polygon/MultiPolygon geometry and writes `data/geo/tiger-2026-us-states.geojson`. It deliberately excludes territories because the route allocator covers the 50 states and DC.
+
+The workflow creates a separate data branch and opens a review PR. It has not yet been run; therefore the GeoJSON boundary file is not yet present and no PADD mileage has been calculated. The HeiGIT route workflow also now opens a review PR after a successful geometry fetch. It remains manual and requires the repository Actions secret `HEIGIT_API_KEY`; no request has been sent and no API quota has been used in this session.
+
+Census source metadata: https://catalog.data.gov/dataset/series-information-for-state-and-equivalent-entities-national-tiger-line-shapefiles-curren
+Official TIGER/Line 2026 page: https://www.census.gov/geographies/mapping-files/2026/geo/tiger-line-file.html
