@@ -131,6 +131,26 @@ class PaddAllocationTests(unittest.TestCase):
         with self.assertRaises(AllocationError):
             allocate_route(route, self.states, step_miles=0.25)
 
+    def test_separates_california_from_non_california_west_coast(self):
+        states = {
+            "type": "FeatureCollection",
+            "features": [
+                region("CA", -120, -119, 40, 42),
+                region("WA", -120, -119, 42, 44),
+            ],
+        }
+        route = {"type": "LineString", "coordinates": [[-119.5, 40.2], [-119.5, 43.8]]}
+        allocation = allocate_route(route, states, step_miles=0.25)
+        self.assertIn("CA", allocation["miles_by_padd"])
+        self.assertIn("5X", allocation["miles_by_padd"])
+        fuel = price_fuel(
+            allocation,
+            {"week_of": "2026-11-16", "usd_per_gallon": {"CA": 7.733, "5EXCA": 6.269}},
+            mpg=10.0,
+        )
+        self.assertEqual(fuel["by_padd"]["CA"]["eia_price_series"], "CA")
+        self.assertEqual(fuel["by_padd"]["5X"]["eia_price_series"], "5EXCA")
+
 
 if __name__ == "__main__":
     unittest.main()
