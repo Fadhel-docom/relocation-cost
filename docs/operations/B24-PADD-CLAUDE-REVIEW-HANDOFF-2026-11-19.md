@@ -20,7 +20,7 @@ Files: tools/b24_padd_allocation.py and tools/test_b24_padd_allocation.py.
 - Replaced the default MPG input with required --gallons-per-mile.
 - Fuel formula: matched PADD miles × gallons per mile × diesel price.
 - Aligned allocation and pricing gates at 99.999% route-mile coverage; both stages reject below that exact threshold. No unmatched mileage is silently assigned, omitted from cost, or normalized.
-- Added tests for all 50 states + DC, a Kentucky route, and 99.999% strict coverage boundary. There are 11 test methods.
+- Added tests for all 50 states + DC, a Kentucky route, and 99.999% strict coverage boundary. There are now 14 PADD allocator test methods plus 4 TIGER converter tests (18 total) after the second-pass boundary regression tests. The earlier 16/16 result is from the pre-fix head; 18/18 on the latest head is pending CI.
 
 ## New Census boundary pipeline added by ChatGPT
 - `tools/fetch_tiger_state_boundaries.py` downloads official Census 2026 TIGER/Line `tl_2026_us_state.zip`, validates NAD83 geographic coordinates, exact 50 states + DC coverage, and coordinate bounds; records source ZIP SHA-256 and download timestamp.
