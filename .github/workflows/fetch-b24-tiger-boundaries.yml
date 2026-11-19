@@ -1,0 +1,57 @@
+name: Fetch Census TIGER state boundaries for B24
+
+on:
+  workflow_dispatch:
+    inputs:
+      base_branch:
+        description: Branch to use as the source of B24 tooling
+        required: true
+        default: main
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out B24 tooling
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.base_branch }}
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned shapefile reader
+        run: python -m pip install pyshp==2.3.1
+      - name: Download and validate official Census 2026 state boundaries
+        run: python tools/fetch_tiger_state_boundaries.py
+      - name: Commit boundary GeoJSON on a new branch
+        id: commit
+        run: |
+          branch="data/b24-tiger-state-boundaries-${GITHUB_RUN_NUMBER}"
+          git switch -c "$branch"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/geo/tiger-2026-us-states.geojson
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git commit -m "data: add Census 2026 TIGER state boundaries for B24"
+          git push origin "$branch"
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+      - name: Open pull request for boundary data
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr create \
+            --base "${{ inputs.base_branch }}" \
+            --head "${{ steps.commit.outputs.branch }}" \
+            --title "data: add Census 2026 TIGER state boundaries for B24" \
+            --body "Adds the official Census TIGER/Line 2026 state polygons for 50 states + DC, converted to GeoJSON with vintage, source URL, attribution, coordinate reference, and source ZIP SHA-256 recorded. The workflow validates all expected state codes and lon/lat geometry. Research data only; no production calculator or pricing changes."
