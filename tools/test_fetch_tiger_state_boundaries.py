@@ -17,7 +17,7 @@ def write_fixture(root: Path, postal_codes: list[str]) -> Path:
     for index, postal in enumerate(postal_codes):
         west = -160 + (index % 10) * 2
         south = 10 + (index // 10) * 2
-        writer.poly([[[west, south], [west + 1, south], [west + 1, south + 1], [west, south + 1], [west, south]]])
+        writer.poly([[[west, south], [west, south + 1], [west + 1, south + 1], [west + 1, south], [west, south]]])
         writer.record(f'{index % 56:02d}', postal, f'State {postal}')
     writer.close()
     base.with_suffix('.prj').write_text('GEOGCS["GCS_North_American_1983",DATUM["D_North_American_1983"],UNIT["Degree",0.0174532925199433]]', encoding='utf-8')
