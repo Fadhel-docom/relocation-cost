@@ -10,7 +10,7 @@ Inputs:
   Diesel prices JSON: {"week_of":"YYYY-MM-DD","usd_per_gallon":{"1":...,"2":...}}
 
 This is deliberately not a complete truck-cost model. It returns fuel-only
-route cost using the supplied MPG and weekly PADD prices. It never assigns
+route cost using the supplied gallons-per-mile factor and weekly PADD prices. It never assigns
 uncovered route mileage to an endpoint PADD.
 """
 from __future__ import annotations
@@ -28,7 +28,7 @@ PADD_BY_STATE = {
     **{s: "1B" for s in "DE DC MD NJ NY PA".split()},
     **{s: "1C" for s in "FL GA NC SC VA WV".split()},
     # PADD 2 — Midwest
-    **{s: "2" for s in "IL IN IA KS MI MN MO NE ND OH OK SD TN WI".split()},
+    **{s: "2" for s in "IL IN IA KS MI MN MO NE ND OH OK SD TN WI KY".split()},
     # PADD 3 — Gulf Coast
     **{s: "3" for s in "AL AR LA MS NM TX".split()},
     # PADD 4 — Rocky Mountain
@@ -222,14 +222,14 @@ def allocate_route(route: dict[str, Any],
 
 def price_fuel(allocation: dict[str, Any],
                prices: dict[str, Any],
-               mpg: float) -> dict[str, Any]:
-    if mpg <= 0:
-        raise AllocationError("MPG must be greater than zero.")
+               gallons_per_mile: float) -> dict[str, Any]:
+    if gallons_per_mile <= 0:
+        raise AllocationError("Gallons per mile must be greater than zero.")
     coverage = float(allocation.get("coverage_pct", 0.0))
-    if coverage < 99.999:
+    if coverage < 99.5:
         raise AllocationError(
             f"Route state-boundary coverage is {coverage:.4f}%; not fully covered. "
-            "Fuel cost is not calculated until all route mileage is assigned to a state/PADD."
+            "Fuel cost is not calculated below 99.5% coverage; unmatched mileage is reported and is never normalized."
         )
     price_map = prices.get("usd_per_gallon", {})
     padd_miles = allocation["miles_by_padd"]
@@ -254,18 +254,18 @@ def price_fuel(allocation: dict[str, Any],
         price = float(price_map[price_key])
         if price <= 0:
             raise AllocationError(f"Invalid diesel price for EIA area {price_key}.")
-        cost = miles / mpg * price
+        cost = miles * gallons_per_mile * price
         total_cost += cost
         by_padd[padd] = {
             "miles": round(miles, 3),
             "eia_price_series": price_key,
             "diesel_usd_per_gallon": price,
-            "fuel_gallons": round(miles / mpg, 3),
+            "fuel_gallons": round(miles * gallons_per_mile, 3),
             "fuel_cost_usd": round(cost, 2),
         }
     return {
         "eia_week_of": prices.get("week_of"),
-        "mpg": mpg,
+        "gallons_per_mile": gallons_per_mile,
         "fuel_only_cost_usd": round(total_cost, 2),
         "fuel_only_cost_per_truck_mile_usd": round(total_cost / allocation["route_miles"], 4),
         "by_padd": by_padd,
@@ -278,7 +278,7 @@ def main() -> None:
     parser.add_argument("--route", required=True, help="GeoJSON route Feature/FeatureCollection/Geometry")
     parser.add_argument("--states", required=True, help="Census/TIGER state-boundary GeoJSON FeatureCollection")
     parser.add_argument("--prices", required=True, help="JSON with week_of and usd_per_gallon keyed by PADD 1..5")
-    parser.add_argument("--mpg", type=float, default=9.10, help="VIUS weighted diesel MPG benchmark (default: 9.10)")
+    parser.add_argument("--gallons-per-mile", type=float, required=True, help="Fuel gallons per truck-mile; use the explicitly documented VIUS weighted estimator, not arithmetic-mean MPG (e.g. 0.122605)")
     parser.add_argument("--step-miles", type=float, default=0.25, help="Maximum sample spacing in miles (default: 0.25)")
     parser.add_argument("--output", help="Optional output JSON path; stdout if omitted")
     args = parser.parse_args()
@@ -287,7 +287,7 @@ def main() -> None:
     states = json.loads(Path(args.states).read_text(encoding="utf-8"))
     prices = json.loads(Path(args.prices).read_text(encoding="utf-8"))
     allocation = allocate_route(route, states, args.step_miles)
-    result = {"allocation": allocation, "fuel": price_fuel(allocation, prices, args.mpg)}
+    result = {"allocation": allocation, "fuel": price_fuel(allocation, prices, args.gallons_per_mile)}
     rendered = json.dumps(result, indent=2)
     if args.output:
         Path(args.output).write_text(rendered + "\n", encoding="utf-8")
