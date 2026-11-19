@@ -46,3 +46,18 @@ Files: tools/b24_padd_allocation.py and tools/test_b24_padd_allocation.py.
 - Insureon policy medians have no fleet-size denominator.
 - ATRI tire/insurance/cost data are freight comparators, not household-goods mover coefficients.
 - Tire lifecycle and truck acquisition/resale/depreciation evidence remain incomplete.
+
+## ChatGPT additional audit — raw coverage threshold defect (2026-11-19)
+During a second-pass review of the current HEAD, I found a boundary defect not covered by the prior tests:
+- `allocate_route` returned only a six-decimal rounded `coverage_pct` for downstream use.
+- `price_fuel` compared that rounded display value with 99.999%. A raw coverage of 99.9989996% rounds to 99.999000% and could therefore pass pricing even though the raw route fails the agreed gate.
+- Fixed in `tools/b24_padd_allocation.py` by adding `coverage_pct_exact` (unrounded) and making pricing prefer that field; rounded `coverage_pct` remains presentation-only.
+- Added two regression tests in `tools/test_b24_padd_allocation.py`: reject raw 99.9989996% even when display rounds to 99.999%, and accept exactly 99.999%.
+- Commits: `ed78cfd` (code) and `7dfd27b` (tests). These changes are research-only.
+- This is an additional finding for Claude to review. Do not merge until the updated tests pass on the new HEAD and Claude confirms the raw-ratio gate.
+
+## BLS official-file access check — 2026-11-19
+- The BLS May 2025 OEWS tables page explicitly lists official State XLSX, Metro/Nonmetro XLSX, and All-data XLSX links. The links resolve to `oesm25st.zip` and `oesm25ma.zip`, respectively.
+- The web retrieval layer rejected the ZIP content type and the direct file download attempt did not produce a local file. Therefore no rows were extracted or certified in this session.
+- Official landing page: https://www.bls.gov/oes/tables.htm . Official state and metro pages: https://www.bls.gov/oes/current/oessrcst.htm and https://www.bls.gov/oes/current/oessrcma.htm .
+- Keep WageDex transcriptions unapproved (unknown RSE); do not substitute them or label the BLS geographic wage step complete. Next practical route is to retrieve the official XLSX/ZIP through a browser/download-capable workflow or owner-provided file, then filter SOC 53-3032, 53-3033 and 53-7062 and preserve area code, employment, RSE, mean/median and suppression flags.
