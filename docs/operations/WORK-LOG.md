@@ -2595,3 +2595,10 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - تم سحب الاختصار القديم price / arithmetic-mean MPG، ولا تغيير في الإنتاج أو المعاملات أو أسعار العملاء.
 - الخطوة التالية المحددة: استخدام workflow الموجود `.github/workflows/fetch-b24-route-geometries.yml` على `cities` أولًا، ثم تدقيق manifest والمسافات ومطابقة المسارات مع حدود PADD وحفظ توازن الأميال. بعدها استكمال استخراج أجور BLS الجغرافية الرسمية May 2025 لرموز SOC 53-3032 و53-3033 و53-7062 مع employment RSE وحالات suppression. لم يتم تشغيل workflow في هذه الجلسة ولا ندّعي وجود ملفات هندسة جديدة.
 - ما زال التأمين الفعلي والإطارات/عمر الخدمة والإهلاك وساعات العمل المدفوعة بحاجة إلى أدلة مستقلة؛ وتظل اختبارات holdout لمسارات كاملة شرطًا قبل التفكير في أي تعديل إنتاجي.
+
+
+## 2026-11-19 00:25 UTC — ChatGPT — B24 PADD workflow preflight found missing implementations
+- Inspected `.github/workflows/fetch-b24-route-geometries.yml`, `tools/road-distances-build.mjs`, `src/lib/road-distance.js`, the existing PADD tests, and the current validation workflow.
+- Verified by exact repository-path lookups that `tools/fetch_heigit_route_geometries.mjs` is absent, `tools/b24_padd_allocation.py` is absent, and `data/route-geometries/manifest.json` is absent. The workflow references the missing geometry-fetch script; the PADD test imports the missing allocator. `.github/workflows/validate.yml` currently runs only `test_b24_vius_fuel_transform.py`, not `test_b24_padd_allocation.py`.
+- Consequence: route geometry retrieval and PADD mileage allocation are not executable end-to-end despite the workflow and test stub existing. No workflow was dispatched and no HeiGIT quota/API request was used.
+- Next: implement the two missing tools against the current city route definitions and stored distance matrix; wire the PADD tests into CI; add input/manifest coverage checks; only then run the city-only geometry workflow. Preserve 1% route-distance QA, explicit route coverage failures, PADD1 subdistrict pricing, California's separate EIA series, and exact mileage conservation. Do not use endpoint/origin-only price assignment.
