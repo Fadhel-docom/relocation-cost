@@ -2559,48 +2559,36 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - Source: https://www.bls.gov/news.release/ecec.htm (June 2026 Table 4, released September 9, 2026).
 
 
-## 2026-11-18 20:07 UTC — ChatGPT — B24 regional wage, operating-cost and PADD research
-- Added a research-only May 2025 OEWS secondary transcription: 19 state endpoints for SOC 53-3032/53-3033/53-7062, and SOC 53-7062 metro rows for all 18 city nodes. WageDex is an intermediary, not the BLS source file; RSE unavailable/null; no production use. Direct BLS XLSX extraction remains unresolved.
-- Added ATRI 2024 truckload peer-group cost-per-mile comparator for tires, R&M, auto-liability premiums, equipment lease/purchase, driver wages/benefits and fuel. Explicitly excluded transfer to household-goods trucks and summing independent component medians.
-- Added EIA weekly PADD/subdistrict diesel snapshot (2026-11-16) and geometry-based PADD allocator. It requires actual route GeoJSON and TIGER state polygons, neither currently in the repo.
-- Improved fail-closed behavior: route distance mismatch >1% is rejected; >0.5% unmatched state mileage is rejected; fuel calculation refuses any route not fully assigned to state/PADD, preventing silent undercount. Added polygon bounding-box prefilter for performance and tests for subdistrict/fallback/coverage cases.
-- Manual HeiGIT geometry workflow needs Actions secret HEIGIT_API_KEY. No requests executed and no API quota consumed. No production formula, coefficient, displayed price or route distance changed.
-- Sources: BLS OEWS/WageDex intermediary, ATRI 2024 peer report, FMCSA insurance/HOS, EIA weekly diesel series, Census TIGER/Line, HeiGIT ORS Directions V2.
+## 2026-11-18 21:25 UTC — ChatGPT — B24 route fuel and independent cost evidence audit
+- Added `docs/operations/B24-RESEARCH-UPDATE-2026-11-18.md` (PR #274, draft) to document official EIA PADD geography and the route-mile-weighted diesel-price formula. The note records the 2026-11-16 regional diesel snapshot and explicitly states that route-level allocations are not yet computed because route polylines are required.
+- Defined labour modelling boundaries: FMCSA HOS rules constrain scheduling but are not typical paid-hour assumptions; driver road time, driver ancillary duties, and origin/destination handling labour must remain separate. Geographic BLS May 2025 extraction remains pending; no secondary or May 2023 values were substituted.
+- Verified FMCSA household-goods carrier filing minimums for vehicles GVWR >=10,001 lb ($750,000 BIPD and $5,000 cargo). These are coverage limits, not premium amounts.
+- Captured a small new Isuzu truck acquisition-listing snapshot as a capital research lead only. No depreciation rate was derived because matched resale, mileage, condition and service-life observations are missing.
+- Tire $/mile remains unresolved: VIUS has no tire expense field, and a defensible estimate needs both installed comparable tire prices and supported service life. Rental rates remain excluded from owner-operated carrier cost.
+- Added a leakage-resistant holdout protocol: hold out complete OD pairs/corridors and stratify by distance, shipment size, truck class and dedicated/shared scope; do not tune on holdout data.
+- No production code, pricing formula, coefficient, route data or consumer-facing price changed. B24 remains research-only; no complete truck-mile or pound-mile cost is claimed.
 
 
-## 2026-11-18 20:15 UTC — ChatGPT — Mover-specific insurance and labor-time evidence
-- Added Insureon moving-business policy medians: commercial auto $876/mo, general liability $120/mo, workers' comp $755/mo. Applicant-policy medians; no sample size or truck count disclosed. No per-truck/per-mile conversion without fleet exposure. Cargo/bailee and other coverage may be separate.
-- Added separate ATRI broad motor-carrier liability premium benchmark: $0.102/mile in 2024, +18.6% since 2021. Kept separate from the 81–200-truck peer-group $0.093/mile median; neither is HHG-specific.
-- Added Bellhop historical operational cohort observations for total man-hours per move: Raleigh 1-bedroom full-service means 5 (n=80) and 6 (n=128), P80 7/8; Atlanta 3-bedroom full-service means 5 (n=27) and 15 (n=61), P80 9/25 across two seasonal windows. This demonstrates major market/time variance; company-specific, historical, not national.
-- Added FMCSA/US DOT DOT-MC-01-107 household-goods driver task-time ranges. The report calls them conceptual, with overlap; they cannot be mechanically summed. Use only to define task categories and broad checks.
-- Model rule: separate drive duration, driver on-duty non-driving tasks, and total crew man-hours. No universal bedroom-to-hours coefficient. No production formula, coefficient, price or route distance changed.
+## 2026-11-19 — Claude audit / ChatGPT B24 fuel aggregation correction
+- Claude independently recomputed the class 6–7 diesel focus cohort from the raw 2021 VIUS PUF and reproduced the previously reported sample counts, weighted vehicle count, arithmetic mean MPG, annual miles and utilization shares.
+- Claude identified a material estimator defect: dividing price per gallon by arithmetic-mean MPG understates mean fuel cost per truck-mile. Fuel expense is proportional to gallons per mile; transform each record to 1/MPG before averaging. Claude's audit: harmonic MPG 8.16 => ~$0.728/mile; trimmed sensitivity variants ~$0.699–$0.717; mileage-weighted gallons/mile estimate ~$0.721. These are aggregation/sensitivity scenarios, not confidence intervals. The prior $0.653/$0.875 national figures are withdrawn.
+- ChatGPT implemented a research-only correction on branch `research/b24-correct-fuel-aggregation-2026-11-19`: extraction script now computes TABWEIGHT-weighted per-record gallons/mile and the RGROUP replicate CV; VIUS report replaces the invalid benchmark and labels sensitivity scenarios; route-fuel equation is now regional price × weighted gallons/mile. No production code or calculator coefficient changed.
+- Important execution limitation: the raw PUF was not rerun in this ChatGPT session, so the exact output and replicate CV for the new metric remain pending a run on the owner's source ZIP. Do not present Claude's audit scenarios as a fresh script run.
+- Claude cannot access the official BLS/EIA hosts from its sandbox; those source values remain unverified by Claude pending owner-provided source files/exports. No BLS/EIA figures are being silently certified by the audit.
+- Next: Claude final-review this one focused PR and merge if correct; then obtain route polylines and calculate actual mileage through PADD regions. BLS geographic wages, tire costs, insurance premiums and depreciation remain unresolved. No production changes.
 
 
-## 2026-11-18 20:19 UTC — ChatGPT — BLS metro coverage correction
-- Recounted the wage proxy JSON against the 18 city nodes: only 17/18 SOC 53-7062 metro rows are present. Chicago is missing.
-- The previously discussed $40,550 / $19.50 value is Illinois statewide, not Chicago-Naperville-Elgin metro. It is not relabelled or substituted. Chicago remains null until a metro row is directly verified.
+## 2026-11-19 00:13 UTC — ChatGPT — قاعدة غرفة العمليات وحزمة تسليم Claude
+- أكد المالك قانونًا صارمًا: كل شيء يجب أن يكون في غرفة العمليات، وليس في المحادثة وحدها. أُضيفت القاعدة 23 إلى OPS-ROOM.md لتجعل الغرفة وسجل العمل المصدر الوحيد الملزم، مع اشتراط توثيق handoff قبل طلب مراجعة Claude وتسجيل رده قبل المرحلة التالية.
+- اكتملت إضافة docs/operations/B24-CLAUDE-HANDOFF-2026-11-19.md، واختبارات tools/test_b24_vius_fuel_transform.py، وتشغيلها ضمن .github/workflows/validate.yml عبر Python 3.12. تم تحديث وصف PR #276 ليشير إلى ملف handoff ويحدد مهام Claude بدقة.
+- آخر رأس للفرع: 0f2d59d46a4a02b1339eba4b562fae0b75525aeb. PR #276 لا يزال Draft ومفتوحًا، ولا توجد مراجعة Claude أو عملية دمج.
+- حالة الفحوصات عند آخر قراءة: workflow Build اجتاز npm test، وكان build قيد التنفيذ؛ validation لم يصل بعد إلى اختبار Python؛ rendered-pages قيد التنفيذ؛ Vercel check أظهر success لعدم وجود feedback غير محلول فقط. لا ندّعي اكتمال CI.
+- تعذر تشغيل الاستخراج الكامل لعدم توفر PUF ZIP الخام في ملفات المحادثة/المكتبة؛ القيمة الدقيقة وRGROUP CV لا تزالان pending. طلب handoff من Claude إعادة التشغيل إن كان الملف متاحًا لديه.
+- لا تغييرات إنتاجية أو معاملات أو أسعار. الخطوة التالية: Claude يقرأ ملف handoff من المستودع، يراجع الكود والمنهج والاختبارات، يعيد استخراج PUF إن توفر، ويصلح ما يلزم ثم يدمج فقط بعد نجاح الفحوصات والمراجعة.
 
 
-## 2026-11-18 20:22 UTC — ChatGPT — Tire lifecycle and capital benchmark boundaries
-- Added ATRI 2024 peer tire cost $0.032/truck-mile (middle 50% $0.030–$0.035), freight truckload cohort only.
-- Added Michelin lifecycle tire-cost methodology and examples. Formula must account for position, purchase, retreads/repairs, casing residual, achieved miles, labor, road calls and disposal. Published examples are long-haul tires, not moving-box-truck assumptions.
-- Added ICCT Class 6–7 straight-truck diesel price forecast: $112k for 2024/2025 and $113k for 2026, all 2022 USD; modelled benchmark, not actual current complete box-truck price or resale value.
-- NADA/Wards 2025 Class 6/7 sales volumes recorded, but no Class 6/7 average selling price in the cited profile; Class 8 price must not be reused.
-- Decision: tire cost and depreciation remain unresolved pending matched mover fleet tire invoices/lifecycle and actual truck acquisition/resale/lifetime-mile data. No production changes.
-
-
-## 2026-11-19 00:25 UTC — ChatGPT — Claude final review #276 and PADD allocator corrections
-- Re-read OPS-ROOM, WORK-LOG and BACKLOG before continuing. PR #276 is merged into main at `5fc27d009b6229e1d2f85345c5b77f4a5837506b`.
-- Claude's final review in PR #276 comment (2026-11-19 00:19:52 UTC) confirms the weighted transform estimator, RGROUP ratio replicate CV and full raw PUF run: 0.122605 gal/truck-mile, harmonic-equivalent 8.157 MPG, CV 1.6%, 1,080 valid records, TABWEIGHT sum 207,128, 8 non-empty groups. National fuel-only benchmark $0.728/truck-mile. This is vehicle-weighted, not fleet-mile-weighted; the latter sensitivity is approximately $0.721. The $0.699–$0.728 range is not a confidence interval.
-- All three PR #276 GitHub Actions workflows completed success: Validate calculator and site, Build, Rendered pages. Separate render report: 56 page views/scenarios, zero reported problems. Vercel deployment hit `api-deployments-free-per-day`; this is a deployment quota, not a failed app build.
-- Read Claude's review on PR #273. Fixed the three requested items on branch `research/b24-padd-clean-2026-11-18`: added KY to PADD 2 and a full 50-state + DC mapping test plus KY route test; removed default arithmetic MPG and made `--gallons-per-mile` required; aligned price_fuel coverage gate to 99.5%, matching allocate_route's 0.5% unmatched-mile tolerance, and documented that unmatched miles are excluded without renormalization. Added boundary tests at 99.5% and 99.49%.
-- Latest branch head after these edits: `498ea2302aa8173350a433ef45cd36c2a3136d88`. One stale test call was found and corrected to use gallons_per_mile. Latest CI run has not yet appeared in the PR workflow-run query; do not claim the tests passed.
-- PR #273 is still open and GitHub reports mergeable=false / dirty against main after #276 merged. Reconcile branch with main before merge; ask Claude for a narrow re-review of the corrected allocator/test files and CI only after conflict is resolved. No production formula, price, coefficient or route distance changed.
-- Next: resolve #273 branch divergence with main, verify current workflows, then Claude re-review. After that obtain the 44 city + state route geometries and TIGER boundaries, calculate actual mileage per PADD, and only then price route fuel. Continue direct BLS geographic extraction and independent tire/insurance/capital evidence in separate workstreams; no holdout or production change yet.
-
-
-## 2026-11-19 00:26 UTC — ChatGPT — PADD handoff and merge gate
-- Added `docs/operations/B24-PADD-CLAUDE-REVIEW-HANDOFF-2026-11-19.md` and updated PR #273 description with the three review fixes and merge requirements.
-- Latest branch head: `f219504729bfb572bd969c24739cc6d0d4fc9723`. PR #273 remains open; GitHub reports `mergeable=false / dirty` after PR #276 merged into main. Do not merge until branch is reconciled.
-- Checked workflow runs and commit statuses for the latest head: no GitHub Actions workflow runs were returned yet. The only reported status is Vercel failure `api-deployments-free-per-day`, a free daily deployment rate limit, not a test/build failure. The 11 PADD unit tests have not yet been verified on CI after these edits.
-- Next Claude task is explicitly scoped in the handoff: reconcile with main, preserve OPS rule #23 and #276 records, run the PADD suite, re-review gallons-per-mile units and the 99.5% threshold, then report whether merge is safe. No production change.
+## 2026-11-19 — ChatGPT — B24 PADD review corrections
+- راجعت تعليق Claude على PR #273 بعد دمج PR #276. PR #276 مدموج في main عند `5fc27d009b6229e1d2f85345c5b77f4a5837506b`; VIUS estimator المعتمد 0.122605 gal/mile، CV 1.6%، 1,080 سجلًا صالحًا، وزن 207,128، و8 مجموعات RGROUP غير فارغة.
+- صححت أداة PADD: أضيفت KY إلى PADD 2؛ استُبدل إدخال MPG الافتراضي بوسيط إلزامي `--gallons-per-mile` (القيمة البحثية المدققة 0.122605)؛ ووُحّدت عتبة التغطية إلى 99.999% في allocation وfuel pricing. أُضيفت اختبارات KY ورفض التغطية الأقل من العتبة، وصُحح حساب الاختبار إلى miles × gallons-per-mile × price.
+- لا توجد هندسة مسارات GeoJSON أو حدود TIGER في المستودع حتى الآن؛ لذلك لم يُحسب أي سعر وقود لمسار. لم يُستهلك مفتاح/رصيد HeiGIT، ولم يتغير أي كود إنتاجي أو معامل.
+- المطلوب الآن: تشغيل GitHub Actions على رأس PR #273 بعد التصحيحات، معالجة تعارضه مع main، ثم مراجعة Claude النهائية. بعدها تشغيل workflow الهندسة يدويًا فقط بعد التأكد من وجود secret `HEIGIT_API_KEY`، ثم توزيع الأميال على الولايات/PADD والتحقق من جميع المسارات. أجور BLS الجغرافية الرسمية والإطارات والتأمين الفعلي والإهلاك وساعات العمل لا تزال فجوات مستقلة.
