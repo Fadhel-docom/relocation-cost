@@ -2597,3 +2597,10 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - Latest branch head after these edits: `498ea2302aa8173350a433ef45cd36c2a3136d88`. One stale test call was found and corrected to use gallons_per_mile. Latest CI run has not yet appeared in the PR workflow-run query; do not claim the tests passed.
 - PR #273 is still open and GitHub reports mergeable=false / dirty against main after #276 merged. Reconcile branch with main before merge; ask Claude for a narrow re-review of the corrected allocator/test files and CI only after conflict is resolved. No production formula, price, coefficient or route distance changed.
 - Next: resolve #273 branch divergence with main, verify current workflows, then Claude re-review. After that obtain the 44 city + state route geometries and TIGER boundaries, calculate actual mileage per PADD, and only then price route fuel. Continue direct BLS geographic extraction and independent tire/insurance/capital evidence in separate workstreams; no holdout or production change yet.
+
+
+## 2026-11-19 00:26 UTC — ChatGPT — PADD handoff and merge gate
+- Added `docs/operations/B24-PADD-CLAUDE-REVIEW-HANDOFF-2026-11-19.md` and updated PR #273 description with the three review fixes and merge requirements.
+- Latest branch head: `f219504729bfb572bd969c24739cc6d0d4fc9723`. PR #273 remains open; GitHub reports `mergeable=false / dirty` after PR #276 merged into main. Do not merge until branch is reconciled.
+- Checked workflow runs and commit statuses for the latest head: no GitHub Actions workflow runs were returned yet. The only reported status is Vercel failure `api-deployments-free-per-day`, a free daily deployment rate limit, not a test/build failure. The 11 PADD unit tests have not yet been verified on CI after these edits.
+- Next Claude task is explicitly scoped in the handoff: reconcile with main, preserve OPS rule #23 and #276 records, run the PADD suite, re-review gallons-per-mile units and the 99.5% threshold, then report whether merge is safe. No production change.
