@@ -794,46 +794,48 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - تم توثيق المصدر والحدود في مذكرة B24 وملف بيانات BLS وسجل العمل والبند B24.
 
 
-## آخر تحديث — 2026-11-18 20:07 UTC
-- أضفت ملف أجور May 2025 البحثي: 19 ولاية لثلاث مهن SOC، و18/18 مدينة لمهنة المناولة SOC 53-7062. المصدر WageDex يعيد نشر BLS، وليس ملف BLS الرسمي مباشرة؛ RSE غير متاح، لذلك لا استخدام إنتاجي. استخراج BLS الرسمي والتحقق من RSE ما زالا مطلوبين.
-- أضفت مقارنة ATRI 2024 لمجموعة شاحنات بضائع (81–200 شاحنة) تشمل الإطارات والصيانة والتأمين والمعدات والأجور والمزايا والوقود. هي مرجع حساسية خارجي فقط، لا تمثل نقل المنازل ولا يجوز جمع وسائط مكوناتها.
-- أضفت أداة توزيع وقود حسب هندسة الطريق وولاياته ثم PADD، مع أسعار EIA المؤرخة 2026-11-16. لا يمكن حساب تكلفة مسار بعد لأن ملفات GeoJSON وحدود TIGER لم تُجلب بعد.
-- حسّنت بوابات الأمان: اختلاف المسافة أكثر من 1% يوقف التوزيع؛ تغطية حدود أقل من 99.5% ترفض؛ وحساب الوقود يرفض أي ميل غير مسند لولاية حتى لو كانت النسبة الصغيرة ضمن حد التسامح. أضفت prefilter للحدود لتسريع المعالجة.
-- Workflow جلب المسارات يتطلب GitHub Actions secret باسم HEIGIT_API_KEY. لم تُرسل أي طلبات إلى HeiGIT ولم تُستهلك حصة API. لا تغيير إنتاجي أو في معاملات الحاسبة.
+## آخر تحديث — 2026-11-18 21:25 UTC — B24 متابعة توزيع الوقود ومكونات التكلفة
+- أُنشئت مذكرة بحثية مستقلة في `docs/operations/B24-RESEARCH-UPDATE-2026-11-18.md` عبر PR #274 (مسودة، توثيق فقط).
+- ثُبّتت خريطة EIA الرسمية من الولايات إلى PADD، وأسعار الديزل للأسبوع 2026-11-16: 1A $6.225، 1B $6.309، 1C $5.541، PADD2 $5.967، PADD3 $5.547، PADD4 $6.011، PADD5 $6.948، كاليفورنيا $7.733، وPADD5 عدا كاليفورنيا $6.269 للغالون.
+- تم تحديد طريقة حساب سعر الوقود على المسار: تقاطع polyline مع حدود PADD ثم وزن السعر بعدد الأميال داخل كل منطقة. لم يُحسب توزيع المسارات بعد؛ جداول المسافة وحدها لا تكفي دون هندسة المسار.
+- تم توثيق أن قواعد FMCSA لساعات القيادة حدود تنظيمية وجدولة وليست متوسط ساعات عمل أو سرعة مفترضة؛ ويجب فصل وقت السائق عن ساعات طاقم التحميل والتفريغ.
+- تم توثيق حد التأمين الإلزامي لدى FMCSA لناقلات السلع المنزلية (GVWR ≥10,001 lb): $750,000 مسؤولية عامة و$5,000 تغطية شحنات؛ هذه حدود تغطية وليست أقساط تأمين.
+- عُثر على أمثلة أسعار شراء لشاحنات Isuzu جديدة، لكنها لا تكفي لاشتقاق الإهلاك دون بيانات إعادة بيع مماثلة. لم نعثر بعد على عينة موثوقة تجمع سعر الإطار المركب وعمره التشغيلي؛ لذلك الإطارات والتأمين الفعلي والإهلاك ما زالت غير محسومة.
+- بقي استخراج BLS May 2025 الجغرافي دون أرقام معتمدة؛ لن نستخدم بيانات 2023 أو مواقع ثانوية بدل المصدر الرسمي.
+- لم يتغير أي كود إنتاجي أو معامل أو معادلة أو سعر أو بيانات مسارات. B24 بحثي فقط، ولا يوجد بعد سعر كامل لكل ميل شاحنة أو لكل رطل-ميل.
+- التالي: استخراج polyline للمسارات الـ44 وتوزيع أميالها على PADD؛ ثم إتمام استخراج BLS الرسمي، وجمع عينة إطارات/إهلاك/تأمين قابلة للمقارنة، وبناء ساعات تشغيل منفصلة للقيادة والمناولة قبل اختبار holdout.
+
+## 2026-11-19 — Claude: VIUS fuel audit and instructions to ChatGPT
+- Owner's role split (2026-11-19): Claude reviews, corrects and advises; ChatGPT implements; Claude does the final review and merges. Claude's free quota is very small: keep review requests narrow and name the exact files.
+- Audit in `docs/operations/B24-CLAUDE-VIUS-MAIN-EXTRACTION-AUDIT-2026-11-19.md`: every figure of the diesel class 6-7 cell reproduced from the raw PUF. One defect: fuel $/mile was computed as price / arithmetic-mean MPG (9.10 -> $0.653). Average gallons per mile instead (harmonic): $0.713-0.728 (+8.6 to +11.5 %), $0.699 with an MPG 5-20 trim; 30 of 1,080 records report MPG 1-4.
+- ChatGPT, do next (docs/data only, one PR): (1) in `B24-VIUS-WEIGHTED-EXTRACTION-2026-11-18.md` and `B24-RESEARCH-UPDATE-2026-11-18.md` replace the single $0.653 / $0.875 with the range and name the aggregation; (2) in `tools/b24-vius-box-truck-extract.py` add a per-record gallons-per-mile weighted mean next to the MPG mean, with the replicate-group CV; (3) PR #273 must not use `fuel = price / mean MPG` anywhere; use gallons per mile; (4) keep BLS/EIA values flagged "not verified by Claude" until the owner uploads the files (Claude's sandbox blocks both hosts). Claude will review and merge.
 
 
-## آخر تحديث — 2026-11-18 20:15 UTC
-- أضيفت بيانات تأمين أكثر ارتباطًا بقطاع النقل المنزلي من Insureon: وسيط قسط السيارة التجارية 876$/شهر، المسؤولية العامة 120$/شهر، وتعويض العمال 755$/شهر، وفق وثائق شركات نقل تقدمت بطلب عروض على منصته. لا يُعرف عدد الشاحنات في العينة، لذلك لا يمكن تحويلها إلى تكلفة لكل شاحنة أو ميل. تعويض العمال مرتبط بالرواتب، والمسؤولية العامة مصروف شركة.
-- أضيف مرجع ATRI منفصل: قسط مسؤولية الشاحنات التجارية 0.102$/ميل في 2024، زيادة 18.6% منذ 2021. هذا مرجع نقل بضائع وليس نقل منازل.
-- عُثر على دليل ساعات أقوى: Bellhop نشر بيانات تشغيل فعلية من مجموعات moves، منها متوسط 5–6 ساعات عمل بشرية إجمالية لانتقالات شقة غرفة واحدة في Raleigh (n=80 ثم 128)، و5 ثم 15 ساعة بشرية لانتقالات منزل 3 غرف في Atlanta (n=27 ثم 61)، مع P80. البيانات قديمة وخاصة بالشركة وليست معيارًا وطنيًا.
-- تقرير FMCSA/US DOT يصف مهام سائق نقل المنازل وأزمنة مفاهيمية لكل مهمة (تجهيز 15–45 دقيقة، جرد 90–180، نقل فعلي يقوم به السائق 30–90، تعبئة/تأمين الحمولة 30–180). التقرير يحذر من التباين، وبعض المهام متداخلة؛ لا يجوز جمعها كأنها متتابعة.
-- القرار: نفصل زمن القيادة عن مهام السائق غير القيادية وعن إجمالي ساعات عمل الطاقم (عدد العمال × الزمن المنقضي). لا معامل ساعات موحد حتى الآن. كل الأدلة بحثية خارج الإنتاج.
+## 2026-11-19 — Claude VIUS fuel aggregation audit and ChatGPT correction
+- **تقسيم الأدوار المعتمد:** Claude يراجع ويصحح ويقدم التوصيات؛ ChatGPT ينفذ؛ Claude يجري المراجعة النهائية والدمج. بسبب محدودية حصة Claude المجانية، تُرسل له مراجعة مركزة واحدة مع أسماء الملفات الدقيقة، لا مهام صغيرة متفرقة.
+- راجع Claude ملف `docs/operations/B24-CLAUDE-VIUS-MAIN-EXTRACTION-AUDIT-2026-11-19.md` وأعاد حساب خلية الديزل GVWR 6–7 من PUF الخام مستقلاً. أكد صحة أعداد العينة (1,556 سجلًا/317,285 مركبة موزونة) ومتوسط MPG (9.10) والأميال السنوية ونسب التحميل/العودة الفارغة/إعادة التموضع.
+- **تصحيح جوهري:** حساب الوقود السابق `سعر الغالون ÷ المتوسط الحسابي لـMPG` غير صحيح لتقدير متوسط استهلاك الوقود لكل ميل؛ يجب تحويل كل سجل إلى `1/MPG` ثم حساب المتوسط الموزون. أعاد Claude تقدير التكلفة إلى نحو $0.728/ميل باستخدام المتوسط التوافقي، مع حساسيات $0.699–$0.717، وتقدير موزون بالأميال نحو $0.721. هذه سيناريوهات تجميع وليست مجال ثقة. كما أن أسعار EIA الوطنية لا تزال ليست توزيعًا حسب المسار.
+- نفذ ChatGPT تصحيحًا بحثيًا في PR جديد: إضافة `gallons_per_mile` إلى سكربت الاستخراج مع متوسط TABWEIGHT وCV لمجموعات RGROUP؛ سحب $0.653/$0.875 القديمين من تفسير الوقود واستبدالهما بنطاقات معلنة؛ وتصحيح معادلة تكلفة الوقود إلى السعر × متوسط الغالونات لكل ميل. الملفات الثلاثة: سكربت الاستخراج، تقرير VIUS الموزون، ومذكرة B24.
+- **لم يُعاد تشغيل السكربت على ملف PUF في هذه الجلسة**؛ لذلك القيمة الدقيقة وCV للمقياس الجديد ينتظران تشغيله على ملف المالك. لا تُعرض قيم حساسية Claude على أنها ناتج تشغيل جديد للسكربت.
+- Claude لم يتمكن من إعادة قراءة مصادر BLS/EIA الرسمية من بيئته؛ تبقى هذه القيم موسومة بأنها غير متحقق منها بواسطة Claude إلى أن يرفع المالك الملفات/المخرجات اللازمة. لا تغيير إنتاجي أو معامل أو سعر حاسبة.
+- الحالة: PR التصحيح ينتظر مراجعة Claude النهائية ودمجه. بعده ننتقل إلى استخراج هندسة المسارات لتوزيع أميالها على PADD، مع إبقاء BLS والأجور والإطارات والتأمين والإهلاك منفصلة وغير محسومة حتى تتوفر أدلة قابلة للتدقيق.
 
-
-## تصحيح تدقيق أجور المدن — 2026-11-18
-- بعد إعادة عدّ السجلات مقابل `data/cities.json`، ملف WageDex يحتوي 17/18 مدينة لمهنة SOC 53-7062، وليس 18/18. Chicago غير موجودة في سجل metro.
-- الرقم 40,550$ / 19.50$ للساعة الذي ظهر سابقًا هو وسيط ولاية Illinois، وليس وسيط Chicago-Naperville-Elgin. لن ننقله إلى المدينة. بقيت Chicago مفقودة حتى العثور على صف metro موثق.
-
-
-## آخر تحديث — 2026-11-18 20:22 UTC
-- تم تدقيق تغطية أجور المدن: الملف يغطي 17/18 فقط؛ Chicago غير موجودة. قيمة 40,550$ هي ولاية Illinois وليست Chicago metro، ولن نعيد تسميتها أو نستخدمها بدلًا من المدينة.
-- أضيفت مقارنة إطارات ATRI 2024: 0.032$/ميل وسيطًا لمجموعة شاحنات بضائع، مع نطاق 0.030–0.035. أضيفت أيضًا طريقة Michelin لحساب تكلفة الإطار عبر عمره الكامل، لكن أمثلتها تخص إطارات نقل ثقيل وليست معاملًا لشاحنات نقل المنازل.
-- أضيف مرجع ICCT لشراء شاحنات Class 6–7 straight truck: 112 ألف دولار في 2024/2025 و113 ألفًا في 2026 بدولارات 2022؛ هو تقدير نمذجي وليس سعر شراء فعليًا لشاحنة نقل منزل كاملة، ولا يتضمن قيمة إعادة البيع أو العمر التشغيلي.
-- القرار: الإطارات والاستهلاك الرأسمالي لا يزالان غير محسومين كمعاملات إنتاجية. لا تغيير في الحاسبة أو الأسعار.
-
-
-## 2026-11-19 — ChatGPT — Claude review #276 + B24 PADD corrections
-- PR #276 merged into `main` at commit `5fc27d009b6229e1d2f85345c5b77f4a5837506b`. Claude's final review confirmed the per-record `1/MPG` TABWEIGHT estimator and RGROUP ratio replicate CV. Raw PUF result: 0.122605 gallons per truck-mile (harmonic equivalent 8.157 MPG), CV 1.6%, 1,080 valid records, weighted count 207,128, eight non-empty replicate groups. National fuel-only estimate $0.728 per total truck-mile at the cited national diesel price. This is vehicle-weighted, not fleet-mile-weighted; separate mileage-weighted scenario is about $0.721. Do not merge those estimands or call the sensitivity range a confidence interval.
-- GitHub Actions for merged PR #276: Validate calculator and site, Build, and Rendered pages all completed successfully. Render report checked 56 page views/scenarios with zero reported problems. Vercel deployment was rate-limited by the free daily deployment cap; do not treat that as an application build failure or claim a fresh production deploy.
-- Claude's review of PR #273 found: Kentucky missing from PADD_BY_STATE; the `--mpg` default 9.10 carried the withdrawn arithmetic-mean MPG bias; and allocation accepted 99.5% coverage while fuel pricing required 99.999%. ChatGPT corrected the research-only allocator: KY → PADD 2; required `--gallons-per-mile` input (no arithmetic MPG default); pricing formula now uses route miles × gallons per mile × PADD price; one shared 99.5% threshold with unmatched mileage reported and never normalized. Added tests for all 50 states + DC, a KY route, the shared threshold, and new fuel units.
-- PR #273 remains open and currently reports a merge conflict against main because it predates merged PR #276. The code fixes are on its head branch, but CI has not yet reported a run for the latest commit. Do not merge until the branch is reconciled with main, CI passes, and Claude re-reviews.
-- No production calculator code, formula, coefficients, displayed prices or route distances changed. B24 remains research-only.
 
 23. **غرفة العمليات هي المصدر الوحيد الملزم (تأكيد المالك، 2026-11-19):** لا يُسلّم أي عمل إلى Claude أو ChatGPT عبر رسالة محادثة منفصلة بوصفها المرجع الوحيد. يجب أن تكون المهمة، والسياق، والملفات الدقيقة، والقرارات، والقيود، والاختبارات، وحالة PR، وطلب الطرف التالي موثقة أولًا في OPS-ROOM.md وdocs/operations/WORK-LOG.md، مع ملف handoff متخصص عند الحاجة. يجوز للمحادثة أن تشير إلى رابط غرفة العمليات أو تلخصه فقط؛ ولا تحل محل التوثيق. قبل التسليم، تحقق من أن كل ما يحتاجه الطرف التالي موجود في المستودع، وأن السجل يذكر صراحة ما لم يُنجز ولماذا. بعد رد Claude، يُسجل الرد والقرار والنتيجة في الغرفة والسجل قبل بدء مرحلة جديدة.
 
 
-## 2026-11-19 — ChatGPT — PR #273 handoff prepared
-- أُنشئ `docs/operations/B24-PADD-CLAUDE-REVIEW-HANDOFF-2026-11-19.md` داخل الفرع، وحدّث وصف PR #273 ليشرح الإصلاحات وبوابة الدمج.
-- آخر رأس للفرع بعد ملف handoff: `f219504729bfb572bd969c24739cc6d0d4fc9723`. بقي PR #273 مفتوحًا، وGitHub يبلّغ `mergeable=false / dirty` بسبب اختلاف الفرع عن main بعد دمج #276.
-- فحص الحالة للالتزام الأخير: لا توجد GitHub Actions workflow runs ظاهرة بعد لهذا الرأس؛ حالة Vercel الوحيدة فاشلة بسبب `api-deployments-free-per-day` (حد النشر المجاني اليومي)، وليست فشل اختبار أو build. لذلك لا ندّعي نجاح اختبارات PR #273 بعد التعديلات.
-- المطلوب التالي من Claude: حل التعارض مع main مع الحفاظ على القاعدة 23 وسجل #276، تشغيل 11 اختبار PADD، إعادة تدقيق وحدة gallons-per-mile وحد 99.5%، ثم تقرير مراجعة نهائية. لا دمج قبل حل التعارض ونجاح CI.
+## 2026-11-19 — ChatGPT — استكمال توثيق حزمة تسليم B24
+- بناءً على تأكيد المالك، أُضيفت القاعدة 23: غرفة العمليات وسجل العمل هما المصدر الوحيد الملزم؛ لا يعتمد تسليم Claude على نص المحادثة وحده. يجب تسجيل المهمة والملفات والقيود والاختبارات والحالة وطلب الطرف التالي في المستودع أولًا.
+- استُكملت حزمة PR #276 على الفرع research/b24-correct-fuel-aggregation-2026-11-19: ملف handoff محدد، اختبارات وحدات لمتوسط الغالونات لكل ميل، وإضافة تشغيل الاختبارات إلى .github/workflows/validate.yml باستخدام Python 3.12.
+- PR body يربط ملف handoff ويحدد المطلوب من Claude. آخر commit وقت التسجيل: 0f2d59d46a4a02b1339eba4b562fae0b75525aeb. PR ما زال Draft ومفتوحًا؛ لم تصدر مراجعة Claude ولم يحدث دمج.
+- حالة CI عند آخر فحص: Build job نجح فيه npm test، وكان npm run build قيد التنفيذ؛ workflow validation كان في مرحلة إعداد Node، ولم يصل بعد إلى اختبار Python؛ rendered-pages job كان قيد التنفيذ. Vercel check على الرأس الأخير أظهر success لرسالة عدم وجود feedback غير محلول، وليس دليلاً على اكتمال جميع workflows.
+- ملف PUF الخام لم يُعثر عليه في ملفات المحادثة/المكتبة المتاحة، لذلك لم يُنفذ استخراج كامل جديد ولم تُسجل قيمة دقيقة أو CV. لا تزال هذه نقطة مطلوبة من Claude إن توفر الملف لديه.
+- لم يتغير كود الإنتاج أو معاملات الحاسبة أو الأسعار. رابط PR: https://github.com/Fadhel-docom/relocation-cost/pull/276 .
+
+ 
+## 2026-11-19 — Claude VIUS audit + PADD follow-up
+- PR #276 دُمج في main (`5fc27d009b6229e1d2f85345c5b77f4a5837506b`). أكد Claude صحة متوسط TABWEIGHT الموزون لتحويل السجلات إلى `1/MPG` وحساب RGROUP ratio CV. التشغيل الخام: 0.122605 gal/mile، CV 1.6%، n=1,080، وزن 207,128، 8 مجموعات RGROUP غير فارغة. التقدير $0.728/شاحنة-ميل عند EIA U.S. $5.937/gal؛ ليس سعر نقل أو تكلفة تشغيل كاملة.
+- مراجعة Claude التالية على PR #273 سجلت ثلاثة تصحيحات: Kentucky مفقودة من PADD 2؛ يجب إلغاء MPG الافتراضي القديم 9.10 واعتماد مدخل إلزامي gallons-per-mile؛ وعتبتا 0.5% في التوزيع و99.999% في التسعير غير متسقتين.
+- عُدّلت أداة PADD على فرع PR #273: إضافة KY، واشتراط `--gallons-per-mile`، وتوحيد حد التغطية إلى 99.999% في مرحلتي التوزيع والتسعير، وتحديث الاختبارات والوثائق. تم تصحيح اختبار تسعير PADD 1 بوحدة gallons-per-mile.
+- لم تُحسب أي PADD split فعلية بعد: route GeoJSON وملف حدود TIGER ما زالا مطلوبين. لم تُرسل طلبات HeiGIT ولم تُستهلك الحصة. لا تغيير إنتاجي أو في معاملات الحاسبة.
+- الخطوة التالية: تحقق CI على PR #273، ثم حل تعارض الفرع مع main ومراجعة Claude النهائية؛ بعد ذلك جلب route geometries للـ44 city routes وطرق صفحات الولايات، وإحضار TIGER boundaries، وفحص التغطية/المسافة قبل حساب الوقود. بقية مكونات التكلفة تظل بحثية وغير محسومة.
