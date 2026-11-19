@@ -228,7 +228,7 @@ def price_fuel(allocation: dict[str, Any],
     if not math.isfinite(gallons_per_mile) or gallons_per_mile <= 0:
         raise AllocationError("Gallons per mile must be a finite value greater than zero.")
     coverage = float(allocation.get("coverage_pct", 0.0))
-    if coverage < MIN_ROUTE_COVERAGE_PCT
+    if coverage < MIN_ROUTE_COVERAGE_PCT:
         raise AllocationError(
             f"Route state-boundary coverage is {coverage:.6f}%; "
             f"minimum required is {MIN_ROUTE_COVERAGE_PCT:.3f}%. "
