@@ -225,13 +225,14 @@ def allocate_route(route: dict[str, Any],
 def price_fuel(allocation: dict[str, Any],
                prices: dict[str, Any],
                gallons_per_mile: float) -> dict[str, Any]:
-    if gallons_per_mile <= 0:
-        raise AllocationError("Gallons per mile must be greater than zero.")
+    if not math.isfinite(gallons_per_mile) or gallons_per_mile <= 0:
+        raise AllocationError("Gallons per mile must be a finite value greater than zero.")
     coverage = float(allocation.get("coverage_pct", 0.0))
-    if coverage < 99.5:
+    if coverage < MIN_ROUTE_COVERAGE_PCT
         raise AllocationError(
-            f"Route state-boundary coverage is {coverage:.4f}%; not fully covered. "
-            "Fuel cost is not calculated below 99.5% coverage; unmatched mileage is reported and is never normalized."
+            f"Route state-boundary coverage is {coverage:.6f}%; "
+            f"minimum required is {MIN_ROUTE_COVERAGE_PCT:.3f}%. "
+            "Fuel cost is not calculated until the route meets the same strict coverage gate as allocation."
         )
     price_map = prices.get("usd_per_gallon", {})
     padd_miles = allocation["miles_by_padd"]
@@ -271,7 +272,7 @@ def price_fuel(allocation: dict[str, Any],
         "fuel_only_cost_usd": round(total_cost, 2),
         "fuel_only_cost_per_truck_mile_usd": round(total_cost / allocation["route_miles"], 4),
         "by_padd": by_padd,
-        "scope_warning": "Fuel only. Uses matched PADD mileage without renormalizing; any unmatched mileage (up to the 0.5% allocation tolerance) is excluded and reported in allocation. Excludes labor, maintenance, tires, insurance, depreciation, overhead, tolls, and any deadhead not included in the supplied route.",
+        "scope_warning": "Fuel only. Both allocation and pricing require at least 99.999% route-mile coverage; unmatched mileage is not silently assigned or normalized. Excludes labor, maintenance, tires, insurance, depreciation, overhead, tolls, and any deadhead not included in the supplied route.",
     }
 
 
