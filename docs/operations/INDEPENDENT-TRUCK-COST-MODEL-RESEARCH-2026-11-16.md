@@ -31,7 +31,7 @@ Crucially, the public-use data dictionary includes fields that map directly to t
 
 This is a much better foundation than guessing a universal cents-per-mile rate from bedroom count or copying a mover's quote table. The PUF also applies disclosure protections (including noise, topcoding, swapping and coarsening); its cost bands are not exact invoices. The extraction must therefore use the survey weights, report sample counts and distributions, and avoid publishing sparse or unstable cells.
 
-**Weighted extraction completed 2026-11-18.** The reproducible script and results are in `tools/b24-vius-box-truck-extract.py` and `docs/operations/B24-VIUS-WEIGHTED-EXTRACTION-2026-11-18.md`. It filters `BTYPE=07` and `BUSRELATED=1`, then reports weighted MPG, annual mileage, loaded/deadhead/reposition shares, variable-level valid counts, maintenance/repair category distributions and random-group CVs by GVWR and fuel. The focus diesel sample (GVWR 6–7) contains 1,556 PUF records and represents about 317,285 vehicles; weighted MPG is 9.10 (CV 1.5%), annual mileage 25,011 (CV 3.9%), and loaded share 74.6% (CV 1.0%). Maintenance and repair remain interval-censored annual bands, not exact per-mile costs. No price or production coefficient is asserted.
+**Weighted extraction completed 2026-11-18; fuel aggregation corrected and independently reviewed by Claude on 2026-11-19 (PR #276).** The reproducible script and results are in `tools/b24-vius-box-truck-extract.py` and `docs/operations/B24-VIUS-WEIGHTED-EXTRACTION-2026-11-18.md`. It filters `BTYPE=07` and `BUSRELATED=1`, then reports weighted MPG, annual mileage, loaded/deadhead/reposition shares, variable-level valid counts, maintenance/repair category distributions and random-group CVs by GVWR and fuel. The focus diesel sample (GVWR 6–7) contains 1,556 PUF records and represents about 317,285 vehicles; the weighted arithmetic MPG is 9.10 (CV 1.5%), annual mileage 25,011 (CV 3.9%), and loaded share 74.6% (CV 1.0%). **Do not use the arithmetic MPG to calculate fuel per mile.** Claude's corrected VIUS estimator uses the TABWEIGHT-weighted mean of per-record gallons-per-mile (1/MPG), yielding 0.122605 gallons per vehicle-mile (CV 1.6%, n=1,080, TABWEIGHT sum 207,128, 8 non-empty RGROUPs). The arithmetic MPG remains descriptive only. Maintenance and repair remain interval-censored annual bands, not exact per-mile costs. No price or production coefficient is asserted.
 
 ## Other independent inputs
 
@@ -47,7 +47,7 @@ Keep the calculation decomposed so each component has its own source, unit, upda
 
 ```text
 fuel_cost_per_total_mile
-  = route_weighted_fuel_price_per_gallon / weighted_VIUS_MPG
+  = route_weighted_fuel_price_per_gallon × VIUS_weighted_gallons_per_vehicle_mile
 
 maintenance_repair_per_mile
   = weighted_annual_maintenance_and_repair_cost / weighted_annual_miles
@@ -97,7 +97,7 @@ Before any production coefficient changes:
 
 ## Immediate next step (updated 2026-11-18)
 
-A first fuel-only benchmark is now calculated from the extracted VIUS MPG/loaded-share estimates and EIA diesel prices for 2026-11-16 by PADD. It yields about $0.653 per total truck-mile and $0.875 per loaded truck-mile at the U.S. EIA average, before every non-fuel component. Route mileage weighting through PADDs is still missing; do not approximate it by averaging only route endpoints. Next: extract May 2025 BLS state/metro wage estimates for driver and handling occupations, build interval/sensitivity treatment for maintenance/repair, and research tires, insurance, depreciation/capital and overhead. Keep B24 research-only; no per-mile or per-pound-mile rate and no production formula change until components and holdout tests are complete.
+**Corrected fuel-only benchmark (2026-11-19):** the VIUS weighted gallons-per-vehicle-mile factor is 0.122605. At the recorded EIA U.S. diesel snapshot of $5.937/gal, this equals approximately $0.728 per vehicle-mile before every non-fuel component. The prior $0.653 figure based on arithmetic-average MPG is superseded and must not be used. A loaded-mile figure is a separate scenario and must be computed only with the explicitly documented loaded-mile denominator; do not mix it with the per-vehicle-mile baseline. Route mileage weighting through PADDs is still missing; do not approximate it by averaging only route endpoints. Next: extract May 2025 BLS state/metro wage estimates for driver and handling occupations, build interval/sensitivity treatment for maintenance/repair, and research tires, insurance, depreciation/capital and overhead. Keep B24 research-only; no per-mile or per-pound-mile rate and no production formula change until components and holdout tests are complete.
 
 ## Sources checked 2026-11-16
 
@@ -268,3 +268,12 @@ Sources:
 - ICCT Working Paper 2023-10: https://www.theicct.org.cn/wp-content/uploads/2025/03/cost-zero-emission-trucks-us-phase-3-mar23.pdf
 - NADA Annual Financial Profile: https://www.nada.org/index.php/media/5008/download
 - ATRI sample peer report: https://truckingresearch.org/wp-content/uploads/2026/02/sample_customized_yoy_report.pdf
+
+
+## B24 PADD and geometry status — 2026-11-19
+
+- PR #273 merged after Claude's final review at `19d4a1322f0dfee03f4ef57ee2a5a67be1eba10a`. The allocator maps all 50 states + DC (including KY→PADD 2), requires gallons-per-mile, and applies the same exact 99.999% coverage gate at allocation and pricing. Claude reports 14/14 allocator tests and green Actions; 4 TIGER converter tests are included in the 18-test focused suite.
+- Census TIGER 2026 and HeiGIT route workflows are manual-only. No boundary GeoJSON or route geometry has yet been fetched, and no route-level PADD miles/costs have been calculated. Run TIGER first; run HeiGIT only when the repository secret is configured. See `B24-GEOMETRY-INGESTION-HANDOFF-2026-11-19.md`.
+- The fuel equation for route-level PADD pricing is `sum(route miles in PADD × 0.122605 gallons per vehicle-mile × current PADD diesel USD/gallon)`. It is fuel-only and research-only.
+- Official BLS geographic rows have not been extracted; WageDex transcriptions remain unapproved because RSE is unknown. Tire lifecycle, mover-specific insurance, capital/depreciation, labor hours and holdout tests remain open.
+- No production calculator, price, coefficient or route distance changed.
