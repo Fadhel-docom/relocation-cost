@@ -39,6 +39,7 @@ PADD_BY_STATE = {
 }
 
 EARTH_RADIUS_MILES = 3958.7613
+MIN_ROUTE_COVERAGE_PCT = 99.999
 
 
 class AllocationError(ValueError):
@@ -184,10 +185,11 @@ def allocate_route(route: dict[str, Any],
     if geometry_miles <= 0:
         raise AllocationError("Route geometry has no measurable length.")
     uncovered_share = unmatched_miles / geometry_miles
-    if uncovered_share > 0.005:
+    if 100 * (1 - uncovered_share) < MIN_ROUTE_COVERAGE_PCT:
         raise AllocationError(
-            f"{uncovered_share:.2%} of route mileage is outside matched state polygons; "
-            "refusing to normalize or guess the missing PADD mileage."
+            f"Route state-boundary coverage is {100 * (1 - uncovered_share):.6f}%; "
+            f"minimum required is {MIN_ROUTE_COVERAGE_PCT:.3f}%. "
+            "Refusing to normalize or guess the missing PADD mileage."
         )
 
     if expected is not None:
@@ -213,7 +215,7 @@ def allocate_route(route: dict[str, Any],
         "route_miles": round(route_miles, 3),
         "geometry_miles_before_optional_scale": round(geometry_miles, 3),
         "unmatched_miles": round(unmatched_miles, 3),
-        "coverage_pct": round(100 * (1 - unmatched_miles / route_miles), 4),
+        "coverage_pct": round(100 * (1 - unmatched_miles / route_miles), 6),
         "miles_by_state": {key: round(value, 3) for key, value in sorted(state_miles.items())},
         "miles_by_padd": {key: round(value, 3) for key, value in sorted(padd_miles.items())},
         "allocation_method": f"GeoJSON route sampled at <= {step_miles:g} mile intervals; Census/TIGER state polygons",
