@@ -14,11 +14,11 @@
 1. A road-route GeoJSON LineString/MultiLineString (ideally the same ORS/HeiGIT driving-car route and endpoint pair used for the distance benchmark).
 2. A Census/TIGER state-boundary GeoJSON FeatureCollection with postal abbreviation in `STUSPS` (or one of the documented aliases).
 3. A weekly EIA diesel-price JSON keyed by PADD 1A/1B/1C, PADD 2–4, and the PADD 5 California / West Coast-less-California price series; aggregate PADD 1/5 fallback is supported.
-4. A truck MPG value; default is the VIUS weighted diesel benchmark 9.10 MPG.
+4. A required gallons-per-mile value. Use the audited VIUS class 6–7 diesel estimate `0.122605 gal/mile` (equivalent harmonic MPG 8.157); never default to arithmetic-mean MPG.
 
-The utility samples each route line at no more than 0.25-mile intervals, computes geodesic length for each short piece, and assigns each sample to the containing state polygon. It then groups state miles by EIA PADD and calculates **fuel-only** cost as:
+The utility samples each route line at no more than 0.25-mile intervals, computes geodesic length for each short piece, and assigns each sample to the containing state polygon. Kentucky is explicitly included in PADD 2. It then groups state miles by EIA PADD and calculates **fuel-only** cost as:
 
-`fuel cost = Σ(PADD route miles ÷ truck MPG × PADD diesel price per gallon)`
+`fuel cost = Σ(PADD route miles × weighted gallons per mile × PADD diesel price per gallon)`
 
 State-to-PADD mapping follows the EIA definition: PADD 1 includes New England, Central Atlantic and Lower Atlantic states; PADD 2 includes the Midwest states (including Oklahoma and Tennessee); PADD 3 the Gulf Coast states; PADD 4 the Rocky Mountain states; PADD 5 the West Coast states. This mapping is not inferred from route endpoints.
 
@@ -26,7 +26,7 @@ State-to-PADD mapping follows the EIA definition: PADD 1 includes New England, C
 
 - Reject unsupported or empty geometry.
 - Reject route geometry that differs from an optional expected ORS road distance by more than 1%.
-- Reject when more than 0.5% of route mileage cannot be matched to a state polygon. Missing mileage is never silently reassigned to an endpoint PADD.
+- Require at least 99.999% route-mile coverage in both geometry allocation and fuel pricing. The same threshold is enforced at both stages; missing mileage is never silently reassigned to an endpoint PADD or allowed to pass one stage only.
 - Require a diesel price for every PADD traversed.
 - Keep all outputs explicitly labelled fuel-only; no labor, maintenance, tires, insurance, depreciation, tolls, overhead, or unprovided deadhead is included.
 
