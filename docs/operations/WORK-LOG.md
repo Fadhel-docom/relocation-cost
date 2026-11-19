@@ -2601,3 +2601,12 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - Added four synthetic-shapefile converter tests. CI on commit `6e8b9e039bffb364f0c2e82b4f0f9f79cafa64da`: 16/16 tests passed. Build (npm test, build, verify-seo) and Validate calculator/site passed on the same head. Rendered-page report still running at last check.
 - HeiGIT route workflow now opens a PR after successful fetch; manual only, requires HEIGIT_API_KEY. Neither route geometry nor TIGER workflow was run here; no route geometry or boundary GeoJSON is yet present, and no HeiGIT quota was consumed.
 - No production formula, coefficient, route distance or displayed price changed. Next: Claude re-review PR #273, run TIGER workflow, and run HeiGIT workflow only if the secret is configured; inspect all generated PRs and route coverage before calculating PADD fuel.
+
+
+## 2026-11-19 — ChatGPT second-pass B24 audit: raw coverage gate
+- أثناء إعادة تدقيق PR #273، اكتشفت فجوة دقيقة في شرط التغطية: `allocate_route` كان يعيد `coverage_pct` بعد التقريب إلى 6 منازل، ثم `price_fuel` يقارن القيمة المقربة بعتبة 99.999%. قيمة خام 99.9989996% يمكن أن تظهر 99.999000% بعد التقريب وتُقبل خطأً.
+- أصلحت ذلك على فرع PR #273: أضيف `coverage_pct_exact` غير المقرب، وأصبح التسعير يعتمد عليه؛ تبقى `coverage_pct` للعرض فقط. أضيف اختباران: رفض القيمة الخام 99.9989996% رغم التقريب، وقبول 99.999% بالضبط.
+- الالتزامات: `ed78cfd` للكود، `7dfd27b` للاختبارات، `473497b` لتحديث handoff. لم أشغّل CI بعد هذه الالتزامات؛ لا أدعي نجاح الاختبارات على الرأس الجديد. يلزم Claude مراجعة هذا التصحيح تحديدًا.
+- فحص BLS: صفحة OEWS الرسمية تؤكد وجود ملفات May 2025 State وMetro/Nonmetro XLSX، وروابط ZIP الرسمية `oesm25st.zip` و`oesm25ma.zip`. تعذر استخراج ZIP عبر مسار الأدوات الحالي؛ لم تُستخرج أي صفوف ولم تُعتمد WageDex. تبقى الأجور الجغرافية معلقة حتى تنزيل الملف الرسمي واستخراج SOC 53-3032/53-3033/53-7062 مع employment وRSE والوسيط والمتوسط وأعلام suppression.
+- لم تُشغّل workflows TIGER أو HeiGIT؛ ملف workflow اليدوي موجود في PR #273 ولم يُدمج بعد، ولا يوجد GeoJSON حدود/مسارات في المستودع. لا يمكن حساب PADD route split قبل توفر البيانات. تشغيل HeiGIT مشروط بوجود Actions secret `HEIGIT_API_KEY`، ولا نطلب المفتاح في المحادثة.
+- لا تغيير في الإنتاج أو الحاسبة أو الأسعار أو معاملات الوقود. المطلوب من Claude: مراجعة الكود والاختبارين الجديدين على أحدث HEAD، وتشغيل CI، ثم مراجعة خطة TIGER/HeiGIT بعد الدمج.
