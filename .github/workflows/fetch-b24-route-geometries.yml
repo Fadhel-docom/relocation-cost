@@ -25,6 +25,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   fetch:
@@ -56,6 +57,7 @@ jobs:
           fi
           node tools/fetch_heigit_route_geometries.mjs "${args[@]}"
       - name: Commit generated geometry on a new branch
+        id: commit
         run: |
           branch="data/b24-route-geometries-${GITHUB_RUN_NUMBER}"
           git switch -c "$branch"
@@ -63,9 +65,22 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/route-geometries
           if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "No geometry files changed; nothing to commit."
             exit 0
           fi
           git commit -m "data: add HeiGIT route geometries for B24"
           git push origin "$branch"
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+          echo "changed=true" >> "$GITHUB_OUTPUT"
           echo "Generated branch: $branch" >> "$GITHUB_STEP_SUMMARY"
+      - name: Open pull request for generated geometry
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr create \
+            --base "${{ inputs.base_branch }}" \
+            --head "${{ steps.commit.outputs.branch }}" \
+            --title "data: add HeiGIT route geometries for B24" \
+            --body "Adds directional route GeoJSON from HeiGIT ORS Directions V2, with provider distance/duration, stored-distance comparison, source attribution, and CC-BY-SA metadata. Routes exclude Canada. PADD allocation remains subject to TIGER polygon coverage and route-distance QA."
