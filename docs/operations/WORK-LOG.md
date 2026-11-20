@@ -2667,3 +2667,10 @@ See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR 
 - Added optional Shapely spatial indexing to accelerate point-in-polygon checks in the full batch; dependency-free ray casting remains as fallback. CI pins Shapely 2.1.2 and Python 3.12.
 - Research-only. No production calculator code, route distances, prices, or coefficients changed. CI execution is pending PR creation/review; no full 44-route allocation is claimed in this session.
 - Next: inspect the CI artifact; reconcile the three >1% route-distance differences without bypassing fail-closed gates; then retrieve and parse official BLS May 2025 state/metro OEWS files, preserving SOC, area, employment, RSE, mean/median and suppression flags. Independent tire, insurance, capital/depreciation and labor-time evidence remains required before any holdout or production decision.
+
+
+## 2026-11-20 21:34 UTC — ChatGPT — إصلاح تشغيل batch runner في CI
+- PR #286 شغّل الاختبارات المركزة بنجاح: 19/19. فشل تشغيل batch runner قبل بدء قراءة البيانات بسبب `ModuleNotFoundError: No module named 'tools'` عند تشغيل الملف مباشرة من GitHub Actions.
+- السبب: تشغيل `python tools/b24_padd_city_batch.py` يجعل مجلد `tools` هو مسار التنفيذ الأول، ولا يضمن إضافة جذر المستودع إلى `sys.path` في هذا السياق.
+- أصلحت runner بإضافة جذر المستودع إلى `sys.path` قبل استيراد وحدة allocator. لا تغيير في منطق التوزيع أو معايير القبول.
+- إعادة CI مطلوبة للتحقق من اكتمال معالجة 44 مسارًا وإنتاج artifact. لم تُستخرج بعد أي نتيجة شاملة ولا تُعتبر B24 مقبولة.
