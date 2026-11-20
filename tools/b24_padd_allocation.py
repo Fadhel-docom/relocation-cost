@@ -150,6 +150,23 @@ def allocate_route(route: dict[str, Any],
             f"Stored road-distance matrix differs from the newly fetched ORS route "
             f"by {difference}%; inspect/reconcile before PADD allocation."
         )
+    # Use a spatial index when Shapely is installed (the full 44-route CI job
+    # pins it). Preserve the dependency-free ray-casting fallback for local use.
+    spatial_index = None
+    prepared_geometries = None
+    point_type = None
+    try:
+        from shapely.geometry import Point as ShapelyPoint, shape as shapely_shape
+        from shapely.prepared import prep as shapely_prepare
+        from shapely.strtree import STRtree
+
+        polygon_geometries = [shapely_shape(feature["geometry"]) for _, feature, _ in features]
+        prepared_geometries = [shapely_prepare(geometry) for geometry in polygon_geometries]
+        spatial_index = STRtree(polygon_geometries)
+        point_type = ShapelyPoint
+    except ImportError:
+        pass
+
     state_miles: dict[str, float] = defaultdict(float)
     unmatched_miles = 0.0
     geometry_miles = 0.0
@@ -167,13 +184,22 @@ def allocate_route(route: dict[str, Any],
                     a[0] + (b[0] - a[0]) * fraction,
                     a[1] + (b[1] - a[1]) * fraction,
                 )
-                hits = sorted(
-                    state
-                    for state, feature, bounds in features
-                    if bounds[0] <= point[0] <= bounds[2]
-                    and bounds[1] <= point[1] <= bounds[3]
-                    and feature_contains(feature, point)
-                )
+                if spatial_index is not None:
+                    point_geometry = point_type(point[0], point[1])
+                    candidate_indices = spatial_index.query(point_geometry)
+                    hits = sorted(
+                        features[int(index)][0]
+                        for index in candidate_indices
+                        if prepared_geometries[int(index)].covers(point_geometry)
+                    )
+                else:
+                    hits = sorted(
+                        state
+                        for state, feature, bounds in features
+                        if bounds[0] <= point[0] <= bounds[2]
+                        and bounds[1] <= point[1] <= bounds[3]
+                        and feature_contains(feature, point)
+                    )
                 geometry_miles += piece_miles
                 if not hits:
                     unmatched_miles += piece_miles
