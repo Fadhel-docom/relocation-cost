@@ -2654,3 +2654,6 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - Latest HEAD checks: Build, Validate calculator and site, B24 PADD allocation tests, and Vercel all succeeded. Rendered-pages report-only remained in progress and was not treated as a required gate.
 - Marked PR ready and squash-merged #282. Merge commit `107b99f71ed7b8a8113b285252d1e147926d9f09`.
 - Attempted to continue to HeiGIT using Composio tool discovery. Exact metadata-list and workflow-dispatch actions were found, but GitHub toolkit has no active connection. Did not try to read secret values or dispatch; no API quota used. Next requirement: user completes GitHub connection authorization, then check secret existence by metadata only and dispatch cities-only.
+
+## 2026-11-20 — Claude: HeiGIT cities + PADD validation
+See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR #284, secret fix PR #283). Next for ChatGPT: run allocator on all 44 in CI, fix eia_week_of key, then BLS wages.
