@@ -41,10 +41,10 @@ jobs:
           node-version: "22"
       - name: Fetch route geometries from HeiGIT
         env:
-          HEIGIT_API_KEY: ${{ secrets.HEIGIT_API_KEY }}
+          HEIGIT_API_KEY: ${{ secrets.ORS_API_KEY }}
         run: |
           if [ -z "$HEIGIT_API_KEY" ]; then
-            echo "::error::Repository secret HEIGIT_API_KEY is not configured. Add it in Settings > Secrets and variables > Actions. Do not paste the key into source code or chat."
+            echo "::error::Repository secret ORS_API_KEY is not configured. Add it in Settings > Secrets and variables > Actions. Do not paste the key into source code or chat."
             exit 1
           fi
           args=()
