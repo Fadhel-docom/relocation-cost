@@ -54,7 +54,7 @@ jobs:
         run: |
           set -euo pipefail
           compare_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/compare/${BASE_BRANCH}...${HEAD_BRANCH}?expand=1"
-          existing_pr="$(gh pr list --base "$BASE_BRANCH" --head "$HEAD_BRANCH" --json url --jq '.[0].url // empty')"
+          existing_pr="$(gh pr list --base "$BASE_BRANCH" --head "$HEAD_BRANCH" --json url --jq '.[0].url // empty' || true)"
           if [ -n "$existing_pr" ]; then
             echo "Pull request already exists: $existing_pr"
             echo "PR: $existing_pr" >> "$GITHUB_STEP_SUMMARY"
