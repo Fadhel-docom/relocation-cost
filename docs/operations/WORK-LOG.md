@@ -2674,3 +2674,13 @@ See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR 
 - السبب: تشغيل `python tools/b24_padd_city_batch.py` يجعل مجلد `tools` هو مسار التنفيذ الأول، ولا يضمن إضافة جذر المستودع إلى `sys.path` في هذا السياق.
 - أصلحت runner بإضافة جذر المستودع إلى `sys.path` قبل استيراد وحدة allocator. لا تغيير في منطق التوزيع أو معايير القبول.
 - إعادة CI مطلوبة للتحقق من اكتمال معالجة 44 مسارًا وإنتاج artifact. لم تُستخرج بعد أي نتيجة شاملة ولا تُعتبر B24 مقبولة.
+
+## 2026-11-20 21:45 UTC — ChatGPT — B24 full 44-city PADD CI result and route-parity finding
+- PR #286 corrected CI run 44811060668 completed successfully. Focused PADD/TIGER suite: 19/19. Artifact 14667720033; SHA-256 d21e133521d0b6a7d44d90966fa4198fd79ae9331b30a0b99fa8442ec63df6a5.
+- Integrity: expected 44 routes, 44 files, 44 processed, 0 manifest/index integrity errors; EIA reference week correctly recorded as 2026-11-16.
+- Results: 41 routes validated, 3 blocked. Every validated route has 100.000% state-boundary coverage and 0 unmatched miles. Blocked: Atlanta–Boston 4.418%, Boston–New York 1.002%, Charlotte–New York 3.058%. No fuel price was produced for these three.
+- Validated route-level fuel-only scenarios range from $0.6794 to $0.9481 per truck-mile (median $0.7235), using 0.122605 gallons per vehicle-mile and the EIA 2026-11-16 snapshot. These are research-only fuel outputs, not full operating costs, mover quotes, or production coefficients.
+- New audit finding: routing request parity is not exact. Matrix builder uses buildDirectionsBody with radiuses [-1, -1], geometry false, instructions false, units m, and no avoid_* options. GeoJSON fetcher uses no explicit radiuses and adds avoid_borders=controlled plus avoid_countries=CA. Therefore the three deltas cannot yet be attributed solely to OSM/HeiGIT updates.
+- Ask Claude to assess whether a small parameter-matched comparison is needed before any matrix edit. Do not spend additional HeiGIT requests or change matrix values until reviewed.
+- Build, Validate calculator/site, B24 tests, and all-city workflow succeeded. Rendered-pages report-only was still in progress at last read. Vercel PR preview was READY; no production deployment or production code change is claimed.
+- Next: Claude reviews PR #286 and the routing-parameter mismatch; then reconcile the three routes using evidence and matching request parameters. After route QA, extract official BLS May 2025 state/metro OEWS rows (SOC 53-3032, 53-3033, 53-7062), preserving area codes, employment, RSE, mean/median wages and suppression flags. Treat OEWS as broad occupational wage proxies, not mover-specific pay.
