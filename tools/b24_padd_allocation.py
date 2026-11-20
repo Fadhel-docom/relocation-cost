@@ -272,7 +272,8 @@ def price_fuel(allocation: dict[str, Any],
             "fuel_cost_usd": round(cost, 2),
         }
     return {
-        "eia_week_of": prices.get("week_of"),
+        # EIA snapshot files use reference_week; keep week_of as a backwards-compatible alias.
+        "eia_week_of": prices.get("reference_week", prices.get("week_of")),
         "gallons_per_mile": gallons_per_mile,
         "fuel_only_cost_usd": round(total_cost, 2),
         "fuel_only_cost_per_truck_mile_usd": round(total_cost / allocation["route_miles"], 4),
