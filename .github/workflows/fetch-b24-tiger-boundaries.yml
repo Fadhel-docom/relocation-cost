@@ -49,9 +49,28 @@ jobs:
         if: steps.commit.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
+          BASE_BRANCH: ${{ inputs.base_branch }}
+          HEAD_BRANCH: ${{ steps.commit.outputs.branch }}
         run: |
-          gh pr create \
-            --base "${{ inputs.base_branch }}" \
-            --head "${{ steps.commit.outputs.branch }}" \
+          set -euo pipefail
+          compare_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/compare/${BASE_BRANCH}...${HEAD_BRANCH}?expand=1"
+          existing_pr="$(gh pr list --base "$BASE_BRANCH" --head "$HEAD_BRANCH" --json url --jq '.[0].url // empty')"
+          if [ -n "$existing_pr" ]; then
+            echo "Pull request already exists: $existing_pr"
+            echo "PR: $existing_pr" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          if pr_url="$(gh pr create \
+            --base "$BASE_BRANCH" \
+            --head "$HEAD_BRANCH" \
             --title "data: add Census 2026 TIGER state boundaries for B24" \
-            --body "Adds the official Census TIGER/Line 2026 state polygons for 50 states + DC, converted to GeoJSON with vintage, source URL, attribution, coordinate reference, and source ZIP SHA-256 recorded. The workflow validates all expected state codes and lon/lat geometry. Research data only; no production calculator or pricing changes."
+            --body "Adds the official Census TIGER/Line 2026 state polygons for 50 states + DC, converted to GeoJSON with vintage, source URL, attribution, coordinate reference, and source ZIP SHA-256 recorded. The workflow validates all expected state codes and lon/lat geometry. Research data only; no production calculator or pricing changes." 2>&1)"; then
+            echo "$pr_url"
+            echo "PR: $pr_url" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "::warning::Data branch was pushed, but automatic PR creation failed. No data was lost."
+            echo "$pr_url"
+            echo "Automatic PR creation failed. Create a PR from: $compare_url" >> "$GITHUB_STEP_SUMMARY"
+            echo "Branch: $HEAD_BRANCH" >> "$GITHUB_STEP_SUMMARY"
+            echo "Compare: $compare_url" >> "$GITHUB_STEP_SUMMARY"
+          fi
