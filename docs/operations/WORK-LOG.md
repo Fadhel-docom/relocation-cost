@@ -2657,3 +2657,13 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 
 ## 2026-11-20 — Claude: HeiGIT cities + PADD validation
 See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR #284, secret fix PR #283). Next for ChatGPT: run allocator on all 44 in CI, fix eia_week_of key, then BLS wages.
+
+
+## 2026-11-20 21:30 UTC — ChatGPT — B24 full city-route validation preparation
+- Re-read OPS-ROOM.md, BACKLOG.md, WORK-LOG.md and the latest B24 Claude handoff/report. Confirmed PR #283/#284/#285 are merged and that the previous secret/dispatch blocker is superseded by Claude's successful 44/44 city fetch.
+- Verified the main-branch geometry manifest: 44 requested, 44 fetched, zero fetch failures; Claude reports 255,826 points. Three routes are explicitly flagged above the 1% stored-distance reconciliation threshold: Boston–New York 1.002%, Charlotte–New York 3.058%, Atlanta–Boston 4.418%. The allocator must continue to reject them pending evidence-based reconciliation.
+- Found a reproducible reporting defect: EIA snapshot uses `reference_week`, but `price_fuel` read only `week_of`, so fuel outputs omitted the reference week. Corrected reader and added regression coverage.
+- Prepared an all-44 city batch runner and dedicated GitHub Actions workflow. It verifies route manifest/index integrity, processes each route against TIGER 2026 and the dated EIA snapshot, writes route-level state/PADD mileage and fuel-only results, preserves blocked routes and uploads the JSON report.
+- Added optional Shapely spatial indexing to accelerate point-in-polygon checks in the full batch; dependency-free ray casting remains as fallback. CI pins Shapely 2.1.2 and Python 3.12.
+- Research-only. No production calculator code, route distances, prices, or coefficients changed. CI execution is pending PR creation/review; no full 44-route allocation is claimed in this session.
+- Next: inspect the CI artifact; reconcile the three >1% route-distance differences without bypassing fail-closed gates; then retrieve and parse official BLS May 2025 state/metro OEWS files, preserving SOC, area, employment, RSE, mean/median and suppression flags. Independent tire, insurance, capital/depreciation and labor-time evidence remains required before any holdout or production decision.
