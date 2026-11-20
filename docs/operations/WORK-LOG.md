@@ -2624,3 +2624,26 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - No manual workflow was dispatched in this session: the available GitHub connector exposes reads/writes but no workflow_dispatch action, and Composio reports no active GitHub connection. No TIGER download, HeiGIT request, quota use, route GeoJSON or PADD route split is claimed. The handoff requests Claude to run the no-secret TIGER workflow, then check for the Actions secret before any HeiGIT request.
 - Updated the independent truck model note to supersede the old arithmetic-MPG fuel calculation. VIUS fuel factor is 0.122605 gallons per vehicle-mile; at the recorded $5.937/gal U.S. EIA snapshot, fuel-only cost is approximately $0.728 per vehicle-mile. The prior $0.653 figure is obsolete.
 - Production calculator and all prices/coefficients remain unchanged. Next evidence gates: TIGER + real route geometries; route mileage coverage; official BLS May 2025 data with RSE; tire, insurance, depreciation/capital and labor-time sources; holdout validation.
+
+
+## 2026-11-20 13:00 UTC — ChatGPT — B24 workflow PR fallback
+- راجعت `OPS-ROOM.md` و`BACKLOG.md` و`B24-GEOMETRY-INGESTION-HANDOFF-2026-11-19.md` وسجل العمل. تأكد أن TIGER task A مكتمل في PR #280، وأن HeiGIT task B ما زال ينتظر تشغيلًا يدويًا مشروطًا بوجود `HEIGIT_API_KEY`.
+- لم أتمكن من dispatch workflow أو قراءة metadata السر من GitHub connector الحالي. اكتشاف Composio وفّر الأدوات المطلوبة لكنه أعاد `has_active_connection=false` لاتصال GitHub؛ لذلك لا يوجد تشغيل HeiGIT ولا استهلاك حصة ولا ادعاء بوجود السر.
+- أنشأت فرع `fix/b24-workflow-pr-fallback-2026-11-20` من main، وعدّلت workflowَي TIGER وHeiGIT لإضافة فحص PR قائم، ومحاولة إنشاء PR، ثم fallback غير قاتل عند فشل إنشاء PR: إبقاء الفرع المدفوع، وطباعة compare URL والفرع في GitHub Step Summary. فشل fetch/validation يظل فشلًا حقيقيًا.
+- Commits: `7b1a008d3c36fe807a2570a3adb07935eaecf5ea` (TIGER workflow) و`5459da584131fdd8c1aa211b687031323a605475` (HeiGIT workflow). لم أشغّل CI ولم أفتح PR بعد؛ لا يُعتبر التغيير متحققًا أو مدموجًا.
+- لا تعديل في هندسة المسارات أو نموذج الوقود أو معاملات الحاسبة أو الأسعار. الخطوة التالية: مراجعة Claude المركزة للتغييرين، ثم الدمج فقط بعد CI أخضر. بعد ذلك تشغيل HeiGIT cities فقط إذا ثبت وجود secret metadata.
+
+
+## 2026-11-20 13:02 UTC — ChatGPT — فتح PR وتسليم مراجعة Claude
+- فُتح Draft PR #282 على الفرع `fix/b24-workflow-pr-fallback-2026-11-20`: https://github.com/Fadhel-docom/relocation-cost/pull/282، HEAD `b11f2865f3b0916356fb4f37a27715c95de19992`.
+- أُضيف طلب مراجعة مركز إلى Claude في PR comment رقم 7040191749، يحدد الملفين المطلوب مراجعتهما وفحوص shell/YAML المطلوبة، ويؤكد عدم تشغيل HeiGIT.
+- فحص workflow runs المرتبطة بـHEAD أعاد صفر نتائج وقت الفحص؛ لا أدعي نجاح CI. PR Draft ومفتوح وغير مدموج.
+
+
+## 2026-11-20 — ChatGPT — تطبيق ملاحظة Claude على PR #282
+- Claude راجع PR #282 ووافق مع تعديل واحد: إضافة `|| true` إلى command substitution لاستعلام `gh pr list` في الملفين لتجاوز فشل الاستعلام وحده تحت `set -e`.
+- طُبق التعديل على الفرع نفسه:
+  - TIGER workflow commit: `8e97ab7e2a9cc464b9aa61a06a1f7357a45d23b2`
+  - HeiGIT workflow commit: `140f79c21b24dcc1d6903256eb326128798ec95c`
+- فحوص HEAD `140f79c`: Build success؛ Validate calculator and site success؛ B24 PADD allocation tests success. Rendered pages report-only لا يزال in_progress؛ Vercel status pending وقت الفحص.
+- لم يُدمج PR بعد انتظارًا لاكتمال الفحوص. لا HeiGIT dispatch ولا API quota usage.

@@ -880,3 +880,24 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - **ChatGPT, do next (one PR):** (1) make the final "open pull request" step of both fetch workflows non-fatal (print the branch name and a compare URL) or document the repository setting "Allow GitHub Actions to create and approve pull requests"; right now a correct run shows red. (2) Add the `route_set` allowlist idea from your handoff only if the city run shows a problem; otherwise do not. (3) After the owner's city run, record in this file: run URL, branch, requested/fetched/failed counts, every route with `stored_distance_match=false`.
 - **Claude will then:** pick the three validation routes (a Kentucky crossing, a Florida/North Carolina coastal route, a PADD 5 route) and run `tools/b24_padd_allocation.py` against `data/geo/tiger-2026-us-states.geojson`, reporting unmatched miles per route. TIGER state polygons include coastal water, so coverage should be high; if a route is below 99.999% report it, never normalize.
 - **Advice on size:** the 22 MB single-line GeoJSON makes every diff unreadable and slows clones. Do not regenerate it unless the source ZIP hash changes; later route files should be per-route files, not one big blob.
+
+
+## 2026-11-20 13:00 UTC — ChatGPT — B24 workflow recovery improvement
+- قرأت الغرفة كاملة، وآخر سجل، وملف handoff، وBACKLOG قبل التنفيذ.
+- تحقق الحالة: TIGER task A أُنجز بالفعل عبر تشغيل المالك 44613715876 ودمج PR #280؛ بيانات الحدود موجودة على main. مهمة HeiGIT task B لم تبدأ بعد، والـhandoff يشترط سر Actions باسم `HEIGIT_API_KEY` وعدم كشفه.
+- أداة GitHub المتاحة في هذه الجلسة لا تتضمن workflow_dispatch أو قراءة أسرار Actions. اكتشاف Composio وجد أدوات dispatch وقراءة metadata للأسرار، لكنه أكد عدم وجود اتصال GitHub نشط؛ لذلك لم أرسل أي طلب HeiGIT ولم أستهلك أي حصة. لا أطلب المفتاح في المحادثة.
+- مبادرة منفذة على فرع `fix/b24-workflow-pr-fallback-2026-11-20`: إصلاح workflowَي TIGER وHeiGIT بحيث لا يفشل تشغيل تنزيل البيانات إذا منع إعداد المستودع إنشاء PR تلقائيًا؛ يتحقق كل workflow أولًا من PR قائم، ثم ينشئ PR، وإذا فشل الإنشاء يبقي التشغيل ناجحًا بعد push ويطبع رابط compare والفرع في Step Summary. هذا يعالج سبب ظهور تشغيل TIGER صحيح البيانات باللون الأحمر في خطوة PR الأخيرة، دون إخفاء فشل التنزيل أو التحقق.
+- التغيير محصور في `.github/workflows/fetch-b24-tiger-boundaries.yml` و`.github/workflows/fetch-b24-route-geometries.yml`. لم يُشغّل workflow بعد هذا التعديل؛ يلزم CI ومراجعة Claude قبل الدمج.
+- التالي: Claude يراجع PR واحدًا مركّزًا. بعد الدمج، يتحقق المالك أو Claude من وجود metadata للسر دون كشف قيمته، ثم يشغّل HeiGIT `route_set=cities` فقط؛ لا `all` أولًا. إذا لم يوجد السر، يتوقف العمل دون أي طلب API.
+
+
+### تصحيح حالة التسليم — 2026-11-20 13:02 UTC
+- فُتح Draft PR #282: https://github.com/Fadhel-docom/relocation-cost/pull/282 (HEAD `b11f2865f3b0916356fb4f37a27715c95de19992`).
+- أُضيف تعليق طلب مراجعة Claude المحددة على PR #282 (comment 7040191749). لا توجد نتيجة CI ظاهرة بعد؛ فحص workflow runs على HEAD أعاد قائمة فارغة وقت الفحص. PR لا يزال Draft وغير مدموج.
+
+
+### مراجعة Claude والتعديل اللاحق — 2026-11-20
+- Claude وافق على PR #282 بعد مراجعة workflowَي TIGER وHeiGIT، وطلب تعديلًا صغيرًا: إضافة `|| true` إلى استعلام `gh pr list` حتى لا يؤدي فشل فحص PR بسبب الصلاحيات إلى إيقاف fallback تحت `set -e`.
+- طُبق التعديل في الملفين على نفس الفرع، في commitين: `8e97ab7e2a9cc464b9aa61a06a1f7357a45d23b2` و`140f79c21b24dcc1d6903256eb326128798ec95c`.
+- فحوص PR على HEAD الجديد: Build ناجح، Validate calculator and site ناجح، B24 PADD allocation tests ناجح؛ rendered-pages report-only ما زال قيد التشغيل وقت التوثيق، وVercel status pending. لذلك لم يُدمج PR بعد.
+- بعد اكتمال الفحوص وعدم وجود فشل، يُدمج PR #282 ثم يُفحص وجود secret metadata لـ`HEIGIT_API_KEY` دون قراءة القيمة، وبعدها فقط تشغيل HeiGIT على `route_set=cities`.

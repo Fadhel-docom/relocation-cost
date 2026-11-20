@@ -78,9 +78,28 @@ jobs:
         if: steps.commit.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
+          BASE_BRANCH: ${{ inputs.base_branch }}
+          HEAD_BRANCH: ${{ steps.commit.outputs.branch }}
         run: |
-          gh pr create \
-            --base "${{ inputs.base_branch }}" \
-            --head "${{ steps.commit.outputs.branch }}" \
+          set -euo pipefail
+          compare_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/compare/${BASE_BRANCH}...${HEAD_BRANCH}?expand=1"
+          existing_pr="$(gh pr list --base "$BASE_BRANCH" --head "$HEAD_BRANCH" --json url --jq '.[0].url // empty' || true)"
+          if [ -n "$existing_pr" ]; then
+            echo "Pull request already exists: $existing_pr"
+            echo "PR: $existing_pr" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          if pr_url="$(gh pr create \
+            --base "$BASE_BRANCH" \
+            --head "$HEAD_BRANCH" \
             --title "data: add HeiGIT route geometries for B24" \
-            --body "Adds directional route GeoJSON from HeiGIT ORS Directions V2, with provider distance/duration, stored-distance comparison, source attribution, and CC-BY-SA metadata. Routes exclude Canada. PADD allocation remains subject to TIGER polygon coverage and route-distance QA."
+            --body "Adds directional route GeoJSON from HeiGIT ORS Directions V2, with provider distance/duration, stored-distance comparison, source attribution, and CC-BY-SA metadata. Routes exclude Canada. PADD allocation remains subject to TIGER polygon coverage and route-distance QA." 2>&1)"; then
+            echo "$pr_url"
+            echo "PR: $pr_url" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "::warning::Geometry branch was pushed, but automatic PR creation failed. No fetched data was lost."
+            echo "$pr_url"
+            echo "Automatic PR creation failed. Create a PR from: $compare_url" >> "$GITHUB_STEP_SUMMARY"
+            echo "Branch: $HEAD_BRANCH" >> "$GITHUB_STEP_SUMMARY"
+            echo "Compare: $compare_url" >> "$GITHUB_STEP_SUMMARY"
+          fi
