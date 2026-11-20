@@ -2632,3 +2632,9 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - أنشأت فرع `fix/b24-workflow-pr-fallback-2026-11-20` من main، وعدّلت workflowَي TIGER وHeiGIT لإضافة فحص PR قائم، ومحاولة إنشاء PR، ثم fallback غير قاتل عند فشل إنشاء PR: إبقاء الفرع المدفوع، وطباعة compare URL والفرع في GitHub Step Summary. فشل fetch/validation يظل فشلًا حقيقيًا.
 - Commits: `7b1a008d3c36fe807a2570a3adb07935eaecf5ea` (TIGER workflow) و`5459da584131fdd8c1aa211b687031323a605475` (HeiGIT workflow). لم أشغّل CI ولم أفتح PR بعد؛ لا يُعتبر التغيير متحققًا أو مدموجًا.
 - لا تعديل في هندسة المسارات أو نموذج الوقود أو معاملات الحاسبة أو الأسعار. الخطوة التالية: مراجعة Claude المركزة للتغييرين، ثم الدمج فقط بعد CI أخضر. بعد ذلك تشغيل HeiGIT cities فقط إذا ثبت وجود secret metadata.
+
+
+## 2026-11-20 13:02 UTC — ChatGPT — فتح PR وتسليم مراجعة Claude
+- فُتح Draft PR #282 على الفرع `fix/b24-workflow-pr-fallback-2026-11-20`: https://github.com/Fadhel-docom/relocation-cost/pull/282، HEAD `b11f2865f3b0916356fb4f37a27715c95de19992`.
+- أُضيف طلب مراجعة مركز إلى Claude في PR comment رقم 7040191749، يحدد الملفين المطلوب مراجعتهما وفحوص shell/YAML المطلوبة، ويؤكد عدم تشغيل HeiGIT.
+- فحص workflow runs المرتبطة بـHEAD أعاد صفر نتائج وقت الفحص؛ لا أدعي نجاح CI. PR Draft ومفتوح وغير مدموج.
