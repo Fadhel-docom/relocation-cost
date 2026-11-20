@@ -8,12 +8,15 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-from tools.b24_padd_allocation import AllocationError, allocate_route, price_fuel
-
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from tools.b24_padd_allocation import AllocationError, allocate_route, price_fuel
 
 
 def read_json(path: Path):
