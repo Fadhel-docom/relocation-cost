@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "provider": "openrouteservice by HeiGIT",
+  "endpoint": "https://api.heigit.org/openrouteservice/v2/directions/driving-car/geojson",
+  "profile": "driving-car",
+  "data_license": "CC-BY-SA 4.0",
+  "attribution": "© openrouteservice by HeiGIT | Data from OpenStreetMap",
+  "generated_at": "2026-11-20T14:51:54.697Z",
+  "avoid_countries": [
+    "CA"
+  ],
+  "rate_limit_gap_ms": 1600,
+  "requested": 44,
+  "fetched": 44,
+  "skipped_existing": 0,
+  "distance_mismatches_over_1pct": [
+    {
+      "route_id": "boston-to-new-york",
+      "stored_miles": 216.2,
+      "provider_miles": 214.035,
+      "difference_pct": 1.002
+    },
+    {
+      "route_id": "charlotte-to-new-york",
+      "stored_miles": 643,
+      "provider_miles": 623.338,
+      "difference_pct": 3.058
+    },
+    {
+      "route_id": "atlanta-to-boston",
+      "stored_miles": 1123.2,
+      "provider_miles": 1073.573,
+      "difference_pct": 4.418
+    }
+  ],
+  "failures": []
+}
