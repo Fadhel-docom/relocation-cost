@@ -901,3 +901,10 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - طُبق التعديل في الملفين على نفس الفرع، في commitين: `8e97ab7e2a9cc464b9aa61a06a1f7357a45d23b2` و`140f79c21b24dcc1d6903256eb326128798ec95c`.
 - فحوص PR على HEAD الجديد: Build ناجح، Validate calculator and site ناجح، B24 PADD allocation tests ناجح؛ rendered-pages report-only ما زال قيد التشغيل وقت التوثيق، وVercel status pending. لذلك لم يُدمج PR بعد.
 - بعد اكتمال الفحوص وعدم وجود فشل، يُدمج PR #282 ثم يُفحص وجود secret metadata لـ`HEIGIT_API_KEY` دون قراءة القيمة، وبعدها فقط تشغيل HeiGIT على `route_set=cities`.
+
+
+## 2026-11-20 13:19 UTC — ChatGPT — PR #282 merged; HeiGIT secret check blocked by connector
+- Claude approved PR #282 subject to the `|| true` fix; both workflows now include it on the `gh pr list` command.
+- PR #282 was marked ready and squash-merged after latest-head checks: Build success, Validate calculator and site success, B24 PADD allocation tests success, Vercel success. Rendered-pages report-only was still running and is non-gating.
+- Merge commit: `107b99f71ed7b8a8113b285252d1e147926d9f09`.
+- Next HeiGIT step remains conditional. Composio search found the exact GitHub secret-metadata and workflow-dispatch tools, but reports `has_active_connection=false` for GitHub. No secret metadata was read, no dispatch was sent, and no HeiGIT quota was consumed. A GitHub connector authorization is required before checking `HEIGIT_API_KEY` (metadata only) and dispatching `route_set=cities`.
