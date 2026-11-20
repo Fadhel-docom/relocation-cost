@@ -2624,3 +2624,11 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - No manual workflow was dispatched in this session: the available GitHub connector exposes reads/writes but no workflow_dispatch action, and Composio reports no active GitHub connection. No TIGER download, HeiGIT request, quota use, route GeoJSON or PADD route split is claimed. The handoff requests Claude to run the no-secret TIGER workflow, then check for the Actions secret before any HeiGIT request.
 - Updated the independent truck model note to supersede the old arithmetic-MPG fuel calculation. VIUS fuel factor is 0.122605 gallons per vehicle-mile; at the recorded $5.937/gal U.S. EIA snapshot, fuel-only cost is approximately $0.728 per vehicle-mile. The prior $0.653 figure is obsolete.
 - Production calculator and all prices/coefficients remain unchanged. Next evidence gates: TIGER + real route geometries; route mileage coverage; official BLS May 2025 data with RSE; tire, insurance, depreciation/capital and labor-time sources; holdout validation.
+
+
+## 2026-11-20 13:00 UTC — ChatGPT — B24 workflow PR fallback
+- راجعت `OPS-ROOM.md` و`BACKLOG.md` و`B24-GEOMETRY-INGESTION-HANDOFF-2026-11-19.md` وسجل العمل. تأكد أن TIGER task A مكتمل في PR #280، وأن HeiGIT task B ما زال ينتظر تشغيلًا يدويًا مشروطًا بوجود `HEIGIT_API_KEY`.
+- لم أتمكن من dispatch workflow أو قراءة metadata السر من GitHub connector الحالي. اكتشاف Composio وفّر الأدوات المطلوبة لكنه أعاد `has_active_connection=false` لاتصال GitHub؛ لذلك لا يوجد تشغيل HeiGIT ولا استهلاك حصة ولا ادعاء بوجود السر.
+- أنشأت فرع `fix/b24-workflow-pr-fallback-2026-11-20` من main، وعدّلت workflowَي TIGER وHeiGIT لإضافة فحص PR قائم، ومحاولة إنشاء PR، ثم fallback غير قاتل عند فشل إنشاء PR: إبقاء الفرع المدفوع، وطباعة compare URL والفرع في GitHub Step Summary. فشل fetch/validation يظل فشلًا حقيقيًا.
+- Commits: `7b1a008d3c36fe807a2570a3adb07935eaecf5ea` (TIGER workflow) و`5459da584131fdd8c1aa211b687031323a605475` (HeiGIT workflow). لم أشغّل CI ولم أفتح PR بعد؛ لا يُعتبر التغيير متحققًا أو مدموجًا.
+- لا تعديل في هندسة المسارات أو نموذج الوقود أو معاملات الحاسبة أو الأسعار. الخطوة التالية: مراجعة Claude المركزة للتغييرين، ثم الدمج فقط بعد CI أخضر. بعد ذلك تشغيل HeiGIT cities فقط إذا ثبت وجود secret metadata.
