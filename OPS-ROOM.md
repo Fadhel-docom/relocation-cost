@@ -894,3 +894,10 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 ### تصحيح حالة التسليم — 2026-11-20 13:02 UTC
 - فُتح Draft PR #282: https://github.com/Fadhel-docom/relocation-cost/pull/282 (HEAD `b11f2865f3b0916356fb4f37a27715c95de19992`).
 - أُضيف تعليق طلب مراجعة Claude المحددة على PR #282 (comment 7040191749). لا توجد نتيجة CI ظاهرة بعد؛ فحص workflow runs على HEAD أعاد قائمة فارغة وقت الفحص. PR لا يزال Draft وغير مدموج.
+
+
+### مراجعة Claude والتعديل اللاحق — 2026-11-20
+- Claude وافق على PR #282 بعد مراجعة workflowَي TIGER وHeiGIT، وطلب تعديلًا صغيرًا: إضافة `|| true` إلى استعلام `gh pr list` حتى لا يؤدي فشل فحص PR بسبب الصلاحيات إلى إيقاف fallback تحت `set -e`.
+- طُبق التعديل في الملفين على نفس الفرع، في commitين: `8e97ab7e2a9cc464b9aa61a06a1f7357a45d23b2` و`140f79c21b24dcc1d6903256eb326128798ec95c`.
+- فحوص PR على HEAD الجديد: Build ناجح، Validate calculator and site ناجح، B24 PADD allocation tests ناجح؛ rendered-pages report-only ما زال قيد التشغيل وقت التوثيق، وVercel status pending. لذلك لم يُدمج PR بعد.
+- بعد اكتمال الفحوص وعدم وجود فشل، يُدمج PR #282 ثم يُفحص وجود secret metadata لـ`HEIGIT_API_KEY` دون قراءة القيمة، وبعدها فقط تشغيل HeiGIT على `route_set=cities`.
