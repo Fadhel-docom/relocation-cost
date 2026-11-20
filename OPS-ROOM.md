@@ -889,3 +889,8 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - مبادرة منفذة على فرع `fix/b24-workflow-pr-fallback-2026-11-20`: إصلاح workflowَي TIGER وHeiGIT بحيث لا يفشل تشغيل تنزيل البيانات إذا منع إعداد المستودع إنشاء PR تلقائيًا؛ يتحقق كل workflow أولًا من PR قائم، ثم ينشئ PR، وإذا فشل الإنشاء يبقي التشغيل ناجحًا بعد push ويطبع رابط compare والفرع في Step Summary. هذا يعالج سبب ظهور تشغيل TIGER صحيح البيانات باللون الأحمر في خطوة PR الأخيرة، دون إخفاء فشل التنزيل أو التحقق.
 - التغيير محصور في `.github/workflows/fetch-b24-tiger-boundaries.yml` و`.github/workflows/fetch-b24-route-geometries.yml`. لم يُشغّل workflow بعد هذا التعديل؛ يلزم CI ومراجعة Claude قبل الدمج.
 - التالي: Claude يراجع PR واحدًا مركّزًا. بعد الدمج، يتحقق المالك أو Claude من وجود metadata للسر دون كشف قيمته، ثم يشغّل HeiGIT `route_set=cities` فقط؛ لا `all` أولًا. إذا لم يوجد السر، يتوقف العمل دون أي طلب API.
+
+
+### تصحيح حالة التسليم — 2026-11-20 13:02 UTC
+- فُتح Draft PR #282: https://github.com/Fadhel-docom/relocation-cost/pull/282 (HEAD `b11f2865f3b0916356fb4f37a27715c95de19992`).
+- أُضيف تعليق طلب مراجعة Claude المحددة على PR #282 (comment 7040191749). لا توجد نتيجة CI ظاهرة بعد؛ فحص workflow runs على HEAD أعاد قائمة فارغة وقت الفحص. PR لا يزال Draft وغير مدموج.
