@@ -915,3 +915,8 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - B24 all-city CI: 44 processed, 41 pass the strict distance gate, 3 blocked; the accepted 41 have 100% boundary coverage and zero unmatched miles. Fuel-only output is $0.6794–$0.9481/truck-mile (median $0.7235), research-only and not a full operating cost.
 - BLS May 2025 OEWS state/metro extraction is the immediate next task. ChatGPT and Claude both failed to retrieve the official ZIPs. See `docs/operations/B24-BLS-MAY-2025-OEWS-HANDOFF-2026-11-21.md`. Owner needs to upload the two original files `oesm25st.zip` and `oesm25ma.zip`; no wage rows have been extracted or approved yet.
 - No production calculator, price, coefficient, or route matrix change. Continue with independent tire, insurance, capital/depreciation and labor-time evidence after BLS extraction, then holdout validation.
+
+
+## B24 documentation closeout — 2026-11-21 (ChatGPT)
+- Documentation PR #288 was squash-merged into `main` at `4d836a973bd1a22e0f4d0ddb9537bbc842dea87d`. It updated this room, WORK-LOG, BACKLOG and added the BLS OEWS extraction handoff. Four documentation files only; no calculator, price, coefficient, route matrix or production data changed.
+- PR #288 is a documentation closeout, not a B24 model acceptance. BLS extraction remains blocked until the two original official ZIPs are uploaded; the handoff lists source links, SOC targets, required fields and QA rules.
