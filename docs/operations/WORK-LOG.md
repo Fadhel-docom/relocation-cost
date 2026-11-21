@@ -998,10 +998,10 @@
 - **التحقق:** فحص Vercel على رأس PR #53 ما زال `pending`: https://vercel.com/relocation-cost/relocation-cost/BEy7Y2fpLeff6NaZm8xKhSF8ejyd . لم تظهر workflow runs مرتبطة بالرأس في الاستعلام. لم تُشغّل الاختبارات محليًا في هذه الجولة. لا دمج قبل نتيجة CI ونجاح build والاختبارات.
 - **ما يحتاجه الطرف التالي (Claude):** راجع PR #53 والفروقات، وتحقق من أن اختبار `trust.test.js` يمر. لا تدمج قبل نجاح CI. ملاحظة الموسم الأساسية موجودة بالفعل من PR #51؛ هذا تعديل دقة في نطاق الادعاء فقط.
 - **الخطوة التالية المقترحة:** انتظار Vercel/CI على PR #53، ثم مراجعة النتيجة وتحديث هذا السجل قبل أي دمج.
-
 ---
 
-## 2026-10-24 19:42 UTC — الطرف: ChatGPT- **المهمة / الهدف:** مواصلة غرفة العمليات، قراءة آخر تسليم Claude، تثبيت سجل المنافسين المكتمل، ومراجعة صياغة ملاحظة الموسم بناءً على المصادر.
+## 2026-10-24 19:42 UTC — الطرف: ChatGPT
+- **المهمة / الهدف:** مواصلة غرفة العمليات، قراءة آخر تسليم Claude، تثبيت سجل المنافسين المكتمل، ومراجعة صياغة ملاحظة الموسم بناءً على المصادر.
 - **الحالة:** تغييرات توثيقية ومراجعة صغيرة للكود على الفرع `fix/season-note-sourcing`؛ بانتظار CI ومراجعة PR.
 - **ما تمت مراجعته:** `OPS-ROOM.md` وسجل العمل وسجل المنافسين؛ حالة PR #50 وPR #51؛ `src/lib/trust.js` و`src/lib/trust.test.js` ومواضع `SEASON_NOTE` في `src/pages/calculator.astro` و`src/pages/methodology.astro`. راجعت مصادر الشركات الرسمية: [United Van Lines — How to Cut Moving Costs](https://www.unitedvanlines.com/moving-tips/blog/how-to-cut-moving-costs) و[Mayflower — Best Time of the Year to Move](https://www.mayflower.com/moving-tips/blog/best-time-of-the-year-to-move)، بتاريخ 2026-10-24.
 - **ما تغيّر فعليًا:** نقل سجل المنافسين المحدّث (20/20) إلى فرع المتابعة؛ تحديث حالة الغرفة في `OPS-ROOM.md` لتذكر أن PR #50 وPR #51 مدمجان؛ تعديل `SEASON_NOTE` ليقصر ادعاء تغير الأسعار الموسمية ونهاية الشهر/الأسبوع على شركات النقل، بدل تعميمه على تأجير الشاحنات؛ وتعديل اختبار `trust.test.js` لمنع عودة عبارة `truck rentals` دون دليل. commits: `762187399a3578154462db3a71b9463ec1a3309c` و`c2d08075e8ffd607dd1c34b7c6d0f9c4fec3c620` (كود)، وتُضاف commits التوثيق في هذا الفرع.
@@ -1999,8 +1999,9 @@ GSC reading near Nov 12; then decide with the value gate. M3b and the HeiGIT rul
 - **Not done / constraints:** no Vercel Analytics counts, no fresh GSC/Bing report, no AI-answer surface test, no HeiGIT request, no competitor interactive test, and no published-price coefficient calibration. The planned GSC measurement remains near 2026-11-12; HeiGIT stays read-only until current quota and explicit go-ahead.
 - **Next:** review CI and preview for this copy-only change; if green, merge only after reviewing the diff and verify the deployed hero phrase with the live check. Then retrieve Vercel Analytics counts for `calculator_used` and `calculator_estimate_shown` to establish the baseline. Claude should independently review the wording and confirm the post-deploy check; B2 remains separate.
 
-
 - **PR opened:** #222 — https://github.com/Fadhel-docom/relocation-cost/pull/222 (`chatgpt/nov9-first-screen-value-20261109` → `main`). It is OPEN / NOT MERGED. At first check, Vercel status was `pending` and no PR-triggered GitHub Actions run had appeared yet. No production deployment or live-site verification is claimed. Claude review requested in the PR conversation.
+
+
 ### CI correction — 2026-11-09 19:45 UTC
 - The first PR-triggered Build run failed at `npm test`: 252/253 passed. The only failure was the existing assertion in `home-answer.test.js` that expected the home-page live-check phrase list to contain only `HOME_ANSWER_LEAD`. The new live-check correctly adds `HOME_HERO_VALUE`, so the exact-list assertion needed updating.
 - Updated that regression assertion to expect both phrases. No product behavior or calculation changed. The first rendered-pages run had its build step pass, then was cancelled before browser checks because the paired Build failed; it is not a visual QA pass.
