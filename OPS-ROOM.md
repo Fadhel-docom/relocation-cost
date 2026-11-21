@@ -920,3 +920,28 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 ## B24 documentation closeout — 2026-11-21 (ChatGPT)
 - Documentation PR #288 was squash-merged into `main` at `4d836a973bd1a22e0f4d0ddb9537bbc842dea87d`. It updated this room, WORK-LOG, BACKLOG and added the BLS OEWS extraction handoff. Four documentation files only; no calculator, price, coefficient, route matrix or production data changed.
 - PR #288 is a documentation closeout, not a B24 model acceptance. BLS extraction remains blocked until the two original official ZIPs are uploaded; the handoff lists source links, SOC targets, required fields and QA rules.
+
+
+## B24 evidence update — insurance, tires and labour-time research (2026-11-21, ChatGPT)
+- Added docs/operations/B24-INSURANCE-TIRES-TIME-RESEARCH-2026-11-21.md. Research-only; no calculator logic, production price, coefficient, route distance or public claim changed.
+- New 2025 ATRI combination-truck benchmarks reported by FleetOwner/Truck News: insurance $0.106/mile; tires $0.050/mile; total operating cost $2.336/mile. These are for-hire combination-truck benchmarks, not B24 household-goods box trucks. External comparators only.
+- FMCSA household-goods filing minimums are $750,000 BIPD and $5,000 cargo for for-hire vehicles GVWR >=10,001 lb. These are coverage minima, not premium prices. Insureon mover commercial-auto median $876/month is business-level and lacks truck-count/mileage denominator; cross-check only.
+- ATRI 2025 HOS utilization: 7.41 driving hours/day and 10.4 on-duty hours/day; not route ETA or residential task-time standard. FMCSA legal limits are ceilings, not average speed or payroll-time inputs.
+- Identified FHWA Monthly NHS Traffic Speed dataset (median speeds by month, vehicle type, time period, area and functional system) as next route-time data source. Extract and test a road-class/area-weighted join to the 44 geometries; do not apply NHS speeds to local-road segments.
+- No mover-specific loading/unloading productivity data was established. Keep crew size and task hours unresolved; BLS wage rows are wage inputs only. Do not use ATRI $106.69/hour as a wage.
+- Corrected stale BLS blocker: Claude reports May 2025 OEWS State/Metro target-SOC extracts exist in data/research/bls-oews-2025/ (162 State rows, 1,178 Metro rows; 30 columns). ChatGPT has not independently rerun the extraction in this session.
+- Next: extract FHWA speed data and metadata; document valid route-join coverage; keep ATRI values tagged as combination-truck comparators; continue matched mover insurance/tire and task-time evidence.
+
+
+## B24 — BLS OEWS CSVs independently read and checked (2026-11-21, ChatGPT)
+- Corrected the chronology: the owner uploaded the original May 2025 OEWS ZIPs and Claude extracted the target SOC rows before ChatGPT's later insurance/tire/time task. The earlier 05:23 UTC room entry and BLS blocker in the 05:23 closeout were stale after the later Claude upload/extraction entry. ChatGPT's 19:18 research note was not a substitute for reading the CSVs; that omission is corrected here.
+- Read the committed State and Metro CSV files directly from GitHub; did not redownload ZIPs. Both headers contain 32 columns (not 30 as stated in README/Claude's work-log shorthand). State: 162 rows, 54 area codes, 54 rows/SOC. Metro: 1,178 rows, 393 areas for SOC 53-3032 and 53-3033, 392 for SOC 53-7062.
+- Independently checked row field counts and core numeric fields: zero malformed rows; no blanks or suppression markers in TOT_EMP, EMP_PRSE, H_MEAN, A_MEAN, MEAN_PRSE, H_MEDIAN, A_MEDIAN, H_PCT10/H_PCT25/H_PCT75/H_PCT90. Other fields such as PCT_TOTAL, PCT_RPT and trailing ANNUAL/HOURLY flags may be blank; this is not a claim that every cell is numeric.
+- State coverage includes 51 type-2 areas (50 states + DC) and 3 type-3 territories (Guam, Puerto Rico, U.S. Virgin Islands). Metro coverage exception: area 25980 Hinesville, GA has 53-3032 and 53-3033 rows but no 53-7062 row. Do not impute.
+- Added B24-BLS-OEWS-CSV-QA-2026-11-21.md and corrected README column count. BLS wages remain research-only; OEWS does not provide mover crew roles, task hours, employer load, benefits or insurance. No wage coefficient or production change.
+- PR #291 remains open for review; these corrections are being added to that same documentation-only PR, not represented as already merged to main.
+
+
+## B24 capital-cost evidence distinction — 2026-11-21
+- Added a bounded ATRI comparator: 2025 truck/trailer lease or purchase payments reported at about $0.404 per combination-truck-mile. ATRI's survey form defines these as payment costs plus interest/fees; this is not an economic-depreciation rate and does not isolate salvage value or service life. The survey scope is for-hire combination-truck fleets, not household-goods box trucks.
+- B24 must not label $0.404/mile as depreciation or add it to a separate depreciation model. Economic depreciation remains unresolved pending matched box-truck acquisition cost, upfit, age, annual miles/duty cycle, resale value and replacement horizon.

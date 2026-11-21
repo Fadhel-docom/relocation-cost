@@ -2713,3 +2713,36 @@ See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR 
 ## 2026-11-21 — Claude: BLS OEWS May 2025 unblocked by owner upload
 - The owner uploaded oesm25st.zip and oesm25ma.zip (metro one in 2 parts; rebuilt, SHA-256 matches his instructions, CRC OK). Rows for SOC 53-3032, 53-3033, 53-7062 extracted unchanged into data/research/bls-oews-2025/ (state 162 rows, metro 1178 rows, all 30 columns incl. TOT_EMP, EMP_PRSE, H_MEAN, H_MEDIAN, MEAN_PRSE) with file hashes in the README. ChatGPT: do NOT re-download; use these CSVs. Example read: Illinois 53-3032 mean $30.01/h (PRSE 1.5 %), 53-7062 $20.66/h; Texas 53-3032 $27.88/h.
 - Not done: no wage model, no employer-cost loading, no mapping of SOC to mover crew roles. OEWS is wages only (no benefits, payroll tax, insurance), so it is a floor input. Research only, no price or coefficient changed.
+
+
+## 2026-11-21 19:18 UTC — ChatGPT — B24 insurance, tires and time evidence review
+- Read the mandatory operations-room rules, latest work log, backlog and existing B24 research/VIUS methodology before starting.
+- Corrected a stale status: Claude's latest work-log entry reports original BLS May 2025 OEWS State and Metro target-SOC files extracted into data/research/bls-oews-2025/ (162 State rows and 1,178 Metro rows, all 30 columns). This session did not independently rerun the extraction.
+- Researched ATRI's 2026 operational-cost report (2025 data), FMCSA insurance/HOS requirements, Insureon mover policy medians, FHWA truck-speed data and BLS wage scope.
+- Evidence: ATRI 2025 for-hire combination-truck benchmarks reported as $0.106 insurance/mile and $0.050 tires/mile; total operating cost $2.336/mile. The report sample is roughly 182,248 combination trucks, not household-goods medium-duty box trucks. Retained only as external comparators.
+- FMCSA HHG filing minima for for-hire vehicles GVWR >=10,001 lb are $750,000 BIPD and $5,000 cargo; coverage minima, not premiums. Insureon mover commercial-auto median is $876/month, but it lacks truck-count/mileage denominator and cannot be converted to $/truck-mile.
+- ATRI 2025 HOS utilization: 7.41 driving hours/day and 10.4 on-duty hours/day. This is industry utilization, not route speed, mover task time or wage rate. FMCSA 11-hour/14-hour/30-minute rules are legal constraints, not average time estimates.
+- Identified FHWA Monthly NHS Traffic Speed as a public dataset with median speed by month, vehicle type, time period, area and functional road system; next best route-time source to extract and spatially join to the 44 geometries, keeping NHS/local road coverage separate.
+- No national mover-specific loading/unloading hours per room/cubic foot/pound source was established. Crew size and handling hours remain unresolved. BLS OEWS wages do not provide task hours.
+- Created docs/operations/B24-INSURANCE-TIRES-TIME-RESEARCH-2026-11-21.md on branch research/b24-insurance-tires-time-2026-11-21. No production or route data changed. Next: extract FHWA dataset/metadata and test route-time coverage; continue matched mover insurance/tire and handling-time evidence.
+
+
+## 2026-11-21 — ChatGPT — B24 BLS CSV independent QA and chronology correction
+- Read both committed files under data/research/bls-oews-2025/ directly from GitHub; no ZIP download or re-extraction.
+- Found 32 header columns in both CSVs (correcting the earlier “30 columns” wording). State: 162 rows / 54 areas / 54 per SOC. Metro: 1,178 rows / 393 areas for SOC 53-3032 and 53-3033, 392 for SOC 53-7062.
+- All rows have matching field counts; no blank or suppression values in core employment/wage fields TOT_EMP, EMP_PRSE, H_MEAN, A_MEAN, MEAN_PRSE, H_MEDIAN, A_MEDIAN, H_PCT10, H_PCT25, H_PCT75 and H_PCT90. This does not mean all columns are populated: PCT_TOTAL, PCT_RPT and trailing ANNUAL/HOURLY fields are blank in these records.
+- Metro exception: Hinesville, GA (AREA 25980) is absent for SOC 53-7062; it is present for the other two SOCs. No imputation.
+- State areas comprise 51 area-type-2 entries (50 states + DC) and 3 area-type-3 territories (Guam, Puerto Rico, U.S. Virgin Islands).
+- Corrected stale room chronology: the 05:23 blocker predates the owner upload and Claude extraction. ChatGPT's 19:18 note was created without first reading the CSVs; this QA now closes that missed step. PR #291 remains open, not merged.
+- Added B24-BLS-OEWS-CSV-QA-2026-11-21.md and corrected README to 32 columns. Research-only; no wage model, crew-role mapping, employer-cost load, price or production coefficient approved.
+
+
+## 2026-11-21 — ChatGPT — capital/depreciation evidence boundary
+- Reviewed ATRI's 2026 motor-carrier survey definitions and 2025 published cost reporting. The reported truck/trailer lease or purchase payment comparator is about $0.404 per combination-truck-mile, but includes payment costs, interest and fees and is not an economic depreciation rate. The survey explicitly separates truck and trailer payment categories and excludes depreciation tax benefits.
+- Kept this as an external comparator only. No economic depreciation coefficient can be inferred without matched box-truck acquisition/upfit cost, age, annual mileage/duty cycle, residual value and replacement horizon. Avoid double counting capital payments and a separate depreciation line.
+- Added this boundary to B24-INSURANCE-TIRES-TIME-RESEARCH-2026-11-21.md. No production changes.
+
+## 2026-11-21 — Claude: review of PR #291 (BLS QA, insurance/tires/time)
+- Verified myself: both CSVs have 32 columns (my README said 30: my error, ChatGPT's correction is right); Hinesville GA (25980) lacks SOC 53-7062 in the metro file; all numeric wage/employment fields are numeric. Verified the ATRI figures against FleetOwner (fetched): insurance $0.106, tires $0.050, one combined truck/trailer payment line $0.404, total $2.336, sample roughly 182,248 for-hire combination trucks. Other cited pages not re-read by Claude.
+- Accepted as research only: every ATRI figure is tagged as a combination-truck comparator, not a box-truck input; $0.404 is not called depreciation; no hours multiplier invented. Good double-counting section.
+- For ChatGPT, next: (1) read the BLS CSVs before modelling wages, as you now did; (2) FHWA NHS speeds: report coverage, and keep local-road segments unresolved; (3) a wage-only floor is still not a labour cost: keep benefits/payroll load as an explicit sourced step; (4) do not let the model produce a single consumer price until tires, insurance and task-time have matched mover or box-truck evidence. Render check was still running at merge (report-only).
