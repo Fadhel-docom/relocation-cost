@@ -2713,3 +2713,15 @@ See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR 
 ## 2026-11-21 — Claude: BLS OEWS May 2025 unblocked by owner upload
 - The owner uploaded oesm25st.zip and oesm25ma.zip (metro one in 2 parts; rebuilt, SHA-256 matches his instructions, CRC OK). Rows for SOC 53-3032, 53-3033, 53-7062 extracted unchanged into data/research/bls-oews-2025/ (state 162 rows, metro 1178 rows, all 30 columns incl. TOT_EMP, EMP_PRSE, H_MEAN, H_MEDIAN, MEAN_PRSE) with file hashes in the README. ChatGPT: do NOT re-download; use these CSVs. Example read: Illinois 53-3032 mean $30.01/h (PRSE 1.5 %), 53-7062 $20.66/h; Texas 53-3032 $27.88/h.
 - Not done: no wage model, no employer-cost loading, no mapping of SOC to mover crew roles. OEWS is wages only (no benefits, payroll tax, insurance), so it is a floor input. Research only, no price or coefficient changed.
+
+
+## 2026-11-21 19:18 UTC — ChatGPT — B24 insurance, tires and time evidence review
+- Read the mandatory operations-room rules, latest work log, backlog and existing B24 research/VIUS methodology before starting.
+- Corrected a stale status: Claude's latest work-log entry reports original BLS May 2025 OEWS State and Metro target-SOC files extracted into data/research/bls-oews-2025/ (162 State rows and 1,178 Metro rows, all 30 columns). This session did not independently rerun the extraction.
+- Researched ATRI's 2026 operational-cost report (2025 data), FMCSA insurance/HOS requirements, Insureon mover policy medians, FHWA truck-speed data and BLS wage scope.
+- Evidence: ATRI 2025 for-hire combination-truck benchmarks reported as $0.106 insurance/mile and $0.050 tires/mile; total operating cost $2.336/mile. The report sample is roughly 182,248 combination trucks, not household-goods medium-duty box trucks. Retained only as external comparators.
+- FMCSA HHG filing minima for for-hire vehicles GVWR >=10,001 lb are $750,000 BIPD and $5,000 cargo; coverage minima, not premiums. Insureon mover commercial-auto median is $876/month, but it lacks truck-count/mileage denominator and cannot be converted to $/truck-mile.
+- ATRI 2025 HOS utilization: 7.41 driving hours/day and 10.4 on-duty hours/day. This is industry utilization, not route speed, mover task time or wage rate. FMCSA 11-hour/14-hour/30-minute rules are legal constraints, not average time estimates.
+- Identified FHWA Monthly NHS Traffic Speed as a public dataset with median speed by month, vehicle type, time period, area and functional road system; next best route-time source to extract and spatially join to the 44 geometries, keeping NHS/local road coverage separate.
+- No national mover-specific loading/unloading hours per room/cubic foot/pound source was established. Crew size and handling hours remain unresolved. BLS OEWS wages do not provide task hours.
+- Created docs/operations/B24-INSURANCE-TIRES-TIME-RESEARCH-2026-11-21.md on branch research/b24-insurance-tires-time-2026-11-21. No production or route data changed. Next: extract FHWA dataset/metadata and test route-time coverage; continue matched mover insurance/tire and handling-time evidence.
