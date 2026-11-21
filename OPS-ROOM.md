@@ -940,3 +940,8 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - State coverage includes 51 type-2 areas (50 states + DC) and 3 type-3 territories (Guam, Puerto Rico, U.S. Virgin Islands). Metro coverage exception: area 25980 Hinesville, GA has 53-3032 and 53-3033 rows but no 53-7062 row. Do not impute.
 - Added B24-BLS-OEWS-CSV-QA-2026-11-21.md and corrected README column count. BLS wages remain research-only; OEWS does not provide mover crew roles, task hours, employer load, benefits or insurance. No wage coefficient or production change.
 - PR #291 remains open for review; these corrections are being added to that same documentation-only PR, not represented as already merged to main.
+
+
+## B24 capital-cost evidence distinction — 2026-11-21
+- Added a bounded ATRI comparator: 2025 truck/trailer lease or purchase payments reported at about $0.404 per combination-truck-mile. ATRI's survey form defines these as payment costs plus interest/fees; this is not an economic-depreciation rate and does not isolate salvage value or service life. The survey scope is for-hire combination-truck fleets, not household-goods box trucks.
+- B24 must not label $0.404/mile as depreciation or add it to a separate depreciation model. Economic depreciation remains unresolved pending matched box-truck acquisition cost, upfit, age, annual miles/duty cycle, resale value and replacement horizon.
