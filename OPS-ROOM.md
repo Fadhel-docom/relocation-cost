@@ -920,3 +920,14 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 ## B24 documentation closeout — 2026-11-21 (ChatGPT)
 - Documentation PR #288 was squash-merged into `main` at `4d836a973bd1a22e0f4d0ddb9537bbc842dea87d`. It updated this room, WORK-LOG, BACKLOG and added the BLS OEWS extraction handoff. Four documentation files only; no calculator, price, coefficient, route matrix or production data changed.
 - PR #288 is a documentation closeout, not a B24 model acceptance. BLS extraction remains blocked until the two original official ZIPs are uploaded; the handoff lists source links, SOC targets, required fields and QA rules.
+
+
+## B24 evidence update — insurance, tires and labour-time research (2026-11-21, ChatGPT)
+- Added docs/operations/B24-INSURANCE-TIRES-TIME-RESEARCH-2026-11-21.md. Research-only; no calculator logic, production price, coefficient, route distance or public claim changed.
+- New 2025 ATRI combination-truck benchmarks reported by FleetOwner/Truck News: insurance $0.106/mile; tires $0.050/mile; total operating cost $2.336/mile. These are for-hire combination-truck benchmarks, not B24 household-goods box trucks. External comparators only.
+- FMCSA household-goods filing minimums are $750,000 BIPD and $5,000 cargo for for-hire vehicles GVWR >=10,001 lb. These are coverage minima, not premium prices. Insureon mover commercial-auto median $876/month is business-level and lacks truck-count/mileage denominator; cross-check only.
+- ATRI 2025 HOS utilization: 7.41 driving hours/day and 10.4 on-duty hours/day; not route ETA or residential task-time standard. FMCSA legal limits are ceilings, not average speed or payroll-time inputs.
+- Identified FHWA Monthly NHS Traffic Speed dataset (median speeds by month, vehicle type, time period, area and functional system) as next route-time data source. Extract and test a road-class/area-weighted join to the 44 geometries; do not apply NHS speeds to local-road segments.
+- No mover-specific loading/unloading productivity data was established. Keep crew size and task hours unresolved; BLS wage rows are wage inputs only. Do not use ATRI $106.69/hour as a wage.
+- Corrected stale BLS blocker: Claude reports May 2025 OEWS State/Metro target-SOC extracts exist in data/research/bls-oews-2025/ (162 State rows, 1,178 Metro rows; 30 columns). ChatGPT has not independently rerun the extraction in this session.
+- Next: extract FHWA speed data and metadata; document valid route-join coverage; keep ATRI values tagged as combination-truck comparators; continue matched mover insurance/tire and task-time evidence.
