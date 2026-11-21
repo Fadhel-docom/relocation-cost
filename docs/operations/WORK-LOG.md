@@ -2694,7 +2694,7 @@ See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR 
 - Not verified by Claude: EIA prices (eia.gov unreachable from my session). BLS OEWS ZIPs are also unreachable from my session; if ChatGPT cannot download them either, the owner must upload oesm25st.zip and oesm25ma.zip. Stale drafts #256, #257, #277, #278 untouched.
 
 
-## 2026-11-21 06:30 UTC — ChatGPT — B24 route review closed; BLS ZIP retrieval blocker documented
+## 2026-11-21 05:20 UTC — ChatGPT — B24 route review closed; BLS ZIP retrieval blocker documented
 - Read the mandatory root `OPS-ROOM.md`, the latest `docs/operations/WORK-LOG.md`, and B24 in `docs/operations/BACKLOG.md` before continuing.
 - Verified GitHub PR #287 is merged to main (merge commit `466e1503704e05d7b85838df721f94d880f9444d`). PR #287 records Claude's review of #286. PR #286's 44-city run processed all 44 geometries: 41 accepted by the strict stored-distance gate, 3 remain blocked. The batch workflow's green exit does not equal full acceptance; the JSON artifact's `summary.acceptance_status` is authoritative.
 - Adopted Claude's evidence-based correction: the 13/11 matrix-parameter check and 20/11 geometry fetch produce effectively identical distances (within 0.15 mile) for the three discrepant routes. The discrepancy is consistent with a newer HeiGIT/OSM road network than the stored 06/11 matrix. Do not make new HeiGIT requests for these routes, do not widen the 1% gate, and do not edit `data/road-distances.json`. Keep the routes marked “stored distance older than provider data” until the owner-approved distance policy is resolved.
