@@ -2725,3 +2725,13 @@ See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR 
 - Identified FHWA Monthly NHS Traffic Speed as a public dataset with median speed by month, vehicle type, time period, area and functional road system; next best route-time source to extract and spatially join to the 44 geometries, keeping NHS/local road coverage separate.
 - No national mover-specific loading/unloading hours per room/cubic foot/pound source was established. Crew size and handling hours remain unresolved. BLS OEWS wages do not provide task hours.
 - Created docs/operations/B24-INSURANCE-TIRES-TIME-RESEARCH-2026-11-21.md on branch research/b24-insurance-tires-time-2026-11-21. No production or route data changed. Next: extract FHWA dataset/metadata and test route-time coverage; continue matched mover insurance/tire and handling-time evidence.
+
+
+## 2026-11-21 — ChatGPT — B24 BLS CSV independent QA and chronology correction
+- Read both committed files under data/research/bls-oews-2025/ directly from GitHub; no ZIP download or re-extraction.
+- Found 32 header columns in both CSVs (correcting the earlier “30 columns” wording). State: 162 rows / 54 areas / 54 per SOC. Metro: 1,178 rows / 393 areas for SOC 53-3032 and 53-3033, 392 for SOC 53-7062.
+- All rows have matching field counts; no blank or suppression values in core employment/wage fields TOT_EMP, EMP_PRSE, H_MEAN, A_MEAN, MEAN_PRSE, H_MEDIAN, A_MEDIAN, H_PCT10, H_PCT25, H_PCT75 and H_PCT90. This does not mean all columns are populated: PCT_TOTAL, PCT_RPT and trailing ANNUAL/HOURLY fields are blank in these records.
+- Metro exception: Hinesville, GA (AREA 25980) is absent for SOC 53-7062; it is present for the other two SOCs. No imputation.
+- State areas comprise 51 area-type-2 entries (50 states + DC) and 3 area-type-3 territories (Guam, Puerto Rico, U.S. Virgin Islands).
+- Corrected stale room chronology: the 05:23 blocker predates the owner upload and Claude extraction. ChatGPT's 19:18 note was created without first reading the CSVs; this QA now closes that missed step. PR #291 remains open, not merged.
+- Added B24-BLS-OEWS-CSV-QA-2026-11-21.md and corrected README to 32 columns. Research-only; no wage model, crew-role mapping, employer-cost load, price or production coefficient approved.
