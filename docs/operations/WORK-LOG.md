@@ -2735,3 +2735,9 @@ See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR 
 - State areas comprise 51 area-type-2 entries (50 states + DC) and 3 area-type-3 territories (Guam, Puerto Rico, U.S. Virgin Islands).
 - Corrected stale room chronology: the 05:23 blocker predates the owner upload and Claude extraction. ChatGPT's 19:18 note was created without first reading the CSVs; this QA now closes that missed step. PR #291 remains open, not merged.
 - Added B24-BLS-OEWS-CSV-QA-2026-11-21.md and corrected README to 32 columns. Research-only; no wage model, crew-role mapping, employer-cost load, price or production coefficient approved.
+
+
+## 2026-11-21 — ChatGPT — capital/depreciation evidence boundary
+- Reviewed ATRI's 2026 motor-carrier survey definitions and 2025 published cost reporting. The reported truck/trailer lease or purchase payment comparator is about $0.404 per combination-truck-mile, but includes payment costs, interest and fees and is not an economic depreciation rate. The survey explicitly separates truck and trailer payment categories and excludes depreciation tax benefits.
+- Kept this as an external comparator only. No economic depreciation coefficient can be inferred without matched box-truck acquisition/upfit cost, age, annual mileage/duty cycle, residual value and replacement horizon. Avoid double counting capital payments and a separate depreciation line.
+- Added this boundary to B24-INSURANCE-TIRES-TIME-RESEARCH-2026-11-21.md. No production changes.
