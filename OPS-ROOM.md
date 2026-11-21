@@ -908,3 +908,10 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - PR #282 was marked ready and squash-merged after latest-head checks: Build success, Validate calculator and site success, B24 PADD allocation tests success, Vercel success. Rendered-pages report-only was still running and is non-gating.
 - Merge commit: `107b99f71ed7b8a8113b285252d1e147926d9f09`.
 - Next HeiGIT step remains conditional. Composio search found the exact GitHub secret-metadata and workflow-dispatch tools, but reports `has_active_connection=false` for GitHub. No secret metadata was read, no dispatch was sent, and no HeiGIT quota was consumed. A GitHub connector authorization is required before checking `HEIGIT_API_KEY` (metadata only) and dispatching `route_set=cities`.
+
+## B24 checkpoint — 2026-11-21 (ChatGPT)
+- PR #287 is merged (merge commit `466e150`); Claude's review refutes the request-parameter explanation for the three route deltas. Existing 13/11 and 20/11 requests match within 0.15 mile; the likely cause is road-network data refresh after the 06/11 stored matrix.
+- Keep Atlanta–Boston, Charlotte–New York and Boston–New York flagged as “stored distance older than provider data”. Do not edit `data/road-distances.json`, widen the 1% threshold, or spend more HeiGIT quota on these routes without a separately evidenced owner-approved decision.
+- B24 all-city CI: 44 processed, 41 pass the strict distance gate, 3 blocked; the accepted 41 have 100% boundary coverage and zero unmatched miles. Fuel-only output is $0.6794–$0.9481/truck-mile (median $0.7235), research-only and not a full operating cost.
+- BLS May 2025 OEWS state/metro extraction is the immediate next task. ChatGPT and Claude both failed to retrieve the official ZIPs. See `docs/operations/B24-BLS-MAY-2025-OEWS-HANDOFF-2026-11-21.md`. Owner needs to upload the two original files `oesm25st.zip` and `oesm25ma.zip`; no wage rows have been extracted or approved yet.
+- No production calculator, price, coefficient, or route matrix change. Continue with independent tire, insurance, capital/depreciation and labor-time evidence after BLS extraction, then holdout validation.
