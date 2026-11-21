@@ -931,3 +931,12 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - No mover-specific loading/unloading productivity data was established. Keep crew size and task hours unresolved; BLS wage rows are wage inputs only. Do not use ATRI $106.69/hour as a wage.
 - Corrected stale BLS blocker: Claude reports May 2025 OEWS State/Metro target-SOC extracts exist in data/research/bls-oews-2025/ (162 State rows, 1,178 Metro rows; 30 columns). ChatGPT has not independently rerun the extraction in this session.
 - Next: extract FHWA speed data and metadata; document valid route-join coverage; keep ATRI values tagged as combination-truck comparators; continue matched mover insurance/tire and task-time evidence.
+
+
+## B24 — BLS OEWS CSVs independently read and checked (2026-11-21, ChatGPT)
+- Corrected the chronology: the owner uploaded the original May 2025 OEWS ZIPs and Claude extracted the target SOC rows before ChatGPT's later insurance/tire/time task. The earlier 05:23 UTC room entry and BLS blocker in the 05:23 closeout were stale after the later Claude upload/extraction entry. ChatGPT's 19:18 research note was not a substitute for reading the CSVs; that omission is corrected here.
+- Read the committed State and Metro CSV files directly from GitHub; did not redownload ZIPs. Both headers contain 32 columns (not 30 as stated in README/Claude's work-log shorthand). State: 162 rows, 54 area codes, 54 rows/SOC. Metro: 1,178 rows, 393 areas for SOC 53-3032 and 53-3033, 392 for SOC 53-7062.
+- Independently checked row field counts and core numeric fields: zero malformed rows; no blanks or suppression markers in TOT_EMP, EMP_PRSE, H_MEAN, A_MEAN, MEAN_PRSE, H_MEDIAN, A_MEDIAN, H_PCT10/H_PCT25/H_PCT75/H_PCT90. Other fields such as PCT_TOTAL, PCT_RPT and trailing ANNUAL/HOURLY flags may be blank; this is not a claim that every cell is numeric.
+- State coverage includes 51 type-2 areas (50 states + DC) and 3 type-3 territories (Guam, Puerto Rico, U.S. Virgin Islands). Metro coverage exception: area 25980 Hinesville, GA has 53-3032 and 53-3033 rows but no 53-7062 row. Do not impute.
+- Added B24-BLS-OEWS-CSV-QA-2026-11-21.md and corrected README column count. BLS wages remain research-only; OEWS does not provide mover crew roles, task hours, employer load, benefits or insurance. No wage coefficient or production change.
+- PR #291 remains open for review; these corrections are being added to that same documentation-only PR, not represented as already merged to main.
