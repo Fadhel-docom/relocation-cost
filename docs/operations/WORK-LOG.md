@@ -997,7 +997,9 @@
 - **تصحيح توثيقي:** commit النهائي الذي يحتوي فعلًا على تعديل `SEASON_NOTE` هو `27dfe7fdc0ddcd5dc56437faecb3c29730575f52`، واختبار الصياغة في `c2d08075e8ffd607dd1c34b7c6d0f9c4fec3c620`. لا تعتمد على `7621873` باعتباره النص النهائي؛ تم استبداله بتعديل صريح لاحق.
 - **التحقق:** فحص Vercel على رأس PR #53 ما زال `pending`: https://vercel.com/relocation-cost/relocation-cost/BEy7Y2fpLeff6NaZm8xKhSF8ejyd . لم تظهر workflow runs مرتبطة بالرأس في الاستعلام. لم تُشغّل الاختبارات محليًا في هذه الجولة. لا دمج قبل نتيجة CI ونجاح build والاختبارات.
 - **ما يحتاجه الطرف التالي (Claude):** راجع PR #53 والفروقات، وتحقق من أن اختبار `trust.test.js` يمر. لا تدمج قبل نجاح CI. ملاحظة الموسم الأساسية موجودة بالفعل من PR #51؛ هذا تعديل دقة في نطاق الادعاء فقط.
-- **الخطوة التالية المقترحة:** انتظار Vercel/CI على PR #53، ثم مراجعة النتيجة وتحديث هذا السجل قبل أي دمج.---
+- **الخطوة التالية المقترحة:** انتظار Vercel/CI على PR #53، ثم مراجعة النتيجة وتحديث هذا السجل قبل أي دمج.
+
+---
 
 ## 2026-10-24 19:42 UTC — الطرف: ChatGPT
 - **المهمة / الهدف:** مواصلة غرفة العمليات، قراءة آخر تسليم Claude، تثبيت سجل المنافسين المكتمل، ومراجعة صياغة ملاحظة الموسم بناءً على المصادر.
@@ -1997,6 +1999,8 @@ GSC reading near Nov 12; then decide with the value gate. M3b and the HeiGIT rul
 - **Validation:** GitHub file writes succeeded on the feature branch. Local `npm test` / build were not run in this session. The new PR's CI and Vercel preview/live checks must be inspected before merge; production has not changed.
 - **Not done / constraints:** no Vercel Analytics counts, no fresh GSC/Bing report, no AI-answer surface test, no HeiGIT request, no competitor interactive test, and no published-price coefficient calibration. The planned GSC measurement remains near 2026-11-12; HeiGIT stays read-only until current quota and explicit go-ahead.
 - **Next:** review CI and preview for this copy-only change; if green, merge only after reviewing the diff and verify the deployed hero phrase with the live check. Then retrieve Vercel Analytics counts for `calculator_used` and `calculator_estimate_shown` to establish the baseline. Claude should independently review the wording and confirm the post-deploy check; B2 remains separate.
+
+
 - **PR opened:** #222 — https://github.com/Fadhel-docom/relocation-cost/pull/222 (`chatgpt/nov9-first-screen-value-20261109` → `main`). It is OPEN / NOT MERGED. At first check, Vercel status was `pending` and no PR-triggered GitHub Actions run had appeared yet. No production deployment or live-site verification is claimed. Claude review requested in the PR conversation.
 
 
@@ -2688,6 +2692,7 @@ See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR 
 - Advice for ChatGPT: do not edit data/road-distances.json (owner's scope). For B24, report these three as "stored distance older than provider data" and either keep them blocked or allocate on the geometry miles while recording the stored delta next to the result; whichever you choose, say it in the report and do not widen the 1 % gate silently.
 - Note: the batch runner exits 0 when routes are blocked, so a green job does not mean acceptance PASS; read `summary.acceptance_status` in the artifact.
 - Not verified by Claude: EIA prices (eia.gov unreachable from my session). BLS OEWS ZIPs are also unreachable from my session; if ChatGPT cannot download them either, the owner must upload oesm25st.zip and oesm25ma.zip. Stale drafts #256, #257, #277, #278 untouched.
+
 
 ## 2026-11-21 06:30 UTC — ChatGPT — B24 route review closed; BLS ZIP retrieval blocker documented
 - Read the mandatory root `OPS-ROOM.md`, the latest `docs/operations/WORK-LOG.md`, and B24 in `docs/operations/BACKLOG.md` before continuing.
