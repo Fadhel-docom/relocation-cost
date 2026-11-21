@@ -2657,3 +2657,30 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 
 ## 2026-11-20 — Claude: HeiGIT cities + PADD validation
 See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR #284, secret fix PR #283). Next for ChatGPT: run allocator on all 44 in CI, fix eia_week_of key, then BLS wages.
+
+
+## 2026-11-20 21:30 UTC — ChatGPT — B24 full city-route validation preparation
+- Re-read OPS-ROOM.md, BACKLOG.md, WORK-LOG.md and the latest B24 Claude handoff/report. Confirmed PR #283/#284/#285 are merged and that the previous secret/dispatch blocker is superseded by Claude's successful 44/44 city fetch.
+- Verified the main-branch geometry manifest: 44 requested, 44 fetched, zero fetch failures; Claude reports 255,826 points. Three routes are explicitly flagged above the 1% stored-distance reconciliation threshold: Boston–New York 1.002%, Charlotte–New York 3.058%, Atlanta–Boston 4.418%. The allocator must continue to reject them pending evidence-based reconciliation.
+- Found a reproducible reporting defect: EIA snapshot uses `reference_week`, but `price_fuel` read only `week_of`, so fuel outputs omitted the reference week. Corrected reader and added regression coverage.
+- Prepared an all-44 city batch runner and dedicated GitHub Actions workflow. It verifies route manifest/index integrity, processes each route against TIGER 2026 and the dated EIA snapshot, writes route-level state/PADD mileage and fuel-only results, preserves blocked routes and uploads the JSON report.
+- Added optional Shapely spatial indexing to accelerate point-in-polygon checks in the full batch; dependency-free ray casting remains as fallback. CI pins Shapely 2.1.2 and Python 3.12.
+- Research-only. No production calculator code, route distances, prices, or coefficients changed. CI execution is pending PR creation/review; no full 44-route allocation is claimed in this session.
+- Next: inspect the CI artifact; reconcile the three >1% route-distance differences without bypassing fail-closed gates; then retrieve and parse official BLS May 2025 state/metro OEWS files, preserving SOC, area, employment, RSE, mean/median and suppression flags. Independent tire, insurance, capital/depreciation and labor-time evidence remains required before any holdout or production decision.
+
+
+## 2026-11-20 21:34 UTC — ChatGPT — إصلاح تشغيل batch runner في CI
+- PR #286 شغّل الاختبارات المركزة بنجاح: 19/19. فشل تشغيل batch runner قبل بدء قراءة البيانات بسبب `ModuleNotFoundError: No module named 'tools'` عند تشغيل الملف مباشرة من GitHub Actions.
+- السبب: تشغيل `python tools/b24_padd_city_batch.py` يجعل مجلد `tools` هو مسار التنفيذ الأول، ولا يضمن إضافة جذر المستودع إلى `sys.path` في هذا السياق.
+- أصلحت runner بإضافة جذر المستودع إلى `sys.path` قبل استيراد وحدة allocator. لا تغيير في منطق التوزيع أو معايير القبول.
+- إعادة CI مطلوبة للتحقق من اكتمال معالجة 44 مسارًا وإنتاج artifact. لم تُستخرج بعد أي نتيجة شاملة ولا تُعتبر B24 مقبولة.
+
+## 2026-11-20 21:45 UTC — ChatGPT — B24 full 44-city PADD CI result and route-parity finding
+- PR #286 corrected CI run 44811060668 completed successfully. Focused PADD/TIGER suite: 19/19. Artifact 14667720033; SHA-256 d21e133521d0b6a7d44d90966fa4198fd79ae9331b30a0b99fa8442ec63df6a5.
+- Integrity: expected 44 routes, 44 files, 44 processed, 0 manifest/index integrity errors; EIA reference week correctly recorded as 2026-11-16.
+- Results: 41 routes validated, 3 blocked. Every validated route has 100.000% state-boundary coverage and 0 unmatched miles. Blocked: Atlanta–Boston 4.418%, Boston–New York 1.002%, Charlotte–New York 3.058%. No fuel price was produced for these three.
+- Validated route-level fuel-only scenarios range from $0.6794 to $0.9481 per truck-mile (median $0.7235), using 0.122605 gallons per vehicle-mile and the EIA 2026-11-16 snapshot. These are research-only fuel outputs, not full operating costs, mover quotes, or production coefficients.
+- New audit finding: routing request parity is not exact. Matrix builder uses buildDirectionsBody with radiuses [-1, -1], geometry false, instructions false, units m, and no avoid_* options. GeoJSON fetcher uses no explicit radiuses and adds avoid_borders=controlled plus avoid_countries=CA. Therefore the three deltas cannot yet be attributed solely to OSM/HeiGIT updates.
+- Ask Claude to assess whether a small parameter-matched comparison is needed before any matrix edit. Do not spend additional HeiGIT requests or change matrix values until reviewed.
+- Build, Validate calculator/site, B24 tests, and all-city workflow succeeded. Rendered-pages report-only was still in progress at last read. Vercel PR preview was READY; no production deployment or production code change is claimed.
+- Next: Claude reviews PR #286 and the routing-parameter mismatch; then reconcile the three routes using evidence and matching request parameters. After route QA, extract official BLS May 2025 state/metro OEWS rows (SOC 53-3032, 53-3033, 53-7062), preserving area codes, employment, RSE, mean/median wages and suppression flags. Treat OEWS as broad occupational wage proxies, not mover-specific pay.

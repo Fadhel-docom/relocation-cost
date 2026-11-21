@@ -67,6 +67,20 @@ class PaddAllocationTests(unittest.TestCase):
         )
         self.assertAlmostEqual(fuel["fuel_only_cost_usd"], expected, delta=0.02)
 
+
+    def test_reads_eia_reference_week_field(self):
+        allocation = {
+            "route_miles": 100.0,
+            "coverage_pct_exact": 100.0,
+            "miles_by_padd": {"2": 100.0},
+        }
+        fuel = price_fuel(
+            allocation,
+            {"reference_week": "2026-11-16", "usd_per_gallon": {"2": 5.967}},
+            gallons_per_mile=0.122605,
+        )
+        self.assertEqual(fuel["eia_week_of"], "2026-11-16")
+
     def test_refuses_uncovered_route(self):
         route = {
             "type": "LineString",

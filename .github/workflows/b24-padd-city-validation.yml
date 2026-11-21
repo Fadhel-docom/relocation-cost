@@ -1,0 +1,48 @@
+name: B24 all-city PADD research validation
+
+on:
+  pull_request:
+    paths:
+      - "tools/b24_padd_allocation.py"
+      - "tools/test_b24_padd_allocation.py"
+      - "tools/b24_padd_city_batch.py"
+      - "data/route-geometries/**"
+      - "data/geo/tiger-2026-us-states.geojson"
+      - "data/research/eia-diesel-padd-prices-*.json"
+      - "data/city-routes.json"
+      - ".github/workflows/b24-padd-city-validation.yml"
+  push:
+    branches: [main]
+    paths:
+      - "tools/b24_padd_allocation.py"
+      - "tools/test_b24_padd_allocation.py"
+      - "tools/b24_padd_city_batch.py"
+      - "data/route-geometries/**"
+      - "data/geo/tiger-2026-us-states.geojson"
+      - "data/research/eia-diesel-padd-prices-*.json"
+      - "data/city-routes.json"
+      - ".github/workflows/b24-padd-city-validation.yml"
+
+jobs:
+  validate-all-city-routes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install research geometry dependencies
+        run: python -m pip install pyshp==2.3.1 shapely==2.1.2
+      - name: Run focused B24 unit tests
+        run: python -m unittest tools.test_b24_padd_allocation tools.test_fetch_tiger_state_boundaries -v
+      - name: Run all 44 city routes and write an auditable report
+        run: python tools/b24_padd_city_batch.py --output artifacts/b24-padd-city-validation.json
+      - name: Upload full route validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: b24-padd-city-validation
+          path: artifacts/b24-padd-city-validation.json
+          if-no-files-found: warn
+          retention-days: 30
