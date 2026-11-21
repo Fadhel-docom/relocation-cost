@@ -1,6 +1,6 @@
 # BLS OEWS May 2025 — SOC 53-3032, 53-3033, 53-7062 (research only, B24)
 
-Rows copied unchanged (all 30 original columns, TOT_EMP, EMP_PRSE, H_MEAN, H_MEDIAN, MEAN_PRSE, percentiles, suppression flags) from files the owner downloaded from bls.gov and uploaded on 2026-11-21. Claude could not reach bls.gov itself.
+Rows copied unchanged (all 32 original columns, TOT_EMP, EMP_PRSE, H_MEAN, H_MEDIAN, MEAN_PRSE, percentiles, suppression flags) from files the owner downloaded from bls.gov and uploaded on 2026-11-21. Claude could not reach bls.gov itself.
 
 | Source file | Size (bytes) | SHA-256 |
 |---|---|---|
