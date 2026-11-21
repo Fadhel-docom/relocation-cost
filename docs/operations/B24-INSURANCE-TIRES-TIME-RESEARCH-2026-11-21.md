@@ -143,3 +143,15 @@ No supported national residential-mover source was identified here that establis
 5. Industry reporting: FleetOwner and Truck News reproductions of ATRI 2025 line items and utilization figures. Label these as trade-press reporting of ATRI, not independently collected mover data.
 
 **Final gate:** this review does not establish a complete non-fuel cost model, mover-specific tire/insurance rates, residential labour hours, or a consumer moving price. No production change is authorized.
+
+
+## 7. Truck capital and depreciation — important distinction
+
+ATRI's 2026 motor-carrier survey form asks for truck lease or purchase payments per mile, including payment costs, interest and fees, and explicitly says not to include depreciation tax benefits. Trailer payments are a separate line and the form says not to include depreciation there. The 2025 ATRI results were reported as a combined truck/trailer payment benchmark of about $0.404 per combination-truck-mile. This is a useful external capital-payment comparator, but it is not a depreciation rate and does not isolate economic depreciation, vehicle purchase price, salvage value or service life. It also represents for-hire combination-truck fleets rather than household-goods box trucks.
+
+Sources:
+- ATRI 2026 motor-carrier survey form (definitions of truck and trailer lease/purchase costs): https://truckingresearch.org/wp-content/uploads/2026/02/2026-Ops-Cost-Motor-Carrier-Form.pdf
+- FleetOwner's 2025 ATRI line-item reporting and sample-scope caveat: https://www.fleetowner.com/emissions-efficiency/article/55417694/trucking-by-the-numbers-2026-the-price-of-operating-a-fleet
+- ATRI 2026 report release: https://truckingresearch.org/2026/07/new-atri-report-details-accelerating-costs-and-low-profitability-despite-cuts/
+
+Do not label $0.404/mile as depreciation, and do not add it on top of a separately modeled purchase/depreciation cost. For a B24 box-truck economic-depreciation estimate, the minimum matched evidence is vehicle class/body configuration, acquisition price net of upfit, age, annual miles/duty cycle, observed resale or salvage value, and replacement horizon. If those are unavailable, keep depreciation unresolved and show ATRI only as a comparator. Interest/financing cost and economic depreciation must be kept conceptually separate to avoid double counting.
