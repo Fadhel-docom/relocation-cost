@@ -945,3 +945,15 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 ## B24 capital-cost evidence distinction — 2026-11-21
 - Added a bounded ATRI comparator: 2025 truck/trailer lease or purchase payments reported at about $0.404 per combination-truck-mile. ATRI's survey form defines these as payment costs plus interest/fees; this is not an economic-depreciation rate and does not isolate salvage value or service life. The survey scope is for-hire combination-truck fleets, not household-goods box trucks.
 - B24 must not label $0.404/mile as depreciation or add it to a separate depreciation model. Economic depreciation remains unresolved pending matched box-truck acquisition cost, upfit, age, annual miles/duty cycle, resale value and replacement horizon.
+
+
+## 2026-11-22 — ChatGPT — B4/B25 search discovery recheck
+- Re-read the room rules, latest work-log entries, unified backlog, value-before-publishing law and prior indexing diagnoses before acting.
+- Confirmed the exact GSC property and Bing verified site are both `https://relocation-cost-psi.vercel.app/`.
+- GSC 28-day window 2026-10-23..11-19: 661 impressions, 1 click, CTR 0.151%, average position 44.76; previous 28-day window 20 impressions, 0 clicks, average position 59.35. Homepage accounts for 561 impressions and 0 clicks; the only page click was `/moving-cost/co-to-wa/` (6 impressions).
+- Google sitemap metadata: child sitemap 115 submitted, 0 errors/warnings, last downloaded 2026-11-18; index last downloaded 2026-11-20. URL Inspection still reports `/calculator/` and `/methodology/` as unknown with neutral verdict and unspecified fetch/robots state; homepage and `/moving-cost/co-to-wa/` are indexed/PASS.
+- Bing: primary sitemap Success (115 URLs), index Success; stale page-as-feed entries remain “The feed was empty”; `in_index=67` on 2026-11-21, 0 crawl errors, no issue rows. URL inspection returned `ThrottleUser`; no retry or mass submission.
+- Source review found no demonstrated source-level discovery defect: Astro host and trailing-slash config match the verified property; shared layout has self-canonical and Calculator navigation; homepage has a direct calculator form action and CTA; calculator does not set noindex; `verify-seo.mjs` expects the calculator in the generated sitemap. The script was inspected, not freshly run.
+- Live XML/HTML could not be fetched by the available web readers (403/cache miss). This is a tool/proxy limitation, not evidence of a crawler block. Full GSC Page indexing reasons and Bing child URL inventory remain unavailable.
+- **Decision:** no safe production fix is supported. No sitemap resubmission, URL submission, feed deletion, code, canonical, robots, calculator, or pricing change. B4/B25 remain open; next step is a reliable Page indexing report and live rendered crawl before any technical edit.
+- Detailed evidence: `docs/operations/SEARCH-DISCOVERY-RECHECK-2026-11-22.md`.
