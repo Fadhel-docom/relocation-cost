@@ -205,3 +205,64 @@
 ## Addendum — deeper competitive product audit (2026-11-11)
 
 Detailed product and methodology comparison, evidence limits, strategic positioning and the B14 homepage quick-start action are recorded in `COMPETITOR-DEEP-AUDIT-2026-11-11.md`. Key correction to prior shallow reviews: moveBuddha and Haulest have substantial price-evidence advantages; RelocateMath has a detailed public-data methodology. We should not imitate their claims or fabricate market accuracy. Our defensible difference is the editable full relocation cash budget, employer support and separate living reserve before any quote request.
+
+
+## Weekly competitor review — 2026-11-23
+
+Scope: changes since the 2026-11-16 review. Direct public pages were opened where accessible. This is a desk review, not a full interactive or independent audit.
+
+### New material changes
+
+#### Haulest — quarterly review-index refresh (important)
+- The Moving Index page is reviewed as of 2026-11-19 and now reports 3,538 priced U.S. reviews posted from 2025-01-01 through 2026-11-19: 2,852 interstate and 686 same-state. The interstate median is $4,475 (middle half $3,400–$6,000); same-state median is $1,693. The page compares the interstate median with $4,646 in its prior comparison window and same-state with $1,600.
+- Compared with the 2026-11-16 review's reported 3,349 total / 2,703 interstate / 646 same-state observations, the current published file adds 189 observations (+149 interstate, +40 same-state). The calculator's size table is also marked read 2026-11-19.
+- The vendor describes the data as public reviewer-posted prices, filtered to U.S. reviews with both states named and prices between $100 and $60,000. It explicitly notes self-selection, uses at least 10 reviews for a size median and 20 for a lane median, and says the index refreshes quarterly. These are not booked quotes, a probability sample, or an independently audited national market estimate.
+- User impact: more recent, more granular reviewer-reported context, with sample counts and explicit selection limitations.
+- Relocation Cost implication: retain as an external comparison only. Do not import the CSV or blend its reviewer-price distribution with CMR booked-move cells. Service scope, sample selection and observation type differ.
+
+Sources:
+- https://haulest.com/data/moving-index-2026 (reviewed 2026-11-19; accessed 2026-11-23)
+- https://haulest.com/calculators/cost?market=us (table says read 2026-11-19)
+- https://haulest.com/ (homepage displays the dated review sample and lane summaries)
+
+#### RelocateMath — rental-truck trip-cost expansion (important)
+- Its moving-cost calculator is marked “Page updated Nov 20, 2026”. It now states that the rental-truck figure includes fuel and nights on the road, and exposes optional toll and overnight-stay inputs.
+- The California–Texas example separates truck rental/taxes/fees ($1,020–$4,600), fuel ($770–$1,240), lodging (3 nights at $113 = $339), tolls (user-entered), and a displayed rental-truck all-in range of $2,130–$6,180 before other exclusions. The method describes a 450-mile/day planning pace, Penske truck-size/mileage references and Budget's loaded-mileage floor.
+- User impact: makes several easily missed DIY trip costs visible instead of leaving the visitor with the truck rental charge alone.
+- Relocation Cost comparison: our current calculator permits manual travel and temporary-housing entries and adds them as entered; it does not currently calculate route-specific truck fuel and overnight lodging automatically. This is a possible convenience gap, not yet evidence for a build. B24's truck-cost evidence is still incomplete, and competitor assumptions must not be copied as our coefficients.
+- Evidence caveat: the page says it was updated Nov 20 and that truck-trip inputs were read Nov 20, but the same fuel section labels AAA fuel prices Nov 22. The dates are not internally consistent as displayed. Do not repeat its fuel-price freshness claim without reconciling that chronology.
+
+Sources:
+- https://relocatemath.com/moving-cost/ (page updated Nov 20, 2026; accessed Nov 23)
+- https://relocatemath.com/methodology/ (methodology and source definitions; accessed Nov 23)
+
+### New watchlist discovery — not a change this week
+
+#### MovingCal
+- Directly reviewed its homepage and methodology. It presents five linked calculators (cost of living, salary after tax, relocation budget, rent vs. buy, country comparison), claims 500+ calculator-backed pages across 65 cities and 35 countries, and labels its data “Updated June 2026”.
+- Its methodology describes 2026 city-cost estimates aggregated from listing platforms, national statistical offices and crowd-sourced price databases, plus 2026 tax models. This is a broad relocation-suite competitor, especially relevant to future international scope, but the displayed data vintage is June 2026 and the public methodology is high-level. It is not a newly verified weekly update or proof of accuracy.
+- Sources: https://www.movingcal.com/ and https://www.movingcal.com/methodology/ (both accessed 2026-11-23; pages say updated June 2026).
+
+#### Oomove — unable to verify directly
+- Identified as a potentially relevant moving-cost calculator, but the direct homepage and methodology URL returned HTTP 403 in the available page reader. A third-party Oct 5 launch release and indexed search text exist, but these are not a substitute for inspecting the primary pages.
+- Classification: unable to verify; no product, coverage, price or accuracy claims accepted into the competitor comparison.
+- Candidate URLs: https://www.oomove.com/ and https://www.oomove.com/moving-prices-methodology/
+
+### No material dated change verified since 2026-11-16
+- moveBuddha: its methodology page still shows last updated Nov 4, 2026; no newer dated pricing-methodology update found.
+- Moving.com: calculator page still carries an April 9, 2026 page date; no newer dated calculator change found.
+- This Old House: long-distance movers page remains updated Nov 11, 2026 (already captured last week); the 2026 homeowner survey page is dated Oct 6, 2026.
+- MoveInBills: its updates page's newest listed changes remain Nov 10, 2026.
+- GoodMigrations: current calculator retains historical ballpark table language and no visible recent update date.
+- MoveDayMap and Have a Good Move: current public product pages were accessible, but no dated changelog or new update since the prior review was found.
+- No dated competitor SEO / AI-answer visibility release was verified in this pass.
+
+### Decisions
+1. Keep B15 evidence separation and all production prices, coefficients and route data unchanged. Haulest is an external reviewer-price comparator only; do not blend it with CMR booked-price ranges. Any future comparison must show observation type, service scope, time window and cell sample counts.
+2. Treat RelocateMath's fuel/lodging breakdown as a research prompt only: before any feature proposal, validate independent truck class, MPG, fuel type, route distance, toll and lodging inputs and test whether the existing manual travel fields are a real user friction point. No build is approved. A future research gate should require dated primary inputs for every component, an explicit sensitivity range and a no-double-counting test.
+
+### Limits
+- No competitor dataset/CSV was downloaded; no user price data was collected.
+- No competitor calculator was exhaustively tested through every interaction; no competitor figures were independently audited.
+- No SEO ranking or AI-answer appearance experiment was run.
+- No production code, prices, coefficients, route data, pages, sitemap, analytics or outreach changed.
