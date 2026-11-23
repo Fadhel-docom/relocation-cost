@@ -957,3 +957,14 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - Live XML/HTML could not be fetched by the available web readers (403/cache miss). This is a tool/proxy limitation, not evidence of a crawler block. Full GSC Page indexing reasons and Bing child URL inventory remain unavailable.
 - **Decision:** no safe production fix is supported. No sitemap resubmission, URL submission, feed deletion, code, canonical, robots, calculator, or pricing change. B4/B25 remain open; next step is a reliable Page indexing report and live rendered crawl before any technical edit.
 - Detailed evidence: `docs/operations/SEARCH-DISCOVERY-RECHECK-2026-11-22.md`.
+
+
+## 2026-11-23 — ChatGPT — المراجعة الأسبوعية للمنافسين
+- قرأت غرفة العمليات وسجل العمل وقانون القيمة قبل النشر وقائمة المنافسين والـBacklog قبل البحث. PR #257 الخاص بمراجعة 16 نوفمبر ما زال مفتوحًا ومبنيًا فوق PR #256 المفتوح؛ هذا التوثيق الجديد مبني على main الحالي ولا يدمج أي PR.
+- **تغيير مهم — Haulest:** تحديث مؤشر الأسعار بتاريخ مراجعة 19 نوفمبر: 3,538 مراجعة سعرية أمريكية (2,852 بين الولايات و686 داخل الولاية)، وسيط الانتقال بين الولايات $4,475 والنصف الأوسط $3,400–$6,000. مقارنة بلقطة 16 نوفمبر: +189 سجلًا. البيانات من أسعار منشورة ذاتيًا، مع إفصاح عن التحيز وحدود العينة؛ ليست عينة وطنية عشوائية ولا بيانات حجز مدققة. لا تنزيل CSV ولا إدخالها في B15.
+- **تغيير مهم — RelocateMath:** صفحة الحاسبة محدثة 20 نوفمبر، وتعرض تكلفة رحلة الشاحنة كاملة تقريبًا بإضافة الوقود والمبيت إلى إيجار الشاحنة، مع مدخلات اختيارية لليالي والرسوم. هذا يكشف فجوة راحة محتملة لأن حاسبتنا تعتمد على إدخال السفر والإضافات يدويًا، لكنه ليس موافقة على بناء الميزة. كما أن الصفحة تعرض تعارضًا زمنيًا: تحديث/قراءة المدخلات 20 نوفمبر مقابل أسعار AAA بتاريخ 22 نوفمبر.
+- **منافس جديد للمراقبة — MovingCal:** صفحة ومصادر مباشرة تعرض خمس حاسبات و500+ صفحة و65 مدينة و35 دولة، مع تاريخ بيانات معلن يونيو 2026. منافس أوسع لقرار الانتقال، لا تغيير أسبوعي ولا دليل تفوق دقة. Oomove مرشح غير متحقق؛ صفحات الموقع الأصلية أعادت 403، لذلك لم تُقبل ادعاءاته.
+- **لا تغيير مؤرخ مهم** لدى moveBuddha وMoving.com وThis Old House وMoveInBills وGoodMigrations وMoveDayMap وHave a Good Move منذ التقرير السابق. لم يُثبت تحديث SEO أو ظهور AI لدى المنافسين.
+- **القرار:** إبقاء B15 وفصل أنواع الأدلة وعدم تغيير أي سعر أو معامل أو مسافة. بحث فقط في جدوى تقدير الوقود/المبيت تلقائيًا بعد استكمال مصادر B24 وإثبات أن الإدخال اليدوي يسبب احتكاكًا؛ لا بناء أو نشر الآن.
+- **الحدود:** لم تُنزّل ملفات بيانات أو CSV، ولم تُجمع أسعار مستخدمين، ولم تُختبر كل الحاسبات تفاعليًا أو تُدقق بيانات المنافسين استقلاليًا، ولم يُجر اختبار ترتيب SEO/AI. لا تغيير إنتاجي أو outreach أو صفحات جديدة.
+- **المصادر والروابط والتفاصيل:** docs/operations/COMPETITOR-RESEARCH.md، ومصادر Haulest وRelocateMath وMovingCal المدرجة فيه.
