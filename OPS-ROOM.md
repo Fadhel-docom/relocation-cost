@@ -959,6 +959,16 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - Detailed evidence: `docs/operations/SEARCH-DISCOVERY-RECHECK-2026-11-22.md`.
 
 
+## 2026-11-23 — ChatGPT — المراجعة الأسبوعية للمنافسين
+- قرأت غرفة العمليات وسجل العمل وقانون القيمة قبل النشر وقائمة المنافسين والـBacklog قبل البحث. PR #257 الخاص بمراجعة 16 نوفمبر ما زال مفتوحًا ومبنيًا فوق PR #256 المفتوح؛ هذا التوثيق الجديد مبني على main الحالي ولا يدمج أي PR.
+- **تغيير مهم — Haulest:** تحديث مؤشر الأسعار بتاريخ مراجعة 19 نوفمبر: 3,538 مراجعة سعرية أمريكية (2,852 بين الولايات و686 داخل الولاية)، وسيط الانتقال بين الولايات $4,475 والنصف الأوسط $3,400–$6,000. مقارنة بلقطة 16 نوفمبر: +189 سجلًا. البيانات من أسعار منشورة ذاتيًا، مع إفصاح عن التحيز وحدود العينة؛ ليست عينة وطنية عشوائية ولا بيانات حجز مدققة. لا تنزيل CSV ولا إدخالها في B15.
+- **تغيير مهم — RelocateMath:** صفحة الحاسبة محدثة 20 نوفمبر، وتعرض تكلفة رحلة الشاحنة كاملة تقريبًا بإضافة الوقود والمبيت إلى إيجار الشاحنة، مع مدخلات اختيارية لليالي والرسوم. هذا يكشف فجوة راحة محتملة لأن حاسبتنا تعتمد على إدخال السفر والإضافات يدويًا، لكنه ليس موافقة على بناء الميزة. كما أن الصفحة تعرض تعارضًا زمنيًا: تحديث/قراءة المدخلات 20 نوفمبر مقابل أسعار AAA بتاريخ 22 نوفمبر.
+- **منافس جديد للمراقبة — MovingCal:** صفحة ومصادر مباشرة تعرض خمس حاسبات و500+ صفحة و65 مدينة و35 دولة، مع تاريخ بيانات معلن يونيو 2026. منافس أوسع لقرار الانتقال، لا تغيير أسبوعي ولا دليل تفوق دقة. Oomove مرشح غير متحقق؛ صفحات الموقع الأصلية أعادت 403، لذلك لم تُقبل ادعاءاته.
+- **لا تغيير مؤرخ مهم** لدى moveBuddha وMoving.com وThis Old House وMoveInBills وGoodMigrations وMoveDayMap وHave a Good Move منذ التقرير السابق. لم يُثبت تحديث SEO أو ظهور AI لدى المنافسين.
+- **القرار:** إبقاء B15 وفصل أنواع الأدلة وعدم تغيير أي سعر أو معامل أو مسافة. بحث فقط في جدوى تقدير الوقود/المبيت تلقائيًا بعد استكمال مصادر B24 وإثبات أن الإدخال اليدوي يسبب احتكاكًا؛ لا بناء أو نشر الآن.
+- **الحدود:** لم تُنزّل ملفات بيانات أو CSV، ولم تُجمع أسعار مستخدمين، ولم تُختبر كل الحاسبات تفاعليًا أو تُدقق بيانات المنافسين استقلاليًا، ولم يُجر اختبار ترتيب SEO/AI. لا تغيير إنتاجي أو outreach أو صفحات جديدة.
+- **المصادر والروابط والتفاصيل:** docs/operations/COMPETITOR-RESEARCH.md، ومصادر Haulest وRelocateMath وMovingCal المدرجة فيه.
+
 ## 2026-11-23 — Weekly search, indexing and calculator-usage review (ChatGPT)
 - Re-read the room rules, latest work log, backlog, value-before-publishing law, competitor deep audit/research, and latest Claude B24 reviews before acting. The latest Claude advice (2026-11-21) remains: aggregate NHS speed data cannot be joined to route geometries; passenger-car route durations are not truck times; mover-specific crew task hours remain the priority gap.
 - Verified the exact GSC and Bing property: `https://relocation-cost-psi.vercel.app/`. GSC 2026-10-24..11-20: 655 impressions, 1 click, 0.153% CTR, average position 44.05; previous non-overlapping 28 days 36 impressions, 0 clicks, position 61.64. Homepage: 555 impressions (84.7%), 0 clicks. Main generic/employer queries map to homepage: `relocation package calculator` 82 impressions (pos 32.23), `relocation expenses calculator` 43 (32.40), `relocation cost calculator` 25 (39.00), `relocation compensation calculator` 30 (51.53). One click remains `/moving-cost/co-to-wa/` (6 impressions, pos 18.5). Small prior baseline; no causal quality claim.
