@@ -2799,3 +2799,13 @@ See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR 
 - Competitive review supports the current differentiator: complete editable cash budget plus employer support and cash reserve, not a claim of most accurate mover quote. No safe production code, metadata, internal-link, schema, canonical, robots, sitemap or pricing change was justified. No tests/build run because this was documentation-only.
 - **Next:** B25 remains open for GSC Page indexing reason groups and a fresh uncached rendered crawl. Wait before another Bing child-URL request. Product-quality work remains B24; Claude's 11-21 review rejects aggregate NHS speeds for route-time joins and keeps mover-specific crew task time as the priority evidence gap.
 - Full report: `docs/operations/SEARCH-VISIBILITY-REVIEW-2026-11-23.md`.
+
+
+## 2026-11-24 — ChatGPT — Google indexing diagnosis
+- Verified active GSC property and read sitemap inventory: index and child each 115 submitted, 0 errors/warnings; last downloaded 2026-11-20 and 2026-11-18. Do not treat deprecated sitemap `indexed=0` as the site's indexed-page total.
+- Read-only inspections: homepage and CA→AZ route PASS/indexed; moving-cost guide non-slash URL canonicalizes to slash version; calculator, methodology, employer relocation guide and relocation budget guide are all `URL is unknown to Google`, with no crawl date and unspecified fetch/robots/indexing fields.
+- 90-day page Search Analytics (2026-08-25..11-21) returned 14 pages with impressions and 715 total impressions in returned rows. Performance rows do not equal a full index inventory.
+- Source review confirms correct production origin, Astro sitemap integration, allow-all robots declaration, self-canonical with noindex opt-in, crawlable homepage/layout links and state/city route hubs. Production Vercel deployment READY on main commit `45d1d59e1d46c819780371a21bfa9edaef1495e7`.
+- No site-wide technical block demonstrated. Search Console API does not expose the Page indexing report reason table; it exposes Search Analytics, Sitemaps, Sites and URL Inspection. Manual Request indexing quota state is not exposed by this API. No URL requests or sitemap resubmission attempted.
+- Next: obtain Indexing → Pages reason groups, counts, source and example URLs from the GSC UI; then compare with actual generated sitemap XML and deployed rendered HTML before implementing a fix.
+- Full note: `docs/operations/GOOGLE-INDEXING-DIAGNOSIS-2026-11-24.md`.
