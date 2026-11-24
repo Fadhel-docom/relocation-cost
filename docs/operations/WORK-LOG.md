@@ -2799,3 +2799,12 @@ See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR 
 - Competitive review supports the current differentiator: complete editable cash budget plus employer support and cash reserve, not a claim of most accurate mover quote. No safe production code, metadata, internal-link, schema, canonical, robots, sitemap or pricing change was justified. No tests/build run because this was documentation-only.
 - **Next:** B25 remains open for GSC Page indexing reason groups and a fresh uncached rendered crawl. Wait before another Bing child-URL request. Product-quality work remains B24; Claude's 11-21 review rejects aggregate NHS speeds for route-time joins and keeps mover-specific crew task time as the priority evidence gap.
 - Full report: `docs/operations/SEARCH-VISIBILITY-REVIEW-2026-11-23.md`.
+
+
+## 2026-11-24 — ChatGPT — B24 NPMRDS access and labor-time evidence review
+- Read current `OPS-ROOM.md`, latest work-log tail, `BACKLOG.md`, and the existing FHWA source-fit review before acting.
+- FHWA official primer confirms that FPM truck-probe access is limited to FHWA and eligible research arrangements; NPMRDS derivative is made available to State DOTs, MPOs and Federal agencies, with a licensing agreement required for States/MPOs. This is not an unrestricted public download for this project. No restricted data were accessed or requested.
+- BLS/FRED NAICS 48421 annual hours for 2025 are 171.329 million; aggregate industry-hours only, not per-move crew hours. FMCSA property-carrier hours-of-service limits are legal constraints, not observed average trip-time or loading/unloading evidence.
+- Decision: keep NPMRDS blocked pending an eligible lawful access arrangement; do not substitute FHWA corridor summaries, aggregate NHS speed categories, HOS maximums or annual industry hours for route- or task-specific observations. Separate route driving, driver duty constraints, residential handling and crew task time.
+- Created `docs/operations/B24-NPMRDS-ACCESS-AND-LABOR-TIME-REVIEW-2026-11-24.md`. No production code, coefficients, prices, route distances, or HeiGIT quota changed. No tests/build were needed.
+- Next: continue matched box-truck tire life/installed cost and capital lifecycle evidence; mover-specific crew/task hours remain unresolved.
