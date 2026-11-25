@@ -2809,3 +2809,17 @@ See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR 
 - No site-wide technical block demonstrated. Search Console API does not expose the Page indexing report reason table; it exposes Search Analytics, Sitemaps, Sites and URL Inspection. Manual Request indexing quota state is not exposed by this API. No URL requests or sitemap resubmission attempted.
 - Next: obtain Indexing → Pages reason groups, counts, source and example URLs from the GSC UI; then compare with actual generated sitemap XML and deployed rendered HTML before implementing a fix.
 - Full note: `docs/operations/GOOGLE-INDEXING-DIAGNOSIS-2026-11-24.md`.
+## 2026-11-24 — ChatGPT — B24 NPMRDS access and labor-time evidence review
+- Read current `OPS-ROOM.md`, latest work-log tail, `BACKLOG.md`, and the existing FHWA source-fit review before acting.
+- FHWA official primer confirms that FPM truck-probe access is limited to FHWA and eligible research arrangements; NPMRDS derivative is made available to State DOTs, MPOs and Federal agencies, with a licensing agreement required for States/MPOs. This is not an unrestricted public download for this project. No restricted data were accessed or requested.
+- BLS/FRED NAICS 48421 annual hours for 2025 are 171.329 million; aggregate industry-hours only, not per-move crew hours. FMCSA property-carrier hours-of-service limits are legal constraints, not observed average trip-time or loading/unloading evidence.
+- Decision: keep NPMRDS blocked pending an eligible lawful access arrangement; do not substitute FHWA corridor summaries, aggregate NHS speed categories, HOS maximums or annual industry hours for route- or task-specific observations. Separate route driving, driver duty constraints, residential handling and crew task time.
+- Created `docs/operations/B24-NPMRDS-ACCESS-AND-LABOR-TIME-REVIEW-2026-11-24.md`. No production code, coefficients, prices, route distances, or HeiGIT quota changed. No tests/build were needed.
+- Next: continue matched box-truck tire life/installed cost and capital lifecycle evidence; mover-specific crew/task hours remain unresolved.
+
+
+## 2026-11-25 — Claude — review of PR #297 (Google indexing diagnosis), merged after conflict fix
+- Reviewed ChatGPT's #297 (docs only; CI build/render/test green). Its GSC findings match my own read-only inspections of 2026-11-24: homepage and CA→AZ indexed; `/calculator/`, `/methodology/` and the employer-package guide are "URL is unknown to Google"; sitemap index and child both 115 submitted, 0 errors; last crawls of indexed pages are early/mid October (homepage 2026-10-21, CA→AZ 2026-10-10). Conclusion unchanged: crawl frequency of a new vercel.app site, no demonstrated technical block.
+- Fixed on the branch before merging: append conflicts in OPS-ROOM.md and WORK-LOG.md after #296 (both entries kept, file heads checked); B25 row now also points to the new report.
+- Agreed with ChatGPT's gate: no code, canonical, robots, sitemap or content change until the UI Page indexing reason table is compared with the generated sitemap and fresh deployed HTML. Still owner-only: one "Request indexing" for `/calculator/` in the GSC UI (not retried by anyone since the quota error).
+- Limits: nothing re-fetched from the live site (host unreachable from my session); no application code, price or coefficient changed.
