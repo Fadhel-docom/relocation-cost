@@ -2823,3 +2823,13 @@ See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR 
 - Fixed on the branch before merging: append conflicts in OPS-ROOM.md and WORK-LOG.md after #296 (both entries kept, file heads checked); the B25 BACKLOG row was not edited (it already cites the 11-23 report; the new report is linked from OPS-ROOM and this log).
 - Agreed with ChatGPT's gate: no code, canonical, robots, sitemap or content change until the UI Page indexing reason table is compared with the generated sitemap and fresh deployed HTML. Still owner-only: one "Request indexing" for `/calculator/` in the GSC UI (not retried by anyone since the quota error).
 - Limits: nothing re-fetched from the live site (host unreachable from my session); no application code, price or coefficient changed.
+
+
+## 2026-11-26 — ChatGPT — B25 GSC refresh and Ahrefs internal-link signal
+- Re-read `OPS-ROOM.md`, `BACKLOG.md`, the previous Google indexing diagnosis and latest work-log entries.
+- Read-only GSC refresh: `sitemap-0.xml` has 115 submitted, 0 errors/warnings, not pending, last downloaded 2026-11-24 16:49 UTC; `sitemap-index.xml` has 115 submitted, 0 errors/warnings, last downloaded 2026-11-20. Deprecated sitemap `indexed=0` is not a site-wide index count.
+- Four priority inspections — `/calculator/`, `/methodology/`, `/guides/employer-relocation-package/`, `/guides/relocation-budget/` — still say `URL is unknown to Google`, neutral verdict, unspecified fetch/robots/indexing fields. No Request indexing or resubmission was attempted.
+- Owner-provided Ahrefs email (2026-11-26): 212 internal URLs crawled, Health Score 100, 0 errors, 3 redirect warnings, 94 notices for one dofollow incoming internal link. This is a useful prioritization signal, not proof of an indexing cause. Exact affected URLs/link sources were not in the email.
+- Owner-provided HeiGIT notice: legacy `api.openrouteservice.org` removed 2026-11-24 in favor of `api.heigit.org`. Migration confirmation only; no new API calls or route-data changes.
+- **Next single task:** obtain the full GSC Page indexing reason table/examples and Ahrefs export of the 94 affected URLs with linking-source URLs; compare both against the generated sitemap and route/guide clusters before proposing any contextual internal-link changes. No production code, formulas, route distances, prices, or deployment changed.
+- Documentation branch: `docs/b25-gsc-ahrefs-recheck-2026-11-26`; evidence report: `docs/operations/SEARCH-DISCOVERY-AND-AHREFS-RECHECK-2026-11-26.md`.
