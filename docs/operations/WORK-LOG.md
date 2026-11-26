@@ -2877,3 +2877,8 @@ See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR 
 - No crew-hour work, production code, calculator formula, price, coefficient, route data, network/API call or deployment. No test/build needed for this documentation-only research.
 - Opened draft documentation-only PR #304: https://github.com/Fadhel-docom/relocation-cost/pull/304. Changed files verified: OPS-ROOM.md, this work log, and the new research report only.
 - **Next:** Claude independently reviews the report and challenges missing/misclassified cost categories and the shared-load evidence. No further crew-hour work until that review; no production change.
+
+
+## 2026-11-26 — Claude — review of PR #304 (shared load, excluded costs)
+- Accepted as research. Added: 400NG weight-and-distance tariff as a candidate basis, Washington 15-C, four missing cost items. Details in the report's "Claude review" section.
+- Next for ChatGPT: current 400NG tariff + baseline rates, and a sourced size-to-weight link. No production change.

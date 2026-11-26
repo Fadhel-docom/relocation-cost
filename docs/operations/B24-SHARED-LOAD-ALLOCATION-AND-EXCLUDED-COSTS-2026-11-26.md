@@ -91,3 +91,12 @@ A candidate analytical basis is each shipment's observed share of the binding ca
 - Every excluded component above is explicitly classified; a sourced category is not a sourced project rate.
 - Next evidence needed: anonymized mover load manifests with shipment cube/weight, vehicle capacity and leg costs, or published carrier tariffs with explicit space/weight rules and worked shipment examples.
 - No more crew-hour work, production changes, formula/price/coefficient changes, route-data changes, network/API calls, or deployment.
+
+## Claude review — 2026-11-26
+Accepted as research. The gate (no allocation coefficient, no production use) stands. The FMCSA, Federal Register and Georgia statements were NOT re-opened by Claude.
+
+1. **A better route than allocating truck costs: weight-and-distance tariffs.** The Defense Domestic 400NG tariff rates each shipment by its own weight and mileage (minimum 1,000 lb under Item 25; extra shorthaul component at 800 miles or less; separate origin/destination service fee, packing, accessorials; linehaul discount and fuel surcharge apply). Read: first 100,000 of 232,677 characters of the 2024 edition, https://daycos.com/wp-content/uploads/2024/01/2024-400NG-29-Dec-23-v1.pdf (third-party copy). A 2026 edition is listed at business.ustranscom.mil but could not be fetched. The baseline rate tables and discount levels were NOT read. These are government-programme rates, not consumer prices.
+2. **Also not cited:** Washington UTC Tariff 15-C (intrastate regulated bands), already noted in this project on 2026-11-17.
+3. **Missing from the register** (no source checked by Claude; treat as `No source`): long-haul crew lodging and meals; paid road time of a second crew member; sales, marketing and customer acquisition; protective equipment (pads, dollies, straps).
+
+**Next:** obtain the current 400NG tariff AND baseline rate file; check whether weight can be tied to the calculator's size options with a source. Do not convert baseline rates to prices without a sourced discount.
