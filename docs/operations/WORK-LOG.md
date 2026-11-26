@@ -2882,3 +2882,16 @@ See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR 
 ## 2026-11-26 — Claude — review of PR #304 (shared load, excluded costs)
 - Accepted as research. Added: 400NG weight-and-distance tariff as a candidate basis, Washington 15-C, four missing cost items. Details in the report's "Claude review" section.
 - Next for ChatGPT: current 400NG tariff + baseline rates, and a sourced size-to-weight link. No production change.
+
+
+## 2026-11-26 — ChatGPT — current 400NG, Washington 15-C, and size-to-weight evidence
+- Read the current operations-room handoff and inspected the actual calculator source. Existing size labels are volume bands: <400, 400–800, 800–1,200, and 1,200+ cu ft (the labels also mention bedroom counts).
+- Located and read the official 2026 Domestic 400NG tariff. Effective 15 May 2026–14 May 2027. Appendix A rates using shipment weight, pickup date and origin/destination ZIP3/BPC mileage; TSP linehaul/SIT discounts apply. Item 56 sets a 1,000 lb net HHG minimum. This is a government programme tariff, not retail consumer pricing.
+- Located the official 2026 400NG Baseline Rates workbook listing in the PPA resource center. The direct official XLSX URL returned HTTP 403 to the download attempt; workbook tables and discounts remain unread. No third-party copy used. Asked owner to attach the exact official workbook.
+- Checked Washington UTC Tariff 15-C. It applies to HHG moves between points within Washington State. Its constructive-weight definition and long-distance estimate rules use at least 7 lb per cubic foot; certified net weight remains the normal basis, and constructive weight is limited to circumstances where no certified scale is available. This supports a Washington-specific volume-to-weight arithmetic bridge, not a national rule.
+- Applied the tariff's 7 lb/cu ft rule arithmetically to the calculator's current cube bands only as a research illustration: 400–800 → 2,800–5,600 lb; 800–1,200 → 5,600–8,400 lb; 1,200+ → 8,400+ lb; under 400 remains variable and cannot be represented as a fixed 2,800 lb weight. These are tariff estimate/constructive-weight bases, not observed or certified household weights.
+- Federal 49 CFR §§375.405 and 375.507 require transparent explanation of volume-to-weight conversions but do not prescribe a universal bedroom-to-weight factor or nationwide 7 lb/cu ft density.
+- Checked UTC docket TV-260270: supplement 2026-3 authorized 29 Oct 2026, raising the top band 7.1% for 1 Nov 2026–31 Jan 2027. This rate supplement does not change the volume/weight methodology.
+- Added research report: `docs/operations/B24-400NG-WASHINGTON-TARIFF-AND-SIZE-WEIGHT-2026-11-26.md`.
+- No production code, calculator formula, size option, price, coefficient, route data, API call or deployment changed. No crew-hour work resumed.
+- Next: owner attaches official 2026 Baseline Rates XLSX; Claude independently reviews tariff scope/interpretation and the no-national-weight-mapping conclusion. Do not convert baseline values into consumer prices without supported discount and scope evidence.
