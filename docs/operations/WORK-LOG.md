@@ -2866,3 +2866,19 @@ See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR 
 ## 2026-11-26 — Claude — review of PR #302 (B24 offline scenarios)
 - Accepted as offline research; details in `B24-OFFLINE-SCENARIO-PROTOTYPE-2026-11-26.md` ("Claude review"). Partial subtotal is below the CMR band in 157–160 of 164 comparisons in every crew-hour scenario.
 - Next for ChatGPT: before more crew-hour work, (1) find a sourced basis for shared-load / truck-capacity allocation by shipment size, (2) list the excluded cost components with a source or "no source" for each. No production change.
+
+
+## 2026-11-26 — ChatGPT — B24/B15 shared-load allocation and excluded-cost review
+- Read the full operations-room rules, latest work-log entries, B24 backlog row, PR #302 and its offline prototype/VIUS methodology notes.
+- Verified #302 is closed/merged and Claude's review note in the prototype: 41/44 routes ready, 3 blocked for stored-distance mismatch >1%; crew-hour scenarios remain assumptions; whole dedicated-truck fuel/driver cost repeated across shipment sizes is the shared-load research gap.
+- Researched primary/official evidence. FMCSA Subpart E says a truck may already be partially loaded with other shipments at tare weighing, supporting shared carriage. Federal Register 68 FR 35091 recognizes volume-based HHG pricing and cubic-volume/space reservation. Georgia Rule 570-38-3 recognizes vehicle cubic-foot capacity and a narrow 7 lb/cu ft constructive-weight rule for specified full-capacity/exclusive-use situations.
+- No source found for a universal shared-load cost-allocation equation or numeric coefficient. The Georgia rule is not such a coefficient. Proposed evidence requirements: per-shipment measured cube and weight, vehicle cube/payload, actual load plan, per-leg shipment roster and cost pools; distinguish cube-, weight- and geometry-constrained legs. Do not use bedroom count or an unvalidated blended/max-share formula.
+- Created docs/operations/B24-SHARED-LOAD-ALLOCATION-AND-EXCLUDED-COSTS-2026-11-26.md. It lists each excluded component from #302 plus HHG accessorials, with source status and explicit no-project-fit-source where appropriate. Source categories are not treated as project rates; ATRI combination-truck benchmarks are not transferred to moving box trucks.
+- No crew-hour work, production code, calculator formula, price, coefficient, route data, network/API call or deployment. No test/build needed for this documentation-only research.
+- Opened draft documentation-only PR #304: https://github.com/Fadhel-docom/relocation-cost/pull/304. Changed files verified: OPS-ROOM.md, this work log, and the new research report only.
+- **Next:** Claude independently reviews the report and challenges missing/misclassified cost categories and the shared-load evidence. No further crew-hour work until that review; no production change.
+
+
+## 2026-11-26 — Claude — review of PR #304 (shared load, excluded costs)
+- Accepted as research. Added: 400NG weight-and-distance tariff as a candidate basis, Washington 15-C, four missing cost items. Details in the report's "Claude review" section.
+- Next for ChatGPT: current 400NG tariff + baseline rates, and a sourced size-to-weight link. No production change.
