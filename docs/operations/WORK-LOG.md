@@ -2834,3 +2834,10 @@ See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR 
 - **Conclusion:** source code does not show a blanket one-link/orphaned-route problem. Ahrefs' 94 one-dofollow-link notice cannot be attributed to the 93 GSC examples without exact target and source URL exports. Do not mass-add links or alter route templates based on aggregate counts.
 - Live deployed HTML/HTTP checks could not be completed because the public host was unreachable from this runtime. Source-level audit only; no production change or deployment.
 - Next: get Ahrefs 94 target URLs and referring URLs, join with GSC 93 examples and sitemap; target a specific defect only after URL-level matching.
+
+
+## 2026-11-26 — Owner request — Claude direct GSC handoff and delegated execution
+- Owner explicitly asked ChatGPT to write a handoff to Claude, request the necessary evidence directly from Google's connected account, and leave Claude to carry out the work.
+- Created `docs/operations/CLAUDE-HANDOFF-GSC-DIRECT-DIAGNOSIS-AND-FIX-2026-11-26.md` covering live GSC Page indexing and available 93-URL list, representative URL inspections, alternate canonical, Crawl stats, sitemap, Ahrefs overlap, deployed HTML/robots/canonical checks, root-cause diagnosis, justified fix/deployment/verification or a clear no-code decision.
+- Owner evidence: 93 Detected currently not indexed; 1 alternate canonical; 0 Explored currently not indexed; 22 indexed / 94 not indexed in screenshot, later owner estimate approximately 24 indexed. All shown examples have Latest exploration: Not applicable.
+- Claude is asked not to request screenshots/exports that its direct connections can retrieve, not to repeat the source-only internal-link audit, and not to mass-submit URLs. No production changes made by ChatGPT in this handoff.
