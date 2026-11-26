@@ -1,80 +1,91 @@
-# B26 handoff — exact Ahrefs ↔ GSC internal-link and crawl diagnosis
+# B26 handoff — verify the Ahrefs one-inlink claim against the current build
 Date: 2026-11-26
-Priority: URGENT — indexing investigation
-Owner direction: Take direct ownership. Do not return a general explanation or ask the owner for screenshots/data that connected services can provide. Retrieve the actual URL-level evidence, reconcile it, and make an evidence-based recommendation.
+Priority: HIGH — evidence validation only
+Scope: documentation / report reconciliation. No production link changes.
 
-## Why this task exists
-The site has roughly 90+ URLs reported as not indexed by Google. A prior Ahrefs audit reportedly showed 94 affected pages with only one dofollow internal inlink each. This may indicate weak internal link distribution, but the count alone does NOT prove pages are orphaned or that this caused Google's lack of crawling. We need the underlying URL and source-link data.
+## New verified evidence — supersedes the premise of the earlier B26 task
 
-Previous Claude GSC reading (PR #299, 2026-11-26) found:
-- Sitemap child: 115 submitted, 0 errors/warnings, downloaded 2026-11-24.
-- The then-inspected /calculator/, /methodology/ and /moving-cost/cities/chicago-to-atlanta/ were “URL unknown to Google”, with no crawl date.
-- 93 URLs in “Detected, currently not indexed” were reported by owner; examples showed “Latest exploration: Not applicable”.
-- Claude could not retrieve the complete GSC URL list or Crawl Stats through its then-used API path. This task requires trying all available connected UI/export/browser routes, not assuming the API limitation means the data cannot be obtained.
-- Source review previously claimed hubs link route pages, but this must now be validated against the live rendered production site and Ahrefs URL-level report. Do not repeat the source-only audit as a substitute for live evidence.
+Claude reports that it inspected build `ffd907f` and counted internal links for all 115 sitemap URLs:
+- 0 pages have 0, 1, or 2 distinct linking pages.
+- Minimum: 5 linking pages.
+- Median: 13 linking pages.
+- `/calculator/` and `/methodology/`: 114 linking pages each.
 
-## Required work — do every section
+This directly conflicts with the earlier interpretation that an Ahrefs audit found 94 pages with only one internal inlink. **Do not change internal links, navigation, hubs, templates, or production code on the basis of the old Ahrefs claim.** The claim is not established against the current build.
 
-### A. Retrieve the complete Ahrefs evidence
-1. Check whether Ahrefs is connected/available in your environment. If connected, open the exact Site Audit project for https://relocation-cost-psi.vercel.app/ (or the configured project hostname) and retrieve/export the full list behind the reported 94-page “one dofollow internal inlink” finding.
-2. Capture for EVERY affected URL:
-   - exact URL and HTTP/final URL;
-   - internal inlinks count and the exact metric definition used by Ahrefs;
-   - unique referring internal page count, if separately available;
-   - all referring/source URLs (not just a count);
-   - anchor text and link attributes (follow/nofollow);
-   - whether links are template/global navigation, hub links, contextual links, pagination, or other;
-   - crawl status, indexability, canonical, depth, and page type if available.
-3. Export the raw CSV/XLSX or equivalent report and preserve its date, project scope, crawl date, and filters.
-4. If Ahrefs is NOT connected or the project/report is unavailable, state the precise limitation and continue with a full first-party crawl/link graph of the production site. Do not pretend Ahrefs evidence was retrieved.
+## Objective
 
-### B. Retrieve and reconcile Google Search Console evidence
-1. Use the live verified property https://relocation-cost-psi.vercel.app/.
-2. Retrieve the full current Page indexing reason groups and totals, not just a screenshot count.
-3. Retrieve the complete URL list/export for “Detected, currently not indexed” (reported as 93) using available GSC UI/export routes. If truly unavailable, record the exact interface/API limitation and capture every available example.
-4. For each URL in the GSC list, join it to the Ahrefs report using normalized final/canonical URL. Report exact intersection, GSC-only and Ahrefs-only counts and URL lists.
-5. For representative URLs from every page type and every important status, record URL Inspection fields: verdict, indexing state, last crawl (or none), crawl allowed, fetch result, indexing allowed, user canonical, Google canonical, referring/discovery source, sitemap membership.
-6. Open Crawl Stats in GSC UI and record host status, total requests, response codes, response time, Googlebot type, crawl purpose and date range. Check Search Console messages, Manual Actions and Security Issues. Do not leave these as “not available” without trying the direct UI.
-7. Record exact sitemap processing and URL coverage, and compare submitted canonical URLs to the GSC/Ahrefs lists.
+Determine whether the “94 pages with one inlink” result is:
+1. from an older crawl/build, before the current internal-link structure existed;
+2. scoped to a different hostname, URL set, crawl mode, or filtered subset;
+3. using a metric different from “number of distinct internal source pages” (for example, link occurrences/inlinks rather than unique referring pages, or a dofollow-only subset);
+4. based on a stale, incomplete, or otherwise mismatched export; or
+5. still a genuine discrepancy that remains unexplained after like-for-like comparison.
 
-### C. Independently crawl the live production site
-1. Crawl the production hostname with a reliable crawler (and a second method if blocked).
-2. Build a complete internal link graph for all canonical indexable HTML pages. Extract links from rendered HTML and distinguish links in server HTML from client-only links.
-3. For every canonical page calculate:
-   - number of distinct internal source pages linking to it;
-   - total internal link occurrences;
-   - crawl depth from homepage;
-   - whether it is reachable from homepage through crawlable links;
-   - source URL(s), anchor text, and link location/type.
-4. Identify truly orphaned pages (zero internal source pages), weakly linked pages (one source), and adequately linked pages. Do NOT label a page orphaned merely because Ahrefs shows one inlink.
-5. Inspect navigation, hub pages, route directories, breadcrumbs, related-route modules, pagination and contextual links. Check whether links are actual crawlable anchors and whether they render in initial HTML.
-6. Compare deployed production commit/alias with main. Verify HTTP status, redirects, canonical, robots directives/headers and sitemap membership for representative and anomalous URLs.
+Start with the Ahrefs report's date and exact metric definition, and verify both against the underlying export. Do not begin by proposing link changes.
 
-### D. Diagnose the real pattern
-1. Segment results by page type: state route, city route, guide, calculator, methodology, hub, other.
-2. Determine whether the 94-page metric represents 94 distinct targets with exactly one source, whether the source is the same page/template, and whether the 93 GSC URLs substantially overlap.
-3. Test plausible explanations separately: low internal link count, excessive crawl depth, sitemap-only discovery, weak/duplicate/thin page value, canonical/redirect mismatch, crawl/fetch/host issue, or crawl prioritization.
-4. Distinguish correlation from causation. “One inlink” by itself is not proof Google refuses to crawl a URL.
-5. Provide a short prioritized diagnosis supported by URL-level evidence and quantify each pattern.
+## Required work
 
-### E. Propose and, if justified, implement the smallest useful fix
-1. If the evidence proves a real internal-link architecture defect, propose a targeted, meaningful linking plan that helps visitors navigate and understand related routes. Avoid generic sitewide link spam or repeating hundreds of boilerplate links.
-2. If a code change is justified, implement it on a branch/PR, run build and relevant rendered-page/link checks, and report the diff. Do not merge or deploy without review.
-3. If no technical defect is established, explicitly recommend no code change and identify the next evidence needed.
-4. Do not change calculator formulas, prices, route distances, or unrelated content.
-5. Do not mass-submit URLs to Google. Request indexing only for a few high-value URLs after verifying a real correction and if quota permits.
+### 1. Establish the provenance of the Ahrefs finding first
 
-## Required deliverables in the operations room
-- Timestamp and exact project/property/crawl scopes.
-- Ahrefs raw export or exact access limitation.
-- Complete GSC URL list or exact access limitation.
-- A reconciled CSV/table covering every URL in both sets, including source pages and GSC status.
-- Complete live crawl link graph or downloadable artifact, with per-page source counts and depth.
-- Counts of orphaned (0), one-source (1), and multi-source (2+) pages by page type.
-- Exact overlap between the Ahrefs 94 and GSC 93 (do not infer from similar totals).
-- Evidence-based root-cause ranking, clearly separating facts and hypotheses.
-- Smallest justified fix as PR, or a reasoned no-code decision.
-- Production verification and next measurable checkpoint.
+Use only the Ahrefs report/export already available to you or already present in the project/work materials. Do not spend time trying to access an Ahrefs account or UI that is not connected/available, and do not ask the owner for screenshots or exports as the first step.
+
+Record:
+- report name/type and the exact finding label;
+- report generation date/time and crawl date/time (distinguish report date from crawl date);
+- project/property and exact hostname(s), protocol, and URL scope;
+- filters applied, including page status, indexability, link attribute (follow/nofollow), and URL type;
+- exact metric label and its definition as shown by Ahrefs;
+- whether “1 inlink” means one link occurrence, one referring page, one dofollow link, or another measure;
+- whether the export includes source/referring URLs and whether its rows represent target pages, link instances, or referring domains/pages;
+- export filename, worksheet/tab, row count, column names, and any summary/total rows.
+
+Inspect the actual export rather than relying on a dashboard screenshot, remembered number, or paraphrased finding. Preserve the export's original date and metadata. If the export is unavailable in the existing materials, state that precise limitation and stop short of treating “94” as a verified fact.
+
+### 2. Compare dates and scope with Claude's current-build evidence
+
+Use build/commit `ffd907f` as the reference point for the reported 115-URL link-count audit.
+
+Establish, if evidence allows:
+- whether the Ahrefs crawl happened before or after `ffd907f` was deployed;
+- whether it crawled the same production hostname and the same 115 canonical sitemap URLs;
+- whether the Ahrefs export's target set actually contains the 94 URLs being discussed;
+- whether the Ahrefs metric can be compared directly with Claude's count of distinct internal linking pages.
+
+Do not assume the Ahrefs crawl date equals the report export date. If deployment timing or crawl timing cannot be established from available records, mark it unknown.
+
+### 3. Reconcile only if the export supports a valid comparison
+
+If the raw export is available and its fields permit it, produce a compact URL-level comparison:
+- normalized target URL;
+- Ahrefs metric value and exact metric meaning;
+- number of distinct source pages derivable from the export;
+- Claude current-build distinct-source count, where the same URL can be matched;
+- whether the difference is explained by crawl date, scope, filters, metric semantics, or remains unexplained.
+
+Do not manufacture a 94-vs-115 intersection from aggregate totals. Do not claim URL-level reconciliation unless the actual rows support it.
+
+If the export does not contain source URLs or distinct referring-page data, explicitly say that it cannot establish the number of distinct source pages. Identify the minimum missing evidence without asking for unavailable access.
+
+### 4. Decide whether any action is justified
+
+- If the Ahrefs finding is stale, differently scoped, or measuring a different quantity, document the correction and close the internal-link-defect hypothesis for this evidence set.
+- If a like-for-like comparison confirms a real discrepancy, explain exactly which URLs and counts differ and why the two crawls may see different link graphs. Re-check only the affected URLs against the current build evidence.
+- If the export is unavailable or insufficient, label the claim unverified; do not change links.
+- Do not edit production code, internal links, page content, calculator formulas, prices, route distances, sitemap, or indexing settings as part of this task.
+- Do not attempt GSC UI navigation, GSC exports, Crawl Stats, Manual Actions, Security Issues, or URL Inspection. Those were not available through the access path used for the prior task and are outside this revised scope.
+
+## Required operations-room entry
+
+Log:
+1. Ahrefs report/export identity, dates, scope, and exact metric definition.
+2. What the export actually contains (including row count and relevant columns).
+3. Whether the report crawl predates or postdates build `ffd907f`, with evidence or an explicit unknown.
+4. Whether the 94-page claim is comparable to Claude's current-build count of distinct source pages.
+5. URL-level reconciliation only if supported by raw rows; otherwise state why it is impossible.
+6. Final decision: corrected/stale/mismatched/unverified/confirmed discrepancy.
+7. Explicit confirmation: no internal-link or production changes were made.
 
 ## Communication rule
-Do not ask the owner to provide screenshots or exports before exhausting connected GSC/Ahrefs access and available direct UI routes. Do not return another generic checklist. If a source is inaccessible, prove the access limitation, proceed with the other evidence, and state exactly what remains unknown. This work is specifically about resolving the indexing problem and must be logged in the shared operations room.
+
+Return evidence and conclusions, not a generic SEO checklist. Do not ask the owner to perform steps that are within your available repository/material access. If the export or report is not available, say exactly what you inspected and what was unavailable. The current verified build counts take precedence over an older unverified summary; do not preserve the “94 pages with one inlink” claim as fact without validating its date, scope, and metric definition.
