@@ -59,3 +59,17 @@ Keep B25 open. Do not repeat Request indexing, resubmit the sitemap, mass-add in
 - Four priority URL inspections: successful.
 - No write actions taken in Search Console.
 - Documentation-only changes; no application tests/build required.
+
+
+## Owner screenshot confirmation — 2026-11-26 10:49 UTC
+
+The owner supplied the Google Search Console Overview screenshot showing:
+- 94 unindexed URLs.
+- 22 indexed URLs.
+- 1 click on web search pages in the displayed performance chart.
+
+This confirms the aggregate overview counts. It does not show why the URLs are excluded, and it does not prove that these 94 URLs are the same targets as Ahrefs' 94 one-dofollow-internal-link notices. The matching count alone is not evidence of shared URL membership or causation.
+
+The GSC sitemap inventory reports 115 submitted URLs, while the overview shows 116 indexed + unindexed URLs. These are not necessarily identical populations or synchronized counts. Compare the exact sitemap URL list, GSC Page indexing examples, and Ahrefs affected-URL export before drawing conclusions.
+
+**Next evidence required:** GSC Indexing → Pages reason table with examples, plus Ahrefs export of all 94 affected URLs and their linking-source URLs. No new indexing requests, sitemap submission, production changes, or deployment.
