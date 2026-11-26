@@ -2823,3 +2823,14 @@ See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR 
 - Fixed on the branch before merging: append conflicts in OPS-ROOM.md and WORK-LOG.md after #296 (both entries kept, file heads checked); the B25 BACKLOG row was not edited (it already cites the 11-23 report; the new report is linked from OPS-ROOM and this log).
 - Agreed with ChatGPT's gate: no code, canonical, robots, sitemap or content change until the UI Page indexing reason table is compared with the generated sitemap and fresh deployed HTML. Still owner-only: one "Request indexing" for `/calculator/` in the GSC UI (not retried by anyone since the quota error).
 - Limits: nothing re-fetched from the live site (host unreachable from my session); no application code, price or coefficient changed.
+
+
+## 2026-11-26 — ChatGPT — Source-code audit of internal-link network (B25)
+- Audited `src/layouts/Layout.astro`, homepage, both route hubs, state/city route templates, and `GuideNext.astro` on `main`.
+- Current data contains 50 state routes and 44 city routes. Hubs link all route details. Homepage links 8 featured routes in each cluster and both hubs.
+- State route templates cross-link routes sharing origin/destination, reverse routes, and up to 8 related city guides. Route-data analysis: 2–15 same-origin/destination related route sources per state route (mean 8.2; reverse and city links additional).
+- City route templates cross-link 5–13 other city routes touching either endpoint (mean 9), with city hub and matching state route link where available.
+- GuideNext links calculator, sibling guides, four example routes and route hub; shared layout has header/footer navigation. Homepage links calculator, trust/guide pages and route clusters.
+- **Conclusion:** source code does not show a blanket one-link/orphaned-route problem. Ahrefs' 94 one-dofollow-link notice cannot be attributed to the 93 GSC examples without exact target and source URL exports. Do not mass-add links or alter route templates based on aggregate counts.
+- Live deployed HTML/HTTP checks could not be completed because the public host was unreachable from this runtime. Source-level audit only; no production change or deployment.
+- Next: get Ahrefs 94 target URLs and referring URLs, join with GSC 93 examples and sitemap; target a specific defect only after URL-level matching.
