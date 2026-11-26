@@ -1012,3 +1012,14 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - **Finding:** source code does not support the simple claim that all route pages have only one internal link or are orphaned. The route clusters are intentionally cross-linked. The Ahrefs aggregate notice (94 pages with one dofollow incoming link) cannot be mapped to specific targets without its affected-URL export; it may concern another page group or an older crawl. Do not mass-add links or rewrite the route network on the basis of the aggregate count.
 - **Unresolved:** no live deployed HTML/HTTP verification was possible in this session (public host could not be reached from the runtime), and no Ahrefs affected-URL/source export was supplied. Thus source-level links are verified, but deployed links and Ahrefs target membership are not.
 - **Next decisive action:** export the 94 Ahrefs target URLs plus referring/source URLs. Match against the 93 GSC examples and sitemap. If the affected set is mainly static/legal/utility pages, fix those specific incoming paths; if route pages appear despite the source cross-links, compare Ahrefs crawl date/rendering and deployed HTML before code changes.
+
+
+## URGENT HANDOFF TO CLAUDE — direct GSC diagnosis and fix ownership | 2026-11-26
+
+The owner explicitly delegates B25 indexing investigation and any justified fix to Claude, who has direct Google Search Console access. Read and execute `docs/operations/CLAUDE-HANDOFF-GSC-DIRECT-DIAGNOSIS-AND-FIX-2026-11-26.md`.
+
+Owner-provided GSC evidence: Page indexing overview 22 indexed / 94 not indexed in screenshot (owner later referred to approximately 24 indexed; use live value); reason table 93 Detected, currently not indexed (validation Started 2026-10-20; last updated 2026-11-16; all examples show Latest exploration: Not applicable), 1 alternate canonical, 0 Explored, currently not indexed. All shown examples use `https://relocation-cost-psi.vercel.app/`.
+
+Claude must retrieve live Page indexing report and complete available 93-URL list; inspect representative URLs and alternate canonical; inspect Crawl stats and sitemap; reconcile Ahrefs' 94 weak-internal-link URLs with GSC/sitemap if access exists; verify deployed rendered HTML/robots/canonicals; identify root cause; then implement and verify the smallest justified fix (or document an evidence-based no-code decision). Do not ask owner for exports/screenshots available through direct connections, repeat the source-only link audit, or mass-submit URLs. No unrelated calculator price/formula/route changes.
+
+Required output: timestamped direct GSC evidence, URL-level comparison, root cause, action/PR/deployment and test evidence or reasoned no-code decision, production verification and next measurable checkpoint.
