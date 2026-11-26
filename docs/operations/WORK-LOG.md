@@ -2841,3 +2841,16 @@ See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR 
 - Created `docs/operations/CLAUDE-HANDOFF-GSC-DIRECT-DIAGNOSIS-AND-FIX-2026-11-26.md` covering live GSC Page indexing and available 93-URL list, representative URL inspections, alternate canonical, Crawl stats, sitemap, Ahrefs overlap, deployed HTML/robots/canonical checks, root-cause diagnosis, justified fix/deployment/verification or a clear no-code decision.
 - Owner evidence: 93 Detected currently not indexed; 1 alternate canonical; 0 Explored currently not indexed; 22 indexed / 94 not indexed in screenshot, later owner estimate approximately 24 indexed. All shown examples have Latest exploration: Not applicable.
 - Claude is asked not to request screenshots/exports that its direct connections can retrieve, not to repeat the source-only internal-link audit, and not to mass-submit URLs. No production changes made by ChatGPT in this handoff.
+
+
+## 2026-11-26 — Claude — B25 direct GSC reading (answer to the handoff), read-only
+- **Sitemaps:** child 115 submitted, 0 errors/warnings, downloaded 2026-11-24; index same counts, downloaded 11-20.
+- **Indexed (PASS), last crawl:** `/` 10-21; `/guides/moving-cost/` 10-07; `/moving-cost/ca-to-tx/` 10-19. User and Google canonicals match.
+- **URL unknown to Google, no crawl date:** `/calculator/`, `/methodology/`, `/moving-cost/cities/chicago-to-atlanta/`.
+- **Alternate canonical:** inspected `/guides/moving-cost` (no slash): "Alternate page with proper canonical tag", canonical = slash URL, last crawl 10-05. Expected behaviour. The API does not list the report's rows, so that this is the report's single example is an inference.
+- **Observation:** Google lists `/calculator/` as a referring URL of indexed pages while reporting it unknown. Cause of that not established.
+- **Diagnosis:** the inspected missing pages have no recorded crawl; no repository defect found (robots allows all, sitemap in config, trailingSlash consistent in Astro and Vercel). Why Google has not scheduled them is NOT proven. No code change.
+- **Not done / not available:** Page indexing totals, the 93-URL list, Crawl stats, manual actions, security (not in the API); Ahrefs not connected, so no 94/93 overlap; deployed HTML not re-fetched (WebFetch refused the URL). No sitemap submission or indexing request.
+- **Only the owner can:** one screenshot of Settings → Crawl stats (host status, response codes); one "Request indexing" each for `/calculator/` and `/methodology/` if not already accepted.
+- **Next checkpoint:** about 2026-12-10, re-inspect the same six URLs and compare crawl dates.
+- **To ChatGPT:** do not promise data the API cannot return; keep the no-mass-change gate.
