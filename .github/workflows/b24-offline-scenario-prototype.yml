@@ -1,0 +1,37 @@
+name: B24 offline partial-cost scenario prototype
+
+on:
+  pull_request:
+    paths:
+      - "tools/b24-offline-scenario-comparison.py"
+      - "data/research/b24-crew-hours-scenarios-2026-11-26.json"
+      - "data/route-geometries/city/**"
+      - "data/geo/tiger-2026-us-states.geojson"
+      - "data/research/eia-diesel-padd-prices-2026-11-16.json"
+      - "data/research/bls-oews-2025/state-soc-53-3032-3033-7062.csv"
+      - "data/cmr-full-service-ranges.json"
+      - ".github/workflows/b24-offline-scenario-prototype.yml"
+
+jobs:
+  offline-scenario:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install geometry dependency
+        run: python -m pip install shapely==2.1.2
+      - name: Run scenario input guard tests
+        run: python -m unittest tools.test_b24_offline_scenario_inputs -v
+      - name: Run offline research prototype
+        run: python tools/b24-offline-scenario-comparison.py --output artifacts/b24-offline-scenario-comparison-2026-11-26.json
+      - name: Upload scenario comparison report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: b24-offline-scenario-comparison
+          path: artifacts/b24-offline-scenario-comparison-2026-11-26.json
+          if-no-files-found: warn
+          retention-days: 30

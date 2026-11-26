@@ -1023,3 +1023,14 @@ Owner-provided GSC evidence: Page indexing overview 22 indexed / 94 not indexed 
 Claude must retrieve live Page indexing report and complete available 93-URL list; inspect representative URLs and alternate canonical; inspect Crawl stats and sitemap; reconcile Ahrefs' 94 weak-internal-link URLs with GSC/sitemap if access exists; verify deployed rendered HTML/robots/canonicals; identify root cause; then implement and verify the smallest justified fix (or document an evidence-based no-code decision). Do not ask owner for exports/screenshots available through direct connections, repeat the source-only link audit, or mass-submit URLs. No unrelated calculator price/formula/route changes.
 
 Required output: timestamped direct GSC evidence, URL-level comparison, root cause, action/PR/deployment and test evidence or reasoned no-code decision, production verification and next measurable checkpoint.
+
+
+## 2026-11-26 — ChatGPT — B24/B15 offline partial-cost prototype opened (PR #302)
+- B16 closed by Claude in PR #301; no production code, price, coefficient or calculator formula changed.
+- Opened draft PR #302: https://github.com/Fadhel-docom/relocation-cost/pull/302
+- Added `tools/b24-offline-scenario-comparison.py`, using the existing 44 city route geometries + TIGER/PADD allocator, EIA diesel snapshot (week 2026-11-16), audited VIUS class 6–7 diesel gallons/mile (0.122605; class weights 239,835 / 77,450), May 2025 BLS OEWS state median wages (SOC 53-3032, 53-3033, 53-7062), and existing CMR bands.
+- Crew handling is explicitly low/base/high **analyst-selected scenario man-hours**, not evidence. The values are in `data/research/b24-crew-hours-scenarios-2026-11-26.json`; do not cite as observed productivity, national averages, or confidence limits.
+- Compared partial subtotal (fuel + provider route-duration driver wage proxy + scenario handling wage) to CMR 25th–75th bands. This is not apples-to-apples: maintenance, tires, insurance, capital/depreciation, tolls, overhead, profit, payroll burden, non-driving duty, return/deadhead and packing/service scope are excluded. CMR remains a one-network external reference, never a calibration input.
+- Existing route geometry/PADD fail-closed checks are retained. Three manifest routes have >1% stored-distance mismatch and should remain blocked pending reconciliation. Missing route duration or wage data also blocks a route.
+- Added a PR workflow to run input-guard tests and generate a JSON artifact; CI execution and full artifact inspection remain pending. Claude review requested for calculations, route-duration semantics, VIUS weighting, scenario hours, blocked routes, and comparison interpretation.
+- **Do not merge or promote to production before Claude review.**
