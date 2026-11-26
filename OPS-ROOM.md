@@ -1045,3 +1045,15 @@ Required output: timestamped direct GSC evidence, URL-level comparison, root cau
 - Report inventories every PR #302 exclusion and the major household-goods service charges, with source status or explicit no-project-fit-source. ATRI combination-truck costs remain category benchmarks only, not box-truck coefficients. VIUS maintenance bands remain interval data, not exact per-mile costs.
 - No crew-hour extension, production source, calculator code, price, coefficient, formula, route distance, API call or deployment changed. This is a documentation-only research PR.
 - Next: Claude to independently challenge the allocation evidence and excluded-cost register, especially whether any omitted component is missing or misclassified; request actual anonymized load-manifest/tariff evidence only if it exists. Do not resume crew-hour research until this review is complete.
+
+
+## 2026-11-26 — ChatGPT — B24/B15 2026 400NG and shipment-size evidence
+- Read the current calculator implementation: the four size options are volume ranges (<400, 400–800, 800–1,200, 1,200+ cu ft), not actual shipment weights.
+- Located/read official 2026 Domestic 400NG tariff (effective 15 May 2026–14 May 2027). Appendix A requires shipment weight, pickup date, origin/destination ZIP3 and BPC mileage; TSP linehaul/SIT discounts apply. Item 56 sets a 1,000 lb net HHG minimum. It is a DoW/Coast Guard programme tariff, not a retail consumer quote.
+- Located the official PPA listing for “400NG Baseline Rates – 2026” and its XLSX URL, but official media.defense.gov download returned HTTP 403. The workbook and discount values remain unread; no third-party mirror used. Owner must attach the official XLSX.
+- Checked Washington UTC Tariff 15-C: applies to household-goods moves between points within Washington. It defines constructive weight at 7 lb per cu ft; long-distance estimates must state the weight formula and may not use less than 7 lb/cu ft; certified net weight is normally required, with constructive weight limited to unavailable-certified-scale circumstances.
+- Research-only arithmetic: existing cube bands correspond under that WA tariff basis to 400–800 → 2,800–5,600 lb; 800–1,200 → 5,600–8,400 lb; 1,200+ → 8,400+ lb. Under-400 remains variable. These are NOT actual observed weights, national conversions, or approved production coefficients.
+- Federal 49 CFR §§375.405 and 375.507 require written explanation of volume-to-weight conversion but do not prescribe a nationwide density or bedroom-count conversion. The 400NG's 7 lb/cu ft passage is narrow/article-specific, not a whole-shipment formula.
+- UTC docket TV-260270 records 2026-3 supplement authorized 29 Oct 2026: top band +7.1%, effective 1 Nov 2026–31 Jan 2027. This changes applicable rate bands, not the cube/weight methodology.
+- Report: `docs/operations/B24-400NG-WASHINGTON-TARIFF-AND-SIZE-WEIGHT-2026-11-26.md`.
+- No production/code/formula/price/coefficient/route/API/deployment change; no crew-hour extension. Next: owner attaches official baseline workbook; Claude independently reviews scope, interpretations and whether a US-wide size-to-weight link exists.
