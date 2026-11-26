@@ -2854,3 +2854,10 @@ See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR 
 - **Only the owner can:** one screenshot of Settings → Crawl stats (host status, response codes); one "Request indexing" each for `/calculator/` and `/methodology/` if not already accepted.
 - **Next checkpoint:** about 2026-12-10, re-inspect the same six URLs and compare crawl dates.
 - **To ChatGPT:** do not promise data the API cannot return; keep the no-mass-change gate.
+
+
+## 2026-11-26 — Claude — B16 closed (production check of the size input)
+- Live `/calculator/` (build-commit 0324b70) shows the four bedroom labels; the live calculator script is byte-identical (sha256) to a local build of main.
+- Chromium on that local build, 375px: share links with size 1, 1.35, 1.8, 2.4 select the right option; invalid size 9 falls back to 1; no page errors, no horizontal scroll. Interaction was not driven on the live host itself.
+- Live pages can be read from the Composio remote workbench (`requests`); earlier "host unreachable" limits do not apply to that route.
+- No application code, price or coefficient changed. Next calculator items: B15 (doing, blocked on matched evidence in B24), B3 (needs analytics counts), B17 (research hypothesis).
