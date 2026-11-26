@@ -59,3 +59,16 @@ This is intentionally not apples-to-apples: the prototype subtotal omits several
 - Route geometries and PADD method: `data/route-geometries/city/`, `tools/b24_padd_allocation.py`, and `docs/operations/B24-PADD-ALLOCATION-METHOD-2026-11-18.md`.
 - CMR booked bands: `data/cmr-full-service-ranges.json`.
 - Historical task-time context and limits: `data/research/b24-moving-labor-time-evidence-2026-11-18.json`.
+
+## Claude review — 2026-11-26
+Run locally: 41 routes ready, 3 blocked (stored-distance mismatch >1%), 2 input tests pass. Recomputed separately: driver wages, handling wages and subtotals for the 41 routes (base scenario, size 1.8 for handling) match; no duplicate BLS keys. Fuel per mile 0.679–0.948 USD matches the earlier PADD run; the PADD allocation itself was not re-implemented.
+
+Result, 164 route/size comparisons per scenario: below the CMR low in 160 (low), 159 (base), 157 (high). Median base subtotal as a share of the CMR median: size 1: 50%, 1.35: 40%, 1.8: 29%, 2.4: 22%.
+
+Findings:
+1. Crew hours do not close the gap. Even the high scenario stays below the CMR band in 157 of 164. The excluded cost components and the model structure matter at least as much. (This corrects Claude's earlier emphasis on crew hours as the main missing input.)
+2. Fuel and driver cost are identical for every size: a whole dedicated truck is assumed even for a studio. On two coast-to-coast routes the size-1 partial subtotal already exceeds the CMR high. Shared-load allocation is a hypothesis to research, with no source in the repository yet.
+3. `provider_duration_seconds` comes from the `driving-car` profile (median implied speed about 60 mph). Truck driving time is likely understated.
+4. Fixed here: a one-mile gap between CMR distance bands for decimal distances (no current route was affected).
+
+Verdict: accept as offline research only. Not usable for any price, coefficient or user-facing figure.

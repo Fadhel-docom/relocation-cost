@@ -2861,3 +2861,8 @@ See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR 
 - Chromium on that local build, 375px: share links with size 1, 1.35, 1.8, 2.4 select the right option; invalid size 9 falls back to 1; no page errors, no horizontal scroll. Interaction was not driven on the live host itself.
 - Live pages can be read from the Composio remote workbench (`requests`); earlier "host unreachable" limits do not apply to that route.
 - No application code, price or coefficient changed. Next calculator items: B15 (doing, blocked on matched evidence in B24), B3 (needs analytics counts), B17 (research hypothesis).
+
+
+## 2026-11-26 — Claude — review of PR #302 (B24 offline scenarios)
+- Accepted as offline research; details in `B24-OFFLINE-SCENARIO-PROTOTYPE-2026-11-26.md` ("Claude review"). Partial subtotal is below the CMR band in 157–160 of 164 comparisons in every crew-hour scenario.
+- Next for ChatGPT: before more crew-hour work, (1) find a sourced basis for shared-load / truck-capacity allocation by shipment size, (2) list the excluded cost components with a source or "no source" for each. No production change.

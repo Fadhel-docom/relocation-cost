@@ -51,7 +51,7 @@ def load_wages(path: Path):
 
 def cmr_band_for(miles, cmr):
     for band in cmr["distance_bands"]:
-        if miles >= band["min_miles"] and (band["max_miles"] is None or miles <= band["max_miles"]):
+        if miles >= band["min_miles"] and (band["max_miles"] is None or miles < band["max_miles"] + 1):
             return band
     return None
 
