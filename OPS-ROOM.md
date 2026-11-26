@@ -1018,3 +1018,14 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - The owner supplied the GSC Overview screenshot showing **94 unindexed URLs and 22 indexed URLs** (116 total in the overview), with 1 web-search click in the displayed performance chart. This confirms the aggregate 94/22 status visible in the UI; it does not reveal the Page indexing reason groups or establish that the 94 URLs are identical to Ahrefs' 94 one-dofollow-link notices.
 - The GSC sitemap reports 115 submitted URLs. The overview total of 116 differs by one; do not assume these are the same population or infer an extra URL without the Page indexing examples and sitemap URL comparison.
 - Next evidence remains the GSC Indexing → Pages reason table and representative examples, plus Ahrefs export of the 94 target URLs and their linking sources. No new submissions or production changes.
+
+
+## ChatGPT — GSC Page indexing reason report received | 2026-11-26
+
+- Owner supplied the full Indexing → Pages reason table and all 93 displayed examples for `https://relocation-cost-psi.vercel.app/`.
+- Counts: **93 Detected, currently not indexed** (Google Systems; validation Started; start date 2026-10-20; last updated 2026-11-16); **1 Another page with the correct canonical tag** (Website; validation Not started); **0 Explored, currently not indexed**.
+- Every one of the 93 examples displays `Latest exploration: Not applicable`. The examples cover core pages, guides, state routes and city routes.
+- **Updated diagnosis:** the screenshot indicates discovery without recorded exploration for the 93 URLs; it does not show that Google crawled and rejected their content. It does not establish why crawling has not been scheduled or prove a robots/server block. The single canonical item is separate and cannot explain the 93.
+- Ahrefs' 94 one-dofollow-incoming-link notices remain a lead only. Matching counts do not prove matching URL sets. Obtain the exact 94 targets and their source URLs, then compare against the 93 GSC examples and 115-URL sitemap.
+- Next: URL-set comparison, sitemap membership/canonical check, and fresh deployed rendered HTML/response checks across representative page clusters. No mass indexing requests, sitemap resubmission, mass-link changes or production edits.
+- Evidence report: `docs/operations/SEARCH-DISCOVERY-AND-AHREFS-RECHECK-2026-11-26.md` (updated on PR #298 branch).
