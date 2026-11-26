@@ -2840,3 +2840,11 @@ See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR 
 - This corroborates the aggregate count. It does not show reason groups or URL membership; same count as Ahrefs' 94 one-dofollow notices is numerical coincidence until URL-by-URL matching proves overlap.
 - Sitemap has 115 submitted URLs, one fewer than the overview total; populations/time windows may differ. Do not infer cause or add URLs from this discrepancy.
 - Next: request the GSC Indexing → Pages reason table and examples and Ahrefs' 94-URL export with source links. No Request indexing, sitemap resubmission or production edits.
+
+
+## 2026-11-26 — ChatGPT — B25 receives full GSC Page indexing reason detail
+- Owner supplied the detailed GSC reason table and all 93 example URLs. The report shows 93 `Detected, currently not indexed` (validation Started; start 2026-10-20; last updated 2026-11-16), 1 `Another page with the correct canonical tag`, and 0 `Explored, currently not indexed`.
+- All 93 examples show `Latest exploration: Not applicable` and use the production `vercel.app` host. This points to a discovery-to-exploration gap in the report; it does not prove Google crawled/rejected the content or identify the reason crawl has not been scheduled.
+- The 94 Ahrefs one-dofollow-incoming-link notices are still uncorrelated until the URL export and source URLs are matched to the 93 GSC examples. Count similarity alone is not causation.
+- Next: exact URL-set join with Ahrefs + sitemap, then fresh rendered-response/canonical/internal-link checks by page cluster. No URL submissions, sitemap resubmission, production code/content changes or deployment.
+- Detailed evidence: `docs/operations/SEARCH-DISCOVERY-AND-AHREFS-RECHECK-2026-11-26.md`.
