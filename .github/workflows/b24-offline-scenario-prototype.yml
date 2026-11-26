@@ -23,6 +23,8 @@ jobs:
           python-version: "3.12"
       - name: Install geometry dependency
         run: python -m pip install shapely==2.1.2
+      - name: Run scenario input guard tests
+        run: python -m unittest tools.test_b24_offline_scenario_inputs -v
       - name: Run offline research prototype
         run: python tools/b24-offline-scenario-comparison.py --output artifacts/b24-offline-scenario-comparison-2026-11-26.json
       - name: Upload scenario comparison report
