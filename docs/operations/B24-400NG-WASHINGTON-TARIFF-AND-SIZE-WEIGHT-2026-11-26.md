@@ -22,7 +22,7 @@
 1. The 400NG uses shipment weight and mileage. Appendix A says the rating engine needs shipment weight, pickup date, origin/destination ZIP codes; ZIP3s map to Base Point Cities; mileage between those BPCs and shipment weight feed the baseline linehaul amount.
 2. TSP linehaul and storage-in-transit discounts apply to baseline amounts. Seasonal charges also apply, including peak season dates (15 May–30 September).
 3. Item 56 sets a **1,000 lb net minimum** for HHG transportation charges based on weight. This is a tariff minimum, not a conversion from bedroom count or a statement that every real shipment weighs 1,000 lb.
-4. The 400NG contains a 7 lb/cu ft constructive weight only for **Professional Books, Papers, and Equipment (PBP&E)** when scales are not readily available. It also gives a separate 25 lb/cu ft rule for gun safes without a data plate. These are article-specific provisions, not a general whole-household-shipment density conversion.
+4. The 400NG contains a 7 lb/cu ft constructive weight only for **Professional Books, Papers, and Equipment (PBP&E)** when scales are not readily available. This is an article-specific provision, not a general whole-household-shipment density conversion.
 5. The tariff is a DoW/Coast Guard government-program tariff. It is not a retail consumer quote dataset or a direct market-price estimate for Relocation Cost.
 
 ### Baseline Rates workbook — located, not downloaded
