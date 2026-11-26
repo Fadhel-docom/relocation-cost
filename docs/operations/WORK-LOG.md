@@ -2833,3 +2833,10 @@ See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR 
 - Owner-provided HeiGIT notice: legacy `api.openrouteservice.org` removed 2026-11-24 in favor of `api.heigit.org`. Migration confirmation only; no new API calls or route-data changes.
 - **Next single task:** obtain the full GSC Page indexing reason table/examples and Ahrefs export of the 94 affected URLs with linking-source URLs; compare both against the generated sitemap and route/guide clusters before proposing any contextual internal-link changes. No production code, formulas, route distances, prices, or deployment changed.
 - Documentation branch: `docs/b25-gsc-ahrefs-recheck-2026-11-26`; evidence report: `docs/operations/SEARCH-DISCOVERY-AND-AHREFS-RECHECK-2026-11-26.md`.
+
+
+## 2026-11-26 10:49 UTC — ChatGPT — Owner confirms GSC aggregate counts
+- Owner supplied Search Console Overview screenshot: 94 unindexed, 22 indexed (116 total shown), 1 web-search click in chart.
+- This corroborates the aggregate count. It does not show reason groups or URL membership; same count as Ahrefs' 94 one-dofollow notices is numerical coincidence until URL-by-URL matching proves overlap.
+- Sitemap has 115 submitted URLs, one fewer than the overview total; populations/time windows may differ. Do not infer cause or add URLs from this discrepancy.
+- Next: request the GSC Indexing → Pages reason table and examples and Ahrefs' 94-URL export with source links. No Request indexing, sitemap resubmission or production edits.
