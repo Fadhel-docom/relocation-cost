@@ -1012,3 +1012,9 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - Owner-provided HeiGIT forum email says `api.openrouteservice.org` was removed on 2026-11-24 in favor of `api.heigit.org`. This confirms the endpoint migration is final; it does not justify regenerating stored route data or spending quota. No HeiGIT request, route file, API key, workflow, calculator formula, price or production code was changed in this session.
 - **Decision:** keep B25 open. The current bottleneck remains an unresolved Google discovery-state gap for the core calculator/trust pages, with Ahrefs supplying a separate internal-link prioritization lead. No Request indexing, sitemap resubmission, production edit or deployment was performed. The GSC Page indexing reason-group report and Ahrefs affected-URL export remain the evidence needed before choosing a fix.
 - **Checks:** 1 sitemap inventory call + 4 priority URL inspections; all 5 calls succeeded. Documentation-only update; no application tests/build required.
+
+
+## Owner screenshot confirmation — 2026-11-26 10:49 UTC
+- The owner supplied the GSC Overview screenshot showing **94 unindexed URLs and 22 indexed URLs** (116 total in the overview), with 1 web-search click in the displayed performance chart. This confirms the aggregate 94/22 status visible in the UI; it does not reveal the Page indexing reason groups or establish that the 94 URLs are identical to Ahrefs' 94 one-dofollow-link notices.
+- The GSC sitemap reports 115 submitted URLs. The overview total of 116 differs by one; do not assume these are the same population or infer an extra URL without the Page indexing examples and sitemap URL comparison.
+- Next evidence remains the GSC Indexing → Pages reason table and representative examples, plus Ahrefs export of the 94 target URLs and their linking sources. No new submissions or production changes.
