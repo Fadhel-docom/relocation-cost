@@ -73,3 +73,39 @@ This confirms the aggregate overview counts. It does not show why the URLs are e
 The GSC sitemap inventory reports 115 submitted URLs, while the overview shows 116 indexed + unindexed URLs. These are not necessarily identical populations or synchronized counts. Compare the exact sitemap URL list, GSC Page indexing examples, and Ahrefs affected-URL export before drawing conclusions.
 
 **Next evidence required:** GSC Indexing → Pages reason table with examples, plus Ahrefs export of all 94 affected URLs and their linking-source URLs. No new indexing requests, sitemap submission, production changes, or deployment.
+
+
+## Owner-provided GSC Page indexing reason detail — 2026-11-26
+
+Property: `https://relocation-cost-psi.vercel.app/`.
+
+The owner supplied the full visible reason-group detail from Indexing → Pages:
+
+| Reason | Count | Source | Validation | Start date | Last updated |
+|---|---:|---|---|---|---|
+| Detected, currently not indexed | 93 | Google Systems | Started | 2026-10-20 | 2026-11-16 |
+| Another page with the correct canonical tag | 1 | Website | Not started | — | — |
+| Explored, currently not indexed | 0 | Google Systems | Not applicable | — | — |
+
+All 93 example URLs displayed in the owner-provided report are on `relocation-cost-psi.vercel.app`; each has `Latest exploration: Not applicable`. The examples span core pages, guides, state-to-state routes and city-to-city routes. The report shows 93 examples (1–93 of 93).
+
+### Updated interpretation
+
+- The dominant reported state is discovery without a recorded exploration, not a set of pages that Google crawled and then rejected for indexing.
+- The zero count for `Explored, currently not indexed` means this screenshot provides no evidence that Google evaluated the content of those 93 URLs and rejected it.
+- One alternate-canonical URL is a separate, low-count item; verify its selected canonical separately, but it does not explain the 93 detected URLs.
+- This is stronger evidence about the current bottleneck than the previous overview-only screenshot. It still does not establish why Google has not scheduled/fetched the URLs, nor prove a technical block.
+- The validation process is marked Started from 2026-10-20, but that status alone is not proof that the underlying cause has been fixed or that all 93 URLs were rechecked.
+
+### Ahrefs comparison still required
+
+Ahrefs reported 94 URLs with one dofollow incoming internal link. The numerical proximity to 93 is not evidence that the URL sets overlap. Obtain the exact Ahrefs target URLs and their linking-source URLs, then match them against these 93 GSC examples and the generated sitemap list. Prioritize any high-value calculator/trust pages that are both detected-not-indexed and weakly linked. Add only contextual links that improve navigation; do not mass-add links.
+
+### Next diagnostic gate
+
+1. Compare the Ahrefs 94-URL export and linking-source URLs with the 93 GSC examples.
+2. Verify whether each example URL is in the generated 115-URL sitemap and confirm its canonical target.
+3. Inspect the actual deployed rendered HTML and response for representative pages from each cluster (calculator/trust, guide, state route, city route), including internal links and status.
+4. Only then decide whether there is a specific technical/discovery defect or whether a narrower crawl-priority/internal-link intervention is justified.
+
+No URL submissions, sitemap resubmission, production code/content changes or deployment were performed.
