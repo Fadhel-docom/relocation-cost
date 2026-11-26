@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "status": "illustrative_scenarios_not_empirical_evidence",
+  "purpose": "Sensitivity inputs only. These crew man-hours are analyst-selected scenario knobs, not VIUS, BLS, Bellhop, FMCSA, or national moving-industry estimates.",
+  "unit": "total crew man-hours per move (sum of each mover's paid handling hours; not elapsed clock hours)",
+  "scenarios": {
+    "low": {"label": "Low illustrative scenario", "crew_man_hours_by_size": {"1": 8, "1.35": 14, "1.8": 22, "2.4": 32}},
+    "base": {"label": "Base illustrative scenario", "crew_man_hours_by_size": {"1": 12, "1.35": 20, "1.8": 32, "2.4": 46}},
+    "high": {"label": "High illustrative scenario", "crew_man_hours_by_size": {"1": 18, "1.35": 30, "1.8": 48, "2.4": 68}}
+  },
+  "allocation_assumption": "50% of total crew man-hours at origin and 50% at destination, solely to expose local wage sensitivity. No crew count or elapsed duration is inferred.",
+  "limitations": [
+    "Scenario values are not observed or validated productivity data.",
+    "They are not a statistical interval or confidence interval.",
+    "They do not include packing, stairs, long carries, waiting, access constraints, special handling, or seasonality.",
+    "Replace only after obtaining mover-specific anonymized job records or defensible time-and-motion observations."
+  ]
+}
