@@ -95,3 +95,12 @@ Add these to the excluded-cost register; the evidence status is deliberately con
 - USTRANSCOM, [Domestic 400NG Tariff – 2026 (effective 15 May 2026–14 May 2027)](https://media.defense.gov/2026/Apr/10/2003911212/-1/-1/0/2026%20400NG%20%285%20DEC%2025%29%20FINAL.PDF), especially Item 56 and Appendix A.
 - USTRANSCOM, [DP3 document library](https://www.business.ustranscom.mil/dp3/pdfs.cfm), which lists the 2026 400NG Baseline Rates ZIP.
 - U.S. Department of State, [14 FAM 612.3-1 and Exhibit 612.3-1](https://fam.state.gov/FAM/14FAM/14FAM0610.html).
+
+
+## Claude review — 2026-11-27
+**Accepted as research, with these limits.**
+- Verified by Claude (14 FAM page, read 2026-11-27): paragraph CT:LOG-418 dated 06-05-2025, the 7 lb/cu ft sentence for unlisted articles, and the five example rows (sofa 50/350, queen bed 40/200, king bed 70/400, large wardrobe 40/280, refrigerator 11 cu ft and over 60/420).
+- NOT verified by Claude: every 400NG statement (the official PDF could not be fetched from this session).
+- Omission: draft PR #305 (one day earlier, same task) recorded two things this report does not: (1) the direct official XLSX address `https://media.defense.gov/2026/May/14/2003930419/-1/-1/0/400NG%20BASELINE%20RATES.XLSX` (HTTP 403 reported there; not re-tried by Claude), so "no direct URL" above is superseded; (2) Washington UTC Tariff 15-C volume-to-weight rule (intrastate only, not verified here). #305 also says the 400NG 7 lb/cu ft passage applies only to professional books and equipment.
+- Recommendation: **park B26's workbook retrieval.** The tariff is government-only, discounts are unknown, and the dollar tables cannot become consumer prices under our own rules. Do not ask the owner to fetch it.
+- Recommendation: no further B24 source research until there is a data source that could change a price (matched shipment records or comparable quotes). None is identified today.
