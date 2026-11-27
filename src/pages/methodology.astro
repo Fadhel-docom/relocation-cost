@@ -31,7 +31,7 @@ const percent = value => `${Math.round(value * 100)}%`;
     <p class="text-sm font-semibold uppercase tracking-widest text-sky-700">Methodology</p>
     <h1 class="mt-2 text-4xl font-bold tracking-tight">How the estimates are built</h1>
     <p class="mt-5 text-lg leading-8 text-slate-600">Relocation Cost gives planning estimates, not quotes. This page shows exactly how the numbers are produced, which parts come from published sources, and which parts are assumptions.</p>
-    <p class="mt-3 text-sm text-slate-500">Data last reviewed: {benchmarkData.last_reviewed}</p>
+    <p class="mt-3 text-sm text-slate-500">Model benchmarks (U-Haul, BLS, Census) last reviewed: {benchmarkData.last_reviewed}. The comparisons and the CMR range table on this page carry their own dates.</p>
 
     <h2 class="mt-10 text-2xl font-bold">Inputs</h2>
     <ul class="mt-4 list-disc space-y-3 pl-6 leading-7 text-slate-700">
@@ -96,7 +96,7 @@ const percent = value => `${Math.round(value * 100)}%`;
         </tbody>
       </table>
     </div>
-    <p class="mt-3 text-xs leading-5 text-slate-500">Source: <a class="font-semibold text-sky-700 underline" href={cmrRangeData.source.url} rel="noopener">{cmrRangeData.source.name}</a>. {cmrRangeData.source.data_period}. Method: {cmrRangeData.source.method} {cmrRangeData.source.limitation}</p>
+    <p class="mt-3 text-xs leading-5 text-slate-500">Source: <a class="font-semibold text-sky-700 underline" href={cmrRangeData.source.url} rel="noopener">{cmrRangeData.source.name}</a>. Data period: {cmrRangeData.source.data_period}. Last reviewed: {cmrRangeData.last_reviewed}. Method: {cmrRangeData.source.method} {cmrRangeData.source.limitation}</p>
     <p class="mt-3 leading-7 text-slate-700">For a matching full-service input, the calculator adds the visitor’s entered other costs and 10% contingency to the low and high values. It keeps the current model point estimate separate so visitors can see where the model and the booked-price reference differ. DIY and rental-truck-with-labor continue to use the existing planning model because this CMR table covers full-service bookings only.</p>
 
 

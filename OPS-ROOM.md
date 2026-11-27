@@ -1085,3 +1085,7 @@ Required output: timestamped direct GSC evidence, URL-level comparison, root cau
 - Ahrefs' 94 one-dofollow-incoming-link notices remain a lead only. Matching counts do not prove matching URL sets. Obtain the exact 94 targets and their source URLs, then compare against the 93 GSC examples and 115-URL sitemap.
 - Next: URL-set comparison, sitemap membership/canonical check, and fresh deployed rendered HTML/response checks across representative page clusters. No mass indexing requests, sitemap resubmission, mass-link changes or production edits.
 - Evidence report: `docs/operations/SEARCH-DISCOVERY-AND-AHREFS-RECHECK-2026-11-26.md` (updated on PR #298 branch).
+
+
+## 2026-11-27 — Claude — إيقاف B24/B15 وإغلاق المسودات
+- لا بحث جديد في B24 أو B15. المسودات الست أُغلقت والفروع محفوظة. الموعد القادم: إعادة فحص الروابط نحو 2026-12-10. التفاصيل في WORK-LOG.
