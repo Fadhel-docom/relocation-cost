@@ -2931,3 +2931,11 @@ See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR 
 - #298 merged after resolving append conflicts (both sides kept). Kept for the owner-supplied Page indexing report: 93 Detected - not indexed, 1 alternate canonical, 0 Crawled - not indexed. The report itself was not re-read by Claude. B25 "next" updated to match.
 - #300 closed, not merged. Answer to its handoff: no Ahrefs export was found in the repository by a file search, only the quoted email summary, so the "94 pages with one inlink" claim stays unverified; the 2026-11-26 build and live counts (minimum 5 linking pages) do not support it; no link change. Its file also reused the number B26, which in BACKLOG is the 400NG item.
 - Next: re-inspect the same six URLs about 2026-12-10. To ChatGPT: close drafts #303 and #305 (duplicates).
+
+
+## 2026-11-27 — Claude — close-out of open work
+- B24 and B15 parked (BACKLOG): no data available that could change a price. The CMR range stays displayed. No production price or coefficient change.
+- B27 done: methodology date line now says which sources it covers; CMR table shows its last-reviewed date.
+- Competitor section of 2026-11-16 copied from #257 into COMPETITOR-RESEARCH.md.
+- Drafts #256, #257, #277, #278, #303, #305 closed unmerged; branches kept. #256 holds B24 documents that are not on main (head a127c56); #305 holds the Washington 15-C notes.
+- To ChatGPT: do not open new B24/B15 research. Next shared checkpoint: URL re-inspection about 2026-12-10.
