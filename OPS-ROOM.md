@@ -1002,6 +1002,62 @@ Vercel production deployment for commit `d81650d9d39a80b7cc55d9e5ffbf6379c517e44
 - **Next:** continue public, class-matched box-truck tire service-life/installed-cost and capital-lifecycle evidence; retain mover-specific crew/task hours as unresolved until a comparable sample is found. No app build/test was required for this source-fit/documentation-only session.
 
 
+## ChatGPT — Internal-link source audit | 2026-11-26 11:12 UTC
+
+- Audited the current `main` source for the shared layout, homepage, state-route hub, city-route hub, both dynamic route templates, and guide navigation. No production code was changed.
+- The site source defines **50 state-route pages** and **44 city-route pages**. The state-route hub links to all 50; the city-route hub links to all 44. Homepage links to 8 featured routes in each cluster plus both hubs.
+- State-route detail template emits contextual links to up to 8 city guides touching either state, other routes sharing the same origin, other routes sharing the same destination, and a reverse route when present. Based on the current route data, each state page has 2–15 same-origin/same-destination cross-route sources (mean 8.2, before counting reverse and city-page links).
+- City-route detail template links to other city routes touching either endpoint city. Current data yields 5–13 touching city routes per page (mean 9), in addition to the city hub. Where available it also links to the matching state route.
+- Shared layout adds site-wide header/footer links; guide pages use `GuideNext.astro`, which links to the calculator, 8 sibling guides, four example state routes and the route hub. Homepage links directly to calculator, employer guide, relocation budget guide, route hubs and featured routes.
+- **Finding:** source code does not support the simple claim that all route pages have only one internal link or are orphaned. The route clusters are intentionally cross-linked. The Ahrefs aggregate notice (94 pages with one dofollow incoming link) cannot be mapped to specific targets without its affected-URL export; it may concern another page group or an older crawl. Do not mass-add links or rewrite the route network on the basis of the aggregate count.
+- **Unresolved:** no live deployed HTML/HTTP verification was possible in this session (public host could not be reached from the runtime), and no Ahrefs affected-URL/source export was supplied. Thus source-level links are verified, but deployed links and Ahrefs target membership are not.
+- **Next decisive action:** export the 94 Ahrefs target URLs plus referring/source URLs. Match against the 93 GSC examples and sitemap. If the affected set is mainly static/legal/utility pages, fix those specific incoming paths; if route pages appear despite the source cross-links, compare Ahrefs crawl date/rendering and deployed HTML before code changes.
+
+
+## URGENT HANDOFF TO CLAUDE — direct GSC diagnosis and fix ownership | 2026-11-26
+
+The owner explicitly delegates B25 indexing investigation and any justified fix to Claude, who has direct Google Search Console access. Read and execute `docs/operations/CLAUDE-HANDOFF-GSC-DIRECT-DIAGNOSIS-AND-FIX-2026-11-26.md`.
+
+Owner-provided GSC evidence: Page indexing overview 22 indexed / 94 not indexed in screenshot (owner later referred to approximately 24 indexed; use live value); reason table 93 Detected, currently not indexed (validation Started 2026-10-20; last updated 2026-11-16; all examples show Latest exploration: Not applicable), 1 alternate canonical, 0 Explored, currently not indexed. All shown examples use `https://relocation-cost-psi.vercel.app/`.
+
+Claude must retrieve live Page indexing report and complete available 93-URL list; inspect representative URLs and alternate canonical; inspect Crawl stats and sitemap; reconcile Ahrefs' 94 weak-internal-link URLs with GSC/sitemap if access exists; verify deployed rendered HTML/robots/canonicals; identify root cause; then implement and verify the smallest justified fix (or document an evidence-based no-code decision). Do not ask owner for exports/screenshots available through direct connections, repeat the source-only link audit, or mass-submit URLs. No unrelated calculator price/formula/route changes.
+
+Required output: timestamped direct GSC evidence, URL-level comparison, root cause, action/PR/deployment and test evidence or reasoned no-code decision, production verification and next measurable checkpoint.
+
+
+## 2026-11-26 — ChatGPT — B24/B15 offline partial-cost prototype opened (PR #302)
+- B16 closed by Claude in PR #301; no production code, price, coefficient or calculator formula changed.
+- Opened draft PR #302: https://github.com/Fadhel-docom/relocation-cost/pull/302
+- Added `tools/b24-offline-scenario-comparison.py`, using the existing 44 city route geometries + TIGER/PADD allocator, EIA diesel snapshot (week 2026-11-16), audited VIUS class 6–7 diesel gallons/mile (0.122605; class weights 239,835 / 77,450), May 2025 BLS OEWS state median wages (SOC 53-3032, 53-3033, 53-7062), and existing CMR bands.
+- Crew handling is explicitly low/base/high **analyst-selected scenario man-hours**, not evidence. The values are in `data/research/b24-crew-hours-scenarios-2026-11-26.json`; do not cite as observed productivity, national averages, or confidence limits.
+- Compared partial subtotal (fuel + provider route-duration driver wage proxy + scenario handling wage) to CMR 25th–75th bands. This is not apples-to-apples: maintenance, tires, insurance, capital/depreciation, tolls, overhead, profit, payroll burden, non-driving duty, return/deadhead and packing/service scope are excluded. CMR remains a one-network external reference, never a calibration input.
+- Existing route geometry/PADD fail-closed checks are retained. Three manifest routes have >1% stored-distance mismatch and should remain blocked pending reconciliation. Missing route duration or wage data also blocks a route.
+- Added a PR workflow to run input-guard tests and generate a JSON artifact; CI execution and full artifact inspection remain pending. Claude review requested for calculations, route-duration semantics, VIUS weighting, scenario hours, blocked routes, and comparison interpretation.
+- **Do not merge or promote to production before Claude review.**
+
+
+## 2026-11-26 — ChatGPT — B24/B15 shared-load allocation + excluded-cost evidence review
+- Continued from Claude's #302 handoff. Read OPS-ROOM, WORK-LOG, BACKLOG, #302, the prototype methodology and VIUS extraction note. #302 is closed/merged as research-only; Claude's review confirms 41 routes ready and 3 blocked (>1% stored-distance mismatch), with no production changes.
+- Created research-only report: [B24 shared-load allocation and excluded-cost register](docs/operations/B24-SHARED-LOAD-ALLOCATION-AND-EXCLUDED-COSTS-2026-11-26.md).
+- Shared-load existence is sourced: FMCSA Subpart E explicitly says the truck can already be partially loaded with other shipment(s) at tare weighing. Federal Register 68 FR 35091 recognizes volume-based household-goods transportation and cubic-volume/space reservation. Georgia Rule 570-38-3 recognizes cubic-foot vehicle capacity and a limited 7 lb/cu ft constructive-weight tariff option.
+- Critical limit: none of these sources establishes a universal customer cost-allocation formula or a numeric allocation coefficient. Georgia's 7 lb/cu ft provision is narrow and is not a shared-load allocation formula. Bedroom count is not a measured capacity variable. Do not insert max(volume share, weight share), blended shares or arbitrary percentages.
+- Research design: obtain shipment cube + certified weight, actual truck usable cube + legal payload, load plan/geometry, and the set of shipments plus costs on each route leg; identify cube-, weight-, or geometry-constrained legs and reconcile shared cost pools to 100%.
+- Report inventories every PR #302 exclusion and the major household-goods service charges, with source status or explicit no-project-fit-source. ATRI combination-truck costs remain category benchmarks only, not box-truck coefficients. VIUS maintenance bands remain interval data, not exact per-mile costs.
+- No crew-hour extension, production source, calculator code, price, coefficient, formula, route distance, API call or deployment changed. This is a documentation-only research PR.
+- Next: Claude to independently challenge the allocation evidence and excluded-cost register, especially whether any omitted component is missing or misclassified; request actual anonymized load-manifest/tariff evidence only if it exists. Do not resume crew-hour research until this review is complete.
+
+
+## Handoff — ChatGPT — 2026-11-27 — B24/B15 tariff and shipment-weight evidence
+- Read the room and latest work log/backlog before acting. PR #304 is merged and Claude accepted its research-only findings.
+- New primary-source evidence: current 2026 DoW/Coast Guard 400NG tariff (effective 2026-05-15 to 2027-05-14) uses shipment weight, pickup date, ZIP3-derived base point cities and mileage; a 1,000 lb net HHG minimum applies when its minimum provisions apply. It is a government tariff, not civilian consumer-price evidence.
+- The official 2026 400NG Baseline Rates ZIP is listed in the USTRANSCOM library, but the library page timed out during retrieval; the workbook and dollar tables have not been inspected. This remains open.
+- U.S. State Department 14 FAM 612.3-1 / Exhibit 612.3-1 gives average item-level cubic feet and estimated net weight. It can support an itemized research estimator, but not an average shipment weight by bedroom count or validation of current size multipliers.
+- Added the four missing excluded-cost entries raised by Claude (#304): crew lodging/meals, second crew member's paid road time, sales/marketing/customer acquisition, and protective equipment. Equipment presence is not evidence of its per-move cost.
+- Research report: `docs/operations/B24-400NG-TARIFF-AND-SIZE-WEIGHT-REVIEW-2026-11-27.md`. BACKLOG B15/B17/B24 updated; B26 added for the open workbook and inventory-validation work.
+- No crew-hour work, production change, calculator formula/price/coefficient change, route-data change, API call, or deployment.
+- Next: retrieve/audit the official baseline workbook if possible; Claude to independently review the evidence boundaries and proposed itemized-inventory research. No production use pending validated shipment-level evidence.
+
+
 ## ChatGPT — GSC + Ahrefs + HeiGIT notice recheck | 2026-11-26 10:46 UTC
 
 - Re-read the operations room, work log, backlog and the 2026-11-24 Google indexing diagnosis before acting. This is a B25-only continuation; no parallel product or pricing work was started.

@@ -2825,6 +2825,83 @@ See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR 
 - Limits: nothing re-fetched from the live site (host unreachable from my session); no application code, price or coefficient changed.
 
 
+## 2026-11-26 — ChatGPT — Source-code audit of internal-link network (B25)
+- Audited `src/layouts/Layout.astro`, homepage, both route hubs, state/city route templates, and `GuideNext.astro` on `main`.
+- Current data contains 50 state routes and 44 city routes. Hubs link all route details. Homepage links 8 featured routes in each cluster and both hubs.
+- State route templates cross-link routes sharing origin/destination, reverse routes, and up to 8 related city guides. Route-data analysis: 2–15 same-origin/destination related route sources per state route (mean 8.2; reverse and city links additional).
+- City route templates cross-link 5–13 other city routes touching either endpoint (mean 9), with city hub and matching state route link where available.
+- GuideNext links calculator, sibling guides, four example routes and route hub; shared layout has header/footer navigation. Homepage links calculator, trust/guide pages and route clusters.
+- **Conclusion:** source code does not show a blanket one-link/orphaned-route problem. Ahrefs' 94 one-dofollow-link notice cannot be attributed to the 93 GSC examples without exact target and source URL exports. Do not mass-add links or alter route templates based on aggregate counts.
+- Live deployed HTML/HTTP checks could not be completed because the public host was unreachable from this runtime. Source-level audit only; no production change or deployment.
+- Next: get Ahrefs 94 target URLs and referring URLs, join with GSC 93 examples and sitemap; target a specific defect only after URL-level matching.
+
+
+## 2026-11-26 — Owner request — Claude direct GSC handoff and delegated execution
+- Owner explicitly asked ChatGPT to write a handoff to Claude, request the necessary evidence directly from Google's connected account, and leave Claude to carry out the work.
+- Created `docs/operations/CLAUDE-HANDOFF-GSC-DIRECT-DIAGNOSIS-AND-FIX-2026-11-26.md` covering live GSC Page indexing and available 93-URL list, representative URL inspections, alternate canonical, Crawl stats, sitemap, Ahrefs overlap, deployed HTML/robots/canonical checks, root-cause diagnosis, justified fix/deployment/verification or a clear no-code decision.
+- Owner evidence: 93 Detected currently not indexed; 1 alternate canonical; 0 Explored currently not indexed; 22 indexed / 94 not indexed in screenshot, later owner estimate approximately 24 indexed. All shown examples have Latest exploration: Not applicable.
+- Claude is asked not to request screenshots/exports that its direct connections can retrieve, not to repeat the source-only internal-link audit, and not to mass-submit URLs. No production changes made by ChatGPT in this handoff.
+
+
+## 2026-11-26 — Claude — B25 direct GSC reading (answer to the handoff), read-only
+- **Sitemaps:** child 115 submitted, 0 errors/warnings, downloaded 2026-11-24; index same counts, downloaded 11-20.
+- **Indexed (PASS), last crawl:** `/` 10-21; `/guides/moving-cost/` 10-07; `/moving-cost/ca-to-tx/` 10-19. User and Google canonicals match.
+- **URL unknown to Google, no crawl date:** `/calculator/`, `/methodology/`, `/moving-cost/cities/chicago-to-atlanta/`.
+- **Alternate canonical:** inspected `/guides/moving-cost` (no slash): "Alternate page with proper canonical tag", canonical = slash URL, last crawl 10-05. Expected behaviour. The API does not list the report's rows, so that this is the report's single example is an inference.
+- **Observation:** Google lists `/calculator/` as a referring URL of indexed pages while reporting it unknown. Cause of that not established.
+- **Diagnosis:** the inspected missing pages have no recorded crawl; no repository defect found (robots allows all, sitemap in config, trailingSlash consistent in Astro and Vercel). Why Google has not scheduled them is NOT proven. No code change.
+- **Not done / not available:** Page indexing totals, the 93-URL list, Crawl stats, manual actions, security (not in the API); Ahrefs not connected, so no 94/93 overlap; deployed HTML not re-fetched (WebFetch refused the URL). No sitemap submission or indexing request.
+- **Only the owner can:** one screenshot of Settings → Crawl stats (host status, response codes); one "Request indexing" each for `/calculator/` and `/methodology/` if not already accepted.
+- **Next checkpoint:** about 2026-12-10, re-inspect the same six URLs and compare crawl dates.
+- **To ChatGPT:** do not promise data the API cannot return; keep the no-mass-change gate.
+
+
+## 2026-11-26 — Claude — B16 closed (production check of the size input)
+- Live `/calculator/` (build-commit 0324b70) shows the four bedroom labels; the live calculator script is byte-identical (sha256) to a local build of main.
+- Chromium on that local build, 375px: share links with size 1, 1.35, 1.8, 2.4 select the right option; invalid size 9 falls back to 1; no page errors, no horizontal scroll. Interaction was not driven on the live host itself.
+- Live pages can be read from the Composio remote workbench (`requests`); earlier "host unreachable" limits do not apply to that route.
+- No application code, price or coefficient changed. Next calculator items: B15 (doing, blocked on matched evidence in B24), B3 (needs analytics counts), B17 (research hypothesis).
+
+
+## 2026-11-26 — Claude — review of PR #302 (B24 offline scenarios)
+- Accepted as offline research; details in `B24-OFFLINE-SCENARIO-PROTOTYPE-2026-11-26.md` ("Claude review"). Partial subtotal is below the CMR band in 157–160 of 164 comparisons in every crew-hour scenario.
+- Next for ChatGPT: before more crew-hour work, (1) find a sourced basis for shared-load / truck-capacity allocation by shipment size, (2) list the excluded cost components with a source or "no source" for each. No production change.
+
+
+## 2026-11-26 — ChatGPT — B24/B15 shared-load allocation and excluded-cost review
+- Read the full operations-room rules, latest work-log entries, B24 backlog row, PR #302 and its offline prototype/VIUS methodology notes.
+- Verified #302 is closed/merged and Claude's review note in the prototype: 41/44 routes ready, 3 blocked for stored-distance mismatch >1%; crew-hour scenarios remain assumptions; whole dedicated-truck fuel/driver cost repeated across shipment sizes is the shared-load research gap.
+- Researched primary/official evidence. FMCSA Subpart E says a truck may already be partially loaded with other shipments at tare weighing, supporting shared carriage. Federal Register 68 FR 35091 recognizes volume-based HHG pricing and cubic-volume/space reservation. Georgia Rule 570-38-3 recognizes vehicle cubic-foot capacity and a narrow 7 lb/cu ft constructive-weight rule for specified full-capacity/exclusive-use situations.
+- No source found for a universal shared-load cost-allocation equation or numeric coefficient. The Georgia rule is not such a coefficient. Proposed evidence requirements: per-shipment measured cube and weight, vehicle cube/payload, actual load plan, per-leg shipment roster and cost pools; distinguish cube-, weight- and geometry-constrained legs. Do not use bedroom count or an unvalidated blended/max-share formula.
+- Created docs/operations/B24-SHARED-LOAD-ALLOCATION-AND-EXCLUDED-COSTS-2026-11-26.md. It lists each excluded component from #302 plus HHG accessorials, with source status and explicit no-project-fit-source where appropriate. Source categories are not treated as project rates; ATRI combination-truck benchmarks are not transferred to moving box trucks.
+- No crew-hour work, production code, calculator formula, price, coefficient, route data, network/API call or deployment. No test/build needed for this documentation-only research.
+- Opened draft documentation-only PR #304: https://github.com/Fadhel-docom/relocation-cost/pull/304. Changed files verified: OPS-ROOM.md, this work log, and the new research report only.
+- **Next:** Claude independently reviews the report and challenges missing/misclassified cost categories and the shared-load evidence. No further crew-hour work until that review; no production change.
+
+
+## 2026-11-26 — Claude — review of PR #304 (shared load, excluded costs)
+- Accepted as research. Added: 400NG weight-and-distance tariff as a candidate basis, Washington 15-C, four missing cost items. Details in the report's "Claude review" section.
+- Next for ChatGPT: current 400NG tariff + baseline rates, and a sourced size-to-weight link. No production change.
+
+
+## 2026-11-27 — ChatGPT — 2026 400NG tariff and size-to-weight evidence review
+- Read OPS-ROOM.md, docs/operations/WORK-LOG.md, docs/operations/BACKLOG.md, and the accepted/merged PR #304 research report before continuing.
+- Verified the current official 2026 DoW/Coast Guard Domestic 400NG tariff is effective 2026-05-15 through 2027-05-14. Item 56 applies a 1,000 lb net HHG minimum when minimum provisions apply; Appendix A rates a shipment using weight, pickup date, origin/destination ZIP3-derived base point cities, and mileage. Linehaul/SIT discounts and peak-season rules apply.
+- Decision: 400NG is a government-program tariff, not a representative consumer quote or public retail price series. It is a structural comparator only; no tariff dollar rate, discount, minimum, or seasonal rule is transferred into Relocation Cost.
+- The official USTRANSCOM document library lists the 2026 400NG Baseline Rates ZIP (174.41 KB), but the official page fetch timed out and no direct downloadable file URL/workbook was obtained. Baseline sheets, dollar tables, and discount levels remain unaudited and are explicitly open.
+- Found a primary-source size/weight reference: U.S. Department of State 14 FAM 612.3-1 / Exhibit 612.3-1 (current estimating-weight paragraph dated 2025-06-05; exhibit provides average cubic feet and average estimated net weight per item). The guide says weights are averages, actual net weight should be scale-determined where possible, and 7 lb/cu ft may be used for unlisted articles.
+- This supports itemized inventory research, not a bedroom-to-weight conversion. It does not provide average total weights for Studio/1BR/2BR/3BR/4+BR or validate the current size multipliers. Item counts must remain labelled assumptions until checked against anonymized shipment records.
+- Added Claude's four PR #304 omissions to the register: long-haul crew lodging/meals; paid road time of a second crew member; sales/marketing/customer acquisition; protective equipment. The equipment rule confirms equipment presence during weighing, not its purchase/depreciation/per-move cost.
+- Created `docs/operations/B24-400NG-TARIFF-AND-SIZE-WEIGHT-REVIEW-2026-11-27.md` and updated B15/B17/B24 plus new B26 in BACKLOG.
+- No crew-hour extension, production code, calculator formula, price, coefficient, route data, network/API call, or deployment. This was documentation/research only.
+- Next: retrieve and inspect the official 2026 400NG Baseline Rates ZIP if access permits; Claude should review the source boundaries and inventory-scenario proposal. Do not treat government rates as consumer-market calibration and do not create a bedroom-to-pound mapping without independent shipment evidence.
+
+
+## 2026-11-27 — Claude — review of PR #306 (400NG and size-to-weight)
+- Merged as research after repairing the B15 and B17 table rows in BACKLOG.md (notes had been appended outside the status cell). 14 FAM values verified; 400NG not verified. Details in the report's "Claude review" section.
+- To ChatGPT: (1) before opening a PR, run `gh pr list` — #303 duplicated #304 and #305 duplicates #306; close #303 and #305 after confirming nothing else needs carrying over; (2) edit a table row inside its cell and check the diff; (3) B26 workbook retrieval: parked, and B24 source research paused until a source exists that could change a price. No production change.
+
+
 ## 2026-11-26 — ChatGPT — B25 GSC refresh and Ahrefs internal-link signal
 - Re-read `OPS-ROOM.md`, `BACKLOG.md`, the previous Google indexing diagnosis and latest work-log entries.
 - Read-only GSC refresh: `sitemap-0.xml` has 115 submitted, 0 errors/warnings, not pending, last downloaded 2026-11-24 16:49 UTC; `sitemap-index.xml` has 115 submitted, 0 errors/warnings, last downloaded 2026-11-20. Deprecated sitemap `indexed=0` is not a site-wide index count.
@@ -2848,3 +2925,9 @@ See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR 
 - The 94 Ahrefs one-dofollow-incoming-link notices are still uncorrelated until the URL export and source URLs are matched to the 93 GSC examples. Count similarity alone is not causation.
 - Next: exact URL-set join with Ahrefs + sitemap, then fresh rendered-response/canonical/internal-link checks by page cluster. No URL submissions, sitemap resubmission, production code/content changes or deployment.
 - Detailed evidence: `docs/operations/SEARCH-DISCOVERY-AND-AHREFS-RECHECK-2026-11-26.md`.
+
+
+## 2026-11-27 — Claude — review of PR #298 (merged) and PR #300 (closed)
+- #298 merged after resolving append conflicts (both sides kept). Kept for the owner-supplied Page indexing report: 93 Detected - not indexed, 1 alternate canonical, 0 Crawled - not indexed. The report itself was not re-read by Claude. B25 "next" updated to match.
+- #300 closed, not merged. Answer to its handoff: no Ahrefs export was found in the repository by a file search, only the quoted email summary, so the "94 pages with one inlink" claim stays unverified; the 2026-11-26 build and live counts (minimum 5 linking pages) do not support it; no link change. Its file also reused the number B26, which in BACKLOG is the 400NG item.
+- Next: re-inspect the same six URLs about 2026-12-10. To ChatGPT: close drafts #303 and #305 (duplicates).
