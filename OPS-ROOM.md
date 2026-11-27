@@ -1056,3 +1056,32 @@ Required output: timestamped direct GSC evidence, URL-level comparison, root cau
 - Research report: `docs/operations/B24-400NG-TARIFF-AND-SIZE-WEIGHT-REVIEW-2026-11-27.md`. BACKLOG B15/B17/B24 updated; B26 added for the open workbook and inventory-validation work.
 - No crew-hour work, production change, calculator formula/price/coefficient change, route-data change, API call, or deployment.
 - Next: retrieve/audit the official baseline workbook if possible; Claude to independently review the evidence boundaries and proposed itemized-inventory research. No production use pending validated shipment-level evidence.
+
+
+## ChatGPT — GSC + Ahrefs + HeiGIT notice recheck | 2026-11-26 10:46 UTC
+
+- Re-read the operations room, work log, backlog and the 2026-11-24 Google indexing diagnosis before acting. This is a B25-only continuation; no parallel product or pricing work was started.
+- Refreshed the connected Google Search Console property `https://relocation-cost-psi.vercel.app/` in read-only mode. `sitemap-0.xml`: 115 submitted, 0 errors, 0 warnings, `isPending=false`, last downloaded 2026-11-24 16:49 UTC (newer than the Nov 24 diagnosis). `sitemap-index.xml`: 115 submitted, 0 errors, 0 warnings, last downloaded 2026-11-20. Do not interpret the deprecated `indexed=0` sitemap field as the site's total indexed-page count.
+- Re-inspected `/calculator/`, `/methodology/`, `/guides/employer-relocation-package/` and `/guides/relocation-budget/`. All four still return `URL is unknown to Google`, `verdict=NEUTRAL`, and unspecified indexing/fetch/robots states. This still does not establish a robots block, a crawl rejection, or the reason Google has not discovered the URLs.
+- Owner-provided Ahrefs email dated 2026-11-26 reports a crawl of 212 internal URLs, Health Score 100, 0 errors, 3 redirect warnings, and 94 notices for pages with only one dofollow incoming internal link. This is a useful internal-link signal, but the email does not include the affected URL list or link-source details. A one-link notice is not itself an indexing error and does not prove those pages are low quality or orphaned.
+- Required next comparison: obtain/export the 94 affected URLs and their linking-source URLs from Ahrefs; join them to the 115-URL sitemap and the Page indexing report examples; classify route hubs, route detail pages, guides and utility pages separately. Add links only where a contextual link helps a visitor navigate to a genuinely related task. Do not mass-add links or rewrite templates based on the aggregate notice.
+- Owner-provided HeiGIT forum email says `api.openrouteservice.org` was removed on 2026-11-24 in favor of `api.heigit.org`. This confirms the endpoint migration is final; it does not justify regenerating stored route data or spending quota. No HeiGIT request, route file, API key, workflow, calculator formula, price or production code was changed in this session.
+- **Decision:** keep B25 open. The current bottleneck remains an unresolved Google discovery-state gap for the core calculator/trust pages, with Ahrefs supplying a separate internal-link prioritization lead. No Request indexing, sitemap resubmission, production edit or deployment was performed. The GSC Page indexing reason-group report and Ahrefs affected-URL export remain the evidence needed before choosing a fix.
+- **Checks:** 1 sitemap inventory call + 4 priority URL inspections; all 5 calls succeeded. Documentation-only update; no application tests/build required.
+
+
+## Owner screenshot confirmation — 2026-11-26 10:49 UTC
+- The owner supplied the GSC Overview screenshot showing **94 unindexed URLs and 22 indexed URLs** (116 total in the overview), with 1 web-search click in the displayed performance chart. This confirms the aggregate 94/22 status visible in the UI; it does not reveal the Page indexing reason groups or establish that the 94 URLs are identical to Ahrefs' 94 one-dofollow-link notices.
+- The GSC sitemap reports 115 submitted URLs. The overview total of 116 differs by one; do not assume these are the same population or infer an extra URL without the Page indexing examples and sitemap URL comparison.
+- Next evidence remains the GSC Indexing → Pages reason table and representative examples, plus Ahrefs export of the 94 target URLs and their linking sources. No new submissions or production changes.
+
+
+## ChatGPT — GSC Page indexing reason report received | 2026-11-26
+
+- Owner supplied the full Indexing → Pages reason table and all 93 displayed examples for `https://relocation-cost-psi.vercel.app/`.
+- Counts: **93 Detected, currently not indexed** (Google Systems; validation Started; start date 2026-10-20; last updated 2026-11-16); **1 Another page with the correct canonical tag** (Website; validation Not started); **0 Explored, currently not indexed**.
+- Every one of the 93 examples displays `Latest exploration: Not applicable`. The examples cover core pages, guides, state routes and city routes.
+- **Updated diagnosis:** the screenshot indicates discovery without recorded exploration for the 93 URLs; it does not show that Google crawled and rejected their content. It does not establish why crawling has not been scheduled or prove a robots/server block. The single canonical item is separate and cannot explain the 93.
+- Ahrefs' 94 one-dofollow-incoming-link notices remain a lead only. Matching counts do not prove matching URL sets. Obtain the exact 94 targets and their source URLs, then compare against the 93 GSC examples and 115-URL sitemap.
+- Next: URL-set comparison, sitemap membership/canonical check, and fresh deployed rendered HTML/response checks across representative page clusters. No mass indexing requests, sitemap resubmission, mass-link changes or production edits.
+- Evidence report: `docs/operations/SEARCH-DISCOVERY-AND-AHREFS-RECHECK-2026-11-26.md` (updated on PR #298 branch).

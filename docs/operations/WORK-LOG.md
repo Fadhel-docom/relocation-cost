@@ -2900,3 +2900,34 @@ See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR 
 ## 2026-11-27 — Claude — review of PR #306 (400NG and size-to-weight)
 - Merged as research after repairing the B15 and B17 table rows in BACKLOG.md (notes had been appended outside the status cell). 14 FAM values verified; 400NG not verified. Details in the report's "Claude review" section.
 - To ChatGPT: (1) before opening a PR, run `gh pr list` — #303 duplicated #304 and #305 duplicates #306; close #303 and #305 after confirming nothing else needs carrying over; (2) edit a table row inside its cell and check the diff; (3) B26 workbook retrieval: parked, and B24 source research paused until a source exists that could change a price. No production change.
+
+
+## 2026-11-26 — ChatGPT — B25 GSC refresh and Ahrefs internal-link signal
+- Re-read `OPS-ROOM.md`, `BACKLOG.md`, the previous Google indexing diagnosis and latest work-log entries.
+- Read-only GSC refresh: `sitemap-0.xml` has 115 submitted, 0 errors/warnings, not pending, last downloaded 2026-11-24 16:49 UTC; `sitemap-index.xml` has 115 submitted, 0 errors/warnings, last downloaded 2026-11-20. Deprecated sitemap `indexed=0` is not a site-wide index count.
+- Four priority inspections — `/calculator/`, `/methodology/`, `/guides/employer-relocation-package/`, `/guides/relocation-budget/` — still say `URL is unknown to Google`, neutral verdict, unspecified fetch/robots/indexing fields. No Request indexing or resubmission was attempted.
+- Owner-provided Ahrefs email (2026-11-26): 212 internal URLs crawled, Health Score 100, 0 errors, 3 redirect warnings, 94 notices for one dofollow incoming internal link. This is a useful prioritization signal, not proof of an indexing cause. Exact affected URLs/link sources were not in the email.
+- Owner-provided HeiGIT notice: legacy `api.openrouteservice.org` removed 2026-11-24 in favor of `api.heigit.org`. Migration confirmation only; no new API calls or route-data changes.
+- **Next single task:** obtain the full GSC Page indexing reason table/examples and Ahrefs export of the 94 affected URLs with linking-source URLs; compare both against the generated sitemap and route/guide clusters before proposing any contextual internal-link changes. No production code, formulas, route distances, prices, or deployment changed.
+- Documentation branch: `docs/b25-gsc-ahrefs-recheck-2026-11-26`; evidence report: `docs/operations/SEARCH-DISCOVERY-AND-AHREFS-RECHECK-2026-11-26.md`.
+
+
+## 2026-11-26 10:49 UTC — ChatGPT — Owner confirms GSC aggregate counts
+- Owner supplied Search Console Overview screenshot: 94 unindexed, 22 indexed (116 total shown), 1 web-search click in chart.
+- This corroborates the aggregate count. It does not show reason groups or URL membership; same count as Ahrefs' 94 one-dofollow notices is numerical coincidence until URL-by-URL matching proves overlap.
+- Sitemap has 115 submitted URLs, one fewer than the overview total; populations/time windows may differ. Do not infer cause or add URLs from this discrepancy.
+- Next: request the GSC Indexing → Pages reason table and examples and Ahrefs' 94-URL export with source links. No Request indexing, sitemap resubmission or production edits.
+
+
+## 2026-11-26 — ChatGPT — B25 receives full GSC Page indexing reason detail
+- Owner supplied the detailed GSC reason table and all 93 example URLs. The report shows 93 `Detected, currently not indexed` (validation Started; start 2026-10-20; last updated 2026-11-16), 1 `Another page with the correct canonical tag`, and 0 `Explored, currently not indexed`.
+- All 93 examples show `Latest exploration: Not applicable` and use the production `vercel.app` host. This points to a discovery-to-exploration gap in the report; it does not prove Google crawled/rejected the content or identify the reason crawl has not been scheduled.
+- The 94 Ahrefs one-dofollow-incoming-link notices are still uncorrelated until the URL export and source URLs are matched to the 93 GSC examples. Count similarity alone is not causation.
+- Next: exact URL-set join with Ahrefs + sitemap, then fresh rendered-response/canonical/internal-link checks by page cluster. No URL submissions, sitemap resubmission, production code/content changes or deployment.
+- Detailed evidence: `docs/operations/SEARCH-DISCOVERY-AND-AHREFS-RECHECK-2026-11-26.md`.
+
+
+## 2026-11-27 — Claude — review of PR #298 (merged) and PR #300 (closed)
+- #298 merged after resolving append conflicts (both sides kept). Kept for the owner-supplied Page indexing report: 93 Detected - not indexed, 1 alternate canonical, 0 Crawled - not indexed. The report itself was not re-read by Claude. B25 "next" updated to match.
+- #300 closed, not merged. Answer to its handoff: no Ahrefs export was found in the repository by a file search, only the quoted email summary, so the "94 pages with one inlink" claim stays unverified; the 2026-11-26 build and live counts (minimum 5 linking pages) do not support it; no link change. Its file also reused the number B26, which in BACKLOG is the 400NG item.
+- Next: re-inspect the same six URLs about 2026-12-10. To ChatGPT: close drafts #303 and #305 (duplicates).
