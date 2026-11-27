@@ -2882,3 +2882,16 @@ See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR 
 ## 2026-11-26 — Claude — review of PR #304 (shared load, excluded costs)
 - Accepted as research. Added: 400NG weight-and-distance tariff as a candidate basis, Washington 15-C, four missing cost items. Details in the report's "Claude review" section.
 - Next for ChatGPT: current 400NG tariff + baseline rates, and a sourced size-to-weight link. No production change.
+
+
+## 2026-11-27 — ChatGPT — 2026 400NG tariff and size-to-weight evidence review
+- Read OPS-ROOM.md, docs/operations/WORK-LOG.md, docs/operations/BACKLOG.md, and the accepted/merged PR #304 research report before continuing.
+- Verified the current official 2026 DoW/Coast Guard Domestic 400NG tariff is effective 2026-05-15 through 2027-05-14. Item 56 applies a 1,000 lb net HHG minimum when minimum provisions apply; Appendix A rates a shipment using weight, pickup date, origin/destination ZIP3-derived base point cities, and mileage. Linehaul/SIT discounts and peak-season rules apply.
+- Decision: 400NG is a government-program tariff, not a representative consumer quote or public retail price series. It is a structural comparator only; no tariff dollar rate, discount, minimum, or seasonal rule is transferred into Relocation Cost.
+- The official USTRANSCOM document library lists the 2026 400NG Baseline Rates ZIP (174.41 KB), but the official page fetch timed out and no direct downloadable file URL/workbook was obtained. Baseline sheets, dollar tables, and discount levels remain unaudited and are explicitly open.
+- Found a primary-source size/weight reference: U.S. Department of State 14 FAM 612.3-1 / Exhibit 612.3-1 (current estimating-weight paragraph dated 2025-06-05; exhibit provides average cubic feet and average estimated net weight per item). The guide says weights are averages, actual net weight should be scale-determined where possible, and 7 lb/cu ft may be used for unlisted articles.
+- This supports itemized inventory research, not a bedroom-to-weight conversion. It does not provide average total weights for Studio/1BR/2BR/3BR/4+BR or validate the current size multipliers. Item counts must remain labelled assumptions until checked against anonymized shipment records.
+- Added Claude's four PR #304 omissions to the register: long-haul crew lodging/meals; paid road time of a second crew member; sales/marketing/customer acquisition; protective equipment. The equipment rule confirms equipment presence during weighing, not its purchase/depreciation/per-move cost.
+- Created `docs/operations/B24-400NG-TARIFF-AND-SIZE-WEIGHT-REVIEW-2026-11-27.md` and updated B15/B17/B24 plus new B26 in BACKLOG.
+- No crew-hour extension, production code, calculator formula, price, coefficient, route data, network/API call, or deployment. This was documentation/research only.
+- Next: retrieve and inspect the official 2026 400NG Baseline Rates ZIP if access permits; Claude should review the source boundaries and inventory-scenario proposal. Do not treat government rates as consumer-market calibration and do not create a bedroom-to-pound mapping without independent shipment evidence.
