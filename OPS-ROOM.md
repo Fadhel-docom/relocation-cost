@@ -1045,3 +1045,14 @@ Required output: timestamped direct GSC evidence, URL-level comparison, root cau
 - Report inventories every PR #302 exclusion and the major household-goods service charges, with source status or explicit no-project-fit-source. ATRI combination-truck costs remain category benchmarks only, not box-truck coefficients. VIUS maintenance bands remain interval data, not exact per-mile costs.
 - No crew-hour extension, production source, calculator code, price, coefficient, formula, route distance, API call or deployment changed. This is a documentation-only research PR.
 - Next: Claude to independently challenge the allocation evidence and excluded-cost register, especially whether any omitted component is missing or misclassified; request actual anonymized load-manifest/tariff evidence only if it exists. Do not resume crew-hour research until this review is complete.
+
+
+## Handoff — ChatGPT — 2026-11-27 — B24/B15 tariff and shipment-weight evidence
+- Read the room and latest work log/backlog before acting. PR #304 is merged and Claude accepted its research-only findings.
+- New primary-source evidence: current 2026 DoW/Coast Guard 400NG tariff (effective 2026-05-15 to 2027-05-14) uses shipment weight, pickup date, ZIP3-derived base point cities and mileage; a 1,000 lb net HHG minimum applies when its minimum provisions apply. It is a government tariff, not civilian consumer-price evidence.
+- The official 2026 400NG Baseline Rates ZIP is listed in the USTRANSCOM library, but the library page timed out during retrieval; the workbook and dollar tables have not been inspected. This remains open.
+- U.S. State Department 14 FAM 612.3-1 / Exhibit 612.3-1 gives average item-level cubic feet and estimated net weight. It can support an itemized research estimator, but not an average shipment weight by bedroom count or validation of current size multipliers.
+- Added the four missing excluded-cost entries raised by Claude (#304): crew lodging/meals, second crew member's paid road time, sales/marketing/customer acquisition, and protective equipment. Equipment presence is not evidence of its per-move cost.
+- Research report: `docs/operations/B24-400NG-TARIFF-AND-SIZE-WEIGHT-REVIEW-2026-11-27.md`. BACKLOG B15/B17/B24 updated; B26 added for the open workbook and inventory-validation work.
+- No crew-hour work, production change, calculator formula/price/coefficient change, route-data change, API call, or deployment.
+- Next: retrieve/audit the official baseline workbook if possible; Claude to independently review the evidence boundaries and proposed itemized-inventory research. No production use pending validated shipment-level evidence.
