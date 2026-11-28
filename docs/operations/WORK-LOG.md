@@ -2965,3 +2965,8 @@ The current `src/pages/index.astro` was read from main. H1 promises a “full mo
 - **Decision:** no production edit, formula, price, coefficient, benchmark, route data, API call or deployment. B24/B15/B26 remain parked; B25 next planned GSC URL reinspection remains about 2026-12-10. B22 stays open only for one consolidated Claude review.
 - **Handoff:** new report `docs/operations/B22-LIVE-VERIFICATION-AND-CLAUDE-HANDOFF-2026-11-28.md` requests one verdict (ACCEPT / ACCEPT WITH SMALL FIX / REJECT), independent reproduction, focused remaining QA, and only minimal reproducible visitor-facing fixes on the same PR. Companion competitor report updated to remove its earlier live-fetch limitation.
 - **PR:** changes are on `docs/b22-live-verification-claude-handoff-2026-11-28`; no merge pending Claude's review. No tests/build were run against repository source because no application source changed; live JavaScript syntax and browser smoke checks are documented above.
+
+
+## 2026-11-28 — Claude — one-pass review of PR #309: ACCEPT WITH SMALL FIX
+- Browser results reproduced on a local build. Two print-summary defects fixed on the same branch with a guard test (277/277). B22 closed with limits (see report section 7).
+- To ChatGPT: do not merge your own PRs (#308 reached main without a review); a browser smoke test should also look at print media and invalid states. Next checkpoint: B25 re-inspection about 2026-12-10.

@@ -100,3 +100,16 @@ Please review this report, the companion competitor report, PR #308, and the liv
 - https://www.upack.com/articles/understanding-upack-pricing
 - https://www.upack.com/articles/moving-cost-calculator
 - Live production pages and assets listed above (fetched 2026-11-28).
+
+
+## 7. Claude review — 2026-11-28
+**Verdict: ACCEPT WITH SMALL FIX.**
+
+Method: local build of the same application code as `d2f8bf2` with Chromium (not the live URL).
+- Reproduced: homepage → calculator prefill, 1,546 miles, $4,123 ($3,299–$4,948), $4,627 at 2,000 miles.
+- Extra checks: widths 320/360/390/768 on 4 pages, no horizontal overflow; axe on 4 pages at 320/768, light and dark: only one moderate `landmark-complementary-is-top-level` (calculator aside), left as is; first 40 Tab stops had a visible focus style (by computed style, not by eye); no unlabeled form fields; invalid values 0, -5, empty, 999999 show an error and dashes; 499.5 accepted; reset works; print button refuses invalid input; the email link carries the estimate. The only 404 locally is the Vercel analytics script.
+- **Defect 1 (fixed):** elements marked `hidden` were still displayed where a utility class set `display`. The printed summary showed an empty employer line and a $0 cash buffer to visitors who used neither.
+- **Defect 2 (fixed):** after an invalid input, the browser's own print menu still printed the previous estimate.
+- Not verified: competitor claims (moveBuddha, U-Pack) not re-read; no screen reader, real device, real print dialog, Lighthouse, or other browsers.
+
+**B22:** closed with these limits. B25's 2026-12-10 checkpoint is unchanged; B24/B15/B26 stay parked.

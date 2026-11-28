@@ -371,6 +371,17 @@ const clearResults = () => {
     breakdownList.append(message);
   }
   if (tipsList) tipsList.replaceChildren();
+  // The browser's own print menu bypasses the print button, so the printable
+  // summary must not keep the last valid figures either.
+  ["printRoute", "printDistance", "printSize", "printType", "printMove", "printOther", "printContingency", "printTotal", "printRange"]
+    .forEach(id => { const el = printEl(id); if (el) el.textContent = dash; });
+  ["printPublishedRangeRow", "printEmployerRow", "printEmployerGapRow", "printReserveRow", "printCashRow"]
+    .forEach(id => { const el = printEl(id); if (el) el.hidden = true; });
+  if (printCosts) {
+    const message = document.createElement("li");
+    message.textContent = "Fix the input on the calculator before printing.";
+    printCosts.replaceChildren(message);
+  }
   [...compareCards, ...sizeCompareCards].forEach(card => {
     card.querySelector("[data-compare-total]").textContent = dash;
     card.querySelector("[data-compare-range]").textContent = "Fix the input above to compare";
