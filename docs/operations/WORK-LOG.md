@@ -2949,3 +2949,7 @@ See docs/operations/B24-CLAUDE-PADD-VALIDATION-2026-11-20.md. Routes merged (PR 
 - **القرار:** لا إضافة لتاريخ انتقال أو تعديل موسمي/توافر أو معامل تسعير مساحة؛ لا يوجد نموذج موثوق أو بيانات مماثلة تبررها. لا تعديل كود/أسعار/معاملات. الخطوة التالية ضمن B22: فحص وعد الصفحة الرئيسية في index.astro مقابل نطاق الحاسبة، ثم التحقق من العرض الفعلي عبر متصفح متاح.
 - **التوثيق:** أُنشئ التقرير research-only: docs/operations/B22-CORE-CALCULATOR-COMPETITIVE-RECHECK-2026-11-28.md. حُدّث سطر B22 في BACKLOG.md. التغييرات على الفرع docs/b22-competitive-recheck-2026-11-28؛ لا دمج بعد.
 - **القيود:** قارئ الويب لم يتمكن من جلب صفحات Vercel الحية (cache miss)، لذلك لم أتحقق من العرض المنشور. لم أختبر حاسبات المنافسين تفاعليًا أو أقس السرعة/الوصولية. لا اختبارات/build لأن التغيير توثيقي فقط.
+
+
+## Homepage source check — 2026-11-28 07:02 UTC
+The current `src/pages/index.astro` was read from main. H1 promises a “full moving budget before you request quotes”; supporting copy lists travel, temporary housing, deposits, setup, storage, employer support and separate cash buffer. The quick-start form passes state, size and move type; it says no email or quote request. The page links to employer package comparison and explicitly discloses that taxes are not calculated. **Finding:** the homepage promise matches the current calculator scope; no source-level copy change is justified. B22 remains open only for rendered-browser flow/visual/accessibility verification. Live Vercel fetch remains unavailable (cache miss). No production change.
