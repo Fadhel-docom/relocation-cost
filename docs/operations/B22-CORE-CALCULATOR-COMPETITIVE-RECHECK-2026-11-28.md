@@ -37,6 +37,15 @@ The calculator currently offers:
 - Optional employer lump-sum cash after withholding, employer-paid expenses, and a separate cash buffer until first income.
 - A methodology page that exposes the formula and labels the base rate, per-mile rate, multipliers, contingency, and range as planning assumptions rather than published market prices. It distinguishes the CMR middle-half reference from the model estimate and does not call it a national-market average.
 
+## Homepage promise check — current source
+Reviewed `src/pages/index.astro` on `main` (2026-11-28):
+- H1: “Build your full moving budget before you request quotes.”
+- Supporting copy explicitly distinguishes the mover's price from travel, temporary housing, deposits, setup, storage, employer support, and a separate cash buffer.
+- The quick-start form carries state, size and move type into the calculator; the CTA says “Build my budget”; the form explicitly says no email or quote request.
+- A separate sentence links job movers to the employer lump-sum/direct-pay comparison and discloses that taxes are not calculated.
+
+**Finding:** the homepage promise is consistent with the current calculator's actual broader scope. The page does not promise a live market quote or tax calculation. No wording change is justified by source review. The remaining B22 gap is rendered-browser verification of the current homepage/calculator flow and a visual/accessibility check; the available web reader returned a cache miss for the live Vercel pages.
+
 ## Competitive assessment and decision
 1. **Do not imitate moveBuddha's live market-data claim.** Relocation Cost does not have a matched, continuously refreshed, independently validated quote dataset. A date field without a defensible date/capacity model would create false precision. No date-based price adjustment is authorized.
 2. **Do not copy U-Pack's space-price logic into the full-service model.** U-Pack prices its own equipment/space product. Its linear-foot and container controls are not a general household-mover cost formula.
