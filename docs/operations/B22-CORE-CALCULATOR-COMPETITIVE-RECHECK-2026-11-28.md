@@ -55,8 +55,8 @@ Reviewed `src/pages/index.astro` on `main` (2026-11-28):
 ## Evidence limits
 - Competitor pages were read as public page text; no quote form was submitted and no personal information was entered.
 - No competitor calculator was tested end-to-end, no speed/accessibility measurements were made, and no market dataset was independently audited.
-- Relocation Cost source was reviewed in GitHub; the live Vercel pages could not be fetched by the available web reader (cache miss), so no claim is made about current rendered appearance.
-- No production code, formulas, prices, coefficients, route distances, API calls, or deployment changed.
+- Relocation Cost source was reviewed in GitHub, then the production deployment was fetched through the connected Vercel project and tested with Playwright/Chromium on desktop and a 390px mobile viewport. Full test details and limits are in `B22-LIVE-VERIFICATION-AND-CLAUDE-HANDOFF-2026-11-28.md`.
+- No production code, formulas, prices, coefficients, route distances, API calls, or deployment changed during this review.
 
 ## Sources
 - moveBuddha calculator: https://www.movebuddha.com/moving-cost-calculator/
