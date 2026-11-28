@@ -141,3 +141,6 @@ a.hover\:bg-slate-900:hover, button.hover\:bg-slate-800:hover { background-color
   :root { --t500: #3f4a5c; --t600: #334155; --line: #94a3b8; --line-strong: #64748b; }
   :root[data-theme="dark"] { --t500: #bcc8da; --t600: #d3dbe8; --line: #5b6f93; --line-strong: #7b8fb3; }
 }
+
+/* Utility classes such as .flex must not re-show an element marked hidden. */
+[hidden]:not([hidden="until-found"]) { display: none !important; }
